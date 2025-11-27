@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Dashboard | Well-Do-Win Academy</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f5f7fb;
+      color: #1f2933;
+    }
+
+    /* แถบด้านบน */
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 20px;
+      background: #1e3a8a;
+      color: white;
+    }
+
+    .top-bar-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo {
+      width: 44px;
+      height: 44px;
+      border-radius: 999px;
+      overflow: hidden;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      color: #1e3a8a;
+      font-weight: 700;
+    }
+
+    .logo img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.2;
+    }
+
+    .brand-text .name-th {
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    .brand-text .name-en {
+      font-size: 12px;
+      opacity: 0.9;
+    }
+
+    .top-bar-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 4px;
+      font-size: 14px;
+    }
+
+    .top-nav {
+      display: flex;
+      gap: 14px;
+      font-size: 13px;
+    }
+
+    .top-bar .top-nav a {
+      color: #e5e7eb;
+    }
+
+    .top-bar .top-nav a:hover {
+      color: #ffffff;
+      text-decoration: underline;
+    }
+
+    .user-actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      font-size: 12px;
+    }
+
+    .student-name {
+      font-weight: 600;
+    }
+
+    .logout-link {
+      font-size: 12px;
+      text-decoration: underline;
+      cursor: pointer;
+      opacity: 0.9;
+    }
+
+    /* โครงหน้าหลัก */
+    .page-wrapper {
+      max-width: 1100px;
+      margin: 18px auto 40px;
+      padding: 0 16px;
+    }
+
+    .page-title {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .page-subtitle {
+      font-size: 14px;
+      color: #4b5563;
+      margin-bottom: 18px;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 14px;
+      padding: 14px 16px;
+      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
+    }
+
+    .card-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #6b7280;
+      margin-bottom: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .card-main {
+      font-size: 22px;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 4px;
+    }
+
+    .card-note {
+      font-size: 12px;
+      color: #6b7280;
+    }
+
+    .badge {
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 11px;
+      background: #e0f2fe;
+      color: #1d4ed8;
+    }
+
+    .layout-columns {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1.3fr);
+      gap: 16px;
+    }
+
+    @media (max-width: 900px) {
+      .layout-columns {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ตารางคอร์ส */
+    .section-title {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .section-note {
+      font-size: 12px;
+      color: #6b7280;
+      margin-bottom: 10px;
+    }
+
+    .course-table-wrapper {
+      background: white;
+      border-radius: 14px;
+      padding: 10px 12px;
+      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    th, td {
+      padding: 8px 6px;
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    th {
+      font-size: 12px;
+      color: #6b7280;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    tr:nth-child(even) td {
+      background: #f9fafb;
+    }
+
+    .status-pill {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .status-active {
+      background: #d1fae5;
+      color: #047857;
+    }
+
+    .status-wait {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .status-expired {
+      background: #fee2e2;
+      color: #b91c1c;
+    }
+
+    /* กล่องด้านขวา: video / การบ้าน / เกมควิซ */
+    .side-section {
+      background: white;
+      border-radius: 14px;
+      padding: 12px 14px;
+      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
+      margin-bottom: 14px;
+    }
+
+    .link-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      font-size: 13px;
+    }
+
+    .link-list li + li {
+      margin-top: 8px;
+    }
+
+    .link-item-main {
+      font-weight: 600;
+    }
+
+    .link-item-note {
+      font-size: 11px;
+      color: #6b7280;
+    }
+
+    a {
+      color: #1d4ed8;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .video-item,
+    .homework-item {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+    }
+
+    .icon-yt {
+      width: 26px;
+      height: 26px;
+      border-radius: 8px;
+      background: #dc2626;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-size: 14px;
+      flex-shrink: 0;
+      box-shadow: 0 3px 8px rgba(220, 38, 38, 0.5);
+    }
+
+    .icon-hw {
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      background: #facc15;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      flex-shrink: 0;
+      box-shadow: 0 3px 8px rgba(250, 204, 21, 0.5);
+    }
+
+    .item-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .item-tag {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      color: #6b7280;
+    }
+
+    .empty-text {
+      font-size: 12px;
+      color: #9ca3af;
+      font-style: italic;
+    }
+
+    .footer {
+      margin-top: 24px;
+      font-size: 11px;
+      color: #9ca3af;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <!-- แถบด้านบน -->
+  <header class="top-bar">
+    <div class="top-bar-left">
+      <div class="logo">
+        W
+      </div>
+      <div class="brand-text">
+        <span class="name-th">Well-Do-Win Academy</span>
+        <span class="name-en">Student Dashboard</span>
+      </div>
+    </div>
+
+    <div class="top-bar-right">
+      <nav class="top-nav">
+        <a href="index.html">หน้าแรก</a>
+        <a href="courses.html">คอร์สเรียน</a>
+        <a href="dashboard.html">แดชบอร์ดนักเรียน</a>
+        <a href="#">ติดต่อ</a>
+      </nav>
+      <div class="user-actions">
+        <span class="student-name" id="student-name-label">สวัสดี, น้องตัวอย่าง 👋</span>
+        <span class="logout-link">ออกจากระบบ</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="page-wrapper">
+    <section>
+      <div class="page-title">แดชบอร์ดของน้อง</div>
+      <div class="page-subtitle">
+        พื้นที่สำหรับดูคอร์สที่ลงทะเบียน วิดีโอย้อนหลัง และการบ้าน/เกมควิซในอนาคต
+      </div>
+
+      <div class="cards-grid">
+        <div class="card">
+          <div class="card-title">
+            คอร์สที่ลงทะเบียน
+            <span class="badge">Active</span>
+          </div>
+          <div class="card-main" id="course-count">0 คอร์ส</div>
+          <div class="card-note" id="course-list">-</div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">
+            วิดีโอที่ดูได้
+          </div>
+          <div class="card-main" id="video-count">0 คลิป</div>
+          <div class="card-note">แสดงเฉพาะคลิปของคอร์สที่ชำระเงินแล้ว</div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">
+            การบ้านคงค้าง
+          </div>
+          <div class="card-main" id="homework-count">0 ชุด</div>
+          <div class="card-note">ของคอร์สที่น้องลงทะเบียนแล้วเท่านั้น</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="layout-columns">
+      <!-- ซ้าย: ตารางคอร์ส -->
+      <div>
+        <div class="section-title">คอร์สที่น้องลงทะเบียน</div>
+        <div class="section-note">
+          แสดงเฉพาะคอร์สที่ชำระเงินแล้ว / เปิดใช้งานในระบบ
+        </div>
+
+        <div class="course-table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>ชื่อคอร์ส</th>
+                <th>ระดับชั้น</th>
+                <th>วันที่เริ่ม</th>
+                <th>หมดอายุ</th>
+                <th>สถานะ</th>
+                <th>วิธีชำระ</th>
+              </tr>
+            </thead>
+            <tbody id="course-body">
+              <!-- เติมโดย JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ขวา: วิดีโอ / การบ้าน / เกม -->
+      <div>
+        <div class="side-section">
+          <div class="section-title">วิดีโอย้อนหลัง</div>
+          <ul class="link-list" id="video-list">
+            <!-- เติมโดย JS -->
+          </ul>
+        </div>
+
+        <div class="side-section">
+          <div class="section-title">ประกาศการบ้าน</div>
+          <ul class="link-list" id="homework-list">
+            <!-- เติมโดย JS -->
+          </ul>
+        </div>
+
+        <div class="side-section">
+          <div class="section-title">เกมควิซ / ระบบเพชร (เวอร์ชันถัดไป)</div>
+          <div class="section-note">
+            ตรงนี้จะใช้สำหรับลิงก์เข้าเกมทำการบ้านเก็บเพชร และเปิดกาชาในอนาคต
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer">
+      © 2025 Well-Do-Win Academy – Student Portal
+    </div>
+  </main>
+
+  <script>
+    // -----------------------------
+    // 1) "ข้อมูลนักเรียนที่ล็อกอินอยู่ตอนนี้"
+    //    ภายหลังจะมาจากฐานข้อมูล / LINE Login
+    // -----------------------------
+    const currentStudent = {
+      name: "น้องตัวอย่าง ม.4",
+      level: "m4", // "m4" หรือ "m5"
+      paidCourses: ["m4_term2"] 
+      // ตัวอย่าง: ม.4 เทอม 2 ชำระแล้ว
+      // ถ้าเป็น ม.5 ที่จ่ายแล้ว: ["m5_term2"]
+      // ถ้าจ่ายหลายคอร์ส: ["m4_term2","tgat","netsat"]
+      // ถ้ายังไม่จ่าย: []
+    };
+
+    // -----------------------------
+    // 2) ข้อมูลคอร์สทั้งหมดในระบบ
+    // -----------------------------
+    const allCourses = [
+      {
+        key: "m4_term2",
+        name: "คอร์สเปิดเทอม 2 – ฟิสิกส์/เคมี (ชุมแพ)",
+        levelLabel: "ม.4 (ชุมแพ)",
+        level: "m4",
+        start: "22 พ.ย. 68",
+        end: "14 ก.พ. 69",
+        status: "active",
+        payMethod: "3,500 บ. (ศิษย์เก่าลด 200)"
+      },
+      {
+        key: "m5_term2",
+        name: "คอร์สเปิดเทอม 2 – ฟิสิกส์/เคมี (ชุมแพ)",
+        levelLabel: "ม.5 (ชุมแพ)",
+        level: "m5",
+        start: "22 พ.ย. 68",
+        end: "14 ก.พ. 69",
+        status: "active",
+        payMethod: "3,500 บ. (ศิษย์เก่าลด 200)"
+      },
+      {
+        key: "tgat",
+        name: "คอร์สเตรียม TGAT/TPAT3 + A-Level (ออนไลน์)",
+        levelLabel: "ม.4–ม.6 (ออนไลน์)",
+        level: "all",
+        start: "ปัจจุบัน",
+        end: "13 ธ.ค. 68 / 14 มี.ค. 69",
+        status: "active",
+        payMethod: "250 บ./ชม. (2 คนขึ้นไป 200 บ./ชม./คน)"
+      },
+      {
+        key: "netsat",
+        name: "คอร์สเตรียม NETSAT (ออนไลน์)",
+        levelLabel: "ม.4–ม.6 (ออนไลน์)",
+        level: "all",
+        start: "ปัจจุบัน",
+        end: "7 ก.พ. 69",
+        status: "active",
+        payMethod: "250 บ./ชม. (2 คนขึ้นไป 200 บ./ชม./คน)"
+      }
+    ];
+
+    // -----------------------------
+    // 3) ข้อมูลวิดีโอย้อนหลังทั้งหมด
+    //    ผูกกับ level + courseKey
+    // -----------------------------
+    const allVideos = [
+      {
+        id: "v_m4_1",
+        tag: "Physics M.4",
+        title: "ฟิสิกส์ ม.4 เทอม 2 – ครั้งที่ 1 (สมดุลกล/ลามี + เกริ่นเรื่องงาน)",
+        url: "https://youtu.be/cqH_ZnYiFtk",
+        level: "m4",
+        courseKey: "m4_term2",
+        onlyPaid: true
+      },
+      {
+        id: "v_m4_2",
+        tag: "Chemistry M.4",
+        title: "เคมี ม.4 เทอม 2 – ครั้งที่ 1 (ทวนตารางธาตุ + มวลอะตอม)",
+        url: "https://youtu.be/e5ED5V1QJ3U",
+        level: "m4",
+        courseKey: "m4_term2",
+        onlyPaid: true
+      },
+      {
+        id: "v_m5_1",
+        tag: "Physics M.5",
+        title: "ฟิสิกส์ ม.5 เทอม 2 – ครั้งที่ 1 (ประจุไฟฟ้าและการทำให้เกิดประจุ)",
+        url: "https://youtu.be/i8nvyHEuv6I",
+        level: "m5",
+        courseKey: "m5_term2",
+        onlyPaid: true
+      },
+      {
+        id: "v_m5_2",
+        tag: "Chemistry M.5",
+        title: "เคมี ม.5 เทอม 2 – ครั้งที่ 1 (กรด-เบส และทฤษฎี)",
+        url: "https://youtu.be/fLryq-uVRvA",
+        level: "m5",
+        courseKey: "m5_term2",
+        onlyPaid: true
+      }
+    ];
+
+    // -----------------------------
+    // 4) ข้อมูลการบ้านทั้งหมด
+    // -----------------------------
+    const allHomeworks = [
+      {
+        id: "hw_m5_1",
+        tag: "Physics M.5",
+        title: "ฟิสิกส์ ม.5 – ไฟฟ้าสถิต หน้า 91 ข้อ 1–9",
+        due: "ภายใน 30 พ.ย. 68",
+        level: "m5",
+        courseKey: "m5_term2",
+        onlyPaid: true
+      },
+      {
+        id: "hw_m4_1",
+        tag: "Chemistry M.4",
+        title: "เคมี ม.4 – แบบฝึกหัดตารางธาตุ หน้า 3",
+        due: "ภายใน 2 ธ.ค. 68",
+        level: "m4",
+        courseKey: "m4_term2",
+        onlyPaid: true
+      }
+    ];
+
+    // ใช้กับแสดงสถานะคอร์ส
+    function renderStatusPill(status) {
+      if (status === "active") {
+        return '<span class="status-pill status-active">เปิดสอนอยู่</span>';
+      }
+      if (status === "wait") {
+        return '<span class="status-pill status-wait">รอเริ่ม</span>';
+      }
+      return '<span class="status-pill status-expired">หมดอายุ</span>';
+    }
+
+    function renderDashboardForStudent() {
+      // ชื่อบนมุมขวาบน
+      const nameLabel = document.getElementById("student-name-label");
+      if (nameLabel) {
+        nameLabel.textContent = `สวัสดี, ${currentStudent.name} 👋`;
+      }
+
+      // 1) เลือกคอร์สที่ "จ่ายเงินแล้ว" ของน้องคนนี้
+      const myCourses = allCourses.filter(c =>
+        currentStudent.paidCourses.includes(c.key)
+      );
+
+      const courseBody = document.getElementById("course-body");
+      if (courseBody) {
+        courseBody.innerHTML = "";
+        if (myCourses.length === 0) {
+          courseBody.innerHTML = `
+            <tr>
+              <td colspan="6">
+                <span class="empty-text">
+                  ยังไม่มีคอร์สที่เปิดใช้งานในระบบ กรุณาติดต่อครูเพื่อชำระเงิน/เปิดคอร์ส
+                </span>
+              </td>
+            </tr>
+          `;
+        } else {
+          myCourses.forEach(course => {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+              <td>${course.name}</td>
+              <td>${course.levelLabel}</td>
+              <td>${course.start}</td>
+              <td>${course.end}</td>
+              <td>${renderStatusPill(course.status)}</td>
+              <td>${course.payMethod}</td>
+            `;
+            courseBody.appendChild(tr);
+          });
+        }
+      }
+
+      // อัปเดตการ์ด "คอร์สที่ลงทะเบียน"
+      const courseCountEl = document.getElementById("course-count");
+      const courseListEl = document.getElementById("course-list");
+      if (courseCountEl) {
+        courseCountEl.textContent = `${myCourses.length} คอร์ส`;
+      }
+      if (courseListEl) {
+        if (myCourses.length === 0) {
+          courseListEl.textContent = "ยังไม่มีคอร์สที่เปิดใช้งาน";
+        } else {
+          const names = myCourses.map(c => c.levelLabel);
+          courseListEl.textContent = names.join(", ");
+        }
+      }
+
+      // 2) เลือกวิดีโอที่ "ตรงกับระดับชั้น" + "อยู่ในคอร์สที่จ่ายแล้ว"
+      const myVideos = allVideos.filter(v =>
+        (v.level === currentStudent.level || v.level === "all") &&
+        (!v.onlyPaid || currentStudent.paidCourses.includes(v.courseKey))
+      );
+
+      const videoList = document.getElementById("video-list");
+      if (videoList) {
+        videoList.innerHTML = "";
+        if (myVideos.length === 0) {
+          videoList.innerHTML = `
+            <li><span class="empty-text">ตอนนี้ยังไม่มีวิดีโอสำหรับคอร์สที่น้องลงทะเบียนอยู่</span></li>
+          `;
+        } else {
+          myVideos.forEach(v => {
+            const li = document.createElement("li");
+            li.innerHTML = `
+              <div class="video-item">
+                <div class="icon-yt">▶</div>
+                <div class="item-text">
+                  <span class="item-tag">${v.tag}</span>
+                  <div class="link-item-main">
+                    <a href="${v.url}" target="_blank" rel="noopener">
+                      ${v.title}
+                    </a>
+                  </div>
+                  <div class="link-item-note">อัปโหลดแล้วบน YouTube</div>
+                </div>
+              </div>
+            `;
+            videoList.appendChild(li);
+          });
+        }
+      }
+
+      const videoCountEl = document.getElementById("video-count");
+      if (videoCountEl) {
+        videoCountEl.textContent = `${myVideos.length} คลิป`;
+      }
+
+      // 3) เลือกการบ้านที่ตรงกับระดับ + คอร์สที่จ่ายแล้ว
+      const myHomeworks = allHomeworks.filter(hw =>
+        (hw.level === currentStudent.level || hw.level === "all") &&
+        (!hw.onlyPaid || currentStudent.paidCourses.includes(hw.courseKey))
+      );
+
+      const homeworkList = document.getElementById("homework-list");
+      if (homeworkList) {
+        homeworkList.innerHTML = "";
+        if (myHomeworks.length === 0) {
+          homeworkList.innerHTML = `
+            <li><span class="empty-text">ยังไม่มีการบ้านที่ค้างอยู่สำหรับคอร์สของน้อง</span></li>
+          `;
+        } else {
+          myHomeworks.forEach(hw => {
+            const li = document.createElement("li");
+            li.innerHTML = `
+              <div class="homework-item">
+                <div class="icon-hw">📌</div>
+                <div class="item-text">
+                  <span class="item-tag">${hw.tag}</span>
+                  <div class="link-item-main">
+                    ${hw.title}
+                  </div>
+                  <div class="link-item-note">กำหนดส่ง: ${hw.due}</div>
+                </div>
+              </div>
+            `;
+            homeworkList.appendChild(li);
+          });
+        }
+      }
+
+      const hwCountEl = document.getElementById("homework-count");
+      if (hwCountEl) {
+        hwCountEl.textContent = `${myHomeworks.length} ชุด`;
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", renderDashboardForStudent);
+  </script>
+</body>
+</html>
