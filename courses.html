@@ -3,88 +3,447 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>รายละเอียดคอร์สเรียน - Well-Do-Win</title>
-  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;500;700&display=swap" rel="stylesheet">
+  <title>คอร์สเทอม 2 & NETSAT | Well-Do-Win Academy</title>
   <style>
     body {
       margin: 0;
-      font-family: 'Kanit', sans-serif;
-      background-color: #fffdf5;
-      color: #333;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f5f7fb;
+      color: #111827;
     }
 
-    header, footer {
-      background-color: #1E3D8F;
-      color: white;
-      text-align: center;
-      padding: 1rem;
+    a { color: #1d4ed8; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 20px;
+      background: #1e3a8a;
+      color: #fff;
     }
 
-    .course-detail {
-      max-width: 800px;
-      margin: auto;
-      padding: 2rem;
+    .top-bar-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
-    .course-title {
-      font-size: 2rem;
-      color: #1E3D8F;
-      margin-bottom: 1rem;
+    .logo {
+      width: 40px;
+      height: 40px;
+      border-radius: 999px;
+      background: #fff;
+      color: #1e3a8a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
     }
 
-    .course-info {
-      background-color: #fdf7e8;
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+
+    .brand-text span:first-child {
+      font-weight: 700;
+      font-size: 15px;
+    }
+
+    .brand-text span:last-child {
+      font-size: 12px;
+      opacity: 0.9;
+    }
+
+    .top-nav a {
+      font-size: 13px;
+      margin-left: 16px;
+      color: #e5e7eb;
+    }
+
+    .top-nav a:hover {
+      color: #ffffff;
+      text-decoration: underline;
+    }
+
+    .page-wrapper {
+      max-width: 1100px;
+      margin: 18px auto 40px;
+      padding: 0 16px;
+    }
+
+    .page-title {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .page-subtitle {
+      font-size: 14px;
+      color: #4b5563;
+      margin-bottom: 20px;
+    }
+
+    /* hero section */
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.2fr);
+      gap: 18px;
+      background: linear-gradient(135deg,#1e3a8a,#2563eb);
+      border-radius: 18px;
+      padding: 18px 20px;
+      color: #fff;
+      box-shadow: 0 10px 25px rgba(15,23,42,0.35);
+      margin-bottom: 24px;
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .hero-title {
+      font-size: 20px;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      font-size: 11px;
+      background: #facc15;
+      color: #111827;
+      padding: 2px 8px;
+      border-radius: 999px;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .hero-text {
+      font-size: 13px;
+      margin-bottom: 10px;
+    }
+
+    .hero-list {
+      font-size: 13px;
+      padding-left: 18px;
+      margin: 6px 0 10px;
+    }
+
+    .hero-price {
+      font-size: 18px;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+
+    .hero-note {
+      font-size: 11px;
+      opacity: 0.9;
+    }
+
+    .hero-actions {
+      margin-top: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: #f97316;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+    }
+
+    .btn-primary:hover {
+      background: #ea580c;
+      text-decoration: none;
+    }
+
+    .hero-poster {
+      border-radius: 14px;
+      overflow: hidden;
+      background: #0f172a;
+    }
+
+    .hero-poster img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    /* ตารางคอร์ส */
+    .section-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin: 18px 0 6px;
+    }
+
+    .section-note {
+      font-size: 12px;
+      color: #6b7280;
+      margin-bottom: 10px;
+    }
+
+    .course-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 14px;
+    }
+
+    .course-card {
+      background: #ffffff;
+      border-radius: 14px;
+      padding: 12px 14px;
+      box-shadow: 0 6px 18px rgba(15,23,42,0.08);
+      font-size: 13px;
+    }
+
+    .course-card-title {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .chip {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: #eff6ff;
+      color: #1d4ed8;
+      font-size: 11px;
+      margin-bottom: 4px;
+    }
+
+    .course-card ul {
+      padding-left: 18px;
+      margin: 4px 0 8px;
+    }
+
+    .course-card-footer {
+      font-size: 12px;
+      color: #4b5563;
+      margin-top: 4px;
+    }
+
+    /* ตารางเรียนโปสเตอร์ใบที่สอง */
+    .schedule-wrapper {
+      background: #ffffff;
+      border-radius: 18px;
+      padding: 12px 14px;
+      box-shadow: 0 8px 22px rgba(15,23,42,0.12);
+      margin-top: 18px;
+    }
+
+    .schedule-wrapper img {
+      display: block;
+      width: 100%;
+      height: auto;
       border-radius: 12px;
-      padding: 1rem 1.5rem;
-      margin-bottom: 1.5rem;
     }
 
-    .btn {
-      background-color: #D94C4C;
-      color: white;
-      padding: 0.8rem 1.5rem;
-      border: none;
-      border-radius: 8px;
-      font-size: 1rem;
-      cursor: pointer;
-      display: inline-block;
-      margin-top: 1rem;
-      text-decoration: none;
-    }
-
-    .back-link {
-      display: inline-block;
-      margin-top: 2rem;
-      text-decoration: none;
-      color: #1E3D8F;
-      font-weight: bold;
+    .footer {
+      margin-top: 28px;
+      font-size: 11px;
+      color: #9ca3af;
+      text-align: center;
     }
   </style>
 </head>
 <body>
-
-  <header>
-    <h1>รายละเอียดคอร์สเรียน</h1>
+  <header class="top-bar">
+    <div class="top-bar-left">
+      <div class="logo">W</div>
+      <div class="brand-text">
+        <span>Well-Do-Win Academy</span>
+        <span>Physics & Chemistry for Entrance / NETSAT</span>
+      </div>
+    </div>
+    <nav class="top-nav">
+      <a href="index.html">หน้าแรก</a>
+      <a href="courses.html">คอร์สเรียน</a>
+      <a href="dashboard.html">แดชบอร์ดนักเรียน</a>
+    </nav>
   </header>
 
-  <section class="course-detail">
-    <h2 class="course-title">🔸 คอร์สติวสอบ ม.6 (GAT/PAT)</h2>
-
-    <div class="course-info">
-      <p><strong>ระดับ:</strong> ม.6</p>
-      <p><strong>เนื้อหา:</strong> ติวเข้ม GAT เชื่อมโยง + PAT 1 + สรุปเนื้อหาเน้นเข้าใจ</p>
-      <p><strong>รูปแบบ:</strong> เรียนสด + ออนไลน์ย้อนหลัง</p>
-      <p><strong>ระยะเวลา:</strong> 30 ชั่วโมง (เรียน 10 ครั้ง)</p>
-      <p><strong>ราคา:</strong> 3,900 บาท <em>(พิเศษ! สมัครวันนี้ลดเหลือ 2,900 บาท)</em></p>
-      <a href="register.html" button class="register.html">สมัครเรียนผ่าน LINE</a>
+  <main class="page-wrapper">
+    <div class="page-title">คอร์สเทอม 2 & คอร์สเตรียมสอบ NETSAT</div>
+    <div class="page-subtitle">
+      วิชา ฟิสิกส์ / เคมี สำหรับเตรียมสอบเข้า มหาวิทยาลัย – เหมาะกับ น้อง ม.4–ม.5 #dek69 #dek70
     </div>
 
-    <a href="index.html" class="back-link">← กลับหน้าแรก</a>
-  </section>
+    <!-- HERO + โปสเตอร์หลัก -->
+    <section class="hero">
+      <div>
+        <span class="hero-badge">เปิดรับสมัครแล้ว – ที่ชุมแพ</span>
+        <div class="hero-title">คอร์สเทอม 2 วิชา ฟิสิกส์ / เคมี<br>เตรียมสอบเข้า มหาวิทยาลัย &amp; NETSAT</div>
 
-  <footer>
-    © 2025 โรงเรียนกวดวิชาเวลดูวิน
-  </footer>
+        <p class="hero-text">
+          สอนโดยอาจารย์ผู้มีประสบการณ์การสอนมากกว่า 10 ปี<br>
+          เน้นตะลุยโจทย์ + เทคนิคทำข้อสอบสนามจริง พร้อมบันทึกวิดีโอย้อนหลังให้ทบทวนได้ตลอด
+        </p>
 
+        <ul class="hero-list">
+          <li>จำนวน 40 ชั่วโมง (มีบันทึกวิดีโอทุกรอบ)</li>
+          <li>คอร์สเทอม 2 ม.4–ม.5 (ชุมแพ) เรียนฟิสิกส์ + เคมี</li>
+          <li>กลุ่มวันอังคาร/พฤหัส หรือ กลุ่มวันเสาร์ เลือกเวลาเรียนได้</li>
+        </ul>
+
+        <div class="hero-price">3,500 บาท/คอร์ส</div>
+        <div class="hero-note">
+          ศิษย์เก่าแนะนำเพื่อนใหม่มาเรียน &nbsp;รับส่วนลดเพิ่ม 200 บาท/คน<br>
+          เปิดคอร์สวันที่ 18 พ.ย. 68 – 14 ก.พ. 69
+        </div>
+
+        <div class="hero-actions">
+          <a href="#" class="btn-primary">แอดไลน์เพื่อสอบถาม & สมัครเรียน</a>
+          <span style="font-size:11px;opacity:0.9;">*สแกน QR ด้านล่าง หรือ แชตมาหาอาจารย์ได้โดยตรง</span>
+        </div>
+      </div>
+
+      <div class="hero-poster">
+        <!-- ใช้โปสเตอร์ใบแรก -->
+        <img src="images/netsat-main.jpg" alt="คอร์สเทอม 2 ติว NETSAT Well-Do-Win Academy">
+      </div>
+    </section>
+
+    <!-- สรุป 4 คอร์สหลัก -->
+    <section>
+      <div class="section-title">รายละเอียดคอร์สที่เปิดสอนตอนนี้</div>
+      <div class="section-note">ข้อมูลย่อสำหรับผู้ปกครองและน้อง ๆ – รายละเอียดเต็มสอบถามเพิ่มเติมทาง LINE ได้</div>
+
+      <div class="course-grid">
+        <article class="course-card">
+          <div class="chip">ชั้น ม.4 (ชุมแพ)</div>
+          <div class="course-card-title">คอร์สเปิดเทอม 2 – ฟิสิกส์/เคมี</div>
+          <ul>
+            <li>เรียน 40 ชั่วโมง – มีบันทึกวิดีโอทุกครั้ง</li>
+            <li>กลุ่ม 1: อังคาร/พฤหัส 16.45–18.15 น.</li>
+            <li>กลุ่ม 2: เสาร์ 09.00–10.30 (ฟิสิกส์) / 13.00–14.30 (เคมี)</li>
+          </ul>
+          <div class="course-card-footer">
+            ราคา 3,500 บาท/คอร์ส – ศิษย์เก่าลด 200 บาท
+          </div>
+        </article>
+
+        <article class="course-card">
+          <div class="chip">ชั้น ม.5 (ชุมแพ)</div>
+          <div class="course-card-title">คอร์สเปิดเทอม 2 – ฟิสิกส์/เคมี</div>
+          <ul>
+            <li>เรียน 40 ชั่วโมง – มีบันทึกวิดีโอทุกครั้ง</li>
+            <li>กลุ่ม 1: อังคาร/พฤหัส 18.15–19.45 น.</li>
+            <li>กลุ่ม 2: เสาร์ 10.45–12.15 (ฟิสิกส์) / 14.30–16.00 (เคมี)</li>
+          </ul>
+          <div class="course-card-footer">
+            ราคา 3,500 บาท/คอร์ส – ศิษย์เก่าลด 200 บาท
+          </div>
+        </article>
+
+        <article class="course-card">
+          <div class="chip">ออนไลน์ – TGAT/TPAT3 + A-Level</div>
+          <div class="course-card-title">คอร์สเตรียม TGAT / TPAT3 + A-Level</div>
+          <ul>
+            <li>เรียนแบบออนไลน์ ตัวต่อตัวหรือกลุ่มเล็ก</li>
+            <li>กำหนดเวลาเรียนร่วมกับอาจารย์ได้</li>
+            <li>ช่วงเตรียมถึงสอบ 13 ธ.ค. 68 / 14 มี.ค. 69</li>
+          </ul>
+          <div class="course-card-footer">
+            250 บ./ชั่วโมง (2 คนขึ้นไป เหลือ 200 บ./ชม./คน) – ติดต่อผู้สอนโดยตรง
+          </div>
+        </article>
+
+        <article class="course-card">
+          <div class="chip">ออนไลน์ – NETSAT</div>
+          <div class="course-card-title">คอร์สเตรียม NETSAT</div>
+          <ul>
+            <li>ออนไลน์เน้นตะลุยโจทย์ NETSAT ฟิสิกส์/เคมี</li>
+            <li>กำหนดเวลาเรียนร่วมกับอาจารย์ได้</li>
+            <li>จนถึงวันสอบ NETSAT 7 ก.พ. 69</li>
+          </ul>
+          <div class="course-card-footer">
+            250 บ./ชั่วโมง (2 คนขึ้นไป เหลือ 200 บ./ชม./คน) – ติดต่อผู้สอนโดยตรง
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ตารางเรียนแบบข้อความ -->
+<section class="course-schedule" style="margin-top: 20px;">
+  <h2 style="font-size: 20px; font-weight: 700; margin-bottom: 10px;">ตารางเรียน</h2>
+
+  <div style="
+      background: white;
+      padding: 16px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      line-height: 1.6;
+      font-size: 15px;
+    ">
+
+    <h3 style="font-size: 17px; font-weight: 700; margin-top: 0;">
+      📘 คอร์สเปิดเทอม 2 ระดับชั้น ม.4 (ชุมแพ)
+    </h3>
+    <ul>
+      <li>เรียนทุกวันเสาร์</li>
+      <li>ฟิสิกส์ 09.00–10.30 น.</li>
+      <li>เคมี 13.00–14.30 น.</li>
+      <li>วันที่เรียน: 22 พ.ย. 2568 – 14 ก.พ. 2569</li>
+      <li>จำนวน 40 ชั่วโมง</li>
+    </ul>
+
+    <hr style="margin: 14px 0; border: none; border-top: 1px solid #ddd;">
+
+    <h3 style="font-size: 17px; font-weight: 700;">
+      📗 คอร์สเปิดเทอม 2 ระดับชั้น ม.5 (ชุมแพ)
+    </h3>
+    <ul>
+      <li>เรียนทุกวันเสาร์</li>
+      <li>ฟิสิกส์ 10.45–12.15 น.</li>
+      <li>เคมี 14.30–16.00 น.</li>
+      <li>วันที่เรียน: 22 พ.ย. 2568 – 14 ก.พ. 2569</li>
+      <li>จำนวน 40 ชั่วโมง</li>
+    </ul>
+
+    <hr style="margin: 14px 0; border: none; border-top: 1px solid #ddd;">
+
+    <h3 style="font-size: 17px; font-weight: 700;">
+      🧠 คอร์สเตรียม TGAT/TPAT3 + A-Level (ออนไลน์)
+    </h3>
+    <ul>
+      <li>เรียนออนไลน์แบบยืดหยุ่น</li>
+      <li>ผู้เรียนกำหนดเวลาเรียนเอง</li>
+      <li>ช่วงเวลา: ปัจจุบัน – 13 ธ.ค. 68 / 14 มี.ค. 69</li>
+      <li>250 บาท/ชม. (2 คนขึ้นไป เหลือ 200 บาท/ชม./คน)</li>
+    </ul>
+
+    <hr style="margin: 14px 0; border: none; border-top: 1px solid #ddd;">
+
+    <h3 style="font-size: 17px; font-weight: 700;">
+      🎯 คอร์สเตรียม NETSAT (ออนไลน์)
+    </h3>
+    <ul>
+      <li>เรียนออนไลน์แบบยืดหยุ่น</li>
+      <li>ผู้เรียนกำหนดเวลาเรียนเอง</li>
+      <li>ช่วงเวลา: ปัจจุบัน – 7 ก.พ. 69</li>
+      <li>250 บาท/ชม. (2 คนขึ้นไป เหลือ 200 บาท/ชม./คน)</li>
+    </ul>
+
+  </div>
+</section>
+
+
+    <div class="footer">
+      © 2025 Well-Do-Win Academy – Course Information
+    </div>
+  </main>
 </body>
 </html>
