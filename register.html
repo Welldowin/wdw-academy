@@ -1,45 +1,382 @@
-<section class="contact">
-  <h2 class="section-title">📥 สมัครเรียนกับ Well-Do-Win</h2>
-  <form action="https://formspree.io/f/your-form-id" method="POST" style="display: flex; flex-direction: column; gap: 1rem; max-width: 500px; margin: auto;">
-    
-    <label>
-      ชื่อ-นามสกุล:
-      <input type="text" name="name" required style="padding: 0.5rem; width: 100%;">
-    </label>
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>สมัครสมาชิก - Well-Do-Win Academy</title>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;500;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Kanit', sans-serif;
+      background-color: #fffdf5;
+      color: #333;
+    }
 
-    <label>
-      ระดับชั้น:
-      <select name="grade" required style="padding: 0.5rem;">
-        <option value="">-- กรุณาเลือก --</option>
-        <option value="ม.1">ม.1</option>
-        <option value="ม.2">ม.2</option>
-        <option value="ม.3">ม.3</option>
-        <option value="ม.4">ม.4</option>
-        <option value="ม.5">ม.5</option>
-        <option value="ม.6">ม.6</option>
+    header {
+      background-color: #1E3D8F;
+      color: white;
+      text-align: center;
+      padding-bottom: 2rem;
+      position: relative;
+    }
+
+    .top-nav {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      padding: 1rem;
+      background-color: #162e6d;
+    }
+
+    .top-nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1rem;
+    }
+
+    .logo-center {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 1.5rem;
+    }
+
+    .logo-img {
+      height: 100px;
+      width: auto;
+    }
+
+    .school-name {
+      margin-top: 0.5rem;
+      font-size: 1.6rem;
+      font-weight: 700;
+    }
+
+    /* ปุ่มบนขวา เหมือนหน้าอื่น */
+    .auth-buttons {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      display: flex;
+      gap: 0.6rem;
+    }
+
+    .auth-buttons a {
+      padding: 0.4rem 0.9rem;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      text-decoration: none;
+      font-weight: 500;
+      transition: 0.2s;
+    }
+
+    .login-btn {
+      background-color: transparent;
+      border: 1px solid white;
+      color: white;
+    }
+
+    .login-btn:hover {
+      background-color: rgba(255,255,255,0.2);
+    }
+
+    .register-btn {
+      background-color: #ffce3d;
+      color: #333;
+      border: none;
+    }
+
+    .register-btn:hover {
+      background-color: #ffd966;
+    }
+
+    /* กล่องสมัครสมาชิก */
+    .register-container {
+      max-width: 480px;
+      margin: 2.5rem auto;
+      background-color: #fdf7e8;
+      padding: 2rem 1.8rem;
+      border-radius: 16px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    }
+
+    .register-title {
+      font-size: 1.6rem;
+      color: #1E3D8F;
+      text-align: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .register-subtitle {
+      text-align: center;
+      font-size: 0.95rem;
+      color: #555;
+      margin-bottom: 1.5rem;
+    }
+
+    label {
+      display: block;
+      font-size: 0.95rem;
+      margin-bottom: 0.3rem;
+      color: #333;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 0.6rem 0.7rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 0.95rem;
+      margin-bottom: 0.9rem;
+      box-sizing: border-box;
+    }
+
+    .name-row {
+      display: flex;
+      gap: 0.7rem;
+    }
+
+    .name-row .field {
+      flex: 1;
+    }
+
+    .primary-btn {
+      width: 100%;
+      padding: 0.7rem 1rem;
+      border-radius: 10px;
+      border: none;
+      background-color: #D94C4C;
+      color: white;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      margin-top: 0.3rem;
+    }
+
+    .primary-btn:hover {
+      opacity: 0.95;
+    }
+
+    .or-line {
+      display: flex;
+      align-items: center;
+      margin: 1.2rem 0;
+      font-size: 0.85rem;
+      color: #777;
+    }
+
+    .or-line::before,
+    .or-line::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background-color: #ddd;
+    }
+
+    .or-line span {
+      margin: 0 0.7rem;
+    }
+
+    .line-register-btn {
+      width: 100%;
+      padding: 0.7rem 1rem;
+      border-radius: 10px;
+      border: none;
+      background-color: #06C755; /* สีเขียว LINE */
+      color: white;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    .line-register-btn:hover {
+      opacity: 0.95;
+    }
+
+    .helper-text {
+      margin-top: 0.9rem;
+      font-size: 0.85rem;
+      text-align: center;
+      color: #555;
+    }
+
+    .helper-text a {
+      color: #D94C4C;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    footer {
+      background-color: #1E3D8F;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 3rem;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 600px) {
+      .name-row {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <!-- ปุ่มเข้าสู่ระบบ + สมัครสมาชิก -->
+    <div class="auth-buttons">
+      <a href="login.html" class="login-btn">เข้าสู่ระบบ</a>
+      <a href="register.html" class="register-btn">สมัครสมาชิก</a>
+    </div>
+
+    <!-- เมนูนำทาง -->
+    <nav class="top-nav">
+      <a href="index.html">หน้าแรก</a>
+      <a href="courses.html">คอร์สเรียน</a>
+      <a href="#">เกี่ยวกับเรา</a>
+      <a href="#">ติดต่อ</a>
+    </nav>
+
+    <!-- โลโก้และชื่อโรงเรียน -->
+    <div class="logo-center">
+      <img src="logo.png" alt="โลโก้ WDW" class="logo-img" />
+      <h1 class="school-name">โรงเรียนกวดวิชาเวลดูวิน Well-Do-Win</h1>
+    </div>
+  </header>
+
+  <!-- กล่องสมัครสมาชิก -->
+  <section class="register-container">
+    <h2 class="register-title">สมัครสมาชิก</h2>
+    <p class="register-subtitle">
+      ลงทะเบียนเพื่อใช้งานระบบสมาชิก<br>
+      ดูคอร์สเรียน วิดีโอย้อนหลัง และการบ้านของน้อง ๆ
+    </p>
+
+    <form action="#" method="post">
+      <div class="name-row">
+        <div class="field">
+          <label for="firstname">ชื่อ</label>
+          <input type="text" id="firstname" name="firstname" placeholder="ชื่อนักเรียน">
+        </div>
+        <div class="field">
+          <label for="lastname">นามสกุล</label>
+          <input type="text" id="lastname" name="lastname" placeholder="นามสกุลนักเรียน">
+        </div>
+      </div>
+
+      <label for="phone">เบอร์โทรนักเรียน</label>
+      <input type="tel" id="phone" name="phone" placeholder="กรอกเบอร์โทรนักเรียน">
+
+      <label for="parent_phone">เบอร์ผู้ปกครอง (ถ้ามี)</label>
+      <input type="tel" id="parent_phone" name="parent_phone" placeholder="กรอกเบอร์ผู้ปกครอง">
+
+      <label for="email">อีเมล</label>
+      <input type="email" id="email" name="email" placeholder="กรอกอีเมลสำหรับเข้าสู่ระบบ">
+
+      <label for="level">ระดับชั้น / กลุ่มเรียน</label>
+      <select id="level" name="level">
+        <option value="">-- เลือกระดับชั้น --</option>
+        <option value="m3">ม.3</option>
+        <option value="m4">ม.4</option>
+        <option value="m5">ม.5</option>
+        <option value="m6">ม.6</option>
       </select>
-    </label>
 
-    <label>
-      คอร์สที่ต้องการสมัคร:
-      <input type="text" name="course" required style="padding: 0.5rem; width: 100%;" placeholder="เช่น ติวสอบ GAT, วิทย์ ม.3">
-    </label>
+      <label for="password">รหัสผ่าน</label>
+      <input type="password" id="password" name="password" placeholder="ตั้งรหัสผ่านอย่างน้อย 6 ตัวอักษร">
 
-    <label>
-      เบอร์ติดต่อ:
-      <input type="tel" name="phone" required style="padding: 0.5rem; width: 100%;">
-    </label>
+      <label for="confirm_password">ยืนยันรหัสผ่าน</label>
+      <input type="password" id="confirm_password" name="confirm_password" placeholder="กรอกรหัสผ่านอีกครั้ง">
 
-    <label>
-      LINE ID (ถ้ามี):
-      <input type="text" name="line" style="padding: 0.5rem; width: 100%;">
-    </label>
+      <button type="submit" class="primary-btn">สมัครสมาชิก</button>
+    </form>
 
-    <label>
-      ข้อความเพิ่มเติม:
-      <textarea name="message" rows="4" style="padding: 0.5rem; width: 100%;"></textarea>
-    </label>
+    <div class="or-line"><span>หรือ</span></div>
 
-    <button class="btn" type="submit">ส่งแบบฟอร์มสมัครเรียน</button>
-  </form>
-</section>
+    <!-- ปุ่มสมัครสมาชิกด้วย LINE (ภายหลังค่อยเชื่อม API จริง) -->
+    <button class="line-register-btn" type="button">
+      สมัครสมาชิกด้วย LINE
+    </button>
+
+    <p class="helper-text">
+      มีบัญชีอยู่แล้ว? <a href="login.html">เข้าสู่ระบบ</a>
+    </p>
+  </section>
+
+  <footer>
+    © 2025 โรงเรียนกวดวิชาเวลดูวิน - เป็นให้มากกว่าโรงเรียนกวดวิชา
+  </footer>
+  <!-- ใส่โค้ดนี้ก่อนปิด </body> -->
+  <!-- Firebase SDK (เวอร์ชัน compat ใช้ง่ายสำหรับมือใหม่) -->
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+
+  <script>
+    // 1) วาง config ของโปรเจกต์พี่จาก Firebase ตรงนี้
+    // เอาค่ามาจากหน้า Project settings -> Your apps -> Web app -> Firebase SDK snippet
+    const firebaseConfig = {
+      apiKey: "AIzaSyBEEb59wVHs_uHKW87P6n54A6NRzSlyElE",
+      authDomain: "well-do-win-academy.firebaseapp.com",
+      projectId: "well-do-win-academy",
+      storageBucket: "well-do-win-academy.firebasestorage.app",
+      messagingSenderId: "804445893350",
+      appId: "1:804445893350:web:935fedc5735f504636c127",
+      measurementId: "G-KVKM2C5JEZ"
+      // ถ้ามี measurementId จะใส่หรือไม่ใส่ก็ได้
+    };
+
+    // 2) เริ่มต้นใช้งาน Firebase
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    // 3) สมัครสมาชิกด้วย Email/Password
+    const registerForm = document.querySelector('.register-container form');
+
+    registerForm.addEventListener('submit', async (e) => {
+      e.preventDefault(); // กันไม่ให้รีเฟรชหน้า
+
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirm_password').value;
+
+      if (password !== confirmPassword) {
+        alert('รหัสผ่านและยืนยันรหัสผ่านไม่ตรงกัน');
+        return;
+      }
+
+      try {
+        const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+        // สมัครเสร็จแล้ว พี่จะเก็บข้อมูลอื่นเพิ่มทีหลังก็ได้ (ชื่อ, เบอร์ ฯลฯ)
+        alert('สมัครสมาชิกสำเร็จ!');
+        window.location.href = 'member.html'; // ส่งไปหน้า member
+      } catch (error) {
+        console.error(error);
+        alert('สมัครสมาชิกไม่สำเร็จ: ' + error.message);
+      }
+    });
+
+    // 4) สมัคร / ล็อกอินด้วย LINE (ผ่าน OIDC provider)
+    const lineBtn = document.querySelector('.line-register-btn');
+
+    // **สำคัญมาก**: เปลี่ยน 'oidc.line' ให้ตรงกับ Provider ID ที่พี่ตั้งใน Firebase
+    // เช่น ถ้าใน Firebase เขียนว่า "oidc.welldowin" ก็ให้เปลี่ยนตรงนี้เป็น 'oidc.welldowin'
+    const lineProvider = new firebase.auth.OAuthProvider('oidc.line-login');
+
+    lineBtn.addEventListener('click', async () => {
+      try {
+        const result = await auth.signInWithPopup(lineProvider);
+        // ได้ user จาก LINE แล้ว
+        alert('เข้าสู่ระบบด้วย LINE สำเร็จ');
+        window.location.href = 'member.html';
+      } catch (error) {
+        console.error(error);
+        alert('เข้าสู่ระบบด้วย LINE ไม่สำเร็จ: ' + error.message);
+      }
+    });
+  </script>
+</body>
+</html>
