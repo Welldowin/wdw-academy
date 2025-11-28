@@ -738,12 +738,14 @@
 
   const logoutBtn = document.getElementById('logoutBtn');
   logoutBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    localStorage.removeItem('userId');
-    localStorage.removeItem('userEmail');
-    localStorage.removeItem('profileCompleted');
-    window.location.href = 'index.html';
-  });
+  e.preventDefault();
+  localStorage.removeItem('userId');
+  localStorage.removeItem('userEmail');
+  // ❌ ไม่ต้องลบ profileCompleted แล้ว
+  // localStorage.removeItem('profileCompleted');
+  window.location.href = 'index.html';
+});
+
 
   // ---------- 2) บังคับกรอกโปรไฟล์ก่อน ----------
   const profileFormSection = document.getElementById('profileFormSection');
