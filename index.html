@@ -139,6 +139,47 @@
       padding: 1rem;
       margin-top: 2rem;
     }
+            /* ปรับให้เหมาะกับหน้าจอมือถือ */
+    @media (max-width: 768px) {
+      .top-nav {
+        flex-direction: column;
+        gap: 0.5rem;
+        padding: 0.5rem;
+      }
+
+      .auth-buttons {
+        position: static;         /* ไม่ลอยมุมขวาเวลาอยู่บนมือถือ */
+        justify-content: center;
+        margin-top: 0.5rem;
+      }
+
+      header {
+        padding-bottom: 1.5rem;
+      }
+
+      .logo-img {
+        height: 90px;            /* โลโก้เล็กลงหน่อยบนมือถือ */
+      }
+
+      .school-name {
+        font-size: 1.4rem;
+        padding: 0 1rem;
+        text-align: center;
+      }
+
+      .hero {
+        padding: 2rem 1rem;
+      }
+
+      .hero h1 {
+        font-size: 1.6rem;
+      }
+
+      .features, .courses, .reviews, .contact {
+        padding: 1.5rem 1rem;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -169,7 +210,7 @@
   <section class="hero">
     <h1>เรียนสนุก เข้าใจง่าย ได้คะแนนพุ่ง!</h1>
     <p>คอร์สติวเข้มแบบมิตรภาพ สอนสด + ออนไลน์</p>
-    <a href="register.html" button class="btn">สมัครเรียนเลย 🚀</a>
+    <a href="register.html" class="btn">สมัครเรียนเลย 🚀</a>
   </section>
 
   <section class="features">
