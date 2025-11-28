@@ -54,6 +54,7 @@
       font-weight: 700;
     }
 
+    /* ปุ่มบนขวา เหมือนหน้าอื่น */
     .auth-buttons {
       position: absolute;
       top: 15px;
@@ -122,7 +123,7 @@
       color: #333;
     }
 
-    input {
+    input, select {
       width: 100%;
       padding: 0.6rem 0.7rem;
       border-radius: 8px;
@@ -174,7 +175,7 @@
       padding: 0.7rem 1rem;
       border-radius: 10px;
       border: none;
-      background-color: #06C755;
+      background-color: #06C755; /* สีเขียว LINE */
       color: white;
       font-size: 1rem;
       font-weight: 500;
@@ -211,11 +212,13 @@
 <body>
 
   <header>
+    <!-- ปุ่มเข้าสู่ระบบ + สมัครสมาชิก -->
     <div class="auth-buttons">
       <a href="login.html" class="login-btn">เข้าสู่ระบบ</a>
       <a href="register.html" class="register-btn">สมัครสมาชิก</a>
     </div>
 
+    <!-- เมนูนำทาง -->
     <nav class="top-nav">
       <a href="index.html">หน้าแรก</a>
       <a href="courses.html">คอร์สเรียน</a>
@@ -223,12 +226,14 @@
       <a href="#">ติดต่อ</a>
     </nav>
 
+    <!-- โลโก้และชื่อโรงเรียน -->
     <div class="logo-center">
       <img src="logo.png" alt="โลโก้ WDW" class="logo-img" />
       <h1 class="school-name">โรงเรียนกวดวิชาเวลดูวิน Well-Do-Win</h1>
     </div>
   </header>
 
+  <!-- กล่องสมัครสมาชิก -->
   <section class="register-container">
     <h2 class="register-title">สมัครสมาชิก</h2>
     <p class="register-subtitle">
@@ -236,7 +241,8 @@
       (หลังจากนี้ระบบจะให้กรอกโปรไฟล์ในหน้าสมาชิก)
     </p>
 
-    <form id="register-form">
+    <!-- ฟอร์มสมัครด้วยอีเมล -->
+    <form action="#" method="post">
       <label for="email">อีเมล</label>
       <input type="email" id="email" name="email" placeholder="กรอกอีเมลสำหรับเข้าสู่ระบบ">
 
@@ -251,7 +257,8 @@
 
     <div class="or-line"><span>หรือ</span></div>
 
-    <button class="line-register-btn" type="button" id="line-register-btn">
+    <!-- ปุ่มสมัครสมาชิกด้วย LINE -->
+    <button class="line-register-btn" type="button">
       สมัครสมาชิกด้วย LINE
     </button>
 
@@ -264,11 +271,12 @@
     © 2025 โรงเรียนกวดวิชาเวลดูวิน - เป็นให้มากกว่าโรงเรียนกวดวิชา
   </footer>
 
-  <!-- Firebase compat -->
+  <!-- Firebase SDK (เวอร์ชัน compat ใช้ง่ายสำหรับมือใหม่) -->
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
 
   <script>
+    // 1) config Firebase
     const firebaseConfig = {
       apiKey: "AIzaSyBEEb59wVHs_uHKW87P6n54A6NRzSlyElE",
       authDomain: "well-do-win-academy.firebaseapp.com",
@@ -279,20 +287,23 @@
       measurementId: "G-KVKM2C5JEZ"
     };
 
+    // 2) เริ่มต้น Firebase
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
 
+    // ฟังก์ชันช่วย: หลังสมัคร/ล็อกอินสำเร็จ
     function afterRegister(user) {
       if (user && user.uid) {
         localStorage.setItem('userId', user.uid);
         localStorage.setItem('userEmail', user.email || '');
+        // ยังไม่ได้กรอกโปรไฟล์ -> บังคับไปกรอกใน member.html
         localStorage.setItem('profileCompleted', 'false');
       }
       window.location.href = 'member.html';
     }
 
-    // สมัครด้วยอีเมล
-    const registerForm = document.getElementById('register-form');
+    // 3) สมัครสมาชิกด้วย Email/Password
+    const registerForm = document.querySelector('.register-container form');
 
     registerForm.addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -321,8 +332,10 @@
       }
     });
 
-    // สมัคร/ล็อกอินด้วย LINE
-    const lineBtn = document.getElementById('line-register-btn');
+    // 4) สมัคร / ล็อกอินด้วย LINE (ผ่าน OIDC provider)
+    const lineBtn = document.querySelector('.line-register-btn');
+
+    // ต้องให้ตรงกับ Provider ID ที่พี่ตั้งใน Firebase
     const lineProvider = new firebase.auth.OAuthProvider('oidc.line-login');
 
     lineBtn.addEventListener('click', async () => {
