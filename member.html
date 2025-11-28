@@ -503,10 +503,6 @@
         <label for="pf_lastname">นามสกุลนักเรียน</label>
         <input type="text" id="pf_lastname" required placeholder="เช่น ไพศรี">
 
-        <!-- TODO: ถ้าจะเอาชื่อเล่นจริงจัง เพิ่ม input ตรงนี้ + ปรับ Apps Script/Sheet ตาม -->
-        <!-- <label for="pf_nickname">ชื่อเล่น</label>
-        <input type="text" id="pf_nickname" placeholder="เช่น แก้ม"> -->
-
         <label for="pf_level">ระดับชั้น / กลุ่มเรียน</label>
         <select id="pf_level" required>
           <option value="">-- เลือกระดับชั้น --</option>
@@ -630,38 +626,7 @@
 
           <!-- รายการคอร์สที่น้องลงทะเบียนจริง -->
           <div id="myCoursesList">
-            <div class="course-item">
-              <div class="course-info">
-                <span class="course-name">ฟิสิกส์ ม.5 เทอม 2 – ไฟฟ้าสถิต & สนามไฟฟ้า</span>
-                <span class="course-meta">เรียนทุกวันศุกร์ 17.30–19.30 | ห้องเรียน Lotus ชุมแพ</span>
-              </div>
-              <div class="course-actions">
-                <button class="small-btn btn-primary">เข้าเรียน / ดูเนื้อหา</button>
-                <button class="small-btn btn-outline">วิดีโอย้อนหลัง</button>
-              </div>
-            </div>
-
-            <div class="course-item">
-              <div class="course-info">
-                <span class="course-name">คณิต ม.5 – แคลคูลัสพื้นฐาน</span>
-                <span class="course-meta">เรียนวันอาทิตย์ 13.00–15.00 | ออนไลน์ (Zoom)</span>
-              </div>
-              <div class="course-actions">
-                <button class="small-btn btn-primary">เข้าเรียน / ดูเนื้อหา</button>
-                <button class="small-btn btn-outline">ดาวน์โหลดเอกสาร</button>
-              </div>
-            </div>
-
-            <div class="course-item">
-              <div class="course-info">
-                <span class="course-name">ติวเข้ามหาลัย – Physics 9 วิชาสามัญ</span>
-                <span class="course-meta">คอร์สเก็บเนื้อหาย้อนหลัง พร้อมข้อสอบเก่า</span>
-              </div>
-              <div class="course-actions">
-                <button class="small-btn btn-primary">เข้าเรียน / ดูคลิป</button>
-                <button class="small-btn btn-outline">ดูแนวข้อสอบ</button>
-              </div>
-            </div>
+            <!-- เริ่มต้นว่างไว้ เพราะจะให้ดึงจาก App Script มาใส่ -->
           </div>
 
           <!-- ปุ่มดูคอร์สทั้งหมด -->
@@ -680,18 +645,7 @@
         <section class="card" id="videos">
           <h3>วิดีโอย้อนหลังล่าสุด 🎥</h3>
           <div class="video-list">
-            <div class="video-item">
-              <div class="video-item-title">ฟิสิกส์ ม.5 – สนามไฟฟ้า ตอนที่ 1</div>
-              <div class="video-item-meta">อัปโหลด: 24 พ.ย. 2025 | ความยาว 1 ชม. 15 นาที</div>
-            </div>
-            <div class="video-item">
-              <div class="video-item-title">คณิต – ลิมิตม.ปลาย (พื้นฐาน)</div>
-              <div class="video-item-meta">อัปโหลด: 22 พ.ย. 2025 | ความยาว 50 นาที</div>
-            </div>
-            <div class="video-item">
-              <div class="video-item-title">Physics Exam Clinic – รวมโจทย์งานและพลังงาน</div>
-              <div class="video-item-meta">อัปโหลด: 20 พ.ย. 2025 | ความยาว 1 ชม. 05 นาที</div>
-            </div>
+            <!-- จะถูกแทนที่ด้วยข้อมูลจาก App Script -->
           </div>
           <div class="video-footer">
             <span>* เวอร์ชันจริงจะลิงก์ไปยังวิดีโอที่เก็บในระบบ</span>
@@ -711,24 +665,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>ฟิสิกส์ ม.5</td>
-                <td>แบบฝึกหัดหน้า 9 ข้อที่วงไว้</td>
-                <td>ศ. 29 พ.ย.</td>
-                <td><span class="status-pill status-pending">ค้างส่ง</span></td>
-              </tr>
-              <tr>
-                <td>คณิต ม.5</td>
-                <td>ลิมิตแบบฝึกหัดชุดที่ 2</td>
-                <td>พ. 27 พ.ย.</td>
-                <td><span class="status-pill status-done">ส่งแล้ว</span></td>
-              </tr>
-              <tr>
-                <td>Physics Exam</td>
-                <td>โจทย์งาน–พลังงาน 15 พ.ศ.</td>
-                <td>อา. 1 ธ.ค.</td>
-                <td><span class="status-pill status-pending">ค้างส่ง</span></td>
-              </tr>
+              <!-- จะถูกแทนที่ด้วยข้อมูลจาก App Script -->
             </tbody>
           </table>
         </section>
@@ -819,7 +756,7 @@
 
   <script>
     // ---------- 0) ตั้งค่า URL Apps Script ----------
-    const PROFILE_API_URL = 'https://script.google.com/macros/s/AKfycbyLgkr4LDPH41ulPmq7V39zm7Caux4UYP3IFadUwE9Ot3UqbRlRR8z0v28KIkzVn1y_/exec';
+    const PROFILE_API_URL = 'https://script.google.com/macros/s/AKfycbz0SSt8SDKtSEGwJ3PCpcLKCi7CcTs0l6tPEci7VMqsh0GrPX5hRo1bAizju63LFiKi/exec';
 
     // ---------- 1) เช็กการล็อกอินจาก localStorage ----------
     const userId = localStorage.getItem('userId');
@@ -832,15 +769,17 @@
 
     const userNameDisplay = document.getElementById('userNameDisplay');
     const profileEmail = document.getElementById('profileEmail');
-    if (userEmail && userNameDisplay) userNameDisplay.textContent = userEmail;
-    if (userEmail && profileEmail) profileEmail.textContent = userEmail;
+
+    if (userEmail) {
+      if (userNameDisplay) userNameDisplay.textContent = userEmail;
+      if (profileEmail) profileEmail.textContent = userEmail;
+    }
 
     const logoutBtn = document.getElementById('logoutBtn');
     logoutBtn.addEventListener('click', (e) => {
       e.preventDefault();
       localStorage.removeItem('userId');
       localStorage.removeItem('userEmail');
-      // ไม่ต้องลบ profileCompleted แล้ว
       window.location.href = 'index.html';
     });
 
@@ -889,211 +828,4 @@
       const displayStudentName = document.getElementById('displayStudentName');
       const displayLevel = document.getElementById('displayLevel');
       const displaySchool = document.getElementById('displaySchool');
-      const displayPhone = document.getElementById('displayPhone');
-      const displayParentPhone = document.getElementById('displayParentPhone');
-      const welcomeStudentName = document.getElementById('welcomeStudentName');
-      const welcomeLevel = document.getElementById('welcomeLevel');
-
-      if (displayStudentName) displayStudentName.textContent = fullName || 'ไม่ระบุ';
-      if (displayLevel) displayLevel.textContent = data.level || 'ไม่ระบุ';
-      if (displaySchool) displaySchool.textContent = data.school || '-';
-      if (displayPhone) displayPhone.textContent = data.phone || '-';
-      if (displayParentPhone) displayParentPhone.textContent = data.parentPhone || '-';
-      if (welcomeStudentName) welcomeStudentName.textContent = fullName || 'น้องนักเรียน';
-      if (welcomeLevel) welcomeLevel.textContent = data.level || '';
-    }
-
-    // ---------- 3) ส่งข้อมูลโปรไฟล์ไป Apps Script แบบ GET ----------
-    const profileForm = document.getElementById('profileForm');
-    profileForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-
-      const payload = {
-        userId: userId,
-        email: userEmail,
-        firstName: document.getElementById('pf_firstname').value.trim(),
-        lastName: document.getElementById('pf_lastname').value.trim(),
-        level: document.getElementById('pf_level').value,
-        school: document.getElementById('pf_school').value.trim(),
-        phone: document.getElementById('pf_phone').value.trim(),
-        parentPhone: document.getElementById('pf_parent_phone').value.trim()
-        // ถ้าเพิ่มชื่อเล่น: nickname: document.getElementById('pf_nickname').value.trim()
-      };
-
-      if (!payload.firstName || !payload.lastName || !payload.level || !payload.phone) {
-        alert('กรุณากรอกข้อมูลที่จำเป็นให้ครบถ้วน');
-        return;
-      }
-
-      // ประกอบ URL เป็น query string
-      const params = new URLSearchParams(payload).toString();
-      const url = `${PROFILE_API_URL}?${params}`;
-
-      try {
-        const res = await fetch(url);       // GET ธรรมดา
-        const text = await res.text();
-        console.log('Profile API response:', text);
-
-        if (text.trim().startsWith('OK')) {
-          alert('บันทึกโปรไฟล์เรียบร้อยแล้ว ✅');
-          localStorage.setItem('profileCompleted', 'true');
-          saveProfileToLocal(payload);
-          loadProfileFromLocal();
-          unlockDashboard();
-        } else {
-          alert('บันทึกโปรไฟล์ไม่สำเร็จ: ' + text);
-        }
-      } catch (err) {
-        console.error(err);
-        alert('บันทึกโปรไฟล์ไม่สำเร็จ (network error): ' + err.message);
-      }
-    });
-
-    // ---------- 4) เมนูแท็บเลื่อน Section ----------
-    const buttons = document.querySelectorAll('.member-tab-btn');
-    const sections = {
-      overview: document.getElementById('overview'),
-      courses: document.getElementById('courses'),
-      videos: document.getElementById('videos'),
-      homework: document.getElementById('homework'),
-      profile: document.getElementById('profile')
-    };
-
-    buttons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const target = btn.getAttribute('data-target');
-        const section = sections[target];
-        if (section) {
-          window.scrollTo({
-            top: section.offsetTop - 80,
-            behavior: 'smooth'
-          });
-        }
-        buttons.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-      });
-    });
-
-    window.addEventListener('scroll', () => {
-      const scrollPos = window.scrollY + 150;
-      Object.entries(sections).forEach(([key, section]) => {
-        if (!section) return;
-        const top = section.offsetTop;
-        const bottom = top + section.offsetHeight;
-        if (scrollPos >= top && scrollPos < bottom) {
-          buttons.forEach(b => {
-            if (b.getAttribute('data-target') === key) {
-              b.classList.add('active');
-            } else {
-              b.classList.remove('active');
-            }
-          });
-        }
-      });
-    });
-
-    // ---------- 5) นับจำนวนคอร์ส / การบ้าน / วิดีโอ จากข้อมูลจริงบนหน้า ----------
-    function updateSummaryCounts() {
-      const coursesCountEl = document.getElementById('coursesCount');
-      const homeworkCountEl = document.getElementById('homeworkCount');
-      const videosCountEl = document.getElementById('videosCount');
-
-      if (coursesCountEl) {
-        const courseItems = document.querySelectorAll('#myCoursesList .course-item');
-        coursesCountEl.textContent = courseItems.length;
-      }
-
-      if (homeworkCountEl) {
-        const hwRows = document.querySelectorAll('#homework tbody tr');
-        homeworkCountEl.textContent = hwRows.length;
-      }
-
-      if (videosCountEl) {
-        const videoItems = document.querySelectorAll('#videos .video-item');
-        videosCountEl.textContent = videoItems.length;
-      }
-    }
-
-    // ---------- 6) แสดง/ซ่อนข้อความยังไม่มีคอร์ส + คอร์สแนะนำ ----------
-    function updateCoursesUI() {
-      const myCoursesList = document.getElementById('myCoursesList');
-      const noCoursesMsg = document.getElementById('noCoursesMessage');
-      const recommended = document.getElementById('recommendedCourses');
-
-      let registeredCount = 0;
-      if (myCoursesList) {
-        registeredCount = myCoursesList.querySelectorAll('.course-item').length;
-      }
-
-      if (registeredCount === 0) {
-        if (myCoursesList) myCoursesList.style.display = 'none';
-        if (noCoursesMsg) noCoursesMsg.style.display = 'block';
-        if (recommended) recommended.style.display = 'block';
-      } else {
-        if (myCoursesList) myCoursesList.style.display = 'block';
-        if (noCoursesMsg) noCoursesMsg.style.display = 'none';
-        if (recommended) recommended.style.display = 'none';
-      }
-    }
-
-    // ---------- 7) คลิกสรุปแล้วเลื่อนลงไปส่วนที่เกี่ยวข้อง ----------
-    const summaryCourses = document.getElementById('summaryCourses');
-    const summaryHomework = document.getElementById('summaryHomework');
-    const summaryVideos = document.getElementById('summaryVideos');
-
-    function scrollToSection(sectionKey) {
-      const section = sections[sectionKey];
-      if (section) {
-        window.scrollTo({
-          top: section.offsetTop - 80,
-          behavior: 'smooth'
-        });
-      }
-    }
-
-    if (summaryCourses) {
-      summaryCourses.addEventListener('click', () => scrollToSection('courses'));
-    }
-
-    if (summaryHomework) {
-      summaryHomework.addEventListener('click', () => scrollToSection('homework'));
-    }
-
-    if (summaryVideos) {
-      summaryVideos.addEventListener('click', () => scrollToSection('videos'));
-    }
-
-    // ---------- 8) ปุ่ม "แก้ไขข้อมูลโปรไฟล์" ----------
-    const editProfileBtn = document.getElementById('editProfileBtn');
-    if (editProfileBtn) {
-      editProfileBtn.addEventListener('click', () => {
-        const raw = localStorage.getItem('studentProfile');
-        if (raw) {
-          try {
-            const data = JSON.parse(raw);
-            document.getElementById('pf_firstname').value = data.firstName || '';
-            document.getElementById('pf_lastname').value = data.lastName || '';
-            document.getElementById('pf_level').value = data.level || '';
-            document.getElementById('pf_school').value = data.school || '';
-            document.getElementById('pf_phone').value = data.phone || '';
-            document.getElementById('pf_parent_phone').value = data.parentPhone || '';
-          } catch (e) {
-            console.error('Cannot preload profile form', e);
-          }
-        }
-        profileFormSection.style.display = 'block';
-        window.scrollTo({
-          top: profileFormSection.offsetTop - 80,
-          behavior: 'smooth'
-        });
-      });
-    }
-
-    // ---------- 9) เรียกตอนโหลดหน้า ----------
-    updateSummaryCounts();
-    updateCoursesUI();
-    loadProfileFromLocal();
-  </script>
-
-</body>
-</html>
+      const displayPhone = do
