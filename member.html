@@ -6,6 +6,29 @@
   <title>ระบบสมาชิก - Well-Do-Win Academy</title>
   <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;500;700&display=swap" rel="stylesheet">
   <style>
+    @keyframes blink-hot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.3; transform: scale(1.05); }
+}
+
+.hot-badge {
+  display: inline-block;
+  background-color: #ff4d4f;
+  color: #fff;
+  font-size: 0.7rem;
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+  margin-left: 0.4rem;
+  font-weight: 700;
+  animation: blink-hot 1s infinite;
+}
+
+    .summary-line {
+  cursor: pointer;
+}
+.summary-line:hover {
+  text-decoration: underline;
+}
     body {
       margin: 0;
       font-family: 'Kanit', sans-serif;
@@ -516,16 +539,32 @@
           </p>
         </section>
 
-        <section class="card">
-          <h3>สรุปสถานะวันนี้</h3>
-          <p>📚 คอร์สที่ลงทะเบียน: <strong>3 คอร์ส</strong></p>
-          <p>📝 การบ้านค้างส่ง: <strong>1 ชิ้น</strong></p>
-          <p>🎥 วิดีโอใหม่ในสัปดาห์นี้: <strong>2 คลิป</strong></p>
-          <p class="tag">* ตัวเลขด้านบนเป็นข้อมูลตัวอย่าง ใช้สำหรับดีไซน์ระบบ</p>
-        </section>
+       <section class="card" id="todaySummary">
+        <h3>สรุปสถานะวันนี้</h3>
+
+  <p class="summary-line" id="summaryCourses">
+    📚 คอร์สที่ลงทะเบียน:
+    <strong><span id="coursesCount">0</span> คอร์ส</strong>
+  </p>
+
+  <p class="summary-line" id="summaryHomework">
+    📝 การบ้านที่ต้องทำในสัปดาห์นี้:
+    <strong><span id="homeworkCount">0</span> ชิ้น</strong>
+  </p>
+
+  <p class="summary-line" id="summaryVideos">
+    🎥 วิดีโอใหม่ในสัปดาห์นี้:
+    <strong><span id="videosCount">0</span> คลิป</strong>
+  </p>
+
+  <p class="tag">
+    * ตัวเลขด้านบนจะดึงจากข้อมูลคอร์ส / การบ้าน / วิดีโอย้อนหลังด้านล่างของหน้านี้อัตโนมัติ
+  </p>
+</section>
+
       </div>
 
-      <!-- คอร์สของฉัน -->
+           <!-- คอร์สของฉัน -->
       <section style="margin-top:1.5rem;" id="courses">
         <h2 class="section-title">คอร์สของฉัน</h2>
         <div class="card">
@@ -542,41 +581,93 @@
             </select>
           </div>
 
-          <div class="course-item">
-            <div class="course-info">
-              <span class="course-name">ฟิสิกส์ ม.5 เทอม 2 – ไฟฟ้าสถิต & สนามไฟฟ้า</span>
-              <span class="course-meta">เรียนทุกวันศุกร์ 17.30–19.30 | ห้องเรียน Lotus ชุมแพ</span>
+          <!-- ข้อความกรณีไม่มีคอร์สลงทะเบียน -->
+          <div id="noCoursesMessage" style="display:none; margin-top:0.5rem; font-size:0.9rem; color:#777;">
+            ตอนนี้ยังไม่มีคอร์สลงทะเบียน ไปสมัครกันเลย! ✨
+          </div>
+
+          <!-- คอร์สแนะนำ (จะโชว์เฉพาะตอนยังไม่มีคอร์ส) -->
+          <div id="recommendedCourses" style="display:none; margin-top:0.8rem;">
+            <p style="margin:0 0 0.5rem;font-size:0.9rem;">
+              คอร์สแนะนำสำหรับน้อง ๆ:
+            </p>
+
+            <div class="course-item recommend-course">
+              <div class="course-info">
+                <span class="course-name">
+                  ฟิสิกส์ ม.4 เทอม 2 – งาน พลังงาน และโมเมนตัม
+                  <span class="hot-badge">HOT!</span>
+                </span>
+                <span class="course-meta">เทอม 2 สายวิทย์ – ยอดลงทะเบียนสูงสุด</span>
+              </div>
+              <div class="course-actions">
+                <button class="small-btn btn-primary">สมัครเรียนคอร์สนี้</button>
+                <button class="small-btn btn-outline">ดูรายละเอียด</button>
+              </div>
             </div>
-            <div class="course-actions">
-              <button class="small-btn btn-primary">เข้าเรียน / ดูเนื้อหา</button>
-              <button class="small-btn btn-outline">วิดีโอย้อนหลัง</button>
+
+            <div class="course-item recommend-course">
+              <div class="course-info">
+                <span class="course-name">
+                  ฟิสิกส์ ม.5 เทอม 2 – ไฟฟ้าสถิต & สนามไฟฟ้า
+                  <span class="hot-badge">HOT!</span>
+                </span>
+                <span class="course-meta">เทอม 2 สายวิทย์ – คอร์สยอดนิยมของ Well-Do-Win</span>
+              </div>
+              <div class="course-actions">
+                <button class="small-btn btn-primary">สมัครเรียนคอร์สนี้</button>
+                <button class="small-btn btn-outline">ดูรายละเอียด</button>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- รายการคอร์สที่น้องลงทะเบียนจริง -->
+          <div id="myCoursesList">
+            <div class="course-item">
+              <div class="course-info">
+                <span class="course-name">ฟิสิกส์ ม.5 เทอม 2 – ไฟฟ้าสถิต & สนามไฟฟ้า</span>
+                <span class="course-meta">เรียนทุกวันศุกร์ 17.30–19.30 | ห้องเรียน Lotus ชุมแพ</span>
+              </div>
+              <div class="course-actions">
+                <button class="small-btn btn-primary">เข้าเรียน / ดูเนื้อหา</button>
+                <button class="small-btn btn-outline">วิดีโอย้อนหลัง</button>
+              </div>
+            </div>
+
+            <div class="course-item">
+              <div class="course-info">
+                <span class="course-name">คณิต ม.5 – แคลคูลัสพื้นฐาน</span>
+                <span class="course-meta">เรียนวันอาทิตย์ 13.00–15.00 | ออนไลน์ (Zoom)</span>
+              </div>
+              <div class="course-actions">
+                <button class="small-btn btn-primary">เข้าเรียน / ดูเนื้อหา</button>
+                <button class="small-btn btn-outline">ดาวน์โหลดเอกสาร</button>
+              </div>
+            </div>
+
+            <div class="course-item">
+              <div class="course-info">
+                <span class="course-name">ติวเข้ามหาลัย – Physics 9 วิชาสามัญ</span>
+                <span class="course-meta">คอร์สเก็บเนื้อหาย้อนหลัง พร้อมข้อสอบเก่า</span>
+              </div>
+              <div class="course-actions">
+                <button class="small-btn btn-primary">เข้าเรียน / ดูคลิป</button>
+                <button class="small-btn btn-outline">ดูแนวข้อสอบ</button>
+              </div>
             </div>
           </div>
 
-          <div class="course-item">
-            <div class="course-info">
-              <span class="course-name">คณิต ม.5 – แคลคูลัสพื้นฐาน</span>
-              <span class="course-meta">เรียนวันอาทิตย์ 13.00–15.00 | ออนไลน์ (Zoom)</span>
-            </div>
-            <div class="course-actions">
-              <button class="small-btn btn-primary">เข้าเรียน / ดูเนื้อหา</button>
-              <button class="small-btn btn-outline">ดาวน์โหลดเอกสาร</button>
-            </div>
-          </div>
-
-          <div class="course-item">
-            <div class="course-info">
-              <span class="course-name">ติวเข้ามหาลัย – Physics 9 วิชาสามัญ</span>
-              <span class="course-meta">คอร์สเก็บเนื้อหาย้อนหลัง พร้อมข้อสอบเก่า</span>
-            </div>
-            <div class="course-actions">
-              <button class="small-btn btn-primary">เข้าเรียน / ดูคลิป</button>
-              <button class="small-btn btn-outline">ดูแนวข้อสอบ</button>
-            </div>
+          <!-- ปุ่มดูคอร์สทั้งหมด -->
+          <div style="margin-top:1rem; text-align:right;">
+            <a href="courses.html" class="primary-btn" style="text-decoration:none; display:inline-block;">
+              ดูคอร์สเรียนทั้งหมด
+            </a>
           </div>
 
         </div>
       </section>
+
 
       <!-- วิดีโอย้อนหลัง + การบ้าน -->
       <div class="grid-2" style="margin-top:1.5rem;">
@@ -855,6 +946,84 @@
       }
     });
   });
+        // ---------- 5) นับจำนวนคอร์ส / การบ้าน / วิดีโอ จากข้อมูลจริงบนหน้า ----------
+  function updateSummaryCounts() {
+    const coursesCountEl = document.getElementById('coursesCount');
+    const homeworkCountEl = document.getElementById('homeworkCount');
+    const videosCountEl = document.getElementById('videosCount');
+
+   if (coursesCountEl) {
+  const courseItems = document.querySelectorAll('#myCoursesList .course-item');
+  coursesCountEl.textContent = courseItems.length;
+}
+
+    if (homeworkCountEl) {
+      const hwRows = document.querySelectorAll('#homework tbody tr');
+      homeworkCountEl.textContent = hwRows.length;
+    }
+
+    if (videosCountEl) {
+      const videoItems = document.querySelectorAll('#videos .video-item');
+      videosCountEl.textContent = videoItems.length;
+    }
+  }
+
+  // เรียกตอนโหลดหน้าเสร็จ
+  updateSummaryCounts();
+        // ---------- 5) แสดง/ซ่อนข้อความยังไม่มีคอร์ส + คอร์สแนะนำ ----------
+  function updateCoursesUI() {
+    const myCoursesList = document.getElementById('myCoursesList');
+    const noCoursesMsg = document.getElementById('noCoursesMessage');
+    const recommended = document.getElementById('recommendedCourses');
+
+    let registeredCount = 0;
+    if (myCoursesList) {
+      registeredCount = myCoursesList.querySelectorAll('.course-item').length;
+    }
+
+    if (registeredCount === 0) {
+      if (myCoursesList) myCoursesList.style.display = 'none';
+      if (noCoursesMsg) noCoursesMsg.style.display = 'block';
+      if (recommended) recommended.style.display = 'block';
+    } else {
+      if (myCoursesList) myCoursesList.style.display = 'block';
+      if (noCoursesMsg) noCoursesMsg.style.display = 'none';
+      if (recommended) recommended.style.display = 'none';
+    }
+  }
+
+  // เรียกตอนโหลดหน้า
+  updateSummaryCounts();
+  updateCoursesUI();
+
+
+  // ---------- 6) ทำให้คลิกที่สรุปแล้วเลื่อนลงไปส่วนที่เกี่ยวข้อง ----------
+  const summaryCourses = document.getElementById('summaryCourses');
+  const summaryHomework = document.getElementById('summaryHomework');
+  const summaryVideos = document.getElementById('summaryVideos');
+
+  function scrollToSection(sectionKey) {
+    const section = sections[sectionKey];
+    if (section) {
+      window.scrollTo({
+        top: section.offsetTop - 80,
+        behavior: 'smooth'
+      });
+    }
+  }
+
+  if (summaryCourses) {
+    summaryCourses.addEventListener('click', () => scrollToSection('courses'));
+  }
+
+  if (summaryHomework) {
+    summaryHomework.addEventListener('click', () => scrollToSection('homework'));
+  }
+
+  if (summaryVideos) {
+    summaryVideos.addEventListener('click', () => scrollToSection('videos'));
+  }
+
 </script>
 
 
