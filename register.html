@@ -133,15 +133,6 @@
       box-sizing: border-box;
     }
 
-    .name-row {
-      display: flex;
-      gap: 0.7rem;
-    }
-
-    .name-row .field {
-      flex: 1;
-    }
-
     .primary-btn {
       width: 100%;
       padding: 0.7rem 1rem;
@@ -216,12 +207,6 @@
       margin-top: 3rem;
       font-size: 0.9rem;
     }
-
-    @media (max-width: 600px) {
-      .name-row {
-        flex-direction: column;
-      }
-    }
   </style>
 </head>
 <body>
@@ -252,39 +237,14 @@
   <section class="register-container">
     <h2 class="register-title">สมัครสมาชิก</h2>
     <p class="register-subtitle">
-      ลงทะเบียนเพื่อใช้งานระบบสมาชิก<br>
-      ดูคอร์สเรียน วิดีโอย้อนหลัง และการบ้านของน้อง ๆ
+      ขั้นตอนที่ 1: สมัครด้วยอีเมลหรือ LINE<br>
+      (หลังจากนี้ระบบจะให้กรอกโปรไฟล์ในหน้าสมาชิก)
     </p>
 
+    <!-- ฟอร์มสมัครด้วยอีเมล -->
     <form action="#" method="post">
-      <div class="name-row">
-        <div class="field">
-          <label for="firstname">ชื่อ</label>
-          <input type="text" id="firstname" name="firstname" placeholder="ชื่อนักเรียน">
-        </div>
-        <div class="field">
-          <label for="lastname">นามสกุล</label>
-          <input type="text" id="lastname" name="lastname" placeholder="นามสกุลนักเรียน">
-        </div>
-      </div>
-
-      <label for="phone">เบอร์โทรนักเรียน</label>
-      <input type="tel" id="phone" name="phone" placeholder="กรอกเบอร์โทรนักเรียน">
-
-      <label for="parent_phone">เบอร์ผู้ปกครอง (ถ้ามี)</label>
-      <input type="tel" id="parent_phone" name="parent_phone" placeholder="กรอกเบอร์ผู้ปกครอง">
-
       <label for="email">อีเมล</label>
       <input type="email" id="email" name="email" placeholder="กรอกอีเมลสำหรับเข้าสู่ระบบ">
-
-      <label for="level">ระดับชั้น / กลุ่มเรียน</label>
-      <select id="level" name="level">
-        <option value="">-- เลือกระดับชั้น --</option>
-        <option value="m3">ม.3</option>
-        <option value="m4">ม.4</option>
-        <option value="m5">ม.5</option>
-        <option value="m6">ม.6</option>
-      </select>
 
       <label for="password">รหัสผ่าน</label>
       <input type="password" id="password" name="password" placeholder="ตั้งรหัสผ่านอย่างน้อย 6 ตัวอักษร">
@@ -292,12 +252,12 @@
       <label for="confirm_password">ยืนยันรหัสผ่าน</label>
       <input type="password" id="confirm_password" name="confirm_password" placeholder="กรอกรหัสผ่านอีกครั้ง">
 
-      <button type="submit" class="primary-btn">สมัครสมาชิก</button>
+      <button type="submit" class="primary-btn">สมัครสมาชิกด้วยอีเมล</button>
     </form>
 
     <div class="or-line"><span>หรือ</span></div>
 
-    <!-- ปุ่มสมัครสมาชิกด้วย LINE (ภายหลังค่อยเชื่อม API จริง) -->
+    <!-- ปุ่มสมัครสมาชิกด้วย LINE -->
     <button class="line-register-btn" type="button">
       สมัครสมาชิกด้วย LINE
     </button>
@@ -310,14 +270,13 @@
   <footer>
     © 2025 โรงเรียนกวดวิชาเวลดูวิน - เป็นให้มากกว่าโรงเรียนกวดวิชา
   </footer>
-  <!-- ใส่โค้ดนี้ก่อนปิด </body> -->
+
   <!-- Firebase SDK (เวอร์ชัน compat ใช้ง่ายสำหรับมือใหม่) -->
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
 
   <script>
-    // 1) วาง config ของโปรเจกต์พี่จาก Firebase ตรงนี้
-    // เอาค่ามาจากหน้า Project settings -> Your apps -> Web app -> Firebase SDK snippet
+    // 1) config Firebase
     const firebaseConfig = {
       apiKey: "AIzaSyBEEb59wVHs_uHKW87P6n54A6NRzSlyElE",
       authDomain: "well-do-win-academy.firebaseapp.com",
@@ -326,22 +285,37 @@
       messagingSenderId: "804445893350",
       appId: "1:804445893350:web:935fedc5735f504636c127",
       measurementId: "G-KVKM2C5JEZ"
-      // ถ้ามี measurementId จะใส่หรือไม่ใส่ก็ได้
     };
 
-    // 2) เริ่มต้นใช้งาน Firebase
+    // 2) เริ่มต้น Firebase
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
+
+    // ฟังก์ชันช่วย: หลังสมัคร/ล็อกอินสำเร็จ
+    function afterRegister(user) {
+      if (user && user.uid) {
+        localStorage.setItem('userId', user.uid);
+        localStorage.setItem('userEmail', user.email || '');
+        // ยังไม่ได้กรอกโปรไฟล์ -> บังคับไปกรอกใน member.html
+        localStorage.setItem('profileCompleted', 'false');
+      }
+      window.location.href = 'member.html';
+    }
 
     // 3) สมัครสมาชิกด้วย Email/Password
     const registerForm = document.querySelector('.register-container form');
 
     registerForm.addEventListener('submit', async (e) => {
-      e.preventDefault(); // กันไม่ให้รีเฟรชหน้า
+      e.preventDefault();
 
-      const email = document.getElementById('email').value;
+      const email = document.getElementById('email').value.trim();
       const password = document.getElementById('password').value;
       const confirmPassword = document.getElementById('confirm_password').value;
+
+      if (!email || !password) {
+        alert('กรุณากรอกอีเมลและรหัสผ่าน');
+        return;
+      }
 
       if (password !== confirmPassword) {
         alert('รหัสผ่านและยืนยันรหัสผ่านไม่ตรงกัน');
@@ -350,9 +324,8 @@
 
       try {
         const userCredential = await auth.createUserWithEmailAndPassword(email, password);
-        // สมัครเสร็จแล้ว พี่จะเก็บข้อมูลอื่นเพิ่มทีหลังก็ได้ (ชื่อ, เบอร์ ฯลฯ)
         alert('สมัครสมาชิกสำเร็จ!');
-        window.location.href = 'member.html'; // ส่งไปหน้า member
+        afterRegister(userCredential.user);
       } catch (error) {
         console.error(error);
         alert('สมัครสมาชิกไม่สำเร็จ: ' + error.message);
@@ -362,16 +335,14 @@
     // 4) สมัคร / ล็อกอินด้วย LINE (ผ่าน OIDC provider)
     const lineBtn = document.querySelector('.line-register-btn');
 
-    // **สำคัญมาก**: เปลี่ยน 'oidc.line' ให้ตรงกับ Provider ID ที่พี่ตั้งใน Firebase
-    // เช่น ถ้าใน Firebase เขียนว่า "oidc.welldowin" ก็ให้เปลี่ยนตรงนี้เป็น 'oidc.welldowin'
+    // ต้องให้ตรงกับ Provider ID ที่พี่ตั้งใน Firebase
     const lineProvider = new firebase.auth.OAuthProvider('oidc.line-login');
 
     lineBtn.addEventListener('click', async () => {
       try {
         const result = await auth.signInWithPopup(lineProvider);
-        // ได้ user จาก LINE แล้ว
         alert('เข้าสู่ระบบด้วย LINE สำเร็จ');
-        window.location.href = 'member.html';
+        afterRegister(result.user);
       } catch (error) {
         console.error(error);
         alert('เข้าสู่ระบบด้วย LINE ไม่สำเร็จ: ' + error.message);
