@@ -241,7 +241,7 @@
     <!-- ใส่ id="login-form" เพื่อให้ JS จับได้ -->
     <form id="login-form">
       <label for="email">อีเมลหรือเบอร์โทร</label>
-      <input type="text" id="email" name="email" placeholder="กรอกอีเมลหรือเบอร์โทร">
+      <input type="text" id="email" name="email" placeholder="กรอกอีเมลเพื่อเข้าสู่ระบบ">
 
       <label for="password">รหัสผ่าน</label>
       <input type="password" id="password" name="password" placeholder="กรอกรหัสผ่าน">
@@ -267,94 +267,107 @@
 
   <!-- Firebase + Logic การล็อกอิน -->
   <script type="module">
-    // -----------------------------
-    // 1) ตั้งค่า Firebase ของโปรเจ็กต์พี่
-    //    (แทนที่ค่าด้านล่างด้วยค่าจริงจาก Firebase Console)
-    // -----------------------------
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
-    import {
-      getAuth,
-      signInWithEmailAndPassword,
-      signInWithCustomToken
-    } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
+  // -----------------------------
+  // 1) ตั้งค่า Firebase ของโปรเจ็กต์พี่
+  // -----------------------------
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
+  import {
+    getAuth,
+    signInWithEmailAndPassword,
+    OAuthProvider,
+    signInWithPopup
+  } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyBEEb59wVHs_uHKW87P6n54A6NRzSlyElE",
-      authDomain: "well-do-win-academy.firebaseapp.com",
-      projectId: "well-do-win-academy",
-      storageBucket: "well-do-win-academy.firebasestorage.app",
-      messagingSenderId: "804445893350",
-      appId: "1:804445893350:web:935fedc5735f504636c127",
-      measurementId: "G-KVKM2C5JEZ"
-    };
+  const firebaseConfig = {
+    apiKey: "AIzaSyBEEb59wVHs_uHKW87P6n54A6NRzSlyElE",
+    authDomain: "well-do-win-academy.firebaseapp.com",
+    projectId: "well-do-win-academy",
+    storageBucket: "well-do-win-academy.firebasestorage.app",
+    messagingSenderId: "804445893350",
+    appId: "1:804445893350:web:935fedc5735f504636c127",
+    measurementId: "G-KVKM2C5JEZ"
+  };
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
 
-    // -----------------------------
-    // 2) ล็อกอินปกติด้วย Email/Password (เผื่อใช้ในอนาคต)
-    // -----------------------------
-    const loginForm = document.getElementById("login-form");
-    if (loginForm) {
-      loginForm.addEventListener("submit", async (e) => {
-        e.preventDefault();
-        const email = /** @type {HTMLInputElement} */ (document.getElementById("email")).value.trim();
-        const password = /** @type {HTMLInputElement} */ (document.getElementById("password")).value;
-
-        if (!email || !password) {
-          alert("กรุณากรอกอีเมล/เบอร์โทร และรหัสผ่านให้ครบ");
-          return;
-        }
-
-        try {
-          const userCred = await signInWithEmailAndPassword(auth, email, password);
-          console.log("Logged in:", userCred.user);
-          // หลังล็อกอินสำเร็จ → ไปหน้าแดชบอร์ด
-          window.location.href = "dashboard.html";
-        } catch (err) {
-          console.error(err);
-          alert("เข้าสู่ระบบไม่สำเร็จ กรุณาตรวจสอบข้อมูลอีกครั้ง");
-        }
-      });
+  // ถ้าอยากเก็บ userId ใน localStorage เพื่อใช้กับหน้าอื่น
+  function saveUserAndGoDashboard(user) {
+    if (user && user.uid) {
+      localStorage.setItem("userId", user.uid);
+      localStorage.setItem("userEmail", user.email || "");
     }
+    window.location.href = "dashboard.html";
+  }
 
-    // -----------------------------
-    // 3) ล็อกอินด้วย LINE + Firebase (แนวเดียวกับเมื่อคืน)
-    // -----------------------------
+  // -----------------------------
+  // 2) ล็อกอินด้วย Email/Password
+  // -----------------------------
+  const loginForm = document.getElementById("login-form");
+  if (loginForm) {
+    loginForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = /** @type {HTMLInputElement} */ (document.getElementById("email")).value.trim();
+      const password = /** @type {HTMLInputElement} */ (document.getElementById("password")).value;
 
-    // URL ของ Cloud Function/Backend ที่พี่จะทำไว้เพื่อไปคุยกับ LINE
-    const LINE_BACKEND_URL = "https://YOUR_CLOUD_FUNCTION_URL/line-login";
+      if (!email || !password) {
+        alert("กรุณากรอกอีเมล/เบอร์โทร และรหัสผ่านให้ครบ");
+        return;
+      }
 
-    const lineBtn = document.getElementById("line-login-btn");
-    if (lineBtn) {
-      lineBtn.addEventListener("click", () => {
-        // เมื่อคลิกปุ่ม → เด้งไป backend (ซึ่งจะ redirect ต่อไป LINE Login)
-        window.location.href = LINE_BACKEND_URL;
-      });
-    }
+      try {
+        const userCred = await signInWithEmailAndPassword(auth, email, password);
+        console.log("Logged in:", userCred.user);
+        saveUserAndGoDashboard(userCred.user);
+      } catch (err) {
+        console.error(err);
+        alert("เข้าสู่ระบบไม่สำเร็จ กรุณาตรวจสอบข้อมูลอีกครั้ง");
+      }
+    });
+  }
 
-    // -----------------------------
-    // 4) รองรับกรณี backend ทำ LINE Login เสร็จ
-    //    แล้ว redirect กลับมาพร้อม firebaseToken ใน URL
-    //    เช่น login.html?firebaseToken=xxxx
-    // -----------------------------
-    const params = new URLSearchParams(window.location.search);
-    const firebaseToken = params.get("firebaseToken");
+  // -----------------------------
+  // 3) ล็อกอินด้วย LINE ผ่าน Firebase OIDC (แบบเดียวกับ register.html)
+  // -----------------------------
+  const lineBtn = document.getElementById("line-login-btn");
 
-    if (firebaseToken) {
-      signInWithCustomToken(auth, firebaseToken)
-        .then((userCred) => {
-          console.log("Logged in with LINE + Firebase:", userCred.user);
-          // ล้าง query string ออกให้สะอาด (optional)
-          window.history.replaceState({}, document.title, "login.html");
-          // แล้วพาไปหน้าแดชบอร์ด
-          window.location.href = "dashboard.html";
-        })
-        .catch((err) => {
-          console.error("Error signing in with custom token:", err);
-          alert("เข้าสู่ระบบด้วย LINE ไม่สำเร็จ กรุณาลองใหม่อีกครั้ง");
-        });
-    }
-  </script>
+  // ***สำคัญ***: ชื่อ provider ต้องตรงกับที่ตั้งใน Firebase (ตรงกับ register.html)
+  // ถ้าใน register ใช้ 'oidc.line-login' ตรงนี้ก็ต้องเหมือนกัน
+  const lineProvider = new OAuthProvider('oidc.line-login');
+
+  if (lineBtn) {
+    lineBtn.addEventListener("click", async () => {
+      try {
+        const result = await signInWithPopup(auth, lineProvider);
+        console.log("LINE Login success:", result.user);
+        saveUserAndGoDashboard(result.user);
+      } catch (error) {
+        console.error(error);
+        alert("เข้าสู่ระบบด้วย LINE ไม่สำเร็จ: " + error.message);
+      }
+    });
+  }
+
+  // -----------------------------
+  // 4) (ถ้าพี่อยากบันทึกการล็อกอินลงชีตด้วย Apps Script)
+  //    สามารถเพิ่ม fetch ไป Apps Script หลัง saveUserAndGoDashboard ก็ได้
+  //    เช่น:
+  //
+  //  async function logLoginToSheet(user) {
+  //    await fetch('https://SCRIPT_ID_EXEC_URL/login-log', {
+  //      method: 'POST',
+  //      headers: { 'Content-Type': 'application/json' },
+  //      body: JSON.stringify({
+  //        uid: user.uid,
+  //        email: user.email || '',
+  //        loginAt: new Date().toISOString()
+  //      })
+  //    });
+  //  }
+  //
+  // แล้วเรียก logLoginToSheet(user) ข้างใน saveUserAndGoDashboard()
+  // -----------------------------
+</script>
+
 </body>
 </html>
