@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ชำระเงินคอร์สเรียน | Well-Do-Win Academy</title>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Kanit', sans-serif;
+      background: #fffdf5;
+      color: #333;
+    }
+
+    .container {
+      max-width: 640px;
+      margin: 20px auto;
+      padding: 16px;
+    }
+
+    .card {
+      background: #ffffff;
+      padding: 16px;
+      border-radius: 14px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      margin: 0 0 12px;
+      font-size: 22px;
+      font-weight: 700;
+      color: #1E3D8F;
+    }
+
+    h3 {
+      margin: 0 0 8px;
+      font-size: 18px;
+      font-weight: 600;
+      color: #1E3D8F;
+    }
+
+    .price-box {
+      font-size: 18px;
+      font-weight: 700;
+      color: #d9460f;
+      margin-top: 10px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+      margin-top: 8px;
+    }
+
+    .btn {
+      display: block;
+      width: 100%;
+      background: #d94c4c;
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 16px;
+    }
+
+    .btn:hover {
+      background: #c0392b;
+    }
+
+    .qr-box {
+      text-align: center;
+      margin-top: 20px;
+      display: none;
+    }
+
+    .qr-box img {
+      width: 220px;
+      margin: 10px auto;
+      display: block;
+    }
+
+    .coupon-message {
+      margin-top: 6px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- กล่องรายละเอียดคอร์ส + ตารางเรียน -->
+    <div class="card" id="courseDetail"></div>
+
+    <!-- กล่องใส่โค้ดส่วนลด -->
+    <div class="card">
+      <h3>โค้ดส่วนลดศิษย์เก่า</h3>
+      <input id="coupon" type="text" placeholder="กรอกโค้ดส่วนลด">
+      <div id="couponMsg" class="coupon-message"></div>
+    </div>
+
+    <!-- ยอดชำระ -->
+    <div class="card">
+      <div class="price-box">
+        ยอดที่ต้องชำระ: <span id="totalPrice"></span> บาท
+      </div>
+      <button class="btn" onclick="createOrder()">ชำระเงินด้วย QR Code</button>
+    </div>
+
+    <!-- QR Code -->
+    <div class="qr-box" id="qrBox">
+      <p>สแกนเพื่อชำระเงิน</p>
+      <img id="qrImage" src="" alt="QR Payment">
+      <p style="font-size:13px;color:#555;">
+        หลังชำระเงิน กรุณาแคปหลักฐานส่งใน LINE หรือรอระบบตรวจสอบสิทธิ์อัตโนมัติ
+      </p>
+    </div>
+
+  </div>
+
+<script>
+  // 👉 URL ของ Apps Script Web App (เอาจาก Deploy ของพี่)
+  const ORDER_API_URL = 'https://script.google.com/macros/s/AKfycbyCgIjCvZGCLfFxEjx4zx8Hy7pXL5SO76dD4Y20e5--TSCLlPB521ibV9kdu7qpAqF6Dw/exec';
+
+  // 👉 PromptPay ของพี่ (เปลี่ยนเบอร์เองนะ)
+  const PROMPTPAY_ID = '0635455645';
+
+  /* -------- ข้อมูลคอร์ส + ตารางเรียน -------- */
+  const courseData = {
+    "term2-phy-chem-chumpae": {
+      title: "คอร์สเทอม 2 – ฟิสิกส์/เคมี (ชุมแพ)",
+      price: 3500,
+      schedule: `
+        <h3>ตารางเวลาเรียน</h3>
+        <ul>
+          <li>จำนวน 40 ชั่วโมง</li>
+          <li>มีวิดีโอย้อนหลังทุกครั้ง</li>
+          <li>กลุ่มวันอังคาร/พฤหัส หรือ กลุ่มวันเสาร์</li>
+          <li>เริ่มเรียน 18 พ.ย. 68 – 14 ก.พ. 69</li>
+        </ul>
+      `
+    },
+    "m4-term2-chumpae": {
+      title: "คอร์สเทอม 2 – ม.4 ฟิสิกส์/เคมี",
+      price: 3500,
+      schedule: `
+        <h3>ตารางเวลาเรียน</h3>
+        <ul>
+          <li>เรียนทุกวันเสาร์</li>
+          <li>ฟิสิกส์ 09.00–10.30</li>
+          <li>เคมี 13.00–14.30</li>
+          <li>วันที่เรียน: 22 พ.ย. 68 – 14 ก.พ. 69</li>
+        </ul>
+      `
+    },
+    "m5-term2-chumpae": {
+      title: "คอร์สเทอม 2 – ม.5 ฟิสิกส์/เคมี",
+      price: 3500,
+      schedule: `
+        <h3>ตารางเวลาเรียน</h3>
+        <ul>
+          <li>เรียนทุกวันเสาร์</li>
+          <li>ฟิสิกส์ 10.45–12.15</li>
+          <li>เคมี 14.30–16.00</li>
+          <li>วันที่เรียน: 22 พ.ย. 68 – 14 ก.พ. 69</li>
+        </ul>
+      `
+    },
+    "online-tgat-tpat-alevel": {
+      title: "คอร์สออนไลน์ – TGAT / TPAT3 / A-Level",
+      price: 4000,
+      schedule: `
+        <h3>รายละเอียดการเรียน</h3>
+        <ul>
+          <li>เรียนแบบออนไลน์ตัวต่อตัว</li>
+          <li>กำหนดเวลาเรียนได้เอง</li>
+                    <li>เริ่มต้น 18 ชั่วโมง ราคา 4,000 บาท</li>
+                    <li>จนถึงสอบ 14 มี.ค. 69</li>
+          <li>หมายเหตุ : 2 คนขึ้นไป คนละ 200 บ./ชม. (แจ้งทางไลน์)</li>
+        </ul>
+      `
+    },
+    "online-netsat": {
+      title: "คอร์สออนไลน์ – NETSAT ฟิสิกส์/เคมี",
+      price: 4000,
+      schedule: `
+        <h3>รายละเอียดการเรียน</h3>
+        <ul>
+          <li>เรียนแบบออนไลน์ยืดหยุ่น</li>
+          <li>กำหนดเวลาเรียนได้เอง</li>
+                    <li>เริ่มต้น 18 ชั่วโมง ราคา 4,000 บาท</li>
+          <li>จนถึงสอบ 7 ก.พ. 69</li>
+                    <li>หมายเหตุ : 2 คนขึ้นไป คนละ 200 บ./ชม. (แจ้งทางไลน์)</li>
+        </ul>
+      `
+    }
+  };
+
+  /* -------- โหลดข้อมูลคอร์สจาก URL หรือ localStorage -------- */
+  const urlParams = new URLSearchParams(window.location.search);
+  let courseId = urlParams.get('course');
+
+  if (!courseId && localStorage.getItem('pendingCourseId')) {
+    courseId = localStorage.getItem('pendingCourseId');
+  }
+
+  const course = courseData[courseId];
+  let price = course ? course.price : 0;
+  let finalPrice = price;
+  let currentCoupon = '';
+
+  if (course) {
+    document.getElementById('courseDetail').innerHTML = `
+      <h2>${course.title}</h2>
+      ${course.schedule}
+      <div style="font-size:15px;margin-top:10px;">
+        <strong>ราคา:</strong> ${course.price} บาท<br>
+        * ศิษย์เก่าลด 200 บาทโดยใช้โค้ดส่วนลดด้านล่าง
+      </div>
+    `;
+  } else {
+    document.getElementById('courseDetail').innerHTML = `
+      <p>ไม่พบข้อมูลคอร์สที่ต้องการชำระเงิน</p>
+      <p><a href="courses.html">คลิกที่นี่เพื่อกลับไปเลือกคอร์สอีกครั้ง</a></p>
+    `;
+  }
+
+  document.getElementById("totalPrice").textContent = finalPrice;
+
+  /* -------- ระบบโค้ดส่วนลด -------- */
+  document.getElementById('coupon').addEventListener('input', function() {
+    const code = this.value.trim().toUpperCase();
+    const msg  = document.getElementById("couponMsg");
+
+    if (code === "NEWANDOLD200") {
+      finalPrice = price - 200;
+      currentCoupon = code;
+      msg.textContent = "ใช้โค้ดส่วนลดสำเร็จ! ลด 200 บาท 🎉";
+      msg.style.color = "green";
+    } else if (code.length > 0) {
+      finalPrice = price;
+      currentCoupon = code;
+      msg.textContent = "โค้ดไม่ถูกต้อง";
+      msg.style.color = "red";
+    } else {
+      finalPrice = price;
+      currentCoupon = '';
+      msg.textContent = "";
+    }
+    document.getElementById("totalPrice").textContent = finalPrice;
+  });
+
+/* -------- ฟังก์ชันสร้างคำสั่งซื้อ + ส่งเข้า Google Sheet -------- */
+async function createOrder() {
+  if (!course) {
+    alert('ไม่พบข้อมูลคอร์ส');
+    return;
+  }
+
+  const userId  = localStorage.getItem('userId') || '';
+  const orderId = 'WDW-' + Date.now(); // ไอดีคำสั่งซื้อแบบง่าย ๆ
+
+  const payload = {
+    orderId,
+    userId,
+    courseId,
+    courseTitle: course.title,
+    price,
+    finalPrice,
+    discountCode: currentCoupon,
+    status: 'PENDING_PAYMENT'
+  };
+
+  // แปลงเป็นฟอร์มแบบ x-www-form-urlencoded
+  const formData = new URLSearchParams();
+  for (const key in payload) {
+    formData.append(key, payload[key]);
+  }
+
+  try {
+    const res = await fetch(ORDER_API_URL, {
+      method: 'POST',
+      // ❌ ไม่ต้องใส่ headers Content-Type เอง
+      body: formData
+    });
+
+    const text = await res.text();
+    console.log('Order API raw response:', text);
+
+    let data;
+    try {
+      data = JSON.parse(text);
+    } catch (e) {
+      alert('ตอบกลับจากเซิร์ฟเวอร์ไม่ใช่ JSON:\n\n' + text.slice(0, 200));
+      return;
+    }
+
+    if (data.success) {
+      showQR();   // ✅ บันทึกแล้วค่อยโชว์ QR
+    } else {
+      alert('บันทึกข้อมูลการสมัครไม่สำเร็จ: ' + (data.message || 'ไม่ทราบสาเหตุ'));
+    }
+
+  } catch (err) {
+    alert('มีปัญหาในการเชื่อมต่อเซิร์ฟเวอร์:\n' + err.message + '\n\nURL: ' + ORDER_API_URL);
+  }
+}
+
+
+  /* -------- แสดง QR Code โดยไม่ผ่าน Apps Script -------- */
+  function showQR() {
+    const amount = finalPrice || price || 0;
+    const qrUrl  = `https://promptpay.io/${PROMPTPAY_ID}/${amount}`;
+
+    document.getElementById("qrImage").src = qrUrl;
+    document.getElementById("qrBox").style.display = "block";
+    window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+  }
+</script>
+
+</body>
+</html>
