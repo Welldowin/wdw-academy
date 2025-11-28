@@ -3,33 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ระบบสมาชิก - Well-Do-Win Academy</title>
+  <title>ข้อมูลสมาชิก - Well-Do-Win Academy</title>
   <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;500;700&display=swap" rel="stylesheet">
   <style>
-    @keyframes blink-hot {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.3; transform: scale(1.05); }
-    }
-
-    .hot-badge {
-      display: inline-block;
-      background-color: #ff4d4f;
-      color: #fff;
-      font-size: 0.7rem;
-      padding: 0.1rem 0.5rem;
-      border-radius: 999px;
-      margin-left: 0.4rem;
-      font-weight: 700;
-      animation: blink-hot 1s infinite;
-    }
-
-    .summary-line {
-      cursor: pointer;
-    }
-    .summary-line:hover {
-      text-decoration: underline;
-    }
-
     body {
       margin: 0;
       font-family: 'Kanit', sans-serif;
@@ -78,354 +54,77 @@
       font-weight: 700;
     }
 
-    /* มุมขวาบน: ชื่อสมาชิก + ออกจากระบบ */
-    .user-menu {
+    .logout-btn {
       position: absolute;
       top: 15px;
       right: 20px;
-      display: flex;
-      align-items: center;
-      gap: 0.7rem;
+      padding: 0.4rem 0.9rem;
+      border-radius: 6px;
       font-size: 0.9rem;
-    }
-
-    .user-name {
-      background-color: rgba(0,0,0,0.15);
-      padding: 0.35rem 0.7rem;
-      border-radius: 999px;
-    }
-
-    .logout-btn {
-      padding: 0.4rem 0.9rem;
-      border-radius: 999px;
-      border: 1px solid white;
-      background-color: transparent;
-      color: white;
-      font-size: 0.85rem;
-      font-weight: 500;
-      cursor: pointer;
-      text-decoration: none;
-    }
-
-    .logout-btn:hover {
-      background-color: rgba(255,255,255,0.2);
-    }
-
-    /* เมนูย่อยหน้า member */
-    .member-nav-wrapper {
-      background-color: #fffdf5;
-      border-bottom: 1px solid #e1d3b5;
-    }
-
-    .member-nav {
-      max-width: 1080px;
-      margin: 0 auto;
-      padding: 0.6rem 1rem 0.7rem;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-      box-sizing: border-box;
-    }
-
-    .member-nav button {
       border: none;
-      background-color: #f3e4c2;
-      padding: 0.4rem 0.9rem;
-      border-radius: 999px;
-      font-size: 0.85rem;
-      cursor: pointer;
-    }
-
-    .member-nav button:hover {
-      background-color: #e9d39f;
-    }
-
-    .member-nav button.active {
       background-color: #D94C4C;
       color: white;
+      cursor: pointer;
     }
 
-    /* โครงหลักของหน้า */
-    .main {
-      max-width: 1080px;
-      margin: 2rem auto;
-      padding: 0 1rem 3rem;
-      box-sizing: border-box;
+    .member-container {
+      max-width: 700px;
+      margin: 2.5rem auto;
+      background-color: #fdf7e8;
+      padding: 2rem 1.8rem;
+      border-radius: 16px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
     }
 
-    .section-title {
-      font-size: 1.4rem;
+    .member-title {
+      font-size: 1.6rem;
       color: #1E3D8F;
-      margin-bottom: 0.8rem;
+      margin-bottom: 0.5rem;
     }
 
-    .grid-2 {
-      display: grid;
-      grid-template-columns: 2fr 1.1fr;
-      gap: 1.2rem;
+    .member-subtitle {
+      font-size: 0.95rem;
+      color: #555;
       margin-bottom: 1.5rem;
     }
 
-    .grid-3 {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.2rem;
-      margin-top: 1rem;
-    }
-
-    .card {
-      background-color: #fdf7e8;
-      border-radius: 16px;
-      padding: 1.3rem 1.2rem;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.05);
-      box-sizing: border-box;
-    }
-
-    .card h3 {
-      margin: 0 0 0.4rem;
-      font-size: 1.2rem;
-      color: #1E3D8F;
-    }
-
-    .card p {
-      margin: 0.2rem 0;
-      font-size: 0.95rem;
-    }
-
-    .badge {
-      display: inline-block;
-      background-color: #1E3D8F;
-      color: white;
-      font-size: 0.75rem;
-      padding: 0.2rem 0.6rem;
-      border-radius: 999px;
-      margin-left: 0.4rem;
-    }
-
-    .course-filter-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 0.8rem;
-      margin-bottom: 0.8rem;
-      flex-wrap: wrap;
-    }
-
-    .course-filter-row select {
-      padding: 0.4rem 0.6rem;
-      border-radius: 999px;
-      border: 1px solid #d2c5aa;
-      font-size: 0.85rem;
-      background-color: #fff9ec;
-    }
-
-    .course-item {
-      padding: 0.7rem 0.6rem;
-      border-radius: 10px;
-      background-color: #fff9ec;
-      margin-bottom: 0.5rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 0.6rem;
-      font-size: 0.9rem;
-    }
-
-    .course-info {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .course-name {
-      font-weight: 600;
-    }
-
-    .course-meta {
-      font-size: 0.8rem;
-      color: #666;
-    }
-
-    .course-actions {
-      display: flex;
-      flex-direction: column;
-      gap: 0.25rem;
-    }
-
-    .small-btn {
-      padding: 0.25rem 0.7rem;
-      border-radius: 999px;
-      border: none;
-      font-size: 0.78rem;
-      cursor: pointer;
-      white-space: nowrap;
-    }
-
-    .btn-primary {
-      background-color: #D94C4C;
-      color: white;
-    }
-
-    .btn-outline {
-      background-color: transparent;
-      border: 1px solid #D94C4C;
-      color: #D94C4C;
-    }
-
-    .tag {
-      display: inline-block;
-      font-size: 0.75rem;
-      padding: 0.15rem 0.55rem;
-      border-radius: 999px;
-      background-color: #ffe59e;
-      margin-top: 0.2rem;
-    }
-
-    .hw-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.9rem;
-      margin-top: 0.5rem;
-    }
-
-    .hw-table th,
-    .hw-table td {
-      border-bottom: 1px solid #eadfca;
-      padding: 0.45rem 0.4rem;
-      text-align: left;
-    }
-
-    .hw-table th {
-      font-size: 0.85rem;
-      color: #555;
-    }
-
-    .status-pill {
-      display: inline-block;
-      padding: 0.18rem 0.6rem;
-      border-radius: 999px;
-      font-size: 0.75rem;
-    }
-
-    .status-pending {
-      background-color: #ffe59e;
-      color: #664d00;
-    }
-
-    .status-done {
-      background-color: #c4f3c2;
-      color: #255b26;
-    }
-
-    .ann-item {
-      padding: 0.5rem 0;
-      border-bottom: 1px dashed #e0cfac;
-      font-size: 0.9rem;
-    }
-
-    .ann-item:last-child {
-      border-bottom: none;
-    }
-
-    .ann-date {
-      font-size: 0.78rem;
-      color: #777;
-    }
-
-    .video-list {
-      margin-top: 0.5rem;
-      font-size: 0.9rem;
-    }
-
-    .video-item {
-      padding: 0.4rem 0.3rem;
-      border-radius: 10px;
-      background-color: #fff9ec;
-      margin-bottom: 0.4rem;
-    }
-
-    .video-item-title {
-      font-weight: 600;
-    }
-
-    .video-item-meta {
-      font-size: 0.78rem;
-      color: #666;
-    }
-
-    .video-footer {
-      margin-top: 0.6rem;
-      font-size: 0.85rem;
-      color: #555;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-    }
-
-    .link-text {
-      font-size: 0.85rem;
-      color: #D94C4C;
-      text-decoration: none;
-      font-weight: 500;
-    }
-
-    .profile-grid {
-      display: grid;
-      grid-template-columns: 1.3fr 1.7fr;
-      gap: 1.2rem;
-    }
-
-    .profile-row {
-      display: flex;
-      justify-content: space-between;
-      gap: 0.7rem;
-      padding: 0.2rem 0;
-      font-size: 0.9rem;
-    }
-
-    .profile-label {
-      color: #555;
-      min-width: 110px;
-    }
-
-    .profile-value {
-      font-weight: 500;
-    }
-
-    /* ฟอร์มโปรไฟล์ */
-    .profile-form label {
+    label {
       display: block;
-      font-size: 0.9rem;
-      margin-bottom: 0.2rem;
-      color: #444;
+      font-size: 0.95rem;
+      margin-bottom: 0.3rem;
+      color: #333;
     }
 
-    .profile-form input,
-    .profile-form select {
+    input, select, textarea {
       width: 100%;
-      padding: 0.55rem 0.7rem;
+      padding: 0.6rem 0.7rem;
       border-radius: 8px;
       border: 1px solid #ccc;
-      font-size: 0.9rem;
-      margin-bottom: 0.8rem;
+      font-size: 0.95rem;
+      margin-bottom: 0.9rem;
       box-sizing: border-box;
-      background-color: #fff;
+    }
+
+    textarea {
+      min-height: 70px;
+      resize: vertical;
     }
 
     .primary-btn {
-      padding: 0.6rem 1.4rem;
-      border-radius: 999px;
+      padding: 0.7rem 1.4rem;
+      border-radius: 10px;
       border: none;
-      background-color: #D94C4C;
+      background-color: #1E9C5A;
       color: white;
-      font-size: 0.95rem;
+      font-size: 1rem;
       font-weight: 500;
       cursor: pointer;
     }
 
-    .primary-btn:hover {
-      opacity: 0.95;
+    .status-text {
+      margin-top: 0.6rem;
+      font-size: 0.85rem;
+      color: #555;
     }
 
     footer {
@@ -433,593 +132,156 @@
       color: white;
       text-align: center;
       padding: 1rem;
+      margin-top: 3rem;
       font-size: 0.9rem;
-    }
-
-    @media (max-width: 880px) {
-      .grid-2 {
-        grid-template-columns: 1fr;
-      }
-      .grid-3 {
-        grid-template-columns: 1fr;
-      }
-      .profile-grid {
-        grid-template-columns: 1fr;
-      }
     }
   </style>
 </head>
 <body>
 
   <header>
-    <!-- เมนูสมาชิก -->
-    <div class="user-menu">
-      <div class="user-name">
-        👋 สวัสดี, <span id="userNameDisplay">สมาชิก</span>
-      </div>
-      <a href="#" class="logout-btn" id="logoutBtn">ออกจากระบบ</a>
-    </div>
+    <button class="logout-btn" id="logout-btn">ออกจากระบบ</button>
 
-    <!-- เมนูนำทาง -->
     <nav class="top-nav">
       <a href="index.html">หน้าแรก</a>
-      <a href="courses.html">คอร์สเรียน</a>
-      <a href="#">ตารางเรียน</a>
-      <a href="#">คู่มือการใช้งาน</a>
+      <a href="#">คอร์สของฉัน</a>
+      <a href="#">วิดีโอย้อนหลัง</a>
+      <a href="#">การบ้าน</a>
     </nav>
 
-    <!-- โลโก้และชื่อโรงเรียน -->
     <div class="logo-center">
       <img src="logo.png" alt="โลโก้ WDW" class="logo-img" />
-      <h1 class="school-name">ระบบสมาชิก Well-Do-Win Academy</h1>
+      <h1 class="school-name">ข้อมูลสมาชิก Well-Do-Win</h1>
     </div>
   </header>
 
-  <!-- เมนูย่อยภายในหน้า member -->
-  <div class="member-nav-wrapper">
-    <div class="member-nav">
-      <button class="member-tab-btn active" data-target="overview">ภาพรวม</button>
-      <button class="member-tab-btn" data-target="courses">คอร์สของฉัน</button>
-      <button class="member-tab-btn" data-target="videos">วิดีโอย้อนหลัง</button>
-      <button class="member-tab-btn" data-target="homework">การบ้าน</button>
-      <button class="member-tab-btn" data-target="profile">โปรไฟล์</button>
-    </div>
-  </div>
+  <section class="member-container">
+    <h2 class="member-title">โปรไฟล์นักเรียน</h2>
+    <p class="member-subtitle">
+      กรอกข้อมูลโปรไฟล์ของน้อง ข้อมูลนี้จะใช้ในการจัดคอร์สเรียน วิดีโอ และการบ้านให้เหมาะสม
+    </p>
 
-  <main class="main">
+    <form id="profile-form">
+      <label for="fullName">ชื่อ–นามสกุล</label>
+      <input type="text" id="fullName" name="fullName" placeholder="เช่น ด.ช. สมชาย ใจดี">
 
-    <!-- ฟอร์มโปรไฟล์ (บังคับกรอกก่อนใช้งานระบบ) -->
-    <section class="card" id="profileFormSection" style="margin-bottom:1.5rem; display:none;">
-      <h2 class="section-title" style="margin-top:0;">กรอกข้อมูลโปรไฟล์นักเรียนก่อนใช้งานระบบ</h2>
-      <p style="font-size:0.9rem;color:#555;margin-bottom:1rem;">
-        กรุณากรอกข้อมูลด้านล่างให้ครบถ้วนก่อนสมัครคอร์สหรือใช้งานแดชบอร์ดระบบสมาชิก
-      </p>
+      <label for="nickname">ชื่อเล่น</label>
+      <input type="text" id="nickname" name="nickname" placeholder="เช่น แพนเค้ก">
 
-      <form id="profileForm" class="profile-form">
-        <label for="pf_firstname">ชื่อนักเรียน</label>
-        <input type="text" id="pf_firstname" required placeholder="เช่น ณัฐวุฒิ">
+      <label for="grade">ระดับชั้น</label>
+      <select id="grade" name="grade">
+        <option value="">-- เลือกระดับชั้น --</option>
+        <option value="ม.1">ม.1</option>
+        <option value="ม.2">ม.2</option>
+        <option value="ม.3">ม.3</option>
+        <option value="ม.4">ม.4</option>
+        <option value="ม.5">ม.5</option>
+        <option value="ม.6">ม.6</option>
+      </select>
 
-        <label for="pf_lastname">นามสกุลนักเรียน</label>
-        <input type="text" id="pf_lastname" required placeholder="เช่น ไพศรี">
+      <label for="school">โรงเรียน</label>
+      <input type="text" id="school" name="school" placeholder="ชื่อโรงเรียน">
 
-        <label for="pf_level">ระดับชั้น / กลุ่มเรียน</label>
-        <select id="pf_level" required>
-          <option value="">-- เลือกระดับชั้น --</option>
-          <option value="ม.3">ม.3</option>
-          <option value="ม.4">ม.4</option>
-          <option value="ม.5">ม.5</option>
-          <option value="ม.6">ม.6</option>
-        </select>
+      <label for="studentPhone">เบอร์โทรนักเรียน</label>
+      <input type="tel" id="studentPhone" name="studentPhone" placeholder="กรอกเบอร์โทรนักเรียน">
 
-        <label for="pf_school">โรงเรียน (ถ้ามี)</label>
-        <input type="text" id="pf_school" placeholder="เช่น โรงเรียนขอนแก่นวิทยายน">
+      <label for="parentPhone">เบอร์โทรผู้ปกครอง</label>
+      <input type="tel" id="parentPhone" name="parentPhone" placeholder="กรอกเบอร์ผู้ปกครอง">
 
-        <label for="pf_phone">เบอร์โทรนักเรียน</label>
-        <input type="tel" id="pf_phone" required placeholder="เช่น 08x-xxx-xxxx">
+      <label for="courses">คอร์สที่เรียนกับ Well-Do-Win ตอนนี้</label>
+      <textarea id="courses" name="courses" placeholder="เช่น ฟิสิกส์ ม.4 เทอม 2 / เคมี ม.5 ตะลุยโจทย์ ฯลฯ"></textarea>
 
-        <label for="pf_parent_phone">เบอร์ผู้ปกครอง (ถ้ามี)</label>
-        <input type="tel" id="pf_parent_phone" placeholder="เช่น 08x-xxx-xxxx">
-
-        <div style="margin-top:0.8rem;">
-          <button type="submit" class="primary-btn">บันทึกโปรไฟล์และเริ่มใช้งานระบบ</button>
-        </div>
-      </form>
-    </section>
-
-    <!-- เนื้อหาแดชบอร์ดจริง (จะถูกล็อกถ้ายังไม่กรอกโปรไฟล์) -->
-    <div id="dashboardContent">
-
-      <!-- แถวบน: ยินดีต้อนรับ + สรุปสถานะ -->
-      <div class="grid-2" id="overview">
-        <section class="card">
-          <h3>ยินดีต้อนรับกลับมา 🎓</h3>
-          <p><strong>น้องตัวอย่าง</strong> | ม.5 สายวิทย์ – คณิต</p>
-          <p>วันนี้มีคอร์สเรียนและการบ้านที่ยังไม่ส่งอยู่ ลองเช็คด้านล่างได้เลยนะครับ</p>
-          <p style="margin-top:0.7rem;font-size:0.85rem;color:#555;">
-            👉 หากมีปัญหาในการใช้งานระบบ ติดต่อครู / แอดมินได้ที่ Line: @welldowin
-          </p>
-        </section>
-
-        <section class="card" id="todaySummary">
-          <h3>สรุปสถานะวันนี้</h3>
-
-          <p class="summary-line" id="summaryCourses">
-            📚 คอร์สที่ลงทะเบียน:
-            <strong><span id="coursesCount">0</span> คอร์ส</strong>
-          </p>
-
-          <p class="summary-line" id="summaryHomework">
-            📝 การบ้านที่ต้องทำในสัปดาห์นี้:
-            <strong><span id="homeworkCount">0</span> ชิ้น</strong>
-          </p>
-
-          <p class="summary-line" id="summaryVideos">
-            🎥 วิดีโอใหม่ในสัปดาห์นี้:
-            <strong><span id="videosCount">0</span> คลิป</strong>
-          </p>
-
-          <p class="tag">
-            * ตัวเลขด้านบนจะดึงจากข้อมูลคอร์ส / การบ้าน / วิดีโอย้อนหลังด้านล่างของหน้านี้อัตโนมัติ
-          </p>
-        </section>
-
-      </div>
-
-      <!-- คอร์สของฉัน -->
-      <section style="margin-top:1.5rem;" id="courses">
-        <h2 class="section-title">คอร์สของฉัน</h2>
-        <div class="card">
-
-          <div class="course-filter-row">
-            <p style="margin:0;font-size:0.9rem;">
-              เลือกดูคอร์สตามวิชา:
-            </p>
-            <select>
-              <option>ทั้งหมด</option>
-              <option>เฉพาะฟิสิกส์</option>
-              <option>เฉพาะคณิตศาสตร์</option>
-              <option>คอร์สติวสอบเข้า มหาลัย</option>
-            </select>
-          </div>
-
-          <!-- ข้อความกรณีไม่มีคอร์สลงทะเบียน -->
-          <div id="noCoursesMessage" style="display:none; margin-top:0.5rem; font-size:0.9rem; color:#777;">
-            ตอนนี้ยังไม่มีคอร์สลงทะเบียน ไปสมัครกันเลย! ✨
-          </div>
-
-          <!-- คอร์สแนะนำ (จะโชว์เฉพาะตอนยังไม่มีคอร์ส) -->
-          <div id="recommendedCourses" style="display:none; margin-top:0.8rem;">
-            <p style="margin:0 0 0.5rem;font-size:0.9rem;">
-              คอร์สแนะนำสำหรับน้อง ๆ:
-            </p>
-
-            <div class="course-item recommend-course">
-              <div class="course-info">
-                <span class="course-name">
-                  ฟิสิกส์ ม.4 เทอม 2 – งาน พลังงาน และโมเมนตัม
-                  <span class="hot-badge">HOT!</span>
-                </span>
-                <span class="course-meta">เทอม 2 สายวิทย์ – ยอดลงทะเบียนสูงสุด</span>
-              </div>
-              <div class="course-actions">
-                <button class="small-btn btn-primary">สมัครเรียนคอร์สนี้</button>
-                <button class="small-btn btn-outline">ดูรายละเอียด</button>
-              </div>
-            </div>
-
-            <div class="course-item recommend-course">
-              <div class="course-info">
-                <span class="course-name">
-                  ฟิสิกส์ ม.5 เทอม 2 – ไฟฟ้าสถิต & สนามไฟฟ้า
-                  <span class="hot-badge">HOT!</span>
-                </span>
-                <span class="course-meta">เทอม 2 สายวิทย์ – คอร์สยอดนิยมของ Well-Do-Win</span>
-              </div>
-              <div class="course-actions">
-                <button class="small-btn btn-primary">สมัครเรียนคอร์สนี้</button>
-                <button class="small-btn btn-outline">ดูรายละเอียด</button>
-              </div>
-            </div>
-
-          </div>
-
-          <!-- รายการคอร์สที่น้องลงทะเบียนจริง -->
-          <div id="myCoursesList">
-            <div class="course-item">
-              <div class="course-info">
-                <span class="course-name">ฟิสิกส์ ม.5 เทอม 2 – ไฟฟ้าสถิต & สนามไฟฟ้า</span>
-                <span class="course-meta">เรียนทุกวันศุกร์ 17.30–19.30 | ห้องเรียน Lotus ชุมแพ</span>
-              </div>
-              <div class="course-actions">
-                <button class="small-btn btn-primary">เข้าเรียน / ดูเนื้อหา</button>
-                <button class="small-btn btn-outline">วิดีโอย้อนหลัง</button>
-              </div>
-            </div>
-
-            <div class="course-item">
-              <div class="course-info">
-                <span class="course-name">คณิต ม.5 – แคลคูลัสพื้นฐาน</span>
-                <span class="course-meta">เรียนวันอาทิตย์ 13.00–15.00 | ออนไลน์ (Zoom)</span>
-              </div>
-              <div class="course-actions">
-                <button class="small-btn btn-primary">เข้าเรียน / ดูเนื้อหา</button>
-                <button class="small-btn btn-outline">ดาวน์โหลดเอกสาร</button>
-              </div>
-            </div>
-
-            <div class="course-item">
-              <div class="course-info">
-                <span class="course-name">ติวเข้ามหาลัย – Physics 9 วิชาสามัญ</span>
-                <span class="course-meta">คอร์สเก็บเนื้อหาย้อนหลัง พร้อมข้อสอบเก่า</span>
-              </div>
-              <div class="course-actions">
-                <button class="small-btn btn-primary">เข้าเรียน / ดูคลิป</button>
-                <button class="small-btn btn-outline">ดูแนวข้อสอบ</button>
-              </div>
-            </div>
-          </div>
-
-          <!-- ปุ่มดูคอร์สทั้งหมด -->
-          <div style="margin-top:1rem; text-align:right;">
-            <a href="courses.html" class="primary-btn" style="text-decoration:none; display:inline-block;">
-              ดูคอร์สเรียนทั้งหมด
-            </a>
-          </div>
-
-        </div>
-      </section>
-
-      <!-- วิดีโอย้อนหลัง + การบ้าน -->
-      <div class="grid-2" style="margin-top:1.5rem;">
-
-        <section class="card" id="videos">
-          <h3>วิดีโอย้อนหลังล่าสุด 🎥</h3>
-          <div class="video-list">
-            <div class="video-item">
-              <div class="video-item-title">ฟิสิกส์ ม.5 – สนามไฟฟ้า ตอนที่ 1</div>
-              <div class="video-item-meta">อัปโหลด: 24 พ.ย. 2025 | ความยาว 1 ชม. 15 นาที</div>
-            </div>
-            <div class="video-item">
-              <div class="video-item-title">คณิต – ลิมิตม.ปลาย (พื้นฐาน)</div>
-              <div class="video-item-meta">อัปโหลด: 22 พ.ย. 2025 | ความยาว 50 นาที</div>
-            </div>
-            <div class="video-item">
-              <div class="video-item-title">Physics Exam Clinic – รวมโจทย์งานและพลังงาน</div>
-              <div class="video-item-meta">อัปโหลด: 20 พ.ย. 2025 | ความยาว 1 ชม. 05 นาที</div>
-            </div>
-          </div>
-          <div class="video-footer">
-            <span>* เวอร์ชันจริงจะลิงก์ไปยังวิดีโอที่เก็บในระบบ</span>
-            <a href="#" class="link-text">ดูวิดีโอย้อนหลังทั้งหมด</a>
-          </div>
-        </section>
-
-        <section class="card" id="homework">
-          <h3>การบ้าน & แบบฝึกหัด 📝</h3>
-          <table class="hw-table">
-            <thead>
-              <tr>
-                <th>วิชา</th>
-                <th>รายละเอียด</th>
-                <th>กำหนดส่ง</th>
-                <th>สถานะ</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>ฟิสิกส์ ม.5</td>
-                <td>แบบฝึกหัดหน้า 9 ข้อที่วงไว้</td>
-                <td>ศ. 29 พ.ย.</td>
-                <td><span class="status-pill status-pending">ค้างส่ง</span></td>
-              </tr>
-              <tr>
-                <td>คณิต ม.5</td>
-                <td>ลิมิตแบบฝึกหัดชุดที่ 2</td>
-                <td>พ. 27 พ.ย.</td>
-                <td><span class="status-pill status-done">ส่งแล้ว</span></td>
-              </tr>
-              <tr>
-                <td>Physics Exam</td>
-                <td>โจทย์งาน–พลังงาน 15 พ.ศ.</td>
-                <td>อา. 1 ธ.ค.</td>
-                <td><span class="status-pill status-pending">ค้างส่ง</span></td>
-              </tr>
-            </tbody>
-          </table>
-        </section>
-
-      </div>
-
-      <!-- ประกาศ -->
-      <section style="margin-top:1.5rem;">
-        <h2 class="section-title">ประกาศจาก Well-Do-Win 📢</h2>
-        <div class="card">
-          <div class="ann-item">
-            <div><strong>แจ้งเลื่อนเวลาเรียนฟิสิกส์ ม.5 วันศุกร์</strong></div>
-            <div class="ann-date">ประกาศเมื่อ: 23 พ.ย. 2025</div>
-            <div>ย้ายเวลาเรียนจาก 17.30–19.30 เป็น 18.00–20.00 ชั่วคราว 2 สัปดาห์</div>
-          </div>
-          <div class="ann-item">
-            <div><strong>เพิ่มคลาสติวโจทย์สอบเข้า มหาลัย วันอาทิตย์เช้า</strong></div>
-            <div class="ann-date">ประกาศเมื่อ: 21 พ.ย. 2025</div>
-            <div>เปิดคลาสใหม่สำหรับน้อง ม.6 ที่ต้องการติวเน้นโจทย์ Physics 9 วิชาสามัญ</div>
-          </div>
-          <div class="ann-item">
-            <div><strong>ทดลองใช้ระบบสมาชิกเวอร์ชันใหม่</strong></div>
-            <div class="ann-date">ประกาศเมื่อ: 20 พ.ย. 2025</div>
-            <div>หากพบปัญหาในการใช้งาน แจ้งครูหรือแอดมินได้ที่ Line: @welldowin</div>
-          </div>
-        </div>
-      </section>
-
-      <!-- โปรไฟล์ของฉัน (ตัวอย่าง) -->
-      <section style="margin-top:1.5rem;" id="profile">
-        <h2 class="section-title">โปรไฟล์ของฉัน 👤</h2>
-        <div class="card profile-grid">
-          <div>
-            <h3>ข้อมูลนักเรียน</h3>
-            <div class="profile-row">
-              <div class="profile-label">ชื่อ - นามสกุล</div>
-              <div class="profile-value">น้องตัวอย่าง ตัวจริง</div>
-            </div>
-            <div class="profile-row">
-              <div class="profile-label">ระดับชั้น</div>
-              <div class="profile-value">ม.5 สายวิทย์ – คณิต</div>
-            </div>
-            <div class="profile-row">
-              <div class="profile-label">โรงเรียน</div>
-              <div class="profile-value">โรงเรียนตัวอย่างขอนแก่น</div>
-            </div>
-            <div class="profile-row">
-              <div class="profile-label">เบอร์โทร</div>
-              <div class="profile-value">08x-xxx-xxxx</div>
-            </div>
-            <div class="profile-row">
-              <div class="profile-label">ผู้ปกครอง</div>
-              <div class="profile-value">คุณพ่อ / คุณแม่ตัวอย่าง</div>
-            </div>
-          </div>
-          <div>
-            <h3>บัญชีสำหรับเข้าสู่ระบบ</h3>
-            <div class="profile-row">
-              <div class="profile-label">อีเมล</div>
-              <div class="profile-value" id="profileEmail">student@example.com</div>
-            </div>
-            <div class="profile-row">
-              <div class="profile-label">เชื่อมกับ LINE</div>
-              <div class="profile-value">-</div>
-            </div>
-            <div class="profile-row">
-              <div class="profile-label">สถานะการใช้งาน</div>
-              <div class="profile-value">ปกติ</div>
-            </div>
-            <p style="font-size:0.85rem;color:#555;margin-top:0.8rem;">
-              หากข้อมูลผิด หรือ ต้องการเปลี่ยนเบอร์โทร / อีเมล / บัญชี LINE  
-              กรุณาแจ้งครูหรือแอดมินผ่าน Line: @welldowin
-            </p>
-          </div>
-        </div>
-      </section>
-
-    </div><!-- /dashboardContent -->
-
-  </main>
+      <button type="submit" class="primary-btn">บันทึกข้อมูล</button>
+      <div class="status-text" id="status-text"></div>
+    </form>
+  </section>
 
   <footer>
     © 2025 โรงเรียนกวดวิชาเวลดูวิน - เป็นให้มากกว่าโรงเรียนกวดวิชา
   </footer>
 
+  <!-- Firebase compat -->
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+
   <script>
-    // ---------- 0) ตั้งค่า URL Apps Script ----------
-    const PROFILE_API_URL = 'https://script.google.com/macros/s/AKfycbyLgkr4LDPH41ulPmq7V39zm7Caux4UYP3IFadUwE9Ot3UqbRlRR8z0v28KIkzVn1y_/exec';
+    const firebaseConfig = {
+      apiKey: "AIzaSyBEEb59wVHs_uHKW87P6n54A6NRzSlyElE",
+      authDomain: "well-do-win-academy.firebaseapp.com",
+      projectId: "well-do-win-academy",
+      storageBucket: "well-do-win-academy.firebasestorage.app",
+      messagingSenderId: "804445893350",
+      appId: "1:804445893350:web:935fedc5735f504636c127",
+      measurementId: "G-KVKM2C5JEZ"
+    };
 
-    // ---------- 1) เช็กการล็อกอินจาก localStorage ----------
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    const profileForm = document.getElementById('profile-form');
+    const statusText = document.getElementById('status-text');
+    const logoutBtn = document.getElementById('logout-btn');
+
+    const PROFILE_KEY = 'memberProfile';
+
+    // ถ้าไม่พบ userId ให้เด้งกลับไปหน้า login
     const userId = localStorage.getItem('userId');
-    const userEmail = localStorage.getItem('userEmail') || '';
-
     if (!userId) {
-      alert('กรุณาเข้าสู่ระบบก่อนใช้งานระบบสมาชิก');
       window.location.href = 'login.html';
     }
 
-    const userNameDisplay = document.getElementById('userNameDisplay');
-    const profileEmail = document.getElementById('profileEmail');
-    if (userEmail && userNameDisplay) userNameDisplay.textContent = userEmail;
-    if (userEmail && profileEmail) profileEmail.textContent = userEmail;
-
-    const logoutBtn = document.getElementById('logoutBtn');
-    logoutBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      localStorage.removeItem('userId');
-      localStorage.removeItem('userEmail');
-      // ไม่ต้องลบ profileCompleted แล้ว
-      window.location.href = 'index.html';
-    });
-
-    // ---------- 2) บังคับกรอกโปรไฟล์ก่อน ----------
-    const profileFormSection = document.getElementById('profileFormSection');
-    const dashboardContent = document.getElementById('dashboardContent');
-    const profileCompleted = localStorage.getItem('profileCompleted');
-
-    function lockDashboard() {
-      profileFormSection.style.display = 'block';
-      dashboardContent.style.opacity = '0.4';
-      dashboardContent.style.pointerEvents = 'none';
-    }
-
-    function unlockDashboard() {
-      profileFormSection.style.display = 'none';
-      dashboardContent.style.opacity = '1';
-      dashboardContent.style.pointerEvents = 'auto';
-    }
-
-    if (profileCompleted === 'true') {
-      unlockDashboard();
-    } else {
-      lockDashboard();
-    }
-
-    // ---------- 3) ส่งข้อมูลโปรไฟล์ไป Apps Script แบบ GET ----------
-    const profileForm = document.getElementById('profileForm');
-    profileForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-
-      const payload = {
-        userId: userId,
-        email: userEmail,
-        firstName: document.getElementById('pf_firstname').value.trim(),
-        lastName: document.getElementById('pf_lastname').value.trim(),
-        level: document.getElementById('pf_level').value,
-        school: document.getElementById('pf_school').value.trim(),
-        phone: document.getElementById('pf_phone').value.trim(),
-        parentPhone: document.getElementById('pf_parent_phone').value.trim()
-      };
-
-      if (!payload.firstName || !payload.lastName || !payload.level || !payload.phone) {
-        alert('กรุณากรอกข้อมูลที่จำเป็นให้ครบถ้วน');
-        return;
-      }
-
-      const params = new URLSearchParams(payload).toString();
-      const url = `${PROFILE_API_URL}?${params}`;
+    // โหลดข้อมูลจาก localStorage ถ้ามี
+    function loadProfile() {
+      const raw = localStorage.getItem(PROFILE_KEY);
+      if (!raw) return;
 
       try {
-        const res = await fetch(url);       // GET ธรรมดา
-        const text = await res.text();
-        console.log('Profile API response:', text);
-
-        if (text.trim().startsWith('OK')) {
-          alert('บันทึกโปรไฟล์เรียบร้อยแล้ว ✅');
-          localStorage.setItem('profileCompleted', 'true');
-          unlockDashboard();
-        } else {
-          alert('บันทึกโปรไฟล์ไม่สำเร็จ: ' + text);
-        }
-      } catch (err) {
-        console.error(err);
-        alert('บันทึกโปรไฟล์ไม่สำเร็จ (network error): ' + err.message);
+        const data = JSON.parse(raw);
+        document.getElementById('fullName').value = data.fullName || '';
+        document.getElementById('nickname').value = data.nickname || '';
+        document.getElementById('grade').value = data.grade || '';
+        document.getElementById('school').value = data.school || '';
+        document.getElementById('studentPhone').value = data.studentPhone || '';
+        document.getElementById('parentPhone').value = data.parentPhone || '';
+        document.getElementById('courses').value = data.courses || '';
+      } catch (e) {
+        console.error('ไม่สามารถอ่านข้อมูลโปรไฟล์จาก localStorage', e);
       }
+    }
+
+    loadProfile();
+
+    profileForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const data = {
+        fullName: document.getElementById('fullName').value.trim(),
+        nickname: document.getElementById('nickname').value.trim(),
+        grade: document.getElementById('grade').value,
+        school: document.getElementById('school').value.trim(),
+        studentPhone: document.getElementById('studentPhone').value.trim(),
+        parentPhone: document.getElementById('parentPhone').value.trim(),
+        courses: document.getElementById('courses').value.trim()
+      };
+
+      localStorage.setItem(PROFILE_KEY, JSON.stringify(data));
+      statusText.textContent = 'บันทึกข้อมูลเรียบร้อยแล้ว 🎉';
+      setTimeout(() => {
+        statusText.textContent = '';
+      }, 2500);
     });
 
-    // ---------- 4) เมนูแท็บเลื่อน Section ----------
-    const buttons = document.querySelectorAll('.member-tab-btn');
-    const sections = {
-      overview: document.getElementById('overview'),
-      courses: document.getElementById('courses'),
-      videos: document.getElementById('videos'),
-      homework: document.getElementById('homework'),
-      profile: document.getElementById('profile')
-    };
-
-    buttons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const target = btn.getAttribute('data-target');
-        const section = sections[target];
-        if (section) {
-          window.scrollTo({
-            top: section.offsetTop - 80,
-            behavior: 'smooth'
-          });
-        }
-        buttons.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-      });
+    logoutBtn.addEventListener('click', async () => {
+      try {
+        await auth.signOut();
+      } catch (e) {
+        console.error(e);
+      }
+      // ไม่ลบ PROFILE_KEY เพื่อให้ข้อมูลยังอยู่
+      localStorage.removeItem('userId');
+      localStorage.removeItem('userEmail');
+      window.location.href = 'login.html';
     });
-
-    window.addEventListener('scroll', () => {
-      const scrollPos = window.scrollY + 150;
-      Object.entries(sections).forEach(([key, section]) => {
-        if (!section) return;
-        const top = section.offsetTop;
-        const bottom = top + section.offsetHeight;
-        if (scrollPos >= top && scrollPos < bottom) {
-          buttons.forEach(b => {
-            if (b.getAttribute('data-target') === key) {
-              b.classList.add('active');
-            } else {
-              b.classList.remove('active');
-            }
-          });
-        }
-      });
-    });
-
-    // ---------- 5) นับจำนวนคอร์ส / การบ้าน / วิดีโอ จากข้อมูลจริงบนหน้า ----------
-    function updateSummaryCounts() {
-      const coursesCountEl = document.getElementById('coursesCount');
-      const homeworkCountEl = document.getElementById('homeworkCount');
-      const videosCountEl = document.getElementById('videosCount');
-
-      if (coursesCountEl) {
-        const courseItems = document.querySelectorAll('#myCoursesList .course-item');
-        coursesCountEl.textContent = courseItems.length;
-      }
-
-      if (homeworkCountEl) {
-        // นับเฉพาะการบ้านที่ยัง "ค้างส่ง"
-        const hwPending = document.querySelectorAll('#homework .status-pending');
-        homeworkCountEl.textContent = hwPending.length;
-      }
-
-      if (videosCountEl) {
-        const videoItems = document.querySelectorAll('#videos .video-item');
-        videosCountEl.textContent = videoItems.length;
-      }
-    }
-
-    // ---------- 6) แสดง/ซ่อนข้อความยังไม่มีคอร์ส + คอร์สแนะนำ ----------
-    function updateCoursesUI() {
-      const myCoursesList = document.getElementById('myCoursesList');
-      const noCoursesMsg = document.getElementById('noCoursesMessage');
-      const recommended = document.getElementById('recommendedCourses');
-
-      let registeredCount = 0;
-      if (myCoursesList) {
-        registeredCount = myCoursesList.querySelectorAll('.course-item').length;
-      }
-
-      if (registeredCount === 0) {
-        if (myCoursesList) myCoursesList.style.display = 'none';
-        if (noCoursesMsg) noCoursesMsg.style.display = 'block';
-        if (recommended) recommended.style.display = 'block';
-      } else {
-        if (myCoursesList) myCoursesList.style.display = 'block';
-        if (noCoursesMsg) noCoursesMsg.style.display = 'none';
-        if (recommended) recommended.style.display = 'none';
-      }
-    }
-
-    // เรียกตอนโหลดหน้า
-    updateSummaryCounts();
-    updateCoursesUI();
-
-    // ---------- 7) ทำให้คลิกที่สรุปแล้วเลื่อนลงไปส่วนที่เกี่ยวข้อง ----------
-    const summaryCourses = document.getElementById('summaryCourses');
-    const summaryHomework = document.getElementById('summaryHomework');
-    const summaryVideos = document.getElementById('summaryVideos');
-
-    function scrollToSection(sectionKey) {
-      const section = sections[sectionKey];
-      if (section) {
-        window.scrollTo({
-          top: section.offsetTop - 80,
-          behavior: 'smooth'
-        });
-      }
-    }
-
-    if (summaryCourses) {
-      summaryCourses.addEventListener('click', () => scrollToSection('courses'));
-    }
-
-    if (summaryHomework) {
-      summaryHomework.addEventListener('click', () => scrollToSection('homework'));
-    }
-
-    if (summaryVideos) {
-      summaryVideos.addEventListener('click', () => scrollToSection('videos'));
-    }
   </script>
-
 </body>
 </html>
