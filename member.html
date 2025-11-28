@@ -7,28 +7,29 @@
   <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;500;700&display=swap" rel="stylesheet">
   <style>
     @keyframes blink-hot {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.3; transform: scale(1.05); }
-}
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.3; transform: scale(1.05); }
+    }
 
-.hot-badge {
-  display: inline-block;
-  background-color: #ff4d4f;
-  color: #fff;
-  font-size: 0.7rem;
-  padding: 0.1rem 0.5rem;
-  border-radius: 999px;
-  margin-left: 0.4rem;
-  font-weight: 700;
-  animation: blink-hot 1s infinite;
-}
+    .hot-badge {
+      display: inline-block;
+      background-color: #ff4d4f;
+      color: #fff;
+      font-size: 0.7rem;
+      padding: 0.1rem 0.5rem;
+      border-radius: 999px;
+      margin-left: 0.4rem;
+      font-weight: 700;
+      animation: blink-hot 1s infinite;
+    }
 
     .summary-line {
-  cursor: pointer;
-}
-.summary-line:hover {
-  text-decoration: underline;
-}
+      cursor: pointer;
+    }
+    .summary-line:hover {
+      text-decoration: underline;
+    }
+
     body {
       margin: 0;
       font-family: 'Kanit', sans-serif;
@@ -539,32 +540,32 @@
           </p>
         </section>
 
-       <section class="card" id="todaySummary">
-        <h3>สรุปสถานะวันนี้</h3>
+        <section class="card" id="todaySummary">
+          <h3>สรุปสถานะวันนี้</h3>
 
-  <p class="summary-line" id="summaryCourses">
-    📚 คอร์สที่ลงทะเบียน:
-    <strong><span id="coursesCount">0</span> คอร์ส</strong>
-  </p>
+          <p class="summary-line" id="summaryCourses">
+            📚 คอร์สที่ลงทะเบียน:
+            <strong><span id="coursesCount">0</span> คอร์ส</strong>
+          </p>
 
-  <p class="summary-line" id="summaryHomework">
-    📝 การบ้านที่ต้องทำในสัปดาห์นี้:
-    <strong><span id="homeworkCount">0</span> ชิ้น</strong>
-  </p>
+          <p class="summary-line" id="summaryHomework">
+            📝 การบ้านที่ต้องทำในสัปดาห์นี้:
+            <strong><span id="homeworkCount">0</span> ชิ้น</strong>
+          </p>
 
-  <p class="summary-line" id="summaryVideos">
-    🎥 วิดีโอใหม่ในสัปดาห์นี้:
-    <strong><span id="videosCount">0</span> คลิป</strong>
-  </p>
+          <p class="summary-line" id="summaryVideos">
+            🎥 วิดีโอใหม่ในสัปดาห์นี้:
+            <strong><span id="videosCount">0</span> คลิป</strong>
+          </p>
 
-  <p class="tag">
-    * ตัวเลขด้านบนจะดึงจากข้อมูลคอร์ส / การบ้าน / วิดีโอย้อนหลังด้านล่างของหน้านี้อัตโนมัติ
-  </p>
-</section>
+          <p class="tag">
+            * ตัวเลขด้านบนจะดึงจากข้อมูลคอร์ส / การบ้าน / วิดีโอย้อนหลังด้านล่างของหน้านี้อัตโนมัติ
+          </p>
+        </section>
 
       </div>
 
-           <!-- คอร์สของฉัน -->
+      <!-- คอร์สของฉัน -->
       <section style="margin-top:1.5rem;" id="courses">
         <h2 class="section-title">คอร์สของฉัน</h2>
         <div class="card">
@@ -667,7 +668,6 @@
 
         </div>
       </section>
-
 
       <!-- วิดีโอย้อนหลัง + การบ้าน -->
       <div class="grid-2" style="margin-top:1.5rem;">
@@ -809,223 +809,217 @@
     © 2025 โรงเรียนกวดวิชาเวลดูวิน - เป็นให้มากกว่าโรงเรียนกวดวิชา
   </footer>
 
-    <script>
-  // ---------- 0) ตั้งค่า URL Apps Script ----------
-  const PROFILE_API_URL = 'https://script.google.com/macros/s/AKfycbyLgkr4LDPH41ulPmq7V39zm7Caux4UYP3IFadUwE9Ot3UqbRlRR8z0v28KIkzVn1y_/exec';
+  <script>
+    // ---------- 0) ตั้งค่า URL Apps Script ----------
+    const PROFILE_API_URL = 'https://script.google.com/macros/s/AKfycbyLgkr4LDPH41ulPmq7V39zm7Caux4UYP3IFadUwE9Ot3UqbRlRR8z0v28KIkzVn1y_/exec';
 
-  // ---------- 1) เช็กการล็อกอินจาก localStorage ----------
-  const userId = localStorage.getItem('userId');
-  const userEmail = localStorage.getItem('userEmail') || '';
+    // ---------- 1) เช็กการล็อกอินจาก localStorage ----------
+    const userId = localStorage.getItem('userId');
+    const userEmail = localStorage.getItem('userEmail') || '';
 
-  if (!userId) {
-    alert('กรุณาเข้าสู่ระบบก่อนใช้งานระบบสมาชิก');
-    window.location.href = 'login.html';
-  }
+    if (!userId) {
+      alert('กรุณาเข้าสู่ระบบก่อนใช้งานระบบสมาชิก');
+      window.location.href = 'login.html';
+    }
 
-  const userNameDisplay = document.getElementById('userNameDisplay');
-  const profileEmail = document.getElementById('profileEmail');
-  if (userEmail && userNameDisplay) userNameDisplay.textContent = userEmail;
-  if (userEmail && profileEmail) profileEmail.textContent = userEmail;
+    const userNameDisplay = document.getElementById('userNameDisplay');
+    const profileEmail = document.getElementById('profileEmail');
+    if (userEmail && userNameDisplay) userNameDisplay.textContent = userEmail;
+    if (userEmail && profileEmail) profileEmail.textContent = userEmail;
 
-  const logoutBtn = document.getElementById('logoutBtn');
-  logoutBtn.addEventListener('click', (e) => {
-  e.preventDefault();
-  localStorage.removeItem('userId');
-  localStorage.removeItem('userEmail');
-  // ❌ ไม่ต้องลบ profileCompleted แล้ว
-  // localStorage.removeItem('profileCompleted');
-  window.location.href = 'index.html';
-});
+    const logoutBtn = document.getElementById('logoutBtn');
+    logoutBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      localStorage.removeItem('userId');
+      localStorage.removeItem('userEmail');
+      // ไม่ต้องลบ profileCompleted แล้ว
+      window.location.href = 'index.html';
+    });
 
+    // ---------- 2) บังคับกรอกโปรไฟล์ก่อน ----------
+    const profileFormSection = document.getElementById('profileFormSection');
+    const dashboardContent = document.getElementById('dashboardContent');
+    const profileCompleted = localStorage.getItem('profileCompleted');
 
-  // ---------- 2) บังคับกรอกโปรไฟล์ก่อน ----------
-  const profileFormSection = document.getElementById('profileFormSection');
-  const dashboardContent = document.getElementById('dashboardContent');
-  const profileCompleted = localStorage.getItem('profileCompleted');
+    function lockDashboard() {
+      profileFormSection.style.display = 'block';
+      dashboardContent.style.opacity = '0.4';
+      dashboardContent.style.pointerEvents = 'none';
+    }
 
-  function lockDashboard() {
-    profileFormSection.style.display = 'block';
-    dashboardContent.style.opacity = '0.4';
-    dashboardContent.style.pointerEvents = 'none';
-  }
+    function unlockDashboard() {
+      profileFormSection.style.display = 'none';
+      dashboardContent.style.opacity = '1';
+      dashboardContent.style.pointerEvents = 'auto';
+    }
 
-  function unlockDashboard() {
-    profileFormSection.style.display = 'none';
-    dashboardContent.style.opacity = '1';
-    dashboardContent.style.pointerEvents = 'auto';
-  }
+    if (profileCompleted === 'true') {
+      unlockDashboard();
+    } else {
+      lockDashboard();
+    }
 
-  if (profileCompleted === 'true') {
-    unlockDashboard();
-  } else {
-    lockDashboard();
-  }
+    // ---------- 3) ส่งข้อมูลโปรไฟล์ไป Apps Script แบบ GET ----------
+    const profileForm = document.getElementById('profileForm');
+    profileForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
 
-  // ---------- 3) ส่งข้อมูลโปรไฟล์ไป Apps Script แบบ GET ----------
-  const profileForm = document.getElementById('profileForm');
-  profileForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
+      const payload = {
+        userId: userId,
+        email: userEmail,
+        firstName: document.getElementById('pf_firstname').value.trim(),
+        lastName: document.getElementById('pf_lastname').value.trim(),
+        level: document.getElementById('pf_level').value,
+        school: document.getElementById('pf_school').value.trim(),
+        phone: document.getElementById('pf_phone').value.trim(),
+        parentPhone: document.getElementById('pf_parent_phone').value.trim()
+      };
 
-    const payload = {
-      userId: userId,
-      email: userEmail,
-      firstName: document.getElementById('pf_firstname').value.trim(),
-      lastName: document.getElementById('pf_lastname').value.trim(),
-      level: document.getElementById('pf_level').value,
-      school: document.getElementById('pf_school').value.trim(),
-      phone: document.getElementById('pf_phone').value.trim(),
-      parentPhone: document.getElementById('pf_parent_phone').value.trim()
+      if (!payload.firstName || !payload.lastName || !payload.level || !payload.phone) {
+        alert('กรุณากรอกข้อมูลที่จำเป็นให้ครบถ้วน');
+        return;
+      }
+
+      const params = new URLSearchParams(payload).toString();
+      const url = `${PROFILE_API_URL}?${params}`;
+
+      try {
+        const res = await fetch(url);       // GET ธรรมดา
+        const text = await res.text();
+        console.log('Profile API response:', text);
+
+        if (text.trim().startsWith('OK')) {
+          alert('บันทึกโปรไฟล์เรียบร้อยแล้ว ✅');
+          localStorage.setItem('profileCompleted', 'true');
+          unlockDashboard();
+        } else {
+          alert('บันทึกโปรไฟล์ไม่สำเร็จ: ' + text);
+        }
+      } catch (err) {
+        console.error(err);
+        alert('บันทึกโปรไฟล์ไม่สำเร็จ (network error): ' + err.message);
+      }
+    });
+
+    // ---------- 4) เมนูแท็บเลื่อน Section ----------
+    const buttons = document.querySelectorAll('.member-tab-btn');
+    const sections = {
+      overview: document.getElementById('overview'),
+      courses: document.getElementById('courses'),
+      videos: document.getElementById('videos'),
+      homework: document.getElementById('homework'),
+      profile: document.getElementById('profile')
     };
 
-    if (!payload.firstName || !payload.lastName || !payload.level || !payload.phone) {
-      alert('กรุณากรอกข้อมูลที่จำเป็นให้ครบถ้วน');
-      return;
-    }
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const target = btn.getAttribute('data-target');
+        const section = sections[target];
+        if (section) {
+          window.scrollTo({
+            top: section.offsetTop - 80,
+            behavior: 'smooth'
+          });
+        }
+        buttons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
 
-    // ประกอบ URL เป็น query string
-    const params = new URLSearchParams(payload).toString();
-    const url = `${PROFILE_API_URL}?${params}`;
+    window.addEventListener('scroll', () => {
+      const scrollPos = window.scrollY + 150;
+      Object.entries(sections).forEach(([key, section]) => {
+        if (!section) return;
+        const top = section.offsetTop;
+        const bottom = top + section.offsetHeight;
+        if (scrollPos >= top && scrollPos < bottom) {
+          buttons.forEach(b => {
+            if (b.getAttribute('data-target') === key) {
+              b.classList.add('active');
+            } else {
+              b.classList.remove('active');
+            }
+          });
+        }
+      });
+    });
 
-    try {
-      const res = await fetch(url);       // GET ธรรมดา
-      const text = await res.text();
-      console.log('Profile API response:', text);
+    // ---------- 5) นับจำนวนคอร์ส / การบ้าน / วิดีโอ จากข้อมูลจริงบนหน้า ----------
+    function updateSummaryCounts() {
+      const coursesCountEl = document.getElementById('coursesCount');
+      const homeworkCountEl = document.getElementById('homeworkCount');
+      const videosCountEl = document.getElementById('videosCount');
 
-      if (text.trim().startsWith('OK')) {
-        alert('บันทึกโปรไฟล์เรียบร้อยแล้ว ✅');
-        localStorage.setItem('profileCompleted', 'true');
-        unlockDashboard();
-      } else {
-        alert('บันทึกโปรไฟล์ไม่สำเร็จ: ' + text);
+      if (coursesCountEl) {
+        const courseItems = document.querySelectorAll('#myCoursesList .course-item');
+        coursesCountEl.textContent = courseItems.length;
       }
-    } catch (err) {
-      console.error(err);
-      alert('บันทึกโปรไฟล์ไม่สำเร็จ (network error): ' + err.message);
+
+      if (homeworkCountEl) {
+        // นับเฉพาะการบ้านที่ยัง "ค้างส่ง"
+        const hwPending = document.querySelectorAll('#homework .status-pending');
+        homeworkCountEl.textContent = hwPending.length;
+      }
+
+      if (videosCountEl) {
+        const videoItems = document.querySelectorAll('#videos .video-item');
+        videosCountEl.textContent = videoItems.length;
+      }
     }
-  });
 
-  // ---------- 4) เมนูแท็บเลื่อน Section ----------
-  const buttons = document.querySelectorAll('.member-tab-btn');
-  const sections = {
-    overview: document.getElementById('overview'),
-    courses: document.getElementById('courses'),
-    videos: document.getElementById('videos'),
-    homework: document.getElementById('homework'),
-    profile: document.getElementById('profile')
-  };
+    // ---------- 6) แสดง/ซ่อนข้อความยังไม่มีคอร์ส + คอร์สแนะนำ ----------
+    function updateCoursesUI() {
+      const myCoursesList = document.getElementById('myCoursesList');
+      const noCoursesMsg = document.getElementById('noCoursesMessage');
+      const recommended = document.getElementById('recommendedCourses');
 
-  buttons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const target = btn.getAttribute('data-target');
-      const section = sections[target];
+      let registeredCount = 0;
+      if (myCoursesList) {
+        registeredCount = myCoursesList.querySelectorAll('.course-item').length;
+      }
+
+      if (registeredCount === 0) {
+        if (myCoursesList) myCoursesList.style.display = 'none';
+        if (noCoursesMsg) noCoursesMsg.style.display = 'block';
+        if (recommended) recommended.style.display = 'block';
+      } else {
+        if (myCoursesList) myCoursesList.style.display = 'block';
+        if (noCoursesMsg) noCoursesMsg.style.display = 'none';
+        if (recommended) recommended.style.display = 'none';
+      }
+    }
+
+    // เรียกตอนโหลดหน้า
+    updateSummaryCounts();
+    updateCoursesUI();
+
+    // ---------- 7) ทำให้คลิกที่สรุปแล้วเลื่อนลงไปส่วนที่เกี่ยวข้อง ----------
+    const summaryCourses = document.getElementById('summaryCourses');
+    const summaryHomework = document.getElementById('summaryHomework');
+    const summaryVideos = document.getElementById('summaryVideos');
+
+    function scrollToSection(sectionKey) {
+      const section = sections[sectionKey];
       if (section) {
         window.scrollTo({
           top: section.offsetTop - 80,
           behavior: 'smooth'
         });
       }
-      buttons.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-    });
-  });
-
-  window.addEventListener('scroll', () => {
-    const scrollPos = window.scrollY + 150;
-    Object.entries(sections).forEach(([key, section]) => {
-      if (!section) return;
-      const top = section.offsetTop;
-      const bottom = top + section.offsetHeight;
-      if (scrollPos >= top && scrollPos < bottom) {
-        buttons.forEach(b => {
-          if (b.getAttribute('data-target') === key) {
-            b.classList.add('active');
-          } else {
-            b.classList.remove('active');
-          }
-        });
-      }
-    });
-  });
-        // ---------- 5) นับจำนวนคอร์ส / การบ้าน / วิดีโอ จากข้อมูลจริงบนหน้า ----------
-  function updateSummaryCounts() {
-    const coursesCountEl = document.getElementById('coursesCount');
-    const homeworkCountEl = document.getElementById('homeworkCount');
-    const videosCountEl = document.getElementById('videosCount');
-
-   if (coursesCountEl) {
-  const courseItems = document.querySelectorAll('#myCoursesList .course-item');
-  coursesCountEl.textContent = courseItems.length;
-}
-
-    if (homeworkCountEl) {
-      const hwRows = document.querySelectorAll('#homework tbody tr');
-      homeworkCountEl.textContent = hwRows.length;
     }
 
-    if (videosCountEl) {
-      const videoItems = document.querySelectorAll('#videos .video-item');
-      videosCountEl.textContent = videoItems.length;
-    }
-  }
-
-  // เรียกตอนโหลดหน้าเสร็จ
-  updateSummaryCounts();
-        // ---------- 5) แสดง/ซ่อนข้อความยังไม่มีคอร์ส + คอร์สแนะนำ ----------
-  function updateCoursesUI() {
-    const myCoursesList = document.getElementById('myCoursesList');
-    const noCoursesMsg = document.getElementById('noCoursesMessage');
-    const recommended = document.getElementById('recommendedCourses');
-
-    let registeredCount = 0;
-    if (myCoursesList) {
-      registeredCount = myCoursesList.querySelectorAll('.course-item').length;
+    if (summaryCourses) {
+      summaryCourses.addEventListener('click', () => scrollToSection('courses'));
     }
 
-    if (registeredCount === 0) {
-      if (myCoursesList) myCoursesList.style.display = 'none';
-      if (noCoursesMsg) noCoursesMsg.style.display = 'block';
-      if (recommended) recommended.style.display = 'block';
-    } else {
-      if (myCoursesList) myCoursesList.style.display = 'block';
-      if (noCoursesMsg) noCoursesMsg.style.display = 'none';
-      if (recommended) recommended.style.display = 'none';
+    if (summaryHomework) {
+      summaryHomework.addEventListener('click', () => scrollToSection('homework'));
     }
-  }
 
-  // เรียกตอนโหลดหน้า
-  updateSummaryCounts();
-  updateCoursesUI();
-
-
-  // ---------- 6) ทำให้คลิกที่สรุปแล้วเลื่อนลงไปส่วนที่เกี่ยวข้อง ----------
-  const summaryCourses = document.getElementById('summaryCourses');
-  const summaryHomework = document.getElementById('summaryHomework');
-  const summaryVideos = document.getElementById('summaryVideos');
-
-  function scrollToSection(sectionKey) {
-    const section = sections[sectionKey];
-    if (section) {
-      window.scrollTo({
-        top: section.offsetTop - 80,
-        behavior: 'smooth'
-      });
+    if (summaryVideos) {
+      summaryVideos.addEventListener('click', () => scrollToSection('videos'));
     }
-  }
-
-  if (summaryCourses) {
-    summaryCourses.addEventListener('click', () => scrollToSection('courses'));
-  }
-
-  if (summaryHomework) {
-    summaryHomework.addEventListener('click', () => scrollToSection('homework'));
-  }
-
-  if (summaryVideos) {
-    summaryVideos.addEventListener('click', () => scrollToSection('videos'));
-  }
-
-</script>
-
+  </script>
 
 </body>
 </html>
