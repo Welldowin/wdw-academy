@@ -238,6 +238,7 @@
     <h2 class="login-title">เข้าสู่ระบบ</h2>
     <p class="login-subtitle">ล็อกอินเพื่อเข้าดูคอร์สเรียน วิดีโอ และการบ้านของน้อง ๆ</p>
 
+    <!-- ใส่ id="login-form" เพื่อให้ JS จับได้ -->
     <form id="login-form">
       <label for="email">อีเมลหรือเบอร์โทร</label>
       <input type="text" id="email" name="email" placeholder="กรอกอีเมลเพื่อเข้าสู่ระบบ">
@@ -250,6 +251,7 @@
 
     <div class="or-line"><span>หรือ</span></div>
 
+    <!-- ปุ่มสำหรับล็อกอินด้วย LINE -->
     <button class="line-login-btn" id="line-login-btn" type="button">
       เข้าสู่ระบบด้วย LINE
     </button>
@@ -263,71 +265,109 @@
     © 2025 โรงเรียนกวดวิชาเวลดูวิน - เป็นให้มากกว่าโรงเรียนกวดวิชา
   </footer>
 
-  <!-- ใช้ Firebase compat เหมือน register.html -->
-  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+  <!-- Firebase + Logic การล็อกอิน -->
+  <script type="module">
+  // -----------------------------
+  // 1) ตั้งค่า Firebase ของโปรเจ็กต์พี่
+  // -----------------------------
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
+  import {
+    getAuth,
+    signInWithEmailAndPassword,
+    OAuthProvider,
+    signInWithPopup
+  } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
 
-  <script>
-    // 1) ตั้งค่า Firebase (ใช้ชุดเดียวกับ register.html)
-    const firebaseConfig = {
-      apiKey: "AIzaSyBEEb59wVHs_uHKW87P6n54A6NRzSlyElE",
-      authDomain: "well-do-win-academy.firebaseapp.com",
-      projectId: "well-do-win-academy",
-      storageBucket: "well-do-win-academy.firebasestorage.app",
-      messagingSenderId: "804445893350",
-      appId: "1:804445893350:web:935fedc5735f504636c127",
-      measurementId: "G-KVKM2C5JEZ"
-    };
+  const firebaseConfig = {
+    apiKey: "AIzaSyBEEb59wVHs_uHKW87P6n54A6NRzSlyElE",
+    authDomain: "well-do-win-academy.firebaseapp.com",
+    projectId: "well-do-win-academy",
+    storageBucket: "well-do-win-academy.firebasestorage.app",
+    messagingSenderId: "804445893350",
+    appId: "1:804445893350:web:935fedc5735f504636c127",
+    measurementId: "G-KVKM2C5JEZ"
+  };
 
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
 
-    // ฟังก์ชันตอนล็อกอินสำเร็จ
-    function afterLogin(user) {
-      if (user && user.uid) {
-        localStorage.setItem('userId', user.uid);
-        localStorage.setItem('userEmail', user.email || '');
-      }
-      // เข้าสู่ dashboard หรือ member ตามที่พี่จะใช้
-      window.location.href = 'dashboard.html';
+  // ถ้าอยากเก็บ userId ใน localStorage เพื่อใช้กับหน้าอื่น
+  function saveUserAndGoDashboard(user) {
+    if (user && user.uid) {
+      localStorage.setItem("userId", user.uid);
+      localStorage.setItem("userEmail", user.email || "");
     }
+    window.location.href = "dashboard.html";
+  }
 
-    // 2) ล็อกอินด้วย Email/Password
-    const loginForm = document.getElementById('login-form');
-
-    loginForm.addEventListener('submit', async (e) => {
+  // -----------------------------
+  // 2) ล็อกอินด้วย Email/Password
+  // -----------------------------
+  const loginForm = document.getElementById("login-form");
+  if (loginForm) {
+    loginForm.addEventListener("submit", async (e) => {
       e.preventDefault();
-
-      const email = document.getElementById('email').value.trim();
-      const password = document.getElementById('password').value;
+      const email = /** @type {HTMLInputElement} */ (document.getElementById("email")).value.trim();
+      const password = /** @type {HTMLInputElement} */ (document.getElementById("password")).value;
 
       if (!email || !password) {
-        alert('กรุณากรอกอีเมล/เบอร์โทร และรหัสผ่าน');
+        alert("กรุณากรอกอีเมล/เบอร์โทร และรหัสผ่านให้ครบ");
         return;
       }
 
       try {
-        const userCredential = await auth.signInWithEmailAndPassword(email, password);
-        afterLogin(userCredential.user);
-      } catch (error) {
-        console.error(error);
-        alert('เข้าสู่ระบบไม่สำเร็จ: ' + error.message);
+        const userCred = await signInWithEmailAndPassword(auth, email, password);
+        console.log("Logged in:", userCred.user);
+        saveUserAndGoDashboard(userCred.user);
+      } catch (err) {
+        console.error(err);
+        alert("เข้าสู่ระบบไม่สำเร็จ กรุณาตรวจสอบข้อมูลอีกครั้ง");
       }
     });
+  }
 
-    // 3) ล็อกอินด้วย LINE (OIDC Provider)
-    const lineBtn = document.getElementById('line-login-btn');
-    const lineProvider = new firebase.auth.OAuthProvider('oidc.line-login');
+  // -----------------------------
+  // 3) ล็อกอินด้วย LINE ผ่าน Firebase OIDC (แบบเดียวกับ register.html)
+  // -----------------------------
+  const lineBtn = document.getElementById("line-login-btn");
 
-    lineBtn.addEventListener('click', async () => {
+  // ***สำคัญ***: ชื่อ provider ต้องตรงกับที่ตั้งใน Firebase (ตรงกับ register.html)
+  // ถ้าใน register ใช้ 'oidc.line-login' ตรงนี้ก็ต้องเหมือนกัน
+  const lineProvider = new OAuthProvider('oidc.line-login');
+
+  if (lineBtn) {
+    lineBtn.addEventListener("click", async () => {
       try {
-        const result = await auth.signInWithPopup(lineProvider);
-        afterLogin(result.user);
+        const result = await signInWithPopup(auth, lineProvider);
+        console.log("LINE Login success:", result.user);
+        saveUserAndGoDashboard(result.user);
       } catch (error) {
         console.error(error);
-        alert('เข้าสู่ระบบด้วย LINE ไม่สำเร็จ: ' + error.message);
+        alert("เข้าสู่ระบบด้วย LINE ไม่สำเร็จ: " + error.message);
       }
     });
-  </script>
+  }
+
+  // -----------------------------
+  // 4) (ถ้าพี่อยากบันทึกการล็อกอินลงชีตด้วย Apps Script)
+  //    สามารถเพิ่ม fetch ไป Apps Script หลัง saveUserAndGoDashboard ก็ได้
+  //    เช่น:
+  //
+  //  async function logLoginToSheet(user) {
+  //    await fetch('https://SCRIPT_ID_EXEC_URL/login-log', {
+  //      method: 'POST',
+  //      headers: { 'Content-Type': 'application/json' },
+  //      body: JSON.stringify({
+  //        uid: user.uid,
+  //        email: user.email || '',
+  //        loginAt: new Date().toISOString()
+  //      })
+  //    });
+  //  }
+  //
+  // แล้วเรียก logLoginToSheet(user) ข้างใน saveUserAndGoDashboard()
+  // -----------------------------
+</script>
+
 </body>
 </html>
