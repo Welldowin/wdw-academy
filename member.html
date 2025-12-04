@@ -498,27 +498,32 @@
 
       <form id="profileForm" class="profile-form">
         <label for="pf_firstname">ชื่อนักเรียน</label>
-        <input type="text" id="pf_firstname" required placeholder="เช่น ณัฐวุฒิ">
+        <input type="text" id="pf_firstname" required placeholder="ชื่อจริง">
 
         <label for="pf_lastname">นามสกุลนักเรียน</label>
-        <input type="text" id="pf_lastname" required placeholder="เช่น ไพศรี">
+        <input type="text" id="pf_lastname" required placeholder="นามสกุล">
+
+        <label for="pf_nickname">ชื่อเล่น</label>
+        <input type="text" id="pf_nickname" placeholder="ชื่อเล่น">
 
         <label for="pf_level">ระดับชั้น / กลุ่มเรียน</label>
         <select id="pf_level" required>
           <option value="">-- เลือกระดับชั้น --</option>
+	<option value="ม.1">ม.1</option>
+	<option value="ม.2">ม.2</option>
           <option value="ม.3">ม.3</option>
           <option value="ม.4">ม.4</option>
           <option value="ม.5">ม.5</option>
           <option value="ม.6">ม.6</option>
         </select>
 
-        <label for="pf_school">โรงเรียน (ถ้ามี)</label>
+        <label for="pf_school">โรงเรียน</label>
         <input type="text" id="pf_school" placeholder="เช่น โรงเรียนขอนแก่นวิทยายน">
 
         <label for="pf_phone">เบอร์โทรนักเรียน</label>
         <input type="tel" id="pf_phone" required placeholder="เช่น 08x-xxx-xxxx">
 
-        <label for="pf_parent_phone">เบอร์ผู้ปกครอง (ถ้ามี)</label>
+        <label for="pf_parent_phone">เบอร์ผู้ปกครอง</label>
         <input type="tel" id="pf_parent_phone" placeholder="เช่น 08x-xxx-xxxx">
 
         <div style="margin-top:0.8rem;">
@@ -534,11 +539,24 @@
       <div class="grid-2" id="overview">
         <section class="card">
           <h3>ยินดีต้อนรับกลับมา 🎓</h3>
-          <p><strong id="welcomeStudentName">น้องตัวอย่าง</strong> | <span id="welcomeLevel">ม.5 สายวิทย์ – คณิต</span></p>
+          <p>
+            <strong id="welcomeStudentName">น้องตัวอย่าง</strong>
+            | <span id="welcomeLevel">ม.5 สายวิทย์ – คณิต</span>
+          </p>
           <p>วันนี้มีคอร์สเรียนและการบ้านที่ยังไม่ส่งอยู่ ลองเช็คด้านล่างได้เลยนะครับ</p>
           <p style="margin-top:0.7rem;font-size:0.85rem;color:#555;">
             👉 หากมีปัญหาในการใช้งานระบบ ติดต่อครู / แอดมินได้ที่ Line: @welldowin
           </p>
+
+          <!-- ปุ่มไปหน้า Dashboard + สถานะการชำระเงิน -->
+          <div style="margin-top:1rem;">
+            <button type="button" class="primary-btn" id="dashboardBtn" disabled>
+              ไปหน้า Dashboard (การบ้าน & วิดีโอ)
+            </button>
+            <div id="dashboardLockMessage" style="font-size:0.85rem;color:#555;margin-top:0.3rem;">
+              สถานะปัจจุบัน: กำลังตรวจสอบข้อมูลจากระบบ...
+            </div>
+          </div>
         </section>
 
         <section class="card" id="todaySummary">
@@ -603,9 +621,18 @@
                 <span class="course-meta">เทอม 2 สายวิทย์ – ยอดลงทะเบียนสูงสุด</span>
               </div>
               <div class="course-actions">
-                <button class="small-btn btn-primary">สมัครเรียนคอร์สนี้</button>
-                <button class="small-btn btn-outline">ดูรายละเอียด</button>
-              </div>
+  <a
+    class="small-btn btn-primary"
+    href="checkout.html?course=m4-term2-chumpae">
+    สมัครเรียนคอร์สนี้
+  </a>
+  <a
+    class="small-btn btn-outline"
+    href="courses.html?course=m4-term2-chumpae">
+    ดูรายละเอียด
+  </a>
+</div>
+
             </div>
 
             <div class="course-item recommend-course">
@@ -617,16 +644,25 @@
                 <span class="course-meta">เทอม 2 สายวิทย์ – คอร์สยอดนิยมของ Well-Do-Win</span>
               </div>
               <div class="course-actions">
-                <button class="small-btn btn-primary">สมัครเรียนคอร์สนี้</button>
-                <button class="small-btn btn-outline">ดูรายละเอียด</button>
-              </div>
+  <a
+    class="small-btn btn-primary"
+    href="checkout.html?course=m5-term2-chumpae">
+    สมัครเรียนคอร์สนี้
+  </a>
+  <a
+    class="small-btn btn-outline"
+    href="courses.html?course=m5-term2-chumpae">
+    ดูรายละเอียด
+  </a>
+</div>
+
             </div>
 
           </div>
 
           <!-- รายการคอร์สที่น้องลงทะเบียนจริง -->
           <div id="myCoursesList">
-            <!-- เริ่มต้นว่างไว้ เพราะจะให้ดึงจาก App Script มาใส่ -->
+            <!-- จะถูกเติมข้อมูลจาก Apps Script -->
           </div>
 
           <!-- ปุ่มดูคอร์สทั้งหมด -->
@@ -639,38 +675,7 @@
         </div>
       </section>
 
-      <!-- วิดีโอย้อนหลัง + การบ้าน -->
-      <div class="grid-2" style="margin-top:1.5rem;">
-
-        <section class="card" id="videos">
-          <h3>วิดีโอย้อนหลังล่าสุด 🎥</h3>
-          <div class="video-list">
-            <!-- จะถูกแทนที่ด้วยข้อมูลจาก App Script -->
-          </div>
-          <div class="video-footer">
-            <span>* เวอร์ชันจริงจะลิงก์ไปยังวิดีโอที่เก็บในระบบ</span>
-            <a href="#" class="link-text">ดูวิดีโอย้อนหลังทั้งหมด</a>
-          </div>
-        </section>
-
-        <section class="card" id="homework">
-          <h3>การบ้าน & แบบฝึกหัด 📝</h3>
-          <table class="hw-table">
-            <thead>
-              <tr>
-                <th>วิชา</th>
-                <th>รายละเอียด</th>
-                <th>กำหนดส่ง</th>
-                <th>สถานะ</th>
-              </tr>
-            </thead>
-            <tbody>
-              <!-- จะถูกแทนที่ด้วยข้อมูลจาก App Script -->
-            </tbody>
-          </table>
-        </section>
-
-      </div>
+      
 
       <!-- ประกาศ -->
       <section style="margin-top:1.5rem;">
@@ -705,6 +710,10 @@
               <div class="profile-value" id="displayStudentName">น้องตัวอย่าง ตัวจริง</div>
             </div>
             <div class="profile-row">
+              <div class="profile-label">ชื่อเล่น</div>
+              <div class="profile-value" id="displayNickname">-</div>
+            </div>
+            <div class="profile-row">
               <div class="profile-label">ระดับชั้น</div>
               <div class="profile-value" id="displayLevel">ม.5 สายวิทย์ – คณิต</div>
             </div>
@@ -732,8 +741,8 @@
               <div class="profile-value">-</div>
             </div>
             <div class="profile-row">
-              <div class="profile-label">สถานะการใช้งาน</div>
-              <div class="profile-value">ปกติ</div>
+              <div class="profile-label">สถานะชำระเงิน</div>
+              <div class="profile-value" id="paymentStatusText">ตรวจสอบสถานะ...</div>
             </div>
             <p style="font-size:0.85rem;color:#555;margin-top:0.8rem;">
               หากข้อมูลผิด หรือ ต้องการเปลี่ยนเบอร์โทร / อีเมล / บัญชี LINE  
@@ -754,116 +763,170 @@
     © 2025 โรงเรียนกวดวิชาเวลดูวิน - เป็นให้มากกว่าโรงเรียนกวดวิชา
   </footer>
 
-  <script>
-    // ---------- 0) ตั้งค่า URL Apps Script ----------
-    const PROFILE_API_URL = 'https://script.google.com/macros/s/AKfycbyLgkr4LDPH41ulPmq7V39zm7Caux4UYP3IFadUwE9Ot3UqbRlRR8z0v28KIkzVn1y_/exec';
+ <script>
+  // ---------- 0) ตั้งค่า URL Apps Script ----------
+  const PROFILE_API_URL = 'https://script.google.com/macros/s/AKfycbzgYdGzCy_g5SiIT1WBYUBjFtkA_zZhN_WTlyolp9ziE8mhFhVT85CHcZF5YHM2s4NQ/exec';
 
-    // ---------- 1) เช็กการล็อกอินจาก localStorage ----------
-    const userId = localStorage.getItem('userId');
-    const userEmail = localStorage.getItem('userEmail') || '';
+  function escapeHtml(str) {
+    if (!str) return '';
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
 
-    if (!userId) {
-      alert('กรุณาเข้าสู่ระบบก่อนใช้งานระบบสมาชิก');
-      window.location.href = 'login.html';
+  // ---------- CONFIG: ตั้งค่าคอร์ส + จำนวนการบ้าน/วิดีโอ ต่อสัปดาห์ ----------
+  const COURSE_CONFIG = {
+    'm4-term2-chumpae': {
+      name: 'คอร์สเทอม 2 – ม.4 ฟิสิกส์/เคมี (ชุมแพ)',
+      schedule: 'เริ่มเรียน 22 พ.ย. 68 – ทุกเสาร์ 09.00–10.30 (ฟิสิกส์), 13.00–14.30 (เคมี)',
+      weeklyHomework: 2,
+      weeklyVideos: 2
+    },
+    'm5-term2-chumpae': {
+      name: 'คอร์สเทอม 2 – ม.5 ฟิสิกส์/เคมี (ชุมแพ)',
+      schedule: 'เริ่มเรียน 22 พ.ย. 68 – ทุกเสาร์ 10.45–12.15 (ฟิสิกส์), 14.30–16.00 (เคมี)',
+      weeklyHomework: 2,
+      weeklyVideos: 2
+    },
+    'term2-phy-chem-chumpae': {
+      name: 'คอร์สเทอม 2 – ฟิสิกส์/เคมี (กลุ่มรวมชุมแพ)',
+      schedule: '40 ชั่วโมง มีวิดีโอย้อนหลังทุกครั้ง เรียนกลุ่มอังคาร/พฤหัส หรือเสาร์',
+      weeklyHomework: 3,
+      weeklyVideos: 3
+    },
+    'online-tgat-tpat-alevel': {
+      name: 'คอร์สออนไลน์ – TGAT / TPAT3 / A-Level',
+      schedule: 'ออนไลน์ยืดหยุ่น 18 ชม. ขึ้นไป จนถึงสอบ 14 มี.ค. 69',
+      weeklyHomework: 1,
+      weeklyVideos: 1
+    },
+    'online-netsat': {
+      name: 'คอร์สออนไลน์ – NETSAT ฟิสิกส์/เคมี',
+      schedule: 'ออนไลน์ยืดหยุ่น 18 ชม. ขึ้นไป จนถึงสอบ 7 ก.พ. 69',
+      weeklyHomework: 1,
+      weeklyVideos: 1
     }
+  };
 
-    const userNameDisplay = document.getElementById('userNameDisplay');
-    const profileEmail = document.getElementById('profileEmail');
+  // ---------- 1) เช็กการล็อกอินจาก localStorage ----------
+  const userId    = localStorage.getItem('userId');
+  const userEmail = localStorage.getItem('userEmail') || '';
 
-    if (userEmail) {
-      if (userNameDisplay) userNameDisplay.textContent = userEmail;
-      if (profileEmail) profileEmail.textContent = userEmail;
-    }
+  if (!userId) {
+    alert('กรุณาเข้าสู่ระบบก่อนใช้งานระบบสมาชิก');
+    window.location.href = 'login.html';
+  }
 
-    const logoutBtn = document.getElementById('logoutBtn');
+  const userNameDisplay = document.getElementById('userNameDisplay');
+  const profileEmail    = document.getElementById('profileEmail');
+
+  if (userEmail) {
+    if (userNameDisplay) userNameDisplay.textContent = userEmail;
+    if (profileEmail)    profileEmail.textContent    = userEmail;
+  }
+
+  const logoutBtn = document.getElementById('logoutBtn');
+  if (logoutBtn) {
     logoutBtn.addEventListener('click', (e) => {
       e.preventDefault();
       localStorage.removeItem('userId');
       localStorage.removeItem('userEmail');
       window.location.href = 'index.html';
     });
+  }
 
-    // ---------- 2) บังคับกรอกโปรไฟล์ก่อน ----------
-    const profileFormSection = document.getElementById('profileFormSection');
-    const dashboardContent = document.getElementById('dashboardContent');
-    const profileCompleted = localStorage.getItem('profileCompleted');
+  // ---------- 2) บังคับกรอกโปรไฟล์ก่อน ----------
+  const profileFormSection = document.getElementById('profileFormSection');
+  const dashboardContent   = document.getElementById('dashboardContent');
 
-    function lockDashboard() {
-      profileFormSection.style.display = 'block';
-      dashboardContent.style.opacity = '0.4';
-      dashboardContent.style.pointerEvents = 'none';
+  const profileCompletedKey = 'profileCompleted_' + (userId || userEmail || 'unknown');
+  const profileCompleted    = localStorage.getItem(profileCompletedKey);
+
+  function lockDashboard() {
+    if (!profileFormSection || !dashboardContent) return;
+    profileFormSection.style.display = 'block';
+    dashboardContent.style.opacity   = '0.4';
+    dashboardContent.style.pointerEvents = 'none';
+  }
+
+  function unlockDashboard() {
+    if (!profileFormSection || !dashboardContent) return;
+    profileFormSection.style.display = 'none';
+    dashboardContent.style.opacity   = '1';
+    dashboardContent.style.pointerEvents = 'auto';
+  }
+
+  if (profileCompleted === 'true') {
+    unlockDashboard();
+  } else {
+    lockDashboard();
+  }
+
+  // ---------- helper: profile ใน localStorage ----------
+  function saveProfileToLocal(data) {
+    localStorage.setItem('studentProfile', JSON.stringify(data));
+  }
+
+  function loadProfileFromLocal() {
+    const raw = localStorage.getItem('studentProfile');
+    if (!raw) return;
+
+    let data;
+    try {
+      data = JSON.parse(raw);
+    } catch (e) {
+      console.error('Parse studentProfile error', e);
+      return;
     }
 
-    function unlockDashboard() {
-      profileFormSection.style.display = 'none';
-      dashboardContent.style.opacity = '1';
-      dashboardContent.style.pointerEvents = 'auto';
-    }
+    const fullName = (data.firstName || '') + (data.lastName ? ' ' + data.lastName : '');
+    const nickname = data.nickname || '';
 
-    if (profileCompleted === 'true') {
-      unlockDashboard();
-    } else {
-      lockDashboard();
-    }
+    const displayStudentName = document.getElementById('displayStudentName');
+    const displayNickname    = document.getElementById('displayNickname');
+    const displayLevel       = document.getElementById('displayLevel');
+    const displaySchool      = document.getElementById('displaySchool');
+    const displayPhone       = document.getElementById('displayPhone');
+    const displayParentPhone = document.getElementById('displayParentPhone');
+    const welcomeStudentName = document.getElementById('welcomeStudentName');
+    const welcomeLevel       = document.getElementById('welcomeLevel');
 
-    // ---------- helper: จัดการ profile ใน localStorage ----------
-    function saveProfileToLocal(data) {
-      localStorage.setItem('studentProfile', JSON.stringify(data));
-    }
+    if (displayStudentName) displayStudentName.textContent = fullName || 'ไม่ระบุ';
+    if (displayNickname)    displayNickname.textContent    = nickname || '-';
+    if (displayLevel)       displayLevel.textContent       = data.level || 'ไม่ระบุ';
+    if (displaySchool)      displaySchool.textContent      = data.school || '-';
+    if (displayPhone)       displayPhone.textContent       = data.phone || '-';
+    if (displayParentPhone) displayParentPhone.textContent = data.parentPhone || '-';
+    if (welcomeStudentName) welcomeStudentName.textContent = fullName || 'น้องนักเรียน';
+    if (welcomeLevel)       welcomeLevel.textContent       = data.level || '';
 
-    function loadProfileFromLocal() {
-      const raw = localStorage.getItem('studentProfile');
-      if (!raw) return;
-
-      let data;
-      try {
-        data = JSON.parse(raw);
-      } catch (e) {
-        console.error('Parse studentProfile error', e);
-        return;
+    if (userNameDisplay) {
+      if (fullName) {
+        userNameDisplay.textContent = fullName;
+      } else if (userEmail) {
+        userNameDisplay.textContent = userEmail;
       }
-
-      const fullName = (data.firstName || '') + (data.lastName ? ' ' + data.lastName : '');
-
-      const displayStudentName = document.getElementById('displayStudentName');
-      const displayLevel = document.getElementById('displayLevel');
-      const displaySchool = document.getElementById('displaySchool');
-      const displayPhone = document.getElementById('displayPhone');
-      const displayParentPhone = document.getElementById('displayParentPhone');
-      const welcomeStudentName = document.getElementById('welcomeStudentName');
-      const welcomeLevel = document.getElementById('welcomeLevel');
-
-      if (displayStudentName) displayStudentName.textContent = fullName || 'ไม่ระบุ';
-      if (displayLevel) displayLevel.textContent = data.level || 'ไม่ระบุ';
-      if (displaySchool) displaySchool.textContent = data.school || '-';
-      if (displayPhone) displayPhone.textContent = data.phone || '-';
-      if (displayParentPhone) displayParentPhone.textContent = data.parentPhone || '-';
-      if (welcomeStudentName) welcomeStudentName.textContent = fullName || 'น้องนักเรียน';
-      if (welcomeLevel) welcomeLevel.textContent = data.level || '';
-
-      // ใช้ชื่อจริงบนมุมขวาบน ถ้ามี
-      if (userNameDisplay) {
-        if (fullName) {
-          userNameDisplay.textContent = fullName;
-        } else if (userEmail) {
-          userNameDisplay.textContent = userEmail;
-        }
-      }
     }
+  }
 
-    // ---------- 3) ส่งข้อมูลโปรไฟล์ไป Apps Script แบบ GET ----------
-    const profileForm = document.getElementById('profileForm');
+  // ---------- 3) ส่งข้อมูลโปรไฟล์ไป Apps Script ----------
+  const profileForm = document.getElementById('profileForm');
+  if (profileForm) {
     profileForm.addEventListener('submit', async (e) => {
       e.preventDefault();
 
       const payload = {
-        userId: userId,
-        email: userEmail,
-        firstName: document.getElementById('pf_firstname').value.trim(),
-        lastName: document.getElementById('pf_lastname').value.trim(),
-        level: document.getElementById('pf_level').value,
-        school: document.getElementById('pf_school').value.trim(),
-        phone: document.getElementById('pf_phone').value.trim(),
+        userId:      userId,
+        email:       userEmail,
+        firstName:   document.getElementById('pf_firstname').value.trim(),
+        lastName:    document.getElementById('pf_lastname').value.trim(),
+        nickname:    document.getElementById('pf_nickname').value.trim(),
+        level:       document.getElementById('pf_level').value,
+        school:      document.getElementById('pf_school').value.trim(),
+        phone:       document.getElementById('pf_phone').value.trim(),
         parentPhone: document.getElementById('pf_parent_phone').value.trim()
       };
 
@@ -873,16 +936,16 @@
       }
 
       const params = new URLSearchParams(payload).toString();
-      const url = `${PROFILE_API_URL}?${params}`;
+      const url    = `${PROFILE_API_URL}?${params}`;
 
       try {
-        const res = await fetch(url);
+        const res  = await fetch(url);
         const text = await res.text();
         console.log('Profile API response:', text);
 
         if (text.trim().startsWith('OK')) {
           alert('บันทึกโปรไฟล์เรียบร้อยแล้ว ✅');
-          localStorage.setItem('profileCompleted', 'true');
+          localStorage.setItem(profileCompletedKey, 'true');
           saveProfileToLocal(payload);
           loadProfileFromLocal();
           unlockDashboard();
@@ -894,267 +957,350 @@
         alert('บันทึกโปรไฟล์ไม่สำเร็จ (network error): ' + err.message);
       }
     });
+  }
 
-    // ---------- 4) เมนูแท็บเลื่อน Section ----------
-    const buttons = document.querySelectorAll('.member-tab-btn');
-    const sections = {
-      overview: document.getElementById('overview'),
-      courses: document.getElementById('courses'),
-      videos: document.getElementById('videos'),
-      homework: document.getElementById('homework'),
-      profile: document.getElementById('profile')
-    };
+  // ---------- 4) เมนูแท็บ ----------
+  const buttons = document.querySelectorAll('.member-tab-btn');
+  const sections = {
+    overview: document.getElementById('overview'),
+    courses:  document.getElementById('courses'),
+    videos:   document.getElementById('videos'),
+    homework: document.getElementById('homework'),
+    profile:  document.getElementById('profile')
+  };
 
-    buttons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const target = btn.getAttribute('data-target');
-        const section = sections[target];
-        if (section) {
-          window.scrollTo({
-            top: section.offsetTop - 80,
-            behavior: 'smooth'
-          });
-        }
-        buttons.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-      });
-    });
-
-    window.addEventListener('scroll', () => {
-      const scrollPos = window.scrollY + 150;
-      Object.entries(sections).forEach(([key, section]) => {
-        if (!section) return;
-        const top = section.offsetTop;
-        const bottom = top + section.offsetHeight;
-        if (scrollPos >= top && scrollPos < bottom) {
-          buttons.forEach(b => {
-            if (b.getAttribute('data-target') === key) {
-              b.classList.add('active');
-            } else {
-              b.classList.remove('active');
-            }
-          });
-        }
-      });
-    });
-
-    // ---------- 5) นับจำนวนคอร์ส / การบ้าน / วิดีโอ จากข้อมูลจริงบนหน้า ----------
-    function updateSummaryCounts() {
-      const coursesCountEl = document.getElementById('coursesCount');
-      const homeworkCountEl = document.getElementById('homeworkCount');
-      const videosCountEl = document.getElementById('videosCount');
-
-      if (coursesCountEl) {
-        const courseItems = document.querySelectorAll('#myCoursesList .course-item');
-        coursesCountEl.textContent = courseItems.length;
-      }
-
-      if (homeworkCountEl) {
-        const hwRows = document.querySelectorAll('#homework tbody tr');
-        homeworkCountEl.textContent = hwRows.length;
-      }
-
-      if (videosCountEl) {
-        const videoItems = document.querySelectorAll('#videos .video-item');
-        videosCountEl.textContent = videoItems.length;
-      }
-    }
-
-       // ---------- 6) แสดง/ซ่อนข้อความยังไม่มีคอร์ส + คอร์สแนะนำ ----------
-    function updateCoursesUI() {
-      const myCoursesList = document.getElementById('myCoursesList');
-      const noCoursesMsg = document.getElementById('noCoursesMessage');
-      const recommended = document.getElementById('recommendedCourses');
-
-      let registeredCount = 0;
-      if (myCoursesList) {
-        registeredCount = myCoursesList.querySelectorAll('.course-item').length;
-      }
-
-      if (registeredCount === 0) {
-        if (myCoursesList) myCoursesList.style.display = 'none';
-        if (noCoursesMsg) noCoursesMsg.style.display = 'block';
-        if (recommended) recommended.style.display = 'block';
-      } else {
-        if (myCoursesList) myCoursesList.style.display = 'block';
-        if (noCoursesMsg) noCoursesMsg.style.display = 'none';
-        if (recommended) recommended.style.display = 'none';
-      }
-    }
-
-    // ---------- 6.1) ให้ปุ่มสมัครเรียน/รายละเอียดพาไปหน้า courses.html ----------
-    function initCourseButtons() {
-      // ปุ่มในส่วน "คอร์สแนะนำ" (ตอนยังไม่มีคอร์สลงทะเบียน)
-      document.querySelectorAll('#recommendedCourses .small-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          // ให้เด้งไปหน้ารวมคอร์ส
-          window.location.href = 'courses.html';
-        });
-      });
-
-      // ปุ่มในรายการ "คอร์สของฉัน" ที่ดึงมาจากชีต
-      const myCoursesList = document.getElementById('myCoursesList');
-      if (myCoursesList) {
-        // ใช้ event delegation เผื่อมีคอร์สเพิ่ม/ลด
-        myCoursesList.addEventListener('click', (e) => {
-          const target = e.target;
-          if (target.classList.contains('btn-primary')) {
-            // ปุ่ม "เข้าเรียน / สมัคร" -> ไปหน้าคอร์ส
-            window.location.href = 'courses.html';
-          } else if (target.classList.contains('btn-outline')) {
-            // ปุ่ม "วิดีโอ / ดูรายละเอียด" -> เลื่อนลงไปส่วนวิดีโอ
-            const videosSection = document.getElementById('videos');
-            if (videosSection) {
-              window.scrollTo({
-                top: videosSection.offsetTop - 80,
-                behavior: 'smooth'
-              });
-            }
-          }
-        });
-      }
-    }
-
-    // ---------- 7) คลิกสรุปแล้วเลื่อนลงไปส่วนที่เกี่ยวข้อง ----------
-    const summaryCourses = document.getElementById('summaryCourses');
-    const summaryHomework = document.getElementById('summaryHomework');
-    const summaryVideos = document.getElementById('summaryVideos');
-
-    function scrollToSection(sectionKey) {
-      const section = sections[sectionKey];
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target  = btn.getAttribute('data-target');
+      const section = sections[target];
       if (section) {
         window.scrollTo({
           top: section.offsetTop - 80,
           behavior: 'smooth'
         });
       }
-    }
+      buttons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
 
-    if (summaryCourses) {
-      summaryCourses.addEventListener('click', () => scrollToSection('courses'));
-    }
-
-    if (summaryHomework) {
-      summaryHomework.addEventListener('click', () => scrollToSection('homework'));
-    }
-
-    if (summaryVideos) {
-      summaryVideos.addEventListener('click', () => scrollToSection('videos'));
-    }
-
-    // ---------- 8) ปุ่ม "แก้ไขข้อมูลโปรไฟล์" ----------
-    const editProfileBtn = document.getElementById('editProfileBtn');
-    if (editProfileBtn) {
-      editProfileBtn.addEventListener('click', () => {
-        const raw = localStorage.getItem('studentProfile');
-        if (raw) {
-          try {
-            const data = JSON.parse(raw);
-            document.getElementById('pf_firstname').value = data.firstName || '';
-            document.getElementById('pf_lastname').value = data.lastName || '';
-            document.getElementById('pf_level').value = data.level || '';
-            document.getElementById('pf_school').value = data.school || '';
-            document.getElementById('pf_phone').value = data.phone || '';
-            document.getElementById('pf_parent_phone').value = data.parentPhone || '';
-          } catch (e) {
-            console.error('Cannot preload profile form', e);
+  window.addEventListener('scroll', () => {
+    const scrollPos = window.scrollY + 150;
+    Object.entries(sections).forEach(([key, section]) => {
+      if (!section) return;
+      const top    = section.offsetTop;
+      const bottom = top + section.offsetHeight;
+      if (scrollPos >= top && scrollPos < bottom) {
+        buttons.forEach(b => {
+          if (b.getAttribute('data-target') === key) {
+            b.classList.add('active');
+          } else {
+            b.classList.remove('active');
           }
-        }
-        profileFormSection.style.display = 'block';
-        window.scrollTo({
-          top: profileFormSection.offsetTop - 80,
-          behavior: 'smooth'
         });
-      });
+      }
+    });
+  });
+
+  // ---------- 5) อัปเดตตัวเลขสรุป ----------
+  function updateSummaryCounts(courses) {
+    const coursesCountEl  = document.getElementById('coursesCount');
+    const homeworkCountEl = document.getElementById('homeworkCount');
+    const videosCountEl   = document.getElementById('videosCount');
+
+    if (!Array.isArray(courses) || courses.length === 0) {
+      if (coursesCountEl)  coursesCountEl.textContent  = '0';
+      if (homeworkCountEl) homeworkCountEl.textContent = '0';
+      if (videosCountEl)   videosCountEl.textContent   = '0';
+      return;
     }
 
-// ---------- โหลดข้อมูลจากเซิร์ฟเวอร์ + เปิดสิทธิ์ตามการจ่ายเงิน ----------
-async function loadDashboardFromServer() {
-  try {
+    const courseCount = courses.length;
+    let totalHw  = 0;
+    let totalVid = 0;
+
+    courses.forEach(c => {
+      const conf = COURSE_CONFIG[c.courseId] || {};
+      totalHw  += conf.weeklyHomework || 0;
+      totalVid += conf.weeklyVideos   || 0;
+    });
+
+    if (coursesCountEl)  coursesCountEl.textContent  = String(courseCount);
+    if (homeworkCountEl) homeworkCountEl.textContent = String(totalHw);
+    if (videosCountEl)   videosCountEl.textContent   = String(totalVid);
+  }
+
+  // ---------- 6) UI คอร์ส (ไม่มี/มี) ----------
+  function updateCoursesUI() {
+    const myCoursesList = document.getElementById('myCoursesList');
+    const noCoursesMsg  = document.getElementById('noCoursesMessage');
+    const recommended   = document.getElementById('recommendedCourses');
+
+    let registeredCount = 0;
+    if (myCoursesList) {
+      registeredCount = myCoursesList.querySelectorAll('.course-item').length;
+    }
+
+    if (registeredCount === 0) {
+      if (myCoursesList) myCoursesList.style.display = 'none';
+      if (noCoursesMsg)  noCoursesMsg.style.display  = 'block';
+      if (recommended)   recommended.style.display   = 'block';
+    } else {
+      if (myCoursesList) myCoursesList.style.display = 'block';
+      if (noCoursesMsg)  noCoursesMsg.style.display  = 'none';
+      if (recommended)   recommended.style.display   = 'none';
+    }
+  }
+
+  // ---------- 7) ปุ่มสรุปคลิกแล้วเลื่อนไปยัง section ----------
+  function scrollToSection(key) {
+    const section = sections[key];
+    if (!section) return;
+    window.scrollTo({
+      top: section.offsetTop - 80,
+      behavior: 'smooth'
+    });
+  }
+
+  const summaryCourses  = document.getElementById('summaryCourses');
+  const summaryHomework = document.getElementById('summaryHomework');
+  const summaryVideos   = document.getElementById('summaryVideos');
+
+  if (summaryCourses)  summaryCourses.addEventListener('click', () => scrollToSection('courses'));
+  if (summaryHomework) summaryHomework.addEventListener('click', () => scrollToSection('homework'));
+  if (summaryVideos)   summaryVideos.addEventListener('click', () => scrollToSection('videos'));
+
+  // ---------- 8) ปุ่ม "แก้ไขข้อมูลโปรไฟล์" ----------
+  const editProfileBtn = document.getElementById('editProfileBtn');
+  if (editProfileBtn) {
+    editProfileBtn.addEventListener('click', () => {
+      const raw = localStorage.getItem('studentProfile');
+      if (raw) {
+        try {
+          const data = JSON.parse(raw);
+          document.getElementById('pf_firstname').value    = data.firstName   || '';
+          document.getElementById('pf_lastname').value     = data.lastName    || '';
+          document.getElementById('pf_nickname').value     = data.nickname    || '';
+          document.getElementById('pf_level').value        = data.level       || '';
+          document.getElementById('pf_school').value       = data.school      || '';
+          document.getElementById('pf_phone').value        = data.phone       || '';
+          document.getElementById('pf_parent_phone').value = data.parentPhone || '';
+        } catch (e) {
+          console.error('Cannot preload profile form', e);
+        }
+      }
+      profileFormSection.style.display = 'block';
+      window.scrollTo({
+        top: profileFormSection.offsetTop - 80,
+        behavior: 'smooth'
+      });
+    });
+  }
+
+  // ---------- 9) แสดงคอร์สของฉัน จาก enrollcourse ----------
+  function renderCourses(courses) {
+    const myCoursesList = document.getElementById('myCoursesList');
+    if (!myCoursesList) return;
+
+    myCoursesList.innerHTML = '';
+
+    if (!Array.isArray(courses) || courses.length === 0) {
+      myCoursesList.innerHTML =
+        '<p style="font-size:0.9rem; color:#777;">ยังไม่มีคอร์สลงทะเบียน</p>';
+      updateCoursesUI();
+      updateSummaryCounts([]);
+      return;
+    }
+
+    courses.forEach(course => {
+      const courseId   = course.courseId || course.id || '';
+      const conf       = COURSE_CONFIG[courseId] || {};
+      const courseName = course.courseName || conf.name || courseId || '';
+      const schedule   = course.schedule   || conf.schedule || '';
+      const statusRaw  = course.status     || '';
+      const statusUpper = String(statusRaw).toUpperCase();
+      const isPaid      = (statusUpper === 'PAID' || statusUpper === 'ชำระแล้ว');
+
+      const statusClass = isPaid ? 'status-done' : 'status-pending';
+      const statusText  = isPaid ? 'ชำระแล้ว' : (statusRaw || 'รอการชำระ');
+
+      const div = document.createElement('div');
+      div.className = 'course-item';
+      div.innerHTML = `
+        <div class="course-info">
+          <span class="course-name">${escapeHtml(courseName)}</span>
+          <span class="course-meta">${escapeHtml(schedule)}</span>
+          <span class="tag ${statusClass}">${statusText}</span>
+        </div>
+        <div class="course-actions">
+          ${isPaid ? `
+            <button class="small-btn btn-primary" onclick="goToDashboard('${courseId}')">
+              เข้าเรียน / Dashboard
+            </button>
+          ` : ''}
+        </div>
+      `;
+      myCoursesList.appendChild(div);
+    });
+
+    updateCoursesUI();
+    updateSummaryCounts(courses);
+  }
+
+  function goToDashboard(courseId) {
+    if (!courseId) {
+      window.location.href = 'dashboard.html';
+      return;
+    }
+    window.location.href = 'dashboard.html?course=' + encodeURIComponent(courseId);
+  }
+
+  // ---------- 10) สรุปรายละเอียดคอร์สใน "สรุปสถานะวันนี้" ----------
+  function updateCourseSummary(courses) {
+    const summaryEl = document.getElementById('summaryCourses');
+    if (!summaryEl) return;
+
+    if (!Array.isArray(courses) || courses.length === 0) {
+      summaryEl.innerHTML =
+        '📚 คอร์สที่ลงทะเบียน: <strong>ยังไม่ได้ลงทะเบียนคอร์สใด</strong>';
+      return;
+    }
+
+    const itemsHtml = courses.slice(0, 3).map(c => {
+      const conf = COURSE_CONFIG[c.courseId] || {};
+      const name = escapeHtml(c.courseName || conf.name || c.courseId || '');
+      const schedule = escapeHtml(conf.schedule || c.schedule || 'ยังไม่กำหนดเวลาเรียน');
+      return `
+        <li style="margin-bottom:0.25rem;">
+          <strong>${name}</strong><br>
+          <span style="font-size:0.85rem;">เวลาเรียน: ${schedule}</span>
+        </li>
+      `;
+    }).join('');
+
+    summaryEl.innerHTML = `
+      📚 คอร์สที่ลงทะเบียน:
+      <ul style="margin:0.3rem 0 0 1.2rem; padding:0;">
+        ${itemsHtml}
+      </ul>
+    `;
+  }
+
+  // ---------- 11) โหลดข้อมูลจาก Apps Script เพื่อเช็คสถานะ + คอร์ส ----------
+  async function loadDashboardFromServer() {
     const params = new URLSearchParams({
-      action: 'getDashboard',
+      action: 'getMember',
       userId: userId,
       email: userEmail
     });
 
-    const res  = await fetch(`${PROFILE_API_URL}?${params.toString()}`);
-    const json = await res.json();
+    try {
+      const res  = await fetch(`${PROFILE_API_URL}?${params.toString()}`);
+      const json = await res.json();
+      console.log('member data:', json);
 
-    console.log('dashboard data:', json);
-
-    if (json.status !== 'ok') {
-      console.warn('getDashboard error:', json);
-      return;
-    }
-
-    // ----- 1) เติมข้อมูลโปรไฟล์ (ถ้ามี) -----
-    const p = json.profile || {};
-    const fullName = (p.firstName || '') + (p.lastName ? ' ' + p.lastName : '');
-
-    const displayStudentName = document.getElementById('displayStudentName');
-    const displayLevel       = document.getElementById('displayLevel');
-    const displaySchool      = document.getElementById('displaySchool');
-    const displayPhone       = document.getElementById('displayPhone');
-    const displayParentPhone = document.getElementById('displayParentPhone');
-    const welcomeStudentName = document.getElementById('welcomeStudentName');
-    const welcomeLevel       = document.getElementById('welcomeLevel');
-    const userNameDisplayTop = document.getElementById('userNameDisplay');
-
-    if (displayStudentName && fullName)  displayStudentName.textContent = fullName;
-    if (displayLevel && p.level)         displayLevel.textContent       = p.level;
-    if (displaySchool && p.school)       displaySchool.textContent      = p.school;
-    if (displayPhone && p.phone)         displayPhone.textContent       = p.phone;
-    if (displayParentPhone && p.parentPhone) displayParentPhone.textContent = p.parentPhone;
-    if (welcomeStudentName && fullName)  welcomeStudentName.textContent = fullName;
-    if (welcomeLevel && p.level)         welcomeLevel.textContent       = p.level;
-    if (userNameDisplayTop && fullName)  userNameDisplayTop.textContent = fullName;
-
-    // ----- 2) เปิด/ปิดสิทธิ์ตามสถานะชำระเงิน -----
-    const hasPaid      = !!json.hasPaid;
-    const myCourses    = document.getElementById('myCoursesList');
-    const noCoursesMsg = document.getElementById('noCoursesMessage');
-    const recommended  = document.getElementById('recommendedCourses');
-
-    if (!hasPaid) {
-      // ยังไม่จ่ายเงิน → ซ่อนคอร์สที่ล็อกอินไว้, โชว์ข้อความเตือน + คอร์สแนะนำ
-      if (myCourses)    myCourses.style.display    = 'none';
-      if (recommended)  recommended.style.display  = 'block';
-      if (noCoursesMsg) {
-        noCoursesMsg.style.display = 'block';
-        noCoursesMsg.textContent   =
-          'ยังไม่มีสิทธิ์เข้าคอร์ส กรุณาชำระเงินหรือให้แอดมินเปลี่ยนสถานะเป็น PAID ในระบบ';
+      if (json.status !== 'ok') {
+        console.error('getMember error:', json);
+        return;
       }
 
-      // ถ้าจะให้สรุปด้านบนเป็น 0 ทั้งหมด
-      const coursesCountEl  = document.getElementById('coursesCount');
-      const homeworkCountEl = document.getElementById('homeworkCount');
-      const videosCountEl   = document.getElementById('videosCount');
-      if (coursesCountEl)  coursesCountEl.textContent  = '0';
-      if (homeworkCountEl) homeworkCountEl.textContent = '0';
-      if (videosCountEl)   videosCountEl.textContent   = '0';
-    } else {
-      // จ่ายแล้ว → ให้ใช้ DOM เดิม (คอร์ส/การบ้าน/คลิปที่พี่เขียนใน HTML)
-      if (myCourses)    myCourses.style.display    = 'block';
-      if (recommended)  recommended.style.display  = 'none';
-      if (noCoursesMsg) noCoursesMsg.style.display = 'none';
+      const p = json.profile || {};
 
-      // นับจำนวนจริงจาก DOM เดิม
-      updateSummaryCounts();
+      // ดึงรายชื่อคอร์สจากคอลัมน์ enrollcourse/enrollCourse
+      const enrollStr  = p.enrollCourse || p.enrollcourse || p.enrolledCourses || '';
+      console.log('enrollStr from profile:', enrollStr);
+
+      const enrollList = enrollStr
+        .split(',')
+        .map(s => s.trim())
+        .filter(Boolean);
+
+      let courses = [];
+      if (enrollList.length > 0) {
+        courses = enrollList.map(cid => {
+          const conf = COURSE_CONFIG[cid] || {};
+          return {
+            courseId: cid,
+            courseName: conf.name || cid,
+            schedule: conf.schedule || '',
+            status: p.status || ''
+          };
+        });
+      }
+
+      const fullName = ((p.firstName || '') + (p.lastName ? ' ' + p.lastName : '')).trim();
+
+      const displayStudentName = document.getElementById('displayStudentName');
+      const displayLevel       = document.getElementById('displayLevel');
+      const displaySchool      = document.getElementById('displaySchool');
+      const displayPhone       = document.getElementById('displayPhone');
+      const displayParentPhone = document.getElementById('displayParentPhone');
+      const welcomeStudentName = document.getElementById('welcomeStudentName');
+      const welcomeLevel       = document.getElementById('welcomeLevel');
+      const paymentStatusText  = document.getElementById('paymentStatusText');
+
+      if (displayStudentName && fullName) displayStudentName.textContent = fullName;
+      if (displayLevel && p.level)        displayLevel.textContent       = p.level;
+      if (displaySchool)                  displaySchool.textContent      = p.school || '-';
+      if (displayPhone)                   displayPhone.textContent       = p.phone || '-';
+      if (displayParentPhone)             displayParentPhone.textContent = p.parentPhone || '-';
+      if (welcomeStudentName && fullName) welcomeStudentName.textContent = fullName;
+      if (welcomeLevel)                   welcomeLevel.textContent       = p.level || '';
+      if (userNameDisplay && fullName)    userNameDisplay.textContent    = fullName;
+
+      if (paymentStatusText) {
+        if (p.status === 'PAID') {
+          paymentStatusText.textContent = 'ชำระเงินแล้ว (PAID)';
+        } else if (p.status) {
+          paymentStatusText.textContent = 'สถานะ: ' + p.status;
+        } else {
+          paymentStatusText.textContent = 'ยังไม่มีข้อมูลการชำระเงิน';
+        }
+      }
+
+      const dashboardBtn         = document.getElementById('dashboardBtn');
+      const dashboardLockMessage = document.getElementById('dashboardLockMessage');
+
+      const globalStatus = String(p.status || '').toUpperCase();
+      const isPaidGlobal = (globalStatus === 'PAID' || globalStatus === 'ชำระแล้ว');
+
+      if (!isPaidGlobal) {
+        if (dashboardBtn) {
+          dashboardBtn.disabled = true;
+          dashboardBtn.onclick  = null;
+        }
+        if (dashboardLockMessage) {
+          dashboardLockMessage.textContent =
+            'สถานะปัจจุบัน: ยังไม่เปิดสิทธิ์เข้าคอร์ส (รอยืนยันการชำระเงินจากครู/แอดมิน)';
+        }
+      } else {
+        if (dashboardBtn) {
+          dashboardBtn.disabled = false;
+          dashboardBtn.onclick  = () => {
+            window.location.href = 'dashboard.html';
+          };
+        }
+        if (dashboardLockMessage) {
+          dashboardLockMessage.textContent =
+            'สถานะปัจจุบัน: ชำระเงินแล้ว สามารถเข้า Dashboard ได้';
+        }
+      }
+
+      // วาดคอร์ส + สรุป
+      renderCourses(courses);
+      updateCourseSummary(courses);
+
+    } catch (err) {
+      console.error('loadDashboardFromServer error:', err);
     }
-
-  } catch (err) {
-    console.error('loadDashboardFromServer error:', err);
   }
-}
 
+  // ---------- เรียกตอนโหลดหน้า ----------
+  loadProfileFromLocal();
+  updateSummaryCounts([]);   // ตอนแรกยังไม่มี data → ตั้งเป็น 0 ไปก่อน
+  loadDashboardFromServer();
+</script>
 
-       updateSummaryCounts();        // หรือจะลบทิ้งก็ได้ เพราะฟังก์ชันใหม่เรียกเองอีกที
-// ไม่ต้องเรียก updateCoursesUI ตรงนี้แล้ว
-loadProfileFromLocal();
-loadDashboardFromServer();
-
-
-  </script>
 
 </body>
 </html>
