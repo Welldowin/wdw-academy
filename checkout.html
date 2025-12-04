@@ -93,11 +93,35 @@
       font-size: 14px;
       font-weight: 600;
     }
+
+    /* ปุ่มย้อนกลับมุมซ้ายบน */
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      color: #1E3D8F;
+      font-weight: 600;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+
+    .back-link span.arrow {
+      font-size: 18px;
+      line-height: 1;
+    }
   </style>
 </head>
 <body>
 
   <div class="container">
+
+    <!-- ปุ่มย้อนกลับไปหน้าเลือกคอร์ส -->
+    <!-- ถ้าพี่ใช้ชื่อไฟล์ course.html ให้เปลี่ยน href="course.html" -->
+    <a href="courses.html" class="back-link">
+      <span class="arrow">←</span>
+      กลับไปหน้าเลือกคอร์ส
+    </a>
 
     <!-- กล่องรายละเอียดคอร์ส + ตารางเรียน -->
     <div class="card" id="courseDetail"></div>
@@ -122,20 +146,22 @@
       <p>สแกนเพื่อชำระเงิน</p>
       <img id="qrImage" src="" alt="QR Payment">
       <p style="font-size:13px;color:#555;">
-        หลังชำระเงิน กรุณาแคปหลักฐานส่งใน LINE หรือรอระบบตรวจสอบสิทธิ์อัตโนมัติ
+        หลังชำระเงิน กรุณาแคปหลักฐานการโอน
+        และส่งสลิปมาที่
+        <a href="https://lin.ee/6sIEVNC" target="_blank" rel="noopener" style="color:#1E3A8A; font-weight:600;">
+          LINE: @welldowin
+        </a>
+        เพื่อให้ครู/แอดมินยืนยันสิทธิ์เปิดคอร์สให้ครับ
       </p>
     </div>
 
   </div>
 
 <script>
-  // 👉 URL ของ Apps Script Web App (เอาจาก Deploy ของพี่)
-  const ORDER_API_URL = 'https://script.google.com/macros/s/AKfycbznJ0HfeU5SSq1t894p0eXBZ87mJtDiAJK7u-o_ragUopeOb3C43-qNM_op6BvykZtfnQ/exec';
+  // ===== 1) ตั้งค่า PromptPay (ไม่ต้องใช้ ORDER_API_URL แล้ว) =====
+  const PROMPTPAY_ID  = '0635455395';
 
-  // 👉 PromptPay ของพี่ (เปลี่ยนเบอร์เองนะ)
-  const PROMPTPAY_ID = '0635455645';
-
-  /* -------- ข้อมูลคอร์ส + ตารางเรียน -------- */
+  // ===== 2) ข้อมูลคอร์ส + ตารางเรียน =====
   const courseData = {
     "term2-phy-chem-chumpae": {
       title: "คอร์สเทอม 2 – ฟิสิกส์/เคมี (ชุมแพ)",
@@ -184,8 +210,8 @@
         <ul>
           <li>เรียนแบบออนไลน์ตัวต่อตัว</li>
           <li>กำหนดเวลาเรียนได้เอง</li>
-                    <li>เริ่มต้น 18 ชั่วโมง ราคา 4,000 บาท</li>
-                    <li>จนถึงสอบ 14 มี.ค. 69</li>
+          <li>เริ่มต้น 18 ชั่วโมง ราคา 4,000 บาท</li>
+          <li>จนถึงสอบ 14 มี.ค. 69</li>
           <li>หมายเหตุ : 2 คนขึ้นไป คนละ 200 บ./ชม. (แจ้งทางไลน์)</li>
         </ul>
       `
@@ -198,15 +224,15 @@
         <ul>
           <li>เรียนแบบออนไลน์ยืดหยุ่น</li>
           <li>กำหนดเวลาเรียนได้เอง</li>
-                    <li>เริ่มต้น 18 ชั่วโมง ราคา 4,000 บาท</li>
+          <li>เริ่มต้น 18 ชั่วโมง ราคา 4,000 บาท</li>
           <li>จนถึงสอบ 7 ก.พ. 69</li>
-                    <li>หมายเหตุ : 2 คนขึ้นไป คนละ 200 บ./ชม. (แจ้งทางไลน์)</li>
+          <li>หมายเหตุ : 2 คนขึ้นไป คนละ 200 บ./ชม. (แจ้งทางไลน์)</li>
         </ul>
       `
     }
   };
 
-  /* -------- โหลดข้อมูลคอร์สจาก URL หรือ localStorage -------- */
+  // ===== 3) โหลดคอร์สจาก URL / localStorage แล้วแสดงบนหน้า =====
   const urlParams = new URLSearchParams(window.location.search);
   let courseId = urlParams.get('course');
 
@@ -214,13 +240,16 @@
     courseId = localStorage.getItem('pendingCourseId');
   }
 
+  const courseDetailBox = document.getElementById('courseDetail');
+  const totalPriceSpan  = document.getElementById('totalPrice');
+
   const course = courseData[courseId];
-  let price = course ? course.price : 0;
-  let finalPrice = price;
+  let price        = course ? course.price : 0;
+  let finalPrice   = price;
   let currentCoupon = '';
 
   if (course) {
-    document.getElementById('courseDetail').innerHTML = `
+    courseDetailBox.innerHTML = `
       <h2>${course.title}</h2>
       ${course.schedule}
       <div style="font-size:15px;margin-top:10px;">
@@ -229,102 +258,68 @@
       </div>
     `;
   } else {
-    document.getElementById('courseDetail').innerHTML = `
+    courseDetailBox.innerHTML = `
       <p>ไม่พบข้อมูลคอร์สที่ต้องการชำระเงิน</p>
       <p><a href="courses.html">คลิกที่นี่เพื่อกลับไปเลือกคอร์สอีกครั้ง</a></p>
     `;
   }
 
-  document.getElementById("totalPrice").textContent = finalPrice;
+  totalPriceSpan.textContent = finalPrice;
 
-  /* -------- ระบบโค้ดส่วนลด -------- */
-  document.getElementById('coupon').addEventListener('input', function() {
+  // ===== 4) ระบบโค้ดส่วนลด =====
+  document.getElementById('coupon').addEventListener('input', function () {
     const code = this.value.trim().toUpperCase();
-    const msg  = document.getElementById("couponMsg");
+    const msg  = document.getElementById('couponMsg');
 
-    if (code === "NEWANDOLD200") {
-      finalPrice = price - 200;
+    if (code === 'NEWANDOLD200') {
+      finalPrice    = price - 200;
       currentCoupon = code;
-      msg.textContent = "ใช้โค้ดส่วนลดสำเร็จ! ลด 200 บาท 🎉";
-      msg.style.color = "green";
+      msg.textContent = 'ใช้โค้ดส่วนลดสำเร็จ! ลด 200 บาท 🎉';
+      msg.style.color = 'green';
     } else if (code.length > 0) {
-      finalPrice = price;
+      finalPrice    = price;
       currentCoupon = code;
-      msg.textContent = "โค้ดไม่ถูกต้อง";
-      msg.style.color = "red";
+      msg.textContent = 'โค้ดไม่ถูกต้อง';
+      msg.style.color = 'red';
     } else {
-      finalPrice = price;
+      finalPrice    = price;
       currentCoupon = '';
-      msg.textContent = "";
+      msg.textContent = '';
     }
-    document.getElementById("totalPrice").textContent = finalPrice;
+    totalPriceSpan.textContent = finalPrice;
   });
 
-/* -------- ฟังก์ชันสร้างคำสั่งซื้อ + ส่งเข้า Google Sheet -------- */
-async function createOrder() {
-  if (!course) {
-    alert('ไม่พบข้อมูลคอร์ส');
-    return;
-  }
-
-  const userId  = localStorage.getItem('userId') || '';
-  const orderId = 'WDW-' + Date.now(); // ไอดีคำสั่งซื้อแบบง่าย ๆ
-
-  const payload = {
-    orderId,
-    userId,
-    courseId,
-    courseTitle: course.title,
-    price,
-    finalPrice,
-    discountCode: currentCoupon,
-    status: 'PENDING_PAYMENT'
-  };
-
-  // แปลงเป็นฟอร์มแบบ x-www-form-urlencoded
-  const formData = new URLSearchParams();
-  for (const key in payload) {
-    formData.append(key, payload[key]);
-  }
-
-  try {
-    const res = await fetch(ORDER_API_URL, {
-      method: 'POST',
-      // ❌ ไม่ต้องใส่ headers Content-Type เอง
-      body: formData
-    });
-
-    const text = await res.text();
-    console.log('Order API raw response:', text);
-
-    let data;
-    try {
-      data = JSON.parse(text);
-    } catch (e) {
-      alert('ตอบกลับจากเซิร์ฟเวอร์ไม่ใช่ JSON:\n\n' + text.slice(0, 200));
+  // ===== 5) ฟังก์ชันเมื่อกดปุ่ม "ชำระเงินด้วย QR Code" =====
+  // ไม่บันทึกลงชีตแล้ว แค่เช็กข้อมูลให้ครบแล้วโชว์ QR เลย
+  function createOrder() {
+    if (!course) {
+      alert('ไม่พบข้อมูลคอร์ส กรุณากลับไปเลือกคอร์สใหม่อีกครั้ง');
       return;
     }
 
-    if (data.success) {
-      showQR();   // ✅ บันทึกแล้วค่อยโชว์ QR
-    } else {
-      alert('บันทึกข้อมูลการสมัครไม่สำเร็จ: ' + (data.message || 'ไม่ทราบสาเหตุ'));
+    // ถ้าอยากบังคับให้มี userId (ล็อกอินก่อน) จะใช้ logic นี้ได้
+    const userId = localStorage.getItem('userId') || '';
+    if (!userId) {
+      const proceed = confirm(
+        'ยังไม่พบข้อมูลผู้ใช้ในระบบ (userId)\n' +
+        'ต้องการสร้าง QR ชำระเงินต่อเลยหรือไม่?'
+      );
+      if (!proceed) return;
     }
 
-  } catch (err) {
-    alert('มีปัญหาในการเชื่อมต่อเซิร์ฟเวอร์:\n' + err.message + '\n\nURL: ' + ORDER_API_URL);
+    showQR();
   }
-}
 
+  window.createOrder = createOrder;
 
-  /* -------- แสดง QR Code โดยไม่ผ่าน Apps Script -------- */
+  // ===== 6) แสดง QR Code =====
   function showQR() {
     const amount = finalPrice || price || 0;
     const qrUrl  = `https://promptpay.io/${PROMPTPAY_ID}/${amount}`;
 
-    document.getElementById("qrImage").src = qrUrl;
-    document.getElementById("qrBox").style.display = "block";
-    window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+    document.getElementById('qrImage').src = qrUrl;
+    document.getElementById('qrBox').style.display = 'block';
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
   }
 </script>
 
