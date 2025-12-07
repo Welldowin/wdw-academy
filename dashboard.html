@@ -656,7 +656,7 @@
     }
   }
 
-  // ---------- 4) สร้างตารางการบ้าน ----------
+    // ---------- 4) สร้างตารางการบ้าน ----------
   function renderHomeworkTable(homework, courseNameMap) {
     if (!hwTbody) return;
     hwTbody.innerHTML = '';
@@ -670,47 +670,47 @@
     if (hwEmpty) hwEmpty.style.display = 'none';
     if (hwTable) hwTable.style.display = 'table';
 
-      homework.forEach(item => {
-    const tr = document.createElement('tr');
+    homework.forEach(item => {
+      const tr = document.createElement('tr');
 
-    const cid      = item.courseId || '';
-    const courseNm = courseNameMap[cid] || cid || '-';
-    const title    = item.title   || '';
-    const detail   = item.detail  || '';
-    
-    // --- แถววันที่ (ประกาศก่อนแล้วค่อย format)
-    const dueDateRaw  = item.dueDate || '';
-    const dueDateDisp = formatDateLabel(String(dueDateRaw));
+      const cid      = item.courseId || '';
+      const courseNm = courseNameMap[cid] || cid || '-';
+      const title    = item.title   || '';
+      const detail   = item.detail  || '';
 
-    const status   = item.status  || '';
+      // --- แถววันที่ (ประกาศก่อนแล้วค่อย format)
+      const dueDateRaw  = item.dueDate || '';
+      const dueDateDisp = formatDateLabel(String(dueDateRaw));
 
-    const statusUpper = String(status).toUpperCase();
-    const done =
-      statusUpper === 'DONE' ||
-      statusUpper === 'CHECKED' ||
-      statusUpper === 'FINISHED' ||
-      status === 'ส่งแล้ว';
+      const status   = item.status  || '';
 
-    const pillClass = done ? 'pill pill-done' : 'pill pill-pending';
-    const pillText  = done ? (status || 'DONE') : (status || 'ยังไม่ส่ง');
+      const statusUpper = String(status).toUpperCase();
+      const done =
+        statusUpper === 'DONE' ||
+        statusUpper === 'CHECKED' ||
+        statusUpper === 'FINISHED' ||
+        status === 'ส่งแล้ว';
 
-    tr.innerHTML = `
-      <td>${escapeHtml(courseNm)}</td>
-      <td>
-        ${escapeHtml(title)}
-        ${item._isLatest ? '<span class="new-badge">New!!</span>' : ''}
-      </td>
-      <td>${escapeHtml(detail)}</td>
-      <td>${escapeHtml(dueDateDisp)}</td>
-      <td><span class="${pillClass}">${escapeHtml(pillText)}</span></td>
-    `;
+      const pillClass = done ? 'pill pill-done' : 'pill pill-pending';
+      const pillText  = done ? (status || 'DONE') : (status || 'ยังไม่ส่ง');
 
-    tr.dataset.courseId = cid;
-    hwTbody.appendChild(tr);
-  });
+      tr.innerHTML = `
+        <td>${escapeHtml(courseNm)}</td>
+        <td>
+          ${escapeHtml(title)}
+          ${item._isLatest ? '<span class="new-badge">New!!</span>' : ''}
+        </td>
+        <td>${escapeHtml(detail)}</td>
+        <td>${escapeHtml(dueDateDisp)}</td>
+        <td><span class="${pillClass}">${escapeHtml(pillText)}</span></td>
+      `;
 
+      tr.dataset.courseId = cid;
+      hwTbody.appendChild(tr);
+    });
+  }
 
-    // ---------- 5) สร้างรายชื่อวิดีโอ ----------
+  // ---------- 5) สร้างรายชื่อวิดีโอ ----------
   function renderVideoList(videos, courseNameMap) {
     if (!videoListEl) return;
     videoListEl.innerHTML = '';
@@ -755,7 +755,6 @@
       videoListEl.appendChild(div);
     });
   }
-
 
   // ---------- 6) อัปเดตตัวเลขสรุปด้านบน ----------
   function updateSummaryCounts(homework, videos) {
