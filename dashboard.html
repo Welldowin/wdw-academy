@@ -273,6 +273,26 @@
       padding: 1rem;
       font-size: 0.9rem;
     }
+        .new-badge {
+      display: inline-block;
+      margin-left: 0.35rem;
+      padding: 0.05rem 0.45rem;
+      border-radius: 999px;
+      background-color: #ff4d4d;
+      color: #fff;
+      font-size: 0.7rem;
+      font-weight: 700;
+      animation: blinkNew 1s infinite;
+    }
+
+    @keyframes blinkNew {
+      0%, 50% {
+        opacity: 1;
+      }
+      50.01%, 100% {
+        opacity: 0;
+      }
+    }
 
     @media (max-width: 880px) {
       .grid-2 {
@@ -480,6 +500,50 @@
   let GLOBAL_COURSES  = [];
   let GLOBAL_HOMEWORK = [];
   let GLOBAL_VIDEOS   = [];
+   // ---------- เครื่องหมายว่าแถวไหน/คลิปไหน "ล่าสุด" จากวันที่ ----------
+  function markLatestByDate(arr, dateKey) {
+    if (!Array.isArray(arr) || arr.length === 0) return;
+
+    let maxTime   = -Infinity;
+    let anyValid  = false;
+
+    // รอบที่ 1: หาค่าเวลา "มากที่สุด"
+    arr.forEach(item => {
+      const raw = item[dateKey];
+      if (!raw) return;
+
+      const t = Date.parse(raw);
+      if (isNaN(t)) return;
+
+      anyValid = true;
+      if (t > maxTime) {
+        maxTime = t;
+      }
+    });
+
+    // เคลียร์ธงเก่าก่อน
+    arr.forEach(it => { delete it._isLatest; });
+
+    // ถ้าอ่านวันที่ไม่ได้เลยสักอัน → ให้ถือว่าแถวสุดท้ายเป็นล่าสุด (กันกรณีข้อมูลเก่า)
+    if (!anyValid) {
+      arr[arr.length - 1]._isLatest = true;
+      return;
+    }
+
+    // รอบที่ 2: ติดธงให้ทุกตัวที่มีวันที่ = maxTime
+    arr.forEach(item => {
+      const raw = item[dateKey];
+      if (!raw) return;
+
+      const t = Date.parse(raw);
+      if (isNaN(t)) return;
+
+      if (t === maxTime) {
+        item._isLatest = true;
+      }
+    });
+  }
+
 
   // ---------- 3) โหลดข้อมูลจาก Apps Script (getDashboard) ----------
   async function loadDashboard() {
@@ -505,6 +569,11 @@
       const homework = json.homework  || [];
       const videos   = json.videos    || [];
       const tokens   = json.tokens    || 0;
+     
+            // ทำเครื่องหมายอันล่าสุดจากวันที่
+      markLatestByDate(homework, 'dueDate'); // การบ้านล่าสุด
+      markLatestByDate(videos, 'date');      // วิดีโอล่าสุด
+
 
       GLOBAL_COURSES  = courses;
       GLOBAL_HOMEWORK = homework;
@@ -592,13 +661,17 @@
       const pillClass = done ? 'pill pill-done' : 'pill pill-pending';
       const pillText  = done ? (status || 'DONE') : (status || 'ยังไม่ส่ง');
 
-      tr.innerHTML = `
+        tr.innerHTML = `
         <td>${escapeHtml(courseNm)}</td>
-        <td>${escapeHtml(title)}</td>
+        <td>
+          ${escapeHtml(title)}
+          ${item._isLatest ? '<span class="new-badge">New!!</span>' : ''}
+        </td>
         <td>${escapeHtml(detail)}</td>
         <td>${escapeHtml(String(dueDate))}</td>
         <td><span class="${pillClass}">${escapeHtml(pillText)}</span></td>
       `;
+
       tr.dataset.courseId = cid;
 
       hwTbody.appendChild(tr);
@@ -627,8 +700,11 @@
       const div = document.createElement('div');
       div.className = 'video-item';
       div.dataset.courseId = cid;
-      div.innerHTML = `
-        <div class="video-title">${escapeHtml(title)}</div>
+            div.innerHTML = `
+        <div class="video-title">
+          ${escapeHtml(title)}
+          ${v._isLatest ? '<span class="new-badge">New!!</span>' : ''}
+        </div>
         <div class="video-meta">
           คอร์ส: ${escapeHtml(courseNm)}
           ${date ? ' | วันที่อัปโหลด: ' + escapeHtml(String(date)) : ''}
@@ -638,6 +714,7 @@
           ${url ? `<a href="${escapeHtml(url)}" target="_blank" class="link-btn">เปิดวิดีโอ</a>` : ''}
         </div>
       `;
+
       videoListEl.appendChild(div);
     });
   }
