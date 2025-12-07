@@ -454,6 +454,35 @@
       .replace(/'/g, '&#39;');
   }
 
+  // แปลงวันที่ให้สวยอ่านง่าย เช่น 2025-12-07T17:00:00.000Z -> 08 ธ.ค. 68
+  function formatDateLabel(raw) {
+    if (!raw) return '';
+
+    const s = String(raw);
+
+    // ถ้าเป็นรูปแบบที่พี่พิมพ์เองอยู่แล้ว เช่น "08 ธ.ค. 68" ก็ไม่ไปยุ่ง
+    if (/[ก-ฮ]/.test(s)) return s;
+
+    const d = new Date(s);
+    if (isNaN(d.getTime())) {
+      return s; // ถ้าแปลงไม่ได้ก็แสดงดิบ ๆ เหมือนเดิม
+    }
+
+    const day   = d.getDate().toString().padStart(2, '0');
+    const month = d.getMonth(); // 0-11
+    const year  = d.getFullYear(); // 2025
+
+    const thaiMonths = [
+      'ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.',
+      'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'
+    ];
+
+    const budYear   = year + 543;          // พ.ศ.
+    const shortYear = String(budYear % 100).padStart(2, '0'); // 68
+
+    return `${day} ${thaiMonths[month]} ${shortYear}`;
+  }
+
   // ---------- 1) เช็กการล็อกอิน ----------
   const userId    = localStorage.getItem('userId');
   const userEmail = localStorage.getItem('userEmail') || '';
@@ -641,44 +670,47 @@
     if (hwEmpty) hwEmpty.style.display = 'none';
     if (hwTable) hwTable.style.display = 'table';
 
-    homework.forEach(item => {
-      const tr = document.createElement('tr');
+      homework.forEach(item => {
+    const tr = document.createElement('tr');
 
-      const cid      = item.courseId || '';
-      const courseNm = courseNameMap[cid] || cid || '-';
-      const title    = item.title   || '';
-      const detail   = item.detail  || '';
-      const dueDate  = item.dueDate || '';
-      const status   = item.status  || '';
+    const cid      = item.courseId || '';
+    const courseNm = courseNameMap[cid] || cid || '-';
+    const title    = item.title   || '';
+    const detail   = item.detail  || '';
+    
+    // --- แถววันที่ (ประกาศก่อนแล้วค่อย format)
+    const dueDateRaw  = item.dueDate || '';
+    const dueDateDisp = formatDateLabel(String(dueDateRaw));
 
-      const statusUpper = String(status).toUpperCase();
-      const done =
-        statusUpper === 'DONE' ||
-        statusUpper === 'CHECKED' ||
-        statusUpper === 'FINISHED' ||
-        status === 'ส่งแล้ว';
+    const status   = item.status  || '';
 
-      const pillClass = done ? 'pill pill-done' : 'pill pill-pending';
-      const pillText  = done ? (status || 'DONE') : (status || 'ยังไม่ส่ง');
+    const statusUpper = String(status).toUpperCase();
+    const done =
+      statusUpper === 'DONE' ||
+      statusUpper === 'CHECKED' ||
+      statusUpper === 'FINISHED' ||
+      status === 'ส่งแล้ว';
 
-        tr.innerHTML = `
-        <td>${escapeHtml(courseNm)}</td>
-        <td>
-          ${escapeHtml(title)}
-          ${item._isLatest ? '<span class="new-badge">New!!</span>' : ''}
-        </td>
-        <td>${escapeHtml(detail)}</td>
-        <td>${escapeHtml(String(dueDate))}</td>
-        <td><span class="${pillClass}">${escapeHtml(pillText)}</span></td>
-      `;
+    const pillClass = done ? 'pill pill-done' : 'pill pill-pending';
+    const pillText  = done ? (status || 'DONE') : (status || 'ยังไม่ส่ง');
 
-      tr.dataset.courseId = cid;
+    tr.innerHTML = `
+      <td>${escapeHtml(courseNm)}</td>
+      <td>
+        ${escapeHtml(title)}
+        ${item._isLatest ? '<span class="new-badge">New!!</span>' : ''}
+      </td>
+      <td>${escapeHtml(detail)}</td>
+      <td>${escapeHtml(dueDateDisp)}</td>
+      <td><span class="${pillClass}">${escapeHtml(pillText)}</span></td>
+    `;
 
-      hwTbody.appendChild(tr);
-    });
-  }
+    tr.dataset.courseId = cid;
+    hwTbody.appendChild(tr);
+  });
 
-  // ---------- 5) สร้างรายชื่อวิดีโอ ----------
+
+    // ---------- 5) สร้างรายชื่อวิดีโอ ----------
   function renderVideoList(videos, courseNameMap) {
     if (!videoListEl) return;
     videoListEl.innerHTML = '';
@@ -694,20 +726,25 @@
       const courseNm = courseNameMap[cid] || cid || '-';
       const title    = v.title || '';
       const url      = v.url   || '';
-      const date     = v.date  || '';
+
+      // --- วันที่อัปโหลด: ใช้ raw + แปลงเป็นข้อความสวย ๆ
+      const dateRaw  = v.date  || '';
+      const dateDisp = formatDateLabel(String(dateRaw));
+
       const duration = v.duration || '';
 
       const div = document.createElement('div');
       div.className = 'video-item';
       div.dataset.courseId = cid;
-            div.innerHTML = `
+
+      div.innerHTML = `
         <div class="video-title">
           ${escapeHtml(title)}
           ${v._isLatest ? '<span class="new-badge">New!!</span>' : ''}
         </div>
         <div class="video-meta">
           คอร์ส: ${escapeHtml(courseNm)}
-          ${date ? ' | วันที่อัปโหลด: ' + escapeHtml(String(date)) : ''}
+          ${dateRaw ? ' | วันที่อัปโหลด: ' + escapeHtml(dateDisp) : ''}
           ${duration ? ' | ความยาว: ' + escapeHtml(duration) : ''}
         </div>
         <div class="video-actions">
@@ -718,6 +755,7 @@
       videoListEl.appendChild(div);
     });
   }
+
 
   // ---------- 6) อัปเดตตัวเลขสรุปด้านบน ----------
   function updateSummaryCounts(homework, videos) {
