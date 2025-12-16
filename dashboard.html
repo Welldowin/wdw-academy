@@ -444,6 +444,9 @@
   const DASHBOARD_API_URL =
     'https://script.google.com/macros/s/AKfycbyWopA9fBZHi7sJL-6qeaI2S_aGuVxP-_sJUC6Yie-qajiYDmeOorsznY6-1Z5NzKRT4Q/exec';
 
+  // === ADDED: ตั้งค่าว่า "ลิ้งค์" จะนับเป็นการบ้านค้างไหม (default: ไม่ค้าง) ===
+  const COUNT_LINK_AS_PENDING = false;
+
   function escapeHtml(str) {
     if (!str) return '';
     return String(str)
@@ -452,6 +455,14 @@
       .replace(/>/g, '&gt;')
       .replace(/"/g, '&quot;')
       .replace(/'/g, '&#39;');
+  }
+
+  // === ADDED: ดึง URL จากข้อความ status (ถ้ามี) ===
+  function extractUrlFromText(text) {
+    if (!text) return '';
+    const s = String(text);
+    const m = s.match(/https?:\/\/\S+/i);
+    return m ? m[0] : '';
   }
 
   // แปลงวันที่ให้สวยอ่านง่าย เช่น 2025-12-07T17:00:00.000Z -> 08 ธ.ค. 68
@@ -682,17 +693,28 @@
       const dueDateRaw  = item.dueDate || '';
       const dueDateDisp = formatDateLabel(String(dueDateRaw));
 
-      const status   = item.status  || '';
-
+      const status = item.status || '';
       const statusUpper = String(status).toUpperCase();
+
+      // === ADDED: ถ้า status มี URL -> ทำปุ่ม "ลิ้งค์" ===
+      const linkUrlInStatus = extractUrlFromText(status);
+      const isLinkStatus = !!linkUrlInStatus;
+
       const done =
         statusUpper === 'DONE' ||
         statusUpper === 'CHECKED' ||
         statusUpper === 'FINISHED' ||
         status === 'ส่งแล้ว';
 
-      const pillClass = done ? 'pill pill-done' : 'pill pill-pending';
-      const pillText  = done ? (status || 'DONE') : (status || 'ยังไม่ส่ง');
+      // === ADDED: สร้าง HTML ของช่องสถานะ ===
+      let statusHtml = '';
+      if (isLinkStatus) {
+        statusHtml = `<a href="${escapeHtml(linkUrlInStatus)}" target="_blank" class="link-btn">ลิ้งค์</a>`;
+      } else {
+        const pillClass = done ? 'pill pill-done' : 'pill pill-pending';
+        const pillText  = done ? (status || 'ส่งแล้ว') : (status || 'ยังไม่ส่ง');
+        statusHtml = `<span class="${pillClass}">${escapeHtml(pillText)}</span>`;
+      }
 
       tr.innerHTML = `
         <td>${escapeHtml(courseNm)}</td>
@@ -702,7 +724,7 @@
         </td>
         <td>${escapeHtml(detail)}</td>
         <td>${escapeHtml(dueDateDisp)}</td>
-        <td><span class="${pillClass}">${escapeHtml(pillText)}</span></td>
+        <td>${statusHtml}</td>
       `;
 
       tr.dataset.courseId = cid;
@@ -761,12 +783,22 @@
     let pendingCount = 0;
     if (Array.isArray(homework)) {
       homework.forEach(item => {
-        const status = String(item.status || '').toUpperCase();
+        const rawStatus = item.status || '';
+        const status = String(rawStatus).toUpperCase();
+
+        const hasLink = !!extractUrlFromText(rawStatus);
+
+        // === ADDED: ถ้าเป็นลิ้งค์และไม่อยากนับเป็นค้าง ให้ข้าม ===
+        if (hasLink && !COUNT_LINK_AS_PENDING) {
+          return;
+        }
+
         const done =
           status === 'DONE' ||
           status === 'CHECKED' ||
           status === 'FINISHED' ||
           item.status === 'ส่งแล้ว';
+
         if (!done) pendingCount += 1;
       });
     }
