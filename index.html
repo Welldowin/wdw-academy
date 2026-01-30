@@ -4,24 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>โรงเรียนกวดวิชาเวลดูวิน Well-Do-Win</title>
-  <!-- favicon -->
-  <link rel="icon" href="/favicon.ico" sizes="any">
-  <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  <meta name="description" content="Well-Do-Win Academy โรงเรียนกวดวิชาที่ขอนแก่น เรียนฟิสิกส์ เคมี คณิต แบบเข้าใจง่าย มีคอร์สสดและออนไลน์ พร้อมคลังข้อสอบและการบ้านสำหรับสมาชิก" />
-  <link rel="canonical" href="https://welldowinacademy.com/" />
-
-  <!-- Open Graph (แชร์ลง Facebook/Line ให้รูป+ชื่อสวย) -->
-  <meta property="og:title" content="Well-Do-Win Academy | โรงเรียนกวดวิชาเวลดูวิน" />
-  <meta property="og:description" content="กวดวิชา ม.ต้น-ม.ปลาย ที่ขอนแก่น เรียนสนุก เข้าใจง่าย คะแนนพุ่ง มีคอร์สสดและออนไลน์" />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://welldowinacademy.com/" />
-  <meta property="og:image" content="https://welldowinacademy.com/logo.png" />
-
-  <!-- สำหรับ Twitter/บางแพลตฟอร์ม -->
-  <meta name="twitter:card" content="summary_large_image" />
-
   <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;500;700&display=swap" rel="stylesheet">
+
   <style>
     body {
       margin: 0;
@@ -37,6 +21,7 @@
       right: 20px;
       display: flex;
       gap: 0.6rem;
+      z-index: 10;
     }
 
     .auth-buttons a {
@@ -82,6 +67,7 @@
       gap: 2rem;
       padding: 1rem;
       background-color: #162e6d;
+      flex-wrap: wrap;
     }
 
     .top-nav a {
@@ -96,6 +82,7 @@
       flex-direction: column;
       align-items: center;
       margin-top: 1.5rem;
+      padding: 0 1rem;
     }
 
     .logo-img {
@@ -117,7 +104,13 @@
 
     .hero h1 {
       font-size: 2.5rem;
-      margin-bottom: 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero p {
+      margin-top: 0.2rem;
+      margin-bottom: 1.2rem;
+      font-size: 1.05rem;
     }
 
     .btn {
@@ -125,14 +118,33 @@
       color: white;
       padding: 0.8rem 1.5rem;
       border: none;
-      border-radius: 8px;
+      border-radius: 10px;
       font-size: 1rem;
       cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: .2s;
     }
 
-    .features, .courses, .reviews, .contact {
+    .btn:hover { transform: translateY(-1px); }
+
+    .btn-outline{
+      background: #fff;
+      color: #1E3D8F;
+      border: 1px solid rgba(30,61,143,0.35);
+    }
+
+    .btn-row{
+      display:flex;
+      justify-content:center;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top: 10px;
+    }
+
+    .features, .courses, .reviews, .contact, .info-hub {
       padding: 2rem;
-      max-width: 960px;
+      max-width: 1100px;
       margin: auto;
     }
 
@@ -147,6 +159,165 @@
       padding: 1rem;
       border-radius: 12px;
       margin-bottom: 1rem;
+      border: 1px solid rgba(0,0,0,0.06);
+    }
+
+    /* ====== INFO HUB (ปุ่มบทความ/คลังข้อสอบ) ====== */
+    .hub-grid{
+      display:grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .hub-card{
+      background: #ffffff;
+      border-radius: 14px;
+      padding: 14px 14px;
+      border: 1px solid rgba(30,61,143,0.12);
+      box-shadow: 0 10px 18px rgba(0,0,0,0.06);
+      display:flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 130px;
+    }
+
+    .hub-card h3{
+      margin: 0;
+      font-size: 1.1rem;
+      color:#1E3D8F;
+    }
+
+    .hub-card p{
+      margin: 0;
+      font-size: 0.95rem;
+      color:#444;
+      line-height: 1.35;
+      flex: 1;
+    }
+
+    .hub-card a{
+      align-self: flex-start;
+    }
+
+    /* ====== SLIDER + TABS ====== */
+    .slider-wrap{
+      max-width: 1100px;
+      margin: 2rem auto 0;
+      padding: 0 1rem;
+    }
+
+    .gallery-tabs{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      justify-content:center;
+      margin: 12px 0 14px;
+    }
+
+    .gallery-tabs .tab{
+      border: 1px solid rgba(30,61,143,0.25);
+      background: #fff;
+      color:#1E3D8F;
+      padding: 8px 12px;
+      border-radius: 999px;
+      cursor:pointer;
+      font-weight: 600;
+      transition: .2s;
+      font-family: 'Kanit', sans-serif;
+    }
+
+    .gallery-tabs .tab:hover{ transform: translateY(-1px); }
+
+    .gallery-tabs .tab.active{
+      background:#1E3D8F;
+      color:#fff;
+      border-color:#1E3D8F;
+    }
+
+   .slider{
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.15);
+  background: #0f1f4d;
+  height: 340px;
+  line-height: 0;   /* ✅ กันช่องว่างใต้รูป */
+}
+
+
+    .slides{
+      display: flex;
+      transition: transform 600ms ease;
+      will-change: transform;
+    }
+
+    .slide{ min-width: 100%; position: relative; }
+
+    .slide img{
+  width: 100%;
+  height: 340px;
+  max-width: 100%;     /* ✅ เพิ่ม */
+  max-height: 100%;    /* ✅ เพิ่ม */
+  object-fit: cover;
+  display: block;
+}
+
+
+
+    .slide-caption{
+  top: 14px;
+  bottom: auto;
+  left: 14px;
+  right: auto;
+  max-width: 70%;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(0,0,0,0.35);
+}
+
+
+    .slider-btn{
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      border: none;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      cursor: pointer;
+      background: rgba(255,255,255,0.9);
+      font-size: 18px;
+      font-weight: 700;
+      display: grid;
+      place-items: center;
+      transition: 0.2s;
+    }
+
+    .slider-btn:hover{ transform: translateY(-50%) scale(1.05); }
+
+    .slider-btn.prev{ left: 10px; }
+    .slider-btn.next{ right: 10px; }
+
+    .dots{
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      padding: 12px 0;
+    }
+
+    .dot{
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(30,61,143,0.35);
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .dot.active{
+      width: 24px;
+      background: #1E3D8F;
     }
 
     footer {
@@ -156,53 +327,53 @@
       padding: 1rem;
       margin-top: 2rem;
     }
-            /* ปรับให้เหมาะกับหน้าจอมือถือ */
-    @media (max-width: 768px) {
-      .top-nav {
-        flex-direction: column;
-        gap: 0.5rem;
-        padding: 0.5rem;
-      }
 
-      .auth-buttons {
-        position: static;         /* ไม่ลอยมุมขวาเวลาอยู่บนมือถือ */
-        justify-content: center;
-        margin-top: 0.5rem;
-      }
+   /* Responsive */
+@media (max-width: 1000px){
+  .hub-grid{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
 
-      header {
-        padding-bottom: 1.5rem;
-      }
+@media (max-width: 768px) {
+  .top-nav {
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.5rem;
+  }
 
-      .logo-img {
-        height: 90px;            /* โลโก้เล็กลงหน่อยบนมือถือ */
-      }
+  .auth-buttons {
+    position: static;
+    justify-content: center;
+    margin-top: 0.5rem;
+  }
 
-      .school-name {
-        font-size: 1.4rem;
-        padding: 0 1rem;
-        text-align: center;
-      }
+  header { padding-bottom: 1.5rem; }
+  .logo-img { height: 90px; }
+  .school-name { font-size: 1.4rem; }
 
-      .hero {
-        padding: 2rem 1rem;
-      }
+  .hero { padding: 2rem 1rem; }
+  .hero h1 { font-size: 1.6rem; }
 
-      .hero h1 {
-        font-size: 1.6rem;
-      }
+  .features, .courses, .reviews, .contact, .info-hub {
+    padding: 1.5rem 1rem;
+  }
 
-      .features, .courses, .reviews, .contact {
-        padding: 1.5rem 1rem;
-      }
-    }
+  /* ✅ คุมกรอบสไลด์บนมือถือ */
+  .slider{ height: 220px; }
+
+  /* ✅ ให้รูปยึดกรอบ 100% (ไม่ล้นแน่นอน) */
+  .slide img{
+    height: 100%;
+  }
+
+  .hub-grid{ grid-template-columns: 1fr; }
+}
 
   </style>
 </head>
+
 <body>
 
   <header>
-
     <!-- ปุ่มเข้าสู่ระบบ + สมัครสมาชิก -->
     <div class="auth-buttons">
       <a href="login.html" class="login-btn">เข้าสู่ระบบ</a>
@@ -213,13 +384,13 @@
     <nav class="top-nav">
       <a href="index.html">หน้าแรก</a>
       <a href="courses.html">คอร์สเรียน</a>
-      <a href="#">เกี่ยวกับเรา</a>
-      <a href="#">ติดต่อ</a>
+      <a href="about.html">เกี่ยวกับเรา</a>
+      <a href="contact.html">ติดต่อ</a>
     </nav>
 
     <!-- โลโก้และชื่อโรงเรียน -->
     <div class="logo-center">
-      <img src="logo.png" alt="โลโก้ WWD" class="logo-img" />
+      <img src="logo.png" alt="โลโก้ WDW" class="logo-img" />
       <h1 class="school-name">โรงเรียนกวดวิชาเวลดูวิน Well-Do-Win</h1>
     </div>
   </header>
@@ -227,7 +398,90 @@
   <section class="hero">
     <h1>เรียนสนุก เข้าใจง่าย ได้คะแนนพุ่ง!</h1>
     <p>คอร์สติวเข้มแบบมิตรภาพ สอนสด + ออนไลน์</p>
-    <a href="register.html" class="btn">สมัครเรียนเลย 🚀</a>
+
+    <div class="btn-row">
+      <a href="register.html" class="btn">สมัครเรียนเลย 🚀</a>
+      <a href="courses.html" class="btn btn-outline">ดูคอร์สทั้งหมด</a>
+      <a href="member.html" class="btn btn-outline">เข้า Member</a>
+    </div>
+  </section>
+
+  <!-- ====== สไลด์รูป + เลือกหมวด ====== -->
+  <section class="slider-wrap">
+    <h2 class="section-title" style="text-align:center;">ผลงาน & บรรยากาศกิจกรรม</h2>
+
+    <div class="gallery-tabs" id="galleryTabs">
+      <button class="tab active" data-cat="all">ทั้งหมด</button>
+      <button class="tab" data-cat="speaker">วิทยากร/แนะแนว</button>
+      <button class="tab" data-cat="classroom">บรรยากาศห้องเรียน</button>
+      <button class="tab" data-cat="success">ผลงานสอบติด</button>
+      <button class="tab" data-cat="activity">กิจกรรม</button>
+      <button class="tab" data-cat="boardgame">แข่งขันบอร์ดเกม</button>
+    </div>
+
+    <div class="slider" id="wdwSlider">
+      <div class="slides" id="slides"></div>
+      <button class="slider-btn prev" id="prevBtn" aria-label="รูปก่อนหน้า">‹</button>
+      <button class="slider-btn next" id="nextBtn" aria-label="รูปถัดไป">›</button>
+    </div>
+
+    <div class="dots" id="dots"></div>
+  </section>
+
+  <!-- ====== ปุ่มลิงก์บทความ/ข่าวสอบ/คลังข้อสอบ ====== -->
+  <section class="info-hub">
+    <h2 class="section-title">ศูนย์รวมข้อมูลการศึกษา</h2>
+    <p style="margin-top:-6px;">ทุนการศึกษา • ปฏิทินสอบ • ข่าวการสอบเข้ามหาวิทยาลัย • และคลังข้อสอบ (กำลังทำ)</p>
+
+    <div class="hub-grid">
+      <div class="hub-card">
+        <h3>ทุนการศึกษา</h3>
+        <p>รวมทุน/โครงการ/ประกาศสำคัญ อัปเดตเรื่อยๆ</p>
+        <a class="btn btn-outline" href="scholarships.html">ไปหน้า “ทุน”</a>
+      </div>
+
+      <div class="hub-card">
+        <h3>NETSAT</h3>
+        <p>แนวข้อสอบ วิธีเตรียมตัว และข่าวอัปเดต</p>
+        <a class="btn btn-outline" href="netsat.html">ข้อมูล NETSAT</a>
+      </div>
+
+      <div class="hub-card">
+        <h3>A-Level</h3>
+        <p>สรุปประเด็นออกสอบ + เทคนิคทำข้อสอบ</p>
+        <a class="btn btn-outline" href="alevel.html">ข้อมูล A-Level</a>
+      </div>
+
+      <div class="hub-card">
+        <h3>TGAT / TPAT</h3>
+        <p>สรุปภาพรวม + แนวข้อสอบ + วิธีอ่าน</p>
+        <a class="btn btn-outline" href="tgat-tpat.html">ข้อมูล TGAT/TPAT</a>
+      </div>
+
+      <div class="hub-card">
+        <h3>ข่าวสารการแข่งขัน</h3>
+        <p>ข่าวแข่งขันวิชาการ/กิจกรรมเสริมพอร์ต</p>
+        <a class="btn btn-outline" href="news.html">ดูข่าวสาร</a>
+      </div>
+
+      <div class="hub-card">
+        <h3>คลังข้อสอบ (เร็วๆนี้)</h3>
+        <p>ข้อสอบจำลอง/เฉลย/แบบฝึกหัดให้ลองทำฟรี</p>
+        <a class="btn" href="question-bank.html">ไปคลังข้อสอบ</a>
+      </div>
+
+      <div class="hub-card">
+        <h3>ทำ Mock Test ฟรี</h3>
+        <p>ลองทำข้อสอบออนไลน์ + ดูคะแนนทันที</p>
+        <a class="btn" href="mocktest.html">เริ่มทำข้อสอบ</a>
+      </div>
+
+      <div class="hub-card">
+        <h3>ตารางสอบ/กำหนดการ</h3>
+        <p>รวมวันสอบ/ช่วงรับสมัคร/ไทม์ไลน์สำคัญ</p>
+        <a class="btn btn-outline" href="exam-timeline.html">ดูไทม์ไลน์</a>
+      </div>
+    </div>
   </section>
 
   <section class="features">
@@ -240,7 +494,7 @@
   <section class="courses">
     <h2 class="section-title">คอร์สเรียนยอดนิยม</h2>
     <div class="course-box">🔹 ติวเข้า ม.4 (วิทย์-คณิต)</div>
-    <div class="course-box">🔸 ติวสอบ ม.6 (GAT/PPAT)</div>
+    <div class="course-box">🔸 ติวสอบ ม.6 (TGAT/TPAT / A-Level)</div>
     <div class="course-box">🟢 ปูพื้นฐาน ม.ต้น ทุกวิชา</div>
   </section>
 
@@ -259,7 +513,169 @@
     © 2025 โรงเรียนกวดวิชาเวลดูวิน - เป็นให้มากกว่าโรงเรียนกวดวิชา
   </footer>
 
+  <script>
+    /*
+      ✅ วิธีใส่รูปเพิ่ม / เปลี่ยนรูป (สำคัญมาก)
+      1) เอารูปไปไว้โฟลเดอร์:  /images/
+      2) ตั้งชื่อไฟล์ตามหมวด เช่น:
+         - speaker_01.jpg, speaker_02.jpg        (วิทยากร/แนะแนว)
+         - classroom_01.jpg, classroom_02.jpg    (บรรยากาศห้องเรียน)
+         - success_01.jpg, success_02.jpg        (ผลงานสอบติด)
+         - activity_01.jpg, activity_02.jpg      (กิจกรรม)
+         - boardgame_01.jpg, boardgame_02.jpg    (บอร์ดเกม)
+      3) แล้วมาเพิ่มรายการที่ตัวแปร allSlides ด้านล่าง
+         { src:"images/ชื่อไฟล์.jpg", caption:"คำบรรยาย", cat:"หมวด" }
+         หมวด(cat) ใช้ได้: speaker, classroom, success, activity, boardgame
+    */
+
+    const allSlides = [
+      // ====== วิทยากร / แนะแนว ======
+      { src:"images/speaker_01.jpg", caption:"ติว NETSAT ที่โรงเรียนชุมแพศึกษา", cat:"speaker" },
+      { src:"images/speaker_02.jpg", caption:"ติว NETSAT ที่โรงเรียนชุมแพศึกษา", cat:"speaker" },
+	{ src:"images/speaker_03.jpg", caption:"ติว NETSAT ที่โรงเรียนบ้านไผ่", cat:"speaker" },
+	{ src:"images/speaker_04.jpg", caption:"ติว NETSAT ที่โรงเรียนบ้านไผ่", cat:"speaker" },
+	{ src:"images/speaker_05.jpg", caption:"ติว NETSAT ที่โรงเรียนสาธิต ศึกษาศาสตร์ มข.", cat:"speaker" },	
+	{ src:"images/speaker_06.jpg", caption:"ติวสอบกลางภาคคณะเทคโนโลยี ม.ขอนแก่น", cat:"speaker" },
+	{ src:"images/speaker_07.jpg", caption:"ติวสอบกลางภาคคณะเทคโนโลยี ม.ขอนแก่น", cat:"speaker" },
+
+      // ====== บรรยากาศห้องเรียน ======
+      { src:"images/classroom_01.jpg", caption:"บรรยากาศห้องเรียนติวเข้ม", cat:"classroom" },
+      { src:"images/classroom_02.jpg", caption:"บรรยากาศห้องเรียนติวเข้ม", cat:"classroom" },
+	{ src:"images/classroom_03.jpg", caption:"บรรยากาศห้องเรียนติวเข้ม", cat:"classroom" },
+	{ src:"images/classroom_04.jpg", caption:"บรรยากาศห้องเรียนติวเข้ม", cat:"classroom" },
+
+      // ====== ผลงานสอบติด ======
+      { src:"images/success_01.jpg", caption:"ผลงานรุ่นพี่สอบติดคณะในฝัน", cat:"success" },
+      { src:"images/success_02.jpg", caption:"ผลงานรุ่นพี่สอบติดคณะในฝัน", cat:"success" },
+	{ src:"images/success_03.jpg", caption:"ผลงานนักเรียน Well-Do-Win Academy", cat:"success" },
+	
+      // ====== กิจกรรม ======
+      { src:"images/activity_01.jpg", caption:"กิจกรรมคริสต์มาส / แจกของรางวัล", cat:"activity" },
+     	{ src:"images/activity_03.jpg", caption:"กิจกรรมคริสต์มาส / แจกของรางวัล", cat:"activity" },
+	{ src:"images/activity_04.jpg", caption:"กิจกรรมคริสต์มาส / แจกของรางวัล", cat:"activity" },
+	
+
+      // ====== แข่งขันบอร์ดเกม ======
+      { src:"images/boardgame_01.jpg", caption:"แข่งขันบอร์ดเกม ฝึกตรรกะ/การสื่อสาร", cat:"boardgame" },
+      { src:"images/boardgame_02.jpg", caption:"แข่งขันบอร์ดเกม ฝึกตรรกะ/การสื่อสาร", cat:"boardgame" },
+	{ src:"images/boardgame_03.jpg", caption:"แข่งขันบอร์ดเกม ฝึกตรรกะ/การสื่อสาร", cat:"boardgame" },
+	{ src:"images/boardgame_04.jpg", caption:"บรรยากาศการแข่งขันและมอบรางวัล", cat:"boardgame" },
+    ];
+
+    const slidesEl = document.getElementById("slides");
+    const dotsEl = document.getElementById("dots");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+    const slider = document.getElementById("wdwSlider");
+    const tabs = document.getElementById("galleryTabs");
+
+    let slidesData = [...allSlides];
+    let current = 0;
+    let timer = null;
+    const intervalMs = 4000;
+
+    function render(){
+      slidesEl.innerHTML = "";
+      dotsEl.innerHTML = "";
+
+      if(slidesData.length === 0){
+        slidesEl.innerHTML = `
+          <div class="slide">
+            <img src="images/placeholder.jpg" alt="ยังไม่มีรูป">
+            <div class="slide-caption">ยังไม่มีรูปในหมวดนี้ (ใส่รูปเพิ่มได้ตามคู่มือในโค้ด)</div>
+          </div>
+        `;
+        return;
+      }
+
+      slidesData.forEach((s, i) => {
+        const slide = document.createElement("div");
+        slide.className = "slide";
+        slide.innerHTML = `
+          <img src="${s.src}" alt="${s.caption}">
+          <div class="slide-caption">${s.caption}</div>
+        `;
+        slidesEl.appendChild(slide);
+
+        const dot = document.createElement("div");
+        dot.className = "dot" + (i === 0 ? " active" : "");
+        dot.addEventListener("click", () => goTo(i, true));
+        dotsEl.appendChild(dot);
+      });
+
+      current = 0;
+      updateUI();
+    }
+
+    function updateUI(){
+      slidesEl.style.transform = `translateX(-${current * 100}%)`;
+      [...dotsEl.children].forEach((d, i) => d.classList.toggle("active", i === current));
+    }
+
+    function goTo(index, resetTimer=false){
+      if(slidesData.length === 0) return;
+      current = (index + slidesData.length) % slidesData.length;
+      updateUI();
+      if(resetTimer) restartAuto();
+    }
+
+    function next(){ goTo(current + 1, true); }
+    function prev(){ goTo(current - 1, true); }
+
+    prevBtn.addEventListener("click", prev);
+    nextBtn.addEventListener("click", next);
+
+    function startAuto(){
+      stopAuto();
+      timer = setInterval(() => {
+        if(slidesData.length === 0) return;
+        current = (current + 1) % slidesData.length;
+        updateUI();
+      }, intervalMs);
+    }
+
+    function stopAuto(){
+      if(timer) clearInterval(timer);
+      timer = null;
+    }
+
+    function restartAuto(){
+      stopAuto();
+      startAuto();
+    }
+
+    // pause on hover (desktop)
+    slider.addEventListener("mouseenter", stopAuto);
+    slider.addEventListener("mouseleave", startAuto);
+
+    // swipe (mobile)
+    let startX = 0;
+    slider.addEventListener("touchstart", (e) => startX = e.touches[0].clientX, {passive:true});
+    slider.addEventListener("touchend", (e) => {
+      const endX = e.changedTouches[0].clientX;
+      const dx = endX - startX;
+      if(Math.abs(dx) > 50){
+        if(dx < 0) next(); else prev();
+      }
+    });
+
+    // tabs filter
+    tabs.addEventListener("click", (e) => {
+      const btn = e.target.closest(".tab");
+      if(!btn) return;
+
+      [...tabs.querySelectorAll(".tab")].forEach(t => t.classList.remove("active"));
+      btn.classList.add("active");
+
+      const cat = btn.dataset.cat;
+      slidesData = (cat === "all") ? [...allSlides] : allSlides.filter(s => s.cat === cat);
+
+      render();
+      startAuto();
+    });
+
+    render();
+    startAuto();
+  </script>
 </body>
 </html>
-
-
