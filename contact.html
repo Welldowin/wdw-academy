@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ติดต่อเรา | Well-Do-Win Academy (เวล-ดู-วิน อคาเดมี่)</title>
+  <meta name="description" content="ติดต่อโรงเรียนกวดวิชาเวล-ดู-วิน อคาเดมี่ | ที่อยู่ เบอร์โทร Facebook IG TikTok และแผนที่" />
+
+  <!-- ✅ Favicon (ถ้ามีไฟล์ตามนี้) -->
+  <link rel="icon" href="./favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" href="./favicon-32x32.png" sizes="32x32">
+  <link rel="apple-touch-icon" href="./apple-touch-icon.png">
+
+  <style>
+    :root{
+      --blue: #1E3D8F;
+      --blueDeep: #0B235F;
+      --yellow: #FFF173;
+      --red: #D94C4C;
+
+      --bg: #F7FAFF;
+      --card: #FFFFFF;
+      --text: #0F172A;
+      --muted: #475569;
+      --line: rgba(30, 61, 143, .16);
+
+      --radius: 18px;
+      --shadow: 0 10px 28px rgba(15, 23, 42, .08);
+      --shadowStrong: 0 16px 40px rgba(11, 35, 95, .12);
+    }
+
+    *{ box-sizing: border-box; }
+    html, body{ margin:0; padding:0; }
+    body{
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans Thai", "Noto Sans", Arial, sans-serif;
+      color: var(--text);
+      line-height: 1.65;
+
+      background:
+        radial-gradient(900px 420px at 10% 0%, rgba(255, 241, 115, .52), transparent 60%),
+        radial-gradient(900px 450px at 88% 10%, rgba(11, 35, 95, .16), transparent 60%),
+        radial-gradient(700px 380px at 92% 78%, rgba(217, 76, 76, .10), transparent 60%),
+        linear-gradient(180deg, rgba(30, 61, 143, .06), transparent 32%),
+        var(--bg);
+    }
+
+    a{ color: inherit; text-decoration: none; }
+    .container{ width: min(1100px, 92vw); margin: 0 auto; }
+
+    /* ===== Top Nav ===== */
+    .topbar{
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: blur(10px);
+      background: rgba(247, 250, 255, .86);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav{
+      display:flex; align-items:center; justify-content: space-between;
+      padding: 12px 0;
+      gap: 14px;
+    }
+    .brand{
+      display:flex; align-items:center; gap: 10px;
+      font-weight: 900;
+      letter-spacing: .2px;
+      color: var(--blueDeep);
+      white-space: nowrap;
+    }
+    .brand img{
+      width: 42px; height: 42px; border-radius: 14px;
+      border: 1px solid var(--line);
+      background: #fff;
+      object-fit: cover;
+    }
+    .navlinks{
+      display:flex; align-items:center; gap: 14px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+    .navlinks a{
+      padding: 10px 12px;
+      border-radius: 12px;
+      color: var(--blueDeep);
+      font-weight: 800;
+      opacity: .92;
+    }
+    .navlinks a:hover{
+      background: rgba(30, 61, 143, .08);
+      opacity: 1;
+    }
+    .cta{ display:flex; align-items:center; gap: 10px; }
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding: 10px 14px;
+      border-radius: 14px;
+      font-weight: 900;
+      border: 1px solid var(--line);
+      background: #fff;
+      box-shadow: 0 10px 18px rgba(15, 23, 42, .06);
+      transition: transform .15s ease, background .15s ease;
+      cursor: pointer;
+    }
+    .btn.primary{
+      background: linear-gradient(135deg, var(--yellow), #fff);
+      border-color: rgba(255, 241, 115, .95);
+      color: #4a3c00;
+    }
+    .btn.primary:hover{ transform: translateY(-1px); }
+    .btn.outline:hover{ background: rgba(30, 61, 143, .06); }
+
+    /* ===== Hero ===== */
+    .hero{ padding: 44px 0 14px; }
+    .heroCard{
+      border-radius: var(--radius);
+      background: linear-gradient(135deg, rgba(255, 241, 115, .76), rgba(255, 255, 255, .88));
+      border: 1px solid rgba(255, 241, 115, .95);
+      box-shadow: var(--shadowStrong);
+      padding: 22px;
+      position: relative;
+      overflow: hidden;
+    }
+    .heroCard::before{
+      content:"";
+      position:absolute;
+      left:-30px; top:-40px;
+      width: 180px; height: 180px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 30%, rgba(11, 35, 95, .22), transparent 62%);
+      pointer-events:none;
+    }
+    .heroCard::after{
+      content:"";
+      position:absolute;
+      inset:-90px -130px auto auto;
+      width: 240px; height: 240px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 30%, rgba(217, 76, 76, .18), transparent 65%);
+      pointer-events:none;
+    }
+    .kicker{
+      display:inline-flex; align-items:center; gap:8px;
+      background: rgba(11, 35, 95, .09);
+      color: var(--blueDeep);
+      border: 1px solid rgba(11, 35, 95, .16);
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-weight: 900;
+      font-size: 13px;
+    }
+    h1{
+      margin: 12px 0 8px;
+      font-size: clamp(26px, 4vw, 40px);
+      line-height: 1.1;
+      color: var(--blueDeep);
+      letter-spacing: .2px;
+    }
+    .subtitle{
+      margin: 0;
+      color: #24324a;
+      font-weight: 750;
+    }
+
+    /* ===== Layout ===== */
+    .section{ padding: 16px 0 6px; }
+    .grid{
+      display:grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 16px;
+      align-items: start;
+    }
+
+    .card{
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 18px;
+    }
+    .card h2{
+      margin: 0 0 10px;
+      color: var(--blueDeep);
+      font-size: 20px;
+      letter-spacing: .2px;
+    }
+    .muted{ color: var(--muted); font-weight: 750; }
+
+    .list{
+      margin: 0;
+      padding-left: 18px;
+      color: #334155;
+      font-weight: 750;
+    }
+    .list li{ margin: 6px 0; }
+
+    .pillRow{
+      display:flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    /* ===== Media cards ===== */
+    .mediaGrid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .imgCard{
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: #fff;
+      box-shadow: 0 12px 22px rgba(11, 35, 95, .10);
+      position: relative;
+    }
+    .imgCard img{
+      width: 100%;
+      height: auto;
+      display:block;
+    }
+    .imgCap{
+      padding: 12px 12px;
+      border-top: 1px solid rgba(11,35,95,.10);
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 10px;
+      background: rgba(255,255,255,.92);
+    }
+    .imgCap b{ color: var(--blueDeep); }
+    .capHint{
+      color: #64748b;
+      font-weight: 750;
+      font-size: 13px;
+      text-align: right;
+    }
+
+    /* ===== QR ===== */
+    .qrWrap{
+      display:flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .qr{
+      width: min(220px, 70vw);
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: #fff;
+      box-shadow: 0 12px 22px rgba(11, 35, 95, .10);
+    }
+    .qrText{
+      flex: 1;
+      min-width: 220px;
+    }
+
+    /* ===== Footer ===== */
+    footer{
+      margin-top: 22px;
+      padding: 20px 0 34px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-weight: 750;
+    }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 900px){
+      .grid{ grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ===== Topbar ===== -->
+  <div class="topbar">
+    <div class="container">
+      <div class="nav">
+        <a class="brand" href="./index.html" aria-label="Well-Do-Win Academy">
+          <!-- ✅ ถ้าโลโก้จริงไม่ใช่ about01.png ให้เปลี่ยนตรงนี้ -->
+          <img src="./images/about01.png" alt="Well-Do-Win Academy Logo" loading="lazy">
+          <span>Well-Do-Win Academy</span>
+        </a>
+
+        <div class="navlinks">
+          <a href="./index.html">หน้าแรก</a>
+          <a href="./courses.html">คอร์สเรียน</a>
+          <a href="./about.html">เกี่ยวกับเรา</a>
+          <a href="./contact.html" style="background: rgba(11,35,95,.08);">ติดต่อ</a>
+        </div>
+
+        <div class="cta">
+          <!-- ปุ่มหลักบนหัวเว็บ -->
+          <a class="btn primary" href="./login.html">เข้าสู่ระบบ</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Hero ===== -->
+  <header class="hero">
+    <div class="container">
+      <div class="heroCard">
+        <div class="kicker">📍 Contact • Well-Do-Win Academy</div>
+        <h1>ติดต่อเรา</h1>
+        <p class="subtitle">
+          ช่องทางติดต่ออย่างเป็นทางการของโรงเรียนกวดวิชาเวล-ดู-วิน อคาเดมี่ พร้อมแผนที่และ QR LINE
+        </p>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== Main ===== -->
+  <main class="section" id="contact">
+    <div class="container">
+      <div class="grid">
+        <!-- LEFT: Contact details -->
+        <section class="card">
+          <h2>ข้อมูลติดต่อ</h2>
+
+          <ul class="list">
+            <li><b>ที่อยู่:</b> 88/8 ตำบลชุมแพ อำเภอชุมแพ ขอนแก่น 40130</li>
+            <li><b>แผนที่:</b>
+              <a class="btn outline" style="padding:8px 12px; border-radius: 12px; display:inline-flex; margin-left:8px;"
+                 href="https://goo.gl/maps/erU4pdYS94hgjpTP8" target="_blank" rel="noopener">
+                เปิด Google Maps
+              </a>
+            </li>
+            <li><b>โทร:</b>
+              <a href="tel:0635455395" style="color: var(--blueDeep); font-weight: 950;">063-545-5395</a>
+              ,
+              <a href="tel:0635455645" style="color: var(--blueDeep); font-weight: 950;">063-545-5645</a>
+            </li>
+            <li><b>Instagram:</b> <span style="font-weight:950; color: var(--blueDeep);">welldowin.academy</span></li>
+            <li><b>TikTok:</b> <span style="font-weight:950; color: var(--blueDeep);">@welldowin</span></li>
+            <li><b>Facebook:</b>
+              <a href="https://www.facebook.com/welldowin" target="_blank" rel="noopener"
+                 style="color: var(--blueDeep); font-weight: 950;">
+                facebook.com/welldowin
+              </a>
+            </li>
+          </ul>
+
+          <div class="pillRow">
+            <a class="btn outline" href="https://goo.gl/maps/erU4pdYS94hgjpTP8" target="_blank" rel="noopener">🗺️ เปิดแผนที่</a>
+            <a class="btn outline" href="https://www.facebook.com/welldowin" target="_blank" rel="noopener">📘 Facebook</a>
+	  
+
+            <!-- หมายเหตุ: IG / TikTok ใส่เป็นข้อความตามที่พี่ให้มา (ถ้าพี่มีลิงก์จริงส่งมาได้ เดี๋ยวผมใส่ให้เป๊ะ) -->
+          </div>
+
+          <hr style="border: none; border-top: 1px solid rgba(11,35,95,.10); margin: 16px 0;">
+
+          <h2>เพิ่มเพื่อน LINE</h2>
+          <div class="qrWrap">
+            <!-- ✅ พี่ใส่ไฟล์ QR เป็นชื่อ contact_line_qr.png ใน ./images/ -->
+            <img class="qr" src="./images/contact_line_qr.png" alt="LINE QR Code" loading="lazy">
+            <div class="qrText">
+		<a class="btn primary" href="https://lin.ee/n6iQfZx" target="_blank" rel="noopener">
+  		➕ Add me on LINE
+		</a>
+
+              <p class="muted" style="margin:0;">
+                สแกน QR เพื่อทักแชทสอบถามคอร์สเรียน / ตารางเรียน / โปรโมชั่นล่าสุด
+              </p>
+              <p class="muted" style="margin:10px 0 0; font-size: 13px;">
+                * ถ้าอยากให้ปุ่ม “Add LINE” เป็นลิงก์จริง ส่งลิงก์ LINE OA (หรือ LINE URL) มาได้เลย เดี๋ยวผมใส่ให้
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- RIGHT: Images -->
+        <aside class="mediaGrid">
+          <div class="imgCard">
+            <!-- ✅ รูปหน้าร้าน/ถนน -->
+            <img src="./images/contact_street.jpg" alt="ภาพบริเวณหน้าโรงเรียน" loading="lazy">
+            <div class="imgCap">
+              <div><b>ภาพบริเวณหน้าโรงเรียน</b></div>
+              <div class="capHint">ใช้ดูจุดสังเกตเวลามาเรียน</div>
+            </div>
+          </div>
+
+          <div class="imgCard">
+            <!-- ✅ รูปแผนที่ที่พี่ทำเครื่องหมาย -->
+            <img src="./images/contact_map.jpg" alt="แผนที่และจุดสังเกต" loading="lazy">
+            <div class="imgCap">
+              <div><b>แผนที่ & จุดสังเกต</b></div>
+              <div class="capHint">ใกล้แหล่งชุมชน เดินทางง่าย</div>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <footer>
+        <div class="container">
+          <div style="display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:space-between;">
+            <div>© <span id="y"></span> Well-Do-Win Academy</div>
+            <div>88/8 ต.ชุมแพ อ.ชุมแพ จ.ขอนแก่น 40130</div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </main>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+
+    // ✅ ตัวช่วยดีบัก: ถ้ารูปไม่ขึ้น จะแสดงข้อความว่าไฟล์ไหนหาไม่เจอ
+    document.querySelectorAll("img").forEach(img => {
+      img.addEventListener("error", () => {
+        img.style.display = "none";
+        const box = document.createElement("div");
+        box.style.padding = "12px";
+        box.style.border = "1px dashed rgba(30,61,143,.35)";
+        box.style.borderRadius = "14px";
+        box.style.background = "rgba(255,241,115,.35)";
+        box.style.color = "#12306f";
+        box.style.fontWeight = "900";
+        box.textContent = "❌ โหลดรูปไม่ได้: " + img.getAttribute("src");
+        img.parentElement.appendChild(box);
+      });
+    });
+  </script>
+</body>
+</html>
