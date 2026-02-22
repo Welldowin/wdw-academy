@@ -268,6 +268,41 @@
     @media (max-width: 900px){
       .grid{ grid-template-columns: 1fr; }
     }
+  
+    /* มุมขวาบน: ชื่อผู้ล็อกอิน + ออกจากระบบ */
+    .user-menu{
+      position:absolute;
+      top:15px;
+      right:20px;
+      display:none;
+      align-items:center;
+      gap:0.7rem;
+      z-index:20;
+      font-family:'Kanit', sans-serif;
+    }
+    .user-name{
+      background-color:rgba(30,61,143,0.12);
+      padding:0.35rem 0.7rem;
+      border-radius:999px;
+      font-size:0.9rem;
+      color:#0F172A;
+      white-space:nowrap;
+    }
+    .logout-btn{
+      padding:0.4rem 0.9rem;
+      border-radius:999px;
+      border:1px solid #0F172A;
+      background:transparent;
+      color:#0F172A;
+      font-size:0.85rem;
+      font-weight:500;
+      text-decoration:none;
+      cursor:pointer;
+      white-space:nowrap;
+    }
+    .logout-btn:hover{ background-color:rgba(255,255,255,0.2); }
+
+    .logout-btn:hover{ background-color:rgba(30,61,143,0.12); }
   </style>
 </head>
 
@@ -364,7 +399,7 @@
                 สแกน QR เพื่อทักแชทสอบถามคอร์สเรียน / ตารางเรียน / โปรโมชั่นล่าสุด
               </p>
               <p class="muted" style="margin:10px 0 0; font-size: 13px;">
-                * “Add LINE” เพิ่มเพื่อนเพื่อสอบถามข้อมูลเพิ่มเติม
+                * ถ้าอยากให้ปุ่ม “Add LINE” เป็นลิงก์จริง ส่งลิงก์ LINE OA (หรือ LINE URL) มาได้เลย เดี๋ยวผมใส่ให้
               </p>
             </div>
           </div>
@@ -422,6 +457,64 @@
       });
     });
   </script>
+
+<script>
+(function () {
+  const userId = localStorage.getItem('userId');
+  const userEmail = localStorage.getItem('userEmail') || '';
+  const userDisplayName = localStorage.getItem('userDisplayName') || userEmail || 'สมาชิก';
+
+  const authButtons = document.querySelector('.auth-buttons');
+  const cta = document.querySelector('.cta');
+  let userMenu = document.querySelector('.user-menu');
+
+  function mountUserMenu() {
+    if (!userMenu) {
+      userMenu = document.createElement('div');
+      userMenu.className = 'user-menu';
+      userMenu.innerHTML = `
+        <div class="user-name">👋 สวัสดี, <span id="userNameDisplay"></span></div>
+        <a href="#" class="logout-btn" id="logoutBtn">ออกจากระบบ</a>
+      `;
+      // พยายามแปะไว้ในส่วนหัว ถ้าไม่เจอให้แปะบน body
+      const host =
+        document.querySelector('header') ||
+        document.querySelector('.hero') ||
+        document.querySelector('.site-header') ||
+        document.body;
+      host.style.position = host.style.position || 'relative';
+      host.prepend(userMenu);
+    }
+
+    const nameEl = userMenu.querySelector('#userNameDisplay');
+    if (nameEl) nameEl.textContent = userDisplayName;
+
+    const logoutBtn = userMenu.querySelector('#logoutBtn');
+    if (logoutBtn && !logoutBtn.dataset.bound) {
+      logoutBtn.dataset.bound = '1';
+      logoutBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        localStorage.removeItem('userId');
+        localStorage.removeItem('userEmail');
+        localStorage.removeItem('userDisplayName');
+        window.location.href = 'index.html';
+      });
+    }
+
+    userMenu.style.display = 'flex';
+  }
+
+  if (userId) {
+    if (authButtons) authButtons.style.display = 'none';
+    if (cta) cta.style.display = 'none';
+    mountUserMenu();
+  } else {
+    if (userMenu) userMenu.style.display = 'none';
+    if (authButtons) authButtons.style.display = '';
+    if (cta) cta.style.display = '';
+  }
+})();
+</script>
+
 </body>
 </html>
-
