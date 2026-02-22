@@ -834,6 +834,9 @@
       e.preventDefault();
       localStorage.removeItem('userId');
       localStorage.removeItem('userEmail');
+       localStorage.removeItem('userDisplayName');
+       // ไม่จำเป็นต้องลบ studentProfile (ถ้าพี่อยากลบก็เปิดได้)
+
       window.location.href = 'index.html';
     });
   }
@@ -843,29 +846,10 @@
   const dashboardContent   = document.getElementById('dashboardContent');
 
   const profileCompletedKey = 'profileCompleted_' + (userId || userEmail || 'unknown');
-  const profileCompleted    = localStorage.getItem(profileCompletedKey);
-
-  function lockDashboard() {
-    if (!profileFormSection || !dashboardContent) return;
-    profileFormSection.style.display = 'block';
-    dashboardContent.style.opacity   = '0.4';
-    dashboardContent.style.pointerEvents = 'none';
-  }
-
-  function unlockDashboard() {
-    if (!profileFormSection || !dashboardContent) return;
-    profileFormSection.style.display = 'none';
-    dashboardContent.style.opacity   = '1';
-    dashboardContent.style.pointerEvents = 'auto';
-  }
-
-  if (profileCompleted === 'true') {
-    unlockDashboard();
-  } else {
-    lockDashboard();
-  }
-
-  // ---------- helper: profile ใน localStorage ----------
+  // NOTE: อย่าใช้ localStorage เป็นแหล่งความจริง เพราะเปลี่ยนอุปกรณ์แล้วค่าจะหาย
+  // ให้ "ล็อกไว้ก่อน" แล้วค่อยปลดล็อกเมื่อโหลดข้อมูลจากเซิร์ฟเวอร์ (Apps Script) แล้วพบว่ามีโปรไฟล์ครบ
+  lockDashboard();
+// ---------- helper: profile ใน localStorage ----------
   function saveProfileToLocal(data) {
     localStorage.setItem('studentProfile', JSON.stringify(data));
   }
@@ -946,6 +930,7 @@
         if (text.trim().startsWith('OK')) {
           alert('บันทึกโปรไฟล์เรียบร้อยแล้ว ✅');
           localStorage.setItem(profileCompletedKey, 'true');
+          localStorage.setItem('userDisplayName', (payload.firstName + ' ' + payload.lastName).trim() || userEmail);
           saveProfileToLocal(payload);
           loadProfileFromLocal();
           unlockDashboard();
@@ -1229,6 +1214,32 @@
       }
 
       const fullName = ((p.firstName || '') + (p.lastName ? ' ' + p.lastName : '')).trim();
+
+       // ✅ FIX: โปรไฟล์ต้องไม่ให้กรอกซ้ำข้ามอุปกรณ์
+       const hasProfileOnServer = Boolean(p.firstName && p.lastName && p.level && p.phone);
+       if (hasProfileOnServer) {
+         localStorage.setItem(profileCompletedKey, 'true');
+         // เก็บไว้สำหรับโชว์ชื่อมุมขวาบนทุกหน้า
+         localStorage.setItem('userDisplayName', fullName || userEmail);
+         // sync ลง local เพื่อให้ปุ่ม "แก้ไขโปรไฟล์" preload ได้
+         saveProfileToLocal({
+           userId: userId,
+           email: userEmail,
+           firstName: p.firstName || '',
+           lastName: p.lastName || '',
+           nickname: p.nickname || '',
+           level: p.level || '',
+           school: p.school || '',
+           phone: p.phone || '',
+           parentPhone: p.parentPhone || ''
+         });
+         unlockDashboard();
+       } else {
+         // ยังไม่มีข้อมูลครบ → บังคับกรอก
+         localStorage.removeItem(profileCompletedKey);
+         lockDashboard();
+       }
+
 
       const displayStudentName = document.getElementById('displayStudentName');
       const displayLevel       = document.getElementById('displayLevel');
