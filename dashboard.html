@@ -872,5 +872,64 @@
   loadDashboard();
 </script>
 
+
+<script>
+(function () {
+  const userId = localStorage.getItem('userId');
+  const userEmail = localStorage.getItem('userEmail') || '';
+  const userDisplayName = localStorage.getItem('userDisplayName') || userEmail || 'สมาชิก';
+
+  const authButtons = document.querySelector('.auth-buttons');
+  const cta = document.querySelector('.cta');
+  let userMenu = document.querySelector('.user-menu');
+
+  function mountUserMenu() {
+    if (!userMenu) {
+      userMenu = document.createElement('div');
+      userMenu.className = 'user-menu';
+      userMenu.innerHTML = `
+        <div class="user-name">👋 สวัสดี, <span id="userNameDisplay"></span></div>
+        <a href="#" class="logout-btn" id="logoutBtn">ออกจากระบบ</a>
+      `;
+      // พยายามแปะไว้ในส่วนหัว ถ้าไม่เจอให้แปะบน body
+      const host =
+        document.querySelector('header') ||
+        document.querySelector('.hero') ||
+        document.querySelector('.site-header') ||
+        document.body;
+      host.style.position = host.style.position || 'relative';
+      host.prepend(userMenu);
+    }
+
+    const nameEl = userMenu.querySelector('#userNameDisplay');
+    if (nameEl) nameEl.textContent = userDisplayName;
+
+    const logoutBtn = userMenu.querySelector('#logoutBtn');
+    if (logoutBtn && !logoutBtn.dataset.bound) {
+      logoutBtn.dataset.bound = '1';
+      logoutBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        localStorage.removeItem('userId');
+        localStorage.removeItem('userEmail');
+        localStorage.removeItem('userDisplayName');
+        window.location.href = 'index.html';
+      });
+    }
+
+    userMenu.style.display = 'flex';
+  }
+
+  if (userId) {
+    if (authButtons) authButtons.style.display = 'none';
+    if (cta) cta.style.display = 'none';
+    mountUserMenu();
+  } else {
+    if (userMenu) userMenu.style.display = 'none';
+    if (authButtons) authButtons.style.display = '';
+    if (cta) cta.style.display = '';
+  }
+})();
+</script>
+
 </body>
 </html>
