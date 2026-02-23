@@ -499,7 +499,7 @@
 
     <!-- เมนูนำทาง -->
     <nav class="top-nav">
-     <a href="index.html">หน้าแรก</a>
+      <a href="index.html">หน้าแรก</a>
       <a href="courses.html">คอร์สเรียน</a>
       <a href="about.html">เกี่ยวกับเรา</a>
       <a href="contact.html">ติดต่อ</a>
@@ -907,8 +907,9 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  function closeProfileModal() {
-    if (profileModalRequired) return; // บังคับกรอก = ห้ามปิด
+  function closeProfileModal(force) {
+    // ถ้าเป็นครั้งแรก (required) จะห้ามปิด เว้นแต่ force=true (ใช้หลังบันทึกสำเร็จ)
+    if (profileModalRequired && !force) return;
 
     if (profileFormSection) {
       profileFormSection.style.display = 'none';
@@ -934,7 +935,9 @@
 
   function unlockDashboard() {
     if (dashboardContent) dashboardContent.style.display = 'block';
-    closeProfileModal();
+    // หลังบันทึกโปรไฟล์สำเร็จ ต้องปลดโหมด required แล้วปิด modal
+    profileModalRequired = false;
+    closeProfileModal(true);
   }
 
 const profileCompletedKey = 'profileCompleted_' + (userId || userEmail || 'unknown');
