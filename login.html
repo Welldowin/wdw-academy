@@ -250,8 +250,8 @@
 
         try {
           await auth.sendPasswordResetEmail(targetEmail);
-          alert('ส่งลิงก์รีเซ็ตรหัสผ่านไปที่อีเมลแล้ว ✅
-โปรดตรวจสอบ Inbox/Spam');
+          // ใช้ \n แทนการขึ้นบรรทัดใหม่ในสตริงเดี่ยว เพื่อกัน SyntaxError
+          alert('ส่งลิงก์รีเซ็ตรหัสผ่านไปที่อีเมลแล้ว ✅\nโปรดตรวจสอบ Inbox/Spam');
         } catch (err) {
           console.error(err);
           alert('ส่งอีเมลรีเซ็ตรหัสผ่านไม่สำเร็จ: ' + err.message);
