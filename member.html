@@ -448,7 +448,43 @@
         grid-template-columns: 1fr;
       }
     }
-  </style>
+  
+    /* ---------- Profile Modal ---------- */
+    #profileOverlay{
+      position:fixed; inset:0;
+      background:rgba(0,0,0,0.55);
+      display:none;
+      z-index:9998;
+    }
+    #profileFormSection.profile-modal{
+      position:fixed;
+      top:50%; left:50%;
+      transform:translate(-50%,-50%);
+      width:min(920px, calc(100% - 24px));
+      max-height:calc(100vh - 80px);
+      overflow:auto;
+      z-index:9999;
+      box-shadow:0 20px 60px rgba(0,0,0,0.25);
+    }
+    #profileFormSection .modal-topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+    }
+    #closeProfileModalBtn{
+      border:none;
+      background:transparent;
+      font-size:1.6rem;
+      line-height:1;
+      cursor:pointer;
+      color:#333;
+      padding:6px 10px;
+      border-radius:10px;
+    }
+    #closeProfileModalBtn:hover{ background:rgba(0,0,0,0.06); }
+
+</style>
 </head>
 <body>
 
@@ -463,10 +499,10 @@
 
     <!-- เมนูนำทาง -->
     <nav class="top-nav">
-      <a href="index.html">หน้าแรก</a>
+     <a href="index.html">หน้าแรก</a>
       <a href="courses.html">คอร์สเรียน</a>
-      <a href="#">ตารางเรียน</a>
-      <a href="#">คู่มือการใช้งาน</a>
+      <a href="about.html">เกี่ยวกับเรา</a>
+      <a href="contact.html">ติดต่อ</a>
     </nav>
 
     <!-- โลโก้และชื่อโรงเรียน -->
@@ -491,7 +527,7 @@
 
     <!-- ฟอร์มโปรไฟล์ (บังคับกรอกก่อนใช้งานระบบ) -->
     <section class="card" id="profileFormSection" style="margin-bottom:1.5rem; display:none;">
-      <h2 class="section-title" style="margin-top:0;">กรอกข้อมูลโปรไฟล์นักเรียนก่อนใช้งานระบบ</h2>
+      <div class="modal-topbar"><h2 class="section-title" style="margin-top:0;">กรอกข้อมูลโปรไฟล์นักเรียนก่อนใช้งานระบบ</h2><button type="button" id="closeProfileModalBtn" aria-label="ปิดหน้าต่าง">×</button></div>
       <p style="font-size:0.9rem;color:#555;margin-bottom:1rem;">
         กรุณากรอกข้อมูลด้านล่างให้ครบถ้วนก่อนสมัครคอร์สหรือใช้งานแดชบอร์ดระบบสมาชิก
       </p>
@@ -845,7 +881,63 @@
   const profileFormSection = document.getElementById('profileFormSection');
   const dashboardContent   = document.getElementById('dashboardContent');
 
-  const profileCompletedKey = 'profileCompleted_' + (userId || userEmail || 'unknown');
+  
+
+  // ---------- helper: เปิด/ปิดหน้าต่างโปรไฟล์ ----------
+  const profileOverlay = document.getElementById('profileOverlay');
+  const closeProfileModalBtn = document.getElementById('closeProfileModalBtn');
+
+  let profileModalRequired = false;
+
+  function openProfileModal(required) {
+    profileModalRequired = Boolean(required);
+
+    if (profileFormSection) {
+      profileFormSection.style.display = 'block';
+      profileFormSection.classList.add('profile-modal');
+    }
+    if (profileOverlay) profileOverlay.style.display = 'block';
+
+    // ถ้าบังคับกรอก (ครั้งแรก) จะซ่อนปุ่มปิด
+    if (closeProfileModalBtn) {
+      closeProfileModalBtn.style.display = profileModalRequired ? 'none' : 'inline-block';
+    }
+
+    // scroll ไม่จำเป็นเพราะเป็น modal แล้ว แต่กันกรณีมือถือ
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function closeProfileModal() {
+    if (profileModalRequired) return; // บังคับกรอก = ห้ามปิด
+
+    if (profileFormSection) {
+      profileFormSection.style.display = 'none';
+      profileFormSection.classList.remove('profile-modal');
+    }
+    if (profileOverlay) profileOverlay.style.display = 'none';
+  }
+
+  if (profileOverlay) {
+    profileOverlay.addEventListener('click', () => {
+      // คลิกพื้นหลังเพื่อปิดได้เฉพาะโหมดแก้ไข
+      closeProfileModal();
+    });
+  }
+  if (closeProfileModalBtn) {
+    closeProfileModalBtn.addEventListener('click', () => closeProfileModal());
+  }
+
+  function lockDashboard() {
+    if (dashboardContent) dashboardContent.style.display = 'none';
+    openProfileModal(true);
+  }
+
+  function unlockDashboard() {
+    if (dashboardContent) dashboardContent.style.display = 'block';
+    closeProfileModal();
+  }
+
+const profileCompletedKey = 'profileCompleted_' + (userId || userEmail || 'unknown');
   // NOTE: อย่าใช้ localStorage เป็นแหล่งความจริง เพราะเปลี่ยนอุปกรณ์แล้วค่าจะหาย
   // ให้ "ล็อกไว้ก่อน" แล้วค่อยปลดล็อกเมื่อโหลดข้อมูลจากเซิร์ฟเวอร์ (Apps Script) แล้วพบว่ามีโปรไฟล์ครบ
   lockDashboard();
@@ -888,7 +980,10 @@
     if (welcomeLevel)       welcomeLevel.textContent       = data.level || '';
 
     if (userNameDisplay) {
-      if (fullName) {
+      // มุมขวาบนใช้ "ชื่อเล่น" เป็นหลัก
+      if (nickname) {
+        userNameDisplay.textContent = nickname;
+      } else if (fullName) {
         userNameDisplay.textContent = fullName;
       } else if (userEmail) {
         userNameDisplay.textContent = userEmail;
@@ -930,7 +1025,7 @@
         if (text.trim().startsWith('OK')) {
           alert('บันทึกโปรไฟล์เรียบร้อยแล้ว ✅');
           localStorage.setItem(profileCompletedKey, 'true');
-          localStorage.setItem('userDisplayName', (payload.firstName + ' ' + payload.lastName).trim() || userEmail);
+          localStorage.setItem('userDisplayName', (payload.nickname || payload.firstName || '').trim() || userEmail);
           saveProfileToLocal(payload);
           loadProfileFromLocal();
           unlockDashboard();
@@ -1074,12 +1169,8 @@
           console.error('Cannot preload profile form', e);
         }
       }
-      profileFormSection.style.display = 'block';
-      window.scrollTo({
-        top: profileFormSection.offsetTop - 80,
-        behavior: 'smooth'
+      openProfileModal(false);
       });
-    });
   }
 
   // ---------- 9) แสดงคอร์สของฉัน จาก enrollcourse ----------
@@ -1220,7 +1311,7 @@
        if (hasProfileOnServer) {
          localStorage.setItem(profileCompletedKey, 'true');
          // เก็บไว้สำหรับโชว์ชื่อมุมขวาบนทุกหน้า
-         localStorage.setItem('userDisplayName', fullName || userEmail);
+         localStorage.setItem('userDisplayName', (p.nickname || '').trim() || fullName || userEmail);
          // sync ลง local เพื่อให้ปุ่ม "แก้ไขโปรไฟล์" preload ได้
          saveProfileToLocal({
            userId: userId,
@@ -1313,5 +1404,7 @@
 </script>
 
 
+
+  <div id="profileOverlay" aria-hidden="true"></div>
 </body>
 </html>
