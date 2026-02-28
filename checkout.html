@@ -145,7 +145,7 @@
     <div class="qr-box" id="qrBox">
       <p>สแกนเพื่อชำระเงิน</p>
       <img id="qrImage" src="" alt="QR Payment">
-      <p style="font-size:20px;color:#555;">
+      <p style="font-size:18px;color:#555;">
         หลังชำระเงิน กรุณาแคปหลักฐานการโอน
         และส่งสลิปมาที่
         <a href="https://lin.ee/6sIEVNC" target="_blank" rel="noopener" style="color:#1E3A8A; font-weight:600;">
@@ -159,7 +159,7 @@
 
 <script>
   // ===== 1) ตั้งค่า PromptPay (ไม่ต้องใช้ ORDER_API_URL แล้ว) =====
-  const PROMPTPAY_ID  = '0635455395';
+  const PROMPTPAY_ID  = '0635455645';
 
   // ===== 2) ข้อมูลคอร์ส + ตารางเรียน =====
   const courseData = {
@@ -229,6 +229,45 @@
           <li>หมายเหตุ : 2 คนขึ้นไป คนละ 200 บ./ชม. (แจ้งทางไลน์)</li>
         </ul>
       `
+    },
+    "m4-summer": {
+      title: "คอร์สซัมเมอร์ - เตรียม ม.4 ฟิสิกส์/เคมี",
+      price: 3500,
+      schedule: `
+        <h3>ตารางเวลาเรียน</h3>
+        <ul>
+          <li>เรียนทุกอังคารถึงศุกร์</li>
+          <li>ฟิสิกส์ อ. / พฤ. 10.30–12.00</li>
+          <li>เคมี พ. / ศ. 10.30–12.00</li>
+          <li>วันที่เรียน: 10 มี.ค. ถึง 8 พ.ค.69)</li>
+        </ul>
+      `
+    },
+    "m5-summer": {
+      title: "คอร์สซัมเมอร์ - เตรียม ม.5 ฟิสิกส์/เคมี",
+      price: 3500,
+      schedule: `
+        <h3>ตารางเวลาเรียน</h3>
+        <ul>
+          <li>เรียนทุกอังคารถึงศุกร์</li>
+          <li>ฟิสิกส์ อ. / พฤ. 15.00–16.30</li>
+          <li>เคมี พ. / ศ. 15.00–16.30</li>
+          <li>วันที่เรียน: 10 มี.ค. ถึง 8 พ.ค.69)</li>
+        </ul>
+      `
+    },
+    "m6-summer": {
+      title: "คอร์สซัมเมอร์ - เตรียม ม.6 ฟิสิกส์/เคมี",
+      price: 3500,
+      schedule: `
+        <h3>ตารางเวลาเรียน</h3>
+        <ul>
+          <li>เรียนทุกอังคารถึงศุกร์</li>
+          <li>ฟิสิกส์ อ. / พฤ. 13.30–15.00</li>
+          <li>เคมี พ. / ศ. 13.30–15.00</li>
+          <li>วันที่เรียน: 10 มี.ค. ถึง 8 พ.ค.69)</li>
+        </ul>
+      `
     }
   };
 
@@ -266,26 +305,56 @@
 
   totalPriceSpan.textContent = finalPrice;
 
-  // ===== 4) ระบบโค้ดส่วนลด =====
+   // ===== 4) ระบบโค้ดส่วนลด =====
   document.getElementById('coupon').addEventListener('input', function () {
     const code = this.value.trim().toUpperCase();
     const msg  = document.getElementById('couponMsg');
 
-    if (code === 'NEWANDOLD200') {
-      finalPrice    = price - 200;
+    // รวมโค้ดทั้งหมดไว้ตรงนี้
+    const coupons = {
+      'SUMMERNEW200':  { type: 'fixed',   value: 200 },
+      'SUMMERDERM400': { type: 'fixed',   value: 400 },
+      'LASTSTAND21':   { type: 'fixed',   value: 290 },
+      'SUMMERSPD10':   { type: 'percent', value: 10 }
+    };
+
+    if (coupons[code]) {
+
+      const coupon = coupons[code];
+      let discount = 0;
+
+      if (coupon.type === 'fixed') {
+        discount = coupon.value;
+      } else if (coupon.type === 'percent') {
+        discount = price * (coupon.value / 100);
+      }
+
+      finalPrice = Math.max(price - discount, 0);
       currentCoupon = code;
-      msg.textContent = 'ใช้โค้ดส่วนลดสำเร็จ! ลด 200 บาท 🎉';
+
+      if (coupon.type === 'percent') {
+        msg.textContent = `ใช้โค้ดสำเร็จ! ลด ${coupon.value}% 🎉`;
+      } else {
+        msg.textContent = `ใช้โค้ดสำเร็จ! ลด ${coupon.value} บาท 🎉`;
+      }
+
       msg.style.color = 'green';
+
     } else if (code.length > 0) {
-      finalPrice    = price;
-      currentCoupon = code;
+
+      finalPrice = price;
+      currentCoupon = '';
       msg.textContent = 'โค้ดไม่ถูกต้อง';
       msg.style.color = 'red';
+
     } else {
-      finalPrice    = price;
+
+      finalPrice = price;
       currentCoupon = '';
       msg.textContent = '';
+
     }
+
     totalPriceSpan.textContent = finalPrice;
   });
 
