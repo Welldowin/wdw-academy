@@ -1,4 +1,4 @@
-const APPS_SCRIPT_URL = "ใส่_WEB_APP_URL_ของ_Apps_Script_ตรงนี้";
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw6di6lq-HYIUPFuXRuy0rzg5n3Xw4IsqkvcTbTp3AAzakhXfijGx7XwcTT4IWr-h_3oQ/exec";
 
 const QUIZ_META = {
   courseId: "m6-summer",
