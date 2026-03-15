@@ -87,7 +87,7 @@ function renderLeaderboard(rows, currentUserId) {
       <tr class="${isMe ? "rank-me" : ""}">
         <td><strong>${rank}</strong></td>
         <td style="font-size:1.35rem;">${medalByRank(rank)}</td>
-        <td>${row.userId}</td>
+        <td>${row.displayName || row.userId}</td>
         <td><strong>${row.score}</strong></td>
         <td>${formatTime(row.timeSec)}</td>
       </tr>
