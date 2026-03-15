@@ -1,4 +1,12 @@
-const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw6di6lq-HYIUPFuXRuy0rzg5n3Xw4IsqkvcTbTp3AAzakhXfijGx7XwcTT4IWr-h_3oQ/exec";
+const APPS_SCRIPT_URL = "ใส่_WEB_APP_URL_ของ_Apps_Script_ตรงนี้";
+
+const QUIZ_META = {
+  courseId: "m6-summer",
+  quizKey: "quiz1",
+  title: "Quiz1 การเรียกชื่อสาร",
+  enableTimer: false,
+  timeLimitSec: 600
+};
 
 let currentUser = null;
 let reviewMode = false;
@@ -25,6 +33,7 @@ function escapeHtml(text) {
 }
 
 function formatTime(sec) {
+  sec = Number(sec || 0);
   const minutes = Math.floor(sec / 60);
   const seconds = sec % 60;
   return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
@@ -38,12 +47,47 @@ function getRewardByScore(score) {
 }
 
 function showMessage(text, modeText = "") {
-  document.getElementById("studentInfo").textContent = text;
-  document.getElementById("modeInfo").textContent = modeText;
+  const studentInfo = document.getElementById("studentInfo");
+  const modeInfo = document.getElementById("modeInfo");
+  if (studentInfo) studentInfo.textContent = text;
+  if (modeInfo) modeInfo.textContent = modeText;
+}
+
+function ensureDisplayNameInput() {
+  const statusCard = document.querySelector(".status-card");
+  if (!statusCard) return;
+
+  if (document.getElementById("displayNameBox")) return;
+
+  const box = document.createElement("div");
+  box.className = "display-name-box";
+  box.id = "displayNameBox";
+  box.innerHTML = `
+    <label for="displayNameInput">ชื่อที่แสดงบน Leaderboard</label>
+    <input
+      type="text"
+      id="displayNameInput"
+      class="answer-input"
+      placeholder="เช่น แมค / น้องเมฆ / Beam"
+      maxlength="30"
+    />
+  `;
+
+  statusCard.appendChild(box);
+}
+
+function setDisplayNameValue(name, disabled = false) {
+  ensureDisplayNameInput();
+  const input = document.getElementById("displayNameInput");
+  if (!input) return;
+  input.value = name || "";
+  input.disabled = disabled;
 }
 
 function renderQuiz(savedAnswers = {}, disableInputs = false, resultDetail = {}) {
   const form = document.getElementById("quizForm");
+  if (!form) return;
+
   form.innerHTML = "";
 
   QUIZ_DATA.forEach((item, index) => {
@@ -105,14 +149,17 @@ function gradeQuiz(answers) {
 function startTimer() {
   if (!QUIZ_META.enableTimer) return;
 
-  document.getElementById("timerBox").classList.remove("hidden");
+  const timerBox = document.getElementById("timerBox");
+  if (timerBox) timerBox.classList.remove("hidden");
+
   startTime = Date.now();
 
   timerInterval = setInterval(() => {
     elapsedTimeSec = Math.floor((Date.now() - startTime) / 1000);
-    document.getElementById("timerText").textContent = formatTime(
-      Math.max(QUIZ_META.timeLimitSec - elapsedTimeSec, 0)
-    );
+
+    const remain = Math.max(QUIZ_META.timeLimitSec - elapsedTimeSec, 0);
+    const timerText = document.getElementById("timerText");
+    if (timerText) timerText.textContent = formatTime(remain);
 
     if (elapsedTimeSec >= QUIZ_META.timeLimitSec) {
       clearInterval(timerInterval);
@@ -124,15 +171,18 @@ function startTimer() {
 function startStopwatch() {
   startTime = Date.now();
 
+  const timerBox = document.getElementById("timerBox");
+  if (timerBox) timerBox.classList.remove("hidden");
+
   if (QUIZ_META.enableTimer) {
     startTimer();
     return;
   }
 
-  document.getElementById("timerBox").classList.remove("hidden");
   timerInterval = setInterval(() => {
     elapsedTimeSec = Math.floor((Date.now() - startTime) / 1000);
-    document.getElementById("timerText").textContent = formatTime(elapsedTimeSec);
+    const timerText = document.getElementById("timerText");
+    if (timerText) timerText.textContent = formatTime(elapsedTimeSec);
   }, 1000);
 }
 
@@ -179,12 +229,33 @@ function redirectToLeaderboard(score, diamonds, timeSec, firework) {
 
 async function handleSubmit(e) {
   e.preventDefault();
-
   if (reviewMode) return;
 
   const submitBtn = document.getElementById("submitBtn");
-  submitBtn.disabled = true;
-  submitBtn.textContent = "กำลังส่งคำตอบ...";
+  if (submitBtn) {
+    submitBtn.disabled = true;
+    submitBtn.textContent = "กำลังส่งคำตอบ...";
+  }
+
+  const displayName = (document.getElementById("displayNameInput")?.value || "").trim();
+
+  if (!displayName) {
+    alert("กรุณากรอกชื่อที่แสดงบน Leaderboard");
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "ส่งคำตอบ";
+    }
+    return;
+  }
+
+  if (displayName.length > 30) {
+    alert("ชื่อยาวเกินไป กรุณาใช้ไม่เกิน 30 ตัวอักษร");
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "ส่งคำตอบ";
+    }
+    return;
+  }
 
   clearInterval(timerInterval);
   elapsedTimeSec = Math.floor((Date.now() - startTime) / 1000);
@@ -196,6 +267,7 @@ async function handleSubmit(e) {
   try {
     const result = await submitQuizToBackend({
       userId: currentUser.uid,
+      displayName,
       courseId: QUIZ_META.courseId,
       quizKey: QUIZ_META.quizKey,
       score,
@@ -212,9 +284,12 @@ async function handleSubmit(e) {
     redirectToLeaderboard(score, reward.diamonds, elapsedTimeSec, reward.firework);
   } catch (error) {
     console.error(error);
-    submitBtn.disabled = false;
-    submitBtn.textContent = "ส่งคำตอบ";
-    alert("เกิดข้อผิดพลาดในการส่งคำตอบ");
+    alert(error.message || "เกิดข้อผิดพลาดในการส่งคำตอบ");
+
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "ส่งคำตอบ";
+    }
   }
 }
 
@@ -226,7 +301,10 @@ async function autoSubmitByTimeout() {
 
 async function initQuiz(user) {
   currentUser = user;
-  document.getElementById("quizTitle").textContent = QUIZ_META.title;
+
+  const title = document.getElementById("quizTitle");
+  if (title) title.textContent = QUIZ_META.title;
+
   showMessage(`ผู้ใช้: ${user.email || user.uid}`, "กำลังโหลดสถานะควิซ...");
 
   try {
@@ -239,27 +317,36 @@ async function initQuiz(user) {
     if (status.submitted) {
       reviewMode = true;
       renderQuiz(status.answers || {}, true, status.detail || {});
-      document.getElementById("actionsBar").classList.add("hidden");
+      setDisplayNameValue(status.displayName || "", true);
+
+      const actionsBar = document.getElementById("actionsBar");
+      if (actionsBar) actionsBar.classList.add("hidden");
+
       showMessage(
         `ผู้ใช้: ${user.email || user.uid}`,
         `คุณเคยทำควิซนี้แล้ว | คะแนน ${status.score ?? 0}/10 | ใช้เวลา ${formatTime(status.timeSec ?? 0)}`
       );
 
-      document.getElementById("resultInline").classList.remove("hidden");
-      document.getElementById("resultInline").innerHTML = `
-        <h2>คุณส่งคำตอบไปแล้ว</h2>
-        <p>คะแนนของคุณ: <strong>${status.score ?? 0}/10</strong></p>
-        <p>เวลาที่ใช้: <strong>${formatTime(status.timeSec ?? 0)}</strong></p>
-        <p class="small-note">ระบบแสดงเฉพาะคำตอบที่คุณเคยตอบ พร้อมสถานะถูก/ผิด โดยไม่แสดงเฉลยจริง</p>
-        <div class="actions">
-          <a class="btn primary" href="../leaderboard.html?courseId=${encodeURIComponent(QUIZ_META.courseId)}&quizKey=${encodeURIComponent(QUIZ_META.quizKey)}">
-            ไปหน้า Leaderboard
-          </a>
-        </div>
-      `;
+      const resultInline = document.getElementById("resultInline");
+      if (resultInline) {
+        resultInline.classList.remove("hidden");
+        resultInline.innerHTML = `
+          <h2>คุณส่งคำตอบไปแล้ว</h2>
+          <p>ชื่อที่แสดงบน Leaderboard: <strong>${escapeHtml(status.displayName || "-")}</strong></p>
+          <p>คะแนนของคุณ: <strong>${status.score ?? 0}/10</strong></p>
+          <p>เวลาที่ใช้: <strong>${formatTime(status.timeSec ?? 0)}</strong></p>
+          <p class="small-note">ระบบแสดงเฉพาะคำตอบที่คุณเคยตอบ พร้อมสถานะถูก/ผิด โดยไม่แสดงเฉลยจริง</p>
+          <div class="actions">
+            <a class="btn primary" href="../leaderboard.html?courseId=${encodeURIComponent(QUIZ_META.courseId)}&quizKey=${encodeURIComponent(QUIZ_META.quizKey)}">
+              ไปหน้า Leaderboard
+            </a>
+          </div>
+        `;
+      }
       return;
     }
 
+    ensureDisplayNameInput();
     renderQuiz();
     showMessage(
       `ผู้ใช้: ${user.email || user.uid}`,
@@ -272,13 +359,15 @@ async function initQuiz(user) {
   }
 }
 
-document.getElementById("quizForm").addEventListener("submit", handleSubmit);
+document.getElementById("quizForm")?.addEventListener("submit", handleSubmit);
 
 window.firebaseOnAuthStateChanged(window.firebaseAuth, (user) => {
   if (!user) {
     showMessage("ยังไม่ได้ล็อกอิน", "กรุณาเข้าสู่ระบบก่อน");
-    document.getElementById("actionsBar").classList.add("hidden");
+    const actionsBar = document.getElementById("actionsBar");
+    if (actionsBar) actionsBar.classList.add("hidden");
     return;
   }
+
   initQuiz(user);
 });
