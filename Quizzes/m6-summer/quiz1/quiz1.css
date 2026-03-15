@@ -239,3 +239,13 @@ body {
   font-size: 0.95rem;
   margin-top: 8px;
 }
+.display-name-box {
+  margin-top: 14px;
+}
+
+.display-name-box label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 700;
+  color: var(--wdw-yellow);
+}
