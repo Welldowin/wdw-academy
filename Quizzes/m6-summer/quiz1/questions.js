@@ -1,7 +1,7 @@
 const QUIZ_META = {
   courseId: "m6-summer",
   quizKey: "quiz1",
-  title: "Quiz 1: Organic Naming",
+  title: "Quiz 1: การเรียกชื่อสาร",
   enableTimer: false,
   timeLimitSec: 600, // เผื่อไว้สำหรับ quiz อื่น
 };
