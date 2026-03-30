@@ -1,5 +1,9 @@
 const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw6di6lq-HYIUPFuXRuy0rzg5n3Xw4IsqkvcTbTp3AAzakhXfijGx7XwcTT4IWr-h_3oQ/exec";
 
+// 👉 ดึงจาก questions.js (สำคัญมาก)
+const QUIZ_META = window.QUIZ_META;
+const QUIZ_DATA = window.QUIZ_DATA;
+
 let currentUser = null;
 let reviewMode = false;
 let startTime = null;
@@ -20,14 +24,13 @@ function normalizeAnswer(text) {
     .trim()
     .toLowerCase()
     .replaceAll(" ", "")
-    .replaceAll("π", "pi")
-    .replaceAll("^2", "²");
+    .replaceAll("π", "pi");
 }
 
 function formatTime(sec) {
-  const minutes = Math.floor(sec / 60);
-  const seconds = sec % 60;
-  return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+  const m = Math.floor(sec / 60);
+  const s = sec % 60;
+  return `${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`;
 }
 
 function getRewardByScore(score) {
@@ -37,110 +40,95 @@ function getRewardByScore(score) {
   return { diamonds: 0, firework: "none" };
 }
 
-function showMessage(text, modeText = "") {
+function showMessage(text, mode="") {
   document.getElementById("studentInfo").textContent = text;
-  document.getElementById("modeInfo").textContent = modeText;
+  document.getElementById("modeInfo").textContent = mode;
 }
 
-function renderQuiz(savedAnswers = {}, disableInputs = false, resultDetail = {}) {
+function renderQuiz(savedAnswers={}, disable=false, detail={}) {
   const form = document.getElementById("quizForm");
   form.innerHTML = "";
 
-  QUIZ_DATA.forEach((item, index) => {
-    const userAnswer = savedAnswers[item.id] || "";
-    const detail = resultDetail[item.id];
+  QUIZ_DATA.forEach((item, i) => {
 
     let answerHtml = "";
 
     if (item.type === "fill") {
       answerHtml = `
-        <input
-          type="text"
+        <input type="text"
           name="${item.id}"
           class="answer-input"
-          value="${escapeHtml(userAnswer)}"
-          placeholder="${escapeHtml(item.unitHint || "พิมพ์คำตอบ")}"
-          ${disableInputs ? "disabled" : "required"}
+          value="${savedAnswers[item.id] || ""}"
+          ${disable ? "disabled" : "required"}
         />
       `;
     } else {
       answerHtml = `
         <div class="options-grid">
-          ${item.choices.map(choice => `
+          ${item.choices.map(c => `
             <label class="option-label">
-              <input
-                type="radio"
+              <input type="radio"
                 name="${item.id}"
-                value="${choice.key}"
-                ${userAnswer === choice.key ? "checked" : ""}
-                ${disableInputs ? "disabled" : ""}
-                ${!disableInputs ? "required" : ""}
+                value="${c.key}"
+                ${(savedAnswers[item.id] === c.key) ? "checked" : ""}
+                ${disable ? "disabled" : "required"}
               />
-              <span><strong>${choice.key}.</strong> ${escapeHtml(choice.text)}</span>
+              <span><b>${c.key}.</b> ${escapeHtml(c.text)}</span>
             </label>
           `).join("")}
         </div>
       `;
     }
 
-    const card = document.createElement("div");
-    card.className = "question-card";
+    const el = document.createElement("div");
+    el.className = "question-card";
 
-    card.innerHTML = `
-      <h3>ข้อ ${index + 1}</h3>
+    el.innerHTML = `
+      <h3>ข้อ ${i+1}</h3>
       <p class="question-text">${escapeHtml(item.prompt)}</p>
-      ${item.image ? `<img src="${item.image}" class="question-image" />` : ""}
+      ${item.image ? `<img src="${item.image}" class="question-image">` : ""}
       ${answerHtml}
-      ${
-        disableInputs
-          ? `<div class="review-badge ${detail ? "correct" : "incorrect"}">
-               ${detail ? "✅ ถูก" : "❌ ผิด"}
-             </div>`
-          : ""
-      }
+      ${disable ? `<div class="review-badge ${detail[item.id] ? "correct":"incorrect"}">
+        ${detail[item.id] ? "✅ ถูก":"❌ ผิด"}
+      </div>` : ""}
     `;
 
-    form.appendChild(card);
+    form.appendChild(el);
   });
 }
 
 function collectAnswers() {
-  const answers = {};
-
-  QUIZ_DATA.forEach((item) => {
+  const ans = {};
+  QUIZ_DATA.forEach(item => {
     if (item.type === "fill") {
-      const input = document.querySelector(`input[name="${item.id}"]`);
-      answers[item.id] = input ? input.value.trim() : "";
+      const input = document.querySelector(`[name="${item.id}"]`);
+      ans[item.id] = input ? input.value.trim() : "";
     } else {
-      const selected = document.querySelector(`input[name="${item.id}"]:checked`);
-      answers[item.id] = selected ? selected.value : "";
+      const checked = document.querySelector(`[name="${item.id}"]:checked`);
+      ans[item.id] = checked ? checked.value : "";
     }
   });
-
-  return answers;
+  return ans;
 }
 
-function gradeQuiz(answers) {
+function gradeQuiz(ans) {
   let score = 0;
   const detail = {};
 
-  QUIZ_DATA.forEach((item) => {
+  QUIZ_DATA.forEach(item => {
     let correct = false;
 
     if (item.type === "fill") {
-      const user = normalizeAnswer(answers[item.id]);
-      const validAnswers = [item.answer, ...(item.answerAlt || [])].map(normalizeAnswer);
-      correct = validAnswers.includes(user);
+      const user = normalizeAnswer(ans[item.id]);
+      const valid = [item.answer].map(normalizeAnswer);
+      correct = valid.includes(user);
     } else {
-      correct = answers[item.id] === item.answer;
+      correct = ans[item.id] === item.answer;
     }
 
     detail[item.id] = correct;
 
-    // ⭐ เติมคำ 2 คะแนน / เลือกตอบ 1 คะแนน
-    if (correct) {
-      score += item.type === "fill" ? 2 : 1;
-    }
+    if (correct) score += item.type === "fill" ? 2 : 1;
   });
 
   return { score, detail };
@@ -152,11 +140,11 @@ function startTimer() {
   document.getElementById("timerBox").classList.remove("hidden");
   startTime = Date.now();
 
-  timerInterval = setInterval(() => {
-    elapsedTimeSec = Math.floor((Date.now() - startTime) / 1000);
+  timerInterval = setInterval(()=>{
+    elapsedTimeSec = Math.floor((Date.now()-startTime)/1000);
     document.getElementById("timerText").textContent =
-      formatTime(Math.max(QUIZ_META.timeLimitSec - elapsedTimeSec, 0));
-  }, 1000);
+      formatTime(Math.max(QUIZ_META.timeLimitSec - elapsedTimeSec,0));
+  },1000);
 }
 
 function startStopwatch() {
@@ -168,91 +156,81 @@ function startStopwatch() {
   }
 
   document.getElementById("timerBox").classList.remove("hidden");
-  timerInterval = setInterval(() => {
-    elapsedTimeSec = Math.floor((Date.now() - startTime) / 1000);
+  timerInterval = setInterval(()=>{
+    elapsedTimeSec = Math.floor((Date.now()-startTime)/1000);
     document.getElementById("timerText").textContent = formatTime(elapsedTimeSec);
-  }, 1000);
+  },1000);
 }
 
-async function postJSON(payload) {
-  const res = await fetch(APPS_SCRIPT_URL, {
-    method: "POST",
-    headers: { "Content-Type": "text/plain;charset=utf-8" },
-    body: JSON.stringify(payload)
+async function postJSON(payload){
+  const res = await fetch(APPS_SCRIPT_URL,{
+    method:"POST",
+    headers:{ "Content-Type":"text/plain;charset=utf-8"},
+    body:JSON.stringify(payload)
   });
   return res.json();
 }
 
-async function getQuizStatus(userId) {
+async function getQuizStatus(userId){
   return postJSON({
-    action: "getQuizStatus",
+    action:"getQuizStatus",
     userId,
-    courseId: QUIZ_META.courseId,
-    quizKey: QUIZ_META.quizKey
+    courseId:QUIZ_META.courseId,
+    quizKey:QUIZ_META.quizKey
   });
 }
 
-async function submitQuizToBackend(payload) {
-  return postJSON({
-    action: "submitQuiz",
-    ...payload
-  });
+async function submitQuiz(payload){
+  return postJSON({ action:"submitQuiz", ...payload });
 }
 
-function redirectToLeaderboard(score, diamonds, timeSec, firework) {
-  const params = new URLSearchParams({
+function goLeaderboard(score, diamonds, timeSec, fire){
+  const q = new URLSearchParams({
+    courseId:QUIZ_META.courseId,
+    quizKey:QUIZ_META.quizKey,
+    score, diamonds, timeSec, firework:fire
+  });
+  window.location.href = `../leaderboard-quiz3.html?${q}`;
+}
+
+async function handleSubmit(e){
+  e.preventDefault();
+
+  const name = document.getElementById("displayNameInput").value.trim();
+  if (!name) return alert("กรุณากรอกชื่อ");
+
+  clearInterval(timerInterval);
+  elapsedTimeSec = Math.floor((Date.now()-startTime)/1000);
+
+  const ans = collectAnswers();
+
+  if (Object.values(ans).includes("")) {
+    return alert("ตอบให้ครบก่อน");
+  }
+
+  const {score, detail} = gradeQuiz(ans);
+  const reward = getRewardByScore(score);
+
+  const result = await submitQuiz({
+    userId: currentUser.uid,
+    displayName: name,
     courseId: QUIZ_META.courseId,
     quizKey: QUIZ_META.quizKey,
     score,
-    diamonds,
-    timeSec,
-    firework
+    diamondsEarned: reward.diamonds,
+    timeSec: elapsedTimeSec,
+    answers: ans,
+    detail
   });
 
-  window.location.href = `../leaderboard-quiz3.html?${params.toString()}`;
-}
+  if (!result.ok) return alert("ส่งไม่สำเร็จ");
 
-async function handleSubmit(e) {
-  e.preventDefault();
-
-  if (reviewMode) return;
-
-  const displayName = document.getElementById("displayNameInput").value.trim();
-  if (!displayName) return alert("กรุณากรอกชื่อ");
-
-  clearInterval(timerInterval);
-  elapsedTimeSec = Math.floor((Date.now() - startTime) / 1000);
-
-  const answers = collectAnswers();
-
-  const { score, detail } = gradeQuiz(answers);
-  const reward = getRewardByScore(score);
-
-  try {
-    const result = await submitQuizToBackend({
-      userId: currentUser.uid,
-      displayName,
-      courseId: QUIZ_META.courseId,
-      quizKey: QUIZ_META.quizKey,
-      score,
-      diamondsEarned: reward.diamonds,
-      timeSec: elapsedTimeSec,
-      answers,
-      detail
-    });
-
-    if (!result.ok) throw new Error(result.message);
-
-    redirectToLeaderboard(score, reward.diamonds, elapsedTimeSec, reward.firework);
-  } catch (err) {
-    alert("ส่งไม่สำเร็จ");
-    console.error(err);
-  }
+  goLeaderboard(score, reward.diamonds, elapsedTimeSec, reward.firework);
 }
 
 document.getElementById("quizForm").addEventListener("submit", handleSubmit);
 
-window.firebaseOnAuthStateChanged(window.firebaseAuth, (user) => {
+window.firebaseOnAuthStateChanged(window.firebaseAuth, (user)=>{
   if (!user) return showMessage("ยังไม่ได้ล็อกอิน");
 
   currentUser = user;
