@@ -3,7 +3,7 @@ const QUIZ_META = {
   quizKey: "quiz3",
   title: "Final test : SHM",
   enableTimer: true,
-  timeLimitSec: 600
+  timeLimitSec: 1800
 };
 
 const QUIZ_DATA = [
