@@ -40,17 +40,16 @@ function getRewardByScore(score) {
   return { diamonds: 0, firework: "none" };
 }
 
-function showMessage(text, mode="") {
+function showMessage(text, mode = "") {
   document.getElementById("studentInfo").textContent = text;
   document.getElementById("modeInfo").textContent = mode;
 }
 
-function renderQuiz(savedAnswers={}, disable=false, detail={}) {
+function renderQuiz(savedAnswers = {}, disable = false, detail = {}) {
   const form = document.getElementById("quizForm");
   form.innerHTML = "";
 
   QUIZ_DATA.forEach((item, i) => {
-
     let answerHtml = "";
 
     if (item.type === "fill") {
@@ -84,12 +83,12 @@ function renderQuiz(savedAnswers={}, disable=false, detail={}) {
     el.className = "question-card";
 
     el.innerHTML = `
-      <h3>ข้อ ${i+1}</h3>
+      <h3>ข้อ ${i + 1}</h3>
       <p class="question-text">${escapeHtml(item.prompt)}</p>
       ${item.image ? `<img src="${item.image}" class="question-image">` : ""}
       ${answerHtml}
-      ${disable ? `<div class="review-badge ${detail[item.id] ? "correct":"incorrect"}">
-        ${detail[item.id] ? "✅ ถูก":"❌ ผิด"}
+      ${disable ? `<div class="review-badge ${detail[item.id] ? "correct" : "incorrect"}">
+        ${detail[item.id] ? "✅ ถูก" : "❌ ผิด"}
       </div>` : ""}
     `;
 
@@ -140,11 +139,16 @@ function startTimer() {
   document.getElementById("timerBox").classList.remove("hidden");
   startTime = Date.now();
 
-  timerInterval = setInterval(()=>{
-    elapsedTimeSec = Math.floor((Date.now()-startTime)/1000);
+  timerInterval = setInterval(() => {
+    elapsedTimeSec = Math.floor((Date.now() - startTime) / 1000);
     document.getElementById("timerText").textContent =
-      formatTime(Math.max(QUIZ_META.timeLimitSec - elapsedTimeSec,0));
-  },1000);
+      formatTime(Math.max(QUIZ_META.timeLimitSec - elapsedTimeSec, 0));
+
+    if (elapsedTimeSec >= QUIZ_META.timeLimitSec) {
+      clearInterval(timerInterval);
+      document.getElementById("quizForm").requestSubmit();
+    }
+  }, 1000);
 }
 
 function startStopwatch() {
@@ -156,84 +160,142 @@ function startStopwatch() {
   }
 
   document.getElementById("timerBox").classList.remove("hidden");
-  timerInterval = setInterval(()=>{
-    elapsedTimeSec = Math.floor((Date.now()-startTime)/1000);
+  timerInterval = setInterval(() => {
+    elapsedTimeSec = Math.floor((Date.now() - startTime) / 1000);
     document.getElementById("timerText").textContent = formatTime(elapsedTimeSec);
-  },1000);
+  }, 1000);
 }
 
-async function postJSON(payload){
-  const res = await fetch(APPS_SCRIPT_URL,{
-    method:"POST",
-    headers:{ "Content-Type":"text/plain;charset=utf-8"},
-    body:JSON.stringify(payload)
+async function postJSON(payload) {
+  const res = await fetch(APPS_SCRIPT_URL, {
+    method: "POST",
+    headers: { "Content-Type": "text/plain;charset=utf-8" },
+    body: JSON.stringify(payload)
   });
   return res.json();
 }
 
-async function getQuizStatus(userId){
+async function getQuizStatus(userId) {
   return postJSON({
-    action:"getQuizStatus",
+    action: "getQuizStatus",
     userId,
-    courseId:QUIZ_META.courseId,
-    quizKey:QUIZ_META.quizKey
+    courseId: QUIZ_META.courseId,
+    quizKey: QUIZ_META.quizKey
   });
 }
 
-async function submitQuiz(payload){
-  return postJSON({ action:"submitQuiz", ...payload });
+async function submitQuiz(payload) {
+  return postJSON({ action: "submitQuiz", ...payload });
 }
 
-function goLeaderboard(score, diamonds, timeSec, fire){
+function goLeaderboard(score, diamonds, timeSec, fire) {
   const q = new URLSearchParams({
-    courseId:QUIZ_META.courseId,
-    quizKey:QUIZ_META.quizKey,
-    score, diamonds, timeSec, firework:fire
+    courseId: QUIZ_META.courseId,
+    quizKey: QUIZ_META.quizKey,
+    score,
+    diamonds,
+    timeSec,
+    firework: fire
   });
   window.location.href = `../leaderboard-quiz4.html?${q}`;
 }
 
-async function handleSubmit(e){
+async function handleSubmit(e) {
   e.preventDefault();
 
+  if (!currentUser) {
+    alert("ยังไม่พบผู้ใช้ที่ล็อกอิน");
+    return;
+  }
+
   const name = document.getElementById("displayNameInput").value.trim();
-  if (!name) return alert("กรุณากรอกชื่อ");
+  if (!name) {
+    alert("กรุณากรอกชื่อ");
+    return;
+  }
 
   clearInterval(timerInterval);
-  elapsedTimeSec = Math.floor((Date.now()-startTime)/1000);
+  elapsedTimeSec = Math.floor((Date.now() - startTime) / 1000);
 
   const ans = collectAnswers();
 
   if (Object.values(ans).includes("")) {
-    return alert("ตอบให้ครบก่อน");
+    alert("ตอบให้ครบก่อน");
+    return;
   }
 
-  const {score, detail} = gradeQuiz(ans);
+  const { score, detail } = gradeQuiz(ans);
   const reward = getRewardByScore(score);
 
-  const result = await submitQuiz({
-    userId: currentUser.uid,
-    displayName: name,
-    courseId: QUIZ_META.courseId,
-    quizKey: QUIZ_META.quizKey,
-    score,
-    diamondsEarned: reward.diamonds,
-    timeSec: elapsedTimeSec,
-    answers: ans,
-    detail
-  });
+  try {
+    const result = await submitQuiz({
+      userId: currentUser.uid,
+      displayName: name,
+      courseId: QUIZ_META.courseId,
+      quizKey: QUIZ_META.quizKey,
+      score,
+      diamondsEarned: reward.diamonds,
+      timeSec: elapsedTimeSec,
+      answers: ans,
+      detail
+    });
 
-  if (!result.ok) return alert("ส่งไม่สำเร็จ");
+    if (!result.ok) {
+      alert(result.message || "ส่งไม่สำเร็จ");
+      return;
+    }
 
-  goLeaderboard(score, reward.diamonds, elapsedTimeSec, reward.firework);
+    goLeaderboard(score, reward.diamonds, elapsedTimeSec, reward.firework);
+  } catch (err) {
+    console.error(err);
+    alert("ส่งคำตอบไม่สำเร็จ");
+  }
 }
 
 document.getElementById("quizForm").addEventListener("submit", handleSubmit);
 
-window.firebaseOnAuthStateChanged(window.firebaseAuth, (user)=>{
-  if (!user) return showMessage("ยังไม่ได้ล็อกอิน");
+window.firebaseOnAuthStateChanged(window.firebaseAuth, async (user) => {
+  if (!user) {
+    showMessage("ยังไม่ได้ล็อกอิน");
+    return;
+  }
 
   currentUser = user;
-  renderQuiz();
-  startStopwatch();
+  showMessage("กำลังโหลดสถานะแบบทดสอบ...");
+
+  try {
+    const status = await getQuizStatus(user.uid);
+
+    if (!status || !status.ok) {
+      showMessage("ไม่พบสถานะผู้ใช้", status?.message || "");
+      renderQuiz();
+      startStopwatch();
+      return;
+    }
+
+    const displayNameInput = document.getElementById("displayNameInput");
+    if (displayNameInput && status.displayName) {
+      displayNameInput.value = status.displayName;
+    }
+
+    if (status.submitted) {
+      reviewMode = true;
+      renderQuiz(status.answers || {}, true, status.detail || {});
+      document.getElementById("submitBtn").classList.add("hidden");
+      document.getElementById("displayNameBox").classList.add("hidden");
+      document.getElementById("timerBox").classList.remove("hidden");
+      document.getElementById("timerText").textContent = formatTime(status.timeSec || 0);
+      showMessage(`เคยทำแบบทดสอบแล้ว ได้ ${status.score} คะแนน`, "โหมดตรวจคำตอบย้อนหลัง");
+      return;
+    }
+
+    renderQuiz();
+    startStopwatch();
+    showMessage(`พร้อมทำแบบทดสอบ • ${user.email || user.uid}`, "ยังไม่เคยส่งคำตอบ");
+  } catch (err) {
+    console.error("getQuizStatus error:", err);
+    renderQuiz();
+    startStopwatch();
+    showMessage("โหลดสถานะผู้ใช้ไม่สำเร็จ", err.message || "unknown error");
+  }
 });
