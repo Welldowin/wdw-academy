@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>M5 Summer - Final test : SHM</title>
+  <link rel="stylesheet" href="./quiz4.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="hero">
+      <div class="hero-left">
+        <img src="../assets/logo-wdw.png" alt="WDW Logo" class="brand-logo" />
+        <div>
+          <p class="eyebrow">Well-Do-Win Academy • M5 Summer</p>
+          <h1 id="quizTitle">Final test : SHM</h1>
+          <p class="subtext">ตอบได้เพียง 1 ครั้งต่อ 1 บัญชี</p>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div id="timerBox" class="timer hidden">
+          ⏱️ <span id="timerText">00:00</span>
+        </div>
+      </div>
+    </header>
+
+    <section class="status-card">
+      <p id="studentInfo">กำลังตรวจสอบข้อมูลผู้ใช้...</p>
+      <p id="modeInfo" class="mode-info"></p>
+
+      <div class="display-name-box" id="displayNameBox">
+        <label for="displayNameInput">ชื่อที่แสดงบน Leaderboard</label>
+        <input
+          type="text"
+          id="displayNameInput"
+          class="answer-input"
+          placeholder="ชื่อที่จะแสดงบน Leaderboard"
+          maxlength="30"
+          required
+        />
+      </div>
+    </section>
+
+    <form id="quizForm" class="quiz-form"></form>
+
+    <div class="actions" id="actionsBar">
+      <button id="submitBtn" type="submit" form="quizForm" class="btn primary">
+        ส่งคำตอบ
+      </button>
+      <a href="../leaderboard-quiz4.html" class="btn ghost">ไปหน้า Leaderboard</a>
+    </div>
+
+    <section id="resultInline" class="result-inline hidden"></section>
+  </div>
+
+  <script type="module" src="../../shared/firebase-config.js"></script>
+  <script src="./questions.js"></script>
+  <script type="module" src="./quiz4.js"></script>
+</body>
+</html>
