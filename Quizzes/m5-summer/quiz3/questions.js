@@ -1,4 +1,4 @@
-const QUIZ_META = {
+window.QUIZ_META = {
   courseId: "m5-summer",
   quizKey: "quiz3",
   title: "Final test : SHM",
@@ -6,7 +6,7 @@ const QUIZ_META = {
   timeLimitSec: 1800
 };
 
-const QUIZ_DATA = [
+window.QUIZ_DATA = [
   {
     id: 1,
     type: "multiple",
