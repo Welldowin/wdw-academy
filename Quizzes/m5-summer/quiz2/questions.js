@@ -17,7 +17,7 @@ const QUIZ_DATA = [
       { key: "C", text: "C, A, B" },
       { key: "D", text: "A, C, B" }
     ],
-    answer: "A"
+    answer: "C"
   },
   {
     id: "q2",
