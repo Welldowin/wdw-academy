@@ -1,9 +1,5 @@
 const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw6di6lq-HYIUPFuXRuy0rzg5n3Xw4IsqkvcTbTp3AAzakhXfijGx7XwcTT4IWr-h_3oQ/exec";
 
-// 👉 ดึงจาก questions.js (สำคัญมาก)
-const QUIZ_META = window.QUIZ_META;
-const QUIZ_DATA = window.QUIZ_DATA;
-
 let currentUser = null;
 let reviewMode = false;
 let startTime = null;
@@ -19,18 +15,10 @@ function escapeHtml(text) {
     .replaceAll("'", "&#039;");
 }
 
-function normalizeAnswer(text) {
-  return String(text || "")
-    .trim()
-    .toLowerCase()
-    .replaceAll(" ", "")
-    .replaceAll("π", "pi");
-}
-
 function formatTime(sec) {
-  const m = Math.floor(sec / 60);
-  const s = sec % 60;
-  return `${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`;
+  const minutes = Math.floor(sec / 60);
+  const seconds = sec % 60;
+  return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
 }
 
 function getRewardByScore(score) {
@@ -40,94 +28,92 @@ function getRewardByScore(score) {
   return { diamonds: 0, firework: "none" };
 }
 
-function showMessage(text, mode = "") {
+function showMessage(text, modeText = "") {
   document.getElementById("studentInfo").textContent = text;
-  document.getElementById("modeInfo").textContent = mode;
+  document.getElementById("modeInfo").textContent = modeText;
 }
 
-function renderQuiz(savedAnswers = {}, disable = false, detail = {}) {
+// ----------------------------------------------------
+// ฟังก์ชันบังคับให้ MathJax แปลงสมการ (เพิ่มระบบรอโหลด)
+// ----------------------------------------------------
+function renderMath() {
+  if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
+    MathJax.typesetClear();
+    MathJax.typesetPromise().catch((err) => console.log('MathJax error:', err));
+  } else {
+    // ถ้าระบบสมการยังโหลดไม่เสร็จ ให้รอ 0.5 วินาทีแล้วสั่งใหม่
+    setTimeout(renderMath, 500);
+  }
+}
+
+function renderQuiz(savedAnswers = {}, disableInputs = false, resultDetail = {}) {
   const form = document.getElementById("quizForm");
   form.innerHTML = "";
 
-  QUIZ_DATA.forEach((item, i) => {
-    let answerHtml = "";
+  if (typeof QUIZ_DATA === 'undefined') {
+    console.error("หา QUIZ_DATA ไม่เจอ กรุณาตรวจสอบว่าโหลด questions.js หรือยัง");
+    return;
+  }
 
-    if (item.type === "fill") {
-      answerHtml = `
-        <input type="text"
+  QUIZ_DATA.forEach((item, index) => {
+    const userAnswer = savedAnswers[item.id] || "";
+    const isCorrect = resultDetail[item.id];
+
+    const choicesHtml = item.choices.map(choice => `
+      <label class="option-label">
+        <input
+          type="radio"
           name="${item.id}"
-          class="answer-input"
-          value="${savedAnswers[item.id] || ""}"
-          ${disable ? "disabled" : "required"}
+          value="${choice.key}"
+          ${userAnswer === choice.key ? "checked" : ""}
+          ${disableInputs ? "disabled" : ""}
+          ${!disableInputs ? "required" : ""}
         />
-      `;
-    } else {
-      answerHtml = `
-        <div class="options-grid">
-          ${item.choices.map(c => `
-            <label class="option-label">
-              <input type="radio"
-                name="${item.id}"
-                value="${c.key}"
-                ${(savedAnswers[item.id] === c.key) ? "checked" : ""}
-                ${disable ? "disabled" : "required"}
-              />
-              <span><b>${c.key}.</b> ${escapeHtml(c.text)}</span>
-            </label>
-          `).join("")}
-        </div>
-      `;
-    }
+        <span><strong>${choice.key}.</strong> ${escapeHtml(choice.text)}</span>
+      </label>
+    `).join("");
 
-    const el = document.createElement("div");
-    el.className = "question-card";
+    const card = document.createElement("div");
+    card.className = "question-card";
 
-    el.innerHTML = `
-      <h3>ข้อ ${i + 1}</h3>
+    card.innerHTML = `
+      <h3>ข้อ ${index + 1}</h3>
       <p class="question-text">${escapeHtml(item.prompt)}</p>
-      ${item.image ? `<img src="${item.image}" class="question-image">` : ""}
-      ${answerHtml}
-      ${disable ? `<div class="review-badge ${detail[item.id] ? "correct" : "incorrect"}">
-        ${detail[item.id] ? "✅ ถูก" : "❌ ผิด"}
-      </div>` : ""}
+      ${item.image ? `<img src="${item.image}" alt="question image" class="question-image" />` : ""}
+      <div class="options-grid">${choicesHtml}</div>
+      ${
+        disableInputs
+          ? `<div class="review-badge ${isCorrect ? "correct" : "incorrect"}">
+               ${isCorrect ? "✅ คำตอบของคุณถูกต้อง" : `❌ คำตอบของคุณไม่ถูกต้อง (เฉลย: ${item.answer})`}
+             </div>`
+          : ""
+      }
     `;
 
-    form.appendChild(el);
+    form.appendChild(card);
   });
+
+  // เรียกใช้ตัวแปลงสมการหลังจากวาดหน้าจอเสร็จ
+  renderMath();
 }
 
 function collectAnswers() {
-  const ans = {};
-  QUIZ_DATA.forEach(item => {
-    if (item.type === "fill") {
-      const input = document.querySelector(`[name="${item.id}"]`);
-      ans[item.id] = input ? input.value.trim() : "";
-    } else {
-      const checked = document.querySelector(`[name="${item.id}"]:checked`);
-      ans[item.id] = checked ? checked.value : "";
-    }
+  const answers = {};
+  QUIZ_DATA.forEach((item) => {
+    const selected = document.querySelector(`input[name="${item.id}"]:checked`);
+    answers[item.id] = selected ? selected.value : "";
   });
-  return ans;
+  return answers;
 }
 
-function gradeQuiz(ans) {
+function gradeQuiz(answers) {
   let score = 0;
   const detail = {};
 
-  QUIZ_DATA.forEach(item => {
-    let correct = false;
-
-    if (item.type === "fill") {
-      const user = normalizeAnswer(ans[item.id]);
-      const valid = [item.answer].map(normalizeAnswer);
-      correct = valid.includes(user);
-    } else {
-      correct = ans[item.id] === item.answer;
-    }
-
+  QUIZ_DATA.forEach((item) => {
+    const correct = answers[item.id] === item.answer;
     detail[item.id] = correct;
-
-    if (correct) score += item.type === "fill" ? 2 : 1;
+    if (correct) score += 1;
   });
 
   return { score, detail };
@@ -141,12 +127,13 @@ function startTimer() {
 
   timerInterval = setInterval(() => {
     elapsedTimeSec = Math.floor((Date.now() - startTime) / 1000);
-    document.getElementById("timerText").textContent =
-      formatTime(Math.max(QUIZ_META.timeLimitSec - elapsedTimeSec, 0));
+    document.getElementById("timerText").textContent = formatTime(
+      Math.max(QUIZ_META.timeLimitSec - elapsedTimeSec, 0)
+    );
 
     if (elapsedTimeSec >= QUIZ_META.timeLimitSec) {
       clearInterval(timerInterval);
-      document.getElementById("quizForm").requestSubmit();
+      autoSubmitByTimeout();
     }
   }, 1000);
 }
@@ -184,118 +171,140 @@ async function getQuizStatus(userId) {
   });
 }
 
-async function submitQuiz(payload) {
-  return postJSON({ action: "submitQuiz", ...payload });
+async function submitQuizToBackend(payload) {
+  return postJSON({
+    action: "submitQuiz",
+    ...payload
+  });
 }
 
-function goLeaderboard(score, diamonds, timeSec, fire) {
-  const q = new URLSearchParams({
+function redirectToLeaderboard(score, diamonds, timeSec, firework) {
+  const params = new URLSearchParams({
     courseId: QUIZ_META.courseId,
     quizKey: QUIZ_META.quizKey,
-    score,
-    diamonds,
-    timeSec,
-    firework: fire
+    score: String(score),
+    diamonds: String(diamonds),
+    timeSec: String(timeSec),
+    firework
   });
-  window.location.href = `../leaderboard-quiz2.html?${q}`;
+  window.location.href = `../leaderboard-quiz2.html?${params.toString()}`;
 }
 
 async function handleSubmit(e) {
   e.preventDefault();
+  if (reviewMode) return;
 
-  if (!currentUser) {
-    alert("ยังไม่พบผู้ใช้ที่ล็อกอิน");
+  const submitBtn = document.getElementById("submitBtn");
+  const displayName = (document.getElementById("displayNameInput")?.value || "").trim();
+
+  if (!displayName) {
+    alert("กรุณากรอกชื่อที่แสดงบน Leaderboard");
     return;
   }
 
-  const name = document.getElementById("displayNameInput").value.trim();
-  if (!name) {
-    alert("กรุณากรอกชื่อ");
+  const answers = collectAnswers();
+  const unanswered = Object.values(answers).filter(v => !v).length;
+  if (unanswered > 0) {
+    alert(`คุณยังไม่ได้ตอบคำถามอีก ${unanswered} ข้อ กรุณาตอบให้ครบก่อนส่งครับ`);
     return;
   }
+
+  if (!confirm("ยืนยันการส่งคำตอบ? คุณสามารถส่งได้เพียงครั้งเดียวเท่านั้น")) return;
+
+  submitBtn.disabled = true;
+  submitBtn.textContent = "กำลังส่งคำตอบ...";
 
   clearInterval(timerInterval);
   elapsedTimeSec = Math.floor((Date.now() - startTime) / 1000);
 
-  const ans = collectAnswers();
-
-  if (Object.values(ans).includes("")) {
-    alert("ตอบให้ครบก่อน");
-    return;
-  }
-
-  const { score, detail } = gradeQuiz(ans);
+  const { score, detail } = gradeQuiz(answers);
   const reward = getRewardByScore(score);
 
   try {
-    const result = await submitQuiz({
+    const result = await submitQuizToBackend({
       userId: currentUser.uid,
-      displayName: name,
+      displayName,
       courseId: QUIZ_META.courseId,
       quizKey: QUIZ_META.quizKey,
       score,
       diamondsEarned: reward.diamonds,
       timeSec: elapsedTimeSec,
-      answers: ans,
+      answers,
       detail
     });
 
-    if (!result.ok) {
-      alert(result.message || "ส่งไม่สำเร็จ");
+    if (!result.ok) throw new Error(result.message || "Submit failed");
+    redirectToLeaderboard(score, reward.diamonds, elapsedTimeSec, reward.firework);
+  } catch (error) {
+    console.error(error);
+    alert("เกิดข้อผิดพลาด: " + error.message);
+    submitBtn.disabled = false;
+    submitBtn.textContent = "ส่งคำตอบ";
+  }
+}
+
+async function autoSubmitByTimeout() {
+  if (reviewMode) return;
+  const fakeEvent = { preventDefault() {} };
+  await handleSubmit(fakeEvent);
+}
+
+async function initQuiz(user) {
+  currentUser = user;
+  document.getElementById("quizTitle").textContent = QUIZ_META.title;
+  showMessage(`ผู้ใช้: ${user.email || user.uid}`, "กำลังโหลดสถานะควิซ...");
+
+  try {
+    const status = await getQuizStatus(user.uid);
+    if (!status.ok) throw new Error(status.message);
+
+    if (status.submitted) {
+      reviewMode = true;
+      renderQuiz(status.answers || {}, true, status.detail || {});
+      
+      const nameInput = document.getElementById("displayNameInput");
+      if (nameInput) {
+        nameInput.value = status.displayName || "";
+        nameInput.disabled = true;
+      }
+
+      document.getElementById("actionsBar").classList.add("hidden");
+      showMessage(
+        `ผู้ใช้: ${user.email || user.uid}`,
+        `คุณเคยทำควิซนี้แล้ว | คะแนน ${status.score ?? 0}/30 | ใช้เวลา ${formatTime(status.timeSec ?? 0)}`
+      );
+
+      document.getElementById("resultInline").classList.remove("hidden");
+      document.getElementById("resultInline").innerHTML = `
+        <h2>คุณส่งคำตอบไปแล้ว</h2>
+        <p>ชื่อบนลีดเดอร์บอร์ด: <strong>${escapeHtml(status.displayName || "-")}</strong></p>
+        <p>คะแนนของคุณ: <strong>${status.score ?? 0}/30</strong></p>
+        <p>เวลาที่ใช้: <strong>${formatTime(status.timeSec ?? 0)}</strong></p>
+        <div class="actions">
+          <a class="btn primary" href="../leaderboard-quiz2.html?courseId=${encodeURIComponent(QUIZ_META.courseId)}&quizKey=${encodeURIComponent(QUIZ_META.quizKey)}">
+            ไปหน้า Leaderboard
+          </a>
+        </div>
+      `;
       return;
     }
 
-    goLeaderboard(score, reward.diamonds, elapsedTimeSec, reward.firework);
-  } catch (err) {
-    console.error(err);
-    alert("ส่งคำตอบไม่สำเร็จ");
+    renderQuiz();
+    showMessage(`ผู้ใช้: ${user.email || user.uid}`, "คุณสามารถทำควิซนี้ได้ 1 ครั้ง");
+    startStopwatch();
+  } catch (error) {
+    console.error(error);
+    showMessage("โหลดควิซไม่สำเร็จ", "กรุณาลองใหม่อีกครั้ง");
   }
 }
 
 document.getElementById("quizForm").addEventListener("submit", handleSubmit);
 
-window.firebaseOnAuthStateChanged(window.firebaseAuth, async (user) => {
+window.firebaseOnAuthStateChanged(window.firebaseAuth, (user) => {
   if (!user) {
-    showMessage("ยังไม่ได้ล็อกอิน");
+    showMessage("ยังไม่ได้ล็อกอิน", "กรุณาเข้าสู่ระบบก่อน");
+    document.getElementById("actionsBar").classList.add("hidden");
     return;
   }
-
-  currentUser = user;
-  showMessage("กำลังโหลดสถานะแบบทดสอบ...");
-
-  try {
-    const status = await getQuizStatus(user.uid);
-
-    if (!status || !status.ok) {
-      showMessage("ไม่พบสถานะผู้ใช้", status?.message || "");
-      renderQuiz();
-      startStopwatch();
-      return;
-    }
-
-    const displayNameInput = document.getElementById("displayNameInput");
-    if (displayNameInput && status.displayName) {
-      displayNameInput.value = status.displayName;
-    }
-
-    if (status.submitted) {
-      reviewMode = true;
-      renderQuiz(status.answers || {}, true, status.detail || {});
-      document.getElementById("submitBtn").classList.add("hidden");
-      document.getElementById("displayNameBox").classList.add("hidden");
-      document.getElementById("timerBox").classList.remove("hidden");
-      document.getElementById("timerText").textContent = formatTime(status.timeSec || 0);
-      showMessage(`เคยทำแบบทดสอบแล้ว ได้ ${status.score} คะแนน`, "โหมดตรวจคำตอบย้อนหลัง");
-      return;
-    }
-
-    renderQuiz();
-    startStopwatch();
-    showMessage(`พร้อมทำแบบทดสอบ • ${user.email || user.uid}`, "ยังไม่เคยส่งคำตอบ");
-  } catch (err) {
-    console.error("getQuizStatus error:", err);
-    renderQuiz();
-    startStopwatch();
-    showMessage("โหลดสถานะผู้ใช้ไม่สำเร็จ", err.message || "unknown error");
-  }
+  initQuiz(user);
 });
