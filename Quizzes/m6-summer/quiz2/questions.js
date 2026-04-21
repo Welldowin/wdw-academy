@@ -1,6 +1,6 @@
 export const QUIZ_META = {
   courseId: "m6-summer",
-  quizKey: "quiz-fluid-mechanics",
+  quizKey: "quiz2",
   title: "Quiz : กลศาสตร์ของไหล",
   enableTimer: false,
   timeLimitSec: 3600
