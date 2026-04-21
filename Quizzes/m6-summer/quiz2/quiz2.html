@@ -8,6 +8,18 @@
   <link rel="stylesheet" href="./quiz2.css" />
 
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+      }
+    };
+  </script>
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
@@ -18,7 +30,7 @@
         <div>
           <p class="eyebrow">Well-Do-Win Academy • M6 Summer</p>
           <h1 id="quizTitle">Quiz 2 : กลศาสตร์ของไหล</h1>
-          <p class="subtext">ตอบได้เพียง 1 ครั้งต่อ 1 บัญชี | แบบตัวเลือก 4 ตัวเลือก</p>
+          <p class="subtext">แบบตัวเลือก 4 ข้อ | ตอบได้เพียง 1 ครั้งต่อ 1 บัญชี</p>
         </div>
       </div>
 
@@ -39,7 +51,7 @@
           type="text"
           id="displayNameInput"
           class="answer-input"
-          placeholder="กรอกชื่อของคุณที่นี่"
+          placeholder="ระบุชื่อของคุณ"
           maxlength="30"
           required
         />
