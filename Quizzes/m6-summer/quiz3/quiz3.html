@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>M6 Summer - Quiz 2 : กลศาสตร์ของไหล</title>
+  
+  <link rel="stylesheet" href="./quiz2.css" />
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+  <div class="page">
+    <header class="hero">
+      <div class="hero-left">
+        <img src="../assets/logo-wdw.png" alt="WDW Logo" class="brand-logo" />
+        <div>
+          <p class="eyebrow">Well-Do-Win Academy • M6 Summer</p>
+          <h1 id="quizTitle">Quiz 2 : กลศาสตร์ของไหล</h1>
+          <p class="subtext">แบบตัวเลือก 4 ข้อ | ตอบได้เพียง 1 ครั้งต่อ 1 บัญชี</p>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div id="timerBox" class="timer hidden">
+          ⏱️ <span id="timerText">00:00</span>
+        </div>
+      </div>
+    </header>
+
+    <section class="status-card">
+      <p id="studentInfo">กำลังตรวจสอบข้อมูลผู้ใช้...</p>
+      <p id="modeInfo" class="mode-info"></p>
+
+      <div class="display-name-box" id="displayNameBox">
+        <label for="displayNameInput">ชื่อที่แสดงบน Leaderboard</label>
+        <input
+          type="text"
+          id="displayNameInput"
+          class="answer-input"
+          placeholder="ระบุชื่อของคุณ"
+          maxlength="30"
+          required
+        />
+      </div>
+    </section>
+
+    <form id="quizForm" class="quiz-form"></form>
+
+    <div class="actions" id="actionsBar">
+      <button id="submitBtn" type="submit" form="quizForm" class="btn primary">
+        ส่งคำตอบ
+      </button>
+      <a href="../leaderboard-quiz2.html" class="btn ghost">ไปหน้า Leaderboard</a>
+    </div>
+
+    <section id="resultInline" class="result-inline hidden"></section>
+  </div>
+
+  <script type="module" src="../../shared/firebase-config.js"></script>
+  
+  <script src="./questions.js"></script>
+  
+  <script type="module" src="./quiz2.js"></script>
+</body>
+</html>
