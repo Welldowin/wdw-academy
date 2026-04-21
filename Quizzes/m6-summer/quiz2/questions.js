@@ -1,4 +1,4 @@
-const QUIZ_META = {
+window.QUIZ_META = {
   courseId: "m6-summer",
   quizKey: "quiz2",
   title: "Quiz : กลศาสตร์ของไหล",
@@ -6,7 +6,7 @@ const QUIZ_META = {
   timeLimitSec: 3600
 };
 
-const QUIZ_DATA = [
+window.QUIZ_DATA = [
   {
     id: "q1",
     prompt: `ความดัน\n\nสระน้ำแห่งหนึ่งมีความลึก $5$ เมตร หากความหนาแน่นของน้ำคือ $1,000 \\\\text{ kg/m}^3$ และความดันบรรยากาศคือ $1 \\\\times 10^5 \\\\text{ Pa}$ ความดันสัมบูรณ์ที่ก้นสระมีค่าเท่าใด (กำหนด $g = 10 \\\\text{ m/s}^2$)`,
