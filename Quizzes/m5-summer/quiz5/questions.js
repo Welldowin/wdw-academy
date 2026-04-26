@@ -1,7 +1,7 @@
 window.QUIZ_META = {
   courseId: "m5-summer",
   quizKey: "quiz5",
-  title: "Quiz 5 : คลื่นกล",
+  title: "Quiz : คลื่นกล",
   enableTimer: false,
   timeLimitSec: 3600
 };
@@ -102,7 +102,7 @@ window.QUIZ_DATA = [
       { key: "A", text: "คลื่นเคลื่อนที่จากน้ำตื้นไปน้ำลึก และมุมตกกระทบโตกว่ามุมวิกฤต" },
       { key: "B", text: "คลื่นเคลื่อนที่จากน้ำลึกไปน้ำตื้น และมุมตกกระทบโตกว่ามุมวิกฤต" },
       { key: "C", text: "คลื่นเคลื่อนที่จากตัวกลางที่มีความเร็วต่ำไปความเร็วสูง" },
-      { key: "D": "ข้อ A และ C ถูก" }
+      { key: "D", text: "ข้อ A และ C ถูก" }
     ],
     answer: "D"
   },
