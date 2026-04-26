@@ -1,7 +1,7 @@
 window.QUIZ_META = {
-  courseId: "phy-m5",
-  quizKey: "mechanical-waves",
-  title: "Quiz : คลื่นกล",
+  courseId: "m5-summer",
+  quizKey: "quiz5",
+  title: "Quiz 5 : คลื่นกล",
   enableTimer: false,
   timeLimitSec: 3600
 };
