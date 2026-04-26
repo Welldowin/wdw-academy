@@ -21,10 +21,11 @@ function formatTime(sec) {
   return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
 }
 
+// ปรับเกณฑ์การแจกรางวัลให้อิงจากคะแนนเต็ม 20 ข้อ
 function getRewardByScore(score) {
-  if (score >= 18) return { diamonds: 2, firework: "gold" };
-  if (score >= 14) return { diamonds: 1, firework: "silver" };
-  if (score >= 10) return { diamonds: 0.5, firework: "bronze" };
+  if (score >= 18) return { diamonds: 2, firework: "gold" };     // 18-20 คะแนน
+  if (score >= 14) return { diamonds: 1, firework: "silver" };   // 14-17 คะแนน
+  if (score >= 10) return { diamonds: 0.5, firework: "bronze" }; // 10-13 คะแนน
   return { diamonds: 0, firework: "none" };
 }
 
@@ -33,15 +34,11 @@ function showMessage(text, modeText = "") {
   document.getElementById("modeInfo").textContent = modeText;
 }
 
-// ----------------------------------------------------
-// ฟังก์ชันบังคับให้ MathJax แปลงสมการ (เพิ่มระบบรอโหลด)
-// ----------------------------------------------------
 function renderMath() {
   if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
     MathJax.typesetClear();
     MathJax.typesetPromise().catch((err) => console.log('MathJax error:', err));
   } else {
-    // ถ้าระบบสมการยังโหลดไม่เสร็จ ให้รอ 0.5 วินาทีแล้วสั่งใหม่
     setTimeout(renderMath, 500);
   }
 }
@@ -93,7 +90,6 @@ function renderQuiz(savedAnswers = {}, disableInputs = false, resultDetail = {})
     form.appendChild(card);
   });
 
-  // เรียกใช้ตัวแปลงสมการหลังจากวาดหน้าจอเสร็จ
   renderMath();
 }
 
@@ -258,6 +254,9 @@ async function initQuiz(user) {
     const status = await getQuizStatus(user.uid);
     if (!status.ok) throw new Error(status.message);
 
+    // ดึงจำนวนข้อสอบทั้งหมดมาแสดงผลอัตโนมัติ
+    const maxScore = typeof QUIZ_DATA !== 'undefined' ? QUIZ_DATA.length : 20;
+
     if (status.submitted) {
       reviewMode = true;
       renderQuiz(status.answers || {}, true, status.detail || {});
@@ -271,14 +270,14 @@ async function initQuiz(user) {
       document.getElementById("actionsBar").classList.add("hidden");
       showMessage(
         `ผู้ใช้: ${user.email || user.uid}`,
-        `คุณเคยทำควิซนี้แล้ว | คะแนน ${status.score ?? 0}/30 | ใช้เวลา ${formatTime(status.timeSec ?? 0)}`
+        `คุณเคยทำควิซนี้แล้ว | คะแนน ${status.score ?? 0}/${maxScore} | ใช้เวลา ${formatTime(status.timeSec ?? 0)}`
       );
 
       document.getElementById("resultInline").classList.remove("hidden");
       document.getElementById("resultInline").innerHTML = `
         <h2>คุณส่งคำตอบไปแล้ว</h2>
         <p>ชื่อบนลีดเดอร์บอร์ด: <strong>${escapeHtml(status.displayName || "-")}</strong></p>
-        <p>คะแนนของคุณ: <strong>${status.score ?? 0}/30</strong></p>
+        <p>คะแนนของคุณ: <strong>${status.score ?? 0}/${maxScore}</strong></p>
         <p>เวลาที่ใช้: <strong>${formatTime(status.timeSec ?? 0)}</strong></p>
         <div class="actions">
           <a class="btn primary" href="../leaderboard-quiz2.html?courseId=${encodeURIComponent(QUIZ_META.courseId)}&quizKey=${encodeURIComponent(QUIZ_META.quizKey)}">
@@ -294,7 +293,8 @@ async function initQuiz(user) {
     startStopwatch();
   } catch (error) {
     console.error(error);
-    showMessage("โหลดควิซไม่สำเร็จ", "กรุณาลองใหม่อีกครั้ง");
+    // แนะนำให้ลองกด F12 เปิด Console ดูว่า Error จริงๆ คืออะไร
+    showMessage("โหลดควิซไม่สำเร็จ", "กรุณาตรวจสอบการตั้งค่า Apps Script หรือชื่อ Sheet หลังบ้าน");
   }
 }
 
