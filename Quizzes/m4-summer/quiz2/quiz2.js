@@ -22,9 +22,9 @@ function formatTime(sec) {
 }
 
 function getRewardByScore(score) {
-  if (score >= 27) return { diamonds: 2, firework: "gold" };
-  if (score >= 21) return { diamonds: 1, firework: "silver" };
-  if (score >= 15) return { diamonds: 0.5, firework: "bronze" };
+  if (score >= 18) return { diamonds: 2, firework: "gold" };
+  if (score >= 14) return { diamonds: 1, firework: "silver" };
+  if (score >= 10) return { diamonds: 0.5, firework: "bronze" };
   return { diamonds: 0, firework: "none" };
 }
 
