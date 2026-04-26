@@ -1,7 +1,7 @@
 window.QUIZ_META = {
-  courseId: "chem-m4-adv",
-  quizKey: "atomic-structure-v2",
-  title: "Quiz : โครงสร้างอะตอม (ระดับวิเคราะห์)",
+  courseId: "m4-summer",
+  quizKey: "quiz2",
+  title: "Quiz 2 : โครงสร้างอะตอม (ท้ายบท)",
   enableTimer: false,
   timeLimitSec: 3600
 };
