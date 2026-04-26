@@ -278,7 +278,7 @@ async function initQuiz(user) {
       document.getElementById("resultInline").innerHTML = `
         <h2>คุณส่งคำตอบไปแล้ว</h2>
         <p>ชื่อบนลีดเดอร์บอร์ด: <strong>${escapeHtml(status.displayName || "-")}</strong></p>
-        <p>คะแนนของคุณ: <strong>${status.score ?? 0}/10</strong></p>
+        <p>คะแนนของคุณ: <strong>${status.score ?? 0}/20</strong></p>
         <p>เวลาที่ใช้: <strong>${formatTime(status.timeSec ?? 0)}</strong></p>
         <div class="actions">
           <a class="btn primary" href="../leaderboard-quiz5.html?courseId=${encodeURIComponent(QUIZ_META.courseId)}&quizKey=${encodeURIComponent(QUIZ_META.quizKey)}">
