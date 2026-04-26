@@ -271,7 +271,7 @@ async function initQuiz(user) {
       document.getElementById("actionsBar").classList.add("hidden");
       showMessage(
         `ผู้ใช้: ${user.email || user.uid}`,
-        `คุณเคยทำควิซนี้แล้ว | คะแนน ${status.score ?? 0}/10 | ใช้เวลา ${formatTime(status.timeSec ?? 0)}`
+        `คุณเคยทำควิซนี้แล้ว | คะแนน ${status.score ?? 0}/20 | ใช้เวลา ${formatTime(status.timeSec ?? 0)}`
       );
 
       document.getElementById("resultInline").classList.remove("hidden");
