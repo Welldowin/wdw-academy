@@ -1,7 +1,7 @@
 window.QUIZ_META = {
-  courseId: "chem-m5",
-  quizKey: "reaction-rate",
-  title: "Quiz : อัตราการเกิดปฏิกิริยาเคมี",
+  courseId: "m5-summer",
+  quizKey: "quiz6",
+  title: "Quiz 6 : อัตราการเกิดปฏิกิริยาเคมี",
   enableTimer: false,
   timeLimitSec: 3600
 };
