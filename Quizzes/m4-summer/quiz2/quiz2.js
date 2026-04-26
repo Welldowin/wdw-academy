@@ -271,14 +271,14 @@ async function initQuiz(user) {
       document.getElementById("actionsBar").classList.add("hidden");
       showMessage(
         `ผู้ใช้: ${user.email || user.uid}`,
-        `คุณเคยทำควิซนี้แล้ว | คะแนน ${status.score ?? 0}/30 | ใช้เวลา ${formatTime(status.timeSec ?? 0)}`
+        `คุณเคยทำควิซนี้แล้ว | คะแนน ${status.score ?? 0}/20 | ใช้เวลา ${formatTime(status.timeSec ?? 0)}`
       );
 
       document.getElementById("resultInline").classList.remove("hidden");
       document.getElementById("resultInline").innerHTML = `
         <h2>คุณส่งคำตอบไปแล้ว</h2>
         <p>ชื่อบนลีดเดอร์บอร์ด: <strong>${escapeHtml(status.displayName || "-")}</strong></p>
-        <p>คะแนนของคุณ: <strong>${status.score ?? 0}/30</strong></p>
+        <p>คะแนนของคุณ: <strong>${status.score ?? 0}/20</strong></p>
         <p>เวลาที่ใช้: <strong>${formatTime(status.timeSec ?? 0)}</strong></p>
         <div class="actions">
           <a class="btn primary" href="../leaderboard-quiz2.html?courseId=${encodeURIComponent(QUIZ_META.courseId)}&quizKey=${encodeURIComponent(QUIZ_META.quizKey)}">
