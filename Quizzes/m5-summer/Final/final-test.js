@@ -1,7 +1,7 @@
 const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby2yvvJ17viUPF-UHBqPhudJVH4HDfYlyDHTOSaIELFEFRhucdrILUzNI5RhOZeh0vh/exec";
 
 // ==========================================
-// ข้อมูลสัตว์ 16 ชนิด (Persona Definitions)
+// ข้อมูลสัตว์ 16 ชนิด
 // ==========================================
 const ANIMAL_PERSONAS = [
     { id: "eagle", name: "🦅 อินทรี (Eagle)", img: "images/eagle.png", desc: "ความเป็นเลิศที่รอบด้าน มองทะลุทุกปัญหา", strength: "คะแนนสูงทุกมิติ แม่นยำทั้งทฤษฎีและการคำนวณ", weakness: "ไม่มีจุดอ่อนเด่นชัด รักษาระดับนี้ไว้ให้ได้!" },
@@ -35,7 +35,7 @@ let isSubmitted = false;
 
 const userId = localStorage.getItem('userId') || 'guest';
 const userDisplayName = localStorage.getItem('userDisplayName') || "นักเรียน";
-const STORAGE_KEY = `WDW_FINAL_${userId}_${window.QUIZ_META.quizKey}`; // Key สำหรับกันรีเฟรช
+const STORAGE_KEY = `WDW_FINAL_${userId}_${window.QUIZ_META.quizKey}`; 
 
 window.addEventListener('DOMContentLoaded', () => {
     document.getElementById('student-name').textContent = `ผู้สอบ: ${userDisplayName}`;
@@ -43,7 +43,16 @@ window.addEventListener('DOMContentLoaded', () => {
 
     buildNavigator();
 
-    // เช็กสถานะจาก LocalStorage (กันรีเฟรช / เคยส่งแล้ว)
+    // ดัก Event ฟังการเลือกคำตอบแบบ Delegation (แก้บั๊กคำตอบไม่เซฟ)
+    document.getElementById('choices-list').addEventListener('change', function(e) {
+        if (e.target.name === 'choice' && !isSubmitted) {
+            let qId = QUIZ_DATA[currentQuestionIndex].id;
+            userAnswers[qId] = e.target.value;
+            saveStateToLocal();
+            updateNavigator();
+        }
+    });
+
     let savedState = localStorage.getItem(STORAGE_KEY);
     if (savedState) {
         let state = JSON.parse(savedState);
@@ -52,12 +61,11 @@ window.addEventListener('DOMContentLoaded', () => {
         
         if (state.isSubmitted) {
             isSubmitted = true;
-            mainTimeRemaining = 0; // ปิดเวลา
+            mainTimeRemaining = 0;
             document.getElementById('time-display').textContent = "ส่งแล้ว";
-            showResultScreen(state.radarData, state.totalScore); // โชว์หน้าประเมินเลย
+            showResultScreen(state.radarData, state.totalScore);
             return;
         } else {
-            // ทำค้างไว้ แต่ยังไม่ส่ง
             mainTimeRemaining = state.timeLeft || mainTimeRemaining;
         }
     }
@@ -91,7 +99,7 @@ function startMainTimer() {
         let s = mainTimeRemaining % 60;
         document.getElementById('time-display').textContent = `${m}:${s < 10 ? '0'+s : s}`;
         
-        if (mainTimeRemaining % 10 === 0) saveStateToLocal(); // Auto-save ทุก 10 วิ
+        if (mainTimeRemaining % 10 === 0) saveStateToLocal();
         
         if (mainTimeRemaining <= 0) {
             clearInterval(mainTimerInterval);
@@ -133,14 +141,14 @@ function renderQuestion(index) {
         
         choicesHtml += `
             <label class="choice-item ${disabledClass}">
-                <input type="radio" name="choice" value="${choice.key}" ${isChecked} ${disabledAttr} onchange="selectAnswer('${q.id}', '${choice.key}')">
+                <input type="radio" name="choice" value="${choice.key}" ${isChecked} ${disabledAttr}>
                 ${choice.text}
             </label>
         `;
     });
     document.getElementById('choices-list').innerHTML = choicesHtml;
     
-    // จัดการกล่องเฉลย (ถ้าอยู่ในโหมด Review)
+    // จัดการกล่องเฉลยเมื่อดูย้อนหลัง
     let fbBox = document.getElementById('feedback-box');
     if (isSubmitted) {
         document.getElementById('review-banner').classList.remove('hidden');
@@ -173,13 +181,6 @@ function renderQuestion(index) {
     
     updateNavigator();
     if (window.MathJax) { MathJax.typesetPromise(); }
-}
-
-function selectAnswer(qId, val) {
-    if(isSubmitted) return;
-    userAnswers[qId] = val;
-    saveStateToLocal();
-    updateNavigator();
 }
 
 // ควบคุมปุ่ม
@@ -231,12 +232,11 @@ function jumpTo(index) {
 function updateNavigator() {
     QUIZ_DATA.forEach((q, i) => {
         let btn = document.getElementById(`nav-btn-${i}`);
-        btn.className = "nav-btn"; // reset
+        btn.className = "nav-btn";
         
         if (i === currentQuestionIndex) btn.classList.add('active');
         else if (userAnswers[q.id]) btn.classList.add('answered');
 
-        // ถ้าส่งแล้ว ให้ใส่ขอบสีเขียว/แดง ใต้ปุ่ม
         if (isSubmitted && userAnswers[q.id]) {
             if (userAnswers[q.id] === q.answer) btn.classList.add('correct-ans');
             else btn.classList.add('wrong-ans');
@@ -245,7 +245,7 @@ function updateNavigator() {
 }
 
 // ==========================================
-// ประมวลผลและหาสัตว์ประจำตัว
+// ประมวลผลคะแนน
 // ==========================================
 function calculateRank(percent) {
     if(percent >= 85) return { rank: 'S', color: '#8b5cf6' };
@@ -255,17 +255,15 @@ function calculateRank(percent) {
 }
 
 function determinePersona(radar, totalPercent, timeAvg) {
-    // อัลกอริทึมเลือกสัตว์ง่ายๆ แบบครอบคลุม
     if (totalPercent >= 85) return ANIMAL_PERSONAS.find(a => a.id === 'eagle');
     if (radar.Light >= 80 && radar.calc >= 80 && totalPercent >= 75) return ANIMAL_PERSONAS.find(a => a.id === 'dragon');
     if (radar.theory >= 80 && radar.calc < 60) return ANIMAL_PERSONAS.find(a => a.id === 'owl');
-    if (timeAvg < 40 && totalPercent >= 60) return ANIMAL_PERSONAS.find(a => a.id === 'cheetah'); // ทำข้อละไม่เกิน 40 วิ
+    if (timeAvg > 0 && timeAvg < 40 && totalPercent >= 60) return ANIMAL_PERSONAS.find(a => a.id === 'cheetah');
     if (radar.calc >= 80 && radar.theory < 60) return ANIMAL_PERSONAS.find(a => a.id === 'monkey');
     if (radar.apply >= 80) return ANIMAL_PERSONAS.find(a => a.id === 'dolphin');
-    if (timeAvg > 100 && totalPercent >= 70) return ANIMAL_PERSONAS.find(a => a.id === 'elephant'); // คิดนานแต่ถูกเยอะ
+    if (timeAvg > 100 && totalPercent >= 70) return ANIMAL_PERSONAS.find(a => a.id === 'elephant');
     if (totalPercent < 40) return ANIMAL_PERSONAS.find(a => a.id === 'ant');
     
-    // Default fallback
     return ANIMAL_PERSONAS.find(a => a.id === 'bear');
 }
 
@@ -283,11 +281,11 @@ function submitQuiz() {
         let isCorrect = (userAnswers[q.id] === q.answer);
         if (isCorrect) totalScore++;
         
-        statSkills[q.skill].t++;
-        statChapters[q.chapter].t++;
+        if (statSkills[q.skill]) statSkills[q.skill].t++;
+        if (statChapters[q.chapter]) statChapters[q.chapter].t++;
         if (isCorrect) {
-            statSkills[q.skill].c++;
-            statChapters[q.chapter].c++;
+            if (statSkills[q.skill]) statSkills[q.skill].c++;
+            if (statChapters[q.chapter]) statChapters[q.chapter].c++;
         }
     });
     
@@ -300,10 +298,9 @@ function submitQuiz() {
         SHM: calcPercent(statChapters.SHM),
         Wave: calcPercent(statChapters.Wave),
         Light: calcPercent(statChapters.Light),
-        details: { ...statSkills, ...statChapters } // ส่งก้อนดิบไปวาด HTML ย่อย
+        details: { ...statSkills, ...statChapters }
     };
     
-    // อัปเดต LocalStorage เป็น isSubmitted = true
     let state = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
     state.isSubmitted = true;
     state.radarData = radarData;
@@ -325,7 +322,6 @@ function submitQuiz() {
     };
     
     document.getElementById('quiz-app').style.display = 'none';
-    
     let loadingDiv = document.createElement('div');
     loadingDiv.innerHTML = `<h2 style="text-align:center; padding:50px;">กำลังส่งคำตอบและประมวลผล...</h2>`;
     document.body.appendChild(loadingDiv);
@@ -352,31 +348,43 @@ function showResultScreen(radarData, totalScore) {
     resultScreen.classList.remove('hidden');
     resultScreen.style.display = 'block';
     
+    // Safety check ป้องกันกราฟและ Persona ไม่ขึ้นกรณี Error
+    if(!radarData || typeof radarData.theory === 'undefined') {
+        radarData = { theory: 0, calc: 0, apply: 0, SHM: 0, Wave: 0, Light: 0, details: {} };
+    }
+    
     let totalPercent = (totalScore / QUIZ_DATA.length) * 100;
     let rankObj = calculateRank(totalPercent);
-    document.getElementById('final-score-text').textContent = `${totalScore} / ${QUIZ_DATA.length}`;
-    document.getElementById('final-rank').textContent = rankObj.rank;
-    document.getElementById('final-rank').style.color = rankObj.color;
+    
+    let finalScoreText = document.getElementById('final-score-text');
+    if(finalScoreText) finalScoreText.textContent = `${totalScore} / ${QUIZ_DATA.length}`;
+    
+    let finalRank = document.getElementById('final-rank');
+    if(finalRank) {
+        finalRank.textContent = rankObj.rank;
+        finalRank.style.color = rankObj.color;
+    }
 
-    // คำนวณหาเวลาเฉลี่ย (วินาทีต่อข้อ)
     let totalSec = Object.values(timeSpent).reduce((a, b) => a + b, 0);
-    let avgTime = totalSec / QUIZ_DATA.length;
+    let avgTime = totalSec > 0 ? (totalSec / QUIZ_DATA.length) : 0;
 
     // 1. กำหนด Persona
     let persona = determinePersona(radarData, totalPercent, avgTime);
-    document.getElementById('persona-img').src = persona.img;
-    document.getElementById('persona-name').textContent = persona.name;
-    document.getElementById('persona-desc').textContent = persona.desc;
-    document.getElementById('persona-strength').textContent = persona.strength;
-    document.getElementById('persona-weakness').textContent = persona.weakness;
+    if(persona) {
+        document.getElementById('persona-img').src = persona.img;
+        document.getElementById('persona-name').textContent = persona.name;
+        document.getElementById('persona-desc').textContent = persona.desc;
+        document.getElementById('persona-strength').textContent = persona.strength;
+        document.getElementById('persona-weakness').textContent = persona.weakness;
+    }
 
-    // 2. แยก Rank รายทักษะ (HTML Breakdown)
+    // 2. สร้างแถบ HTML แยกตามหมวด
     let statsHtml = '';
     const categories = ['theory', 'calc', 'apply', 'SHM', 'Wave', 'Light'];
     categories.forEach(cat => {
-        let pct = radarData[cat];
+        let pct = radarData[cat] || 0;
         let rObj = calculateRank(pct);
-        let title = radarData.details[cat] ? radarData.details[cat].name : cat;
+        let title = (radarData.details && radarData.details[cat]) ? radarData.details[cat].name : cat;
         
         statsHtml += `
             <div class="stat-item">
@@ -389,23 +397,27 @@ function showResultScreen(radarData, totalScore) {
             </div>
         `;
     });
-    document.getElementById('stats-breakdown').innerHTML = statsHtml;
+    let statsBox = document.getElementById('stats-breakdown');
+    if(statsBox) statsBox.innerHTML = statsHtml;
 
     // 3. วาด Radar
-    const ctx = document.getElementById('radarChart').getContext('2d');
-    new Chart(ctx, {
-        type: 'radar',
-        data: {
-            labels: ['ทฤษฎี', 'คำนวณ', 'ประยุกต์', 'SHM', 'คลื่นกล', 'แสงเชิงคลื่น'],
-            datasets: [{
-                label: 'ความสามารถของคุณ (%)',
-                data: [ radarData.theory, radarData.calc, radarData.apply, radarData.SHM, radarData.Wave, radarData.Light ],
-                backgroundColor: 'rgba(30, 61, 143, 0.2)',
-                borderColor: 'rgba(30, 61, 143, 1)',
-                pointBackgroundColor: 'rgba(255, 241, 115, 1)',
-                borderWidth: 2
-            }]
-        },
-        options: { scales: { r: { suggestedMin: 0, suggestedMax: 100 } } }
-    });
+    const canvas = document.getElementById('radarChart');
+    if(canvas) {
+        const ctx = canvas.getContext('2d');
+        new Chart(ctx, {
+            type: 'radar',
+            data: {
+                labels: ['ทฤษฎี', 'คำนวณ', 'ประยุกต์', 'SHM', 'คลื่นกล', 'แสงเชิงคลื่น'],
+                datasets: [{
+                    label: 'ความสามารถของคุณ (%)',
+                    data: [ radarData.theory, radarData.calc, radarData.apply, radarData.SHM, radarData.Wave, radarData.Light ],
+                    backgroundColor: 'rgba(30, 61, 143, 0.2)',
+                    borderColor: 'rgba(30, 61, 143, 1)',
+                    pointBackgroundColor: 'rgba(255, 241, 115, 1)',
+                    borderWidth: 2
+                }]
+            },
+            options: { scales: { r: { suggestedMin: 0, suggestedMax: 100 } } }
+        });
+    }
 }
