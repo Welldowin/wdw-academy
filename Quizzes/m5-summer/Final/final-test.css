@@ -1,19 +1,15 @@
 :root {
-    /* สีที่สกัดจากโลโก้ WDW */
-    --logo-dark-blue: #1E3D8F;  /* ตัว W ขวา / สีหลัก */
-    --logo-yellow: #FFF173;     /* ตัว W ซ้าย */
-    --logo-light-blue: #93B5D1; /* บันไดตรงกลาง */
-    --logo-orange: #DF9E51;     /* ตัว D ด้านล่าง */
-    --logo-red: #D94C4C;        /* ธงด้านบน */
-    
-    --bg-color: #fffdf5;        /* สีพื้นหลังเว็บ (อิงจากเว็บหลัก) */
+    --logo-dark-blue: #1E3D8F;
+    --logo-yellow: #FFF173;
+    --logo-light-blue: #93B5D1;
+    --logo-orange: #DF9E51;
+    --logo-red: #D94C4C;
+    --bg-color: #fffdf5;
     --text-dark: #1f2937;
     --card-shadow: 0 8px 24px rgba(30, 61, 143, 0.08);
 }
 
-* {
-    box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
     font-family: 'Kanit', sans-serif;
@@ -22,9 +18,6 @@ body {
     color: var(--text-dark);
 }
 
-/* =========================================
-   Header & Timer
-========================================= */
 .quiz-header {
     background-color: var(--logo-dark-blue);
     color: white;
@@ -32,42 +25,24 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    border-bottom: 4px solid var(--logo-yellow); /* ขีดเส้นใต้ด้วยสีเหลือง */
+    border-bottom: 4px solid var(--logo-yellow);
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
-.quiz-header h1 {
-    margin: 0;
-    font-size: 1.5rem;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
-}
-
-.quiz-header p {
-    margin: 4px 0 0;
-    font-size: 0.9rem;
-    color: #e0e7ff;
-}
+.quiz-header h1 { margin: 0; font-size: 1.5rem; }
+.quiz-header p { margin: 4px 0 0; font-size: 0.9rem; color: #e0e7ff; }
 
 .timer-card {
     background: white;
-    color: var(--logo-orange); /* ใช้สีส้มทองจากตัว D */
+    color: var(--logo-orange);
     padding: 8px 18px;
     border-radius: 12px;
     font-size: 1.5rem;
     font-weight: 800;
     border: 2px solid var(--logo-orange);
     box-shadow: 0 4px 10px rgba(223, 158, 81, 0.2);
-    display: flex;
-    align-items: center;
-    gap: 8px;
 }
 
-/* =========================================
-   Layout & Cards
-========================================= */
 .quiz-container {
     display: grid;
     grid-template-columns: 1fr 320px;
@@ -83,243 +58,89 @@ body {
     padding: 25px;
     box-shadow: var(--card-shadow);
     border: 1px solid rgba(30, 61, 143, 0.1);
-}
-
-.question-section .card {
-    border-top: 8px solid var(--logo-dark-blue);
-}
-
-.navigator-section .card {
-    border-top: 8px solid var(--logo-yellow);
-}
-
-/* =========================================
-   Question Content
-========================================= */
-.question-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     margin-bottom: 20px;
-    border-bottom: 2px dashed #eee;
-    padding-bottom: 12px;
 }
 
-#question-number {
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: var(--logo-dark-blue);
+.question-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 20px; border-bottom: 2px dashed #eee; padding-bottom: 12px;
 }
 
-.badge {
-    background: var(--logo-light-blue); /* ใช้สีฟ้าบันไดเป็นพื้นหลัง Tag */
-    color: #1a2e44;
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 0.85rem;
-    font-weight: 600;
-}
+#question-number { font-size: 1.2rem; font-weight: 700; color: var(--logo-dark-blue); }
+.badge { background: var(--logo-light-blue); color: #1a2e44; padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; }
+#question-content { font-size: 1.15rem; line-height: 1.6; margin-bottom: 30px; }
 
-#question-content {
-    font-size: 1.15rem;
-    line-height: 1.6;
-    margin-bottom: 30px;
-}
+.choices-grid { display: grid; gap: 12px; }
+.choice-item { display: flex; align-items: center; padding: 14px 18px; border: 2px solid #e5e7eb; border-radius: 12px; cursor: pointer; transition: all 0.2s; background: #f9fafb; font-size: 1.05rem; }
+.choice-item:hover:not(.disabled) { border-color: var(--logo-light-blue); background: #f0f4f8; }
+.choice-item.disabled { cursor: not-allowed; opacity: 0.8; }
+.choice-item input[type="radio"] { margin-right: 15px; transform: scale(1.3); accent-color: var(--logo-dark-blue); }
 
-/* =========================================
-   Choices
-========================================= */
-.choices-grid {
-    display: grid;
-    gap: 12px;
-}
+.navigation-controls { display: flex; justify-content: space-between; margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee; }
 
-.choice-item {
-    display: flex;
-    align-items: center;
-    padding: 14px 18px;
-    border: 2px solid #e5e7eb;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: all 0.2s;
-    background: #f9fafb;
-    font-size: 1.05rem;
-}
-
-.choice-item:hover {
-    border-color: var(--logo-light-blue);
-    background: #f0f4f8;
-}
-
-/* ซ่อน input radio เดิมและปรับแต่งใหม่นิดหน่อย */
-.choice-item input[type="radio"] {
-    margin-right: 15px;
-    transform: scale(1.3);
-    accent-color: var(--logo-dark-blue);
-}
-
-/* =========================================
-   Buttons
-========================================= */
-.navigation-controls {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 30px;
-    padding-top: 20px;
-    border-top: 1px solid #eee;
-}
-
-.btn {
-    padding: 12px 25px;
-    border-radius: 12px;
-    border: none;
-    font-weight: 700;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: 0.2s;
-    font-family: 'Kanit', sans-serif;
-}
-
+.btn { padding: 12px 25px; border-radius: 12px; border: none; font-weight: 700; font-size: 1rem; cursor: pointer; transition: 0.2s; font-family: 'Kanit', sans-serif; }
 .btn:hover { transform: translateY(-2px); }
-
-.btn.primary { 
-    background: var(--logo-dark-blue); 
-    color: white; 
-    box-shadow: 0 4px 12px rgba(30, 61, 143, 0.3);
-}
+.btn.primary { background: var(--logo-dark-blue); color: white; box-shadow: 0 4px 12px rgba(30, 61, 143, 0.3); }
 .btn.primary:hover { background: #152b65; }
-
-.btn.secondary { 
-    background: #f3f4f6; 
-    color: #4b5563; 
-    border: 1px solid #d1d5db;
-}
+.btn.secondary { background: #f3f4f6; color: #4b5563; border: 1px solid #d1d5db; }
 .btn.secondary:hover { background: #e5e7eb; }
+.btn.success { background: var(--logo-red); color: white; box-shadow: 0 4px 12px rgba(217, 76, 76, 0.3); }
 
-.btn.success { 
-    background: var(--logo-red); /* ใช้สีแดงจากธง สำหรับปุ่มส่งข้อสอบ */
-    color: white; 
-    box-shadow: 0 4px 12px rgba(217, 76, 76, 0.3);
-}
-.btn.success:hover { background: #b93d3d; }
+/* Review Mode & Feedback */
+.review-banner { background: #fee2e2; color: #991b1b; padding: 10px; text-align: center; font-weight: bold; border-radius: 10px; margin-bottom: 15px; border: 1px solid #f87171; }
+.feedback-box { margin-top: 20px; padding: 15px; border-radius: 10px; font-weight: bold; text-align: center; font-size: 1.1rem; }
+.feedback-box.correct { background: #dcfce7; color: #166534; border: 1px solid #86efac; }
+.feedback-box.incorrect { background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
 
-/* =========================================
-   Navigator (ตัวเลขข้อสอบด้านขวา)
-========================================= */
-.navigator-section h3 {
-    margin: 0 0 15px 0;
-    color: var(--logo-dark-blue);
-    text-align: center;
-}
+.nav-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+.nav-btn { width: 100%; aspect-ratio: 1; border: 2px solid #e5e7eb; border-radius: 10px; background: white; color: #4b5563; cursor: pointer; font-weight: 700; font-size: 1rem; }
+.nav-btn.active { background: var(--logo-dark-blue); color: white; border-color: var(--logo-dark-blue); transform: scale(1.05); }
+.nav-btn.answered { background: var(--logo-light-blue); color: white; border-color: var(--logo-light-blue); }
+.nav-btn.wrong-ans { border-bottom: 4px solid var(--logo-red); }
+.nav-btn.correct-ans { border-bottom: 4px solid #10b981; }
 
-.nav-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 8px;
-}
-
-.nav-btn {
-    width: 100%;
-    aspect-ratio: 1;
-    border: 2px solid #e5e7eb;
-    border-radius: 10px;
-    background: white;
-    color: #4b5563;
-    cursor: pointer;
-    font-weight: 700;
-    font-size: 1rem;
-    transition: 0.2s;
-}
-
-.nav-btn:hover {
-    border-color: var(--logo-light-blue);
-}
-
-/* สถานะ: กำลังทำข้อนี้อยู่ (ใช้น้ำเงินเข้ม) */
-.nav-btn.active { 
-    background: var(--logo-dark-blue); 
-    color: white; 
-    border-color: var(--logo-dark-blue);
-    transform: scale(1.05);
-}
-
-/* สถานะ: ทำแล้ว (ใช้สีฟ้าจากบันได) */
-.nav-btn.answered { 
-    background: var(--logo-light-blue); 
-    color: white; 
-    border-color: var(--logo-light-blue); 
-}
-
-/* คำอธิบายสถานะด้านล่าง */
-.nav-legend {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-    font-size: 0.85rem;
-    color: #6b7280;
-}
-
+.nav-legend { display: flex; justify-content: space-between; margin-top: 20px; font-size: 0.85rem; color: #6b7280; }
 .legend-item { display: flex; align-items: center; gap: 6px; }
 .dot { width: 12px; height: 12px; border-radius: 50%; }
 .dot.current { background: var(--logo-dark-blue); }
 .dot.done { background: var(--logo-light-blue); }
-.dot.empty { background: white; border: 2px solid #e5e7eb; }
 
 .hidden { display: none !important; }
 
-/* =========================================
-   Result Screen
-========================================= */
-#result-screen { padding: 40px 20px; }
+/* Result Screen */
+#result-screen { padding: 30px 20px; }
+.result-container { max-width: 800px; margin: 0 auto; }
 
-.result-container {
-    max-width: 700px;
-    margin: 0 auto;
-    text-align: center;
-}
+/* Persona Card */
+.persona-content { display: flex; gap: 20px; align-items: center; margin-top: 15px; }
+.persona-image img { width: 150px; height: 150px; object-fit: cover; border-radius: 50%; border: 4px solid var(--logo-yellow); box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+.persona-text { flex: 1; }
+.persona-text h1 { color: var(--logo-dark-blue); margin: 0 0 5px 0; }
+.persona-desc { font-size: 1.05rem; color: #4b5563; margin-bottom: 15px; }
+.trait { padding: 10px; border-radius: 8px; margin-bottom: 8px; font-size: 0.95rem; }
+.trait.strength { background: #f0fdf4; border-left: 4px solid #22c55e; }
+.trait.weakness { background: #fef2f2; border-left: 4px solid #ef4444; }
 
-.result-container h2 {
-    color: var(--logo-dark-blue);
-    margin-bottom: 20px;
-}
+/* Stats Breakdown */
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 15px; }
+.stat-item { background: #f8fafc; border: 1px solid #e2e8f0; padding: 15px; border-radius: 12px; text-align: center; }
+.stat-title { font-weight: 700; color: var(--logo-dark-blue); margin-bottom: 5px; }
+.stat-bar-bg { width: 100%; height: 8px; background: #e2e8f0; border-radius: 4px; margin-bottom: 5px; overflow: hidden; }
+.stat-bar-fill { height: 100%; background: var(--logo-light-blue); }
+.stat-score { font-weight: bold; font-size: 1.1rem; }
+.stat-rank { display: inline-block; padding: 2px 8px; border-radius: 6px; font-size: 0.8rem; font-weight: bold; margin-left: 5px; }
 
-.rank-box {
-    background: linear-gradient(135deg, var(--logo-yellow), #fef08a);
-    border: 2px solid var(--logo-orange);
-    border-radius: 20px;
-    padding: 20px;
-    margin: 0 auto 30px;
-    width: 150px;
-    box-shadow: 0 8px 20px rgba(223, 158, 81, 0.2);
-}
+/* Chart & Final Box */
+.chart-wrapper { max-width: 450px; margin: 0 auto 30px; }
+.final-score-box { text-align: center; border-top: 2px dashed #eee; padding-top: 20px; }
+.rank-box { background: linear-gradient(135deg, var(--logo-yellow), #fef08a); border: 2px solid var(--logo-orange); border-radius: 20px; padding: 15px; margin: 15px auto 0; width: 130px; box-shadow: 0 8px 20px rgba(223, 158, 81, 0.2); }
+.rank-label { display: block; font-weight: 700; color: #854d0e; }
+#final-rank { margin: 0; font-size: 3.5rem; color: var(--logo-dark-blue); line-height: 1; }
 
-.rank-label {
-    display: block;
-    font-weight: 700;
-    color: #854d0e;
-}
+.result-actions { display: flex; justify-content: center; gap: 15px; margin-top: 30px; flex-wrap: wrap;}
 
-#final-rank {
-    margin: 0;
-    font-size: 4rem;
-    color: var(--logo-dark-blue);
-    line-height: 1;
-}
-
-.chart-wrapper {
-    max-width: 500px;
-    margin: 0 auto 30px;
-    background: #fafafa;
-    border-radius: 16px;
-    padding: 20px;
-    border: 1px solid #eee;
-}
-
-/* =========================================
-   Responsive
-========================================= */
 @media (max-width: 768px) {
     .quiz-container { grid-template-columns: 1fr; }
-    .navigator-section { order: -1; } /* ย้ายแผงตัวเลขไปไว้ด้านบนเวลาเล่นบนมือถือ */
-    .quiz-header { flex-direction: column; gap: 15px; }
+    .navigator-section { order: -1; }
+    .persona-content { flex-direction: column; text-align: center; }
 }
