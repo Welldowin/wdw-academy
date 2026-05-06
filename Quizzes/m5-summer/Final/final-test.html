@@ -26,6 +26,10 @@
 
         <main class="quiz-container">
             <section class="question-section">
+                <div id="review-banner" class="review-banner hidden">
+                    โหมดทบทวนคำตอบ (คุณส่งข้อสอบนี้ไปแล้ว ไม่สามารถแก้ไขได้)
+                </div>
+
                 <div id="question-card" class="card">
                     <div class="question-header">
                         <span id="question-number">ข้อที่ 1 / 30</span>
@@ -40,10 +44,13 @@
                     <div id="choices-list" class="choices-grid">
                         </div>
 
+                    <div id="feedback-box" class="feedback-box hidden"></div>
+
                     <div class="navigation-controls">
                         <button id="prev-btn" class="btn secondary">|◀ ข้อก่อนหน้า</button>
                         <button id="next-btn" class="btn primary">ข้อต่อไป ▶|</button>
                         <button id="submit-btn" class="btn success hidden">ส่งข้อสอบ</button>
+                        <button id="back-to-result-btn" class="btn primary hidden">กลับไปหน้าประเมินผล</button>
                     </div>
                 </div>
             </section>
@@ -51,8 +58,7 @@
             <aside class="navigator-section">
                 <div class="card">
                     <h3>สถานะการทำข้อสอบ</h3>
-                    <div id="question-nav-grid" class="nav-grid">
-                        </div>
+                    <div id="question-nav-grid" class="nav-grid"></div>
                     <div class="nav-legend">
                         <span class="legend-item"><i class="dot current"></i> ปัจจุบัน</span>
                         <span class="legend-item"><i class="dot done"></i> ทำแล้ว</span>
@@ -64,21 +70,58 @@
     </div>
 
     <div id="result-screen" class="hidden">
-        <div class="result-container card">
-            <h2>ผลการประเมินความสามารถ</h2>
-            <div class="rank-box">
-                <span class="rank-label">Rank</span>
-                <h1 id="final-rank">S</h1>
-            </div>
+        <header class="quiz-header" style="justify-content: center;">
+            <h1>รายงานผลการทดสอบของคุณ</h1>
+        </header>
+        
+        <div class="result-container">
             
-            <div class="chart-wrapper">
-                <canvas id="radarChart"></canvas>
+            <div class="card persona-card">
+                <h2 style="margin-top: 0;">บุคลิกการทำข้อสอบของคุณคือ...</h2>
+                <div class="persona-content">
+                    <div class="persona-image">
+                        <img id="persona-img" src="images/default-animal.png" alt="Persona">
+                    </div>
+                    <div class="persona-text">
+                        <h1 id="persona-name">กำลังประมวลผล...</h1>
+                        <p id="persona-desc" class="desc">-</p>
+                        <div class="persona-traits">
+                            <div class="trait strength">
+                                <strong>🟢 จุดแข็ง:</strong> <span id="persona-strength">-</span>
+                            </div>
+                            <div class="trait weakness">
+                                <strong>🔴 จุดที่ควรพัฒนา:</strong> <span id="persona-weakness">-</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div id="performance-summary">
-                </div>
+            <div class="card stats-card">
+                <h2>วิเคราะห์ความสามารถรายด้าน</h2>
+                <div id="stats-breakdown" class="stats-grid">
+                    </div>
+            </div>
 
-            <button onclick="location.href='dashboard.html'" class="btn primary">กลับสู่หน้า Dashboard</button>
+            <div class="card chart-card">
+                <h2>กราฟความสมดุล (Radar Chart)</h2>
+                <div class="chart-wrapper">
+                    <canvas id="radarChart"></canvas>
+                </div>
+                
+                <div class="final-score-box">
+                    <h3>คะแนนรวมของคุณ: <span id="final-score-text" style="color:var(--logo-red);">0 / 30</span></h3>
+                    <div class="rank-box">
+                        <span class="rank-label">Rank รวม</span>
+                        <h1 id="final-rank">C</h1>
+                    </div>
+                </div>
+            </div>
+
+            <div class="result-actions">
+                <button id="review-answers-btn" class="btn primary">🔍 ย้อนกลับไปดูคำตอบตัวเอง</button>
+                <button onclick="location.href='../dashboard.html'" class="btn secondary">🏠 กลับสู่หน้า Dashboard</button>
+            </div>
         </div>
     </div>
 
