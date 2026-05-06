@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Final Test : m5-summer</title>
+    
+    <link rel="stylesheet" href="final-test.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+    <div id="quiz-app">
+        <header class="quiz-header">
+            <div class="header-info">
+                <h1 id="quiz-title">Physics Final Test</h1>
+                <p id="student-name">กำลังโหลดข้อมูลผู้ใช้...</p>
+            </div>
+            <div id="timer-box" class="timer-card">
+                <span class="timer-icon">⏱️</span>
+                <span id="time-display">60:00</span>
+            </div>
+        </header>
+
+        <main class="quiz-container">
+            <section class="question-section">
+                <div id="question-card" class="card">
+                    <div class="question-header">
+                        <span id="question-number">ข้อที่ 1 / 30</span>
+                        <span id="question-category" class="badge">ทฤษฎี</span>
+                    </div>
+                    
+                    <div id="question-content">
+                        <p id="question-text">กำลังโหลดโจทย์...</p>
+                        <div id="question-image-container"></div>
+                    </div>
+
+                    <div id="choices-list" class="choices-grid">
+                        </div>
+
+                    <div class="navigation-controls">
+                        <button id="prev-btn" class="btn secondary">|◀ ข้อก่อนหน้า</button>
+                        <button id="next-btn" class="btn primary">ข้อต่อไป ▶|</button>
+                        <button id="submit-btn" class="btn success hidden">ส่งข้อสอบ</button>
+                    </div>
+                </div>
+            </section>
+
+            <aside class="navigator-section">
+                <div class="card">
+                    <h3>สถานะการทำข้อสอบ</h3>
+                    <div id="question-nav-grid" class="nav-grid">
+                        </div>
+                    <div class="nav-legend">
+                        <span class="legend-item"><i class="dot current"></i> ปัจจุบัน</span>
+                        <span class="legend-item"><i class="dot done"></i> ทำแล้ว</span>
+                        <span class="legend-item"><i class="dot empty"></i> ยังไม่ทำ</span>
+                    </div>
+                </div>
+            </aside>
+        </main>
+    </div>
+
+    <div id="result-screen" class="hidden">
+        <div class="result-container card">
+            <h2>ผลการประเมินความสามารถ</h2>
+            <div class="rank-box">
+                <span class="rank-label">Rank</span>
+                <h1 id="final-rank">S</h1>
+            </div>
+            
+            <div class="chart-wrapper">
+                <canvas id="radarChart"></canvas>
+            </div>
+
+            <div id="performance-summary">
+                </div>
+
+            <button onclick="location.href='dashboard.html'" class="btn primary">กลับสู่หน้า Dashboard</button>
+        </div>
+    </div>
+
+    <script src="questions.js"></script>
+    <script src="final-test.js"></script>
+</body>
+</html>
