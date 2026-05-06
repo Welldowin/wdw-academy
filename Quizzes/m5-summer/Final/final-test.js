@@ -1,53 +1,97 @@
-// กำหนด URL ของ Apps Script ที่คุณครู Deploy ไว้
 const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby2yvvJ17viUPF-UHBqPhudJVH4HDfYlyDHTOSaIELFEFRhucdrILUzNI5RhOZeh0vh/exec";
 
 // ==========================================
-// ตัวแปรควบคุมสถานะของข้อสอบ
+// ข้อมูลสัตว์ 16 ชนิด (Persona Definitions)
+// ==========================================
+const ANIMAL_PERSONAS = [
+    { id: "eagle", name: "🦅 อินทรี (Eagle)", img: "images/eagle.png", desc: "ความเป็นเลิศที่รอบด้าน มองทะลุทุกปัญหา", strength: "คะแนนสูงทุกมิติ แม่นยำทั้งทฤษฎีและการคำนวณ", weakness: "ไม่มีจุดอ่อนเด่นชัด รักษาระดับนี้ไว้ให้ได้!" },
+    { id: "dragon", name: "🐉 มังกร (Dragon)", img: "images/dragon.png", desc: "ทรงพลังในบทที่ยากที่สุดและซับซ้อน", strength: "ทำข้อสอบคำนวณและประยุกต์บทแสง/คลื่นได้ดีเยี่ยม", weakness: "ระวังความมั่นใจเกินไปจนพลาดทฤษฎีพื้นฐาน" },
+    { id: "owl", name: "🦉 นกฮูก (Owl)", img: "images/owl.png", desc: "นักปราชญ์ผู้แม่นยำในนิยามและทฤษฎี", strength: "จำกฎและนิยามทางฟิสิกส์ได้แม่นยำมาก โดนหลอกยาก", weakness: "ความเร็วในการคิดเลขและการแก้สมการหลายชั้น" },
+    { id: "bear", name: "🐻 หมี (Bear)", img: "images/bear.png", desc: "พื้นฐานมั่นคง หนักแน่น ค่อยๆ คิดอย่างรอบคอบ", strength: "พื้นฐานทฤษฎีแน่นปึ้ก เข้าใจลึกซึ้ง", weakness: "ปฏิกิริยาต่อโจทย์แนวใหม่ยังช้า ต้องฝึกโจทย์พลิกแพลง" },
+    { id: "parrot", name: "🦜 นกแก้ว (Parrot)", img: "images/parrot.png", desc: "ความจำดีเลิศ จำสูตรได้เป๊ะทุกตัว", strength: "ท่องจำเนื้อหาและสูตรเก่งมาก ไม่ลืมเนื้อหา", weakness: "การนำสูตรที่ท่องไปประยุกต์ใช้ในสถานการณ์จริง" },
+    { id: "cheetah", name: "🐆 เสือชีตาห์ (Cheetah)", img: "images/cheetah.png", desc: "นักทำข้อสอบสายสปีด รวดเร็วปานสายฟ้า", strength: "ทำข้อสอบไว บริหารเวลาดีเยี่ยม ไม่เคยทำไม่ทัน", weakness: "มักตกม้าตายเพราะความรีบเร่ง ไม่อ่านโจทย์ให้ละเอียด" },
+    { id: "monkey", name: "🐒 ลิง (Monkey)", img: "images/monkey.png", desc: "คล่องแคล่วว่องไว พลิกแพลงสมการเก่ง", strength: "ย้ายข้างสมการและจัดการตัวเลขได้ไวมาก", weakness: "ลืมใส่หน่วย หรือพลาดในขั้นตอนการคิดเลขขั้นสุดท้าย" },
+    { id: "shark", name: "🦈 ฉลาม (Shark)", img: "images/shark.png", desc: "ดุดัน ไม่กลัวข้อสอบคำนวณที่โหดหิน", strength: "พุ่งชนโจทย์คำนวณยากๆ ได้ดีเยี่ยม", weakness: "โจทย์เชิงบรรยายและการวิเคราะห์กราฟ/รูปภาพ" },
+    { id: "dolphin", name: "🐬 โลมา (Dolphin)", img: "images/dolphin.png", desc: "มีไหวพริบยอดเยี่ยม ประยุกต์เก่ง", strength: "เชื่อมโยงเนื้อหาและประยุกต์สูตรเก่งมาก", weakness: "ความแม่นยำในการคิดเลขซ้ำซ้อน" },
+    { id: "fox", name: "🦊 สุนัขจิ้งจอก (Fox)", img: "images/fox.png", desc: "จอมวางแผน รู้ว่าข้อไหนควรข้าม ข้อไหนควรเก็บ", strength: "บริหารความเสี่ยงเก่ง ทำข้อที่ได้ชัวร์ๆ ก่อน", weakness: "ชอบทิ้งดิ่งบางบทที่ตัวเองไม่ถนัด ทำให้เสียคะแนนรวม" },
+    { id: "spider", name: "🕷️ แมงมุม (Spider)", img: "images/spider.png", desc: "มองฟิสิกส์เป็นโครงข่าย เชื่อมโยงได้ทุกบท", strength: "คะแนนสมดุลทุกบทเรียน ไม่มีบทไหนตกเป็นพิเศษ", weakness: "ยังขาดความลึกในแต่ละบท ต้องเจาะลึกทฤษฎีเฉพาะทางอีกนิด" },
+    { id: "elephant", name: "🐘 ช้าง (Elephant)", img: "images/elephant.png", desc: "รอบคอบสูงสุด ทำข้อไหนรับประกันว่าถูก", strength: "ความแม่นยำสูงมาก แทบไม่พลาดข้อที่ทำ", weakness: "ใช้เวลาตรวจสอบนานเกินไปจนอาจทำข้อสอบไม่ทัน" },
+    { id: "tortoise", name: "🐢 เต่า (Tortoise)", img: "images/tortoise.png", desc: "ช้าแต่มั่นคง ค่อยๆ เป็นค่อยๆ ไป", strength: "มีความอดทนในการทำความเข้าใจโจทย์", weakness: "สปีดการทำข้อสอบ ต้องเร่งความเร็วในการวิเคราะห์" },
+    { id: "cat", name: "🐈 แมว (Cat)", img: "images/cat.png", desc: "อินดี้ มีสไตล์ เก่งเฉพาะเรื่องที่ชอบ", strength: "เทพมากในบทใดบทหนึ่ง (เช่น บทคลื่น 100%)", weakness: "ทิ้งบทที่ไม่ชอบอย่างเห็นได้ชัด ต้องปรับสมดุล" },
+    { id: "bee", name: "🐝 ผึ้ง (Bee)", img: "images/bee.png", desc: "ขยันขันแข็ง เก็บรายละเอียดได้ดี", strength: "มีความพยายามสูง ไม่ปล่อยว่างข้อสอบ", weakness: "มักจะลนลานเมื่อเจอโจทย์ผสมที่ยากเกินไป" },
+    { id: "ant", name: "🐜 มด (Ant)", img: "images/ant.png", desc: "พลังมดตัวน้อยที่กำลังสะสมความรู้", strength: "พยายามทำจนครบทุกข้อและมีพื้นฐานเบื้องต้น", weakness: "ต้องกลับไปทบทวนพื้นฐานทุกบทอย่างเร่งด่วน!" }
+];
+
+// ==========================================
+// ตัวแปรควบคุม
 // ==========================================
 let currentQuestionIndex = 0;
-let userAnswers = {};      // เก็บคำตอบที่เด็กเลือก { "q1": "2", "q2": "1" }
-let timeSpent = {};        // เก็บเวลาที่ใช้ในแต่ละข้อ (วินาที) { "q1": 15, "q2": 45 }
-let questionStartTime = 0; // จับเวลาว่าเริ่มทำข้อปัจจุบันตอนไหน
+let userAnswers = {};
+let timeSpent = {};
+let questionStartTime = 0;
 let mainTimeRemaining = window.QUIZ_META.timeLimitSec;
 let mainTimerInterval = null;
 let isSubmitted = false;
 
-// ดึงข้อมูลผู้ใช้จาก localStorage (มาจากหน้า login/member)
-const userId = localStorage.getItem('userId');
-const userDisplayName = localStorage.getItem('userDisplayName') || "นักเรียน (ไม่ทราบชื่อ)";
+const userId = localStorage.getItem('userId') || 'guest';
+const userDisplayName = localStorage.getItem('userDisplayName') || "นักเรียน";
+const STORAGE_KEY = `WDW_FINAL_${userId}_${window.QUIZ_META.quizKey}`; // Key สำหรับกันรีเฟรช
 
-// ==========================================
-// เริ่มต้นระบบเมื่อโหลดหน้าเว็บเสร็จ
-// ==========================================
 window.addEventListener('DOMContentLoaded', () => {
-    // 1. ตรวจสอบสิทธิ์
-    if (!userId) {
-        alert("กรุณาเข้าสู่ระบบก่อนทำข้อสอบ");
-        window.location.href = "login.html"; // เด้งกลับไปหน้าล็อกอิน
-        return;
-    }
     document.getElementById('student-name').textContent = `ผู้สอบ: ${userDisplayName}`;
     document.getElementById('quiz-title').textContent = window.QUIZ_META.title;
 
-    // 2. สร้างปุ่ม Navigator ด้านขวา
     buildNavigator();
 
-    // 3. เริ่มแสดงข้อแรก และเริ่มจับเวลา
+    // เช็กสถานะจาก LocalStorage (กันรีเฟรช / เคยส่งแล้ว)
+    let savedState = localStorage.getItem(STORAGE_KEY);
+    if (savedState) {
+        let state = JSON.parse(savedState);
+        userAnswers = state.answers || {};
+        timeSpent = state.timeSpent || {};
+        
+        if (state.isSubmitted) {
+            isSubmitted = true;
+            mainTimeRemaining = 0; // ปิดเวลา
+            document.getElementById('time-display').textContent = "ส่งแล้ว";
+            showResultScreen(state.radarData, state.totalScore); // โชว์หน้าประเมินเลย
+            return;
+        } else {
+            // ทำค้างไว้ แต่ยังไม่ส่ง
+            mainTimeRemaining = state.timeLeft || mainTimeRemaining;
+        }
+    }
+
     renderQuestion(currentQuestionIndex);
     startMainTimer();
 });
 
 // ==========================================
-// ระบบจับเวลา (หลัก และ ย่อย)
+// บันทึกสถานะลง LocalStorage
+// ==========================================
+function saveStateToLocal() {
+    let state = {
+        answers: userAnswers,
+        timeSpent: timeSpent,
+        timeLeft: mainTimeRemaining,
+        isSubmitted: isSubmitted
+    };
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
+
+// ==========================================
+// ระบบเวลา
 // ==========================================
 function startMainTimer() {
+    if(isSubmitted) return;
     mainTimerInterval = setInterval(() => {
         if (isSubmitted) return;
-        
         mainTimeRemaining--;
         let m = Math.floor(mainTimeRemaining / 60);
         let s = mainTimeRemaining % 60;
         document.getElementById('time-display').textContent = `${m}:${s < 10 ? '0'+s : s}`;
+        
+        if (mainTimeRemaining % 10 === 0) saveStateToLocal(); // Auto-save ทุก 10 วิ
         
         if (mainTimeRemaining <= 0) {
             clearInterval(mainTimerInterval);
@@ -58,99 +102,109 @@ function startMainTimer() {
 }
 
 function recordTimeSpent() {
-    // บันทึกเวลาที่ใช้ไปสำหรับข้อที่เพิ่งทำเสร็จ
+    if(isSubmitted) return;
     let qId = QUIZ_DATA[currentQuestionIndex].id;
     let now = Date.now();
-    let spentThisTime = Math.floor((now - questionStartTime) / 1000); // แปลงเป็นวินาที
-    
+    let spentThisTime = Math.floor((now - questionStartTime) / 1000);
     if (!timeSpent[qId]) timeSpent[qId] = 0;
-    timeSpent[qId] += spentThisTime; // บวกสะสมเผื่อเด็กกดย้อนกลับมาทำข้อเดิม
+    timeSpent[qId] += spentThisTime;
 }
 
 // ==========================================
-// ระบบแสดงผลข้อสอบ (Render)
+// Render ข้อสอบ
 // ==========================================
 function renderQuestion(index) {
     let q = QUIZ_DATA[index];
-    questionStartTime = Date.now(); // เริ่มจับเวลาข้อใหม่
+    questionStartTime = Date.now();
     
-    // อัปเดตส่วนหัวของข้อ
     document.getElementById('question-number').textContent = `ข้อที่ ${index + 1} / ${QUIZ_DATA.length}`;
-    
-    // แปลง Skill ภาษาอังกฤษ เป็นภาษาไทยเพื่อแสดงผล
     let skillName = q.skill === "theory" ? "ทฤษฎี" : (q.skill === "calc" ? "คำนวณ" : "ประยุกต์ใช้");
     document.getElementById('question-category').textContent = `${q.chapter} | ${skillName}`;
-    
-    // แสดงโจทย์ (รองรับการเว้นบรรทัด \n)
     document.getElementById('question-text').innerHTML = q.prompt.replace(/\n/g, '<br>');
     
-    // แสดงรูปภาพ (ถ้ามี)
     let imgContainer = document.getElementById('question-image-container');
-    if (q.image) {
-        imgContainer.innerHTML = `<img src="${q.image}" alt="รูปประกอบข้อสอบ" style="max-width:100%; border-radius:8px; margin-top:15px;">`;
-    } else {
-        imgContainer.innerHTML = '';
-    }
+    imgContainer.innerHTML = q.image ? `<img src="${q.image}" alt="รูปประกอบ" style="max-width:100%; border-radius:8px; margin-top:15px;">` : '';
     
-    // แสดงตัวเลือก
     let choicesHtml = '';
     q.choices.forEach(choice => {
         let isChecked = userAnswers[q.id] === choice.key ? 'checked' : '';
+        let disabledAttr = isSubmitted ? 'disabled' : '';
+        let disabledClass = isSubmitted ? 'disabled' : '';
+        
         choicesHtml += `
-            <label class="choice-item">
-                <input type="radio" name="choice" value="${choice.key}" ${isChecked} onchange="selectAnswer('${q.id}', '${choice.key}')">
+            <label class="choice-item ${disabledClass}">
+                <input type="radio" name="choice" value="${choice.key}" ${isChecked} ${disabledAttr} onchange="selectAnswer('${q.id}', '${choice.key}')">
                 ${choice.text}
             </label>
         `;
     });
     document.getElementById('choices-list').innerHTML = choicesHtml;
     
-    // จัดการปุ่ม ก่อนหน้า/ถัดไป/ส่งข้อสอบ
+    // จัดการกล่องเฉลย (ถ้าอยู่ในโหมด Review)
+    let fbBox = document.getElementById('feedback-box');
+    if (isSubmitted) {
+        document.getElementById('review-banner').classList.remove('hidden');
+        fbBox.classList.remove('hidden');
+        if (userAnswers[q.id] === q.answer) {
+            fbBox.className = "feedback-box correct";
+            fbBox.innerHTML = "✅ คุณตอบถูก";
+        } else {
+            fbBox.className = "feedback-box incorrect";
+            fbBox.innerHTML = "❌ คุณตอบผิด (ไม่อนุญาตให้ดูเฉลยที่ถูกต้อง)";
+        }
+    } else {
+        fbBox.classList.add('hidden');
+    }
+    
     document.getElementById('prev-btn').disabled = (index === 0);
     
     if (index === QUIZ_DATA.length - 1) {
         document.getElementById('next-btn').classList.add('hidden');
-        document.getElementById('submit-btn').classList.remove('hidden');
+        if(!isSubmitted) document.getElementById('submit-btn').classList.remove('hidden');
     } else {
         document.getElementById('next-btn').classList.remove('hidden');
         document.getElementById('submit-btn').classList.add('hidden');
     }
+
+    if (isSubmitted) {
+        document.getElementById('submit-btn').classList.add('hidden');
+        document.getElementById('back-to-result-btn').classList.remove('hidden');
+    }
     
-    updateNavigator(); // อัปเดตสีปุ่มด้านขวา
-    
-    // เรนเดอร์ MathJax ใหม่ (ถ้ามีสมการ)
+    updateNavigator();
     if (window.MathJax) { MathJax.typesetPromise(); }
 }
 
-// ==========================================
-// ระบบควบคุมการเปลี่ยนหน้าและเลือกตอบ
-// ==========================================
 function selectAnswer(qId, val) {
+    if(isSubmitted) return;
     userAnswers[qId] = val;
+    saveStateToLocal();
     updateNavigator();
 }
 
+// ควบคุมปุ่ม
 document.getElementById('prev-btn').addEventListener('click', () => {
     recordTimeSpent();
-    if (currentQuestionIndex > 0) {
-        currentQuestionIndex--;
-        renderQuestion(currentQuestionIndex);
-    }
+    if (currentQuestionIndex > 0) renderQuestion(--currentQuestionIndex);
 });
-
 document.getElementById('next-btn').addEventListener('click', () => {
     recordTimeSpent();
-    if (currentQuestionIndex < QUIZ_DATA.length - 1) {
-        currentQuestionIndex++;
-        renderQuestion(currentQuestionIndex);
-    }
+    if (currentQuestionIndex < QUIZ_DATA.length - 1) renderQuestion(++currentQuestionIndex);
+});
+document.getElementById('back-to-result-btn').addEventListener('click', () => {
+    document.getElementById('quiz-app').style.display = 'none';
+    document.getElementById('result-screen').style.display = 'block';
+});
+document.getElementById('review-answers-btn').addEventListener('click', () => {
+    document.getElementById('result-screen').style.display = 'none';
+    document.getElementById('quiz-app').style.display = 'block';
+    renderQuestion(0);
 });
 
 document.getElementById('submit-btn').addEventListener('click', () => {
-    // เช็กว่าทำครบไหม
     let answeredCount = Object.keys(userAnswers).length;
     if (answeredCount < QUIZ_DATA.length) {
-        if (!confirm(`คุณทำข้อสอบไปเพียง ${answeredCount} จาก ${QUIZ_DATA.length} ข้อ ยืนยันที่จะส่งหรือไม่?`)) return;
+        if (!confirm(`คุณทำไปเพียง ${answeredCount} จาก ${QUIZ_DATA.length} ข้อ ยืนยันที่จะส่งหรือไม่?`)) return;
     } else {
         if (!confirm("คุณตรวจสอบคำตอบเรียบร้อยและต้องการส่งข้อสอบใช่หรือไม่?")) return;
     }
@@ -158,7 +212,7 @@ document.getElementById('submit-btn').addEventListener('click', () => {
 });
 
 // ==========================================
-// ระบบ Navigator (แผงตัวเลขขวามือ)
+// Navigator
 // ==========================================
 function buildNavigator() {
     let navHtml = '';
@@ -169,7 +223,7 @@ function buildNavigator() {
 }
 
 function jumpTo(index) {
-    recordTimeSpent(); // บันทึกเวลาข้อปัจจุบันก่อนกระโดดไปข้ออื่น
+    recordTimeSpent();
     currentQuestionIndex = index;
     renderQuestion(currentQuestionIndex);
 }
@@ -177,56 +231,67 @@ function jumpTo(index) {
 function updateNavigator() {
     QUIZ_DATA.forEach((q, i) => {
         let btn = document.getElementById(`nav-btn-${i}`);
-        btn.classList.remove('active', 'answered');
+        btn.className = "nav-btn"; // reset
         
-        if (i === currentQuestionIndex) {
-            btn.classList.add('active'); // กำลังทำอยู่ (สีน้ำเงิน)
-        } else if (userAnswers[q.id]) {
-            btn.classList.add('answered'); // ทำแล้ว (สีเขียว)
+        if (i === currentQuestionIndex) btn.classList.add('active');
+        else if (userAnswers[q.id]) btn.classList.add('answered');
+
+        // ถ้าส่งแล้ว ให้ใส่ขอบสีเขียว/แดง ใต้ปุ่ม
+        if (isSubmitted && userAnswers[q.id]) {
+            if (userAnswers[q.id] === q.answer) btn.classList.add('correct-ans');
+            else btn.classList.add('wrong-ans');
         }
     });
 }
 
 // ==========================================
-// การคำนวณคะแนน และส่งข้อมูลไป Google Sheets
+// ประมวลผลและหาสัตว์ประจำตัว
 // ==========================================
+function calculateRank(percent) {
+    if(percent >= 85) return { rank: 'S', color: '#8b5cf6' };
+    if(percent >= 70) return { rank: 'A', color: '#22c55e' };
+    if(percent >= 50) return { rank: 'B', color: '#f59e0b' };
+    return { rank: 'C', color: '#ef4444' };
+}
+
+function determinePersona(radar, totalPercent, timeAvg) {
+    // อัลกอริทึมเลือกสัตว์ง่ายๆ แบบครอบคลุม
+    if (totalPercent >= 85) return ANIMAL_PERSONAS.find(a => a.id === 'eagle');
+    if (radar.Light >= 80 && radar.calc >= 80 && totalPercent >= 75) return ANIMAL_PERSONAS.find(a => a.id === 'dragon');
+    if (radar.theory >= 80 && radar.calc < 60) return ANIMAL_PERSONAS.find(a => a.id === 'owl');
+    if (timeAvg < 40 && totalPercent >= 60) return ANIMAL_PERSONAS.find(a => a.id === 'cheetah'); // ทำข้อละไม่เกิน 40 วิ
+    if (radar.calc >= 80 && radar.theory < 60) return ANIMAL_PERSONAS.find(a => a.id === 'monkey');
+    if (radar.apply >= 80) return ANIMAL_PERSONAS.find(a => a.id === 'dolphin');
+    if (timeAvg > 100 && totalPercent >= 70) return ANIMAL_PERSONAS.find(a => a.id === 'elephant'); // คิดนานแต่ถูกเยอะ
+    if (totalPercent < 40) return ANIMAL_PERSONAS.find(a => a.id === 'ant');
+    
+    // Default fallback
+    return ANIMAL_PERSONAS.find(a => a.id === 'bear');
+}
+
 function submitQuiz() {
     if (isSubmitted) return;
     isSubmitted = true;
-    
-    recordTimeSpent(); // บันทึกเวลาข้อสุดท้าย
+    recordTimeSpent();
     clearInterval(mainTimerInterval);
     
-    // โครงสร้างสำหรับเก็บคะแนนแยกหมวดหมู่
     let totalScore = 0;
-    let statSkills = { theory: {correct: 0, total: 0}, calc: {correct: 0, total: 0}, apply: {correct: 0, total: 0} };
-    let statChapters = { SHM: {correct: 0, total: 0}, Wave: {correct: 0, total: 0}, Light: {correct: 0, total: 0} };
+    let statSkills = { theory: {c:0, t:0, name:"ทฤษฎี"}, calc: {c:0, t:0, name:"คำนวณ"}, apply: {c:0, t:0, name:"ประยุกต์"} };
+    let statChapters = { SHM: {c:0, t:0, name:"SHM"}, Wave: {c:0, t:0, name:"คลื่นกล"}, Light: {c:0, t:0, name:"แสงเชิงคลื่น"} };
     
-    // ตรวจคำตอบทีละข้อ
     QUIZ_DATA.forEach(q => {
         let isCorrect = (userAnswers[q.id] === q.answer);
         if (isCorrect) totalScore++;
         
-        // นับจำนวนข้อทั้งหมดในแต่ละสกิลและบทเรียน
-        if (statSkills[q.skill]) {
-            statSkills[q.skill].total++;
-            if (isCorrect) statSkills[q.skill].correct++;
-        }
-        if (statChapters[q.chapter]) {
-            statChapters[q.chapter].total++;
-            if (isCorrect) statChapters[q.chapter].correct++;
+        statSkills[q.skill].t++;
+        statChapters[q.chapter].t++;
+        if (isCorrect) {
+            statSkills[q.skill].c++;
+            statChapters[q.chapter].c++;
         }
     });
     
-    // คำนวณเปอร์เซ็นต์รวมเพื่อจัด Rank
-    let percent = (totalScore / QUIZ_DATA.length) * 100;
-    let rank = "C";
-    if (percent >= 85) rank = "S";
-    else if (percent >= 70) rank = "A";
-    else if (percent >= 50) rank = "B";
-    
-    // คำนวณเปอร์เซ็นต์ย่อย (เต็ม 100%) เพื่อเตรียมส่งไปวาดกราฟเรดาร์
-    let calcPercent = (stat) => stat.total > 0 ? Math.round((stat.correct / stat.total) * 100) : 0;
+    let calcPercent = (stat) => stat.t > 0 ? Math.round((stat.c / stat.t) * 100) : 0;
     
     let radarData = {
         theory: calcPercent(statSkills.theory),
@@ -234,61 +299,99 @@ function submitQuiz() {
         apply: calcPercent(statSkills.apply),
         SHM: calcPercent(statChapters.SHM),
         Wave: calcPercent(statChapters.Wave),
-        Light: calcPercent(statChapters.Light)
+        Light: calcPercent(statChapters.Light),
+        details: { ...statSkills, ...statChapters } // ส่งก้อนดิบไปวาด HTML ย่อย
     };
     
-    // แพ็กข้อมูลสำหรับส่ง Backend
+    // อัปเดต LocalStorage เป็น isSubmitted = true
+    let state = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+    state.isSubmitted = true;
+    state.radarData = radarData;
+    state.totalScore = totalScore;
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+
+    let rankObj = calculateRank((totalScore/QUIZ_DATA.length)*100);
+    
     let payload = {
         userId: userId,
         displayName: userDisplayName,
         courseId: window.QUIZ_META.courseId,
         quizKey: window.QUIZ_META.quizKey,
         totalScore: totalScore,
-        rank: rank,
-        skills: radarData, // ใช้ radarData เพราะเป็น % แล้ว
-        chapters: statChapters, // ส่งข้อมูลดิบของบทเรียนไปด้วยเผื่อวิเคราะห์
+        rank: rankObj.rank,
+        skills: radarData,
         timeSpent: timeSpent,
         answers: userAnswers
     };
     
-    // ปิด UI ข้อสอบ
     document.getElementById('quiz-app').style.display = 'none';
     
-    // แจ้งเตือนกำลังโหลด
     let loadingDiv = document.createElement('div');
     loadingDiv.innerHTML = `<h2 style="text-align:center; padding:50px;">กำลังส่งคำตอบและประมวลผล...</h2>`;
     document.body.appendChild(loadingDiv);
     
-    // ส่งข้อมูลไป Google Apps Script
     fetch(APPS_SCRIPT_URL, {
-        method: 'POST',
-        mode: 'no-cors', // ใช้ no-cors เพื่อป้องกันปัญหา Cross-Origin
+        method: 'POST', mode: 'no-cors',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
-    })
-    .then(() => {
+    }).then(() => {
         loadingDiv.remove();
-        showResultScreen(totalScore, rank, radarData);
-    })
-    .catch(error => {
-        console.error(error);
+        showResultScreen(radarData, totalScore);
+    }).catch(e => {
         loadingDiv.remove();
-        alert("เกิดปัญหาในการส่งข้อมูลไปที่เซิร์ฟเวอร์ แต่เราจะแสดงผลคะแนนของคุณให้ดู");
-        showResultScreen(totalScore, rank, radarData);
+        showResultScreen(radarData, totalScore);
     });
 }
 
 // ==========================================
-// แสดงผลลัพธ์และวาด Radar Chart
+// หน้าแสดงผล (Result)
 // ==========================================
-function showResultScreen(totalScore, rank, radarData) {
+function showResultScreen(radarData, totalScore) {
+    document.getElementById('quiz-app').style.display = 'none';
     let resultScreen = document.getElementById('result-screen');
     resultScreen.classList.remove('hidden');
-    resultScreen.style.display = 'block'; // บังคับโชว์
+    resultScreen.style.display = 'block';
     
-    document.getElementById('final-rank').textContent = rank;
-    
-    // วาดกราฟ Radar ด้วย Chart.js
+    let totalPercent = (totalScore / QUIZ_DATA.length) * 100;
+    let rankObj = calculateRank(totalPercent);
+    document.getElementById('final-score-text').textContent = `${totalScore} / ${QUIZ_DATA.length}`;
+    document.getElementById('final-rank').textContent = rankObj.rank;
+    document.getElementById('final-rank').style.color = rankObj.color;
+
+    // คำนวณหาเวลาเฉลี่ย (วินาทีต่อข้อ)
+    let totalSec = Object.values(timeSpent).reduce((a, b) => a + b, 0);
+    let avgTime = totalSec / QUIZ_DATA.length;
+
+    // 1. กำหนด Persona
+    let persona = determinePersona(radarData, totalPercent, avgTime);
+    document.getElementById('persona-img').src = persona.img;
+    document.getElementById('persona-name').textContent = persona.name;
+    document.getElementById('persona-desc').textContent = persona.desc;
+    document.getElementById('persona-strength').textContent = persona.strength;
+    document.getElementById('persona-weakness').textContent = persona.weakness;
+
+    // 2. แยก Rank รายทักษะ (HTML Breakdown)
+    let statsHtml = '';
+    const categories = ['theory', 'calc', 'apply', 'SHM', 'Wave', 'Light'];
+    categories.forEach(cat => {
+        let pct = radarData[cat];
+        let rObj = calculateRank(pct);
+        let title = radarData.details[cat] ? radarData.details[cat].name : cat;
+        
+        statsHtml += `
+            <div class="stat-item">
+                <div class="stat-title">${title}</div>
+                <div class="stat-bar-bg"><div class="stat-bar-fill" style="width: ${pct}%; background-color: ${rObj.color}"></div></div>
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <span class="stat-score">${pct}%</span>
+                    <span class="stat-rank" style="background-color: ${rObj.color}20; color: ${rObj.color};">${rObj.rank}</span>
+                </div>
+            </div>
+        `;
+    });
+    document.getElementById('stats-breakdown').innerHTML = statsHtml;
+
+    // 3. วาด Radar
     const ctx = document.getElementById('radarChart').getContext('2d');
     new Chart(ctx, {
         type: 'radar',
@@ -296,32 +399,13 @@ function showResultScreen(totalScore, rank, radarData) {
             labels: ['ทฤษฎี', 'คำนวณ', 'ประยุกต์', 'SHM', 'คลื่นกล', 'แสงเชิงคลื่น'],
             datasets: [{
                 label: 'ความสามารถของคุณ (%)',
-                data: [
-                    radarData.theory, radarData.calc, radarData.apply, 
-                    radarData.SHM, radarData.Wave, radarData.Light
-                ],
-                backgroundColor: 'rgba(30, 61, 143, 0.2)', // สีน้ำเงินของ WDW
+                data: [ radarData.theory, radarData.calc, radarData.apply, radarData.SHM, radarData.Wave, radarData.Light ],
+                backgroundColor: 'rgba(30, 61, 143, 0.2)',
                 borderColor: 'rgba(30, 61, 143, 1)',
-                pointBackgroundColor: 'rgba(255, 241, 115, 1)', // สีเหลือง
-                pointBorderColor: '#fff',
-                pointHoverBackgroundColor: '#fff',
-                pointHoverBorderColor: 'rgba(30, 61, 143, 1)',
+                pointBackgroundColor: 'rgba(255, 241, 115, 1)',
                 borderWidth: 2
             }]
         },
-        options: {
-            responsive: true,
-            scales: {
-                r: {
-                    angleLines: { color: 'rgba(0, 0, 0, 0.1)' },
-                    suggestedMin: 0,
-                    suggestedMax: 100,
-                    ticks: { stepSize: 20 }
-                }
-            },
-            plugins: {
-                legend: { position: 'bottom' }
-            }
-        }
+        options: { scales: { r: { suggestedMin: 0, suggestedMax: 100 } } }
     });
 }
