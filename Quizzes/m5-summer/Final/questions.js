@@ -1,6 +1,6 @@
 window.QUIZ_META = {
   courseId: "m5-summer",
-  quizKey: "final-test",
+  quizKey: "physics",
   title: "Final Test : ฟิสิกส์ ม.5 เทอม 1 (SHM, คลื่นกล, แสงเชิงคลื่น)",
   enableTimer: true,
   timeLimitSec: 3600
