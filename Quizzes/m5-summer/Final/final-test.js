@@ -4,9 +4,9 @@ const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby2yvvJ17viUPF-
 // ข้อมูลสัตว์ 16 ชนิด
 // ==========================================
 const ANIMAL_PERSONAS = [
-    { id: "eagle", name: "🦅 อินทรี (Eagle)", img: "images/eagle.png", desc: "ความเป็นเลิศที่รอบด้าน มองทะลุทุกปัญหา", strength: "คะแนนสูงทุกมิติ แม่นยำทั้งทฤษฎีและการคำนวณ", weakness: "ไม่มีจุดอ่อนเด่นชัด รักษาระดับนี้ไว้ให้ได้!" },
-    { id: "dragon", name: "🐉 มังกร (Dragon)", img: "images/dragon.png", desc: "ทรงพลังในบทที่ยากที่สุดและซับซ้อน", strength: "ทำข้อสอบคำนวณและประยุกต์บทแสง/คลื่นได้ดีเยี่ยม", weakness: "ระวังความมั่นใจเกินไปจนพลาดทฤษฎีพื้นฐาน" },
-    { id: "owl", name: "🦉 นกฮูก (Owl)", img: "images/owl.png", desc: "นักปราชญ์ผู้แม่นยำในนิยามและทฤษฎี", strength: "จำกฎและนิยามทางฟิสิกส์ได้แม่นยำมาก โดนหลอกยาก", weakness: "ความเร็วในการคิดเลขและการแก้สมการหลายชั้น" },
+    { id: "eagle", name: "🦅 อินทรี (Eagle)", img: "images/eagle.png", desc: "ความเป็นเลิศที่รอบด้าน มองทะลุทุกปัญหา", strength: "คะแนนสูงทุกมิติ แม่นยำทั้งทฤษฎีและคำนวณ", weakness: "ไม่มีจุดอ่อนเด่นชัด รักษาระดับนี้ไว้ให้ได้!" },
+    { id: "dragon", name: "🐉 มังกร (Dragon)", img: "images/dragon.png", desc: "ทรงพลังในบทที่ยากที่สุดและซับซ้อน", strength: "ทำข้อสอบคำนวณและโจทย์ประยุกต์ลึกๆ ได้ดีเยี่ยม", weakness: "ระวังความมั่นใจเกินไปจนพลาดทฤษฎีพื้นฐาน" },
+    { id: "owl", name: "🦉 นกฮูก (Owl)", img: "images/owl.png", desc: "นักปราชญ์ผู้แม่นยำในนิยามและทฤษฎี", strength: "จำกฎและนิยามทางฟิสิกส์ได้แม่นยำ โดนหลอกยาก", weakness: "ความเร็วในการคิดเลขและการแก้สมการหลายชั้น" },
     { id: "bear", name: "🐻 หมี (Bear)", img: "images/bear.png", desc: "พื้นฐานมั่นคง หนักแน่น ค่อยๆ คิดอย่างรอบคอบ", strength: "พื้นฐานทฤษฎีแน่นปึ้ก เข้าใจลึกซึ้ง", weakness: "ปฏิกิริยาต่อโจทย์แนวใหม่ยังช้า ต้องฝึกโจทย์พลิกแพลง" },
     { id: "parrot", name: "🦜 นกแก้ว (Parrot)", img: "images/parrot.png", desc: "ความจำดีเลิศ จำสูตรได้เป๊ะทุกตัว", strength: "ท่องจำเนื้อหาและสูตรเก่งมาก ไม่ลืมเนื้อหา", weakness: "การนำสูตรที่ท่องไปประยุกต์ใช้ในสถานการณ์จริง" },
     { id: "cheetah", name: "🐆 เสือชีตาห์ (Cheetah)", img: "images/cheetah.png", desc: "นักทำข้อสอบสายสปีด รวดเร็วปานสายฟ้า", strength: "ทำข้อสอบไว บริหารเวลาดีเยี่ยม ไม่เคยทำไม่ทัน", weakness: "มักตกม้าตายเพราะความรีบเร่ง ไม่อ่านโจทย์ให้ละเอียด" },
@@ -14,10 +14,10 @@ const ANIMAL_PERSONAS = [
     { id: "shark", name: "🦈 ฉลาม (Shark)", img: "images/shark.png", desc: "ดุดัน ไม่กลัวข้อสอบคำนวณที่โหดหิน", strength: "พุ่งชนโจทย์คำนวณยากๆ ได้ดีเยี่ยม", weakness: "โจทย์เชิงบรรยายและการวิเคราะห์กราฟ/รูปภาพ" },
     { id: "dolphin", name: "🐬 โลมา (Dolphin)", img: "images/dolphin.png", desc: "มีไหวพริบยอดเยี่ยม ประยุกต์เก่ง", strength: "เชื่อมโยงเนื้อหาและประยุกต์สูตรเก่งมาก", weakness: "ความแม่นยำในการคิดเลขซ้ำซ้อน" },
     { id: "fox", name: "🦊 สุนัขจิ้งจอก (Fox)", img: "images/fox.png", desc: "จอมวางแผน รู้ว่าข้อไหนควรข้าม ข้อไหนควรเก็บ", strength: "บริหารความเสี่ยงเก่ง ทำข้อที่ได้ชัวร์ๆ ก่อน", weakness: "ชอบทิ้งดิ่งบางบทที่ตัวเองไม่ถนัด ทำให้เสียคะแนนรวม" },
-    { id: "spider", name: "🕷️ แมงมุม (Spider)", img: "images/spider.png", desc: "มองฟิสิกส์เป็นโครงข่าย เชื่อมโยงได้ทุกบท", strength: "คะแนนสมดุลทุกบทเรียน ไม่มีบทไหนตกเป็นพิเศษ", weakness: "ยังขาดความลึกในแต่ละบท ต้องเจาะลึกทฤษฎีเฉพาะทางอีกนิด" },
+    { id: "spider", name: "🕷️ แมงมุม (Spider)", img: "images/spider.png", desc: "มองฟิสิกส์เป็นโครงข่าย เชื่อมโยงได้ทุกบท", strength: "คะแนนสมดุลทุกบทเรียน ไม่มีบทไหนตกเป็นพิเศษ", weakness: "ยังขาดความลึกในแต่ละบท ต้องเจาะลึกทฤษฎีเฉพาะทาง" },
     { id: "elephant", name: "🐘 ช้าง (Elephant)", img: "images/elephant.png", desc: "รอบคอบสูงสุด ทำข้อไหนรับประกันว่าถูก", strength: "ความแม่นยำสูงมาก แทบไม่พลาดข้อที่ทำ", weakness: "ใช้เวลาตรวจสอบนานเกินไปจนอาจทำข้อสอบไม่ทัน" },
     { id: "tortoise", name: "🐢 เต่า (Tortoise)", img: "images/tortoise.png", desc: "ช้าแต่มั่นคง ค่อยๆ เป็นค่อยๆ ไป", strength: "มีความอดทนในการทำความเข้าใจโจทย์", weakness: "สปีดการทำข้อสอบ ต้องเร่งความเร็วในการวิเคราะห์" },
-    { id: "cat", name: "🐈 แมว (Cat)", img: "images/cat.png", desc: "อินดี้ มีสไตล์ เก่งเฉพาะเรื่องที่ชอบ", strength: "เทพมากในบทใดบทหนึ่ง (เช่น บทคลื่น 100%)", weakness: "ทิ้งบทที่ไม่ชอบอย่างเห็นได้ชัด ต้องปรับสมดุล" },
+    { id: "cat", name: "🐈 แมว (Cat)", img: "images/cat.png", desc: "อินดี้ มีสไตล์ เก่งเฉพาะเรื่องที่ชอบ", strength: "เทพมากในบทใดบทหนึ่งเป็นพิเศษ", weakness: "ทิ้งบทที่ไม่ชอบอย่างเห็นได้ชัด ต้องปรับสมดุล" },
     { id: "bee", name: "🐝 ผึ้ง (Bee)", img: "images/bee.png", desc: "ขยันขันแข็ง เก็บรายละเอียดได้ดี", strength: "มีความพยายามสูง ไม่ปล่อยว่างข้อสอบ", weakness: "มักจะลนลานเมื่อเจอโจทย์ผสมที่ยากเกินไป" },
     { id: "ant", name: "🐜 มด (Ant)", img: "images/ant.png", desc: "พลังมดตัวน้อยที่กำลังสะสมความรู้", strength: "พยายามทำจนครบทุกข้อและมีพื้นฐานเบื้องต้น", weakness: "ต้องกลับไปทบทวนพื้นฐานทุกบทอย่างเร่งด่วน!" }
 ];
@@ -43,7 +43,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
     buildNavigator();
 
-    // ดัก Event ฟังการเลือกคำตอบแบบ Delegation (แก้บั๊กคำตอบไม่เซฟ)
     document.getElementById('choices-list').addEventListener('change', function(e) {
         if (e.target.name === 'choice' && !isSubmitted) {
             let qId = QUIZ_DATA[currentQuestionIndex].id;
@@ -75,7 +74,7 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 // ==========================================
-// บันทึกสถานะลง LocalStorage
+// บันทึกสถานะ / ระบบเวลา
 // ==========================================
 function saveStateToLocal() {
     let state = {
@@ -87,9 +86,6 @@ function saveStateToLocal() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
 }
 
-// ==========================================
-// ระบบเวลา
-// ==========================================
 function startMainTimer() {
     if(isSubmitted) return;
     mainTimerInterval = setInterval(() => {
@@ -127,11 +123,14 @@ function renderQuestion(index) {
     
     document.getElementById('question-number').textContent = `ข้อที่ ${index + 1} / ${QUIZ_DATA.length}`;
     let skillName = q.skill === "theory" ? "ทฤษฎี" : (q.skill === "calc" ? "คำนวณ" : "ประยุกต์ใช้");
-    document.getElementById('question-category').textContent = `${q.chapter} | ${skillName}`;
-    document.getElementById('question-text').innerHTML = q.prompt.replace(/\n/g, '<br>');
+    document.getElementById('question-category').textContent = `${q.subtopic} | ${skillName}`;
+    
+    // ดักจับ \n และ \\n เพื่อขึ้นบรรทัดใหม่
+    let formattedPrompt = q.prompt.replace(/\\n/g, '<br>').replace(/\n/g, '<br>');
+    document.getElementById('question-text').innerHTML = formattedPrompt;
     
     let imgContainer = document.getElementById('question-image-container');
-    imgContainer.innerHTML = q.image ? `<img src="${q.image}" alt="รูปประกอบ" style="max-width:100%; border-radius:8px; margin-top:15px;">` : '';
+    imgContainer.innerHTML = q.image ? `<img src="${q.image}" alt="รูปประกอบ" style="max-width:100%; border-radius:8px; margin-top:15px; border:1px solid #ccc;">` : '';
     
     let choicesHtml = '';
     q.choices.forEach(choice => {
@@ -148,7 +147,6 @@ function renderQuestion(index) {
     });
     document.getElementById('choices-list').innerHTML = choicesHtml;
     
-    // จัดการกล่องเฉลยเมื่อดูย้อนหลัง
     let fbBox = document.getElementById('feedback-box');
     if (isSubmitted) {
         document.getElementById('review-banner').classList.remove('hidden');
@@ -180,7 +178,10 @@ function renderQuestion(index) {
     }
     
     updateNavigator();
-    if (window.MathJax) { MathJax.typesetPromise(); }
+    
+    if (window.MathJax) { 
+        MathJax.typesetPromise().catch((err) => console.log('MathJax Error:', err));
+    }
 }
 
 // ควบคุมปุ่ม
@@ -245,7 +246,7 @@ function updateNavigator() {
 }
 
 // ==========================================
-// ประมวลผลคะแนน
+// ประมวลผลคะแนน และ Subtopics (ปรับสำหรับ ม.5)
 // ==========================================
 function calculateRank(percent) {
     if(percent >= 85) return { rank: 'S', color: '#8b5cf6' };
@@ -263,7 +264,6 @@ function determinePersona(radar, totalPercent, timeAvg) {
     if (radar.apply >= 80) return ANIMAL_PERSONAS.find(a => a.id === 'dolphin');
     if (timeAvg > 100 && totalPercent >= 70) return ANIMAL_PERSONAS.find(a => a.id === 'elephant');
     if (totalPercent < 40) return ANIMAL_PERSONAS.find(a => a.id === 'ant');
-    
     return ANIMAL_PERSONAS.find(a => a.id === 'bear');
 }
 
@@ -274,18 +274,33 @@ function submitQuiz() {
     clearInterval(mainTimerInterval);
     
     let totalScore = 0;
+    
+    // โครงสร้างสำหรับวิชา ม.5 (SHM, Wave, Light) พร้อมรองรับ Subtopics
     let statSkills = { theory: {c:0, t:0, name:"ทฤษฎี"}, calc: {c:0, t:0, name:"คำนวณ"}, apply: {c:0, t:0, name:"ประยุกต์"} };
-    let statChapters = { SHM: {c:0, t:0, name:"SHM"}, Wave: {c:0, t:0, name:"คลื่นกล"}, Light: {c:0, t:0, name:"แสงเชิงคลื่น"} };
+    let statChapters = { 
+        SHM: {c:0, t:0, name:"SHM", subtopics: {}}, 
+        Wave: {c:0, t:0, name:"คลื่นกล", subtopics: {}}, 
+        Light: {c:0, t:0, name:"แสงเชิงคลื่น", subtopics: {}} 
+    };
     
     QUIZ_DATA.forEach(q => {
         let isCorrect = (userAnswers[q.id] === q.answer);
         if (isCorrect) totalScore++;
         
-        if (statSkills[q.skill]) statSkills[q.skill].t++;
-        if (statChapters[q.chapter]) statChapters[q.chapter].t++;
-        if (isCorrect) {
-            if (statSkills[q.skill]) statSkills[q.skill].c++;
-            if (statChapters[q.chapter]) statChapters[q.chapter].c++;
+        if (statSkills[q.skill]) {
+            statSkills[q.skill].t++;
+            if (isCorrect) statSkills[q.skill].c++;
+        }
+        
+        if (statChapters[q.chapter]) {
+            statChapters[q.chapter].t++;
+            if (isCorrect) statChapters[q.chapter].c++;
+            
+            if (!statChapters[q.chapter].subtopics[q.subtopic]) {
+                statChapters[q.chapter].subtopics[q.subtopic] = {c:0, t:0};
+            }
+            statChapters[q.chapter].subtopics[q.subtopic].t++;
+            if (isCorrect) statChapters[q.chapter].subtopics[q.subtopic].c++;
         }
     });
     
@@ -348,7 +363,6 @@ function showResultScreen(radarData, totalScore) {
     resultScreen.classList.remove('hidden');
     resultScreen.style.display = 'block';
     
-    // Safety check ป้องกันกราฟและ Persona ไม่ขึ้นกรณี Error
     if(!radarData || typeof radarData.theory === 'undefined') {
         radarData = { theory: 0, calc: 0, apply: 0, SHM: 0, Wave: 0, Light: 0, details: {} };
     }
@@ -368,7 +382,6 @@ function showResultScreen(radarData, totalScore) {
     let totalSec = Object.values(timeSpent).reduce((a, b) => a + b, 0);
     let avgTime = totalSec > 0 ? (totalSec / QUIZ_DATA.length) : 0;
 
-    // 1. กำหนด Persona
     let persona = determinePersona(radarData, totalPercent, avgTime);
     if(persona) {
         document.getElementById('persona-img').src = persona.img;
@@ -378,29 +391,51 @@ function showResultScreen(radarData, totalScore) {
         document.getElementById('persona-weakness').textContent = persona.weakness;
     }
 
-    // 2. สร้างแถบ HTML แยกตามหมวด
     let statsHtml = '';
+    // แกนหมวดหมู่สำหรับ ม.5
     const categories = ['theory', 'calc', 'apply', 'SHM', 'Wave', 'Light'];
+    
     categories.forEach(cat => {
         let pct = radarData[cat] || 0;
         let rObj = calculateRank(pct);
         let title = (radarData.details && radarData.details[cat]) ? radarData.details[cat].name : cat;
         
+        let subtopicsHtml = '';
+        if (radarData.details[cat] && radarData.details[cat].subtopics) {
+            let subs = radarData.details[cat].subtopics;
+            subtopicsHtml = `<div style="margin-top: 10px; border-top: 1px dashed #e2e8f0; padding-top: 8px;">`;
+            for (let sub in subs) {
+                let sCorrect = subs[sub].c;
+                let sTotal = subs[sub].t;
+                let color = sCorrect === sTotal ? '#16a34a' : (sCorrect > 0 ? '#ca8a04' : '#dc2626');
+                subtopicsHtml += `
+                    <div style="display:flex; justify-content:space-between; font-size:0.85rem; color:#64748b; margin-bottom:4px; text-align: left;">
+                        <span>- ${sub}</span>
+                        <strong style="color: ${color};">${sCorrect}/${sTotal}</strong>
+                    </div>`;
+            }
+            subtopicsHtml += `</div>`;
+        }
+
         statsHtml += `
-            <div class="stat-item">
-                <div class="stat-title">${title}</div>
-                <div class="stat-bar-bg"><div class="stat-bar-fill" style="width: ${pct}%; background-color: ${rObj.color}"></div></div>
-                <div style="display:flex; justify-content:space-between; align-items:center;">
-                    <span class="stat-score">${pct}%</span>
-                    <span class="stat-rank" style="background-color: ${rObj.color}20; color: ${rObj.color};">${rObj.rank}</span>
+            <div class="stat-item" style="display: flex; flex-direction: column; justify-content: space-between;">
+                <div>
+                    <div class="stat-title">${title}</div>
+                    <div class="stat-bar-bg"><div class="stat-bar-fill" style="width: ${pct}%; background-color: ${rObj.color}"></div></div>
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <span class="stat-score">${pct}%</span>
+                        <span class="stat-rank" style="background-color: ${rObj.color}20; color: ${rObj.color};">${rObj.rank}</span>
+                    </div>
                 </div>
+                ${subtopicsHtml}
             </div>
         `;
     });
+    
     let statsBox = document.getElementById('stats-breakdown');
     if(statsBox) statsBox.innerHTML = statsHtml;
 
-    // 3. วาด Radar
+    // วาด Radar สำหรับ ม.5
     const canvas = document.getElementById('radarChart');
     if(canvas) {
         const ctx = canvas.getContext('2d');
@@ -413,7 +448,7 @@ function showResultScreen(radarData, totalScore) {
                     data: [ radarData.theory, radarData.calc, radarData.apply, radarData.SHM, radarData.Wave, radarData.Light ],
                     backgroundColor: 'rgba(30, 61, 143, 0.2)',
                     borderColor: 'rgba(30, 61, 143, 1)',
-                    pointBackgroundColor: 'rgba(255, 241, 115, 1)',
+                    pointBackgroundColor: 'rgba(217, 76, 76, 1)',
                     borderWidth: 2
                 }]
             },
