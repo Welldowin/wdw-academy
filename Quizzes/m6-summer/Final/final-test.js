@@ -124,7 +124,10 @@ function renderQuestion(index) {
     document.getElementById('question-number').textContent = `ข้อที่ ${index + 1} / ${QUIZ_DATA.length}`;
     let skillName = q.skill === "theory" ? "ทฤษฎี" : (q.skill === "calc" ? "คำนวณ" : "ประยุกต์ใช้");
     document.getElementById('question-category').textContent = `${q.subtopic} | ${skillName}`;
-    document.getElementById('question-text').innerHTML = q.prompt.replace(/\n/g, '<br>');
+    
+    // **อัปเดตจุดนี้: ดักจับทั้ง \n แบบพิมพ์ธรรมดา และ \\n ที่มากับ String**
+    let formattedPrompt = q.prompt.replace(/\\n/g, '<br>').replace(/\n/g, '<br>');
+    document.getElementById('question-text').innerHTML = formattedPrompt;
     
     let imgContainer = document.getElementById('question-image-container');
     imgContainer.innerHTML = q.image ? `<img src="${q.image}" alt="รูปประกอบ" style="max-width:100%; border-radius:8px; margin-top:15px; border:1px solid #ccc;">` : '';
@@ -176,7 +179,6 @@ function renderQuestion(index) {
     
     updateNavigator();
     
-    // เรียก MathJax ให้แปลงสมการ LaTeX ทุกครั้งที่เปลี่ยนข้อ
     if (window.MathJax) { 
         MathJax.typesetPromise().catch((err) => console.log('MathJax Error:', err));
     }
@@ -273,7 +275,7 @@ function submitQuiz() {
     
     let totalScore = 0;
     
-    // โครงสร้างใหม่ รองรับวิชา ม.6
+    // โครงสร้างสำหรับวิชา ม.6
     let statSkills = { theory: {c:0, t:0, name:"ทฤษฎี"}, calc: {c:0, t:0, name:"คำนวณ"}, apply: {c:0, t:0, name:"ประยุกต์"} };
     let statChapters = { 
         Fluid: {c:0, t:0, name:"ของไหล", subtopics: {}}, 
@@ -285,22 +287,18 @@ function submitQuiz() {
         let isCorrect = (userAnswers[q.id] === q.answer);
         if (isCorrect) totalScore++;
         
-        // นับ Skills
         if (statSkills[q.skill]) {
             statSkills[q.skill].t++;
             if (isCorrect) statSkills[q.skill].c++;
         }
         
-        // นับ Chapters & Subtopics
         if (statChapters[q.chapter]) {
             statChapters[q.chapter].t++;
             if (isCorrect) statChapters[q.chapter].c++;
             
-            // เตรียม Object ย่อยให้ subtopic
             if (!statChapters[q.chapter].subtopics[q.subtopic]) {
                 statChapters[q.chapter].subtopics[q.subtopic] = {c:0, t:0};
             }
-            // นับ Subtopic
             statChapters[q.chapter].subtopics[q.subtopic].t++;
             if (isCorrect) statChapters[q.chapter].subtopics[q.subtopic].c++;
         }
@@ -393,7 +391,6 @@ function showResultScreen(radarData, totalScore) {
         document.getElementById('persona-weakness').textContent = persona.weakness;
     }
 
-    // สร้างแถบ HTML แยกตามหมวด และเจาะจงลงถึง Subtopics
     let statsHtml = '';
     const categories = ['theory', 'calc', 'apply', 'Fluid', 'Heat', 'Gas'];
     
@@ -403,7 +400,6 @@ function showResultScreen(radarData, totalScore) {
         let title = (radarData.details && radarData.details[cat]) ? radarData.details[cat].name : cat;
         
         let subtopicsHtml = '';
-        // ตรวจสอบว่าหมวดนี้มี Subtopics ให้แสดงหรือไม่ (จะมีเฉพาะใน Chapter)
         if (radarData.details[cat] && radarData.details[cat].subtopics) {
             let subs = radarData.details[cat].subtopics;
             subtopicsHtml = `<div style="margin-top: 10px; border-top: 1px dashed #e2e8f0; padding-top: 8px;">`;
@@ -438,7 +434,6 @@ function showResultScreen(radarData, totalScore) {
     let statsBox = document.getElementById('stats-breakdown');
     if(statsBox) statsBox.innerHTML = statsHtml;
 
-    // วาด Radar สำหรับ ม.6
     const canvas = document.getElementById('radarChart');
     if(canvas) {
         const ctx = canvas.getContext('2d');
