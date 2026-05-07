@@ -65,12 +65,13 @@ window.addEventListener('DOMContentLoaded', () => {
             showResultScreen(state.radarData, state.totalScore);
             return;
         } else {
-            mainTimeRemaining = state.timeLeft || mainTimeRemaining;
+            // แก้ไขจุดนี้: ป้องกันบั๊กเวลาเหลือ 0 แล้วโดนประเมินเป็นค่าว่าง
+            mainTimeRemaining = (state.timeLeft !== undefined && state.timeLeft !== null) ? state.timeLeft : mainTimeRemaining;
         }
     }
 
     renderQuestion(currentQuestionIndex);
-    startMainTimer();
+    startMainTimer(); // โค้ดจะลงมาถึงตรงนี้ได้แล้วเพราะแก้ Error MathJax ด้านล่าง
 });
 
 // ==========================================
@@ -125,7 +126,6 @@ function renderQuestion(index) {
     let skillName = q.skill === "theory" ? "ทฤษฎี" : (q.skill === "calc" ? "คำนวณ" : "ประยุกต์ใช้");
     document.getElementById('question-category').textContent = `${q.subtopic} | ${skillName}`;
     
-    // **อัปเดตจุดนี้: ดักจับทั้ง \n แบบพิมพ์ธรรมดา และ \\n ที่มากับ String**
     let formattedPrompt = q.prompt.replace(/\\n/g, '<br>').replace(/\n/g, '<br>');
     document.getElementById('question-text').innerHTML = formattedPrompt;
     
@@ -179,7 +179,8 @@ function renderQuestion(index) {
     
     updateNavigator();
     
-    if (window.MathJax) { 
+    // แก้ไขจุดนี้: เช็คให้ชัวร์ว่าโหลด Method เสร็จแล้วก่อนเรียกใช้
+    if (window.MathJax && typeof MathJax.typesetPromise === 'function') { 
         MathJax.typesetPromise().catch((err) => console.log('MathJax Error:', err));
     }
 }
