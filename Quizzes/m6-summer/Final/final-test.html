@@ -3,10 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Final Test : m5-summer</title>
+    <title>Final Test : m6-summer</title>
     
     <link rel="stylesheet" href="final-test.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
@@ -100,7 +110,7 @@
             <div class="card stats-card">
                 <h2>วิเคราะห์ความสามารถรายด้าน</h2>
                 <div id="stats-breakdown" class="stats-grid">
-                </div>
+                    </div>
             </div>
 
             <div class="card chart-card">
