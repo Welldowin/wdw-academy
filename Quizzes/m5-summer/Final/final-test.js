@@ -65,12 +65,13 @@ window.addEventListener('DOMContentLoaded', () => {
             showResultScreen(state.radarData, state.totalScore);
             return;
         } else {
-            mainTimeRemaining = state.timeLeft || mainTimeRemaining;
+            // อัปเดตให้เช็คว่ามีค่าชัดเจนหรือไม่ เพื่อป้องกันกรณีค่าเวลาเป็น 0 หรือ false ถูกประเมินผิด
+            mainTimeRemaining = (state.timeLeft !== undefined && state.timeLeft !== null) ? state.timeLeft : mainTimeRemaining;
         }
     }
 
     renderQuestion(currentQuestionIndex);
-    startMainTimer();
+    startMainTimer(); // ตอนนี้โค้ดจะทำงานมาถึงตรงนี้ได้อย่างปลอดภัยแล้ว
 });
 
 // ==========================================
@@ -179,7 +180,8 @@ function renderQuestion(index) {
     
     updateNavigator();
     
-    if (window.MathJax) { 
+    // แก้ไขจุดนี้: เพิ่มการตรวจสอบ typeof เพื่อป้องกัน TypeError ตอนโหลด MathJax ยังไม่เสร็จ
+    if (window.MathJax && typeof MathJax.typesetPromise === 'function') { 
         MathJax.typesetPromise().catch((err) => console.log('MathJax Error:', err));
     }
 }
