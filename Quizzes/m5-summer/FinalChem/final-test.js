@@ -173,8 +173,8 @@ function renderQuestion(index) {
     
     updateNavigator();
     
-    // รีเฟรช MathJax
-    if (window.MathJax) { 
+    // รีเฟรช MathJax (เช็คก่อนว่าฟังก์ชันพร้อมใช้งานแล้วจริงๆ)
+    if (window.MathJax && typeof window.MathJax.typesetPromise === 'function') { 
         MathJax.typesetPromise().catch((err) => console.log('MathJax Error:', err));
     }
 }
