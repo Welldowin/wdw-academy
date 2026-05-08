@@ -172,13 +172,12 @@ function renderQuestion(index) {
     
     updateNavigator();
     
-    // รีเฟรช MathJax ป้องกันนาฬิกาหยุดเดิน (Fix)
+    // ป้องกัน Error Stop Clock จาก MathJax
     if (window.MathJax && typeof window.MathJax.typesetPromise === 'function') { 
         MathJax.typesetPromise().catch((err) => console.log('MathJax Error:', err));
     }
 }
 
-// ... (ปุ่ม Navigation และปุ่มส่งข้อสอบ คงเดิม) ...
 document.getElementById('prev-btn').addEventListener('click', () => { recordTimeSpent(); if (currentQuestionIndex > 0) renderQuestion(--currentQuestionIndex); });
 document.getElementById('next-btn').addEventListener('click', () => { recordTimeSpent(); if (currentQuestionIndex < QUIZ_DATA.length - 1) renderQuestion(++currentQuestionIndex); });
 document.getElementById('back-to-result-btn').addEventListener('click', () => { document.getElementById('quiz-app').style.display = 'none'; document.getElementById('result-screen').style.display = 'block'; });
@@ -228,9 +227,6 @@ function determinePersona(radar, totalPercent, timeAvg) {
     return ANIMAL_PERSONAS.find(a => a.id === 'bear');
 }
 
-// ==========================================
-// ส่วนที่อัปเดต Subtopics สำหรับฟิสิกส์ (Magnetic)
-// ==========================================
 function submitQuiz() {
     if (isSubmitted) return;
     isSubmitted = true;
@@ -239,7 +235,7 @@ function submitQuiz() {
     
     let totalScore = 0;
     
-    // โครงสร้างหมวดหมู่ใหม่สำหรับฟิสิกส์
+    // โครงสร้างหมวดหมู่
     let statSkills = { theory: {c:0, t:0, name:"ทฤษฎี"}, calc: {c:0, t:0, name:"คำนวณ"}, apply: {c:0, t:0, name:"ประยุกต์"} };
     let statChapters = { 
         Field: {c:0, t:0, name:"สนามและแรงแม่เหล็ก", chapters: ["MagneticField", "AmpereLaw"]}, 
@@ -334,19 +330,44 @@ function showResultScreen(radarData, totalScore) {
     }
 
     let statsHtml = '';
-    const categories = ['theory', 'calc', 'Field', 'ChargedParticle', 'MotorTorque', 'Induction'];
+    const categories = ['theory', 'calc', 'Field', 'ChargedParticle', 'MotorTorque', 'EMF', 'Induction', 'Transformer'];
     
     categories.forEach(cat => {
         let pct = radarData[cat] || 0;
         let rObj = calculateRank(pct);
         let title = radarData.details[cat] ? radarData.details[cat].name : cat;
         
+        // กู้คืนระบบเรนเดอร์ Subtopics ที่หายไป
+        let subtopicsHtml = '';
+        if (radarData.details[cat] && radarData.details[cat].subtopics) {
+            let subs = radarData.details[cat].subtopics;
+            subtopicsHtml = `<div style="margin-top: 10px; border-top: 1px dashed #e2e8f0; padding-top: 8px;">`;
+            for (let sub in subs) {
+                let sCorrect = subs[sub].c;
+                let sTotal = subs[sub].t;
+                let color = sCorrect === sTotal ? '#16a34a' : (sCorrect > 0 ? '#ca8a04' : '#dc2626');
+                subtopicsHtml += `
+                    <div style="display:flex; justify-content:space-between; font-size:0.85rem; color:#64748b; margin-bottom:4px; text-align: left;">
+                        <span>- ${sub}</span>
+                        <strong style="color: ${color};">${sCorrect}/${sTotal}</strong>
+                    </div>`;
+            }
+            subtopicsHtml += `</div>`;
+        }
+        
         statsHtml += `
-            <div class="stat-item">
-                <div class="stat-title">${title}</div>
-                <div class="stat-bar-bg"><div class="stat-bar-fill" style="width: ${pct}%; background-color: ${rObj.color}"></div></div>
-                <div style="display:flex; justify-content:space-between;"><span class="stat-score">${pct}%</span><span class="stat-rank">${rObj.rank}</span></div>
-            </div>`;
+            <div class="stat-item" style="display: flex; flex-direction: column; justify-content: space-between;">
+                <div>
+                    <div class="stat-title">${title}</div>
+                    <div class="stat-bar-bg"><div class="stat-bar-fill" style="width: ${pct}%; background-color: ${rObj.color}"></div></div>
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <span class="stat-score">${pct}%</span>
+                        <span class="stat-rank" style="background-color: ${rObj.color}20; color: ${rObj.color};">${rObj.rank}</span>
+                    </div>
+                </div>
+                ${subtopicsHtml}
+            </div>
+        `;
     });
     document.getElementById('stats-breakdown').innerHTML = statsHtml;
 
