@@ -1,0 +1,40 @@
+window.QUIZ_META = {
+  courseId: "m6-summer",
+  quizKey: "quiz5",
+  title: "Quiz 5 : สอบท้ายบทเคมีอินทรีย์",
+  enableTimer: true,
+  timeLimitSec: 5400
+};
+
+window.QUIZ_DATA = [
+  { id: "q1", prompt: "สารประกอบอินทรีย์ที่มีสูตรโมเลกุล $C_5H_{12}$ มีไอโซเมอร์โครงสร้างกี่แบบ", choices: [ { key: "A", text: "2 แบบ" }, { key: "B", text: "3 แบบ" }, { key: "C", text: "4 แบบ" }, { key: "D", text: "5 แบบ" } ], answer: "B" },
+  { id: "q2", prompt: "สารใดต่อไปนี้เป็นสารประกอบไฮโดรคาร์บอนไม่อิ่มตัว", choices: [ { key: "A", text: "Alkane" }, { key: "B", text: "Cycloalkane" }, { key: "C", text: "Alkene" }, { key: "D", text: "Alcohol" } ], answer: "C" },
+  { id: "q3", prompt: "การเรียกชื่อตามระบบ IUPAC ของ $CH_3-CH(CH_3)-CH_2-CH_3$ คือข้อใด", choices: [ { key: "A", text: "2-methylbutane" }, { key: "B", text: "3-methylbutane" }, { key: "C", text: "pentane" }, { key: "D", text: "isopentane" } ], answer: "A" },
+  { id: "q4", prompt: "หมู่ฟังก์ชันใดที่มีอยู่ในสารประกอบแอลกอฮอล์", choices: [ { key: "A", text: "-COOH" }, { key: "B", text: "-OH" }, { key: "C", text: "-CHO" }, { key: "D", text: "-O-" } ], answer: "B" },
+  { id: "q5", prompt: "จุดเดือดของสารในข้อใดสูงที่สุด (เมื่อมวลโมเลกุลใกล้เคียงกัน)", choices: [ { key: "A", text: "Alkane" }, { key: "B", text: "Ether" }, { key: "C", text: "Ketone" }, { key: "D", text: "Carboxylic acid" } ], answer: "D" },
+  { id: "q6", prompt: "ปฏิกิริยาการเผาไหม้อย่างสมบูรณ์ของไฮโดรคาร์บอนจะได้ผลิตภัณฑ์ใดเสมอ", choices: [ { key: "A", text: "$CO$ และ $H_2O$" }, { key: "B", text: "$CO_2$ และ $H_2O$" }, { key: "C", text: "$C$ และ $H_2O$" }, { key: "D", text: "$CO_2$ และ $H_2$" } ], answer: "B" },
+  { id: "q7", prompt: "สารประกอบอินทรีย์ใดที่สามารถฟอกสีสารละลาย $Br_2$ ในที่มืดได้", choices: [ { key: "A", text: "Hexane" }, { key: "B", text: "Benzene" }, { key: "C", text: "Hexene" }, { key: "D", text: "Cyclohexane" } ], answer: "C" },
+  { id: "q8", prompt: "ปฏิกิริยา Saponification คือปฏิกิริยาการเตรียมสารใด", choices: [ { key: "A", text: "สบู่" }, { key: "B", text: "เอสเทอร์" }, { key: "C", text: "แอลกอฮอล์" }, { key: "D", text: "พลาสติก" } ], answer: "A" },
+  { id: "q9", prompt: "เอไมด์ (Amide) เกิดจากปฏิกิริยาระหว่างสารคู่ใด", choices: [ { key: "A", text: "Alcohol กับ Carboxylic acid" }, { key: "B", text: "Amine กับ Carboxylic acid" }, { key: "C", text: "Aldehyde กับ Ketone" }, { key: "D", text: "Alkene กับ Water" } ], answer: "B" },
+  { id: "q10", prompt: "หมู่ฟังก์ชัน -COO- พบในสารประกอบประเภทใด", choices: [ { key: "A", text: "Ether" }, { key: "B", text: "Ester" }, { key: "C", text: "Ketone" }, { key: "D", text: "Aldehyde" } ], answer: "B" },
+  { id: "q11", prompt: "กฎของมาร์คอฟนิคอฟ (Markovnikov's rule) ใช้ทำนายผลิตภัณฑ์หลักในปฏิกิริยาใด", choices: [ { key: "A", text: "การแทนที่ของแอลเคน" }, { key: "B", text: "การเติม $HX$ ของแอลคีนที่ไม่สมมาตร" }, { key: "C", text: "การเผาไหม้" }, { key: "D", text: "การเกิดเอสเทอร์" } ], answer: "B" },
+  { id: "q12", prompt: "สารใดใช้ทดสอบแยกความแตกต่างระหว่าง Aldehyde กับ Ketone ได้", choices: [ { key: "A", text: "สารละลายโบรมีน" }, { key: "B", text: "สารละลายทอลเลนส์ (Tollens' reagent)" }, { key: "C", text: "น้ำปูนใส" }, { key: "D", text: "กรดซัลฟิวริก" } ], answer: "B" },
+  { id: "q13", prompt: "สารในข้อใดละลายน้ำได้ดีที่สุด", choices: [ { key: "A", text: "Butane" }, { key: "B", text: "1-Butanol" }, { key: "C", text: "Ethoxyethane" }, { key: "D", text: "Butanoic acid" } ], answer: "D" },
+  { id: "q14", prompt: "สารใดที่มีกลิ่นหอมเฉพาะตัวคล้ายผลไม้หรือดอกไม้", choices: [ { key: "A", text: "Amines" }, { key: "B", text: "Carboxylic acids" }, { key: "C", text: "Esters" }, { key: "D", text: "Alkanes" } ], answer: "C" },
+  { id: "q15", prompt: "เมื่อนำ Ethanol มาต้มกับ กรด Acetic โดยมีกรดซัลฟิวริกเข้มข้นเป็นตัวเร่ง จะได้สารใด", choices: [ { key: "A", text: "Ethyl ethanoate" }, { key: "B", text: "Methyl ethanoate" }, { key: "C", text: "Ethyl methanoate" }, { key: "D", text: "Propyl ethanoate" } ], answer: "A" },
+  { id: "q16", prompt: "สูตรทั่วไปของ Alkyne (แอลไคน์) โซ่เปิดคือข้อใด", choices: [ { key: "A", text: "$C_nH_{2n+2}$" }, { key: "B", text: "$C_nH_{2n}$" }, { key: "C", text: "$C_nH_{2n-2}$" }, { key: "D", text: "$C_nH_{2n-4}$" } ], answer: "C" },
+  { id: "q17", prompt: "สารใดมีพันธะสามในโมเลกุล", choices: [ { key: "A", text: "Ethene" }, { key: "B", text: "Ethane" }, { key: "C", text: "Ethyne" }, { key: "D", text: "Ethanol" } ], answer: "C" },
+  { id: "q18", prompt: "ปฏิกิริยาการเติมน้ำ (Hydration) ของแอลคีนโดยมีกรดเป็นตัวเร่ง จะได้ผลิตภัณฑ์ประเภทใด", choices: [ { key: "A", text: "แอลเคน" }, { key: "B", text: "แอลกอฮอล์" }, { key: "C", text: "คีโตน" }, { key: "D", text: "แอลดีไฮด์" } ], answer: "B" },
+  { id: "q19", prompt: "สารใดมีสมบัติเป็นเบสอ่อนในน้ำ", choices: [ { key: "A", text: "Ethanol" }, { key: "B", text: "Ethanoic acid" }, { key: "C", text: "Ethanamine" }, { key: "D", text: "Ethyl ethanoate" } ], answer: "C" },
+  { id: "q20", prompt: "ข้อใดเป็นปฏิกิริยาหลักของแอลเคน (Alkane)", choices: [ { key: "A", text: "Addition" }, { key: "B", text: "Substitution" }, { key: "C", text: "Elimination" }, { key: "D", text: "Polymerization" } ], answer: "B" },
+  { id: "q21", prompt: "CFCs (Chlorofluorocarbons) เป็นอนุพันธ์ของสารประกอบใด", choices: [ { key: "A", text: "แอลเคน" }, { key: "B", text: "แอลคีน" }, { key: "C", text: "แอลไคน์" }, { key: "D", text: "อะโรมาติก" } ], answer: "A" },
+  { id: "q22", prompt: "สารใดไม่ทำปฏิกิริยากับโลหะโซเดียม (Na) เพื่อให้แก๊สไฮโดรเจน", choices: [ { key: "A", text: "Ethanol" }, { key: "B", text: "Ethanoic acid" }, { key: "C", text: "Dimethyl ether" }, { key: "D", text: "Phenol" } ], answer: "C" },
+  { id: "q23", prompt: "สารอะโรมาติกไฮโดรคาร์บอนที่ง่ายที่สุดคือสารใด", choices: [ { key: "A", text: "Cyclohexane" }, { key: "B", text: "Benzene" }, { key: "C", text: "Toluene" }, { key: "D", text: "Phenol" } ], answer: "B" },
+  { id: "q24", prompt: "ปฏิกิริยาไฮโดรไลซิส (Hydrolysis) ของเอสเทอร์ในสภาวะกรด จะได้ผลิตภัณฑ์คือสารใดกลับคืนมา", choices: [ { key: "A", text: "กรดคาร์บอกซิลิก + แอลกอฮอล์" }, { key: "B", text: "สบู่ + กลีเซอรอล" }, { key: "C", text: "เอไมด์ + น้ำ" }, { key: "D", text: "คีโตน + แอลกอฮอล์" } ], answer: "A" },
+  { id: "q25", prompt: "สารประเภทใดที่ทำปฏิกิริยากับ $NaHCO_3$ แล้วเกิดฟองแก๊ส $CO_2$", choices: [ { key: "A", text: "แอลกอฮอล์" }, { key: "B", text: "ฟีนอล" }, { key: "C", text: "กรดคาร์บอกซิลิก" }, { key: "D", text: "เอสเทอร์" } ], answer: "C" },
+  { id: "q26", prompt: "พันธะเพปไทด์ (Peptide bond) ในโปรตีน จัดเป็นพันธะในหมู่ฟังก์ชันใด", choices: [ { key: "A", text: "Ester" }, { key: "B", text: "Ether" }, { key: "C", text: "Amide" }, { key: "D", text: "Amine" } ], answer: "C" },
+  { id: "q27", prompt: "ปรากฏการณ์ Resonance ทำให้สารใดมีความเสถียรมากและเกิดปฏิกิริยาการเติมได้ยาก", choices: [ { key: "A", text: "Cyclohexene" }, { key: "B", text: "Benzene" }, { key: "C", text: "Propyne" }, { key: "D", text: "Butadiene" } ], answer: "B" },
+  { id: "q28", prompt: "พลาสติก PVC มีมอนอเมอร์คือสารใด", choices: [ { key: "A", text: "Ethene" }, { key: "B", text: "Chloroethene (Vinyl chloride)" }, { key: "C", text: "Propene" }, { key: "D", text: "Styrene" } ], answer: "B" },
+  { id: "q29", prompt: "สารในข้อใดมีจุดเดือดต่ำที่สุด", choices: [ { key: "A", text: "$CH_3CH_2CH_3$" }, { key: "B", text: "$CH_3CH_2OH$" }, { key: "C", text: "$CH_3COOH$" }, { key: "D", text: "$CH_3CHO$" } ], answer: "A" },
+  { id: "q30", prompt: "สารละลาย $KMnO_4$ สีม่วง จะถูกฟอกสีและเกิดตะกอนสีน้ำตาลของ $MnO_2$ เมื่อทำปฏิกิริยากับสารใด", choices: [ { key: "A", text: "Alkane" }, { key: "B", text: "Alkene" }, { key: "C", text: "Alcohol" }, { key: "D", text: "Ketone" } ], answer: "B" }
+];
