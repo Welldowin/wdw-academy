@@ -38,6 +38,13 @@
       color: #333;
     }
 
+    /* ====== Mobile Menu Style ====== */
+    .mobile-menu-toggle { display: none; position: absolute; top: 15px; left: 15px; font-size: 28px; color: white; cursor: pointer; z-index: 1001; }
+    .mobile-dropdown { display: none; position: absolute; top: 60px; left: 15px; background: white; min-width: 200px; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.15); flex-direction: column; z-index: 1000; overflow: hidden; border: 1px solid #eee; }
+    .mobile-dropdown a { padding: 14px 16px; color: #1E3D8F; text-decoration: none; font-weight: 600; border-bottom: 1px solid #f0f0f0; }
+    .mobile-dropdown a:last-child { border-bottom: none; }
+    .mobile-dropdown.show { display: flex; }
+
     header {
       background-color: #1E3D8F;
       color: white;
@@ -448,6 +455,12 @@
         grid-template-columns: 1fr;
       }
     }
+
+    @media (max-width: 768px) {
+      .top-nav { display: none !important; }
+      .mobile-menu-toggle { display: block; }
+      .user-menu { position: static; justify-content: center; margin-top: 0.5rem; }
+    }
   
     /* ---------- Profile Modal ---------- */
     #profileOverlay{
@@ -484,12 +497,21 @@
     }
     #closeProfileModalBtn:hover{ background:rgba(0,0,0,0.06); }
 
-</style>
+  </style>
 </head>
 <body>
 
   <header>
-    <!-- เมนูสมาชิก -->
+    <div class="mobile-menu-toggle" id="mobileMenuBtn">☰</div>
+    <div class="mobile-dropdown" id="mobileDropdown">
+      <a href="index.html">หน้าแรก</a>
+      <a href="courses.html">คอร์ส</a>
+      <a href="member.html">หน้าสมาชิก</a>
+      <a href="about.html">เกี่ยวกับเรา</a>
+      <a href="contact.html">ติดต่อ</a>
+      <a href="#">ผลงาน(เร็วๆนี้)</a>
+    </div>
+
     <div class="user-menu">
       <div class="user-name">
         👋 สวัสดี, <span id="userNameDisplay">สมาชิก</span>
@@ -497,7 +519,6 @@
       <a href="#" class="logout-btn" id="logoutBtn">ออกจากระบบ</a>
     </div>
 
-    <!-- เมนูนำทาง -->
     <nav class="top-nav">
       <a href="index.html">หน้าแรก</a>
       <a href="courses.html">คอร์สเรียน</a>
@@ -505,14 +526,12 @@
       <a href="contact.html">ติดต่อ</a>
     </nav>
 
-    <!-- โลโก้และชื่อโรงเรียน -->
     <div class="logo-center">
       <img src="logo.png" alt="โลโก้ WDW" class="logo-img" />
       <h1 class="school-name">ระบบสมาชิก Well-Do-Win Academy</h1>
     </div>
   </header>
 
-  <!-- เมนูย่อยภายในหน้า member -->
   <div class="member-nav-wrapper">
     <div class="member-nav">
       <button class="member-tab-btn active" data-target="overview">ภาพรวม</button>
@@ -525,9 +544,11 @@
 
   <main class="main">
 
-    <!-- ฟอร์มโปรไฟล์ (บังคับกรอกก่อนใช้งานระบบ) -->
     <section class="card" id="profileFormSection" style="margin-bottom:1.5rem; display:none;">
-      <div class="modal-topbar"><h2 class="section-title" style="margin-top:0;">กรอกข้อมูลโปรไฟล์นักเรียนก่อนใช้งานระบบ</h2><button type="button" id="closeProfileModalBtn" aria-label="ปิดหน้าต่าง">×</button></div>
+      <div class="modal-topbar">
+        <h2 class="section-title" style="margin-top:0;">ข้อมูลโปรไฟล์นักเรียน</h2>
+        <button type="button" id="closeProfileModalBtn" aria-label="ปิดหน้าต่าง">×</button>
+      </div>
       <p style="font-size:0.9rem;color:#555;margin-bottom:1rem;">
         หากกรอกเรียบร้อยแล้ว กรุณารอ 5 วินาที ระบบจะปิดหน้าต่างนี้อัตโนมัติให้ครับ
       </p>
@@ -545,8 +566,8 @@
         <label for="pf_level">ระดับชั้น / กลุ่มเรียน</label>
         <select id="pf_level" required>
           <option value="">-- เลือกระดับชั้น --</option>
-	<option value="ม.1">ม.1</option>
-	<option value="ม.2">ม.2</option>
+          <option value="ม.1">ม.1</option>
+          <option value="ม.2">ม.2</option>
           <option value="ม.3">ม.3</option>
           <option value="ม.4">ม.4</option>
           <option value="ม.5">ม.5</option>
@@ -563,15 +584,13 @@
         <input type="tel" id="pf_parent_phone" placeholder="เช่น 08x-xxx-xxxx">
 
         <div style="margin-top:0.8rem;">
-          <button type="submit" class="primary-btn">บันทึกโปรไฟล์และเริ่มใช้งานระบบ</button>
+          <button type="submit" class="primary-btn">บันทึกโปรไฟล์</button>
         </div>
       </form>
     </section>
 
-    <!-- เนื้อหาแดชบอร์ดจริง (จะถูกล็อกถ้ายังไม่กรอกโปรไฟล์) -->
     <div id="dashboardContent">
 
-      <!-- แถวบน: ยินดีต้อนรับ + สรุปสถานะ -->
       <div class="grid-2" id="overview">
         <section class="card">
           <h3>ยินดีต้อนรับกลับมา 🎓</h3>
@@ -584,7 +603,6 @@
             👉 หากมีปัญหาในการใช้งานระบบ ติดต่อครู / แอดมินได้ที่ Line: @welldowin
           </p>
 
-          <!-- ปุ่มไปหน้า Dashboard + สถานะการชำระเงิน -->
           <div style="margin-top:1rem;">
             <button type="button" class="primary-btn" id="dashboardBtn" disabled>
               ไปหน้า Dashboard (การบ้าน & วิดีโอ)
@@ -620,7 +638,6 @@
 
       </div>
 
-      <!-- คอร์สของฉัน -->
       <section style="margin-top:1.5rem;" id="courses">
         <h2 class="section-title">คอร์สของฉัน</h2>
         <div class="card">
@@ -637,12 +654,10 @@
             </select>
           </div>
 
-          <!-- ข้อความกรณีไม่มีคอร์สลงทะเบียน -->
           <div id="noCoursesMessage" style="display:none; margin-top:0.5rem; font-size:0.9rem; color:#777;">
             ตอนนี้ยังไม่มีคอร์สลงทะเบียน ไปสมัครกันเลย! ✨
           </div>
 
-          <!-- คอร์สแนะนำ (จะโชว์เฉพาะตอนยังไม่มีคอร์ส) -->
           <div id="recommendedCourses" style="display:none; margin-top:0.8rem;">
             <p style="margin:0 0 0.5rem;font-size:0.9rem;">
               คอร์สแนะนำสำหรับน้อง ๆ:
@@ -657,18 +672,9 @@
                 <span class="course-meta">ซัมเมอร์ สายวิทย์ – ยอดลงทะเบียนสูงสุด</span>
               </div>
               <div class="course-actions">
-  <a
-    class="small-btn btn-primary"
-    href="checkout.html?course=m6-summer">
-    สมัครเรียนคอร์สนี้
-  </a>
-  <a
-    class="small-btn btn-outline"
-    href="courses.html?course=m6-summer">
-    ดูรายละเอียด
-  </a>
-</div>
-
+                <a class="small-btn btn-primary" href="checkout.html?course=m6-summer">สมัครเรียนคอร์สนี้</a>
+                <a class="small-btn btn-outline" href="courses.html?course=m6-summer">ดูรายละเอียด</a>
+              </div>
             </div>
 
             <div class="course-item recommend-course">
@@ -680,20 +686,12 @@
                 <span class="course-meta">ซัมเมอร์ สายวิทย์ – คอร์สยอดนิยมของ Well-Do-Win</span>
               </div>
               <div class="course-actions">
-  <a
-    class="small-btn btn-primary"
-    href="checkout.html?course=m5-summer">
-    สมัครเรียนคอร์สนี้
-  </a>
-  <a
-    class="small-btn btn-outline"
-    href="courses.html?course=m5-summer">
-    ดูรายละเอียด
-  </a>
-</div>
-
+                <a class="small-btn btn-primary" href="checkout.html?course=m5-summer">สมัครเรียนคอร์สนี้</a>
+                <a class="small-btn btn-outline" href="courses.html?course=m5-summer">ดูรายละเอียด</a>
+              </div>
             </div>
-<div class="course-item recommend-course">
+
+            <div class="course-item recommend-course">
               <div class="course-info">
                 <span class="course-name">
                   ซัมเมอร์ ม.4 ฟิสิกส์(การเคลื่อนที่แนวเส้นตรง,สอวน.) & เคมี(ตารางธาตุ,พันธะเคมี,สอวน.)
@@ -702,28 +700,16 @@
                 <span class="course-meta">ซัมเมอร์ สายวิทย์ – คอร์สยอดนิยมของ Well-Do-Win</span>
               </div>
               <div class="course-actions">
-  <a
-    class="small-btn btn-primary"
-    href="checkout.html?course=m4-summer">
-    สมัครเรียนคอร์สนี้
-  </a>
-  <a
-    class="small-btn btn-outline"
-    href="courses.html?course=m4-summer">
-    ดูรายละเอียด
-  </a>
-</div>
-
-        </div>
+                <a class="small-btn btn-primary" href="checkout.html?course=m4-summer">สมัครเรียนคอร์สนี้</a>
+                <a class="small-btn btn-outline" href="courses.html?course=m4-summer">ดูรายละเอียด</a>
+              </div>
+            </div>
 
           </div>
 
-          <!-- รายการคอร์สที่น้องลงทะเบียนจริง -->
           <div id="myCoursesList">
-            <!-- จะถูกเติมข้อมูลจาก Apps Script -->
-          </div>
+            </div>
 
-          <!-- ปุ่มดูคอร์สทั้งหมด -->
           <div style="margin-top:1rem; text-align:right;">
             <a href="courses.html" class="primary-btn" style="text-decoration:none; display:inline-block;">
               ดูคอร์สเรียนทั้งหมด
@@ -733,18 +719,19 @@
         </div>
       </section>
 
-      
-
-      <!-- ประกาศ -->
       <section style="margin-top:1.5rem;">
         <h2 class="section-title">ประกาศจาก Well-Do-Win 📢</h2>
         <div class="card">
+          <div style="color: red; font-weight: bold; margin-bottom: 10px; font-size: 1.1rem;">
+            กรุณากรอกข้อมูลโปรไฟล์ก่อนสมัครคอร์สเรียนเพื่อป้องกันข้อมูลสูญหาย!!
+          </div>
+
           <div class="ann-item">
             <div><strong>เปิดคอร์ส ซัมเมอร์ ใหม่!!</strong></div>
             <div class="ann-date">ประกาศเมื่อ: 1 มี.ค. 2569</div>
             <div>เปิดคอร์สวันที่ 10 มี.ค. - 8 พ.ค. 69 (48 ชั่วโมง)</div>
-	<div>ศิษย์เก่ากรอกโค้ด "SUMMERDERM400" ลดทันที 400 บาท</div>
-	<div>นักเรียนใหม่กรอกโค้ด "SUMMERNEW200" ลดทันที 200 บาท</div>
+            <div>ศิษย์เก่ากรอกโค้ด "SUMMERDERM400" ลดทันที 400 บาท</div>
+            <div>นักเรียนใหม่กรอกโค้ด "SUMMERNEW200" ลดทันที 200 บาท</div>
           </div>
           <div class="ann-item">
             <div><strong>วันหยุดประจำคอร์สซัมเมอร์</strong></div>
@@ -759,7 +746,6 @@
         </div>
       </section>
 
-      <!-- โปรไฟล์ของฉัน -->
       <section style="margin-top:1.5rem;" id="profile">
         <h2 class="section-title">โปรไฟล์ของฉัน 👤</h2>
         <div class="card profile-grid">
@@ -815,9 +801,7 @@
         </div>
       </section>
 
-    </div><!-- /dashboardContent -->
-
-  </main>
+    </div></main>
 
   <footer>
     © 2025 โรงเรียนกวดวิชาเวลดูวิน - เป็นให้มากกว่าโรงเรียนกวดวิชา
@@ -894,20 +878,16 @@
       e.preventDefault();
       localStorage.removeItem('userId');
       localStorage.removeItem('userEmail');
-       localStorage.removeItem('userDisplayName');
-       // ไม่จำเป็นต้องลบ studentProfile (ถ้าพี่อยากลบก็เปิดได้)
+      localStorage.removeItem('userDisplayName');
 
       window.location.href = 'index.html';
     });
   }
 
-  // ---------- 2) บังคับกรอกโปรไฟล์ก่อน ----------
+  // ---------- 2) ไม่บังคับกรอกโปรไฟล์แล้ว ----------
   const profileFormSection = document.getElementById('profileFormSection');
   const dashboardContent   = document.getElementById('dashboardContent');
 
-  
-
-  // ---------- helper: เปิด/ปิดหน้าต่างโปรไฟล์ ----------
   const profileOverlay = document.getElementById('profileOverlay');
   const closeProfileModalBtn = document.getElementById('closeProfileModalBtn');
 
@@ -922,17 +902,14 @@
     }
     if (profileOverlay) profileOverlay.style.display = 'block';
 
-    // ถ้าบังคับกรอก (ครั้งแรก) จะซ่อนปุ่มปิด
     if (closeProfileModalBtn) {
       closeProfileModalBtn.style.display = profileModalRequired ? 'none' : 'inline-block';
     }
 
-    // scroll ไม่จำเป็นเพราะเป็น modal แล้ว แต่กันกรณีมือถือ
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   function closeProfileModal(force) {
-    // ถ้าเป็นครั้งแรก (required) จะห้ามปิด เว้นแต่ force=true (ใช้หลังบันทึกสำเร็จ)
     if (profileModalRequired && !force) return;
 
     if (profileFormSection) {
@@ -944,7 +921,6 @@
 
   if (profileOverlay) {
     profileOverlay.addEventListener('click', () => {
-      // คลิกพื้นหลังเพื่อปิดได้เฉพาะโหมดแก้ไข
       closeProfileModal();
     });
   }
@@ -952,23 +928,24 @@
     closeProfileModalBtn.addEventListener('click', () => closeProfileModal());
   }
 
+  // แสดงหน้าเนื้อหาไปเลย ไม่ต้องบังคับป็อปอัปแล้ว
   function lockDashboard() {
-    if (dashboardContent) dashboardContent.style.display = 'none';
-    openProfileModal(true);
+    if (dashboardContent) dashboardContent.style.display = 'block';
+    // openProfileModal(true); // ปิดการทำงานส่วนนี้
   }
 
   function unlockDashboard() {
     if (dashboardContent) dashboardContent.style.display = 'block';
-    // หลังบันทึกโปรไฟล์สำเร็จ ต้องปลดโหมด required แล้วปิด modal
     profileModalRequired = false;
     closeProfileModal(true);
   }
 
-const profileCompletedKey = 'profileCompleted_' + (userId || userEmail || 'unknown');
-  // NOTE: อย่าใช้ localStorage เป็นแหล่งความจริง เพราะเปลี่ยนอุปกรณ์แล้วค่าจะหาย
-  // ให้ "ล็อกไว้ก่อน" แล้วค่อยปลดล็อกเมื่อโหลดข้อมูลจากเซิร์ฟเวอร์ (Apps Script) แล้วพบว่ามีโปรไฟล์ครบ
+  const profileCompletedKey = 'profileCompleted_' + (userId || userEmail || 'unknown');
+  
+  // เรียกโชว์ Dashboard ได้เลย
   lockDashboard();
-// ---------- helper: profile ใน localStorage ----------
+
+  // ---------- helper: profile ใน localStorage ----------
   function saveProfileToLocal(data) {
     localStorage.setItem('studentProfile', JSON.stringify(data));
   }
@@ -1007,7 +984,6 @@ const profileCompletedKey = 'profileCompleted_' + (userId || userEmail || 'unkno
     if (welcomeLevel)       welcomeLevel.textContent       = data.level || '';
 
     if (userNameDisplay) {
-      // มุมขวาบนใช้ "ชื่อเล่น" เป็นหลัก
       if (nickname) {
         userNameDisplay.textContent = nickname;
       } else if (fullName) {
@@ -1333,13 +1309,10 @@ const profileCompletedKey = 'profileCompleted_' + (userId || userEmail || 'unkno
 
       const fullName = ((p.firstName || '') + (p.lastName ? ' ' + p.lastName : '')).trim();
 
-       // ✅ FIX: โปรไฟล์ต้องไม่ให้กรอกซ้ำข้ามอุปกรณ์
        const hasProfileOnServer = Boolean(p.firstName && p.lastName && p.level && p.phone);
        if (hasProfileOnServer) {
          localStorage.setItem(profileCompletedKey, 'true');
-         // เก็บไว้สำหรับโชว์ชื่อมุมขวาบนทุกหน้า
          localStorage.setItem('userDisplayName', (p.nickname || '').trim() || fullName || userEmail);
-         // sync ลง local เพื่อให้ปุ่ม "แก้ไขโปรไฟล์" preload ได้
          saveProfileToLocal({
            userId: userId,
            email: userEmail,
@@ -1352,12 +1325,7 @@ const profileCompletedKey = 'profileCompleted_' + (userId || userEmail || 'unkno
            parentPhone: p.parentPhone || ''
          });
          unlockDashboard();
-       } else {
-         // ยังไม่มีข้อมูลครบ → บังคับกรอก
-         localStorage.removeItem(profileCompletedKey);
-         lockDashboard();
        }
-
 
       const displayStudentName = document.getElementById('displayStudentName');
       const displayLevel       = document.getElementById('displayLevel');
@@ -1375,7 +1343,14 @@ const profileCompletedKey = 'profileCompleted_' + (userId || userEmail || 'unkno
       if (displayParentPhone)             displayParentPhone.textContent = p.parentPhone || '-';
       if (welcomeStudentName && fullName) welcomeStudentName.textContent = fullName;
       if (welcomeLevel)                   welcomeLevel.textContent       = p.level || '';
-      if (userNameDisplay && fullName)    userNameDisplay.textContent    = fullName;
+      
+      if (userNameDisplay) {
+        if (p.nickname) {
+          userNameDisplay.textContent = p.nickname;
+        } else if (fullName) {
+          userNameDisplay.textContent = fullName;
+        }
+      }
 
       if (paymentStatusText) {
         if (p.status === 'PAID') {
@@ -1430,8 +1405,22 @@ const profileCompletedKey = 'profileCompleted_' + (userId || userEmail || 'unkno
   loadDashboardFromServer();
 </script>
 
-
-
   <div id="profileOverlay" aria-hidden="true"></div>
+
+  <script>
+    // การทำงานของเมนูมือถือ
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileDropdown = document.getElementById('mobileDropdown');
+    if (mobileMenuBtn && mobileDropdown) {
+      mobileMenuBtn.addEventListener('click', (e) => { 
+        e.stopPropagation(); 
+        mobileDropdown.classList.toggle('show'); 
+      });
+      document.addEventListener('click', () => {
+        mobileDropdown.classList.remove('show');
+      });
+    }
+  </script>
+
 </body>
 </html>
