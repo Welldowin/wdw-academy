@@ -19,6 +19,13 @@
       color: #111827;
     }
 
+    /* ====== Mobile Menu Style ====== */
+    .mobile-menu-toggle { display: none; position: absolute; top: 15px; left: 15px; font-size: 28px; color: white; cursor: pointer; z-index: 1001; }
+    .mobile-dropdown { display: none; position: absolute; top: 60px; left: 15px; background: white; min-width: 200px; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.15); flex-direction: column; z-index: 1000; overflow: hidden; border: 1px solid #eee; }
+    .mobile-dropdown a { padding: 14px 16px; color: #1E3D8F; text-decoration: none; font-weight: 600; border-bottom: 1px solid #f0f0f0; }
+    .mobile-dropdown a:last-child { border-bottom: none; }
+    .mobile-dropdown.show { display: flex; }
+
     a {
       color: inherit;
       text-decoration: none;
@@ -419,21 +426,14 @@
     }
 
     @media (max-width: 768px) {
+      .top-nav { display: none !important; }
+      .mobile-menu-toggle { display: block; }
+      
       .auth-buttons {
         position: static;
         margin-left: auto;
         margin-right: 0;
         margin-top: 0.5rem;
-      }
-
-      .top-nav {
-        flex-wrap: wrap;
-        justify-content: flex-start;
-        gap: 0.8rem;
-      }
-
-      .top-nav a {
-        font-size: 0.9rem;
       }
 
       .school-name {
@@ -470,6 +470,16 @@
   </style>
 </head>
 <body>
+
+  <div class="mobile-menu-toggle" id="mobileMenuBtn">☰</div>
+  <div class="mobile-dropdown" id="mobileDropdown">
+    <a href="index.html">หน้าแรก</a>
+    <a href="courses.html">คอร์ส</a>
+    <a href="member.html">หน้าสมาชิก</a>
+    <a href="about.html">เกี่ยวกับเรา</a>
+    <a href="contact.html">ติดต่อ</a>
+    <a href="#">ผลงาน(เร็วๆนี้)</a>
+  </div>
 
   <header>
     <nav class="top-nav">
@@ -698,8 +708,9 @@
         const raw = localStorage.getItem(STUDENT_PROFILE_KEY);
         if (raw) {
           const p = JSON.parse(raw);
+          const nick = (p.nickname || '').trim();
           const fullName = ((p.firstName || '') + (p.lastName ? ' ' + p.lastName : '')).trim();
-          if (fullName) displayName = fullName;
+          if (nick || fullName) displayName = nick || fullName;
         }
       } catch (e) {
         console.error('อ่านโปรไฟล์จาก localStorage ไม่ได้', e);
@@ -741,14 +752,18 @@
         }
 
         const p = json.profile || {};
+        const nick = (p.nickname || '').trim();
         const fullName = ((p.firstName || '') + (p.lastName ? ' ' + p.lastName : '')).trim();
-        if (!fullName) return;
+        const finalName = nick || fullName;
+        
+        if (!finalName) return;
 
         const profileLocal = {
           userId: userId,
           email: userEmail,
           firstName: p.firstName || '',
           lastName: p.lastName || '',
+          nickname: p.nickname || '',
           level: p.level || '',
           school: p.school || '',
           phone: p.phone || '',
@@ -759,7 +774,7 @@
 
         const topUserName = document.getElementById('topUserName');
         if (topUserName) {
-          topUserName.textContent = '👋 ' + fullName;
+          topUserName.textContent = '👋 ' + finalName;
         }
       } catch (err) {
         console.error('loadProfileNameFromServer error', err);
@@ -777,6 +792,21 @@
       } else {
         window.location.href = 'checkout.html?course=' + encodeURIComponent(courseId);
       }
+    }
+  </script>
+
+  <script>
+    // การทำงานของเมนูมือถือ
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileDropdown = document.getElementById('mobileDropdown');
+    if (mobileMenuBtn && mobileDropdown) {
+      mobileMenuBtn.addEventListener('click', (e) => { 
+        e.stopPropagation(); 
+        mobileDropdown.classList.toggle('show'); 
+      });
+      document.addEventListener('click', () => {
+        mobileDropdown.classList.remove('show');
+      });
     }
   </script>
 
