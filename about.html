@@ -6,7 +6,6 @@
   <title>เกี่ยวกับโรงเรียน | Well-Do-Win Academy (เวล-ดู-วิน อคาเดมี่)</title>
   <meta name="description" content="ประวัติโรงเรียนกวดวิชาเวล-ดู-วิน อคาเดมี่ และประวัติผู้สอน พร้อมข้อมูลและรูปบรรยากาศการเรียน" />
 
-  <!-- ✅ Favicon (ถ้ามีไฟล์ตามนี้) -->
   <link rel="icon" href="./favicon.ico" sizes="any">
   <link rel="icon" type="image/png" href="./favicon-32x32.png" sizes="32x32">
   <link rel="apple-touch-icon" href="./apple-touch-icon.png">
@@ -35,7 +34,6 @@
       font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans Thai", "Noto Sans", Arial, sans-serif;
       color: var(--text);
 
-      /* ✅ เพิ่มน้ำเงินเข้ม + แต้มแดงให้มีมิติขึ้น */
       background:
         radial-gradient(900px 420px at 10% 0%, rgba(255, 241, 115, .52), transparent 60%),
         radial-gradient(900px 450px at 88% 10%, rgba(11, 35, 95, .16), transparent 60%),
@@ -132,7 +130,6 @@
       overflow: hidden;
     }
 
-    /* ✅ เพิ่มแถบน้ำเงินเข้ม + แต้มแดงแบบพอดี */
     .heroCard::before{
       content:"";
       position:absolute;
@@ -185,7 +182,6 @@
       position: relative;
     }
 
-    /* ✅ ทำให้กล่องด้านขวามี accent น้ำเงินเข้มบางๆ + แดงเล็กน้อย */
     .sideCard::before{
       content:"";
       position:absolute;
@@ -211,7 +207,6 @@
       position: relative;
     }
 
-    /* ✅ รูปพี่ใหญ่ขึ้น + คมขึ้น */
     .avatar{
       width: 96px;
       height: 120px;
@@ -386,14 +381,36 @@
       cursor:pointer;
       white-space:nowrap;
     }
-    .logout-btn:hover{ background-color:rgba(255,255,255,0.2); }
-
     .logout-btn:hover{ background-color:rgba(30,61,143,0.12); }
+
+    /* ====== Mobile Menu Style (ปรับแต่งสำหรับหน้า About) ====== */
+    .mobile-menu-toggle { display: none; }
+    .mobile-dropdown { display: none; }
+
+    @media (max-width: 768px) {
+      .navlinks, .cta { display: none !important; }
+      .brand { margin-left: 40px; }
+      .mobile-menu-toggle { display: block !important; position: absolute; top: 18px; left: 15px; font-size: 28px; color: var(--blueDeep); cursor: pointer; z-index: 1001; }
+      .mobile-dropdown { position: absolute; top: 60px; left: 15px; background: white; min-width: 200px; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.15); flex-direction: column; z-index: 1000; display: none; }
+      .mobile-dropdown.show { display: flex !important; }
+      .mobile-dropdown a { padding: 14px 16px; color: #1E3D8F; text-decoration: none; font-weight: 600; border-bottom: 1px solid #f0f0f0; }
+    }
+
   </style>
 </head>
 
 <body>
-  <!-- ===== Topbar ===== -->
+  <div class="mobile-menu-toggle" id="mobileMenuBtn">☰</div>
+  <div class="mobile-dropdown" id="mobileDropdown">
+    <a href="index.html">หน้าแรก</a>
+    <a href="courses.html">คอร์ส</a>
+    <a href="member.html">หน้าสมาชิก</a>
+    <a href="about.html">เกี่ยวกับเรา</a>
+    <a href="contact.html">ติดต่อ</a>
+    <a href="#">ผลงาน(เร็วๆนี้)</a>
+    <a href="login.html" style="color: #D94C4C;">เข้าสู่ระบบ</a>
+  </div>
+
   <div class="topbar">
     <div class="container">
       <div class="nav">
@@ -409,7 +426,6 @@
           <a href="./contact.html">ติดต่อ</a>
         </div>
 
-        <!-- ✅ เหลือปุ่มติดต่อเฉพาะบนหัวเว็บตามที่พี่ขอ -->
         <div class="cta">
           <a class="btn primary" href="./login.html">เข้าสู่ระบบ</a>
         </div>
@@ -417,7 +433,6 @@
     </div>
   </div>
 
-  <!-- ===== Hero ===== -->
   <header class="hero">
     <div class="container">
       <div class="heroGrid">
@@ -451,7 +466,6 @@
     </div>
   </header>
 
-  <!-- ===== Main Content ===== -->
   <main class="section">
     <div class="container">
 
@@ -498,7 +512,6 @@
         </ul>
       </section>
 
-      <!-- ===== Gallery ===== -->
       <section class="card" id="gallery" style="margin-top:16px;">
         <h2>รูปบรรยากาศห้องเรียน <span class="badge">Gallery</span></h2>
         <p class="muted" style="margin-top:0;">
@@ -522,11 +535,11 @@
             <img src="./images/about06.jpg" alt="บรรยากาศการเรียน 4" loading="lazy">
             <div class="gcap">Lecture</div>
           </div>
-	  <div class="gitem">
+          <div class="gitem">
             <img src="./images/about07.jpg" alt="บรรยากาศการเรียน 5" loading="lazy">
             <div class="gcap">Speaker</div>
           </div>
-	  <div class="gitem">
+          <div class="gitem">
             <img src="./images/about08.jpg" alt="บรรยากาศการเรียน 6" loading="lazy">
             <div class="gcap">Speaker</div>
           </div>
@@ -565,63 +578,75 @@
     });
   </script>
 
-<script>
-(function () {
-  const userId = localStorage.getItem('userId');
-  const userEmail = localStorage.getItem('userEmail') || '';
-  const userDisplayName = localStorage.getItem('userDisplayName') || userEmail || 'สมาชิก';
+  <script>
+  (function () {
+    const userId = localStorage.getItem('userId');
+    const userEmail = localStorage.getItem('userEmail') || '';
+    const userDisplayName = localStorage.getItem('userDisplayName') || userEmail || 'สมาชิก';
 
-  const authButtons = document.querySelector('.auth-buttons');
-  const cta = document.querySelector('.cta');
-  let userMenu = document.querySelector('.user-menu');
+    const authButtons = document.querySelector('.auth-buttons');
+    const cta = document.querySelector('.cta');
+    let userMenu = document.querySelector('.user-menu');
 
-  function mountUserMenu() {
-    if (!userMenu) {
-      userMenu = document.createElement('div');
-      userMenu.className = 'user-menu';
-      userMenu.innerHTML = `
-        <div class="user-name">👋 สวัสดี, <span id="userNameDisplay"></span></div>
-        <a href="#" class="logout-btn" id="logoutBtn">ออกจากระบบ</a>
-      `;
-      // พยายามแปะไว้ในส่วนหัว ถ้าไม่เจอให้แปะบน body
-      const host =
-        document.querySelector('header') ||
-        document.querySelector('.hero') ||
-        document.querySelector('.site-header') ||
-        document.body;
-      host.style.position = host.style.position || 'relative';
-      host.prepend(userMenu);
+    function mountUserMenu() {
+      if (!userMenu) {
+        userMenu = document.createElement('div');
+        userMenu.className = 'user-menu';
+        userMenu.innerHTML = `
+          <div class="user-name">👋 สวัสดี, <span id="userNameDisplay"></span></div>
+          <a href="#" class="logout-btn" id="logoutBtn">ออกจากระบบ</a>
+        `;
+        // พยายามแปะไว้ในส่วนหัว ถ้าไม่เจอให้แปะบน body
+        const host =
+          document.querySelector('.topbar') ||
+          document.body;
+        host.style.position = host.style.position || 'relative';
+        host.prepend(userMenu);
+      }
+
+      const nameEl = userMenu.querySelector('#userNameDisplay');
+      if (nameEl) nameEl.textContent = userDisplayName;
+
+      const logoutBtn = userMenu.querySelector('#logoutBtn');
+      if (logoutBtn && !logoutBtn.dataset.bound) {
+        logoutBtn.dataset.bound = '1';
+        logoutBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          localStorage.removeItem('userId');
+          localStorage.removeItem('userEmail');
+          localStorage.removeItem('userDisplayName');
+          window.location.href = 'index.html';
+        });
+      }
+
+      userMenu.style.display = 'flex';
     }
 
-    const nameEl = userMenu.querySelector('#userNameDisplay');
-    if (nameEl) nameEl.textContent = userDisplayName;
+    if (userId) {
+      if (authButtons) authButtons.style.display = 'none';
+      if (cta) cta.style.display = 'none';
+      mountUserMenu();
+    } else {
+      if (userMenu) userMenu.style.display = 'none';
+      if (authButtons) authButtons.style.display = '';
+      if (cta) cta.style.display = '';
+    }
+  })();
+  </script>
 
-    const logoutBtn = userMenu.querySelector('#logoutBtn');
-    if (logoutBtn && !logoutBtn.dataset.bound) {
-      logoutBtn.dataset.bound = '1';
-      logoutBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        localStorage.removeItem('userId');
-        localStorage.removeItem('userEmail');
-        localStorage.removeItem('userDisplayName');
-        window.location.href = 'index.html';
+  <script>
+    // การทำงานของเมนูมือถือ
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileDropdown = document.getElementById('mobileDropdown');
+    if (mobileMenuBtn && mobileDropdown) {
+      mobileMenuBtn.addEventListener('click', (e) => { 
+        e.stopPropagation(); 
+        mobileDropdown.classList.toggle('show'); 
+      });
+      document.addEventListener('click', () => {
+        mobileDropdown.classList.remove('show');
       });
     }
-
-    userMenu.style.display = 'flex';
-  }
-
-  if (userId) {
-    if (authButtons) authButtons.style.display = 'none';
-    if (cta) cta.style.display = 'none';
-    mountUserMenu();
-  } else {
-    if (userMenu) userMenu.style.display = 'none';
-    if (authButtons) authButtons.style.display = '';
-    if (cta) cta.style.display = '';
-  }
-})();
-</script>
-
+  </script>
 </body>
 </html>
