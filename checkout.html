@@ -116,24 +116,19 @@
 
   <div class="container">
 
-    <!-- ปุ่มย้อนกลับไปหน้าเลือกคอร์ส -->
-    <!-- ถ้าพี่ใช้ชื่อไฟล์ course.html ให้เปลี่ยน href="course.html" -->
     <a href="courses.html" class="back-link">
       <span class="arrow">←</span>
       กลับไปหน้าเลือกคอร์ส
     </a>
 
-    <!-- กล่องรายละเอียดคอร์ส + ตารางเรียน -->
     <div class="card" id="courseDetail"></div>
 
-    <!-- กล่องใส่โค้ดส่วนลด -->
     <div class="card">
-      <h3>โค้ดส่วนลดศิษย์เก่า</h3>
-      <input id="coupon" type="text" placeholder="กรอกโค้ดส่วนลด">
+      <h3>โค้ดส่วนลดศิษย์เก่า / Early Bird</h3>
+      <input id="coupon" type="text" placeholder="กรอกโค้ดส่วนลด (ถ้ามี)">
       <div id="couponMsg" class="coupon-message"></div>
     </div>
 
-    <!-- ยอดชำระ -->
     <div class="card">
       <div class="price-box">
         ยอดที่ต้องชำระ: <span id="totalPrice"></span> บาท
@@ -141,14 +136,13 @@
       <button class="btn" onclick="createOrder()">ชำระเงินด้วย QR Code</button>
     </div>
 
-    <!-- QR Code -->
     <div class="qr-box" id="qrBox">
       <p>สแกนเพื่อชำระเงิน</p>
       <img id="qrImage" src="" alt="QR Payment">
       <p style="font-size:18px;color:#555;">
         หลังชำระเงิน กรุณาแคปหลักฐานการโอน
         และส่งสลิปมาที่
-        <a href="https://lin.ee/6sIEVNC" target="_blank" rel="noopener" style="color:#1E3A8A; font-weight:600;">
+        <a href="https://lin.ee/n6iQfZx" target="_blank" rel="noopener" style="color:#1E3A8A; font-weight:600;">
           LINE: @welldowin
         </a>
         เพื่อให้ครู/แอดมินยืนยันสิทธิ์เปิดคอร์สให้ครับ
@@ -158,48 +152,86 @@
   </div>
 
 <script>
-  // ===== 1) ตั้งค่า PromptPay (ไม่ต้องใช้ ORDER_API_URL แล้ว) =====
+  // ===== 1) ตั้งค่า PromptPay =====
   const PROMPTPAY_ID  = '0635455645';
+
+  // ฟังก์ชันอัปเดตราคากรณีเปลี่ยนจำนวนวิชา
+  window.updatePrice = function(newPrice) {
+    price = parseInt(newPrice, 10);
+    // กระตุ้นให้โค้ดส่วนลดทำงานใหม่เผื่อมียอดที่เปลี่ยนไป
+    document.getElementById('coupon').dispatchEvent(new Event('input'));
+  };
 
   // ===== 2) ข้อมูลคอร์ส + ตารางเรียน =====
   const courseData = {
-    "term2-phy-chem-chumpae": {
-      title: "คอร์สเทอม 2 – ฟิสิกส์/เคมี (ชุมแพ)",
-      price: 3500,
+    "m4-term1": {
+      title: "คอร์สเทอม 1/2569 – ม.4 (คณิต/ฟิสิกส์/เคมี)",
+      price: 2000,
       schedule: `
-        <h3>ตารางเวลาเรียน</h3>
-        <ul>
-          <li>จำนวน 40 ชั่วโมง</li>
-          <li>มีวิดีโอย้อนหลังทุกครั้ง</li>
-          <li>กลุ่มวันอังคาร/พฤหัส หรือ กลุ่มวันเสาร์</li>
-          <li>เริ่มเรียน 18 พ.ย. 68 – 14 ก.พ. 69</li>
-        </ul>
+        <img src="images/4.png" alt="ตารางเรียน ม.4" style="width:100%; border-radius:10px; margin-bottom:10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+        <p style="font-size:14px; color:#555;">
+          <strong>ตารางเรียน ม.4:</strong><br>
+          - <b>วันศุกร์ (เย็น):</b> 17:00-18:00 น. | เคมี<br>
+          - <b>วันเสาร์ (เช้า):</b> 09:00-10:00 น. | คณิต, 11:00-12:00 น. | ฟิสิกส์
+        </p>
+        <div style="margin-top:14px; padding-top:10px; border-top: 1px dashed #ccc;">
+          <label style="font-weight:700; color:#1E3D8F;">เลือกจำนวนวิชาที่ต้องการสมัคร:</label>
+          <select id="subjectSelect" style="width:100%; padding:10px; border-radius:8px; margin-top:6px; border: 1px solid #ccc; font-family:'Kanit', sans-serif;" onchange="updatePrice(this.value)">
+            <option value="2000">1 วิชา (2,000.- / จ่ายเต็มจำนวน)</option>
+            <option value="3600">2 วิชา (3,600.- / หรือโอนแบ่งจ่ายงวดแรก 1,800.-)</option>
+            <option value="4500">3 วิชา (4,500.- / หรือโอนแบ่งจ่ายงวดแรก 2,250.-)</option>
+          </select>
+          <p style="font-size:13px; color:#d9460f; margin-top:6px;">
+            * หากต้องการผ่อนชำระ กรุณาโอนยอดตามงวดแรกที่ระบุในวงเล็บ (1,800 หรือ 2,250) แล้วแจ้งแอดมินทาง LINE ได้เลยครับ
+          </p>
+        </div>
       `
     },
-    "m4-term2-chumpae": {
-      title: "คอร์สเทอม 2 – ม.4 ฟิสิกส์/เคมี",
-      price: 3500,
+    "m5-term1": {
+      title: "คอร์สเทอม 1/2569 – ม.5 (คณิต/ฟิสิกส์/เคมี)",
+      price: 2000,
       schedule: `
-        <h3>ตารางเวลาเรียน</h3>
-        <ul>
-          <li>เรียนทุกวันเสาร์</li>
-          <li>ฟิสิกส์ 09.00–10.30</li>
-          <li>เคมี 13.00–14.30</li>
-          <li>วันที่เรียน: 22 พ.ย. 68 – 14 ก.พ. 69</li>
-        </ul>
+        <img src="images/5.png" alt="ตารางเรียน ม.5" style="width:100%; border-radius:10px; margin-bottom:10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+        <p style="font-size:14px; color:#555;">
+          <strong>ตารางเรียน ม.5:</strong><br>
+          - <b>วันศุกร์ (ค่ำ):</b> 18:00-19:00 น. | เคมี<br>
+          - <b>วันเสาร์ (บ่าย):</b> 13:30-14:30 น. | คณิต, 15:30-16:30 น. | ฟิสิกส์
+        </p>
+        <div style="margin-top:14px; padding-top:10px; border-top: 1px dashed #ccc;">
+          <label style="font-weight:700; color:#1E3D8F;">เลือกจำนวนวิชาที่ต้องการสมัคร:</label>
+          <select id="subjectSelect" style="width:100%; padding:10px; border-radius:8px; margin-top:6px; border: 1px solid #ccc; font-family:'Kanit', sans-serif;" onchange="updatePrice(this.value)">
+            <option value="2000">1 วิชา (2,000.- / จ่ายเต็มจำนวน)</option>
+            <option value="3600">2 วิชา (3,600.- / หรือโอนแบ่งจ่ายงวดแรก 1,800.-)</option>
+            <option value="4500">3 วิชา (4,500.- / หรือโอนแบ่งจ่ายงวดแรก 2,250.-)</option>
+          </select>
+          <p style="font-size:13px; color:#d9460f; margin-top:6px;">
+            * หากต้องการผ่อนชำระ กรุณาโอนยอดตามงวดแรกที่ระบุในวงเล็บ (1,800 หรือ 2,250) แล้วแจ้งแอดมินทาง LINE ได้เลยครับ
+          </p>
+        </div>
       `
     },
-    "m5-term2-chumpae": {
-      title: "คอร์สเทอม 2 – ม.5 ฟิสิกส์/เคมี",
-      price: 3500,
+    "m6-term1": {
+      title: "คอร์สเทอม 1/2569 – ม.6 (คณิต/ฟิสิกส์/เคมี)",
+      price: 2000,
       schedule: `
-        <h3>ตารางเวลาเรียน</h3>
-        <ul>
-          <li>เรียนทุกวันเสาร์</li>
-          <li>ฟิสิกส์ 10.45–12.15</li>
-          <li>เคมี 14.30–16.00</li>
-          <li>วันที่เรียน: 22 พ.ย. 68 – 14 ก.พ. 69</li>
-        </ul>
+        <img src="images/6.png" alt="ตารางเรียน ม.6" style="width:100%; border-radius:10px; margin-bottom:10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+        <p style="font-size:14px; color:#555;">
+          <strong>ตารางเรียน ม.6 (จัดให้เรียนวันเสาร์วันเดียว!):</strong><br>
+          - 10:00-11:00 น. | คณิต<br>
+          - 12:30-13:30 น. | ฟิสิกส์<br>
+          - 14:30-15:30 น. | เคมี
+        </p>
+        <div style="margin-top:14px; padding-top:10px; border-top: 1px dashed #ccc;">
+          <label style="font-weight:700; color:#1E3D8F;">เลือกจำนวนวิชาที่ต้องการสมัคร:</label>
+          <select id="subjectSelect" style="width:100%; padding:10px; border-radius:8px; margin-top:6px; border: 1px solid #ccc; font-family:'Kanit', sans-serif;" onchange="updatePrice(this.value)">
+            <option value="2000">1 วิชา (2,000.- / จ่ายเต็มจำนวน)</option>
+            <option value="3600">2 วิชา (3,600.- / หรือโอนแบ่งจ่ายงวดแรก 1,800.-)</option>
+            <option value="4500">3 วิชา (4,500.- / หรือโอนแบ่งจ่ายงวดแรก 2,250.-)</option>
+          </select>
+          <p style="font-size:13px; color:#d9460f; margin-top:6px;">
+            * หากต้องการผ่อนชำระ กรุณาโอนยอดตามงวดแรกที่ระบุในวงเล็บ (1,800 หรือ 2,250) แล้วแจ้งแอดมินทาง LINE ได้เลยครับ
+          </p>
+        </div>
       `
     },
     "online-tgat-tpat-alevel": {
@@ -211,9 +243,11 @@
           <li>เรียนแบบออนไลน์ตัวต่อตัว</li>
           <li>กำหนดเวลาเรียนได้เอง</li>
           <li>เริ่มต้น 18 ชั่วโมง ราคา 4,000 บาท</li>
-          <li>จนถึงสอบ 14 มี.ค. 69</li>
           <li>หมายเหตุ : 2 คนขึ้นไป คนละ 200 บ./ชม. (แจ้งทางไลน์)</li>
         </ul>
+        <div style="font-size:15px;margin-top:10px;">
+          <strong>ราคา:</strong> 4,000 บาท<br>
+        </div>
       `
     },
     "online-netsat": {
@@ -225,48 +259,11 @@
           <li>เรียนแบบออนไลน์ยืดหยุ่น</li>
           <li>กำหนดเวลาเรียนได้เอง</li>
           <li>เริ่มต้น 18 ชั่วโมง ราคา 4,000 บาท</li>
-          <li>จนถึงสอบ 7 ก.พ. 69</li>
           <li>หมายเหตุ : 2 คนขึ้นไป คนละ 200 บ./ชม. (แจ้งทางไลน์)</li>
         </ul>
-      `
-    },
-    "m4-summer": {
-      title: "คอร์สซัมเมอร์ - เตรียม ม.4 ฟิสิกส์/เคมี",
-      price: 3500,
-      schedule: `
-        <h3>ตารางเวลาเรียน</h3>
-        <ul>
-          <li>เรียนทุกอังคารถึงศุกร์</li>
-          <li>ฟิสิกส์ อ. / พฤ. 10.30–12.00</li>
-          <li>เคมี พ. / ศ. 10.30–12.00</li>
-          <li>วันที่เรียน: 10 มี.ค. ถึง 8 พ.ค.69)</li>
-        </ul>
-      `
-    },
-    "m5-summer": {
-      title: "คอร์สซัมเมอร์ - เตรียม ม.5 ฟิสิกส์/เคมี",
-      price: 3500,
-      schedule: `
-        <h3>ตารางเวลาเรียน</h3>
-        <ul>
-          <li>เรียนทุกอังคารถึงศุกร์</li>
-          <li>ฟิสิกส์ อ. / พฤ. 15.00–16.30</li>
-          <li>เคมี พ. / ศ. 15.00–16.30</li>
-          <li>วันที่เรียน: 10 มี.ค. ถึง 8 พ.ค.69)</li>
-        </ul>
-      `
-    },
-    "m6-summer": {
-      title: "คอร์สซัมเมอร์ - เตรียม ม.6 ฟิสิกส์/เคมี",
-      price: 3500,
-      schedule: `
-        <h3>ตารางเวลาเรียน</h3>
-        <ul>
-          <li>เรียนทุกอังคารถึงศุกร์</li>
-          <li>ฟิสิกส์ อ. / พฤ. 13.30–15.00</li>
-          <li>เคมี พ. / ศ. 13.30–15.00</li>
-          <li>วันที่เรียน: 10 มี.ค. ถึง 8 พ.ค.69)</li>
-        </ul>
+        <div style="font-size:15px;margin-top:10px;">
+          <strong>ราคา:</strong> 4,000 บาท<br>
+        </div>
       `
     }
   };
@@ -291,10 +288,6 @@
     courseDetailBox.innerHTML = `
       <h2>${course.title}</h2>
       ${course.schedule}
-      <div style="font-size:15px;margin-top:10px;">
-        <strong>ราคา:</strong> ${course.price} บาท<br>
-        * ศิษย์เก่าลด 200 บาทโดยใช้โค้ดส่วนลดด้านล่าง
-      </div>
     `;
   } else {
     courseDetailBox.innerHTML = `
@@ -310,16 +303,13 @@
     const code = this.value.trim().toUpperCase();
     const msg  = document.getElementById('couponMsg');
 
-    // รวมโค้ดทั้งหมดไว้ตรงนี้
     const coupons = {
-      'SUMMERNEW200':  { type: 'fixed',   value: 200 },
-      'SUMMERDERM400': { type: 'fixed',   value: 400 },
+      'EARLYBIRD200':  { type: 'fixed',   value: 200 }, // โค้ด Early Bird ใหม่
       'LASTSTAND21':   { type: 'fixed',   value: 290 },
       'SUMMERSPD10':   { type: 'percent', value: 10 }
     };
 
     if (coupons[code]) {
-
       const coupon = coupons[code];
       let discount = 0;
 
@@ -341,32 +331,27 @@
       msg.style.color = 'green';
 
     } else if (code.length > 0) {
-
       finalPrice = price;
       currentCoupon = '';
       msg.textContent = 'โค้ดไม่ถูกต้อง';
       msg.style.color = 'red';
 
     } else {
-
       finalPrice = price;
       currentCoupon = '';
       msg.textContent = '';
-
     }
 
     totalPriceSpan.textContent = finalPrice;
   });
 
   // ===== 5) ฟังก์ชันเมื่อกดปุ่ม "ชำระเงินด้วย QR Code" =====
-  // ไม่บันทึกลงชีตแล้ว แค่เช็กข้อมูลให้ครบแล้วโชว์ QR เลย
   function createOrder() {
     if (!course) {
       alert('ไม่พบข้อมูลคอร์ส กรุณากลับไปเลือกคอร์สใหม่อีกครั้ง');
       return;
     }
 
-    // ถ้าอยากบังคับให้มี userId (ล็อกอินก่อน) จะใช้ logic นี้ได้
     const userId = localStorage.getItem('userId') || '';
     if (!userId) {
       const proceed = confirm(
