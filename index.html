@@ -57,7 +57,7 @@
       background-color: #1E3D8F;
       color: white;
       text-align: center;
-      padding-bottom: 2rem;
+      padding-bottom: 2rem; /* คงสัดส่วนเดิมเป๊ะๆ */
       position: relative;
     }
 
@@ -77,12 +77,41 @@
       font-size: 1rem;
     }
 
+    /* ====== แก๊ง Mascot ลอยทับรอยต่อ ====== */
     .logo-center {
       display: flex;
       flex-direction: column;
       align-items: center;
       margin-top: 1.5rem;
       padding: 0 1rem;
+      position: relative; /* สร้างกรอบอ้างอิงให้มาสคอต */
+      z-index: 5;
+    }
+
+    .mascot {
+      position: absolute;
+      bottom: -4.5rem; /* ดึงให้ลอยต่ำลงไปกินพื้นที่สีเหลืองด้านล่าง */
+      height: 220px;
+      width: auto;
+      animation: float 3.5s ease-in-out infinite;
+      filter: drop-shadow(0 10px 15px rgba(0,0,0,0.15));
+      z-index: 10;
+    }
+
+    .left-mascot {
+      right: 50%;
+      margin-right: 240px; /* ระยะห่างจากตรงกลางของจอ (ฝั่งซ้าย) */
+    }
+
+    .right-mascot {
+      left: 50%;
+      margin-left: 240px; /* ระยะห่างจากตรงกลางของจอ (ฝั่งขวา) */
+      animation-delay: 1.75s; /* สลับจังหวะลอยให้ดูเป็นธรรมชาติ */
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
     }
 
     .logo-img {
@@ -99,7 +128,9 @@
     .hero {
       background-color: #FFF173;
       text-align: center;
-      padding: 3rem 1rem;
+      padding: 3rem 1rem; /* คงสัดส่วนเดิมเป๊ะๆ */
+      position: relative;
+      z-index: 1; /* ให้อยู่ใต้มาสคอต */
     }
 
     .hero h1 {
@@ -162,7 +193,7 @@
       border: 1px solid rgba(0,0,0,0.06);
     }
 
-    /* ====== INFO HUB (ปุ่มบทความ/คลังข้อสอบ) ====== */
+    /* ====== INFO HUB ====== */
     .hub-grid{
       display:grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -228,97 +259,98 @@
     }
 
     .gallery-tabs .tab:hover{ transform: translateY(-1px); }
+    .gallery-tabs .tab.active{ background:#1E3D8F; color:#fff; border-color:#1E3D8F; }
 
-    .gallery-tabs .tab.active{
-      background:#1E3D8F;
-      color:#fff;
-      border-color:#1E3D8F;
+    /* ====== Slider สไตล์มืออาชีพ (บีบความกว้างลงและแยกข้อความ) ====== */
+    .slider-container-inner {
+      max-width: 860px; /* บีบความกว้างให้ภาพดูสมมาตร */
+      margin: 0 auto;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 12px 28px rgba(30, 61, 143, 0.12);
+      background: #ffffff;
     }
 
-   .slider{
-  position: relative;
-  overflow: hidden;
-  border-radius: 16px;
-  box-shadow: 0 10px 24px rgba(0,0,0,0.15);
-  background: #0f1f4d;
-  height: 340px;
-  line-height: 0;   /* ✅ กันช่องว่างใต้รูป */
-}
+    .slider {
+      position: relative;
+      overflow: hidden;
+    }
 
-
-    .slides{
+    .slides {
       display: flex;
       transition: transform 600ms ease;
       will-change: transform;
     }
 
-    .slide{ min-width: 100%; position: relative; }
+    .slide {
+      min-width: 100%;
+      display: flex;
+      flex-direction: column; /* วางรูปไว้บน ข้อความไว้ล่าง */
+    }
 
-    .slide img{
-  width: 100%;
-  height: 340px;
-  max-width: 100%;     /* ✅ เพิ่ม */
-  max-height: 100%;    /* ✅ เพิ่ม */
-  object-fit: cover;
-  display: block;
-}
+    .slide-img-wrap {
+      width: 100%;
+      aspect-ratio: 16 / 9; /* รักษาสัดส่วนภาพแบบมาตรฐาน */
+      background: #f4f6fa;
+      position: relative;
+    }
 
+    .slide-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
 
+    .slide-caption {
+      background: #ffffff;
+      color: #1E3D8F;
+      padding: 16px 20px;
+      text-align: center;
+      font-size: 1.05rem;
+      font-weight: 600;
+      border-top: 1px solid rgba(30, 61, 143, 0.08);
+    }
 
-    .slide-caption{
-  top: 14px;
-  bottom: auto;
-  left: 14px;
-  right: auto;
-  max-width: 70%;
-  padding: 10px 12px;
-  border-radius: 12px;
-  background: rgba(0,0,0,0.35);
-}
-
-
-    .slider-btn{
+    .slider-btn {
       position: absolute;
-      top: 50%;
+      top: 40%; /* ให้อยู่กึ่งกลางของช่วงรูปภาพพอดี */
       transform: translateY(-50%);
       border: none;
       width: 42px;
       height: 42px;
       border-radius: 50%;
       cursor: pointer;
-      background: rgba(255,255,255,0.9);
-      font-size: 18px;
+      background: rgba(255, 255, 255, 0.95);
+      color: #1E3D8F;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      font-size: 20px;
       font-weight: 700;
       display: grid;
       place-items: center;
       transition: 0.2s;
     }
 
-    .slider-btn:hover{ transform: translateY(-50%) scale(1.05); }
+    .slider-btn:hover { transform: translateY(-50%) scale(1.05); background: #ffffff; }
+    .slider-btn.prev { left: 15px; }
+    .slider-btn.next { right: 15px; }
 
-    .slider-btn.prev{ left: 10px; }
-    .slider-btn.next{ right: 10px; }
-
-    .dots{
+    .dots {
       display: flex;
       gap: 8px;
       justify-content: center;
-      padding: 12px 0;
+      padding: 16px 0;
     }
 
-    .dot{
+    .dot {
       width: 10px;
       height: 10px;
       border-radius: 999px;
-      background: rgba(30,61,143,0.35);
+      background: rgba(30,61,143,0.25);
       cursor: pointer;
       transition: 0.2s;
     }
-
-    .dot.active{
-      width: 24px;
-      background: #1E3D8F;
-    }
+    .dot.active { width: 24px; background: #1E3D8F; }
 
     footer {
       background-color: #1E3D8F;
@@ -329,45 +361,39 @@
     }
 
    /* Responsive */
-@media (max-width: 1000px){
-  .hub-grid{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
+    @media (max-width: 1000px){
+      .hub-grid{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .left-mascot { margin-right: 200px; }
+      .right-mascot { margin-left: 200px; }
+    }
 
-@media (max-width: 768px) {
-  .top-nav {
-    flex-direction: column;
-    gap: 0.5rem;
-    padding: 0.5rem;
-  }
+    @media (max-width: 768px) {
+      .top-nav { flex-direction: column; gap: 0.5rem; padding: 0.5rem; }
+      .auth-buttons { position: static; justify-content: center; margin-top: 0.5rem; }
+      header { padding-bottom: 1.5rem; }
+      .logo-img { height: 90px; }
+      .school-name { font-size: 1.4rem; }
+      
+      .hero { padding: 2rem 1rem; }
+      .hero h1 { font-size: 1.6rem; }
+      
+      .features, .courses, .reviews, .contact, .info-hub { padding: 1.5rem 1rem; }
+      .hub-grid{ grid-template-columns: 1fr; }
 
-  .auth-buttons {
-    position: static;
-    justify-content: center;
-    margin-top: 0.5rem;
-  }
+      /* ขยับ Mascot บนมือถือไม่ให้ชนกัน */
+      .mascot { height: 130px; bottom: -3rem; }
+      .left-mascot { margin-right: 120px; }
+      .right-mascot { margin-left: 120px; }
 
-  header { padding-bottom: 1.5rem; }
-  .logo-img { height: 90px; }
-  .school-name { font-size: 1.4rem; }
+      .slide-caption { font-size: 0.95rem; padding: 12px; }
+      .slider-btn { width: 36px; height: 36px; font-size: 16px; top: 35%; }
+    }
 
-  .hero { padding: 2rem 1rem; }
-  .hero h1 { font-size: 1.6rem; }
-
-  .features, .courses, .reviews, .contact, .info-hub {
-    padding: 1.5rem 1rem;
-  }
-
-  /* ✅ คุมกรอบสไลด์บนมือถือ */
-  .slider{ height: 220px; }
-
-  /* ✅ ให้รูปยึดกรอบ 100% (ไม่ล้นแน่นอน) */
-  .slide img{
-    height: 100%;
-  }
-
-  .hub-grid{ grid-template-columns: 1fr; }
-}
-
+    @media (max-width: 480px) {
+      .mascot { height: 100px; bottom: -2rem; }
+      .left-mascot { margin-right: 90px; }
+      .right-mascot { margin-left: 90px; }
+    }
   
     /* มุมขวาบน: ชื่อผู้ล็อกอิน + ออกจากระบบ */
     .user-menu{
@@ -408,13 +434,11 @@
 <body>
 
   <header>
-    <!-- ปุ่มเข้าสู่ระบบ + สมัครสมาชิก -->
     <div class="auth-buttons">
       <a href="login.html" class="login-btn">เข้าสู่ระบบ</a>
       <a href="register.html" class="register-btn">สมัครสมาชิก</a>
     </div>
 
-    <!-- เมนูนำทาง -->
     <nav class="top-nav">
       <a href="index.html">หน้าแรก</a>
       <a href="courses.html">คอร์สเรียน</a>
@@ -422,10 +446,11 @@
       <a href="contact.html">ติดต่อ</a>
     </nav>
 
-    <!-- โลโก้และชื่อโรงเรียน -->
     <div class="logo-center">
+      <img src="images/น้องเมลวิน.png" alt="น้องเมลวิน" class="mascot left-mascot" />
       <img src="logo.png" alt="โลโก้ WDW" class="logo-img" />
       <h1 class="school-name">โรงเรียนกวดวิชาเวลดูวิน Well-Do-Win</h1>
+      <img src="images/น้องมินนี่.png" alt="น้องมินนี่" class="mascot right-mascot" />
     </div>
   </header>
 
@@ -440,7 +465,6 @@
     </div>
   </section>
 
-  <!-- ====== สไลด์รูป + เลือกหมวด ====== -->
   <section class="slider-wrap">
     <h2 class="section-title" style="text-align:center;">ผลงาน & บรรยากาศกิจกรรม</h2>
 
@@ -453,16 +477,17 @@
       <button class="tab" data-cat="boardgame">แข่งขันบอร์ดเกม</button>
     </div>
 
-    <div class="slider" id="wdwSlider">
-      <div class="slides" id="slides"></div>
-      <button class="slider-btn prev" id="prevBtn" aria-label="รูปก่อนหน้า">‹</button>
-      <button class="slider-btn next" id="nextBtn" aria-label="รูปถัดไป">›</button>
+    <div class="slider-container-inner">
+      <div class="slider" id="wdwSlider">
+        <div class="slides" id="slides"></div>
+        <button class="slider-btn prev" id="prevBtn" aria-label="รูปก่อนหน้า">‹</button>
+        <button class="slider-btn next" id="nextBtn" aria-label="รูปถัดไป">›</button>
+      </div>
     </div>
 
     <div class="dots" id="dots"></div>
   </section>
 
-  <!-- ====== ปุ่มลิงก์บทความ/ข่าวสอบ/คลังข้อสอบ ====== -->
   <section class="info-hub">
     <h2 class="section-title">ศูนย์รวมข้อมูลการศึกษา</h2>
     <p style="margin-top:-6px;">ทุนการศึกษา • ปฏิทินสอบ • ข่าวการสอบเข้ามหาวิทยาลัย • และคลังข้อสอบ (กำลังทำ)</p>
@@ -548,52 +573,52 @@
   </footer>
 
   <script>
-    /*
-      ✅ วิธีใส่รูปเพิ่ม / เปลี่ยนรูป (สำคัญมาก)
-      1) เอารูปไปไว้โฟลเดอร์:  /images/
-      2) ตั้งชื่อไฟล์ตามหมวด เช่น:
-         - speaker_01.jpg, speaker_02.jpg        (วิทยากร/แนะแนว)
-         - classroom_01.jpg, classroom_02.jpg    (บรรยากาศห้องเรียน)
-         - success_01.jpg, success_02.jpg        (ผลงานสอบติด)
-         - activity_01.jpg, activity_02.jpg      (กิจกรรม)
-         - boardgame_01.jpg, boardgame_02.jpg    (บอร์ดเกม)
-      3) แล้วมาเพิ่มรายการที่ตัวแปร allSlides ด้านล่าง
-         { src:"images/ชื่อไฟล์.jpg", caption:"คำบรรยาย", cat:"หมวด" }
-         หมวด(cat) ใช้ได้: speaker, classroom, success, activity, boardgame
-    */
-
     const allSlides = [
       // ====== วิทยากร / แนะแนว ======
       { src:"images/speaker_01.jpg", caption:"ติว NETSAT ที่โรงเรียนชุมแพศึกษา", cat:"speaker" },
       { src:"images/speaker_02.jpg", caption:"ติว NETSAT ที่โรงเรียนชุมแพศึกษา", cat:"speaker" },
-	{ src:"images/speaker_03.jpg", caption:"ติว NETSAT ที่โรงเรียนบ้านไผ่", cat:"speaker" },
-	{ src:"images/speaker_04.jpg", caption:"ติว NETSAT ที่โรงเรียนบ้านไผ่", cat:"speaker" },
-	{ src:"images/speaker_05.jpg", caption:"ติว NETSAT ที่โรงเรียนสาธิต ศึกษาศาสตร์ มข.", cat:"speaker" },	
-	{ src:"images/speaker_06.jpg", caption:"ติวสอบกลางภาคคณะเทคโนโลยี ม.ขอนแก่น", cat:"speaker" },
-	{ src:"images/speaker_07.jpg", caption:"ติวสอบกลางภาคคณะเทคโนโลยี ม.ขอนแก่น", cat:"speaker" },
+      { src:"images/speaker_03.jpg", caption:"ติว NETSAT ที่โรงเรียนบ้านไผ่", cat:"speaker" },
+      { src:"images/speaker_04.jpg", caption:"ติว NETSAT ที่โรงเรียนบ้านไผ่", cat:"speaker" },
+      { src:"images/speaker_05.jpg", caption:"ติว NETSAT ที่โรงเรียนสาธิต ศึกษาศาสตร์ มข.", cat:"speaker" },	
+      { src:"images/speaker_06.jpg", caption:"ติวสอบกลางภาคคณะเทคโนโลยี ม.ขอนแก่น", cat:"speaker" },
+      { src:"images/speaker_07.jpg", caption:"ติวสอบกลางภาคคณะเทคโนโลยี ม.ขอนแก่น", cat:"speaker" },
 
       // ====== บรรยากาศห้องเรียน ======
       { src:"images/classroom_01.jpg", caption:"บรรยากาศห้องเรียนติวเข้ม", cat:"classroom" },
       { src:"images/classroom_02.jpg", caption:"บรรยากาศห้องเรียนติวเข้ม", cat:"classroom" },
-	{ src:"images/classroom_03.jpg", caption:"บรรยากาศห้องเรียนติวเข้ม", cat:"classroom" },
-	{ src:"images/classroom_04.jpg", caption:"บรรยากาศห้องเรียนติวเข้ม", cat:"classroom" },
+      { src:"images/classroom_03.jpg", caption:"บรรยากาศห้องเรียนติวเข้ม", cat:"classroom" },
+      { src:"images/classroom_04.jpg", caption:"บรรยากาศห้องเรียนติวเข้ม", cat:"classroom" },
 
       // ====== ผลงานสอบติด ======
       { src:"images/success_01.jpg", caption:"ผลงานรุ่นพี่สอบติดคณะในฝัน", cat:"success" },
       { src:"images/success_02.jpg", caption:"ผลงานรุ่นพี่สอบติดคณะในฝัน", cat:"success" },
-	{ src:"images/success_03.jpg", caption:"ผลงานนักเรียน Well-Do-Win Academy", cat:"success" },
-	
+      { src:"images/success_03.jpg", caption:"ผลงานนักเรียน Well-Do-Win Academy", cat:"success" },
+      { src:"images/success_04.jpg", caption:"นายสุทธราดร ภูครองจิตร (ปังปอนด์) สอบติดคณะแพทยศาสตร์ มหาวิทยาลัยขอนแก่น", cat:"success" },
+      { src:"images/success_05.jpg", caption:"นางสาวธินันตา กาจหาญ (กิ๊ฟ) สอบติดคณะแพทยศาสตร์ มหาวิทยาลัยขอนแก่น", cat:"success" },
+      { src:"images/success_06.jpg", caption:"นางสาวอมลรดา ศรีนิล (ฮานะ) สอบติดคณะแพทยศาสตร์ มหาวิทยาลัยขอนแก่น", cat:"success" },
+      { src:"images/success_07.jpg", caption:"นางสาวภาดาวดี สรรประเสริฐ (อิม) สอบติดคณะพยาบาลศาสตร์ มหาวิทยาลัยขอนแก่น (ig: _iszxmq)", cat:"success" },
+      { src:"images/success_08.jpg", caption:"นางสาวกฤษติกา สาระวงษ์ (หนามเตย) สอบติดคณะเภสัชศาสตร์ มหาวิทยาลัยอุบลราชธานี (ig: _2nxmtcy)", cat:"success" },
+      { src:"images/success_09.jpg", caption:"นางสาวชนิษฐา วงศ์ลิขิตปัญญา (พอใจ) สอบติดคณะสัตวแพทยศาสตร์ มหาวิทยาลัยขอนแก่น", cat:"success" },
+      { src:"images/success_10.jpg", caption:"นางสาวภัทรลดา หงษ์สามารถ (มะปราง) สอบติดคณะวิทยาศาสตร์ (เคมี) มหาวิทยาลัยมหาสารคาม (ig: me0wmp)", cat:"success" },
+      { src:"images/success_11.jpg", caption:"นางสาวสิริณัฏฐ์ พันธ์ศรี (ใบบัว) สอบติดคณะแพทยศาสตร์ (แผนไทยประยุกต์) มหาวิทยาลัยมหิดล (ig: sirinq3w)", cat:"success" },
+      { src:"images/success_12.jpg", caption:"นางสาวไอริสสา กัลยา (ปูเป้) สอบติดคณะเภสัชศาสตร์ มหาวิทยาลัยพะเยา (ig: Pxpaeir)", cat:"success" },
+      { src:"images/success_13.jpg", caption:"นางสาวจันทรัสม์ มากมี (เพิร์ส) สอบติดคณะแพทยศาสตร์ (เวชนิทัศน์) มหาวิทยาลัยขอนแก่น (ig: @latahen)", cat:"success" },
+            { src:"images/success_14.jpg", caption:"น.ส.ปุณยวีร์ ไพร่สิงห์ (โฟกัส) สอบติดคณะวิศวกรรมศาสตร์ (สาขาวิศวกรรมเคมี) มหาวิทยาลัยเทคโนโลยีสุรนารี", cat:"success" },
+      { src:"images/success_15.jpg", caption:"น.ส.สิริวิมล คำมูล (มิ้ว) สอบติดคณะวิทยาการคอมพิวเตอร์ (ปัญญาประดิษฐ์) มหาวิทยาลัยขอนแก่น", cat:"success" },
+      { src:"images/success_16.jpg", caption:"น.ส.ปิลันทนา มีชัยมาตย์ (น้ำอิง) สอบติดคณะเทคนิคการแพทย์ มหาวิทยาลัยขอนแก่น", cat:"success" },
+      { src:"images/success_17.jpg", caption:"น.ส.นิลนภัส พันธุ์พล (นิล) สอบติดคณะศึกษาศาสตร์ (เอกวิทยาศาสตร์) มหาวิทยาลัยขอนแก่น", cat:"success" },
+      { src:"images/success_18.jpg", caption:"นายปฏิภาณ ตั้งเพียร (แฟ้ม) สอบติดคณะวิศวกรรมศาสตร์ (อัตโนมัติ หุ่นยนต์และระบบอัจฉริยะ) มหาวิทยาลัยขอนแก่น (ig: pxtzpan)", cat:"success" },
+
       // ====== กิจกรรม ======
       { src:"images/activity_01.jpg", caption:"กิจกรรมคริสต์มาส / แจกของรางวัล", cat:"activity" },
-     	{ src:"images/activity_03.jpg", caption:"กิจกรรมคริสต์มาส / แจกของรางวัล", cat:"activity" },
-	{ src:"images/activity_04.jpg", caption:"กิจกรรมคริสต์มาส / แจกของรางวัล", cat:"activity" },
+      { src:"images/activity_03.jpg", caption:"กิจกรรมคริสต์มาส / แจกของรางวัล", cat:"activity" },
+      { src:"images/activity_04.jpg", caption:"กิจกรรมคริสต์มาส / แจกของรางวัล", cat:"activity" },
 	
-
       // ====== แข่งขันบอร์ดเกม ======
       { src:"images/boardgame_01.jpg", caption:"แข่งขันบอร์ดเกม ฝึกตรรกะ/การสื่อสาร", cat:"boardgame" },
       { src:"images/boardgame_02.jpg", caption:"แข่งขันบอร์ดเกม ฝึกตรรกะ/การสื่อสาร", cat:"boardgame" },
-	{ src:"images/boardgame_03.jpg", caption:"แข่งขันบอร์ดเกม ฝึกตรรกะ/การสื่อสาร", cat:"boardgame" },
-	{ src:"images/boardgame_04.jpg", caption:"บรรยากาศการแข่งขันและมอบรางวัล", cat:"boardgame" },
+      { src:"images/boardgame_03.jpg", caption:"แข่งขันบอร์ดเกม ฝึกตรรกะ/การสื่อสาร", cat:"boardgame" },
+      { src:"images/boardgame_04.jpg", caption:"บรรยากาศการแข่งขันและมอบรางวัล", cat:"boardgame" },
     ];
 
     const slidesEl = document.getElementById("slides");
@@ -615,7 +640,9 @@
       if(slidesData.length === 0){
         slidesEl.innerHTML = `
           <div class="slide">
-            <img src="images/placeholder.jpg" alt="ยังไม่มีรูป">
+            <div class="slide-img-wrap">
+              <img src="images/placeholder.jpg" alt="ยังไม่มีรูป">
+            </div>
             <div class="slide-caption">ยังไม่มีรูปในหมวดนี้ (ใส่รูปเพิ่มได้ตามคู่มือในโค้ด)</div>
           </div>
         `;
@@ -625,8 +652,11 @@
       slidesData.forEach((s, i) => {
         const slide = document.createElement("div");
         slide.className = "slide";
+        /* โครงสร้างใหม่ แยกภาพและข้อความ */
         slide.innerHTML = `
-          <img src="${s.src}" alt="${s.caption}">
+          <div class="slide-img-wrap">
+            <img src="${s.src}" alt="${s.caption}">
+          </div>
           <div class="slide-caption">${s.caption}</div>
         `;
         slidesEl.appendChild(slide);
@@ -719,7 +749,6 @@
   const userDisplayName = localStorage.getItem('userDisplayName') || userEmail || 'สมาชิก';
 
   const authButtons = document.querySelector('.auth-buttons');
-  const cta = document.querySelector('.cta');
   let userMenu = document.querySelector('.user-menu');
 
   function mountUserMenu() {
@@ -760,12 +789,10 @@
 
   if (userId) {
     if (authButtons) authButtons.style.display = 'none';
-    if (cta) cta.style.display = 'none';
     mountUserMenu();
   } else {
     if (userMenu) userMenu.style.display = 'none';
     if (authButtons) authButtons.style.display = '';
-    if (cta) cta.style.display = '';
   }
 })();
 </script>
