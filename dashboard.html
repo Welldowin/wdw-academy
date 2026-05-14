@@ -13,6 +13,13 @@
       color: #333;
     }
 
+    /* ====== Mobile Menu Style ====== */
+    .mobile-menu-toggle { display: none; position: absolute; top: 15px; left: 15px; font-size: 28px; color: white; cursor: pointer; z-index: 1001; }
+    .mobile-dropdown { display: none; position: absolute; top: 60px; left: 15px; background: white; min-width: 200px; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.15); flex-direction: column; z-index: 1000; overflow: hidden; border: 1px solid #eee; }
+    .mobile-dropdown a { padding: 14px 16px; color: #1E3D8F; text-decoration: none; font-weight: 600; border-bottom: 1px solid #f0f0f0; }
+    .mobile-dropdown a:last-child { border-bottom: none; }
+    .mobile-dropdown.show { display: flex; }
+
     header {
       background-color: #1E3D8F;
       color: white;
@@ -273,7 +280,8 @@
       padding: 1rem;
       font-size: 0.9rem;
     }
-        .new-badge {
+    
+    .new-badge {
       display: inline-block;
       margin-left: 0.35rem;
       padding: 0.05rem 0.45rem;
@@ -286,27 +294,33 @@
     }
 
     @keyframes blinkNew {
-      0%, 50% {
-        opacity: 1;
-      }
-      50.01%, 100% {
-        opacity: 0;
-      }
+      0%, 50% { opacity: 1; }
+      50.01%, 100% { opacity: 0; }
     }
 
     @media (max-width: 880px) {
-      .grid-2 {
-        grid-template-columns: 1fr;
-      }
-      .logo-row {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.8rem;
-      }
+      .grid-2 { grid-template-columns: 1fr; }
+      .logo-row { flex-direction: column; align-items: flex-start; gap: 0.8rem; }
+    }
+
+    @media (max-width: 768px) {
+      .top-nav { display: none !important; }
+      .mobile-menu-toggle { display: block; }
+      header { padding-top: 3.5rem; }
     }
   </style>
 </head>
 <body>
+
+  <div class="mobile-menu-toggle" id="mobileMenuBtn">☰</div>
+  <div class="mobile-dropdown" id="mobileDropdown">
+    <a href="index.html">หน้าแรก</a>
+    <a href="courses.html">คอร์ส</a>
+    <a href="member.html">หน้าสมาชิก</a>
+    <a href="about.html">เกี่ยวกับเรา</a>
+    <a href="contact.html">ติดต่อ</a>
+    <a href="#">ผลงาน(เร็วๆนี้)</a>
+  </div>
 
   <header>
     <nav class="top-nav">
@@ -329,16 +343,15 @@
         <div class="user-name">
           👋 สวัสดี, <span id="userNameDisplay">สมาชิก</span>
         </div>
-<div class="token-badge">
-    💎 เพชรสะสม: <span id="tokenCount">0</span>
-  </div>
+        <div class="token-badge">
+          💎 เพชรสะสม: <span id="tokenCount">0</span>
+        </div>
         <a href="#" class="logout-btn" id="logoutBtn">ออกจากระบบ</a>
       </div>
     </div>
   </header>
 
   <main class="main">
-    <!-- แถวบน: สรุปภาพรวม + ปุ่มย้อนกลับ -->
     <div class="grid-2">
       <section class="card">
         <h2 class="section-title">ภาพรวมวันนี้ 🎓</h2>
@@ -384,7 +397,6 @@
       </section>
     </div>
 
-    <!-- การบ้าน -->
     <section class="card" id="homeworkSection">
       <div class="filter-row">
         <h2 class="section-title" style="margin:0;">การบ้านในคอร์สของฉัน</h2>
@@ -408,12 +420,10 @@
           </tr>
         </thead>
         <tbody id="homeworkTbody">
-          <!-- เติมด้วย JS -->
-        </tbody>
+          </tbody>
       </table>
     </section>
 
-    <!-- วิดีโอ -->
     <section class="card" id="videoSection">
       <div class="filter-row">
         <h2 class="section-title" style="margin:0;">วิดีโอย้อนหลัง</h2>
@@ -427,12 +437,11 @@
       </div>
 
       <div class="video-list" id="videoList">
-        <!-- เติมด้วย JS -->
-      </div>
-<p style="font-size:0.8rem;color:#555;margin-top:0.6rem;">
-  * อีเมลที่ใช้เข้าชมวิดีโอจะต้องเป็นอีเมลเดียวกับที่ลงทะเบียนคอร์ส  
-  หากใช้อีเมลคนละอัน โปรดติดต่อครู/แอดมินทาง Line: @welldowin
-</p>
+        </div>
+      <p style="font-size:0.8rem;color:#555;margin-top:0.6rem;">
+        * อีเมลที่ใช้เข้าชมวิดีโอจะต้องเป็นอีเมลเดียวกับที่ลงทะเบียนคอร์ส  
+        หากใช้อีเมลคนละอัน โปรดติดต่อครู/แอดมินทาง Line: @welldowin
+      </p>
 
     </section>
   </main>
@@ -459,7 +468,6 @@
       .replace(/'/g, '&#39;');
   }
 
-  // === ADDED: ดึง URL จากข้อความ status (ถ้ามี) ===
   function extractUrlFromText(text) {
     if (!text) return '';
     const s = String(text);
@@ -467,36 +475,30 @@
     return m ? m[0] : '';
   }
 
-  // แปลงวันที่ให้สวยอ่านง่าย เช่น 2025-12-07T17:00:00.000Z -> 08 ธ.ค. 68
   function formatDateLabel(raw) {
     if (!raw) return '';
 
     const s = String(raw);
-
-    // ถ้าเป็นรูปแบบที่พี่พิมพ์เองอยู่แล้ว เช่น "08 ธ.ค. 68" ก็ไม่ไปยุ่ง
     if (/[ก-ฮ]/.test(s)) return s;
 
     const d = new Date(s);
-    if (isNaN(d.getTime())) {
-      return s; // ถ้าแปลงไม่ได้ก็แสดงดิบ ๆ เหมือนเดิม
-    }
+    if (isNaN(d.getTime())) return s;
 
     const day   = d.getDate().toString().padStart(2, '0');
-    const month = d.getMonth(); // 0-11
-    const year  = d.getFullYear(); // 2025
+    const month = d.getMonth(); 
+    const year  = d.getFullYear(); 
 
     const thaiMonths = [
       'ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.',
       'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'
     ];
 
-    const budYear   = year + 543;          // พ.ศ.
-    const shortYear = String(budYear % 100).padStart(2, '0'); // 68
+    const budYear   = year + 543;
+    const shortYear = String(budYear % 100).padStart(2, '0');
 
     return `${day} ${thaiMonths[month]} ${shortYear}`;
   }
 
-  // ---------- 1) เช็กการล็อกอิน ----------
   const userId    = localStorage.getItem('userId');
   const userEmail = localStorage.getItem('userEmail') || '';
 
@@ -530,26 +532,26 @@
     userNameDisplay.textContent = userEmail;
   }
 
-  // ปุ่มออกจากระบบ
   const logoutBtn = document.getElementById('logoutBtn');
-  logoutBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    localStorage.removeItem('userId');
-    localStorage.removeItem('userEmail');
-    window.location.href = 'index.html';
-  });
+  if(logoutBtn) {
+    logoutBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      localStorage.removeItem('userId');
+      localStorage.removeItem('userEmail');
+      window.location.href = 'index.html';
+    });
+  }
 
   let GLOBAL_COURSES  = [];
   let GLOBAL_HOMEWORK = [];
   let GLOBAL_VIDEOS   = [];
-   // ---------- เครื่องหมายว่าแถวไหน/คลิปไหน "ล่าสุด" จากวันที่ ----------
+
   function markLatestByDate(arr, dateKey) {
     if (!Array.isArray(arr) || arr.length === 0) return;
 
     let maxTime   = -Infinity;
     let anyValid  = false;
 
-    // รอบที่ 1: หาค่าเวลา "มากที่สุด"
     arr.forEach(item => {
       const raw = item[dateKey];
       if (!raw) return;
@@ -563,16 +565,13 @@
       }
     });
 
-    // เคลียร์ธงเก่าก่อน
     arr.forEach(it => { delete it._isLatest; });
 
-    // ถ้าอ่านวันที่ไม่ได้เลยสักอัน → ให้ถือว่าแถวสุดท้ายเป็นล่าสุด (กันกรณีข้อมูลเก่า)
     if (!anyValid) {
       arr[arr.length - 1]._isLatest = true;
       return;
     }
 
-    // รอบที่ 2: ติดธงให้ทุกตัวที่มีวันที่ = maxTime
     arr.forEach(item => {
       const raw = item[dateKey];
       if (!raw) return;
@@ -586,8 +585,6 @@
     });
   }
 
-
-  // ---------- 3) โหลดข้อมูลจาก Apps Script (getDashboard) ----------
   async function loadDashboard() {
     const params = new URLSearchParams({
       action: 'getDashboard',
@@ -612,21 +609,18 @@
       const videos   = json.videos    || [];
       const tokens   = json.tokens    || 0;
      
-            // ทำเครื่องหมายอันล่าสุดจากวันที่
-      markLatestByDate(homework, 'dueDate'); // การบ้านล่าสุด
-      markLatestByDate(videos, 'date');      // วิดีโอล่าสุด
+      markLatestByDate(homework, 'dueDate');
+      markLatestByDate(videos, 'date');
 
 
       GLOBAL_COURSES  = courses;
       GLOBAL_HOMEWORK = homework;
       GLOBAL_VIDEOS   = videos;
 
-      // ถ้า script ฝั่งนั้นเลือก focusCourseId มาให้ แล้ว url ยังไม่ได้ระบุ ให้ sync มาใช้งาน
       if (json.focusCourseId && !focusCourseId) {
         focusCourseId = json.focusCourseId;
       }
 
-      // ถ้า status ไม่ใช่ PAID ให้เด้งกลับหน้า member
       const statusUpper = String(p.status || '').toUpperCase();
       if (statusUpper !== 'PAID' && statusUpper !== 'ชำระแล้ว') {
         alert('บัญชีนี้ยังไม่ได้เปิดสิทธิ์เข้าดู Dashboard (สถานะยังไม่เป็น PAID)');
@@ -634,7 +628,6 @@
         return;
       }
 
-      // เติมชื่อ/ระดับ
       const fullName = ((p.firstName || '') + (p.lastName ? ' ' + p.lastName : '')).trim();
       if (studentNameLabel && fullName) studentNameLabel.textContent = fullName;
       if (levelLabel)                   levelLabel.textContent       = p.level || '-';
@@ -642,7 +635,6 @@
 
       if (tokenCountEl) tokenCountEl.textContent = String(tokens);
 
-      // บรรทัดคอร์สทั้งหมด
       if (coursesLineEl) {
         if (courses.length === 0) {
           coursesLineEl.textContent = '-';
@@ -652,7 +644,6 @@
         }
       }
 
-      // ทำ map courseId -> ชื่อคอร์ส ไว้ใช้ในตาราง
       const courseNameMap = {};
       courses.forEach(c => {
         courseNameMap[c.courseId] = c.courseName || c.courseId;
@@ -669,7 +660,6 @@
     }
   }
 
-    // ---------- 4) สร้างตารางการบ้าน ----------
   function renderHomeworkTable(homework, courseNameMap) {
     if (!hwTbody) return;
     hwTbody.innerHTML = '';
@@ -691,14 +681,12 @@
       const title    = item.title   || '';
       const detail   = item.detail  || '';
 
-      // --- แถววันที่ (ประกาศก่อนแล้วค่อย format)
       const dueDateRaw  = item.dueDate || '';
       const dueDateDisp = formatDateLabel(String(dueDateRaw));
 
       const status = item.status || '';
       const statusUpper = String(status).toUpperCase();
 
-      // === ADDED: ถ้า status มี URL -> ทำปุ่ม "ลิ้งค์" ===
       const linkUrlInStatus = extractUrlFromText(status);
       const isLinkStatus = !!linkUrlInStatus;
 
@@ -708,7 +696,6 @@
         statusUpper === 'FINISHED' ||
         status === 'ส่งแล้ว';
 
-      // === ADDED: สร้าง HTML ของช่องสถานะ ===
       let statusHtml = '';
       if (isLinkStatus) {
         statusHtml = `<a href="${escapeHtml(linkUrlInStatus)}" target="_blank" class="link-btn">ลิ้งค์</a>`;
@@ -734,7 +721,6 @@
     });
   }
 
-  // ---------- 5) สร้างรายชื่อวิดีโอ ----------
   function renderVideoList(videos, courseNameMap) {
     if (!videoListEl) return;
     videoListEl.innerHTML = '';
@@ -751,7 +737,6 @@
       const title    = v.title || '';
       const url      = v.url   || '';
 
-      // --- วันที่อัปโหลด: ใช้ raw + แปลงเป็นข้อความสวย ๆ
       const dateRaw  = v.date  || '';
       const dateDisp = formatDateLabel(String(dateRaw));
 
@@ -780,17 +765,14 @@
     });
   }
 
-  // ---------- 6) อัปเดตตัวเลขสรุปด้านบน ----------
   function updateSummaryCounts(homework, videos) {
     let pendingCount = 0;
     if (Array.isArray(homework)) {
       homework.forEach(item => {
         const rawStatus = item.status || '';
         const status = String(rawStatus).toUpperCase();
-
         const hasLink = !!extractUrlFromText(rawStatus);
 
-        // === ADDED: ถ้าเป็นลิ้งค์และไม่อยากนับเป็นค้าง ให้ข้าม ===
         if (hasLink && !COUNT_LINK_AS_PENDING) {
           return;
         }
@@ -811,7 +793,6 @@
     if (videoCountEl)           videoCountEl.textContent           = String(videoCount);
   }
 
-  // ---------- 7) Filter ตามคอร์ส ----------
   function initFilters(courseNameMap) {
     const courseIds = Object.keys(courseNameMap);
     const optionsHtml = ['<option value="">ทั้งหมด</option>'].concat(
@@ -870,10 +851,8 @@
     });
   }
 
-  // ---------- 8) เริ่มทำงาน ----------
   loadDashboard();
 </script>
-
 
 <script>
 (function () {
@@ -932,6 +911,21 @@
   }
 })();
 </script>
+
+  <script>
+    // การทำงานของเมนูมือถือ
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileDropdown = document.getElementById('mobileDropdown');
+    if (mobileMenuBtn && mobileDropdown) {
+      mobileMenuBtn.addEventListener('click', (e) => { 
+        e.stopPropagation(); 
+        mobileDropdown.classList.toggle('show'); 
+      });
+      document.addEventListener('click', () => {
+        mobileDropdown.classList.remove('show');
+      });
+    }
+  </script>
 
 </body>
 </html>
