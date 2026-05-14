@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>คอร์สเทอม 2 & NETSAT | Well-Do-Win Academy</title>
+  <title>คอร์สเทอม 1/2569 & NETSAT | Well-Do-Win Academy</title>
 
-  <!-- ฟอนต์ Kanit -->
   <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;500;700&display=swap" rel="stylesheet">
 
   <style>
@@ -221,20 +220,25 @@
       padding-left: 20px;
       margin: 6px 0 10px;
     }
+    
+    .hero-list li {
+      margin-bottom: 4px;
+    }
 
     .hero-price {
       font-size: 1.15rem;
       font-weight: 800;
       margin-bottom: 4px;
+      color: #FFF173;
     }
 
     .hero-note {
-      font-size: 0.8rem;
+      font-size: 0.9rem;
       opacity: 0.95;
     }
 
     .hero-actions {
-      margin-top: 12px;
+      margin-top: 16px;
       display: flex;
       flex-direction: column;
       gap: 8px;
@@ -278,7 +282,7 @@
       border: none;
       font-size: 0.9rem;
       color: #fff;
-      background: #06C755; /* LINE green */
+      background: #06C755;
       cursor: pointer;
       text-decoration: none;
       box-shadow: 0 4px 12px rgba(0,0,0,0.2);
@@ -306,14 +310,17 @@
 
     .hero-poster {
       border-radius: 14px;
-      overflow: hidden;
-      background: #0f172a;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
     }
 
     .hero-poster img {
       display: block;
       width: 100%;
       height: auto;
+      border-radius: 14px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.2);
     }
 
     /* ---------- COURSE CARDS ---------- */
@@ -358,6 +365,7 @@
       color: #1d4ed8;
       font-size: 0.75rem;
       margin-bottom: 4px;
+      font-weight: 600;
     }
 
     .course-card ul {
@@ -366,9 +374,10 @@
     }
 
     .course-card-footer {
-      font-size: 0.8rem;
+      font-size: 0.85rem;
       color: #4b5563;
       margin-top: 4px;
+      font-weight: 500;
     }
 
     .course-card-actions {
@@ -458,45 +467,10 @@
         justify-content: center;
       }
     }
-  
-    /* มุมขวาบน: ชื่อผู้ล็อกอิน + ออกจากระบบ */
-    .user-menu{
-      position:absolute;
-      top:15px;
-      right:20px;
-      display:none;
-      align-items:center;
-      gap:0.7rem;
-      z-index:20;
-      font-family:'Kanit', sans-serif;
-    }
-    .user-name{
-      background-color:rgba(0,0,0,0.15);
-      padding:0.35rem 0.7rem;
-      border-radius:999px;
-      font-size:0.9rem;
-      color:#fff;
-      white-space:nowrap;
-    }
-    .logout-btn{
-      padding:0.4rem 0.9rem;
-      border-radius:999px;
-      border:1px solid #fff;
-      background:transparent;
-      color:#fff;
-      font-size:0.85rem;
-      font-weight:500;
-      text-decoration:none;
-      cursor:pointer;
-      white-space:nowrap;
-    }
-    .logout-btn:hover{ background-color:rgba(255,255,255,0.2); }
-
   </style>
 </head>
 <body>
 
-  <!-- HEADER -->
   <header>
     <nav class="top-nav">
       <a href="index.html">หน้าแรก</a>
@@ -504,7 +478,6 @@
       <a href="about.html">เกี่ยวกับเรา</a>
       <a href="contact.html">ติดต่อ</a>
 
-      <!-- JS จะแทนที่ตรงนี้เมื่อเข้าสู่ระบบแล้ว -->
       <div class="auth-buttons">
         <a href="login.html" class="auth-btn auth-login">เข้าสู่ระบบ</a>
         <a href="register.html" class="auth-btn auth-register">สมัครสมาชิก</a>
@@ -516,160 +489,151 @@
         <img src="logo.png" alt="โลโก้ Well-Do-Win Academy" class="logo-img" />
         <h1 class="school-name">คอร์สเรียน Well-Do-Win Academy</h1>
         <div class="school-subtitle">
-          ฟิสิกส์ / เคมี / คอร์สออนไลน์ เตรียมสอบเข้าแพทย์ – วิศวะ – วิทยาศาสตร์
+          คณิตศาสตร์ / ฟิสิกส์ / เคมี เตรียมสอบเข้าแพทย์ – วิศวะ – วิทยาศาสตร์
         </div>
       </div>
     </div>
   </header>
 
-  <!-- MAIN CONTENT -->
   <main class="main">
 
-    <!-- ปุ่มกลับไปหน้าระบบสมาชิก -->
     <a href="member.html" class="back-member-btn">
       ← กลับไปหน้าระบบสมาชิก
     </a>
 
-    <div class="page-title">คอร์สซัมเมอร์ & คอร์สเตรียมสอบ NETSAT</div>
+    <div class="page-title">คอร์ส ม.ปลาย เทอม 1/2569</div>
     <div class="page-subtitle">
-      วิชา ฟิสิกส์ / เคมี สำหรับเตรียมสอบเข้า มหาวิทยาลัย – เหมาะกับ น้อง ม.4–5-6 #dek69 #dek70
+      วิชา คณิตศาสตร์ / ฟิสิกส์ / เคมี – สำหรับน้อง ๆ ม.4, ม.5 และ ม.6
     </div>
 
-    <!-- HERO + โปสเตอร์หลัก -->
     <section class="hero">
       <div>
         <span class="hero-badge">เปิดรับสมัครแล้ว!!</span>
 
         <div class="hero-title">
-          คอร์สซัมเมอร์ วิชา ฟิสิกส์ / เคมี<br>
-          เตรียมสอบเข้า มหาวิทยาลัย &amp; NETSAT
+          คอร์ส ม.ปลาย เทอม 1/2569<br>
+          (คณิต • ฟิสิกส์ • เคมี)
         </div>
 
         <p class="hero-text">
-          สอนโดยอาจารย์ผู้มีประสบการณ์การสอนมากกว่า 10 ปี<br>
-          เน้นตะลุยโจทย์ + เทคนิคทำข้อสอบสนามจริง พร้อมบันทึกวิดีโอย้อนหลังให้ทบทวนได้ตลอด
+          สอนสดแบบเข้มข้น จัดเต็มทุกเนื้อหาและโจทย์ประยุกต์<br>พร้อมระบบสนับสนุนการเรียนแบบครบวงจร
         </p>
 
         <ul class="hero-list">
-	    <li>เรียนสดออนไลน์ (ผ่าน Discord)</li>
-          <li>จำนวน 48 ชั่วโมง (มีบันทึกวิดีโอทุกรอบ)</li>
-          <li>คอร์สซัมเมอร์ ม.4–5-6 เรียนฟิสิกส์ + เคมี</li>
-          <li>กลุ่มวันอังคารถึงศุกร์</li>
-	<li>เปิดคอร์ส : 10 มี.ค. ถึง  8 พ.ค. 69</li>
-	<li>(หยุดสงกรานต์ 13-17 เม.ย. 69)</li>
+          <li><b>เรียน 22 พฤษภาคม – 15 กันยายน 2569</b> <br>(หยุด 31 ก.ค. และ 1 ส.ค.)</li>
+          <li>ดูวิดีโอย้อนหลังได้ไม่อั้น ภาพคมชัดระดับ HD (2K)</li>
+          <li>มี Weekly Micro-Quiz ท้ายคาบทบทวนความเข้าใจ</li>
+          <li>จำลองสอบ (Mock Exam) วัดผลก่อนจบเทอม</li>
+          <li><b>ฟรี!</b> เอกสารประกอบการเรียนและโจทย์แนวข้อสอบ</li>
         </ul>
 
-        <div class="hero-price">3,500 บาท/คอร์ส</div>
+        <div class="hero-price">
+          สมัครหลายวิชาสุดคุ้ม (ผ่อน 0% นาน 2 งวด)
+        </div>
         <div class="hero-note">
-          ศิษย์เก่าหรือนักเรียนใหม่แนะนำเพื่อนมาเรียน &nbsp;รับส่วนลดเพิ่ม 200 บาท/คน<br>
-          *ตารางเรียนละเอียดและวันที่เรียนจะแสดงในหน้าชำระเงิน
+          1 วิชา: 2,000.- / เทอม (เนื้อหาครบ 15 ชม.)<br>
+          2 วิชา: 3,600.- (เฉลี่ย 1,800.-) รับสิทธิ์ Mock Exam + สรุปสูตร<br>
+          3 วิชา: 4,500.- (เฉลี่ย 1,500.-) รับสิทธิ์ติวโค้งสุดท้าย + ปรึกษาตัวต่อตัว<br>
+          <br>
+          <span style="color: #FFF173; font-weight:700;">🌟 EARLY BIRD SPECIAL:</span><br>
+          สมัคร 2 วิชาขึ้นไปและจ่ายเต็มจำนวน ภายใน 22 พ.ค. รับส่วนลดเพิ่มทันที 200 บาท!
         </div>
 
         <div class="hero-actions">
           <div class="hero-row">
-            <button class="btn-primary" onclick="goToCheckout('m4-summer')">
-              สมัครคอร์สซัมเมอร์เตรียม ม.4
-              <span class="hot-pill">HOT!</span>
+            <button class="btn-primary" onclick="goToCheckout('m4-term1')">
+              สมัครคอร์ส ม.4 เทอม 1
             </button>
-
-            <a href="https://lin.ee/6sIEVNC" class="btn-line" target="_blank" rel="noopener">
-              <span class="line-icon">💬</span>
-              แอดไลน์เพื่อสอบถามเพิ่มเติม
-            </a>
+            <button class="btn-primary" onclick="goToCheckout('m5-term1')">
+              สมัครคอร์ส ม.5 เทอม 1
+            </button>
           </div>
-
           <div class="hero-row">
-            <button class="btn-primary" onclick="goToCheckout('m5-summer')">
-              สมัครคอร์สซัมเมอร์เตรียม ม.5
+            <button class="btn-primary" onclick="goToCheckout('m6-term1')">
+              สมัครคอร์ส ม.6 เทอม 1
               <span class="hot-pill">HOT!</span>
             </button>
-          </div>
-
-	  <div class="hero-row">
-            <button class="btn-primary" onclick="goToCheckout('m6-summer')">
-              สมัครคอร์สซัมเมอร์เตรียม ม.6
-              <span class="hot-pill">HOT!</span>
-            </button>
+            <a href="https://lin.ee/n6iQfZx" class="btn-line" target="_blank" rel="noopener">
+              <span class="line-icon">💬</span>
+              แอดไลน์สอบถาม
+            </a>
           </div>
         </div>
       </div>
 
       <div class="hero-poster">
-        <img src="images/summercoruse.jpg"
-             alt="คอร์สเทอมซัมเมอร์ ติวเตรียม NETSAT/สอวน. ม.4-5-6 Well-Do-Win Academy">
+        <img src="images/index.png" alt="เปิดรับสมัครคอร์ส เทอม 1/2569">
+        <img src="images/ราคา.png" alt="โปรโมชั่นราคา เทอม 1/2569">
       </div>
     </section>
 
-    <!-- สรุป 4 คอร์สหลัก -->
     <section>
-      <div class="section-title">รายละเอียดคอร์สที่เปิดสอนตอนนี้</div>
+      <div class="section-title">รายละเอียดคอร์สเทอม 1/2569</div>
       <div class="section-note">
-        ข้อมูลย่อสำหรับผู้ปกครองและน้อง ๆ – ตารางเรียนละเอียดและวิธีการชำระเงิน จะแสดงในหน้าชำระเงินของแต่ละคอร์ส
+        ดูตารางเรียนแบบเต็มและระบบผ่อนชำระได้ในหน้าชำระเงินของแต่ละระดับชั้น
       </div>
 
       <div class="course-grid">
-        <!-- ม.4 -->
         <article class="course-card">
-          <div class="chip">ออนไลน์-เตรียม ม.4 </div>
-          <div class="course-card-title">คอร์สซัมเมอร์ – ฟิสิกส์/เคมี</div>
+          <div class="chip">ชั้น ม.4</div>
+          <div class="course-card-title">คอร์ส ม.4 (คณิต/ฟิสิกส์/เคมี)</div>
           <ul>
-            <li>เรียน 48 ชั่วโมง – มีบันทึกวิดีโอทุกครั้ง</li>
-            <li>เรียนอังคารถึงศุกร์</li>
-            <li>เหมาะกับน้องที่กำลังขึ้น ม.6 ที่เตรียมสอบเข้ามหาวิทยาลัย</li>
+            <li>เรียนวันศุกร์ (เย็น) และวันเสาร์ (เช้า)</li>
+            <li>เนื้อหาครบ 15 ชม./วิชา</li>
+            <li>เหมาะสำหรับการปูพื้นฐานม.ปลายให้แน่น</li>
           </ul>
           <div class="course-card-footer">
-            ราคา 3,500 บาท/คอร์ส – ศิษย์เก่าลด 400 บาท / นักเรียนใหม่ลด 200 บาท (แนะนำเพื่อนลดเพิ่มอีก 200 บาท/คน)
+            เลือกเรียนได้ 1-3 วิชา (ผ่อนชำระได้สูงสุด 2 งวด)
           </div>
           <div class="course-card-actions">
-            <button class="btn-enroll" onclick="goToCheckout('m6-summer')">
-              สมัครคอร์สนี้
-              <span class="hot-pill">HOT!</span>
+            <button class="btn-enroll" onclick="goToCheckout('m4-term1')">
+              สมัครคอร์ส ม.4
             </button>
           </div>
         </article>
 
-        <!-- ม.5 -->
         <article class="course-card">
-          <div class="chip">ชั้น ม.5 (ชุมแพ)</div>
-          <div class="course-card-title">คอร์สซัมเมอร์ – ฟิสิกส์/เคมี</div>
+          <div class="chip">ชั้น ม.5</div>
+          <div class="course-card-title">คอร์ส ม.5 (คณิต/ฟิสิกส์/เคมี)</div>
           <ul>
-            <li>เรียน 48 ชั่วโมง – มีบันทึกวิดีโอทุกครั้ง</li>
-            <li>เรียนอังคารถึงศุกร์</li>
-            <li>เหมาะกับน้องที่กำลังขึ้น ม.6 ที่เตรียมสอบเข้ามหาวิทยาลัย</li>
+            <li>เรียนวันศุกร์ (เย็น) และวันเสาร์ (บ่าย)</li>
+            <li>เจาะลึกเนื้อหาและเทคนิคการทำโจทย์</li>
+            <li>ฟรีเอกสารเรียนและวิดีโอย้อนหลัง 2K</li>
           </ul>
           <div class="course-card-footer">
-            ราคา 3,500 บาท/คอร์ส – ศิษย์เก่าลด 400 บาท / นักเรียนใหม่ลด 200 บาท (แนะนำเพื่อนลดเพิ่มอีก 200 บาท/คน)
+            เลือกเรียนได้ 1-3 วิชา (ผ่อนชำระได้สูงสุด 2 งวด)
           </div>
           <div class="course-card-actions">
-            <button class="btn-enroll" onclick="goToCheckout('m6-summer')">
-              สมัครคอร์สนี้
-              <span class="hot-pill">HOT!</span>
+            <button class="btn-enroll" onclick="goToCheckout('m5-term1')">
+              สมัครคอร์ส ม.5
             </button>
           </div>
         </article>
 
- 	<!-- ม.6 -->
-        <article class="course-card">
-          <div class="chip">ออนไลน์ - เตรียม ม.6</div>
-          <div class="course-card-title">คอร์สซัมเมอร์ – ฟิสิกส์/เคมี</div>
+ 	      <article class="course-card">
+          <div class="chip">ชั้น ม.6</div>
+          <div class="course-card-title">คอร์ส ม.6 (คณิต/ฟิสิกส์/เคมี)</div>
           <ul>
-            <li>เรียน 48 ชั่วโมง – มีบันทึกวิดีโอทุกครั้ง</li>
-            <li>เรียนอังคารถึงศุกร์</li>
-            <li>เหมาะกับน้องที่กำลังขึ้น ม.6 ที่เตรียมสอบเข้ามหาวิทยาลัย</li>
+            <li>จัดเวลาเรียนสะดวก! รวบยอดเรียนวันเสาร์วันเดียว</li>
+            <li>เน้นเนื้อหาควบคู่กับการทำโจทย์เตรียมสอบเข้ามหาลัย</li>
+            <li>แนะนำลงครบ 3 วิชา คุ้มที่สุด!</li>
           </ul>
           <div class="course-card-footer">
-            ราคา 3,500 บาท/คอร์ส – ศิษย์เก่าลด 400 บาท / นักเรียนใหม่ลด 200 บาท (แนะนำเพื่อนลดเพิ่มอีก 200 บาท/คน)
+            เลือกเรียนได้ 1-3 วิชา (ผ่อนชำระได้สูงสุด 2 งวด)
           </div>
           <div class="course-card-actions">
-            <button class="btn-enroll" onclick="goToCheckout('m6-summer')">
-              สมัครคอร์สนี้
+            <button class="btn-enroll" onclick="goToCheckout('m6-term1')">
+              สมัครคอร์ส ม.6
               <span class="hot-pill">HOT!</span>
             </button>
           </div>
         </article>
+      </div>
+    </section>
 
-
-        <!-- Online TGAT/TPAT/A-Level -->
+    <section style="margin-top: 30px;">
+      <div class="section-title">คอร์สออนไลน์เตรียมสอบเฉพาะทาง (Private/Group)</div>
+      <div class="course-grid">
         <article class="course-card">
           <div class="chip">ออนไลน์ – TGAT/TPAT3 + A-Level</div>
           <div class="course-card-title">คอร์สเตรียม TGAT / TPAT3 + A-Level</div>
@@ -679,7 +643,7 @@
             <li>เน้นแนวข้อสอบจริงและเทคนิคทำข้อสอบสนามจริง</li>
           </ul>
           <div class="course-card-footer">
-            250 บ./ชั่วโมง (2 คนขึ้นไป เหลือ 200 บ./ชม./คน)
+            เริ่มต้น 250 บ./ชั่วโมง
           </div>
           <div class="course-card-actions">
             <button class="btn-enroll" onclick="goToCheckout('online-tgat-tpat-alevel')">
@@ -688,7 +652,6 @@
           </div>
         </article>
 
-        <!-- Online NETSAT -->
         <article class="course-card">
           <div class="chip">ออนไลน์ – NETSAT</div>
           <div class="course-card-title">คอร์สเตรียม NETSAT</div>
@@ -698,7 +661,7 @@
             <li>เหมาะกับน้องที่ต้องการคะแนน NETSAT สูง ๆ</li>
           </ul>
           <div class="course-card-footer">
-            250 บ./ชั่วโมง (2 คนขึ้นไป เหลือ 200 บ./ชม./คน)
+            เริ่มต้น 250 บ./ชั่วโมง
           </div>
           <div class="course-card-actions">
             <button class="btn-enroll" onclick="goToCheckout('online-netsat')">
@@ -708,17 +671,16 @@
         </article>
       </div>
     </section>
+
     <div class="footer">
-      © 2025 Well-Do-Win Academy – Course Information
+      © 2026 Well-Do-Win Academy – Course Information
     </div>
   </main>
 
   <script>
-    // ใช้ API เดียวกับหน้า member.html
     const PROFILE_API_URL = 'https://script.google.com/macros/s/AKfycbz0SSt8SDKtSEGwJ3PCpcLKCi7CcTs0l6tPEci7VMqsh0GrPX5hRo1bAizju63LFiKi/exec';
     const STUDENT_PROFILE_KEY = 'studentProfile';
 
-    // ถ้าไม่ล็อกอิน ห้ามดูคอร์ส -> เด้งไปหน้า login
     (function enforceLogin() {
       const userId = localStorage.getItem('userId');
       const userEmail = localStorage.getItem('userEmail') || '';
@@ -731,7 +693,6 @@
       const authBox = document.querySelector('.auth-buttons');
       if (!authBox) return;
 
-      // ดึงชื่อจากโปรไฟล์ใน localStorage ก่อน
       let displayName = '';
       try {
         const raw = localStorage.getItem(STUDENT_PROFILE_KEY);
@@ -755,21 +716,18 @@
 
       const logoutBtn = document.getElementById('logout-btn');
       logoutBtn.addEventListener('click', () => {
-        // ไม่ลบ studentProfile เพื่อเก็บข้อมูลไว้
         localStorage.removeItem('userId');
         localStorage.removeItem('userEmail');
         window.location.href = 'login.html';
       });
 
-      // หลังจากแสดงชื่อจาก localStorage แล้ว
-      // ลองดึงจากชีตมาอัปเดตให้ใหม่อีกรอบ (เผื่อมีการแก้ไข)
       loadProfileNameFromServer(userId, userEmail);
     })();
 
     async function loadProfileNameFromServer(userId, userEmail) {
       try {
         const params = new URLSearchParams({
-          action: 'getDashboard',   // ใช้ action เดียวกับหน้า member
+          action: 'getDashboard',
           userId: userId,
           email: userEmail
         });
@@ -786,7 +744,6 @@
         const fullName = ((p.firstName || '') + (p.lastName ? ' ' + p.lastName : '')).trim();
         if (!fullName) return;
 
-        // เซฟลง localStorage ให้หน้าต่อ ๆ ไปใช้ร่วมกัน
         const profileLocal = {
           userId: userId,
           email: userEmail,
@@ -809,12 +766,10 @@
       }
     }
 
-    // ฟังก์ชันเช็คว่าล็อกอินหรือยัง
     function isLoggedIn() {
       return !!localStorage.getItem('userId');
     }
 
-    // เวลาเด็กกด "สมัครคอร์สนี้"
     function goToCheckout(courseId) {
       if (!isLoggedIn()) {
         localStorage.setItem('pendingCourseId', courseId);
@@ -824,64 +779,6 @@
       }
     }
   </script>
-
-<script>
-(function () {
-  const userId = localStorage.getItem('userId');
-  const userEmail = localStorage.getItem('userEmail') || '';
-  const userDisplayName = localStorage.getItem('userDisplayName') || userEmail || 'สมาชิก';
-
-  const authButtons = document.querySelector('.auth-buttons');
-  const cta = document.querySelector('.cta');
-  let userMenu = document.querySelector('.user-menu');
-
-  function mountUserMenu() {
-    if (!userMenu) {
-      userMenu = document.createElement('div');
-      userMenu.className = 'user-menu';
-      userMenu.innerHTML = `
-        <div class="user-name">👋 สวัสดี, <span id="userNameDisplay"></span></div>
-        <a href="#" class="logout-btn" id="logoutBtn">ออกจากระบบ</a>
-      `;
-      // พยายามแปะไว้ในส่วนหัว ถ้าไม่เจอให้แปะบน body
-      const host =
-        document.querySelector('header') ||
-        document.querySelector('.hero') ||
-        document.querySelector('.site-header') ||
-        document.body;
-      host.style.position = host.style.position || 'relative';
-      host.prepend(userMenu);
-    }
-
-    const nameEl = userMenu.querySelector('#userNameDisplay');
-    if (nameEl) nameEl.textContent = userDisplayName;
-
-    const logoutBtn = userMenu.querySelector('#logoutBtn');
-    if (logoutBtn && !logoutBtn.dataset.bound) {
-      logoutBtn.dataset.bound = '1';
-      logoutBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        localStorage.removeItem('userId');
-        localStorage.removeItem('userEmail');
-        localStorage.removeItem('userDisplayName');
-        window.location.href = 'index.html';
-      });
-    }
-
-    userMenu.style.display = 'flex';
-  }
-
-  if (userId) {
-    if (authButtons) authButtons.style.display = 'none';
-    if (cta) cta.style.display = 'none';
-    mountUserMenu();
-  } else {
-    if (userMenu) userMenu.style.display = 'none';
-    if (authButtons) authButtons.style.display = '';
-    if (cta) cta.style.display = '';
-  }
-})();
-</script>
 
 </body>
 </html>
