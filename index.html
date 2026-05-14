@@ -14,6 +14,13 @@
       color: #333;
     }
 
+    /* ====== Mobile Menu Style ====== */
+    .mobile-menu-toggle { display: none; position: absolute; top: 15px; left: 15px; font-size: 28px; color: white; cursor: pointer; z-index: 1001; }
+    .mobile-dropdown { display: none; position: absolute; top: 60px; left: 15px; background: white; min-width: 200px; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.15); flex-direction: column; z-index: 1000; overflow: hidden; border: 1px solid #eee; }
+    .mobile-dropdown a { padding: 14px 16px; color: #1E3D8F; text-decoration: none; font-weight: 600; border-bottom: 1px solid #f0f0f0; }
+    .mobile-dropdown a:last-child { border-bottom: none; }
+    .mobile-dropdown.show { display: flex; }
+
     /* ปุ่มมุมขวาบน */
     .auth-buttons {
       position: absolute;
@@ -368,7 +375,8 @@
     }
 
     @media (max-width: 768px) {
-      .top-nav { flex-direction: column; gap: 0.5rem; padding: 0.5rem; }
+      .top-nav { display: none !important; }
+      .mobile-menu-toggle { display: block !important; }
       .auth-buttons { position: static; justify-content: center; margin-top: 0.5rem; }
       header { padding-bottom: 1.5rem; }
       .logo-img { height: 90px; }
@@ -380,17 +388,14 @@
       .features, .courses, .reviews, .contact, .info-hub { padding: 1.5rem 1rem; }
       .hub-grid{ grid-template-columns: 1fr; }
 
-      /* ขยับ Mascot บนมือถือไม่ให้ชนกัน */
-      .mascot { height: 130px; bottom: -3rem; }
-      .left-mascot { margin-right: 120px; }
-      .right-mascot { margin-left: 120px; }
+      /* ขยับ Mascot บนมือถือไม่ให้ชนกัน (แก้ไข: ซ่อนแทน) */
+      .mascot { display: none !important; }
 
       .slide-caption { font-size: 0.95rem; padding: 12px; }
       .slider-btn { width: 36px; height: 36px; font-size: 16px; top: 35%; }
     }
 
     @media (max-width: 480px) {
-      .mascot { height: 100px; bottom: -2rem; }
       .left-mascot { margin-right: 90px; }
       .right-mascot { margin-left: 90px; }
     }
@@ -434,6 +439,16 @@
 <body>
 
   <header>
+    <div class="mobile-menu-toggle" id="mobileMenuBtn">☰</div>
+    <div class="mobile-dropdown" id="mobileDropdown">
+      <a href="index.html">หน้าแรก</a>
+      <a href="courses.html">คอร์ส</a>
+      <a href="member.html">หน้าสมาชิก</a>
+      <a href="about.html">เกี่ยวกับเรา</a>
+      <a href="contact.html">ติดต่อ</a>
+      <a href="#">ผลงาน(เร็วๆนี้)</a>
+    </div>
+
     <div class="auth-buttons">
       <a href="login.html" class="login-btn">เข้าสู่ระบบ</a>
       <a href="register.html" class="register-btn">สมัครสมาชิก</a>
@@ -603,7 +618,7 @@
       { src:"images/success_11.jpg", caption:"นางสาวสิริณัฏฐ์ พันธ์ศรี (ใบบัว) สอบติดคณะแพทยศาสตร์ (แผนไทยประยุกต์) มหาวิทยาลัยมหิดล (ig: sirinq3w)", cat:"success" },
       { src:"images/success_12.jpg", caption:"นางสาวไอริสสา กัลยา (ปูเป้) สอบติดคณะเภสัชศาสตร์ มหาวิทยาลัยพะเยา (ig: Pxpaeir)", cat:"success" },
       { src:"images/success_13.jpg", caption:"นางสาวจันทรัสม์ มากมี (เพิร์ส) สอบติดคณะแพทยศาสตร์ (เวชนิทัศน์) มหาวิทยาลัยขอนแก่น (ig: @latahen)", cat:"success" },
-            { src:"images/success_14.jpg", caption:"น.ส.ปุณยวีร์ ไพร่สิงห์ (โฟกัส) สอบติดคณะวิศวกรรมศาสตร์ (สาขาวิศวกรรมเคมี) มหาวิทยาลัยเทคโนโลยีสุรนารี", cat:"success" },
+      { src:"images/success_14.jpg", caption:"น.ส.ปุณยวีร์ ไพร่สิงห์ (โฟกัส) สอบติดคณะวิศวกรรมศาสตร์ (สาขาวิศวกรรมเคมี) มหาวิทยาลัยเทคโนโลยีสุรนารี", cat:"success" },
       { src:"images/success_15.jpg", caption:"น.ส.สิริวิมล คำมูล (มิ้ว) สอบติดคณะวิทยาการคอมพิวเตอร์ (ปัญญาประดิษฐ์) มหาวิทยาลัยขอนแก่น", cat:"success" },
       { src:"images/success_16.jpg", caption:"น.ส.ปิลันทนา มีชัยมาตย์ (น้ำอิง) สอบติดคณะเทคนิคการแพทย์ มหาวิทยาลัยขอนแก่น", cat:"success" },
       { src:"images/success_17.jpg", caption:"น.ส.นิลนภัส พันธุ์พล (นิล) สอบติดคณะศึกษาศาสตร์ (เอกวิทยาศาสตร์) มหาวิทยาลัยขอนแก่น", cat:"success" },
@@ -796,6 +811,21 @@
   }
 })();
 </script>
+
+  <script>
+    // การทำงานของเมนูมือถือ
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileDropdown = document.getElementById('mobileDropdown');
+    if (mobileMenuBtn && mobileDropdown) {
+      mobileMenuBtn.addEventListener('click', (e) => { 
+        e.stopPropagation(); 
+        mobileDropdown.classList.toggle('show'); 
+      });
+      document.addEventListener('click', () => {
+        mobileDropdown.classList.remove('show');
+      });
+    }
+  </script>
 
 </body>
 </html>
