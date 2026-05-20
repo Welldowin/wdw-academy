@@ -150,7 +150,7 @@
         ยอดที่ต้องชำระ: <span id="totalPrice"></span> บาท
       </div>
       
-      <!-- เปลี่ยนเป็น 2 ปุ่ม สำหรับจ่ายเลย กับ จ่ายทีหลัง -->
+      <!-- ปุ่มแยกการจ่ายเงิน (ชำระทีหลัง / ชำระตอนนี้) -->
       <div id="actionButtons">
         <button class="btn" style="background:#f39c12; line-height:1.2; padding:10px; width:50%;" onclick="enrollCourse('pay_later')">
           ลงชื่อสมัครคอร์สนี้<br><span style="font-size:14px; font-weight:normal;">(จ่ายทีหลัง)</span>
@@ -195,9 +195,10 @@
         <option value="4500_3">3 วิชา (4,500.- / หรือโอนแบ่งจ่ายงวดแรก 2,250.-)</option>
       </select>
       
-      <!-- Dropbox สำหรับระบุวิชา จะแสดงผลและเปลี่ยนค่าตามจำนวนวิชาด้านบน -->
+      <!-- Dropbox สำหรับระบุวิชา -->
       <div id="subjectChoiceBox" style="margin-top:10px; display:block;">
         <label style="font-weight:700; color:#1E3D8F;">ระบุวิชาที่ต้องการเรียน:</label>
+        <!-- ค่า Value ถูกตั้งค่าให้สามารถนำไปแตก (Split) ด้วยขีด (-) ได้ง่าย -->
         <select id="subjectChoice" style="width:100%; padding:10px; border-radius:8px; margin-top:6px; border: 1px solid #ccc; font-family:'Kanit', sans-serif;">
           <option value="math">คณิตศาสตร์</option>
           <option value="physics">ฟิสิกส์</option>
@@ -298,7 +299,6 @@
     const newPrice = parseInt(parts[0], 10);
     const count = parseInt(parts[1], 10);
     
-    // อัปเดตราคาและเรียกใช้โค้ดส่วนลดใหม่
     price = newPrice;
     document.getElementById('coupon').dispatchEvent(new Event('input'));
 
@@ -306,9 +306,9 @@
     const choiceSelect = document.getElementById('subjectChoice');
     if(!choiceBox || !choiceSelect) return;
     
-    // รีเซ็ตตัวเลือก
     choiceSelect.innerHTML = '';
     
+    // ตั้งค่า Value ให้เป็น String คั่นด้วยขีด เพื่อให้ JavaScript นำไปแยกได้ง่าย
     if(count === 1) {
       choiceSelect.innerHTML = `
         <option value="math">คณิตศาสตร์</option>
@@ -373,7 +373,7 @@
     totalPriceSpan.textContent = finalPrice;
   });
 
-  // ===== 6) ฟังก์ชันบันทึกการสมัครเรียน =====
+  // ===== 6) ฟังก์ชันบันทึกการสมัครเรียนแบบแยกรายวิชา (Comma-separated) =====
   window.enrollCourse = async function(type) {
     if (!course) {
       alert('ไม่พบข้อมูลคอร์ส กรุณากลับไปเลือกคอร์สใหม่อีกครั้ง');
@@ -389,16 +389,18 @@
 
     if (confirm("ต้องการยืนยันจะลงชื่อเรียนคอร์สนี้หรือไม่?")) {
       
-      // นำรหัสคอร์สหลักมาต่อกับวิชาที่เลือก
       let finalCourseId = courseId;
       const choiceSelect = document.getElementById('subjectChoice');
       
-      // ถ้าเป็นคอร์สที่มีการเลือกวิชา (m4, m5, m6) ให้ต่อท้ายด้วยชื่อวิชา
+      // ถ้ามีการเลือกวิชา ให้หั่น (Split) เพื่อกระจายเป็นรายวิชาแยกกันด้วยลูกน้ำ (Comma)
       if (choiceSelect && choiceSelect.value) {
-         finalCourseId = courseId + '-' + choiceSelect.value;
+         const subjects = choiceSelect.value.split('-'); // เช่น 'math-physics' กลายเป็น ['math', 'physics']
+         // แปลงแต่ละวิชาให้มี Prefix ของชั้นปี เช่น 'm5-term1-math', 'm5-term1-physics'
+         const courseArray = subjects.map(sub => courseId + '-' + sub);
+         // รวมกลับเป็น String ด้วยลูกน้ำ
+         finalCourseId = courseArray.join(','); 
       }
       
-      // ทำการส่งข้อมูลไป Google Apps Script
       const btnBox = document.getElementById('actionButtons');
       const originalBtns = btnBox.innerHTML;
       btnBox.innerHTML = '<p style="text-align:center; color:#1E3D8F; font-weight:bold; width:100%; font-size: 16px;">กำลังลงชื่อสมัครเรียนให้ครับ... ⏳</p>';
