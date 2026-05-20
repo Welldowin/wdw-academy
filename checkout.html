@@ -70,10 +70,11 @@
       font-weight: 600;
       cursor: pointer;
       margin-top: 16px;
+      transition: background 0.3s;
     }
 
     .btn:hover {
-      background: #c0392b;
+      opacity: 0.9;
     }
 
     .qr-box {
@@ -110,6 +111,21 @@
       font-size: 18px;
       line-height: 1;
     }
+
+    #actionButtons {
+        display: flex;
+        gap: 10px;
+        margin-top: 16px;
+    }
+    
+    @media (max-width: 480px) {
+        #actionButtons {
+            flex-direction: column;
+        }
+        #actionButtons .btn {
+            width: 100% !important;
+        }
+    }
   </style>
 </head>
 <body>
@@ -133,7 +149,16 @@
       <div class="price-box">
         ยอดที่ต้องชำระ: <span id="totalPrice"></span> บาท
       </div>
-      <button class="btn" onclick="createOrder()">ชำระเงินด้วย QR Code</button>
+      
+      <!-- เปลี่ยนเป็น 2 ปุ่ม สำหรับจ่ายเลย กับ จ่ายทีหลัง -->
+      <div id="actionButtons">
+        <button class="btn" style="background:#f39c12; line-height:1.2; padding:10px; width:50%;" onclick="enrollCourse('pay_later')">
+          ลงชื่อสมัครคอร์สนี้<br><span style="font-size:14px; font-weight:normal;">(จ่ายทีหลัง)</span>
+        </button>
+        <button class="btn" style="background:#d94c4c; line-height:1.2; padding:10px; width:50%;" onclick="enrollCourse('pay_now')">
+          ชำระเงินด้วย<br><span style="font-size:14px; font-weight:normal;">QR Code</span>
+        </button>
+      </div>
     </div>
 
     <div class="qr-box" id="qrBox">
@@ -155,84 +180,52 @@
   // ===== 1) ตั้งค่า PromptPay =====
   const PROMPTPAY_ID  = '0635455645';
 
-  // ฟังก์ชันอัปเดตราคากรณีเปลี่ยนจำนวนวิชา
-  window.updatePrice = function(newPrice) {
-    price = parseInt(newPrice, 10);
-    // กระตุ้นให้โค้ดส่วนลดทำงานใหม่เผื่อมียอดที่เปลี่ยนไป
-    document.getElementById('coupon').dispatchEvent(new Event('input'));
-  };
+  // ===== 2) ข้อมูลคอร์ส + โครงสร้าง HTML แบบ Template =====
+  const courseTemplate = (level, title, timeSchedule, imgName) => `
+    <img src="images/${imgName}" alt="ตารางเรียน ${level}" style="width:100%; border-radius:10px; margin-bottom:10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+    <p style="font-size:14px; color:#555;">
+      <strong>ตารางเรียน ${level}:</strong><br>
+      ${timeSchedule}
+    </p>
+    <div style="margin-top:14px; padding-top:10px; border-top: 1px dashed #ccc;">
+      <label style="font-weight:700; color:#1E3D8F;">เลือกจำนวนวิชาที่ต้องการสมัคร:</label>
+      <select id="subjectSelect" style="width:100%; padding:10px; border-radius:8px; margin-top:6px; border: 1px solid #ccc; font-family:'Kanit', sans-serif;" onchange="updatePriceAndOptions(this.value)">
+        <option value="2000_1">1 วิชา (2,000.- / จ่ายเต็มจำนวน)</option>
+        <option value="3600_2">2 วิชา (3,600.- / หรือโอนแบ่งจ่ายงวดแรก 1,800.-)</option>
+        <option value="4500_3">3 วิชา (4,500.- / หรือโอนแบ่งจ่ายงวดแรก 2,250.-)</option>
+      </select>
+      
+      <!-- Dropbox สำหรับระบุวิชา จะแสดงผลและเปลี่ยนค่าตามจำนวนวิชาด้านบน -->
+      <div id="subjectChoiceBox" style="margin-top:10px; display:block;">
+        <label style="font-weight:700; color:#1E3D8F;">ระบุวิชาที่ต้องการเรียน:</label>
+        <select id="subjectChoice" style="width:100%; padding:10px; border-radius:8px; margin-top:6px; border: 1px solid #ccc; font-family:'Kanit', sans-serif;">
+          <option value="math">คณิตศาสตร์</option>
+          <option value="physics">ฟิสิกส์</option>
+          <option value="chem">เคมี</option>
+        </select>
+      </div>
 
-  // ===== 2) ข้อมูลคอร์ส + ตารางเรียน =====
+      <p style="font-size:13px; color:#d9460f; margin-top:6px;">
+        * หากต้องการผ่อนชำระ กรุณาโอนยอดตามงวดแรกที่ระบุในวงเล็บ (1,800 หรือ 2,250) แล้วแจ้งแอดมินทาง LINE ได้เลยครับ
+      </p>
+    </div>
+  `;
+
   const courseData = {
     "m4-term1": {
       title: "คอร์สเทอม 1/2569 – ม.4 (คณิต/ฟิสิกส์/เคมี)",
       price: 2000,
-      schedule: `
-        <img src="images/4.png" alt="ตารางเรียน ม.4" style="width:100%; border-radius:10px; margin-bottom:10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
-        <p style="font-size:14px; color:#555;">
-          <strong>ตารางเรียน ม.4:</strong><br>
-          - <b>วันศุกร์ (เย็น):</b> 17:00-18:00 น. | เคมี<br>
-          - <b>วันเสาร์ (เช้า):</b> 09:00-10:00 น. | คณิต, 11:00-12:00 น. | ฟิสิกส์
-        </p>
-        <div style="margin-top:14px; padding-top:10px; border-top: 1px dashed #ccc;">
-          <label style="font-weight:700; color:#1E3D8F;">เลือกจำนวนวิชาที่ต้องการสมัคร:</label>
-          <select id="subjectSelect" style="width:100%; padding:10px; border-radius:8px; margin-top:6px; border: 1px solid #ccc; font-family:'Kanit', sans-serif;" onchange="updatePrice(this.value)">
-            <option value="2000">1 วิชา (2,000.- / จ่ายเต็มจำนวน)</option>
-            <option value="3600">2 วิชา (3,600.- / หรือโอนแบ่งจ่ายงวดแรก 1,800.-)</option>
-            <option value="4500">3 วิชา (4,500.- / หรือโอนแบ่งจ่ายงวดแรก 2,250.-)</option>
-          </select>
-          <p style="font-size:13px; color:#d9460f; margin-top:6px;">
-            * หากต้องการผ่อนชำระ กรุณาโอนยอดตามงวดแรกที่ระบุในวงเล็บ (1,800 หรือ 2,250) แล้วแจ้งแอดมินทาง LINE ได้เลยครับ
-          </p>
-        </div>
-      `
+      schedule: courseTemplate("ม.4", "คอร์สเทอม 1/2569 – ม.4", "- <b>วันศุกร์ (เย็น):</b> 17:00-18:00 น. | เคมี<br>- <b>วันเสาร์ (เช้า):</b> 09:00-10:00 น. | คณิต, 11:00-12:00 น. | ฟิสิกส์", "4.png")
     },
     "m5-term1": {
       title: "คอร์สเทอม 1/2569 – ม.5 (คณิต/ฟิสิกส์/เคมี)",
       price: 2000,
-      schedule: `
-        <img src="images/5.png" alt="ตารางเรียน ม.5" style="width:100%; border-radius:10px; margin-bottom:10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
-        <p style="font-size:14px; color:#555;">
-          <strong>ตารางเรียน ม.5:</strong><br>
-          - <b>วันศุกร์ (ค่ำ):</b> 18:00-19:00 น. | เคมี<br>
-          - <b>วันเสาร์ (บ่าย):</b> 13:30-14:30 น. | คณิต, 15:30-16:30 น. | ฟิสิกส์
-        </p>
-        <div style="margin-top:14px; padding-top:10px; border-top: 1px dashed #ccc;">
-          <label style="font-weight:700; color:#1E3D8F;">เลือกจำนวนวิชาที่ต้องการสมัคร:</label>
-          <select id="subjectSelect" style="width:100%; padding:10px; border-radius:8px; margin-top:6px; border: 1px solid #ccc; font-family:'Kanit', sans-serif;" onchange="updatePrice(this.value)">
-            <option value="2000">1 วิชา (2,000.- / จ่ายเต็มจำนวน)</option>
-            <option value="3600">2 วิชา (3,600.- / หรือโอนแบ่งจ่ายงวดแรก 1,800.-)</option>
-            <option value="4500">3 วิชา (4,500.- / หรือโอนแบ่งจ่ายงวดแรก 2,250.-)</option>
-          </select>
-          <p style="font-size:13px; color:#d9460f; margin-top:6px;">
-            * หากต้องการผ่อนชำระ กรุณาโอนยอดตามงวดแรกที่ระบุในวงเล็บ (1,800 หรือ 2,250) แล้วแจ้งแอดมินทาง LINE ได้เลยครับ
-          </p>
-        </div>
-      `
+      schedule: courseTemplate("ม.5", "คอร์สเทอม 1/2569 – ม.5", "- <b>วันศุกร์ (ค่ำ):</b> 18:00-19:00 น. | เคมี<br>- <b>วันเสาร์ (บ่าย):</b> 13:30-14:30 น. | คณิต, 15:30-16:30 น. | ฟิสิกส์", "5.png")
     },
     "m6-term1": {
       title: "คอร์สเทอม 1/2569 – ม.6 (คณิต/ฟิสิกส์/เคมี)",
       price: 2000,
-      schedule: `
-        <img src="images/6.png" alt="ตารางเรียน ม.6" style="width:100%; border-radius:10px; margin-bottom:10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
-        <p style="font-size:14px; color:#555;">
-          <strong>ตารางเรียน ม.6 (จัดให้เรียนวันเสาร์วันเดียว!):</strong><br>
-          - 10:00-11:00 น. | คณิต<br>
-          - 12:30-13:30 น. | ฟิสิกส์<br>
-          - 14:30-15:30 น. | เคมี
-        </p>
-        <div style="margin-top:14px; padding-top:10px; border-top: 1px dashed #ccc;">
-          <label style="font-weight:700; color:#1E3D8F;">เลือกจำนวนวิชาที่ต้องการสมัคร:</label>
-          <select id="subjectSelect" style="width:100%; padding:10px; border-radius:8px; margin-top:6px; border: 1px solid #ccc; font-family:'Kanit', sans-serif;" onchange="updatePrice(this.value)">
-            <option value="2000">1 วิชา (2,000.- / จ่ายเต็มจำนวน)</option>
-            <option value="3600">2 วิชา (3,600.- / หรือโอนแบ่งจ่ายงวดแรก 1,800.-)</option>
-            <option value="4500">3 วิชา (4,500.- / หรือโอนแบ่งจ่ายงวดแรก 2,250.-)</option>
-          </select>
-          <p style="font-size:13px; color:#d9460f; margin-top:6px;">
-            * หากต้องการผ่อนชำระ กรุณาโอนยอดตามงวดแรกที่ระบุในวงเล็บ (1,800 หรือ 2,250) แล้วแจ้งแอดมินทาง LINE ได้เลยครับ
-          </p>
-        </div>
-      `
+      schedule: courseTemplate("ม.6", "คอร์สเทอม 1/2569 – ม.6", "- 10:00-11:00 น. | คณิต<br>- 12:30-13:30 น. | ฟิสิกส์<br>- 14:30-15:30 น. | เคมี", "6.png")
     },
     "online-tgat-tpat-alevel": {
       title: "คอร์สออนไลน์ – TGAT / TPAT3 / A-Level",
@@ -298,13 +291,53 @@
 
   totalPriceSpan.textContent = finalPrice;
 
-   // ===== 4) ระบบโค้ดส่วนลด =====
+  // ===== 4) ฟังก์ชันอัปเดตราคา และตัวเลือกวิชาย่อยตามจำนวนวิชา =====
+  window.updatePriceAndOptions = function(val) {
+    if(!val) return;
+    const parts = val.split('_');
+    const newPrice = parseInt(parts[0], 10);
+    const count = parseInt(parts[1], 10);
+    
+    // อัปเดตราคาและเรียกใช้โค้ดส่วนลดใหม่
+    price = newPrice;
+    document.getElementById('coupon').dispatchEvent(new Event('input'));
+
+    const choiceBox = document.getElementById('subjectChoiceBox');
+    const choiceSelect = document.getElementById('subjectChoice');
+    if(!choiceBox || !choiceSelect) return;
+    
+    // รีเซ็ตตัวเลือก
+    choiceSelect.innerHTML = '';
+    
+    if(count === 1) {
+      choiceSelect.innerHTML = `
+        <option value="math">คณิตศาสตร์</option>
+        <option value="physics">ฟิสิกส์</option>
+        <option value="chem">เคมี</option>
+      `;
+      choiceBox.style.display = 'block';
+    } else if(count === 2) {
+      choiceSelect.innerHTML = `
+        <option value="math-physics">คณิตศาสตร์ / ฟิสิกส์</option>
+        <option value="physics-chem">ฟิสิกส์ / เคมี</option>
+        <option value="math-chem">คณิตศาสตร์ / เคมี</option>
+      `;
+      choiceBox.style.display = 'block';
+    } else if(count === 3) {
+      choiceSelect.innerHTML = `
+        <option value="math-physics-chem">เรียนทั้ง 3 วิชา (คณิต/ฟิสิกส์/เคมี)</option>
+      `;
+      choiceBox.style.display = 'block';
+    }
+  };
+
+  // ===== 5) ระบบโค้ดส่วนลด =====
   document.getElementById('coupon').addEventListener('input', function () {
     const code = this.value.trim().toUpperCase();
     const msg  = document.getElementById('couponMsg');
 
     const coupons = {
-      'EARLYBIRD200':  { type: 'fixed',   value: 200 }, // โค้ด Early Bird ใหม่
+      'EARLYBIRD200':  { type: 'fixed',   value: 200 },
       'LASTSTAND21':   { type: 'fixed',   value: 290 },
       'SUMMERSPD10':   { type: 'percent', value: 10 }
     };
@@ -322,12 +355,7 @@
       finalPrice = Math.max(price - discount, 0);
       currentCoupon = code;
 
-      if (coupon.type === 'percent') {
-        msg.textContent = `ใช้โค้ดสำเร็จ! ลด ${coupon.value}% 🎉`;
-      } else {
-        msg.textContent = `ใช้โค้ดสำเร็จ! ลด ${coupon.value} บาท 🎉`;
-      }
-
+      msg.textContent = coupon.type === 'percent' ? `ใช้โค้ดสำเร็จ! ลด ${coupon.value}% 🎉` : `ใช้โค้ดสำเร็จ! ลด ${coupon.value} บาท 🎉`;
       msg.style.color = 'green';
 
     } else if (code.length > 0) {
@@ -345,8 +373,8 @@
     totalPriceSpan.textContent = finalPrice;
   });
 
-  // ===== 5) ฟังก์ชันเมื่อกดปุ่ม "ชำระเงินด้วย QR Code" =====
-  function createOrder() {
+  // ===== 6) ฟังก์ชันบันทึกการสมัครเรียน =====
+  window.enrollCourse = async function(type) {
     if (!course) {
       alert('ไม่พบข้อมูลคอร์ส กรุณากลับไปเลือกคอร์สใหม่อีกครั้ง');
       return;
@@ -354,19 +382,53 @@
 
     const userId = localStorage.getItem('userId') || '';
     if (!userId) {
-      const proceed = confirm(
-        'ยังไม่พบข้อมูลผู้ใช้ในระบบ (userId)\n' +
-        'ต้องการสร้าง QR ชำระเงินต่อเลยหรือไม่?'
-      );
-      if (!proceed) return;
+      alert('กรุณาเข้าสู่ระบบก่อนสมัครคอร์สครับ');
+      window.location.href = 'login.html';
+      return;
     }
 
-    showQR();
-  }
+    if (confirm("ต้องการยืนยันจะลงชื่อเรียนคอร์สนี้หรือไม่?")) {
+      
+      // นำรหัสคอร์สหลักมาต่อกับวิชาที่เลือก
+      let finalCourseId = courseId;
+      const choiceSelect = document.getElementById('subjectChoice');
+      
+      // ถ้าเป็นคอร์สที่มีการเลือกวิชา (m4, m5, m6) ให้ต่อท้ายด้วยชื่อวิชา
+      if (choiceSelect && choiceSelect.value) {
+         finalCourseId = courseId + '-' + choiceSelect.value;
+      }
+      
+      // ทำการส่งข้อมูลไป Google Apps Script
+      const btnBox = document.getElementById('actionButtons');
+      const originalBtns = btnBox.innerHTML;
+      btnBox.innerHTML = '<p style="text-align:center; color:#1E3D8F; font-weight:bold; width:100%; font-size: 16px;">กำลังลงชื่อสมัครเรียนให้ครับ... ⏳</p>';
 
-  window.createOrder = createOrder;
+      try {
+        const url = "https://script.google.com/macros/s/AKfycbzgYdGzCy_g5SiIT1WBYUBjFtkA_zZhN_WTlyolp9ziE8mhFhVT85CHcZF5YHM2s4NQ/exec";
+        const response = await fetch(url + '?action=enroll&userId=' + encodeURIComponent(userId) + '&courseId=' + encodeURIComponent(finalCourseId));
+        const data = await response.json();
 
-  // ===== 6) แสดง QR Code =====
+        if (data.status === 'ok') {
+          if (type === 'pay_now') {
+            btnBox.innerHTML = originalBtns; 
+            showQR(); 
+          } else {
+            alert("ลงชื่อสมัครเรียนเรียบร้อยแล้ว! สามารถชำระเงินภายหลังได้ผ่านหน้าระบบสมาชิกครับ 🎉");
+            window.location.href = "member.html";
+          }
+        } else {
+          alert("เกิดข้อผิดพลาด: " + data.message);
+          btnBox.innerHTML = originalBtns;
+        }
+      } catch(err) {
+        console.error(err);
+        alert("ไม่สามารถติดต่อเซิร์ฟเวอร์ได้ กรุณาลองใหม่ครับ");
+        btnBox.innerHTML = originalBtns;
+      }
+    }
+  };
+
+  // ===== 7) แสดง QR Code =====
   function showQR() {
     const amount = finalPrice || price || 0;
     const qrUrl  = `https://promptpay.io/${PROMPTPAY_ID}/${amount}`;
