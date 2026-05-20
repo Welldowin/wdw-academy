@@ -232,6 +232,9 @@ async function autoSubmitByTimeout() {
 // ----------------------------------------------------
 
 async function initQuizSystem(user, quizData) {
+  // 🔥 บันทึกค่าข้อมูลผู้ใช้เพื่อส่งไปพร้อมคำตอบ
+  currentUser = user; 
+  
   QUIZ_META = quizData.meta;
   QUIZ_DATA = quizData.data;
   MAX_SCORE = QUIZ_DATA.length;
