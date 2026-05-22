@@ -177,7 +177,8 @@ function renderQuestion(index) {
     
     updateNavigator();
     
-    if (window.MathJax) { 
+    // แก้ไขจุดบกพร่องเรื่อง MathJax เรนเดอร์ไม่ทัน
+    if (window.MathJax && typeof MathJax.typesetPromise === 'function') { 
         MathJax.typesetPromise().catch((err) => console.log('MathJax Error:', err));
     }
 }
