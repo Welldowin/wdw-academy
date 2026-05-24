@@ -174,9 +174,9 @@ window.COURSE_DATA = {
       id: "q15",
       prompt: `ในจตุภาคที่ 3 (Quadrant 3) ฟังก์ชันตรีโกณมิติใดมีค่าเป็นบวก?`,
       choices: [
-        { key: "A", text: `$\\sin$ และ $\\csc$` },
-        { key: "B", text: `$\\cos$ และ $\\sec$` },
-        { key: "C", text: `$\\tan$ และ $\\cot$` },
+        { key: "A", text: `$\\sin$` },
+        { key: "B", text: `$\\cos$` },
+        { key: "C", text: `$\\tan$` },
         { key: "D", text: `เป็นบวกทุกฟังก์ชัน` }
       ],
       answer: "C"
