@@ -1,8 +1,8 @@
 window.COURSE_DATA = {
   // ข้อมูลของ quiz1
   "quiz1": {
-  meta: {
-    courseId: "m4-term1-chem",
+    meta: {
+      courseId: "m4-term1-chem",
       quizKey: "quiz1",
       title: "Quiz 1 : โครงสร้างอะตอมและไอโซโทป (30 ข้อ)",
       enableTimer: true,
@@ -357,30 +357,6 @@ window.COURSE_DATA = {
           { key: "B", text: "จำนวนอิเล็กตรอน = $c - 2$" },
           { key: "C", text: "จำนวนอิเล็กตรอน = $c + 2$" },
           { key: "D", text: "เลขมวล = $b + c - 2$" }
-        ],
-        answer: "B"
-    }
-  ]
-},
-  
-  // ข้อมูลของ quiz2 ในวิชาเดียวกัน
-  "quiz2": {
-    meta: {
-      courseId: "m5-summer",
-      quizKey: "quiz2",
-      title: "Quiz 2 : อัตราการเกิดปฏิกิริยา",
-      enableTimer: true,
-      timeLimitSec: 2400
-    },
-    data: [
-      {
-        id: "q1",
-        prompt: `ปัจจัยใดไม่มีผลต่ออัตราการเกิดปฏิกิริยา?`,
-        choices: [
-          { key: "A", text: "อุณหภูมิ" },
-          { key: "B", text: "ความดัน (กรณีของแข็ง)" },
-          { key: "C", text: "พื้นที่ผิว" },
-          { key: "D", text: "ตัวเร่งปฏิกิริยา" }
         ],
         answer: "B"
       }
