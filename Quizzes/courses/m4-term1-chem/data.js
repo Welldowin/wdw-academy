@@ -1,8 +1,8 @@
 window.COURSE_DATA = {
   // ข้อมูลของ quiz1
-    "quiz1": {
-    meta: {
-      courseId: "m4-term1-chem",
+  "quiz1": {
+  meta: {
+    courseId: "m4-term1-chem",
       quizKey: "quiz1",
       title: "Quiz 1 : โครงสร้างอะตอมและไอโซโทป (30 ข้อ)",
       enableTimer: true,
@@ -13,7 +13,9 @@ window.COURSE_DATA = {
       {
         id: "q1",
         prompt: `พิจารณาภาพแบบจำลองอะตอมทั้งสองแบบด้านล่างนี้ แบบจำลองในภาพเป็นของนักวิทยาศาสตร์ท่านใดตามลำดับ?<br><br>
-        image: "./images/001.jpg",
+        <div style="background:#f8f9fa; padding:15px; border-radius:8px; text-align:center; border: 1px dashed #ccc;">
+           <img src="images/001.jpg" alt="แบบจำลองอะตอม" style="max-width:100%; border-radius:4px;">
+        </div><br>`,
         choices: [
           { key: "A", text: "ทอมสัน และ รัทเทอร์ฟอร์ด" },
           { key: "B", text: "ดาลตัน และ ทอมสัน" },
@@ -25,7 +27,9 @@ window.COURSE_DATA = {
       {
         id: "q2",
         prompt: `จากภาพ A, B และ C จงระบุว่าเป็นการทดลองหลักของนักวิทยาศาสตร์ท่านใดตามลำดับ?<br><br>
-        image: "./images/002.jpg",
+        <div style="background:#f8f9fa; padding:15px; border-radius:8px; text-align:center; border: 1px dashed #ccc;">
+           <img src="images/002.jpg" alt="การทดลองโครงสร้างอะตอม" style="max-width:100%; border-radius:4px;">
+        </div><br>`,
         choices: [
           { key: "A", text: "ทอมสัน, มิลลิแกน, รัทเทอร์ฟอร์ด" },
           { key: "B", text: "โกลดชไตน์, มิลลิแกน, รัทเทอร์ฟอร์ด" },
@@ -353,6 +357,30 @@ window.COURSE_DATA = {
           { key: "B", text: "จำนวนอิเล็กตรอน = $c - 2$" },
           { key: "C", text: "จำนวนอิเล็กตรอน = $c + 2$" },
           { key: "D", text: "เลขมวล = $b + c - 2$" }
+        ],
+        answer: "B"
+    }
+  ]
+},
+  
+  // ข้อมูลของ quiz2 ในวิชาเดียวกัน
+  "quiz2": {
+    meta: {
+      courseId: "m5-summer",
+      quizKey: "quiz2",
+      title: "Quiz 2 : อัตราการเกิดปฏิกิริยา",
+      enableTimer: true,
+      timeLimitSec: 2400
+    },
+    data: [
+      {
+        id: "q1",
+        prompt: `ปัจจัยใดไม่มีผลต่ออัตราการเกิดปฏิกิริยา?`,
+        choices: [
+          { key: "A", text: "อุณหภูมิ" },
+          { key: "B", text: "ความดัน (กรณีของแข็ง)" },
+          { key: "C", text: "พื้นที่ผิว" },
+          { key: "D", text: "ตัวเร่งปฏิกิริยา" }
         ],
         answer: "B"
       }
