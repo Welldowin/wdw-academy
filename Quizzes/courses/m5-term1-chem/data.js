@@ -1,10 +1,7 @@
 window.COURSE_DATA = {
-  // เพิ่มรหัสวิชาครอบไว้ชั้นนอกสุด
-  "m5-term1-chem": {
-    // ข้อมูลของ quiz1
-    "quiz1": {
-      meta: {
-        courseId: "m5-term1-chem",
+  "quiz1": {
+    meta: {
+      courseId: "m5-term1-chem",
         quizKey: "quiz1",
         title: "Quiz 1 : กฎของบอยล์และกฎของชาร์ล (30 ข้อ)",
         enableTimer: true,
