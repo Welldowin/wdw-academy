@@ -14,7 +14,7 @@ window.COURSE_DATA = {
         id: "q1",
         prompt: `พิจารณาภาพแบบจำลองอะตอมทั้งสองแบบด้านล่างนี้ แบบจำลองในภาพเป็นของนักวิทยาศาสตร์ท่านใดตามลำดับ?<br><br>
         <div style="background:#f8f9fa; padding:15px; border-radius:8px; text-align:center; border: 1px dashed #ccc;">
-           <img src="images/001.jpg" alt="แบบจำลองอะตอม" style="max-width:100%; border-radius:4px;">
+           <img src="../images/001.jpg" alt="แบบจำลองอะตอม" style="max-width:100%; border-radius:4px;">
         </div><br>`,
         choices: [
           { key: "A", text: "ทอมสัน และ รัทเทอร์ฟอร์ด" },
