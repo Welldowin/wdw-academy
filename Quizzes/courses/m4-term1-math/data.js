@@ -2,352 +2,533 @@ window.COURSE_DATA = {
   // ข้อมูลของ quiz1
   "quiz1": {
   meta: {
-    courseId: "m4-term1-math",
+    courseId: "m5-term1-math",
     quizKey: "quiz1",
-    title: "Quiz 1 : เซต การเขียนเซต และสับเซต (30 ข้อ)",
+    title: "Quiz 1 : ฟังก์ชันตรีโกณมิติเบื้องต้นและวงกลมหนึ่งหน่วย (30 ข้อ)",
     enableTimer: true,
     timeLimitSec: 3600
   },
   data: [
-    // --- ข้อ 1-5: การเขียนเซตแบบแจกแจงสมาชิกและแบบเงื่อนไข ---
+    // --- การแปลงมุมเป็นเรเดียน และเรเดียนเป็นมุม (ข้อ 1-5) ---
     {
       id: "q1",
-      prompt: `กำหนดให้ $A = \{ x \in \mathbb{I} \mid -3 < x \le 2 \}$ ข้อใดเขียนเซต $A$ แบบแจกแจงสมาชิกได้ถูกต้อง
+      prompt: `**การแปลงหน่วยมุม**
+> **สูตร:** องศา $\\rightarrow$ เรเดียน $= \\theta^\\circ \\times \\dfrac{\\pi}{180}$
 
-* $\mathbb{I}$ (Integer): คือเซตของจำนวนเต็มทั้งหมด ครอบคลุมทั้งจำนวนเต็มบวก จำนวนเต็มลบ และศูนย์
-* $\mathbb{Z}$ (Zahlen): มีความหมายเหมือนกับ $\mathbb{I}$ คือเซตของจำนวนเต็ม แต่เป็นสัญลักษณ์ที่นิยมใช้ในระดับสากล
-* $\mathbb{R}$ (Real Number): คือเซตของจำนวนจริงที่ครอบคลุมตัวเลขทุกชนิดที่สามารถหาตำแหน่งบนเส้นจำนวนได้`,
+มุม $30^\\circ$ มีขนาดเท่ากับกี่เรเดียน?`,
       choices: [
-        { key: "A", text: "$\\{-3, -2, -1, 0, 1, 2\\}$" },
-        { key: "B", text: "$\\{-2, -1, 0, 1, 2\\}$" },
-        { key: "C", text: "$\\{-3, -2, -1, 0, 1\\}$" },
-        { key: "D", text: "$\\{-2, -1, 1, 2\\}$" }
+        { key: "A", text: `$\\dfrac{\\pi}{6}$` },
+        { key: "B", text: `$\\dfrac{\\pi}{4}$` },
+        { key: "C", text: `$\\dfrac{\\pi}{3}$` },
+        { key: "D", text: `$\\dfrac{\\pi}{2}$` }
+      ],
+      answer: "A"
+    },
+    {
+      id: "q2",
+      prompt: `**การแปลงหน่วยมุม**
+> **สูตร:** เรเดียน $\\rightarrow$ องศา $= \\theta \\times \\dfrac{180}{\\pi}$
+
+มุม $\\dfrac{3\\pi}{4}$ เรเดียน มีขนาดเท่ากับกี่องศา?`,
+      choices: [
+        { key: "A", text: `$120^\\circ$` },
+        { key: "B", text: `$135^\\circ$` },
+        { key: "C", text: `$150^\\circ$` },
+        { key: "D", text: `$210^\\circ$` }
       ],
       answer: "B"
     },
     {
-      id: "q2",
-      prompt: `กำหนดให้ $B = \\{ x \\in \\mathbb{Z}^+ \\mid x^2 < 15 \\}$ ข้อใดคือเซต $B$ แบบแจกแจงสมาชิก`,
-      choices: [
-        { key: "A", text: "$\\{0, 1, 2, 3\\}$" },
-        { key: "B", text: "$\\{1, 2, 3, 4\\}$" },
-        { key: "C", text: "$\\{1, 2, 3\\}$" },
-        { key: "D", text: "$\\{-3, -2, -1, 0, 1, 2, 3\\}$" }
-      ],
-      answer: "C"
-    },
-    {
       id: "q3",
-      prompt: `กำหนดให้ $C = \\{ x \\in \\mathbb{I}^- \\mid 2x + 7 > 0 \\}$ ผลบวกของสมาชิกทั้งหมดในเซต $C$ มีค่าเท่าใด`,
+      prompt: `**การแปลงหน่วยมุม**
+> **สูตร:** องศา $\\rightarrow$ เรเดียน $= \\theta^\\circ \\times \\dfrac{\\pi}{180}$
+
+มุม $120^\\circ$ มีขนาดเท่ากับกี่เรเดียน?`,
       choices: [
-        { key: "A", text: "-6" },
-        { key: "B", text: "-3" },
-        { key: "C", text: "-10" },
-        { key: "D", text: "0" }
+        { key: "A", text: `$\\dfrac{2\\pi}{3}$` },
+        { key: "B", text: `$\\dfrac{3\\pi}{4}$` },
+        { key: "C", text: `$\\dfrac{5\\pi}{6}$` },
+        { key: "D", text: `$\\dfrac{4\\pi}{3}$` }
       ],
       answer: "A"
     },
     {
       id: "q4",
-      prompt: `กำหนดให้ $S = \\{ 1, 4, 9, 16, 25, \\dots \\}$ ข้อใดคือการเขียนเซต $S$ แบบบอกเงื่อนไขที่ถูกต้องที่สุด`,
+      prompt: `**การแปลงหน่วยมุม**
+> **สูตร:** เรเดียน $\\rightarrow$ องศา $= \\theta \\times \\dfrac{180}{\\pi}$
+
+มุม $\\dfrac{5\\pi}{6}$ เรเดียน มีขนาดเท่ากับกี่องศา?`,
       choices: [
-        { key: "A", text: "$\\{ x \\in \\mathbb{I} \\mid x = n^2 \\text{ เมื่อ } n \\in \\mathbb{I} \\}$" },
-        { key: "B", text: "$\\{ x^2 \\mid x \\in \\mathbb{N} \\}$" },
-        { key: "C", text: "$\\{ x \\mid x = n^2 \\text{ และ } n \\in \\mathbb{N} \\}$" },
-        { key: "D", text: "$\\{ x \\in \\mathbb{R} \\mid x > 0 \\}$" }
+        { key: "A", text: `$120^\\circ$` },
+        { key: "B", text: `$135^\\circ$` },
+        { key: "C", text: `$150^\\circ$` },
+        { key: "D", text: `$210^\\circ$` }
       ],
       answer: "C"
     },
     {
       id: "q5",
-      prompt: `เซตในข้อใดมีจำนวนสมาชิกมากที่สุด`,
+      prompt: `**การแปลงหน่วยมุม**
+> **สูตร:** องศา $\\rightarrow$ เรเดียน $= \\theta^\\circ \\times \\dfrac{\\pi}{180}$
+
+มุม $270^\\circ$ มีขนาดเท่ากับกี่เรเดียน?`,
       choices: [
-        { key: "A", text: "$\\{ x \\in \\mathbb{I} \\mid -4 < x < -1 \\}$" },
-        { key: "B", text: "$\\{ x \\in \\mathbb{Z} \\mid x^2 = 25 \\}$" },
-        { key: "C", text: "$\\{ x \\in \\mathbb{N} \\mid x < 4 \\}$" },
-        { key: "D", text: "$\\{ x \\in \\mathbb{I} \\mid |x| \\le 2 \\}$" }
-      ],
-      answer: "D"
-    },
-    // --- ข้อ 6-10: เซตว่าง และความสัมพันธ์ของการเป็นสมาชิก ---
-    {
-      id: "q6",
-      prompt: `ข้อใดต่อไปนี้เป็นเซตว่าง`,
-      choices: [
-        { key: "A", text: "$\\{ x \\in \\mathbb{R} \\mid x^2 - 1 = 0 \\}$" },
-        { key: "B", text: "$\\{ x \\in \\mathbb{I} \\mid \\frac{2x}{3} = 1 \\}$" },
-        { key: "C", text: "$\\{ x \\in \\mathbb{N} \\mid x + 1 > 1 \\}$" },
-        { key: "D", text: "$\\{ \\emptyset \\}$" }
+        { key: "A", text: `$\\pi$` },
+        { key: "B", text: `$\\dfrac{3\\pi}{2}$` },
+        { key: "C", text: `$\\dfrac{5\\pi}{4}$` },
+        { key: "D", text: `$2\\pi$` }
       ],
       answer: "B"
+    },
+
+    // --- ค่าฟังก์ชันตรีโกณมิติพื้นฐาน 0, 30, 45, 60, 90 (ข้อ 6-10) ---
+    {
+      id: "q6",
+      prompt: `**ค่าฟังก์ชันตรีโกณมิติมาตรฐาน**
+> **ตารางค่ามุมสำคัญ:**
+> | มุม | $\\sin$ | $\\cos$ | $\\tan$ |
+> |:---:|:---:|:---:|:---:|
+> | $0^\\circ$ | $0$ | $1$ | $0$ |
+> | $30^\\circ$ | $\\frac{1}{2}$ | $\\frac{\\sqrt{3}}{2}$ | $\\frac{1}{\\sqrt{3}}$ |
+> | $45^\\circ$ | $\\frac{\\sqrt{2}}{2}$ | $\\frac{\\sqrt{2}}{2}$ | $1$ |
+> | $60^\\circ$ | $\\frac{\\sqrt{3}}{2}$ | $\\frac{1}{2}$ | $\\sqrt{3}$ |
+> | $90^\\circ$ | $1$ | $0$ | ไม่นิยาม |
+
+ค่าของ $\\sin(30^\\circ)$ ตรงกับข้อใด?`,
+      choices: [
+        { key: "A", text: `$\\dfrac{1}{2}$` },
+        { key: "B", text: `$\\dfrac{\\sqrt{2}}{2}$` },
+        { key: "C", text: `$\\dfrac{\\sqrt{3}}{2}$` },
+        { key: "D", text: `$1$` }
+      ],
+      answer: "A"
     },
     {
       id: "q7",
-      prompt: `กำหนดให้ $A = \\{ \\emptyset, 0, 1, \\{0, 1\\} \\}$ ข้อใดกล่าว <b>ผิด</b>`,
+      prompt: `**ค่าฟังก์ชันตรีโกณมิติมาตรฐาน**
+> **ตารางค่ามุมสำคัญ:**
+> | มุม | $\\sin$ | $\\cos$ | $\\tan$ |
+> |:---:|:---:|:---:|:---:|
+> | $0^\\circ$ | $0$ | $1$ | $0$ |
+> | $30^\\circ$ | $\\frac{1}{2}$ | $\\frac{\\sqrt{3}}{2}$ | $\\frac{1}{\\sqrt{3}}$ |
+> | $45^\\circ$ | $\\frac{\\sqrt{2}}{2}$ | $\\frac{\\sqrt{2}}{2}$ | $1$ |
+> | $60^\\circ$ | $\\frac{\\sqrt{3}}{2}$ | $\\frac{1}{2}$ | $\\sqrt{3}$ |
+> | $90^\\circ$ | $1$ | $0$ | ไม่นิยาม |
+
+ค่าของ $\\cos(60^\\circ)$ ตรงกับข้อใด?`,
       choices: [
-        { key: "A", text: "$\\emptyset \\in A$" },
-        { key: "B", text: "$\\{0\\} \\in A$" },
-        { key: "C", text: "$\\{0, 1\\} \\in A$" },
-        { key: "D", text: "$\\{0, 1\\} \\subset A$" }
+        { key: "A", text: `$\\dfrac{1}{2}$` },
+        { key: "B", text: `$\\dfrac{\\sqrt{2}}{2}$` },
+        { key: "C", text: `$\\dfrac{\\sqrt{3}}{2}$` },
+        { key: "D", text: `$1$` }
       ],
-      answer: "B"
+      answer: "A"
     },
     {
       id: "q8",
-      prompt: `กำหนดให้ $B = \\{ \\emptyset, \\{\\emptyset\\}, \\{\\emptyset, \\{\\emptyset\\}\\} \\}$ ข้อใดต่อไปนี้ <b>เป็นจริง</b>`,
+      prompt: `**ค่าฟังก์ชันตรีโกณมิติมาตรฐาน**
+> **ตารางค่ามุมสำคัญ:**
+> | มุม | $\\sin$ | $\\cos$ | $\\tan$ |
+> |:---:|:---:|:---:|:---:|
+> | $0^\\circ$ | $0$ | $1$ | $0$ |
+> | $30^\\circ$ | $\\frac{1}{2}$ | $\\frac{\\sqrt{3}}{2}$ | $\\frac{1}{\\sqrt{3}}$ |
+> | $45^\\circ$ | $\\frac{\\sqrt{2}}{2}$ | $\\frac{\\sqrt{2}}{2}$ | $1$ |
+> | $60^\\circ$ | $\\frac{\\sqrt{3}}{2}$ | $\\frac{1}{2}$ | $\\sqrt{3}$ |
+> | $90^\\circ$ | $1$ | $0$ | ไม่นิยาม |
+
+ค่าของ $\\tan(45^\\circ)$ ตรงกับข้อใด?`,
       choices: [
-        { key: "A", text: "$\\emptyset \\notin B$" },
-        { key: "B", text: "$\\{\\{\\emptyset\\}\\} \\subset B$" },
-        { key: "C", text: "$B$ มีสมาชิก 4 ตัว" },
-        { key: "D", text: "$\\{\\emptyset, \\{\\emptyset\\}\\} \\notin B$" }
+        { key: "A", text: `$\\dfrac{1}{\\sqrt{3}}$` },
+        { key: "B", text: `$1$` },
+        { key: "C", text: `$\\sqrt{3}$` },
+        { key: "D", text: `หาค่าไม่ได้` }
       ],
       answer: "B"
     },
     {
       id: "q9",
-      prompt: `ข้อใดกล่าวถูกต้องเกี่ยวกับเซตว่าง ($\\emptyset$)`,
+      prompt: `**ค่าฟังก์ชันตรีโกณมิติมาตรฐาน**
+> **ค่าที่ใช้:** $\\sin(90^\\circ) = 1$ และ $\\cos(0^\\circ) = 1$
+
+ค่าของ $\\sin(90^\\circ) + \\cos(0^\\circ)$ ตรงกับข้อใด?`,
       choices: [
-        { key: "A", text: "เซตว่างไม่มีสับเซต" },
-        { key: "B", text: "เซตว่างเป็นสับเซตแท้ของทุกเซต" },
-        { key: "C", text: "สับเซตทั้งหมดของ $\\{ \\emptyset \\}$ มี 2 เซต คือ $\\emptyset$ และ $\\{ \\emptyset \\}$" },
-        { key: "D", text: "$\\emptyset \\in \\emptyset$" }
+        { key: "A", text: `$0$` },
+        { key: "B", text: `$1$` },
+        { key: "C", text: `$2$` },
+        { key: "D", text: `$-1$` }
       ],
       answer: "C"
     },
     {
       id: "q10",
-      prompt: `กำหนดให้ $M = \\{ x \\in \\mathbb{I} \\mid x^2 < 0 \\}$ จำนวนสับเซตทั้งหมดของ $M$ เท่ากับเท่าใด`,
+      prompt: `**ค่าฟังก์ชันตรีโกณมิติมาตรฐาน**
+> **ความสัมพันธ์:** $\\tan(\\theta) = \\dfrac{\\sin(\\theta)}{\\cos(\\theta)}$
+
+ค่าของ $\\tan(60^\\circ)$ ตรงกับข้อใด?`,
       choices: [
-        { key: "A", text: "0" },
-        { key: "B", text: "1" },
-        { key: "C", text: "2" },
-        { key: "D", text: "หาค่าไม่ได้" }
-      ],
-      answer: "B"
-    },
-    // --- ข้อ 11-15: การหาสับเซตและสับเซตแท้พื้นฐาน ---
-    {
-      id: "q11",
-      prompt: `เซต $A$ มีสมาชิก 5 ตัว จำนวนสับเซตทั้งหมดของ $A$ เท่ากับเท่าใด`,
-      choices: [
-        { key: "A", text: "16" },
-        { key: "B", text: "31" },
-        { key: "C", text: "32" },
-        { key: "D", text: "64" }
+        { key: "A", text: `$\\dfrac{1}{\\sqrt{3}}$` },
+        { key: "B", text: `$1$` },
+        { key: "C", text: `$\\sqrt{3}$` },
+        { key: "D", text: `หาค่าไม่ได้` }
       ],
       answer: "C"
     },
+
+    // --- ค่ามุม 37 และ 53 (ข้อ 11-13) ---
+    {
+      id: "q11",
+      prompt: `**ค่าประมาณมุม 37° และ 53°**
+> **จำไว้:** ใช้อัตราส่วน $3:4:5$ (สามเหลี่ยมมุมฉาก)
+> - $\\sin(37^\\circ) \\approx \\dfrac{3}{5} = 0.6$, $\\;\\cos(37^\\circ) \\approx \\dfrac{4}{5} = 0.8$
+> - $\\sin(53^\\circ) \\approx \\dfrac{4}{5} = 0.8$, $\\;\\cos(53^\\circ) \\approx \\dfrac{3}{5} = 0.6$
+> - หมายเหตุ: $37^\\circ + 53^\\circ = 90^\\circ$ (เป็นมุมเสริมกัน)
+
+ค่าประมาณของ $\\sin(37^\\circ)$ ตรงกับข้อใด?`,
+      choices: [
+        { key: "A", text: `$\\dfrac{3}{5}$` },
+        { key: "B", text: `$\\dfrac{4}{5}$` },
+        { key: "C", text: `$\\dfrac{3}{4}$` },
+        { key: "D", text: `$\\dfrac{4}{3}$` }
+      ],
+      answer: "A"
+    },
     {
       id: "q12",
-      prompt: `เซต $B = \\{ x \\in \\mathbb{I} \\mid -2 \\le x < 3 \\}$ มีสับเซตแท้ทั้งหมดกี่เซต`,
+      prompt: `**ค่าประมาณมุม 37° และ 53°**
+> **จำไว้:** ใช้อัตราส่วน $3:4:5$ (สามเหลี่ยมมุมฉาก)
+> - $\\sin(37^\\circ) \\approx \\dfrac{3}{5}$, $\\;\\cos(37^\\circ) \\approx \\dfrac{4}{5}$
+> - $\\sin(53^\\circ) \\approx \\dfrac{4}{5}$, $\\;\\cos(53^\\circ) \\approx \\dfrac{3}{5}$
+> - หมายเหตุ: $\\cos(53^\\circ) = \\sin(37^\\circ)$ เนื่องจาก $37^\\circ + 53^\\circ = 90^\\circ$
+
+ค่าประมาณของ $\\cos(53^\\circ)$ ตรงกับข้อใด?`,
       choices: [
-        { key: "A", text: "15" },
-        { key: "B", text: "31" },
-        { key: "C", text: "32" },
-        { key: "D", text: "63" }
+        { key: "A", text: `$\\dfrac{3}{5}$` },
+        { key: "B", text: `$\\dfrac{4}{5}$` },
+        { key: "C", text: `$\\dfrac{3}{4}$` },
+        { key: "D", text: `$\\dfrac{4}{3}$` }
       ],
-      answer: "B"
+      answer: "A"
     },
     {
       id: "q13",
-      prompt: `ถ้าเซต $C$ มีสับเซตแท้ทั้งหมด 127 เซต แล้วเซต $C$ มีจำนวนสมาชิกกี่ตัว`,
+      prompt: `**ค่าประมาณมุม 37° และ 53°**
+> **สูตร:** $\\tan(\\theta) = \\dfrac{\\sin(\\theta)}{\\cos(\\theta)} = \\dfrac{\\text{ด้านตรงข้าม}}{\\text{ด้านประชิด}}$
+>
+> สำหรับมุม $37^\\circ$: $\\sin(37^\\circ) \\approx \\dfrac{3}{5}$, $\\;\\cos(37^\\circ) \\approx \\dfrac{4}{5}$
+
+ค่าประมาณของ $\\tan(37^\\circ)$ ตรงกับข้อใด?`,
       choices: [
-        { key: "A", text: "6" },
-        { key: "B", text: "7" },
-        { key: "C", text: "8" },
-        { key: "D", text: "128" }
+        { key: "A", text: `$\\dfrac{3}{5}$` },
+        { key: "B", text: `$\\dfrac{4}{5}$` },
+        { key: "C", text: `$\\dfrac{3}{4}$` },
+        { key: "D", text: `$\\dfrac{4}{3}$` }
       ],
-      answer: "B"
+      answer: "C"
     },
+
+    // --- เครื่องหมายและจตุภาค (Quadrant) (ข้อ 14-18) ---
     {
       id: "q14",
-      prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid (x^2 - 1)(x^2 - 4) = 0 \\}$ จำนวนสับเซตแท้ของ $A$ คือข้อใด`,
+      prompt: `**จตุภาคบนวงกลมหนึ่งหน่วย**
+> **แบ่งตามช่วงมุม (องศา):**
+> - จตุภาคที่ **I** : $0^\\circ < \\theta < 90^\\circ$ → $\\sin > 0,\\; \\cos > 0$
+> - จตุภาคที่ **II** : $90^\\circ < \\theta < 180^\\circ$ → $\\sin > 0,\\; \\cos < 0$
+> - จตุภาคที่ **III** : $180^\\circ < \\theta < 270^\\circ$ → $\\sin < 0,\\; \\cos < 0$
+> - จตุภาคที่ **IV** : $270^\\circ < \\theta < 360^\\circ$ → $\\sin < 0,\\; \\cos > 0$
+
+มุม $150^\\circ$ ตกอยู่ในจตุภาค (Quadrant) ใดของวงกลมหนึ่งหน่วย?`,
       choices: [
-        { key: "A", text: "7" },
-        { key: "B", text: "15" },
-        { key: "C", text: "16" },
-        { key: "D", text: "31" }
+        { key: "A", text: `จตุภาคที่ I` },
+        { key: "B", text: `จตุภาคที่ II` },
+        { key: "C", text: `จตุภาคที่ III` },
+        { key: "D", text: `จตุภาคที่ IV` }
       ],
       answer: "B"
     },
     {
       id: "q15",
-      prompt: `ให้ $A$ เป็นเซตของตัวอักษรในคำว่า "THAILAND" จำนวนสับเซตแท้ของ $A$ คือข้อใด`,
+      prompt: `**เครื่องหมายของฟังก์ชันตรีโกณมิติในแต่ละจตุภาค**
+> **กฎ "ASTC" (All Students Take Calculus):**
+> - จตุภาค **I** : ทุกฟังก์ชัน $(+)$
+> - จตุภาค **II** : $\\sin, \\csc$ เป็น $(+)$
+> - จตุภาค **III** : $\\tan, \\cot$ เป็น $(+)$
+> - จตุภาค **IV** : $\\cos, \\sec$ เป็น $(+)$
+
+ในจตุภาคที่ III ฟังก์ชันตรีโกณมิติใดมีค่าเป็นบวก?`,
       choices: [
-        { key: "A", text: "63" },
-        { key: "B", text: "127" },
-        { key: "C", text: "128" },
-        { key: "D", text: "255" }
-      ],
-      answer: "B"
-    },
-    // --- ข้อ 16-20: สับเซตแบบมีเงื่อนไข (รวม/ไม่รวมสมาชิก) ---
-    {
-      id: "q16",
-      prompt: `กำหนดให้ $A = \\{ 1, 2, 3, 4, 5, 6 \\}$ จำนวนสับเซต $X$ ของ $A$ ซึ่ง $1 \\in X$ มีทั้งหมดกี่เซต`,
-      choices: [
-        { key: "A", text: "16" },
-        { key: "B", text: "31" },
-        { key: "C", text: "32" },
-        { key: "D", text: "64" }
+        { key: "A", text: `$\\sin$ และ $\\csc$` },
+        { key: "B", text: `$\\cos$ และ $\\sec$` },
+        { key: "C", text: `$\\tan$ และ $\\cot$` },
+        { key: "D", text: `เป็นบวกทุกฟังก์ชัน` }
       ],
       answer: "C"
     },
     {
-      id: "q17",
-      prompt: `กำหนดให้ $S = \\{ a, b, c, d, e \\}$ จำนวนสับเซตของ $S$ ที่ไม่มี $a$ และ $b$ เป็นสมาชิก มีทั้งหมดกี่เซต`,
+      id: "q16",
+      prompt: `**จตุภาคจากเครื่องหมายของฟังก์ชัน**
+> **กฎ "ASTC":**
+> - จตุภาค **I** : $\\sin > 0,\\; \\cos > 0$
+> - จตุภาค **II** : $\\sin > 0,\\; \\cos < 0$
+> - จตุภาค **III** : $\\sin < 0,\\; \\cos < 0$
+> - จตุภาค **IV** : $\\sin < 0,\\; \\cos > 0$
+
+ถ้า $\\sin(\\theta) < 0$ และ $\\cos(\\theta) > 0$ แล้ว มุม $\\theta$ จะอยู่ในจตุภาคใด?`,
       choices: [
-        { key: "A", text: "8" },
-        { key: "B", text: "16" },
-        { key: "C", text: "24" },
-        { key: "D", text: "32" }
+        { key: "A", text: `จตุภาคที่ I` },
+        { key: "B", text: `จตุภาคที่ II` },
+        { key: "C", text: `จตุภาคที่ III` },
+        { key: "D", text: `จตุภาคที่ IV` }
+      ],
+      answer: "D"
+    },
+    {
+      id: "q17",
+      prompt: `**จตุภาคบนวงกลมหนึ่งหน่วย (หน่วยเรเดียน)**
+> **แบ่งตามช่วงมุม (เรเดียน):**
+> - จตุภาค **I** : $0 < \\theta < \\dfrac{\\pi}{2}$
+> - จตุภาค **II** : $\\dfrac{\\pi}{2} < \\theta < \\pi$
+> - จตุภาค **III** : $\\pi < \\theta < \\dfrac{3\\pi}{2}$
+> - จตุภาค **IV** : $\\dfrac{3\\pi}{2} < \\theta < 2\\pi$
+
+มุม $\\dfrac{7\\pi}{4}$ เรเดียน ตกอยู่ในจตุภาคใด?`,
+      choices: [
+        { key: "A", text: `จตุภาคที่ I` },
+        { key: "B", text: `จตุภาคที่ II` },
+        { key: "C", text: `จตุภาคที่ III` },
+        { key: "D", text: `จตุภาคที่ IV` }
+      ],
+      answer: "D"
+    },
+    {
+      id: "q18",
+      prompt: `**เครื่องหมายของ $\\cos$ และ $\\sin$ ในแต่ละจตุภาค**
+> มุม $\\dfrac{4\\pi}{3}$ เรเดียน $= 240^\\circ$ → อยู่ในจตุภาคที่ **III**
+>
+> **กฎ "ASTC":**
+> - จตุภาค **III** : $\\cos < 0$ และ $\\sin < 0$
+>
+> ดังนั้นเครื่องหมายของ $(\\cos,\\; \\sin)$ คือ $(-, -)$
+
+สำหรับมุม $\\dfrac{4\\pi}{3}$ เรเดียน เครื่องหมายของฟังก์ชัน $(\\cos,\\; \\sin)$ คือข้อใดตามลำดับ?`,
+      choices: [
+        { key: "A", text: `$(+,\\; +)$` },
+        { key: "B", text: `$(-,\\; +)$` },
+        { key: "C", text: `$(-,\\; -)$` },
+        { key: "D", text: `$(+,\\; -)$` }
+      ],
+      answer: "C"
+    },
+
+    // --- คู่อันดับ (x, y) บนวงกลมหนึ่งหน่วย (ข้อ 19-23) ---
+    {
+      id: "q19",
+      prompt: `**คู่อันดับบนวงกลมหนึ่งหน่วย**
+> **นิยาม:** บนวงกลมหนึ่งหน่วย $x^2 + y^2 = 1$ จุดที่มุม $\\theta$ คือ
+> $$P(\\theta) = (\\cos\\theta,\\; \\sin\\theta)$$
+> **มุมสำคัญ:**
+> - $\\theta = 0$ → $(1, 0)$
+> - $\\theta = \\dfrac{\\pi}{2}$ → $(0, 1)$
+> - $\\theta = \\pi$ → $(-1, 0)$
+> - $\\theta = \\dfrac{3\\pi}{2}$ → $(0, -1)$
+
+คู่อันดับ $(x, y)$ บนวงกลมหนึ่งหน่วยที่สอดคล้องกับมุม $0$ เรเดียน คือข้อใด?`,
+      choices: [
+        { key: "A", text: `$(0, 1)$` },
+        { key: "B", text: `$(1, 0)$` },
+        { key: "C", text: `$(0, -1)$` },
+        { key: "D", text: `$(-1, 0)$` }
+      ],
+      answer: "B"
+    },
+    {
+      id: "q20",
+      prompt: `**คู่อันดับบนวงกลมหนึ่งหน่วย**
+> **นิยาม:** $P(\\theta) = (\\cos\\theta,\\; \\sin\\theta)$
+>
+> เมื่อ $\\theta = \\dfrac{\\pi}{2}$:
+> - $\\cos\\left(\\dfrac{\\pi}{2}\\right) = 0$
+> - $\\sin\\left(\\dfrac{\\pi}{2}\\right) = 1$
+
+จุดปลายส่วนโค้งที่ยาว $\\dfrac{\\pi}{2}$ หน่วยบนวงกลมหนึ่งหน่วย คือคู่อันดับใด?`,
+      choices: [
+        { key: "A", text: `$(0, 1)$` },
+        { key: "B", text: `$(1, 0)$` },
+        { key: "C", text: `$(0, -1)$` },
+        { key: "D", text: `$(-1, 0)$` }
       ],
       answer: "A"
     },
     {
-      id: "q18",
-      prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I}^+ \\mid 2x - 1 < 10 \\}$ จำนวนสับเซต $X \\subset A$ ซึ่ง $1 \\in X$ และ $5 \\notin X$ คือเท่าใด`,
-      choices: [
-        { key: "A", text: "4" },
-        { key: "B", text: "8" },
-        { key: "C", text: "16" },
-        { key: "D", text: "32" }
-      ],
-      answer: "B"
-    },
-    {
-      id: "q19",
-      prompt: `กำหนดให้ $A = \\{ 1, 2 \\}$ และ $B = \\{ 1, 2, 3, 4, 5 \\}$ มีเซต $C$ กี่เซตที่สอดคล้องกับเงื่อนไข $A \\subset C \\subset B$`,
-      choices: [
-        { key: "A", text: "4" },
-        { key: "B", text: "7" },
-        { key: "C", text: "8" },
-        { key: "D", text: "16" }
-      ],
-      answer: "C"
-    },
-    {
-      id: "q20",
-      prompt: `จากข้อ 19 หากเปลี่ยนเงื่อนไขเป็น $A \\subset C$ และ $C$ เป็นสับเซตแท้ของ $B$ จะมีเซต $C$ ได้ทั้งหมดกี่เซต`,
-      choices: [
-        { key: "A", text: "6" },
-        { key: "B", text: "7" },
-        { key: "C", text: "8" },
-        { key: "D", text: "15" }
-      ],
-      answer: "B"
-    },
-    // --- ข้อ 21-25: การวิเคราะห์เชิงซ้อนและทฤษฎีเซต ---
-    {
       id: "q21",
-      prompt: `ถ้าเพิ่มสมาชิกในเซต $A$ อีก 2 ตัว จะทำให้จำนวนสับเซตทั้งหมดเพิ่มขึ้น 192 เซต เดิมเซต $A$ มีสมาชิกกี่ตัว`,
+      prompt: `**คู่อันดับบนวงกลมหนึ่งหน่วย**
+> **นิยาม:** $P(\\theta) = (\\cos\\theta,\\; \\sin\\theta)$
+>
+> เมื่อ $\\theta = 180^\\circ = \\pi$:
+> - $\\cos(180^\\circ) = -1$
+> - $\\sin(180^\\circ) = 0$
+
+คู่อันดับ $(x, y)$ ที่สอดคล้องกับมุม $180^\\circ$ คือข้อใด?`,
       choices: [
-        { key: "A", text: "5" },
-        { key: "B", text: "6" },
-        { key: "C", text: "7" },
-        { key: "D", text: "8" }
+        { key: "A", text: `$(0, 1)$` },
+        { key: "B", text: `$(1, 0)$` },
+        { key: "C", text: `$(0, -1)$` },
+        { key: "D", text: `$(-1, 0)$` }
       ],
-      answer: "B"
+      answer: "D"
     },
     {
       id: "q22",
-      prompt: `กำหนดให้เซต $S$ มีสับเซตที่มีสมาชิก 2 ตัว ทั้งหมด 10 เซต แล้วเซต $S$ มีสมาชิกทั้งหมดกี่ตัว`,
+      prompt: `**คู่อันดับบนวงกลมหนึ่งหน่วย**
+> **นิยาม:** $P(\\theta) = (\\cos\\theta,\\; \\sin\\theta)$
+>
+> เมื่อ $\\theta = \\dfrac{\\pi}{4} = 45^\\circ$:
+> $$\\cos(45^\\circ) = \\frac{\\sqrt{2}}{2}, \\quad \\sin(45^\\circ) = \\frac{\\sqrt{2}}{2}$$
+
+คู่อันดับ $(x, y)$ ที่สอดคล้องกับมุม $\\dfrac{\\pi}{4}$ เรเดียน คือข้อใด?`,
       choices: [
-        { key: "A", text: "4" },
-        { key: "B", text: "5" },
-        { key: "C", text: "6" },
-        { key: "D", text: "10" }
+        { key: "A", text: `$\\left(\\dfrac{1}{2},\\; \\dfrac{\\sqrt{3}}{2}\\right)$` },
+        { key: "B", text: `$\\left(\\dfrac{\\sqrt{3}}{2},\\; \\dfrac{1}{2}\\right)$` },
+        { key: "C", text: `$\\left(\\dfrac{\\sqrt{2}}{2},\\; \\dfrac{\\sqrt{2}}{2}\\right)$` },
+        { key: "D", text: `$(1,\\; 1)$` }
       ],
-      answer: "B"
+      answer: "C"
     },
     {
       id: "q23",
-      prompt: `กำหนดให้ $X = \\{ x \\in \\mathbb{I} \\mid x^2 < 20 \\}$ และ $Y = \\{ x \\in X \\mid x > 0 \\}$ จำนวนสับเซตของ $Y$ เท่ากับเท่าใด`,
+      prompt: `**คู่อันดับบนวงกลมหนึ่งหน่วย**
+> **นิยาม:** $P(\\theta) = (\\cos\\theta,\\; \\sin\\theta)$
+>
+> มุม $330^\\circ$ อยู่ในจตุภาค **IV** → $\\cos > 0,\\; \\sin < 0$
+>
+> มุมอ้างอิง: $360^\\circ - 330^\\circ = 30^\\circ$
+> $$\\cos(330^\\circ) = \\cos(30^\\circ) = \\frac{\\sqrt{3}}{2}, \\quad \\sin(330^\\circ) = -\\sin(30^\\circ) = -\\frac{1}{2}$$
+
+คู่อันดับ $(x, y)$ บนวงกลมหนึ่งหน่วยที่สอดคล้องกับมุม $330^\\circ$ คือข้อใด?`,
       choices: [
-        { key: "A", text: "8" },
-        { key: "B", text: "15" },
-        { key: "C", text: "16" },
-        { key: "D", text: "32" }
-      ],
-      answer: "C"
-    },
-    {
-      id: "q24",
-      prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid x^3 - 4x = 0 \\}$ และ $B = \\{ x \\in \\mathbb{N} \\mid x \\le 5 \\}$ จำนวนสับเซต $C$ ที่ $A \\subset C \\subset (A \\cup B)$ คือเท่าใด`,
-      choices: [
-        { key: "A", text: "8" },
-        { key: "B", text: "16" },
-        { key: "C", text: "32" },
-        { key: "D", text: "64" }
+        { key: "A", text: `$\\left(\\dfrac{\\sqrt{3}}{2},\\; \\dfrac{1}{2}\\right)$` },
+        { key: "B", text: `$\\left(\\dfrac{\\sqrt{3}}{2},\\; -\\dfrac{1}{2}\\right)$` },
+        { key: "C", text: `$\\left(-\\dfrac{\\sqrt{3}}{2},\\; \\dfrac{1}{2}\\right)$` },
+        { key: "D", text: `$\\left(-\\dfrac{\\sqrt{3}}{2},\\; -\\dfrac{1}{2}\\right)$` }
       ],
       answer: "B"
     },
+
+    // --- สมการและการคำนวณพื้นฐาน (ข้อ 24-30) ---
     {
-      id: "q25",
-      prompt: `กำหนดให้ $X = \\{ 1, 2, \\{3, 4\\}, 5 \\}$ ข้อใดต่อไปนี้กล่าว <b>ผิด</b>`,
+      id: "q24",
+      prompt: `**เอกลักษณ์ตรีโกณมิติพื้นฐาน**
+> **เอกลักษณ์ไพทาโกรัส:**
+> $$\\sin^2(\\theta) + \\cos^2(\\theta) = 1 \\quad \\text{(สำหรับทุกค่า } \\theta \\text{)}$$
+
+ผลลัพธ์ของ $\\sin^2(45^\\circ) + \\cos^2(45^\\circ)$ มีค่าเท่าใด?`,
       choices: [
-        { key: "A", text: "$\\{3, 4\\} \\in X$" },
-        { key: "B", text: "$\\{1, 5\\} \\subset X$" },
-        { key: "C", text: "$\\{3, 4\\} \\subset X$" },
-        { key: "D", text: "$\\{\\{3, 4\\}\\} \\subset X$" }
+        { key: "A", text: `$0$` },
+        { key: "B", text: `$\\dfrac{1}{2}$` },
+        { key: "C", text: `$1$` },
+        { key: "D", text: `$2$` }
       ],
       answer: "C"
     },
-    // --- ข้อ 26-30: โจทย์ประยุกต์และสมบัติของสับเซต ---
+    {
+      id: "q25",
+      prompt: `**สูตรมุมสองเท่า (Double Angle Formula)**
+> $$2\\sin(\\theta)\\cos(\\theta) = \\sin(2\\theta)$$
+>
+> ดังนั้น: $2\\sin(30^\\circ)\\cos(30^\\circ) = \\sin(2 \\times 30^\\circ) = \\sin(60^\\circ)$
+
+ผลลัพธ์ของ $2\\sin(30^\\circ)\\cos(30^\\circ)$ มีค่าเท่าใด?`,
+      choices: [
+        { key: "A", text: `$\\dfrac{1}{2}$` },
+        { key: "B", text: `$\\dfrac{\\sqrt{2}}{2}$` },
+        { key: "C", text: `$\\dfrac{\\sqrt{3}}{2}$` },
+        { key: "D", text: `$1$` }
+      ],
+      answer: "C"
+    },
     {
       id: "q26",
-      prompt: `พิจารณาข้อความ: (1) ถ้า $A \\subset B$ และ $B \\subset C$ แล้ว $A \\subset C$ (2) $\\emptyset \\subset \\{ \\emptyset \\}$ ข้อใดสรุปถูกต้อง`,
+      prompt: `**สูตรมุมสองเท่า (Double Angle Formula)**
+> $$\\cos^2(\\theta) - \\sin^2(\\theta) = \\cos(2\\theta)$$
+>
+> ดังนั้น: $\\cos^2(60^\\circ) - \\sin^2(60^\\circ) = \\cos(2 \\times 60^\\circ) = \\cos(120^\\circ)$
+>
+> และ $\\cos(120^\\circ) = -\\cos(60^\\circ) = -\\dfrac{1}{2}$
+
+ผลลัพธ์ของ $\\cos^2(60^\\circ) - \\sin^2(60^\\circ)$ มีค่าเท่าใด?`,
       choices: [
-        { key: "A", text: "(1) ถูก, (2) ถูก" },
-        { key: "B", text: "(1) ถูก, (2) ผิด" },
-        { key: "C", text: "(1) ผิด, (2) ถูก" },
-        { key: "D", text: "(1) ผิด, (2) ผิด" }
+        { key: "A", text: `$-\\dfrac{1}{2}$` },
+        { key: "B", text: `$0$` },
+        { key: "C", text: `$\\dfrac{1}{2}$` },
+        { key: "D", text: `$1$` }
       ],
       answer: "A"
     },
     {
       id: "q27",
-      prompt: `กำหนดให้ $A = \\{ \\emptyset \\}$ เซตของสับเซตทั้งหมดของ $A$ คือเซตในข้อใด`,
+      prompt: `**การคำนวณค่าฟังก์ชันตรีโกณมิติ**
+> $\\tan(60^\\circ) = \\sqrt{3}$ ดังนั้น:
+> $$\\tan^2(60^\\circ) = (\\sqrt{3})^2 = 3$$
+
+ผลลัพธ์ของ $\\tan^2(60^\\circ) - 1$ มีค่าเท่าใด?`,
       choices: [
-        { key: "A", text: "$\\{ \\emptyset \\}$" },
-        { key: "B", text: "$\\{ \\emptyset, \\{\\emptyset\\} \\}$" },
-        { key: "C", text: "$\\{ \\{\\emptyset\\} \\}$" },
-        { key: "D", text: "$\\emptyset$" }
+        { key: "A", text: `$0$` },
+        { key: "B", text: `$1$` },
+        { key: "C", text: `$2$` },
+        { key: "D", text: `$3$` }
       ],
-      answer: "B"
+      answer: "C"
     },
     {
       id: "q28",
-      prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{R} \\mid |x - 2| \\le 0 \\}$ จำนวนสับเซตของ $A$ เท่ากับเท่าใด`,
+      prompt: `**การคำนวณค่าฟังก์ชันตรีโกณมิติ**
+> ค่าที่ใช้:
+> - $\\sin(30^\\circ) = \\dfrac{1}{2}$
+> - $\\cos(60^\\circ) = \\dfrac{1}{2}$
+>
+> **หมายเหตุ:** $\\sin(30^\\circ) = \\cos(60^\\circ)$ เพราะ $30^\\circ + 60^\\circ = 90^\\circ$ (มุมเสริมกัน)
+
+ผลลัพธ์ของ $\\sin(30^\\circ) + \\cos(60^\\circ)$ มีค่าเท่าใด?`,
       choices: [
-        { key: "A", text: "1" },
-        { key: "B", text: "2" },
-        { key: "C", text: "4" },
-        { key: "D", text: "หาไม่ได้เนื่องจากเป็นเซตอนันต์" }
+        { key: "A", text: `$\\dfrac{1}{2}$` },
+        { key: "B", text: `$1$` },
+        { key: "C", text: `$\\dfrac{3}{2}$` },
+        { key: "D", text: `$2$` }
       ],
       answer: "B"
     },
     {
       id: "q29",
-      prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{N} \\mid x \\text{ หาร } 24 \\text{ ลงตัว } \\}$ เซต $A$ มีจำนวนสับเซตกี่เซต`,
+      prompt: `**การคำนวณค่าฟังก์ชันตรีโกณมิติ**
+> ค่าที่ใช้:
+> - $\\cos(60^\\circ) = \\dfrac{1}{2}$ ดังนั้น $4\\cos(60^\\circ) = 4 \\times \\dfrac{1}{2} = 2$
+> - $\\sin(30^\\circ) = \\dfrac{1}{2}$ ดังนั้น $2\\sin(30^\\circ) = 2 \\times \\dfrac{1}{2} = 1$
+
+ผลลัพธ์ของ $4\\cos(60^\\circ) + 2\\sin(30^\\circ)$ มีค่าเท่าใด?`,
       choices: [
-        { key: "A", text: "64" },
-        { key: "B", text: "128" },
-        { key: "C", text: "256" },
-        { key: "D", text: "512" }
+        { key: "A", text: `$1$` },
+        { key: "B", text: `$2$` },
+        { key: "C", text: `$3$` },
+        { key: "D", text: `$4$` }
       ],
       answer: "C"
     },
     {
       id: "q30",
-      prompt: `กำหนดให้ $A = \\{1, 2, 3\\}$ ข้อความใดต่อไปนี้เป็น <b>จริง</b>`,
+      prompt: `**สูตรผลบวกมุม (Sum Formula)**
+> $$\\sin(A+B) = \\sin A\\cos B + \\cos A\\sin B$$
+>
+> สังเกต: $\\cos(37^\\circ)\\sin(53^\\circ) + \\sin(37^\\circ)\\cos(53^\\circ) = \\sin(37^\\circ + 53^\\circ)$
+>
+> และ $37^\\circ + 53^\\circ = 90^\\circ$ ดังนั้น $\\sin(90^\\circ) = 1$
+
+ผลลัพธ์ของ $\\cos(37^\\circ)\\sin(53^\\circ) + \\sin(37^\\circ)\\cos(53^\\circ)$ มีค่าเท่าใด?`,
       choices: [
-        { key: "A", text: "ถ้า $X \\subset A$ และ $Y \\subset A$ แล้ว $X \\cap Y \\neq \\emptyset$ เสมอ" },
-        { key: "B", text: "สับเซตแท้ของ $A$ ที่มีสมาชิก 2 ตัว มีทั้งหมด 3 เซต" },
-        { key: "C", text: "จำนวนสับเซตของ $A$ ที่มีสมาชิก 1 ตัว เท่ากับจำนวนสับเซตแท้ทั้งหมดของ $A$" },
-        { key: "D", text: "$\\emptyset \\in A$" }
+        { key: "A", text: `$0$` },
+        { key: "B", text: `$\\dfrac{12}{25}$` },
+        { key: "C", text: `$1$` },
+        { key: "D", text: `$\\dfrac{24}{25}$` }
       ],
-      answer: "B"
+      answer: "C"
     }
   ]
 },
@@ -364,7 +545,11 @@ window.COURSE_DATA = {
     data: [
       {
         id: "q1",
-        prompt: `ปัจจัยใดไม่มีผลต่ออัตราการเกิดปฏิกิริยา?`,
+        prompt: `**ปัจจัยที่มีผลต่ออัตราการเกิดปฏิกิริยาเคมี**
+> **ปัจจัยที่มีผล:** อุณหภูมิ, ความเข้มข้น, พื้นที่ผิว, ตัวเร่งปฏิกิริยา
+> **หมายเหตุ:** ความดันมีผลเฉพาะกรณีที่สารเป็น**แก๊ส** ไม่มีผลต่อ**ของแข็ง**
+
+ปัจจัยใดไม่มีผลต่ออัตราการเกิดปฏิกิริยา?`,
         choices: [
           { key: "A", text: "อุณหภูมิ" },
           { key: "B", text: "ความดัน (กรณีของแข็ง)" },
