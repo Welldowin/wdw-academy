@@ -1,7 +1,7 @@
 window.COURSE_DATA = {
   // ข้อมูลของ quiz1
   "quiz1": {
-  meta: {
+    meta: {
     courseId: "m6-term1-chem",
     quizKey: "quiz1",
     title: "Quiz 1 : สารประกอบไฮโดรคาร์บอน (แอลเคน ไซโคลแอลเคน แอลคีน) (30 ข้อ)",
@@ -356,7 +356,7 @@ window.COURSE_DATA = {
         { key: "D", text: "$C_nH_{2n}$ , $C_nH_{2n}$ , $C_nH_{2n+2}$" }
       ],
       answer: "B"
-    }
-  ]
+      }
+    ]
   }
 };
