@@ -51,6 +51,12 @@ function renderQuiz(savedAnswers = {}, disableInputs = false, resultDetail = {})
     const userAnswer = savedAnswers[item.id] || "";
     const detail = resultDetail[item.id];
 
+    // แก้ไข Path รูปภาพอัตโนมัติ แปลง .../images/ หรือ ../images/ ให้ชี้ไปที่โฟลเดอร์วิชาปัจจุบัน
+    let fixedPrompt = item.prompt;
+    if (fixedPrompt) {
+      fixedPrompt = fixedPrompt.replace(/(\.\.\.\/|\.\.\/|\.\/)?images\//g, `./courses/${courseId}/images/`);
+    }
+
     const choicesHtml = item.choices.map(choice => `
       <label class="option-label">
         <input
@@ -70,7 +76,8 @@ function renderQuiz(savedAnswers = {}, disableInputs = false, resultDetail = {})
 
     card.innerHTML = `
       <h3>ข้อ ${index + 1}</h3>
-      <p class="question-text">${item.prompt}</p> <div class="options-grid">${choicesHtml}</div>
+      <p class="question-text">${fixedPrompt}</p> 
+      <div class="options-grid">${choicesHtml}</div>
       ${
         disableInputs
           ? `<div class="review-badge ${detail ? "correct" : "incorrect"}">
@@ -202,8 +209,8 @@ async function handleSubmit(e) {
       action: "submitQuiz",
       userId: currentUser.uid,
       displayName,
-      courseId: courseId, // ส่งค่าตรงตาม URL
-      quizKey: quizKey,   // ส่งค่าตรงตาม URL
+      courseId: courseId, 
+      quizKey: quizKey,   
       score,
       diamondsEarned: reward.diamonds,
       timeSec: elapsedTimeSec,
@@ -232,9 +239,6 @@ async function autoSubmitByTimeout() {
 // ----------------------------------------------------
 
 async function initQuizSystem(user, quizData) {
-  // 🔥 บันทึกค่าข้อมูลผู้ใช้เพื่อส่งไปพร้อมคำตอบ
-  currentUser = user; 
-  
   QUIZ_META = quizData.meta;
   QUIZ_DATA = quizData.data;
   MAX_SCORE = QUIZ_DATA.length;
@@ -330,5 +334,6 @@ window.firebaseOnAuthStateChanged(window.firebaseAuth, (user) => {
     document.getElementById("actionsBar").classList.add("hidden");
     return;
   }
+  currentUser = user; // บันทึก currentUser ไว้ใช้
   loadDataScript(user);
 });
