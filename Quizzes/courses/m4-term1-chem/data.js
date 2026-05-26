@@ -28,7 +28,7 @@ window.COURSE_DATA = {
         id: "q2",
         prompt: `จากภาพ A, B และ C จงระบุว่าเป็นการทดลองหลักของนักวิทยาศาสตร์ท่านใดตามลำดับ?<br><br>
         <div style="background:#f8f9fa; padding:15px; border-radius:8px; text-align:center; border: 1px dashed #ccc;">
-           <img src="images/002.jpg" alt="การทดลองโครงสร้างอะตอม" style="max-width:100%; border-radius:4px;">
+           <img src="../images/002.jpg" alt="การทดลองโครงสร้างอะตอม" style="max-width:100%; border-radius:4px;">
         </div><br>`,
         choices: [
           { key: "A", text: "ทอมสัน, มิลลิแกน, รัทเทอร์ฟอร์ด" },
