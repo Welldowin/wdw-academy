@@ -1,3 +1,4 @@
+window.COURSE_DATA = {
 "quiz1": {
   meta: {
     courseId: "m3-term1-science",
