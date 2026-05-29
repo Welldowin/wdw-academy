@@ -330,10 +330,22 @@ document.getElementById("quizForm").addEventListener("submit", handleSubmit);
 // จุดเริ่มต้นของระบบ
 window.firebaseOnAuthStateChanged(window.firebaseAuth, (user) => {
   if (!user) {
-    showMessage("ยังไม่ได้ล็อกอิน", "กรุณาเข้าสู่ระบบก่อน");
+    // ซ่อนปุ่มต่างๆ
     document.getElementById("actionsBar").classList.add("hidden");
+    
+    // เปลี่ยนข้อความบอกนักเรียน
+    showMessage("ยังไม่ได้ล็อกอิน", "กำลังพากลับไปหน้าเข้าสู่ระบบ...");
+    document.getElementById("quizTitle").textContent = "กรุณาเข้าสู่ระบบ";
+    document.getElementById("courseTitle").textContent = "Well-Do-Win Academy";
+
+    // หน่วงเวลา 1.5 วินาที แล้ว Redirect ไปหน้า Login
+    setTimeout(() => {
+      window.location.href = "./login.html"; // แก้ไขพาธให้ตรงกับหน้า Login จริง
+    }, 1500);
+    
     return;
   }
+  
   currentUser = user; // บันทึก currentUser ไว้ใช้
   loadDataScript(user);
 });
