@@ -169,9 +169,118 @@
       margin-top: 3rem;
       font-size: 0.9rem;
     }
-      .forgot-wrap{margin-top:0.4rem;text-align:right;font-size:0.9rem;}
-    .forgot-wrap a{color:#0b3a65;text-decoration:underline;}
-</style>
+
+    .forgot-wrap {
+      margin-top: 0.4rem;
+      text-align: right;
+      font-size: 0.9rem;
+    }
+
+    .forgot-wrap a {
+      color: #0b3a65;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    /* Toast notification */
+    #toast {
+      display: none;
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 0.8rem 1.4rem;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      z-index: 9999;
+      max-width: 340px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    #toast.success {
+      background-color: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+
+    #toast.error {
+      background-color: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+
+    /* Modal ลืมรหัสผ่าน */
+    #forgotModal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #forgotModal.open {
+      display: flex;
+    }
+
+    .modal-box {
+      background: #fdf7e8;
+      border-radius: 16px;
+      padding: 2rem 1.8rem;
+      width: 100%;
+      max-width: 360px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    }
+
+    .modal-box h3 {
+      margin: 0 0 0.4rem;
+      font-size: 1.2rem;
+      color: #1E3D8F;
+    }
+
+    .modal-box p {
+      font-size: 0.9rem;
+      color: #555;
+      margin-bottom: 1.2rem;
+    }
+
+    .modal-box input {
+      margin-bottom: 1rem;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 0.6rem;
+    }
+
+    .modal-actions button {
+      flex: 1;
+      padding: 0.6rem;
+      border-radius: 8px;
+      border: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    #sendResetBtn {
+      background-color: #1E3D8F;
+      color: white;
+    }
+
+    #sendResetBtn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    #cancelResetBtn {
+      background-color: #e0e0e0;
+      color: #333;
+    }
+  </style>
 </head>
 <body>
 
@@ -200,20 +309,39 @@
 
     <form id="login-form">
       <label for="email">อีเมล</label>
-      <input type="email" id="email" name="email" placeholder="กรอกอีเมลเพื่อเข้าสู่ระบบ">
+      <input type="email" id="email" name="email" placeholder="กรอกอีเมลเพื่อเข้าสู่ระบบ" autocomplete="email">
 
       <label for="password">รหัสผ่าน</label>
-      <input type="password" id="password" name="password" placeholder="กรอกรหัสผ่าน">
+      <input type="password" id="password" name="password" placeholder="กรอกรหัสผ่าน" autocomplete="current-password">
 
-    
-        <div class="forgot-wrap"><a href="#" id="forgotPasswordLink">ลืมรหัสผ่าน?</a></div>
-  <button type="submit" class="primary-btn">เข้าสู่ระบบ</button>
+      <div class="forgot-wrap">
+        <a id="forgotPasswordLink">ลืมรหัสผ่าน?</a>
+      </div>
+
+      <button type="submit" class="primary-btn">เข้าสู่ระบบ</button>
     </form>
 
     <p class="helper-text">
       ยังไม่มีบัญชี? <a href="register.html">สมัครสมาชิก</a>
     </p>
   </section>
+
+  <!-- Modal ลืมรหัสผ่าน -->
+  <div id="forgotModal" role="dialog" aria-modal="true" aria-labelledby="forgotTitle">
+    <div class="modal-box">
+      <h3 id="forgotTitle">รีเซ็ตรหัสผ่าน</h3>
+      <p>กรอกอีเมลที่ใช้สมัครสมาชิก ระบบจะส่งลิงก์รีเซ็ตรหัสผ่านให้ทันที</p>
+      <label for="resetEmail">อีเมล</label>
+      <input type="email" id="resetEmail" placeholder="example@email.com" autocomplete="email">
+      <div class="modal-actions">
+        <button id="cancelResetBtn" type="button">ยกเลิก</button>
+        <button id="sendResetBtn" type="button">ส่งลิงก์รีเซ็ต</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast"></div>
 
   <footer>
     © 2025 โรงเรียนกวดวิชาเวลดูวิน - เป็นให้มากกว่าโรงเรียนกวดวิชา
@@ -237,56 +365,126 @@
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
 
-    
-
-    // ลืมรหัสผ่าน: ส่งลิงก์รีเซ็ตรหัสผ่านไปที่อีเมล
-    const forgotPasswordLink = document.getElementById('forgotPasswordLink');
-    if (forgotPasswordLink) {
-      forgotPasswordLink.addEventListener('click', async (e) => {
-        e.preventDefault();
-        const email = (document.getElementById('email')?.value || '').trim();
-        const targetEmail = email || prompt('กรุณากรอกอีเมลที่ใช้สมัครสมาชิก');
-        if (!targetEmail) return;
-
-        try {
-          await auth.sendPasswordResetEmail(targetEmail);
-          // ใช้ \n แทนการขึ้นบรรทัดใหม่ในสตริงเดี่ยว เพื่อกัน SyntaxError
-          alert('ส่งลิงก์รีเซ็ตรหัสผ่านไปที่อีเมลแล้ว ✅\nโปรดตรวจสอบ Inbox/Spam');
-        } catch (err) {
-          console.error(err);
-          alert('ส่งอีเมลรีเซ็ตรหัสผ่านไม่สำเร็จ: ' + err.message);
-        }
-      });
+    // ----------------------------------------------------------------
+    // Toast helper
+    // ----------------------------------------------------------------
+    function showToast(message, type = "success", durationMs = 4000) {
+      const toast = document.getElementById("toast");
+      toast.textContent = message;
+      toast.className = type;
+      toast.style.display = "block";
+      clearTimeout(showToast._timer);
+      showToast._timer = setTimeout(() => { toast.style.display = "none"; }, durationMs);
     }
 
-// เมื่อล็อกอินสำเร็จ -> ไปหน้า member.html
-    function afterLogin(user) {
-      if (user && user.uid) {
-        localStorage.setItem('userId', user.uid);
-        localStorage.setItem('userEmail', user.email || '');
-      }
-      window.location.href = 'member.html';
+    // ----------------------------------------------------------------
+    // แปล Firebase error code เป็นภาษาไทย
+    // ----------------------------------------------------------------
+    function translateAuthError(code) {
+      const map = {
+        "auth/user-not-found":       "ไม่พบอีเมลนี้ในระบบ กรุณาตรวจสอบอีเมลอีกครั้ง",
+        "auth/invalid-email":        "รูปแบบอีเมลไม่ถูกต้อง",
+        "auth/wrong-password":       "รหัสผ่านไม่ถูกต้อง",
+        "auth/too-many-requests":    "พยายามเข้าสู่ระบบบ่อยเกินไป กรุณารอสักครู่แล้วลองใหม่",
+        "auth/network-request-failed": "ไม่สามารถเชื่อมต่ออินเทอร์เน็ตได้ กรุณาตรวจสอบการเชื่อมต่อ",
+        "auth/invalid-credential":   "อีเมลหรือรหัสผ่านไม่ถูกต้อง",
+      };
+      return map[code] || "เกิดข้อผิดพลาด: " + code;
     }
 
-    const loginForm = document.getElementById('login-form');
+    // ----------------------------------------------------------------
+    // Modal ลืมรหัสผ่าน
+    // ----------------------------------------------------------------
+    const forgotModal    = document.getElementById("forgotModal");
+    const resetEmailInput = document.getElementById("resetEmail");
+    const sendResetBtn   = document.getElementById("sendResetBtn");
+    const cancelResetBtn = document.getElementById("cancelResetBtn");
 
-    loginForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
+    // เปิด Modal → ดึงอีเมลจาก input หลักมาใส่ให้เลย (ถ้ามี)
+    document.getElementById("forgotPasswordLink").addEventListener("click", () => {
+      const prefill = document.getElementById("email").value.trim();
+      resetEmailInput.value = prefill;
+      forgotModal.classList.add("open");
+      resetEmailInput.focus();
+    });
 
-      const email = document.getElementById('email').value.trim();
-      const password = document.getElementById('password').value;
+    // ปิด Modal
+    cancelResetBtn.addEventListener("click", () => {
+      forgotModal.classList.remove("open");
+    });
 
-      if (!email || !password) {
-        alert('กรุณากรอกอีเมลและรหัสผ่าน');
+    // ปิด Modal เมื่อคลิกนอก modal-box
+    forgotModal.addEventListener("click", (e) => {
+      if (e.target === forgotModal) forgotModal.classList.remove("open");
+    });
+
+    // ส่งอีเมลรีเซ็ต
+    sendResetBtn.addEventListener("click", async () => {
+      const email = resetEmailInput.value.trim();
+
+      if (!email) {
+        showToast("กรุณากรอกอีเมลก่อน", "error");
+        resetEmailInput.focus();
         return;
       }
+
+      // basic format check ก่อนส่ง Firebase
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        showToast("รูปแบบอีเมลไม่ถูกต้อง", "error");
+        resetEmailInput.focus();
+        return;
+      }
+
+      sendResetBtn.disabled = true;
+      sendResetBtn.textContent = "กำลังส่ง...";
+
+      try {
+        await auth.sendPasswordResetEmail(email);
+        forgotModal.classList.remove("open");
+        showToast("ส่งลิงก์รีเซ็ตรหัสผ่านไปที่ " + email + " แล้ว ✅ กรุณาตรวจสอบ Inbox หรือ Spam", "success", 6000);
+      } catch (err) {
+        console.error("sendPasswordResetEmail error:", err.code, err.message);
+        showToast(translateAuthError(err.code), "error", 6000);
+      } finally {
+        sendResetBtn.disabled = false;
+        sendResetBtn.textContent = "ส่งลิงก์รีเซ็ต";
+      }
+    });
+
+    // ----------------------------------------------------------------
+    // Login form
+    // ----------------------------------------------------------------
+    function afterLogin(user) {
+      if (user && user.uid) {
+        localStorage.setItem("userId", user.uid);
+        localStorage.setItem("userEmail", user.email || "");
+      }
+      window.location.href = "member.html";
+    }
+
+    document.getElementById("login-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const email    = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+
+      if (!email || !password) {
+        showToast("กรุณากรอกอีเมลและรหัสผ่าน", "error");
+        return;
+      }
+
+      const btn = e.target.querySelector(".primary-btn");
+      btn.disabled = true;
+      btn.textContent = "กำลังเข้าสู่ระบบ...";
 
       try {
         const userCredential = await auth.signInWithEmailAndPassword(email, password);
         afterLogin(userCredential.user);
       } catch (error) {
-        console.error(error);
-        alert('เข้าสู่ระบบไม่สำเร็จ: ' + error.message);
+        console.error("signIn error:", error.code, error.message);
+        showToast(translateAuthError(error.code), "error", 6000);
+        btn.disabled = false;
+        btn.textContent = "เข้าสู่ระบบ";
       }
     });
   </script>
