@@ -340,7 +340,7 @@ window.firebaseOnAuthStateChanged(window.firebaseAuth, (user) => {
 
     // หน่วงเวลา 1.5 วินาที แล้ว Redirect ไปหน้า Login
     setTimeout(() => {
-      window.location.href = "./login.html"; // แก้ไขพาธให้ตรงกับหน้า Login จริง
+      window.location.href = "../login.html"; // แก้ไขพาธให้ตรงกับหน้า Login จริง
     }, 1500);
     
     return;
