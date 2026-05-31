@@ -349,25 +349,343 @@ window.COURSE_DATA = {
   
   // ข้อมูลของ quiz2 ในวิชาเดียวกัน
   "quiz2": {
-    meta: {
-      courseId: "m5-summer",
-      quizKey: "quiz2",
-      title: "Quiz 2 : อัตราการเกิดปฏิกิริยา",
-      enableTimer: true,
-      timeLimitSec: 2400
+  meta: {
+    courseId: "m3-term1-math",
+    quizKey: "quiz2",
+    title: "Quiz 2 : จำนวนตรรกยะ อตรรกยะ สมการและอสมการของค่าสัมบูรณ์ (30 ข้อ)",
+    enableTimer: true,
+    timeLimitSec: 3600
+  },
+  data: [
+    {
+      id: "q1",
+      prompt: `ข้อใดต่อไปนี้เป็น <b>จำนวนตรรกยะ</b> ?`,
+      choices: [
+        { key: "A", text: "$\\pi$" },
+        { key: "B", text: "$\\sqrt{2}$" },
+        { key: "C", text: "$0.333\\dots$" },
+        { key: "D", text: "$\\sqrt{3}$" }
+      ],
+      answer: "C"
     },
-    data: [
-      {
-        id: "q1",
-        prompt: `ปัจจัยใดไม่มีผลต่ออัตราการเกิดปฏิกิริยา?`,
-        choices: [
-          { key: "A", text: "อุณหภูมิ" },
-          { key: "B", text: "ความดัน (กรณีของแข็ง)" },
-          { key: "C", text: "พื้นที่ผิว" },
-          { key: "D", text: "ตัวเร่งปฏิกิริยา" }
-        ],
-        answer: "B"
-      }
-    ]
-  }
+    {
+      id: "q2",
+      prompt: `ข้อใดต่อไปนี้เป็น <b>จำนวนอตรรกยะ</b> ?`,
+      choices: [
+        { key: "A", text: "$\\sqrt{9}$" },
+        { key: "B", text: "$\\frac{22}{7}$" },
+        { key: "C", text: "$1.414$" },
+        { key: "D", text: "$\\sqrt{5}$" }
+      ],
+      answer: "D"
+    },
+    {
+      id: "q3",
+      prompt: `เขียนทศนิยมซ้ำ $0.555\\dots$ (หรือ $0.\\dot{5}$) ในรูปเศษส่วนได้เท่าใด?`,
+      choices: [
+        { key: "A", text: "$\\frac{5}{9}$" },
+        { key: "B", text: "$\\frac{5}{10}$" },
+        { key: "C", text: "$\\frac{1}{2}$" },
+        { key: "D", text: "$\\frac{5}{11}$" }
+      ],
+      answer: "A"
+    },
+    {
+      id: "q4",
+      prompt: `ผลบวกของ <b>จำนวนตรรกยะ</b> และ <b>จำนวนอตรรกยะ</b> จะเป็นจำนวนชนิดใดเสมอ?`,
+      choices: [
+        { key: "A", text: "จำนวนตรรกยะ" },
+        { key: "B", text: "จำนวนอตรรกยะ" },
+        { key: "C", text: "เป็นไปได้ทั้งสองชนิด" },
+        { key: "D", text: "จำนวนเต็ม" }
+      ],
+      answer: "B"
+    },
+    {
+      id: "q5",
+      prompt: `ค่าของ $\\sqrt{12}$ สามารถจัดให้อยู่ในรูปอย่างง่ายได้ตรงกับข้อใด?`,
+      choices: [
+        { key: "A", text: "$2\\sqrt{3}$" },
+        { key: "B", text: "$3\\sqrt{2}$" },
+        { key: "C", text: "$4\\sqrt{3}$" },
+        { key: "D", text: "$6$" }
+      ],
+      answer: "A"
+    },
+    {
+      id: "q6",
+      prompt: `จำนวนในข้อใด <b>ไม่เป็น</b> จำนวนจริง?`,
+      choices: [
+        { key: "A", text: "$\\sqrt{0}$" },
+        { key: "B", text: "$-\\sqrt{4}$" },
+        { key: "C", text: "$\\sqrt{-4}$" },
+        { key: "D", text: "$\\frac{0}{5}$" }
+      ],
+      answer: "C"
+    },
+    {
+      id: "q7",
+      prompt: `ข้อความใดต่อไปนี้ <b>กล่าวถูกต้อง</b> ?`,
+      choices: [
+        { key: "A", text: "ค่าของ $\\pi$ คือ $\\frac{22}{7}$ พอดี" },
+        { key: "B", text: "$\\sqrt{16}$ เป็นจำนวนอตรรกยะ" },
+        { key: "C", text: "ทศนิยมซ้ำทุกตัวสามารถเขียนเป็นเศษส่วนได้ จึงเป็นจำนวนตรรกยะ" },
+        { key: "D", text: "มีจำนวนจริงบางจำนวนที่สามารถหารด้วยศูนย์ได้" }
+      ],
+      answer: "C"
+    },
+    {
+      id: "q8",
+      prompt: `ผลคูณของ $\\sqrt{2} \\times \\sqrt{8}$ เป็นจำนวนชนิดใด?`,
+      choices: [
+        { key: "A", text: "จำนวนตรรกยะ" },
+        { key: "B", text: "จำนวนอตรรกยะ" },
+        { key: "C", text: "ทศนิยมไม่รู้จบแบบไม่ซ้ำ" },
+        { key: "D", text: "ไม่ใช่จำนวนจริง" }
+      ],
+      answer: "A"
+    },
+    {
+      id: "q9",
+      prompt: `จำนวนในข้อใดมีค่าอยู่ระหว่าง $\\sqrt{2}$ และ $\\sqrt{3}$ ?`,
+      choices: [
+        { key: "A", text: "$1.1$" },
+        { key: "B", text: "$1.5$" },
+        { key: "C", text: "$1.8$" },
+        { key: "D", text: "$2.0$" }
+      ],
+      answer: "B"
+    },
+    {
+      id: "q10",
+      prompt: `ค่าของ $\\frac{\\sqrt{50}}{\\sqrt{2}}$ ตรงกับข้อใด?`,
+      choices: [
+        { key: "A", text: "$5$" },
+        { key: "B", text: "$\\sqrt{25}$" },
+        { key: "C", text: "$25$" },
+        { key: "D", text: "ถูกทั้งข้อ A และ B" }
+      ],
+      answer: "D"
+    },
+    {
+      id: "q11",
+      prompt: `นิยามของ <b>ค่าสัมบูรณ์ของ $x$</b> หรือ $|x|$ คืออะไร?`,
+      choices: [
+        { key: "A", text: "ระยะห่างจาก $x$ ถึง $0$ บนเส้นจำนวน" },
+        { key: "B", text: "ค่าบวกของ $x$ เสมอ" },
+        { key: "C", text: "ค่าของ $x$ ยกกำลังสอง" },
+        { key: "D", text: "ส่วนกลับของ $x$" }
+      ],
+      answer: "A"
+    },
+    {
+      id: "q12",
+      prompt: `ค่าของ $|-5| + |3|$ เท่ากับเท่าใด?`,
+      choices: [
+        { key: "A", text: "$-2$" },
+        { key: "B", text: "$2$" },
+        { key: "C", text: "$8$" },
+        { key: "D", text: "$-8$" }
+      ],
+      answer: "C"
+    },
+    {
+      id: "q13",
+      prompt: `คำตอบของสมการ $|x| = 7$ คือข้อใด?`,
+      choices: [
+        { key: "A", text: "$7$" },
+        { key: "B", text: "$-7$" },
+        { key: "C", text: "$7$ และ $-7$" },
+        { key: "D", text: "ไม่มีคำตอบเป็นจำนวนจริง" }
+      ],
+      answer: "C"
+    },
+    {
+      id: "q14",
+      prompt: `คำตอบของสมการ $|x - 2| = 5$ คือข้อใด?`,
+      choices: [
+        { key: "A", text: "$7$" },
+        { key: "B", text: "$7$ และ $-3$" },
+        { key: "C", text: "$3$ และ $-3$" },
+        { key: "D", text: "$7$ และ $-7$" }
+      ],
+      answer: "B"
+    },
+    {
+      id: "q15",
+      prompt: `สมการในข้อใด <b>ไม่มีคำตอบ</b> ในระบบจำนวนจริง?`,
+      choices: [
+        { key: "A", text: "$|x| = 0$" },
+        { key: "B", text: "$|x| = 1$" },
+        { key: "C", text: "$|x| = -2$" },
+        { key: "D", text: "$|x - 1| = 0$" }
+      ],
+      answer: "C"
+    },
+    {
+      id: "q16",
+      prompt: `คำตอบของสมการ $|2x - 1| = 9$ คือข้อใด?`,
+      choices: [
+        { key: "A", text: "$5$ และ $-4$" },
+        { key: "B", text: "$4$ และ $-5$" },
+        { key: "C", text: "$5$" },
+        { key: "D", text: "$-4$" }
+      ],
+      answer: "A"
+    },
+    {
+      id: "q17",
+      prompt: `กำหนดให้ $|x| = x$ แล้วเงื่อนไขของ $x$ ต้องเป็นไปตามข้อใดจึงจะทำให้สมการเป็นจริง?`,
+      choices: [
+        { key: "A", text: "$x > 0$" },
+        { key: "B", text: "$x < 0$" },
+        { key: "C", text: "$x \\ge 0$" },
+        { key: "D", text: "$x \\le 0$" }
+      ],
+      answer: "C"
+    },
+    {
+      id: "q18",
+      prompt: `คำตอบของสมการ $|x + 3| = |x - 1|$ คือข้อใด?`,
+      choices: [
+        { key: "A", text: "$x = -1$" },
+        { key: "B", text: "$x = 1$" },
+        { key: "C", text: "$x = -2$" },
+        { key: "D", text: "ไม่มีคำตอบ" }
+      ],
+      answer: "A"
+    },
+    {
+      id: "q19",
+      prompt: `ค่า $x$ ในข้อใดที่ทำให้สมการ $|3 - x| = 4$ เป็นจริง?`,
+      choices: [
+        { key: "A", text: "$7$ และ $-1$" },
+        { key: "B", text: "$1$ และ $-7$" },
+        { key: "C", text: "$7$" },
+        { key: "D", text: "$-1$" }
+      ],
+      answer: "A"
+    },
+    {
+      id: "q20",
+      prompt: `คำตอบของสมการ $|\\frac{x}{2} - 1| = 3$ คือข้อใด?`,
+      choices: [
+        { key: "A", text: "$8$ และ $-4$" },
+        { key: "B", text: "$4$ และ $-2$" },
+        { key: "C", text: "$8$" },
+        { key: "D", text: "$-4$" }
+      ],
+      answer: "A"
+    },
+    {
+      id: "q21",
+      prompt: `ช่วงคำตอบของอสมการ $|x| < 4$ คือข้อใด?`,
+      choices: [
+        { key: "A", text: "$-4 < x < 4$" },
+        { key: "B", text: "$x < 4$" },
+        { key: "C", text: "$x > -4$" },
+        { key: "D", text: "$x < -4$ หรือ $x > 4$" }
+      ],
+      answer: "A"
+    },
+    {
+      id: "q22",
+      prompt: `คำตอบของอสมการ $|x| \\ge 2$ คือข้อใด?`,
+      choices: [
+        { key: "A", text: "$-2 \\le x \\le 2$" },
+        { key: "B", text: "$x \\ge 2$" },
+        { key: "C", text: "$x \\le -2$ หรือ $x \\ge 2$" },
+        { key: "D", text: "$x \\le 2$" }
+      ],
+      answer: "C"
+    },
+    {
+      id: "q23",
+      prompt: `คำตอบของอสมการ $|x - 1| < 5$ ตรงกับช่วงในข้อใด?`,
+      choices: [
+        { key: "A", text: "$-4 < x < 6$" },
+        { key: "B", text: "$-6 < x < 4$" },
+        { key: "C", text: "$4 < x < 6$" },
+        { key: "D", text: "$-5 < x < 5$" }
+      ],
+      answer: "A"
+    },
+    {
+      id: "q24",
+      prompt: `คำตอบของอสมการ $|2x + 1| \\le 7$ คือข้อใด?`,
+      choices: [
+        { key: "A", text: "$-4 \\le x \\le 3$" },
+        { key: "B", text: "$-3 \\le x \\le 4$" },
+        { key: "C", text: "$x \\le 3$" },
+        { key: "D", text: "$x \\ge -4$" }
+      ],
+      answer: "A"
+    },
+    {
+      id: "q25",
+      prompt: `มีจำนวนเต็ม $x$ ทั้งหมดกี่จำนวน ที่สอดคล้องกับอสมการ $|x| \\le 3$ ?`,
+      choices: [
+        { key: "A", text: "$3$ จำนวน" },
+        { key: "B", text: "$6$ จำนวน" },
+        { key: "C", text: "$7$ จำนวน" },
+        { key: "D", text: "$4$ จำนวน" }
+      ],
+      answer: "C"
+    },
+    {
+      id: "q26",
+      prompt: `คำตอบของอสมการ $|x + 2| > 3$ คือข้อใด?`,
+      choices: [
+        { key: "A", text: "$x > 1$" },
+        { key: "B", text: "$x < -5$" },
+        { key: "C", text: "$x < -5$ หรือ $x > 1$" },
+        { key: "D", text: "$-5 < x < 1$" }
+      ],
+      answer: "C"
+    },
+    {
+      id: "q27",
+      prompt: `อสมการในข้อใด <b>เป็นจริงเสมอ</b> สำหรับทุกจำนวนจริง $x$ ?`,
+      choices: [
+        { key: "A", text: "$|x| > 0$" },
+        { key: "B", text: "$|x| \\ge 0$" },
+        { key: "C", text: "$|x| < 0$" },
+        { key: "D", text: "$|x| \\le 0$" }
+      ],
+      answer: "B"
+    },
+    {
+      id: "q28",
+      prompt: `อสมการในข้อใด <b>ไม่มีคำตอบ</b> เป็นจำนวนจริง?`,
+      choices: [
+        { key: "A", text: "$|x - 5| < 0$" },
+        { key: "B", text: "$|x| \\le 0$" },
+        { key: "C", text: "$|x + 1| > -1$" },
+        { key: "D", text: "$|x| \\ge 0$" }
+      ],
+      answer: "A"
+    },
+    {
+      id: "q29",
+      prompt: `อสมการ $-2 < x < 2$ สามารถเขียนในรูปอสมการค่าสัมบูรณ์ได้ตรงกับข้อใด?`,
+      choices: [
+        { key: "A", text: "$|x| > 2$" },
+        { key: "B", text: "$|x| \\le 2$" },
+        { key: "C", text: "$|x| < 2$" },
+        { key: "D", text: "$|x - 2| < 0$" }
+      ],
+      answer: "C"
+    },
+    {
+      id: "q30",
+      prompt: `ผลบวกของ <b>จำนวนเต็ม</b> ทั้งหมดที่สอดคล้องกับอสมการ $|x - 3| \\le 2$ คือเท่าใด?`,
+      choices: [
+        { key: "A", text: "$12$" },
+        { key: "B", text: "$15$" },
+        { key: "C", text: "$10$" },
+        { key: "D", text: "$9$" }
+      ],
+      answer: "B"
+    }
+  ]
 };
