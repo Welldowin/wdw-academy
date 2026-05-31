@@ -688,4 +688,5 @@ window.COURSE_DATA = {
       answer: "B"
     }
   ]
+  }
 };
