@@ -687,8 +687,7 @@ window.COURSE_DATA = {
           { key: "D", text: "$9$" }
         ],
         answer: "B"
-      }
+        }
     ]
   }
-
 };
