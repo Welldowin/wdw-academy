@@ -364,7 +364,7 @@ window.COURSE_DATA = {
         choices: [
           { key: "A", text: "$\\pi$" },
           { key: "B", text: "$\\sqrt{2}$" },
-          { key: "C", text: "0.3" },
+          { key: "C", text: "$0.333\\dots$" },
           { key: "D", text: "$\\sqrt{3}$" }
         ],
         answer: "C"
