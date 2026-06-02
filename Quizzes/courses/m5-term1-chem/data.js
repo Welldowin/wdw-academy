@@ -391,7 +391,6 @@ window.COURSE_DATA = {
     ]
   },
 
-    window.COURSE_DATA = {
   "quiz2": {
     meta: {
       courseId: "m5-term1-chem",
@@ -740,5 +739,4 @@ window.COURSE_DATA = {
       }
     ]
   }
-};
 };
