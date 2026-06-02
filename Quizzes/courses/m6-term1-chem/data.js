@@ -171,10 +171,10 @@ window.COURSE_DATA = {
       id: "q14",
       prompt: `เมื่อสารประกอบในภาพข้อที่ 13 ทำปฏิกิริยาการเติมกับกรดไฮโดรเจนคลอไรด์ ($HCl$) ผลิตภัณฑ์หลัก (Major product) ที่เกิดขึ้นคือสารใด?`,
       choices: [
-        { key: "A", text: "1-chloro-4-methylpentane" },
-        { key: "B", text: "2-chloro-4-methylpentane" },
-        { key: "C", text: "3-chloro-4-methylpentane" },
-        { key: "D", text: "2-chloro-2-methylpentane" }
+        { key: "A", text: "1,2-dichloro-4-methylpentane" },
+        { key: "B", text: "2,3-dichloro-4-methylpentane" },
+        { key: "C", text: "3,4-dichloro-4-methylpentane" },
+        { key: "D", text: "1,2-dichloro-2-methylpentane" }
       ],
       answer: "B"
     },
