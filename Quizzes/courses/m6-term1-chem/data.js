@@ -41,12 +41,12 @@ window.COURSE_DATA = {
          <img src="images/004.jpg" alt="รูปประกอบข้อสอบ" style="max-width:100%; border-radius:4px;">
       </div><br>`,
       choices: [
-        { key: "A", text: "3,6-dimethylheptane" },
-        { key: "B", text: "2,5-dimethylheptane" },
-        { key: "C", text: "2-ethyl-5-methylhexane" },
-        { key: "D", text: "2,5-dimethylhexane" }
+        { key: "A", text: "3,6-dimethyloctane" },
+        { key: "B", text: "2,5-dimethyloctane" },
+        { key: "C", text: "2-ethyl-5-methylheptane" },
+        { key: "D", text: "2,5-dimethylheptane" }
       ],
-      answer: "B"
+      answer: "A"
     },
     {
       id: "q4",
@@ -102,12 +102,12 @@ window.COURSE_DATA = {
          <img src="images/001.jpg" alt="รูปประกอบข้อสอบ" style="max-width:100%; border-radius:4px;">
       </div><br>`,
       choices: [
-        { key: "A", text: "1-butene" },
-        { key: "B", text: "2-butene" },
-        { key: "C", text: "butane" },
-        { key: "D", text: "1-butyne" }
+        { key: "A", text: "1-pentene" },
+        { key: "B", text: "2-pentene" },
+        { key: "C", text: "pentane" },
+        { key: "D", text: "1-pentyne" }
       ],
-      answer: "A"
+      answer: "B"
     },
     {
       id: "q9",
