@@ -389,7 +389,8 @@ window.COURSE_DATA = {
       answer: "B"
       }
     ]
-  }
+  },
+
     window.COURSE_DATA = {
   "quiz2": {
     meta: {
