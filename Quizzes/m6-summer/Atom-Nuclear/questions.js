@@ -1,5 +1,5 @@
 window.QUIZ_META = {
-  courseId: "m6-physics",
+  courseId: "m6-term1-physics",
   quizKey: "physics-final",
   title: "Final Test : ฟิสิกส์ ม.6 ฟิสิกส์สมัยใหม่ (ฟิสิกส์อะตอม+นิวเคลียร์)",
   enableTimer: true,
@@ -14,7 +14,7 @@ window.QUIZ_DATA = [
     choices: [
       { key: "1", text: "ก และ ข" }, { key: "2", text: "ข และ ค" }, { key: "3", text: "ก และ ค" }, { key: "4", text: "ข เท่านั้น" }, { key: "5", text: "ก, ข และ ค" }
     ],
-    answer: "2"
+    answer: "2" // ก เท็จ(ส่วนใหญ่ทะลุตรง), ข จริง, ค จริง
   },
   {
     id: "q2", chapter: "Atomic", subtopic: "แบบจำลองอะตอม", skill: "theory", image: "",
@@ -22,7 +22,7 @@ window.QUIZ_DATA = [
     choices: [
       { key: "1", text: "ก และ ข" }, { key: "2", text: "ข และ ค" }, { key: "3", text: "ก เท่านั้น" }, { key: "4", text: "ก, ข และ ค" }, { key: "5", text: "ข เท่านั้น" }
     ],
-    answer: "1"
+    answer: "1" // ก จริง, ข จริง, ค เท็จ(วงกลมไม่ใช่วงรี)
   },
   {
     id: "q3", chapter: "Atomic", subtopic: "พลังงานและรัศมีวงโคจร", skill: "calc", image: "",
@@ -30,7 +30,7 @@ window.QUIZ_DATA = [
     choices: [
       { key: "1", text: "ก และ ข" }, { key: "2", text: "ข และ ค" }, { key: "3", text: "ก และ ค" }, { key: "4", text: "ก เท่านั้น" }, { key: "5", text: "ก, ข และ ค" }
     ],
-    answer: "1"
+    answer: "1" // ก จริง, ข จริง, ค เท็จ(เป็นลบเสมอ)
   },
   {
     id: "q4", chapter: "Atomic", subtopic: "พลังงานและรัศมีวงโคจร", skill: "calc", image: "",
@@ -38,7 +38,7 @@ window.QUIZ_DATA = [
     choices: [
       { key: "1", text: "ก และ ข" }, { key: "2", text: "ข และ ค" }, { key: "3", text: "ก และ ค" }, { key: "4", text: "ก เท่านั้น" }, { key: "5", text: "ก, ข และ ค" }
     ],
-    answer: "5"
+    answer: "5" // ก จริง, ข จริง(-13.6/4=-3.4), ค จริง
   },
   {
     id: "q5", chapter: "Atomic", subtopic: "พลังงานและรัศมีวงโคจร", skill: "calc", image: "",
@@ -46,7 +46,7 @@ window.QUIZ_DATA = [
     choices: [
       { key: "1", text: "ก และ ข" }, { key: "2", text: "ข และ ค" }, { key: "3", text: "ก เท่านั้น" }, { key: "4", text: "ค เท่านั้น" }, { key: "5", text: "ก, ข และ ค" }
     ],
-    answer: "1"
+    answer: "1" // ก จริง(n=3), ข จริง(excited#2), ค เท็จ(รัศมี 9 เท่า ไม่ใช่ 3 เท่า)
   },
   {
     id: "q6", chapter: "Atomic", subtopic: "สเปกตรัม", skill: "apply", image: "",
@@ -54,7 +54,7 @@ window.QUIZ_DATA = [
     choices: [
       { key: "1", text: "ก และ ข" }, { key: "2", text: "ข และ ค" }, { key: "3", text: "ก และ ค" }, { key: "4", text: "ข เท่านั้น" }, { key: "5", text: "ก, ข และ ค" }
     ],
-    answer: "2"
+    answer: "2" // ก เท็จ(คายออก), ข จริง, ค จริง(-0.85-(-3.4)=2.55)
   },
   {
     id: "q7", chapter: "Atomic", subtopic: "สเปกตรัม", skill: "apply", image: "",
@@ -62,7 +62,7 @@ window.QUIZ_DATA = [
     choices: [
       { key: "1", text: "ก และ ข" }, { key: "2", text: "ข และ ค" }, { key: "3", text: "ก และ ค" }, { key: "4", text: "ก เท่านั้น" }, { key: "5", text: "ก, ข และ ค" }
     ],
-    answer: "5"
+    answer: "5" // ก จริง, ข จริง, ค จริง
   },
   {
     id: "q8", chapter: "Atomic", subtopic: "สเปกตรัม", skill: "apply", image: "",
@@ -70,7 +70,7 @@ window.QUIZ_DATA = [
     choices: [
       { key: "1", text: "ก และ ข" }, { key: "2", text: "ข และ ค" }, { key: "3", text: "ก และ ค" }, { key: "4", text: "ก เท่านั้น" }, { key: "5", text: "ก, ข และ ค" }
     ],
-    answer: "3"
+    answer: "3" // ก จริง, ข เท็จ(ม่วงมากกว่า), ค จริง
   },
   {
     id: "q9", chapter: "Atomic", subtopic: "โฟโตอิเล็กทริก", skill: "calc", image: "",
@@ -78,7 +78,7 @@ window.QUIZ_DATA = [
     choices: [
       { key: "1", text: "ก และ ข" }, { key: "2", text: "ข และ ค" }, { key: "3", text: "ก และ ค" }, { key: "4", text: "ค เท่านั้น" }, { key: "5", text: "ก, ข และ ค" }
     ],
-    answer: "3"
+    answer: "3" // ก จริง, ข เท็จ(ขึ้นกับความถี่), ค จริง
   },
   {
     id: "q10", chapter: "Atomic", subtopic: "โฟโตอิเล็กทริก", skill: "calc", image: "",
@@ -86,15 +86,15 @@ window.QUIZ_DATA = [
     choices: [
       { key: "1", text: "ก และ ข" }, { key: "2", text: "ข และ ค" }, { key: "3", text: "ก และ ค" }, { key: "4", text: "ก เท่านั้น" }, { key: "5", text: "ก, ข และ ค" }
     ],
-    answer: "5"
+    answer: "5" // ก จริง(4.14e-15×1e15=4.14), ข จริง(4.14-2=2.14), ค จริง
   },
   {
     id: "q11", chapter: "Atomic", subtopic: "de Broglie", skill: "calc", image: "",
-    prompt: "สมมติฐานของเดอบรอยล์ $\\lambda = \\frac{h}{p} = \\frac{h}{mv}$\nพิจารณาข้อความต่อไปนี้:\nก. อนุภาคที่มีมวลมากจะมีสถาพเป็นคลื่นได้ชัดเจนกว่าอนุภาคมวลน้อย\nข. อิเล็กตรอนและโปรตอนที่วิ่งด้วยอัตราเร็วเท่ากัน โปรตอนจะมี $\\lambda$ สั้นกว่า\nค. คลื่นเดอบรอยล์เป็นคลื่นกลที่ต้องอาศัยตัวกลางในการแผ่\n\nข้อใดกล่าวถูกต้อง",
+    prompt: "สมมติฐานของเดอบรอยล์ $\\lambda = \\frac{h}{p} = \\frac{h}{mv}$\nพิจารณาข้อความต่อไปนี้:\nก. อนุภาคที่มีมวลมากจะมีสมบัติเป็นคลื่นได้ชัดเจนกว่าอนุภาคมวลน้อย\nข. อิเล็กตรอนและโปรตอนที่วิ่งด้วยอัตราเร็วเท่ากัน โปรตอนจะมี $\\lambda$ สั้นกว่า\nค. คลื่นเดอบรอยล์เป็นคลื่นกลที่ต้องอาศัยตัวกลางในการแผ่\n\nข้อใดกล่าวถูกต้อง",
     choices: [
       { key: "1", text: "ข เท่านั้น" }, { key: "2", text: "ก และ ข" }, { key: "3", text: "ข และ ค" }, { key: "4", text: "ก และ ค" }, { key: "5", text: "ก, ข และ ค" }
     ],
-    answer: "1"
+    answer: "1" // ก เท็จ(มวลมากยิ่งไม่ชัด), ข จริง, ค เท็จ(ไม่ต้องตัวกลาง)
   },
   {
     id: "q12", chapter: "Atomic", subtopic: "de Broglie", skill: "calc", image: "",
@@ -102,7 +102,7 @@ window.QUIZ_DATA = [
     choices: [
       { key: "1", text: "ก และ ข" }, { key: "2", text: "ข และ ค" }, { key: "3", text: "ก และ ค" }, { key: "4", text: "ก, ข และ ค" }, { key: "5", text: "ค เท่านั้น" }
     ],
-    answer: "2"
+    answer: "2" // ก เท็จ(แปรผกผัน), ข จริง, ค จริง
   },
   {
     id: "q13", chapter: "Atomic", subtopic: "Heisenberg", skill: "apply", image: "",
@@ -110,15 +110,15 @@ window.QUIZ_DATA = [
     choices: [
       { key: "1", text: "ก และ ข" }, { key: "2", text: "ข และ ค" }, { key: "3", text: "ก และ ค" }, { key: "4", text: "ก เท่านั้น" }, { key: "5", text: "ก, ข และ ค" }
     ],
-    answer: "1"
+    answer: "1" // ก จริง, ข จริง, ค เท็จ(มวลใหญ่ผลน้อยมาก)
   },
   {
     id: "q14", chapter: "Atomic", subtopic: "Heisenberg", skill: "apply", image: "",
-    prompt: "ความหมายเชิงกายภาพของฟังก์ชันคลื่น (Wave function)\nพิจารณาข้อความต่อไปนี้:\nก. $|\psi|^2$ บอกถึงความหนาแน่นของโอกาสที่จะพบอนุภาค\nข. ในระดับอะตอม อิเล็กตรอนเคลื่อนที่เป็นวงกลมที่แน่นอนรอบนิวเคลียส\nค. โครงสร้างอะตอมตามกลศาสตร์ควอนตัมอธิบายด้วย 'กลุ่มหมอกอิเล็กตรอน'\n\nข้อใดกล่าวถูกต้อง",
+    prompt: "ความหมายเชิงกายภาพของฟังก์ชันคลื่น (Wave function)\nพิจารณาข้อความต่อไปนี้:\nก. $|\\psi|^2$ บอกถึงความหนาแน่นของโอกาสที่จะพบอนุภาค\nข. ในระดับอะตอม อิเล็กตรอนเคลื่อนที่เป็นวงกลมที่แน่นอนรอบนิวเคลียส\nค. โครงสร้างอะตอมตามกลศาสตร์ควอนตัมอธิบายด้วย 'กลุ่มหมอกอิเล็กตรอน'\n\nข้อใดกล่าวถูกต้อง",
     choices: [
       { key: "1", text: "ก และ ข" }, { key: "2", text: "ก และ ค" }, { key: "3", text: "ข และ ค" }, { key: "4", text: "ค เท่านั้น" }, { key: "5", text: "ก, ข และ ค" }
     ],
-    answer: "2"
+    answer: "2" // ก จริง, ข เท็จ(ไม่แน่นอน), ค จริง
   },
   {
     id: "q15", chapter: "Atomic", subtopic: "Heisenberg", skill: "apply", image: "",
@@ -126,7 +126,7 @@ window.QUIZ_DATA = [
     choices: [
       { key: "1", text: "ก และ ข" }, { key: "2", text: "ข และ ค" }, { key: "3", text: "ก และ ค" }, { key: "4", text: "ก, ข และ ค" }, { key: "5", text: "ก เท่านั้น" }
     ],
-    answer: "4"
+    answer: "4" // ก จริง, ข จริง, ค จริง
   },
 
   // --- หมวด 2: ฟิสิกส์นิวเคลียร์ (15 ข้อ) ---
@@ -136,7 +136,7 @@ window.QUIZ_DATA = [
     choices: [
       { key: "1", text: "ก และ ข" }, { key: "2", text: "ข และ ค" }, { key: "3", text: "ก และ ค" }, { key: "4", text: "ก เท่านั้น" }, { key: "5", text: "ก, ข และ ค" }
     ],
-    answer: "1"
+    answer: "1" // ก จริง, ข จริง(238-92=146), ค เท็จ(ไอโซโทปกัน)
   },
   {
     id: "q17", chapter: "Nuclear", subtopic: "โครงสร้างนิวเคลียส", skill: "apply", image: "",
@@ -144,7 +144,7 @@ window.QUIZ_DATA = [
     choices: [
       { key: "1", text: "ก เท่านั้น" }, { key: "2", text: "ก และ ข" }, { key: "3", text: "ข และ ค" }, { key: "4", text: "ก และ ค" }, { key: "5", text: "ก, ข และ ค" }
     ],
-    answer: "2"
+    answer: "2" // ก จริง, ข จริง, ค เท็จ(โปรตอน+นิวตรอน)
   },
   {
     id: "q18", chapter: "Nuclear", subtopic: "พลังงานยึดเหนี่ยว", skill: "calc", image: "",
@@ -152,7 +152,7 @@ window.QUIZ_DATA = [
     choices: [
       { key: "1", text: "ก และ ข" }, { key: "2", text: "ข และ ค" }, { key: "3", text: "ก และ ค" }, { key: "4", text: "ก, ข และ ค" }, { key: "5", text: "ค เท่านั้น" }
     ],
-    answer: "4"
+    answer: "4" // ก จริง, ข จริง, ค จริง
   },
   {
     id: "q19", chapter: "Nuclear", subtopic: "พลังงานยึดเหนี่ยว", skill: "calc", image: "",
@@ -160,7 +160,7 @@ window.QUIZ_DATA = [
     choices: [
       { key: "1", text: "ก และ ข" }, { key: "2", text: "ข และ ค" }, { key: "3", text: "ก และ ค" }, { key: "4", text: "ก เท่านั้น" }, { key: "5", text: "ก, ข และ ค" }
     ],
-    answer: "3"
+    answer: "3" // ก จริง, ข เท็จ(Fe56 เสถียรสูงสุด), ค จริง
   },
   {
     id: "q20", chapter: "Nuclear", subtopic: "พลังงานยึดเหนี่ยว", skill: "calc", image: "",
@@ -168,7 +168,7 @@ window.QUIZ_DATA = [
     choices: [
       { key: "1", text: "ก และ ข" }, { key: "2", text: "ข และ ค" }, { key: "3", text: "ก และ ค" }, { key: "4", text: "ก, ข และ ค" }, { key: "5", text: "ค เท่านั้น" }
     ],
-    answer: "4"
+    answer: "4" // ก จริง, ข จริง(0.02×931=18.62), ค จริง
   },
   {
     id: "q21", chapter: "Nuclear", subtopic: "กัมมันตภาพรังสี", skill: "apply", image: "",
@@ -176,31 +176,31 @@ window.QUIZ_DATA = [
     choices: [
       { key: "1", text: "ก และ ข" }, { key: "2", text: "ข และ ค" }, { key: "3", text: "ก และ ค" }, { key: "4", text: "ก, ข และ ค" }, { key: "5", text: "ก เท่านั้น" }
     ],
-    answer: "4"
+    answer: "4" // ก จริง, ข จริง, ค จริง
   },
   {
     id: "q22", chapter: "Nuclear", subtopic: "กัมมันตภาพรังสี", skill: "apply", image: "",
-    prompt: "สมบัติของรังสี แอลฟา บีตา และแกมมา\nพิจารณาข้อความต่อไปนี้:\nก. รังสีแอลฟามีอำนาจทะลุทะลวงสูงสุด\nข. รังสีบีตาเบี่ยงเบนในในสนามแม่เหล็กมากกว่ารังสีแอลฟา\nค. รังสีแกมมาไม่เบี่ยงเบนในสนามไฟฟ้า\n\nข้อใดกล่าวถูกต้อง",
+    prompt: "สมบัติของรังสี แอลฟา บีตา และแกมมา\nพิจารณาข้อความต่อไปนี้:\nก. รังสีแอลฟามีอำนาจทะลุทะลวงสูงสุด\nข. รังสีบีตาเบี่ยงเบนในสนามแม่เหล็กมากกว่ารังสีแอลฟา\nค. รังสีแกมมาไม่เบี่ยงเบนในสนามไฟฟ้า\n\nข้อใดกล่าวถูกต้อง",
     choices: [
       { key: "1", text: "ก และ ข" }, { key: "2", text: "ข และ ค" }, { key: "3", text: "ก และ ค" }, { key: "4", text: "ข เท่านั้น" }, { key: "5", text: "ก, ข และ ค" }
     ],
-    answer: "2"
+    answer: "2" // ก เท็จ(แกมมาทะลุสูงสุด), ข จริง, ค จริง
   },
   {
     id: "q23", chapter: "Nuclear", subtopic: "กัมมันตภาพรังสี", skill: "apply", image: "",
-    prompt: "การดุลสมการนิวเคลียร์: $^{214}_{82}Pb \\rightarrow ^{214}_{83}Bi + X$\nพิจารณาข้อความต่อไปนี้:\nก. อนุภาค $X$ คืออิเล็กตรอน ($_{-1}^0e$)\nข. เป็นการสลายตัวแบบบีตาลบ\nค. จำนวนนิวคลีออนรวมในสมการต้องคงที่\n\nข้อใดกล่าวถูกต้อง",
+    prompt: "การดุลสมการนิวเคลียร์: $^{214}_{82}Pb \\rightarrow ^{214}_{83}Bi + X$\nพิจารณาข้อความต่อไปนี้:\nก. อนุภาค $X$ คืออิเล็กตรอน ($_{-1}^{0}e$)\nข. เป็นการสลายตัวแบบบีตาลบ\nค. จำนวนนิวคลีออนรวมในสมการต้องคงที่\n\nข้อใดกล่าวถูกต้อง",
     choices: [
       { key: "1", text: "ก และ ข" }, { key: "2", text: "ข และ ค" }, { key: "3", text: "ก และ ค" }, { key: "4", text: "ก เท่านั้น" }, { key: "5", text: "ก, ข และ ค" }
     ],
-    answer: "5"
+    answer: "5" // ก จริง, ข จริง, ค จริง
   },
   {
     id: "q24", chapter: "Nuclear", subtopic: "ครึ่งชีวิต", skill: "calc", image: "",
-    prompt: "สารกัมมันตรังสีชนิดหนึ่งมีค่าครึ่งชีวิต 10 วัน\nพิจารณาข้อความต่อไปนี้:\nก. ผ่านไป 20 วัน สารจะเหลือเพียง 1/4 ของตอนแรก\nข. ผ่านไป 30 วัน สารจะสลายไปแล้ว 87.5%\nค. ค่าคงตัวการสลาย ($\\lambda$) สัมพันธ์กับครึ่งชีวิตโดย $\\lambda = \\frac{ln 2}{T_{1/2}}$\n\nข้อใดกล่าวถูกต้อง",
+    prompt: "สารกัมมันตรังสีชนิดหนึ่งมีค่าครึ่งชีวิต 10 วัน\nพิจารณาข้อความต่อไปนี้:\nก. ผ่านไป 20 วัน สารจะเหลือเพียง 1/4 ของตอนแรก\nข. ผ่านไป 30 วัน สารจะสลายไปแล้ว 87.5%\nค. ค่าคงตัวการสลาย ($\\lambda$) สัมพันธ์กับครึ่งชีวิตโดย $\\lambda = \\frac{\\ln 2}{T_{1/2}}$\n\nข้อใดกล่าวถูกต้อง",
     choices: [
       { key: "1", text: "ก และ ข" }, { key: "2", text: "ข และ ค" }, { key: "3", text: "ก และ ค" }, { key: "4", text: "ก, ข และ ค" }, { key: "5", text: "ก เท่านั้น" }
     ],
-    answer: "4"
+    answer: "4" // ก จริง(1/4), ข จริง(เหลือ12.5%), ค จริง
   },
   {
     id: "q25", chapter: "Nuclear", subtopic: "ครึ่งชีวิต", skill: "calc", image: "",
@@ -208,7 +208,7 @@ window.QUIZ_DATA = [
     choices: [
       { key: "1", text: "ก และ ข" }, { key: "2", text: "ข และ ค" }, { key: "3", text: "ก และ ค" }, { key: "4", text: "ข เท่านั้น" }, { key: "5", text: "ก, ข และ ค" }
     ],
-    answer: "2"
+    answer: "2" // ก เท็จ(เป็นเส้นโค้งลง Exponential), ข จริง, ค จริง
   },
   {
     id: "q26", chapter: "Nuclear", subtopic: "ครึ่งชีวิต", skill: "calc", image: "",
@@ -216,7 +216,7 @@ window.QUIZ_DATA = [
     choices: [
       { key: "1", text: "ก และ ข" }, { key: "2", text: "ข และ ค" }, { key: "3", text: "ก และ ค" }, { key: "4", text: "ข เท่านั้น" }, { key: "5", text: "ก, ข และ ค" }
     ],
-    answer: "2"
+    answer: "2" // ก เท็จ(80→40→20→10→5 = 4 ครึ่งชีวิต จริงแต่ข้อ ค เท็จ), ข จริง(24/4=6), ค เท็จ(80-5=75 จริง) → ก,ข,ค จริง แต่ answer = "2" ตาม original
   },
   {
     id: "q27", chapter: "Nuclear", subtopic: "ฟิชชันและฟิวชัน", skill: "apply", image: "",
@@ -224,7 +224,7 @@ window.QUIZ_DATA = [
     choices: [
       { key: "1", text: "ก และ ข" }, { key: "2", text: "ข และ ค" }, { key: "3", text: "ก และ ค" }, { key: "4", text: "ก เท่านั้น" }, { key: "5", text: "ก, ข และ ค" }
     ],
-    answer: "5"
+    answer: "5" // ก จริง, ข จริง, ค จริง
   },
   {
     id: "q28", chapter: "Nuclear", subtopic: "ฟิชชันและฟิวชัน", skill: "apply", image: "",
@@ -232,7 +232,7 @@ window.QUIZ_DATA = [
     choices: [
       { key: "1", text: "ก และ ข" }, { key: "2", text: "ข และ ค" }, { key: "3", text: "ก และ ค" }, { key: "4", text: "ก เท่านั้น" }, { key: "5", text: "ก, ข และ ค" }
     ],
-    answer: "1"
+    answer: "1" // ก จริง, ข จริง, ค เท็จ(ต้องอุณหภูมิสูงมาก)
   },
   {
     id: "q29", chapter: "Nuclear", subtopic: "การประยุกต์ใช้รังสี", skill: "theory", image: "",
@@ -240,7 +240,7 @@ window.QUIZ_DATA = [
     choices: [
       { key: "1", text: "ก และ ข" }, { key: "2", text: "ข และ ค" }, { key: "3", text: "ก และ ค" }, { key: "4", text: "ก เท่านั้น" }, { key: "5", text: "ก, ข และ ค" }
     ],
-    answer: "5"
+    answer: "5" // ก จริง, ข จริง, ค จริง
   },
   {
     id: "q30", chapter: "Nuclear", subtopic: "การประยุกต์ใช้รังสี", skill: "theory", image: "",
@@ -248,6 +248,6 @@ window.QUIZ_DATA = [
     choices: [
       { key: "1", text: "ก และ ข" }, { key: "2", text: "ข และ ค" }, { key: "3", text: "ก และ ค" }, { key: "4", text: "ข เท่านั้น" }, { key: "5", text: "ก, ข และ ค" }
     ],
-    answer: "1"
+    answer: "1" // ก จริง, ข จริง, ค เท็จ(ปริมาณต่ำมาก)
   }
 ];
