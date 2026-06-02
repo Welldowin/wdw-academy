@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Final Test | WDW Academy</title>
+    
+    <link rel="stylesheet" href="final-test.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body oncontextmenu="return false;">
+
+    <div id="quiz-app">
+        <header class="quiz-header">
+            <div class="header-info">
+                <h1 id="quiz-title">Loading...</h1>
+                <p id="student-name">Student Access</p>
+            </div>
+            <div id="timer-box" class="timer-card">
+                <span class="timer-icon">⏳</span>
+                <span id="timer-display">00:00</span>
+            </div>
+        </header>
+
+        <main class="quiz-container">
+            <div id="question-view" class="view">
+                <div class="quiz-progress-bar">
+                    <div id="progress-fill" class="progress-fill"></div>
+                </div>
+                
+                <div class="card question-card">
+                    <div class="question-meta">
+                        <span id="q-number" class="badge">ข้อที่ 1</span>
+                        <span id="q-chapter" class="badge secondary">Chapter</span>
+                    </div>
+                    <div id="q-text" class="question-text">
+                        กำลังโหลดโจทย์...
+                    </div>
+                    <div id="q-image-container"></div>
+                    
+                    <div id="choices-list" class="choices-grid">
+                        </div>
+                </div>
+
+                <div class="quiz-nav">
+                    <button id="prev-btn" class="btn outline">ข้อก่อนหน้า</button>
+                    <button id="next-btn" class="btn primary">ข้อถัดไป</button>
+                    <button id="submit-btn" class="btn danger" style="display:none;">ส่งข้อสอบ</button>
+                </div>
+            </div>
+
+            <div id="result-view" class="view hidden">
+                <div class="card persona-card">
+                    <div class="persona-header">
+                        <div class="persona-img-box">
+                            <img id="persona-img" src="" alt="Persona">
+                        </div>
+                        <div class="persona-info">
+                            <h2 id="persona-name">วิเคราะห์ผลลัพธ์...</h2>
+                            <p id="persona-desc"></p>
+                        </div>
+                    </div>
+                    <div class="persona-details">
+                        <div class="trait">
+                            <strong>💪 จุดเด่น:</strong> <span id="persona-strength">-</span>
+                        </div>
+                        <div class="trait weakness">
+                            <strong>🔴 จุดที่ควรพัฒนา:</strong> <span id="persona-weakness">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card stats-card">
+                    <h2>วิเคราะห์ความสามารถรายด้าน</h2>
+                    <div id="stats-breakdown" class="stats-grid"></div>
+                </div>
+
+                <div class="card chart-card">
+                    <h2>กราฟความสมดุล (Radar Chart)</h2>
+                    <div class="chart-wrapper">
+                        <canvas id="radarChart"></canvas>
+                    </div>
+                    <div class="final-score-box">
+                        <h3>คะแนนรวมของคุณ: <span id="final-score-text">0 / 30</span></h3>
+                        <div class="rank-box">
+                            <span class="rank-label">Rank รวม</span>
+                            <h1 id="final-rank">C</h1>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="result-actions">
+                    <button id="review-answers-btn" class="btn primary" style="width: 100%;">🔍 ดูทบทวนคำตอบ (Review)</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="questions.js"></script>
+    <script src="final-test.js"></script>
+</body>
+</html>
