@@ -1,486 +1,225 @@
-const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby2yvvJ17viUPF-UHBqPhudJVH4HDfYlyDHTOSaIELFEFRhucdrILUzNI5RhOZeh0vh/exec";
-
-// ==========================================
-// ข้อมูลสัตว์ 16 ชนิด (Persona)
-// ==========================================
-const ANIMAL_PERSONAS = [
-    { id: "eagle", name: "🦅 อินทรี (Eagle)", img: "images/eagle.png", desc: "ความเป็นเลิศที่รอบด้าน มองทะลุทุกปัญหา", strength: "คะแนนสูงทุกมิติ แม่นยำทั้งทฤษฎีและคำนวณ", weakness: "ไม่มีจุดอ่อนเด่นชัด รักษาระดับนี้ไว้ให้ได้!" },
-    { id: "dragon", name: "🐉 มังกร (Dragon)", img: "images/dragon.png", desc: "ทรงพลังในบทที่ยากที่สุดและซับซ้อน", strength: "ทำข้อสอบคำนวณและโจทย์ประยุกต์ลึกๆ ได้ดีเยี่ยม", weakness: "ระวังความมั่นใจเกินไปจนพลาดทฤษฎีพื้นฐาน" },
-    { id: "owl", name: "🦉 นกฮูก (Owl)", img: "images/owl.png", desc: "นักปราชญ์ผู้แม่นยำในนิยามและทฤษฎี", strength: "จำกฎและนิยามได้แม่นยำ โดนหลอกยาก", weakness: "ความเร็วในการคิดเลขและการแก้สมการหลายชั้น" },
-    { id: "bear", name: "🐻 หมี (Bear)", img: "images/bear.png", desc: "พื้นฐานมั่นคง หนักแน่น ค่อยๆ คิดอย่างรอบคอบ", strength: "พื้นฐานทฤษฎีแน่นปึ้ก เข้าใจลึกซึ้ง", weakness: "ปฏิกิริยาต่อโจทย์แนวใหม่ยังช้า ต้องฝึกโจทย์พลิกแพลง" },
-    { id: "parrot", name: "🦜 นกแก้ว (Parrot)", img: "images/parrot.png", desc: "ความจำดีเลิศ จำสูตรได้เป๊ะทุกตัว", strength: "ท่องจำเนื้อหาและสูตรเก่งมาก ไม่ลืมเนื้อหา", weakness: "การนำสูตรที่ท่องไปประยุกต์ใช้ในสถานการณ์จริง" },
-    { id: "cheetah", name: "🐆 เสือชีตาห์ (Cheetah)", img: "images/cheetah.png", desc: "นักทำข้อสอบสายสปีด รวดเร็วปานสายฟ้า", strength: "ทำข้อสอบไว บริหารเวลาดีเยี่ยม ไม่เคยทำไม่ทัน", weakness: "มักตกม้าตายเพราะความรีบเร่ง ไม่อ่านโจทย์ให้ละเอียด" },
-    { id: "monkey", name: "🐒 ลิง (Monkey)", img: "images/monkey.png", desc: "คล่องแคล่วว่องไว พลิกแพลงสมการเก่ง", strength: "ย้ายข้างสมการและจัดการตัวเลขได้ไวมาก", weakness: "ลืมใส่หน่วย หรือพลาดในขั้นตอนการคิดเลขขั้นสุดท้าย" },
-    { id: "shark", name: "🦈 ฉลาม (Shark)", img: "images/shark.png", desc: "ดุดัน ไม่กลัวข้อสอบคำนวณที่โหดหิน", strength: "พุ่งชนโจทย์คำนวณยากๆ ได้ดีเยี่ยม", weakness: "โจทย์เชิงบรรยายและการวิเคราะห์กราฟ/รูปภาพ" },
-    { id: "dolphin", name: "🐬 โลมา (Dolphin)", img: "images/dolphin.png", desc: "มีไหวพริบยอดเยี่ยม ประยุกต์เก่ง", strength: "เชื่อมโยงเนื้อหาและประยุกต์สูตรเก่งมาก", weakness: "ความแม่นยำในการคิดเลขซ้ำซ้อน" },
-    { id: "fox", name: "🦊 สุนัขจิ้งจอก (Fox)", img: "images/fox.png", desc: "จอมวางแผน รู้ว่าข้อไหนควรข้าม ข้อไหนควรเก็บ", strength: "บริหารความเสี่ยงเก่ง ทำข้อที่ได้ชัวร์ๆ ก่อน", weakness: "ชอบทิ้งดิ่งบางบทที่ตัวเองไม่ถนัด ทำให้เสียคะแนนรวม" },
-    { id: "spider", name: "🕷️ แมงมุม (Spider)", img: "images/spider.png", desc: "มองภาพรวมเป็นโครงข่าย เชื่อมโยงได้ทุกบท", strength: "คะแนนสมดุลทุกบทเรียน ไม่มีบทไหนตกเป็นพิเศษ", weakness: "ยังขาดความลึกในแต่ละบท ต้องเจาะลึกทฤษฎีเฉพาะทาง" },
-    { id: "elephant", name: "🐘 ช้าง (Elephant)", img: "images/elephant.png", desc: "รอบคอบสูงสุด ทำข้อไหนรับประกันว่าถูก", strength: "ความแม่นยำสูงมาก แทบไม่พลาดข้อที่ทำ", weakness: "ใช้เวลาตรวจสอบนานเกินไปจนอาจทำข้อสอบไม่ทัน" },
-    { id: "tortoise", name: "🐢 เต่า (Tortoise)", img: "images/tortoise.png", desc: "ช้าแต่มั่นคง ค่อยๆ เป็นค่อยๆ ไป", strength: "มีความอดทนในการทำความเข้าใจโจทย์", weakness: "สปีดการทำข้อสอบ ต้องเร่งความเร็วในการวิเคราะห์" },
-    { id: "cat", name: "🐈 แมว (Cat)", img: "images/cat.png", desc: "อินดี้ มีสไตล์ เก่งเฉพาะเรื่องที่ชอบ", strength: "เทพมากในบทใดบทหนึ่งเป็นพิเศษ", weakness: "ทิ้งบทที่ไม่ชอบอย่างเห็นได้ชัด ต้องปรับสมดุล" },
-    { id: "bee", name: "🐝 ผึ้ง (Bee)", img: "images/bee.png", desc: "ขยันขันแข็ง เก็บรายละเอียดได้ดี", strength: "มีความพยายามสูง ไม่ปล่อยว่างข้อสอบ", weakness: "มักจะลนลานเมื่อเจอโจทย์ผสมที่ยากเกินไป" },
-    { id: "ant", name: "🐜 มด (Ant)", img: "images/ant.png", desc: "พลังมดตัวน้อยที่กำลังสะสมความรู้", strength: "พยายามทำจนครบทุกข้อและมีพื้นฐานเบื้องต้น", weakness: "ต้องกลับไปทบทวนพื้นฐานอย่างเร่งด่วน!" }
-];
-
-// ==========================================
-// ตัวแปรควบคุมการทำงาน
-// ==========================================
 let currentQuestionIndex = 0;
 let userAnswers = {};
-let timeSpent = {};
-let questionStartTime = 0;
-let mainTimeRemaining = window.QUIZ_META.timeLimitSec;
-let mainTimerInterval = null;
+let startTime, timerInterval;
 let isSubmitted = false;
+let isReviewMode = false;
 
-const userId = localStorage.getItem('userId') || 'guest';
-const userDisplayName = localStorage.getItem('userDisplayName') || "นักเรียน";
-const STORAGE_KEY = `WDW_FINAL_${userId}_${window.QUIZ_META.quizKey}`; 
+const ANIMAL_PERSONAS = [
+    { id: "eagle", name: "🦅 อินทรี (Eagle)", desc: "เฉียบคม แม่นยำ มองภาพรวมได้ทะลุปรุโปร่ง", strength: "ทำคะแนนได้สูงในทุกมิติ", weakness: "ระวังความประมาทในจุดเล็กน้อย" },
+    { id: "dragon", name: "🐉 มังกร (Dragon)", desc: "ทรงพลังในการแก้โจทย์ประยุกต์ที่ซับซ้อน", strength: "โดดเด่นด้าน Skill Apply และ Calc", weakness: "อาจลืมเก็บรายละเอียดทฤษฎีพื้นฐาน" },
+    { id: "owl", name: "🦉 นกฮูก (Owl)", desc: "นักปราชญ์ผู้รอบรู้ แม่นยำในนิยามและกฎต่างๆ", strength: "ทฤษฎีแน่นมาก แทบไม่พลาดข้อลวง", weakness: "การคำนวณภายใต้ความกดดันของเวลา" },
+    { id: "shark", name: "🦈 ฉลาม (Shark)", desc: "รวดเร็ว ดุดัน จัดการโจทย์คำนวณได้อย่างว่องไว", strength: "ความเร็วในการทำข้อสอบสูงมาก", weakness: "ความรอบคอบในการอ่านโจทย์แนววิเคราะห์" },
+    { id: "cheetah", name: "🐆 เสือชีตาห์ (Cheetah)", desc: "เน้นความไว เข้าทำเป้าหมายได้เร็วที่สุด", strength: "บริหารเวลาได้ดีเยี่ยม", weakness: "ความแม่นยำในบทเรียนที่ต้องใช้สมาธิสูง" },
+    { id: "dolphin", name: "🐬 โลมา (Dolphin)", desc: "ฉลาด พลิกแพลงเก่ง เข้าใจความสัมพันธ์ของตัวแปร", strength: "การประยุกต์ใช้สูตรข้ามบทเรียน", weakness: "ความอดทนต่อโจทย์ที่ยาวและซับซ้อน" },
+    { id: "elephant", name: "🐘 ช้าง (Elephant)", desc: "มั่นคง ถาวร เก็บแต้มจากบทที่ถนัดได้แน่นอน", strength: "คะแนนในบทหลักมีความเสถียร", weakness: "การตอบสนองต่อโจทย์แนวใหม่ที่ไม่เคยเห็น" },
+    { id: "fox", name: "🦊 สุนัขจิ้งจอก (Fox)", desc: "เจ้าเล่ห์ เอ้ย! เจ้าปัญญา พลิกแพลงเก่ง", strength: "การตัดช้อยส์และเดาอย่างมีหลักการ", weakness: "พื้นฐานทฤษฎีที่อาจไม่ลึกซึ้งพอ" }
+];
 
-window.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('student-name').textContent = `ผู้สอบ: ${userDisplayName}`;
-    document.getElementById('quiz-title').textContent = window.QUIZ_META.title;
-
-    buildNavigator();
-
-    document.getElementById('choices-list').addEventListener('change', function(e) {
-        if (e.target.name === 'choice' && !isSubmitted) {
-            let qId = QUIZ_DATA[currentQuestionIndex].id;
-            userAnswers[qId] = e.target.value;
-            saveStateToLocal();
-            updateNavigator();
-        }
+document.addEventListener('DOMContentLoaded', () => {
+    initQuiz();
+    startTimer();
+    
+    document.getElementById('next-btn').addEventListener('click', nextQuestion);
+    document.getElementById('prev-btn').addEventListener('click', prevQuestion);
+    document.getElementById('submit-btn').addEventListener('click', () => {
+        if(confirm("ยืนยันการส่งข้อสอบ?")) finishQuiz();
+    });
+    document.getElementById('review-answers-btn').addEventListener('click', () => {
+        isReviewMode = true;
+        document.getElementById('result-view').classList.add('hidden');
+        document.getElementById('question-view').classList.remove('hidden');
+        renderQuestion();
     });
 
-    let savedState = localStorage.getItem(STORAGE_KEY);
-    if (savedState) {
-        let state = JSON.parse(savedState);
-        userAnswers = state.answers || {};
-        timeSpent = state.timeSpent || {};
-        
-        if (state.isSubmitted) {
-            isSubmitted = true;
-            mainTimeRemaining = 0;
-            document.getElementById('time-display').textContent = "ส่งแล้ว";
-            showResultScreen(state.radarData, state.totalScore);
-            return;
-        } else {
-            mainTimeRemaining = state.timeLeft || mainTimeRemaining;
-        }
-    }
-
-    renderQuestion(currentQuestionIndex);
-    startMainTimer();
+    // ป้องกันการ Refresh
+    window.onbeforeunload = function() {
+        if(!isSubmitted) return "ข้อมูลการทำข้อสอบจะหายไป คุณแน่ใจหรือไม่?";
+    };
 });
 
-function saveStateToLocal() {
-    let state = {
-        answers: userAnswers,
-        timeSpent: timeSpent,
-        timeLeft: mainTimeRemaining,
-        isSubmitted: isSubmitted
-    };
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+function initQuiz() {
+    document.getElementById('quiz-title').innerText = window.QUIZ_META.title;
+    renderQuestion();
 }
 
-function startMainTimer() {
-    if(isSubmitted) return;
-    mainTimerInterval = setInterval(() => {
-        if (isSubmitted) return;
-        mainTimeRemaining--;
-        let m = Math.floor(mainTimeRemaining / 60);
-        let s = mainTimeRemaining % 60;
-        document.getElementById('time-display').textContent = `${m}:${s < 10 ? '0'+s : s}`;
+function startTimer() {
+    let timeLeft = window.QUIZ_META.timeLimitSec;
+    const display = document.getElementById('timer-display');
+    
+    timerInterval = setInterval(() => {
+        let mins = Math.floor(timeLeft / 60);
+        let secs = timeLeft % 60;
+        display.innerText = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
         
-        if (mainTimeRemaining % 10 === 0) saveStateToLocal();
-        
-        if (mainTimeRemaining <= 0) {
-            clearInterval(mainTimerInterval);
-            alert("หมดเวลา! ระบบจะส่งคำตอบโดยอัตโนมัติ");
-            submitQuiz();
+        if (timeLeft <= 0) {
+            clearInterval(timerInterval);
+            finishQuiz();
         }
+        timeLeft--;
     }, 1000);
 }
 
-function recordTimeSpent() {
-    if(isSubmitted) return;
-    let qId = QUIZ_DATA[currentQuestionIndex].id;
-    let now = Date.now();
-    let spentThisTime = Math.floor((now - questionStartTime) / 1000);
-    if (!timeSpent[qId]) timeSpent[qId] = 0;
-    timeSpent[qId] += spentThisTime;
-}
-
-function renderQuestion(index) {
-    let q = QUIZ_DATA[index];
-    questionStartTime = Date.now();
+function renderQuestion() {
+    const q = window.QUIZ_DATA[currentQuestionIndex];
+    document.getElementById('q-number').innerText = `ข้อที่ ${currentQuestionIndex + 1} / ${window.QUIZ_DATA.length}`;
+    document.getElementById('q-chapter').innerText = q.subtopic;
     
-    document.getElementById('question-number').textContent = `ข้อที่ ${index + 1} / ${QUIZ_DATA.length}`;
-    let skillName = q.skill === "theory" ? "ทฤษฎี" : (q.skill === "calc" ? "คำนวณ" : "ประยุกต์ใช้");
-    document.getElementById('question-category').textContent = `${q.subtopic} | ${skillName}`;
+    // แปลง \n เป็น <br>
+    document.getElementById('q-text').innerHTML = q.prompt.replace(/\n/g, '<br>');
     
-    let formattedPrompt = q.prompt.replace(/\\n/g, '<br>').replace(/\n/g, '<br>');
-    document.getElementById('question-text').innerHTML = formattedPrompt;
+    const choicesList = document.getElementById('choices-list');
+    choicesList.innerHTML = '';
     
-    let imgContainer = document.getElementById('question-image-container');
-    imgContainer.innerHTML = q.image ? `<img src="${q.image}" alt="รูปประกอบ" style="max-width:100%; border-radius:8px; margin-top:15px; border:1px solid #ccc;">` : '';
-    
-    let choicesHtml = '';
     q.choices.forEach(choice => {
-        let isChecked = userAnswers[q.id] === choice.key ? 'checked' : '';
-        let disabledAttr = isSubmitted ? 'disabled' : '';
-        let disabledClass = isSubmitted ? 'disabled' : '';
+        const btn = document.createElement('div');
+        btn.className = `choice-item ${userAnswers[q.id] === choice.key ? 'selected' : ''}`;
         
-        choicesHtml += `
-            <label class="choice-item ${disabledClass}">
-                <input type="radio" name="choice" value="${choice.key}" ${isChecked} ${disabledAttr}>
-                ${choice.text}
-            </label>
-        `;
-    });
-    document.getElementById('choices-list').innerHTML = choicesHtml;
-    
-    let fbBox = document.getElementById('feedback-box');
-    if (isSubmitted) {
-        document.getElementById('review-banner').classList.remove('hidden');
-        fbBox.classList.remove('hidden');
-        if (userAnswers[q.id] === q.answer) {
-            fbBox.className = "feedback-box correct";
-            fbBox.innerHTML = "✅ คุณตอบถูก";
-        } else {
-            fbBox.className = "feedback-box incorrect";
-            fbBox.innerHTML = "❌ คุณตอบผิด (ไม่อนุญาตให้ดูเฉลยที่ถูกต้อง)";
-        }
-    } else {
-        fbBox.classList.add('hidden');
-    }
-    
-    document.getElementById('prev-btn').disabled = (index === 0);
-    
-    if (index === QUIZ_DATA.length - 1) {
-        document.getElementById('next-btn').classList.add('hidden');
-        if(!isSubmitted) document.getElementById('submit-btn').classList.remove('hidden');
-    } else {
-        document.getElementById('next-btn').classList.remove('hidden');
-        document.getElementById('submit-btn').classList.add('hidden');
-    }
-
-    if (isSubmitted) {
-        document.getElementById('submit-btn').classList.add('hidden');
-        document.getElementById('back-to-result-btn').classList.remove('hidden');
-    }
-    
-    updateNavigator();
-    
-    if (window.MathJax && typeof window.MathJax.typesetPromise === 'function') { 
-        MathJax.typesetPromise().catch((err) => console.log('MathJax Error:', err));
-    }
-}
-
-document.getElementById('prev-btn').addEventListener('click', () => { recordTimeSpent(); if (currentQuestionIndex > 0) renderQuestion(--currentQuestionIndex); });
-document.getElementById('next-btn').addEventListener('click', () => { recordTimeSpent(); if (currentQuestionIndex < QUIZ_DATA.length - 1) renderQuestion(++currentQuestionIndex); });
-document.getElementById('back-to-result-btn').addEventListener('click', () => { document.getElementById('quiz-app').style.display = 'none'; document.getElementById('result-screen').style.display = 'block'; });
-document.getElementById('review-answers-btn').addEventListener('click', () => { document.getElementById('result-screen').style.display = 'none'; document.getElementById('quiz-app').style.display = 'block'; renderQuestion(0); });
-document.getElementById('submit-btn').addEventListener('click', () => {
-    let answeredCount = Object.keys(userAnswers).length;
-    if (answeredCount < QUIZ_DATA.length) { if (!confirm(`คุณทำไปเพียง ${answeredCount} จาก ${QUIZ_DATA.length} ข้อ ยืนยันที่จะส่งหรือไม่?`)) return; }
-    else { if (!confirm("คุณตรวจสอบคำตอบเรียบร้อยและต้องการส่งข้อสอบใช่หรือไม่?")) return; }
-    submitQuiz();
-});
-
-function buildNavigator() {
-    let navHtml = '';
-    QUIZ_DATA.forEach((q, i) => { navHtml += `<button class="nav-btn" id="nav-btn-${i}" onclick="jumpTo(${i})">${i + 1}</button>`; });
-    document.getElementById('question-nav-grid').innerHTML = navHtml;
-}
-
-function jumpTo(index) { recordTimeSpent(); currentQuestionIndex = index; renderQuestion(currentQuestionIndex); }
-
-function updateNavigator() {
-    QUIZ_DATA.forEach((q, i) => {
-        let btn = document.getElementById(`nav-btn-${i}`);
-        btn.className = "nav-btn";
-        if (i === currentQuestionIndex) btn.classList.add('active');
-        else if (userAnswers[q.id]) btn.classList.add('answered');
-        if (isSubmitted && userAnswers[q.id]) {
-            if (userAnswers[q.id] === q.answer) btn.classList.add('correct-ans');
-            else btn.classList.add('wrong-ans');
-        }
-    });
-}
-
-function calculateRank(percent) {
-    if(percent >= 85) return { rank: 'S', color: '#8b5cf6' };
-    if(percent >= 70) return { rank: 'A', color: '#22c55e' };
-    if(percent >= 50) return { rank: 'B', color: '#f59e0b' };
-    return { rank: 'C', color: '#ef4444' };
-}
-
-function determinePersona(radar, totalPercent, timeAvg) {
-    if (totalPercent >= 85) return ANIMAL_PERSONAS.find(a => a.id === 'eagle');
-    if (radar.theory >= 80 && radar.calc >= 80) return ANIMAL_PERSONAS.find(a => a.id === 'dragon');
-    if (radar.theory >= 80 && radar.calc < 60) return ANIMAL_PERSONAS.find(a => a.id === 'owl');
-    if (timeAvg > 0 && timeAvg < 45 && totalPercent >= 60) return ANIMAL_PERSONAS.find(a => a.id === 'cheetah');
-    if (radar.calc >= 80 && radar.theory < 60) return ANIMAL_PERSONAS.find(a => a.id === 'monkey');
-    if (totalPercent < 40) return ANIMAL_PERSONAS.find(a => a.id === 'ant');
-    return ANIMAL_PERSONAS.find(a => a.id === 'bear');
-}
-
-function submitQuiz() {
-    if (isSubmitted) return;
-    isSubmitted = true;
-    recordTimeSpent();
-    clearInterval(mainTimerInterval);
-    
-    let totalScore = 0;
-    
-    // ==========================================
-    // โครงสร้างหมวดหมู่ — แยกฟิสิกส์อะตอม / นิวเคลียร์
-    // ==========================================
-    let statSkills = {
-        theory: { c:0, t:0, name:"ทฤษฎี" },
-        calc:   { c:0, t:0, name:"คำนวณ" },
-        apply:  { c:0, t:0, name:"ประยุกต์ใช้" }
-    };
-
-    let statChapters = {
-        // ── ฟิสิกส์อะตอม ──────────────────────────
-        AtomModel:       { c:0, t:0, name:"แบบจำลองอะตอม",        group:"atomic", chapters:["Atomic"], subtopicFilter:["แบบจำลองอะตอม"] },
-        AtomEnergy:      { c:0, t:0, name:"พลังงานและรัศมีวงโคจร",  group:"atomic", chapters:["Atomic"], subtopicFilter:["พลังงานและรัศมีวงโคจร"] },
-        AtomSpectrum:    { c:0, t:0, name:"สเปกตรัมและโฟตอน",       group:"atomic", chapters:["Atomic"], subtopicFilter:["สเปกตรัม"] },
-        AtomPhoto:       { c:0, t:0, name:"โฟโตอิเล็กทริก",         group:"atomic", chapters:["Atomic"], subtopicFilter:["โฟโตอิเล็กทริก"] },
-        AtomDeBroglie:   { c:0, t:0, name:"คลื่น de Broglie",       group:"atomic", chapters:["Atomic"], subtopicFilter:["de Broglie"] },
-        AtomHeisenberg:  { c:0, t:0, name:"หลักความไม่แน่นอน",      group:"atomic", chapters:["Atomic"], subtopicFilter:["Heisenberg"] },
-        // ── ฟิสิกส์นิวเคลียร์ ────────────────────
-        NucStructure:    { c:0, t:0, name:"โครงสร้างนิวเคลียส",     group:"nuclear", chapters:["Nuclear"], subtopicFilter:["โครงสร้างนิวเคลียส"] },
-        NucBinding:      { c:0, t:0, name:"พลังงานยึดเหนี่ยว",      group:"nuclear", chapters:["Nuclear"], subtopicFilter:["พลังงานยึดเหนี่ยว"] },
-        NucRadio:        { c:0, t:0, name:"กัมมันตภาพรังสี",         group:"nuclear", chapters:["Nuclear"], subtopicFilter:["กัมมันตภาพรังสี"] },
-        NucHalfLife:     { c:0, t:0, name:"ครึ่งชีวิต",              group:"nuclear", chapters:["Nuclear"], subtopicFilter:["ครึ่งชีวิต"] },
-        NucFission:      { c:0, t:0, name:"ฟิชชันและฟิวชัน",         group:"nuclear", chapters:["Nuclear"], subtopicFilter:["ฟิชชันและฟิวชัน"] },
-        NucApplication:  { c:0, t:0, name:"การประยุกต์ใช้รังสี",     group:"nuclear", chapters:["Nuclear"], subtopicFilter:["การประยุกต์ใช้รังสี"] }
-    };
-
-    QUIZ_DATA.forEach(q => {
-        let isCorrect = (userAnswers[q.id] === q.answer);
-        if (isCorrect) totalScore++;
-
-        // สถิติตามทักษะ
-        if (statSkills[q.skill]) {
-            statSkills[q.skill].t++;
-            if (isCorrect) statSkills[q.skill].c++;
-        }
-
-        // สถิติตามหัวข้อย่อย (จับ subtopicFilter)
-        for (let key in statChapters) {
-            let cat = statChapters[key];
-            if (cat.chapters.includes(q.chapter) && cat.subtopicFilter.includes(q.subtopic)) {
-                cat.t++;
-                if (isCorrect) cat.c++;
-                if (!cat.subtopics) cat.subtopics = {};
-                if (!cat.subtopics[q.subtopic]) cat.subtopics[q.subtopic] = { c:0, t:0 };
-                cat.subtopics[q.subtopic].t++;
-                if (isCorrect) cat.subtopics[q.subtopic].c++;
+        // Review Mode Logic
+        if(isReviewMode) {
+            btn.classList.add('disabled');
+            if(userAnswers[q.id] === choice.key) {
+                btn.classList.add(choice.key === q.answer ? 'correct' : 'wrong');
             }
         }
+
+        btn.innerHTML = `<span class="choice-key">${choice.key}</span> <span class="choice-text">${choice.text}</span>`;
+        if(!isReviewMode) {
+            btn.onclick = () => selectChoice(q.id, choice.key);
+        }
+        choicesList.appendChild(btn);
     });
 
-    let calcPercent = (stat) => stat.t > 0 ? Math.round((stat.c / stat.t) * 100) : 0;
-
-    // รวม Atomic / Nuclear สำหรับ Radar
-    let atomicTotal  = { c:0, t:0 };
-    let nuclearTotal = { c:0, t:0 };
-    for (let key in statChapters) {
-        let cat = statChapters[key];
-        if (cat.group === "atomic")  { atomicTotal.c  += cat.c; atomicTotal.t  += cat.t; }
-        if (cat.group === "nuclear") { nuclearTotal.c += cat.c; nuclearTotal.t += cat.t; }
+    document.getElementById('progress-fill').style.width = `${((currentQuestionIndex + 1) / window.QUIZ_DATA.length) * 100}%`;
+    
+    // Nav Visibility
+    document.getElementById('prev-btn').style.visibility = currentQuestionIndex === 0 ? 'hidden' : 'visible';
+    if(currentQuestionIndex === window.QUIZ_DATA.length - 1) {
+        document.getElementById('next-btn').style.display = 'none';
+        if(!isReviewMode) document.getElementById('submit-btn').style.display = 'block';
+    } else {
+        document.getElementById('next-btn').style.display = 'block';
+        document.getElementById('submit-btn').style.display = 'none';
     }
 
-    let radarData = {
-        theory:  calcPercent(statSkills.theory),
-        calc:    calcPercent(statSkills.calc),
-        apply:   calcPercent(statSkills.apply),
-        // หัวข้อย่อยทั้งหมด
-        AtomModel:      calcPercent(statChapters.AtomModel),
-        AtomEnergy:     calcPercent(statChapters.AtomEnergy),
-        AtomSpectrum:   calcPercent(statChapters.AtomSpectrum),
-        AtomPhoto:      calcPercent(statChapters.AtomPhoto),
-        AtomDeBroglie:  calcPercent(statChapters.AtomDeBroglie),
-        AtomHeisenberg: calcPercent(statChapters.AtomHeisenberg),
-        NucStructure:   calcPercent(statChapters.NucStructure),
-        NucBinding:     calcPercent(statChapters.NucBinding),
-        NucRadio:       calcPercent(statChapters.NucRadio),
-        NucHalfLife:    calcPercent(statChapters.NucHalfLife),
-        NucFission:     calcPercent(statChapters.NucFission),
-        NucApplication: calcPercent(statChapters.NucApplication),
-        // รวมสองหมวดหลักสำหรับ Radar
-        AtomicTotal:  calcPercent(atomicTotal),
-        NuclearTotal: calcPercent(nuclearTotal),
-        details: { ...statSkills, ...statChapters }
-    };
-
-    let state = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
-    state.isSubmitted = true;
-    state.radarData = radarData;
-    state.totalScore = totalScore;
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-
-    showResultScreen(radarData, totalScore);
-
-    fetch(APPS_SCRIPT_URL, {
-        method: 'POST', mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            userId: userId, displayName: userDisplayName,
-            courseId: window.QUIZ_META.courseId, quizKey: window.QUIZ_META.quizKey,
-            totalScore: totalScore,
-            rank: calculateRank((totalScore / QUIZ_DATA.length) * 100).rank,
-            skills: radarData, timeSpent: timeSpent, answers: userAnswers
-        })
-    });
+    if(window.MathJax) MathJax.typesetPromise();
 }
 
-// ==========================================
-// หน้าผลลัพธ์
-// ==========================================
-function showResultScreen(radarData, totalScore) {
-    document.getElementById('quiz-app').style.display = 'none';
-    let resultScreen = document.getElementById('result-screen');
-    resultScreen.classList.remove('hidden');
-    resultScreen.style.display = 'block';
+function selectChoice(qId, key) {
+    userAnswers[qId] = key;
+    renderQuestion();
+}
 
-    let totalPercent = (totalScore / QUIZ_DATA.length) * 100;
-    let rankObj = calculateRank(totalPercent);
-
-    document.getElementById('final-score-text').textContent = `${totalScore} / ${QUIZ_DATA.length}`;
-    let fr = document.getElementById('final-rank');
-    fr.textContent = rankObj.rank;
-    fr.style.color = rankObj.color;
-
-    let totalSec = Object.values(timeSpent).reduce((a, b) => a + b, 0);
-    let avgTime = (totalSec / QUIZ_DATA.length);
-    let persona = determinePersona(radarData, totalPercent, avgTime);
-
-    if (persona) {
-        document.getElementById('persona-img').src = persona.img;
-        document.getElementById('persona-name').textContent = persona.name;
-        document.getElementById('persona-desc').textContent = persona.desc;
-        document.getElementById('persona-strength').textContent = persona.strength;
-        document.getElementById('persona-weakness').textContent = persona.weakness;
+function nextQuestion() {
+    if(currentQuestionIndex < window.QUIZ_DATA.length - 1) {
+        currentQuestionIndex++;
+        renderQuestion();
     }
+}
 
-    // ==========================================
-    // Stats Breakdown — แสดงแบบแยกกลุ่ม
-    // ==========================================
-    const SECTION_CONFIGS = [
-        {
-            groupLabel: "📊 สถิติตามประเภทข้อ",
-            accentColor: "#1E3D8F",
-            keys: ["theory", "calc", "apply"]
-        },
-        {
-            groupLabel: "⚛️ ฟิสิกส์อะตอม",
-            accentColor: "#0f766e",
-            keys: ["AtomModel", "AtomEnergy", "AtomSpectrum", "AtomPhoto", "AtomDeBroglie", "AtomHeisenberg"]
-        },
-        {
-            groupLabel: "☢️ ฟิสิกส์นิวเคลียร์",
-            accentColor: "#7c3aed",
-            keys: ["NucStructure", "NucBinding", "NucRadio", "NucHalfLife", "NucFission", "NucApplication"]
+function prevQuestion() {
+    if(currentQuestionIndex > 0) {
+        currentQuestionIndex--;
+        renderQuestion();
+    }
+}
+
+function finishQuiz() {
+    isSubmitted = true;
+    if(timerInterval) clearInterval(timerInterval); // Stop Clock safely
+
+    document.getElementById('question-view').classList.add('hidden');
+    document.getElementById('result-view').classList.remove('hidden');
+    
+    calculateResults();
+}
+
+function calculateResults() {
+    let score = 0;
+    let skills = { theory: {c:0, t:0}, calc: {c:0, t:0}, apply: {c:0, t:0} };
+    let chapters = {}; // For Breakdown & Radar
+
+    window.QUIZ_DATA.forEach(q => {
+        // Init chapter object
+        if(!chapters[q.chapter]) chapters[q.chapter] = { name: q.chapter, correct: 0, total: 0, subtopics: {} };
+        if(!chapters[q.chapter].subtopics[q.subtopic]) chapters[q.chapter].subtopics[q.subtopic] = { correct: 0, total: 0 };
+        
+        chapters[q.chapter].total++;
+        chapters[q.chapter].subtopics[q.subtopic].total++;
+        skills[q.skill].t++;
+
+        if(userAnswers[q.id] === q.answer) {
+            score++;
+            chapters[q.chapter].correct++;
+            chapters[q.chapter].subtopics[q.subtopic].correct++;
+            skills[q.skill].c++;
         }
-    ];
+    });
 
-    let statsHtml = '';
+    const totalQ = window.QUIZ_DATA.length;
+    const finalPct = (score / totalQ) * 100;
 
-    SECTION_CONFIGS.forEach(section => {
-        // หัวข้อกลุ่ม
-        statsHtml += `
-            <div style="grid-column: 1 / -1; margin-top: 10px; margin-bottom: 4px;">
-                <div style="display:inline-block; background:${section.accentColor}; color:white; padding:5px 16px; border-radius:20px; font-size:0.95rem; font-weight:700;">
-                    ${section.groupLabel}
+    // Display Stats
+    document.getElementById('final-score-text').innerText = `${score} / ${totalQ}`;
+    document.getElementById('final-rank').innerText = finalPct >= 80 ? 'S' : finalPct >= 70 ? 'A' : finalPct >= 60 ? 'B' : finalPct >= 50 ? 'C' : 'D';
+
+    // Subtopic Breakdown Loop
+    let breakdownHtml = '';
+    for(let chap in chapters) {
+        let c = chapters[chap];
+        let cPct = (c.correct / c.total) * 100;
+        breakdownHtml += `
+            <div class="stat-group">
+                <div class="stat-header">
+                    <span class="stat-title">${chap}</span>
+                    <span class="stat-score">${c.correct}/${c.total}</span>
+                </div>
+                <div class="stat-bar-bg"><div class="stat-bar-fill" style="width:${cPct}%"></div></div>
+                <div class="subtopic-list">
+                    ${Object.keys(c.subtopics).map(sub => `
+                        <div class="sub-item">• ${sub} (${c.subtopics[sub].correct}/${c.subtopics[sub].total})</div>
+                    `).join('')}
                 </div>
             </div>
         `;
+    }
+    document.getElementById('stats-breakdown').innerHTML = breakdownHtml;
 
-        section.keys.forEach(cat => {
-            let pct = radarData[cat] !== undefined ? radarData[cat] : 0;
-            let rObj = calculateRank(pct);
-            let title = radarData.details[cat] ? radarData.details[cat].name : cat;
+    // Radar Chart Logic (6 Axes)
+    const radarLabels = ['ทฤษฎี', 'คำนวณ', 'ประยุกต์', 'Atomic Physics', 'Nuclear Physics', 'กัมมันตภาพรังสี'];
+    const radarValues = [
+        (skills.theory.c / skills.theory.t) * 100 || 0,
+        (skills.calc.c / skills.calc.t) * 100 || 0,
+        (skills.apply.c / skills.apply.t) * 100 || 0,
+        (chapters['Atomic']?.correct / chapters['Atomic']?.total) * 100 || 0,
+        (chapters['Nuclear']?.correct / chapters['Nuclear']?.total) * 100 || 0,
+        (chapters['Nuclear']?.subtopics['กัมมันตภาพรังสี']?.correct / chapters['Nuclear']?.subtopics['กัมมันตภาพรังสี']?.total) * 100 || 50 // แกนที่ 6 เสริมเพื่อให้สมดุล
+    ];
 
-            let subtopicsHtml = '';
-            if (radarData.details[cat] && radarData.details[cat].subtopics) {
-                let subs = radarData.details[cat].subtopics;
-                subtopicsHtml = `<div style="margin-top:10px; border-top:1px dashed #e2e8f0; padding-top:8px;">`;
-                for (let sub in subs) {
-                    let sCorrect = subs[sub].c;
-                    let sTotal = subs[sub].t;
-                    let color = sCorrect === sTotal ? '#16a34a' : (sCorrect > 0 ? '#ca8a04' : '#dc2626');
-                    subtopicsHtml += `
-                        <div style="display:flex; justify-content:space-between; font-size:0.85rem; color:#64748b; margin-bottom:4px; text-align:left;">
-                            <span>- ${sub}</span>
-                            <strong style="color:${color};">${sCorrect}/${sTotal}</strong>
-                        </div>`;
-                }
-                subtopicsHtml += `</div>`;
-            }
-
-            statsHtml += `
-                <div class="stat-item" style="display:flex; flex-direction:column; justify-content:space-between; border-top:3px solid ${section.accentColor};">
-                    <div>
-                        <div class="stat-title">${title}</div>
-                        <div class="stat-bar-bg">
-                            <div class="stat-bar-fill" style="width:${pct}%; background-color:${rObj.color};"></div>
-                        </div>
-                        <div style="display:flex; justify-content:space-between; align-items:center;">
-                            <span class="stat-score">${pct}%</span>
-                            <span class="stat-rank" style="background-color:${rObj.color}20; color:${rObj.color};">${rObj.rank}</span>
-                        </div>
-                    </div>
-                    ${subtopicsHtml}
-                </div>
-            `;
-        });
-    });
-
-    document.getElementById('stats-breakdown').innerHTML = statsHtml;
-
-    // ==========================================
-    // Radar Chart — 6 แกน (2 skill + 2 หมวดรวม + 2 หมวดย่อยตัวแทน)
-    // ==========================================
-    const ctx = document.getElementById('radarChart').getContext('2d');
-    new Chart(ctx, {
+    new Chart(document.getElementById('radarChart'), {
         type: 'radar',
         data: {
-            labels: [
-                'ทฤษฎี',
-                'คำนวณ',
-                'ประยุกต์ใช้',
-                'ฟิสิกส์อะตอม (รวม)',
-                'ฟิสิกส์นิวเคลียร์ (รวม)',
-                'ครึ่งชีวิต & นิวเคลียร์คำนวณ'
-            ],
+            labels: radarLabels,
             datasets: [{
-                label: 'ระดับความสามารถ (%)',
-                data: [
-                    radarData.theory,
-                    radarData.calc,
-                    radarData.apply,
-                    radarData.AtomicTotal,
-                    radarData.NuclearTotal,
-                    radarData.NucHalfLife
-                ],
+                label: 'Performance (%)',
+                data: radarValues,
                 backgroundColor: 'rgba(30, 61, 143, 0.2)',
-                borderColor: 'rgba(30, 61, 143, 1)',
-                pointBackgroundColor: '#d94c4c'
+                borderColor: '#1E3D8F',
+                pointBackgroundColor: '#1E3D8F'
             }]
         },
-        options: {
-            scales: {
-                r: {
-                    suggestedMin: 0,
-                    suggestedMax: 100,
-                    ticks: { stepSize: 25 }
-                }
-            }
-        }
+        options: { scales: { r: { beginAtZero: true, max: 100 } } }
     });
+
+    // Persona Logic
+    let persona = ANIMAL_PERSONAS[7]; // Default Fox
+    if(finalPct >= 85) persona = ANIMAL_PERSONAS[0]; // Eagle
+    else if(skills.calc.c / skills.calc.t > 0.8) persona = ANIMAL_PERSONAS[3]; // Shark
+    else if(skills.theory.c / skills.theory.t > 0.8) persona = ANIMAL_PERSONAS[2]; // Owl
+    else if(skills.apply.c / skills.apply.t > 0.7) persona = ANIMAL_PERSONAS[1]; // Dragon
+    
+    document.getElementById('persona-name').innerText = persona.name;
+    document.getElementById('persona-desc').innerText = persona.desc;
+    document.getElementById('persona-strength').innerText = persona.strength;
+    document.getElementById('persona-weakness').innerText = persona.weakness;
+    document.getElementById('persona-img').src = `https://api.dicebear.com/7.x/bottts/svg?seed=${persona.id}`; // ใช้ตัวแทนรูปภาพชั่วคราว
 }
