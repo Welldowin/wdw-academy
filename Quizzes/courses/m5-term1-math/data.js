@@ -353,27 +353,354 @@ window.COURSE_DATA = {
   ]
 },
   
-  // ข้อมูลของ quiz2 ในวิชาเดียวกัน
   "quiz2": {
-    meta: {
-      courseId: "m5-summer",
-      quizKey: "quiz2",
-      title: "Quiz 2 : อัตราการเกิดปฏิกิริยา",
-      enableTimer: true,
-      timeLimitSec: 2400
+  meta: {
+    courseId: "m5-term1-math",
+    quizKey: "quiz2",
+    title: "Quiz 2 : ฟังก์ชันตรีโกณมิติ (30 ข้อ)",
+    enableTimer: true,
+    timeLimitSec: 3600
+  },
+  data: [
+    // --- พหุคูณของมุมและมุมติดลบ (ข้อ 1-10) ---
+    {
+      id: "q1",
+      prompt: `ค่าของ $\\sin(450^\circ)$ มีค่าเท่ากับข้อใด`,
+      choices: [
+        { key: "A", text: "$0$" },
+        { key: "B", text: "$1$" },
+        { key: "C", text: "$-1$" },
+        { key: "D", text: "$\\frac{1}{2}$" }
+      ],
+      answer: "B"
     },
-    data: [
-      {
-        id: "q1",
-        prompt: `ปัจจัยใดไม่มีผลต่ออัตราการเกิดปฏิกิริยา?`,
-        choices: [
-          { key: "A", text: "อุณหภูมิ" },
-          { key: "B", text: "ความดัน (กรณีของแข็ง)" },
-          { key: "C", text: "พื้นที่ผิว" },
-          { key: "D", text: "ตัวเร่งปฏิกิริยา" }
-        ],
-        answer: "B"
-      }
-    ]
-  }
+    {
+      id: "q2",
+      prompt: `ค่าของ $\\cos(720^\circ)$ มีค่าเท่ากับข้อใด`,
+      choices: [
+        { key: "A", text: "$0$" },
+        { key: "B", text: "$1$" },
+        { key: "C", text: "$-1$" },
+        { key: "D", text: "หาค่าไม่ได้" }
+      ],
+      answer: "B"
+    },
+    {
+      id: "q3",
+      prompt: `ค่าของ $\\tan(-45^\circ)$ มีค่าเท่ากับข้อใด`,
+      choices: [
+        { key: "A", text: "$1$" },
+        { key: "B", text: "$-1$" },
+        { key: "C", text: "$\\frac{\\sqrt{2}}{2}$" },
+        { key: "D", text: "$-\\frac{\\sqrt{2}}{2}$" }
+      ],
+      answer: "B"
+    },
+    {
+      id: "q4",
+      prompt: `$\\sin(-300^\circ)$ มีค่าตรงกับข้อใด`,
+      choices: [
+        { key: "A", text: "$\\frac{\\sqrt{3}}{2}$" },
+        { key: "B", text: "$-\\frac{\\sqrt{3}}{2}$" },
+        { key: "C", text: "$\\frac{1}{2}$" },
+        { key: "D", text: "$-\\frac{1}{2}$" }
+      ],
+      answer: "A"
+    },
+    {
+      id: "q5",
+      prompt: `ค่าของ $\\cos(-120^\circ)$ มีค่าเท่ากับข้อใด`,
+      choices: [
+        { key: "A", text: "$\\frac{1}{2}$" },
+        { key: "B", text: "$-\\frac{1}{2}$" },
+        { key: "C", text: "$\\frac{\\sqrt{3}}{2}$" },
+        { key: "D", text: "$-\\frac{\\sqrt{3}}{2}$" }
+      ],
+      answer: "B"
+    },
+    {
+      id: "q6",
+      prompt: `$\\tan(1125^\circ)$ มีค่าเท่ากับเท่าใด`,
+      choices: [
+        { key: "A", text: "$0$" },
+        { key: "B", text: "$\frac{1}{\sqrt{3}}$" },
+        { key: "C", text: "$1$" },
+        { key: "D", text: "$\sqrt{3}$" }
+      ],
+      answer: "C"
+    },
+    {
+      id: "q7",
+      prompt: `ถ้า $\\theta = -90^\circ$ แล้วค่าของ $\\sin\\theta + \\cos\\theta$ คือข้อใด`,
+      choices: [
+        { key: "A", text: "$1$" },
+        { key: "B", text: "$0$" },
+        { key: "C", text: "$-1$" },
+        { key: "D", text: "$-2$" }
+      ],
+      answer: "C"
+    },
+    {
+      id: "q8",
+      prompt: `$\\cos(390^\circ)$ มีค่าเท่ากับข้อใด`,
+      choices: [
+        { key: "A", text: "$\\frac{1}{2}$" },
+        { key: "B", text: "$\\frac{\\sqrt{3}}{2}$" },
+        { key: "C", text: "$-\\frac{1}{2}$" },
+        { key: "D", text: "$-\\frac{\\sqrt{3}}{2}$" }
+      ],
+      answer: "B"
+    },
+    {
+      id: "q9",
+      prompt: `$\\sin(-150^\circ)$ มีค่าเท่ากับข้อใด`,
+      choices: [
+        { key: "A", text: "$-\\frac{1}{2}$" },
+        { key: "B", text: "$\\frac{1}{2}$" },
+        { key: "C", text: "$-\\frac{\\sqrt{3}}{2}$" },
+        { key: "D", text: "$\\frac{\\sqrt{3}}{2}$" }
+      ],
+      answer: "A"
+    },
+    {
+      id: "q10",
+      prompt: `ค่าของ $\\tan(-240^\circ)$ มีค่าเท่ากับข้อใด`,
+      choices: [
+        { key: "A", text: "$\\sqrt{3}$" },
+        { key: "B", text: "$-\\sqrt{3}$" },
+        { key: "C", text: "$\\frac{1}{\\sqrt{3}}$" },
+        { key: "D", text: "$-\\frac{1}{\\sqrt{3}}$" }
+      ],
+      answer: "B"
+    },
+
+    // --- ฟังก์ชันส่วนกลับ cosec, sec, cot (ข้อ 11-15) ---
+    {
+      id: "q11",
+      prompt: `ค่าของ $\\sec(60^\circ)$ มีค่าเท่ากับข้อใด`,
+      choices: [
+        { key: "A", text: "$\\frac{1}{2}$" },
+        { key: "B", text: "$\\frac{2}{\\sqrt{3}}$" },
+        { key: "C", text: "$2$" },
+        { key: "D", text: "$\\sqrt{2}$" }
+      ],
+      answer: "C"
+    },
+    {
+      id: "q12",
+      prompt: `$\\csc(30^\circ) + \\cot(45^\circ)$ มีค่าเท่ากับข้อใด`,
+      choices: [
+        { key: "A", text: "$2$" },
+        { key: "B", text: "$3$" },
+        { key: "C", text: "$1 + \\sqrt{2}$" },
+        { key: "D", text: "$\\frac{2}{\\sqrt{3}} + 1$" }
+      ],
+      answer: "B"
+    },
+    {
+      id: "q13",
+      prompt: `ค่าของ $\\cot(-30^\circ)$ คือข้อใด`,
+      choices: [
+        { key: "A", text: "$\\sqrt{3}$" },
+        { key: "B", text: "$-\\sqrt{3}$" },
+        { key: "C", text: "$\\frac{1}{\\sqrt{3}}$" },
+        { key: "D", text: "$-\\frac{1}{\\sqrt{3}}$" }
+      ],
+      answer: "B"
+    },
+    {
+      id: "q14",
+      prompt: `$\\sec(135^\circ)$ มีค่าเท่ากับข้อใด`,
+      choices: [
+        { key: "A", text: "$\\sqrt{2}$" },
+        { key: "B", text: "$-\\sqrt{2}$" },
+        { key: "C", text: "$\\frac{2}{\\sqrt{3}}$" },
+        { key: "D", text: "$-\\frac{2}{\\sqrt{3}}$" }
+      ],
+      answer: "B"
+    },
+    {
+      id: "q15",
+      prompt: `ข้อใดต่อไปนี้คือค่าของ $\\csc(270^\circ)$`,
+      choices: [
+        { key: "A", text: "$0$" },
+        { key: "B", text: "$1$" },
+        { key: "C", text: "$-1$" },
+        { key: "D", text: "หาค่าไม่ได้" }
+      ],
+      answer: "C"
+    },
+
+    // --- แก้สมการ (ข้อ 16-20) ---
+    {
+      id: "q16",
+      prompt: `ถ้า $2\\sin\\theta - 1 = 0$ เมื่อ $0^\circ \\le \\theta \\le 90^\circ$ แล้ว $\\theta$ มีค่ากี่องศา`,
+      choices: [
+        { key: "A", text: "$30^\circ$" },
+        { key: "B", text: "$45^\circ$" },
+        { key: "C", text: "$60^\circ$" },
+        { key: "D", text: "$90^\circ$" }
+      ],
+      answer: "A"
+    },
+    {
+      id: "q17",
+      prompt: `กำหนดให้ $\\sqrt{3}\\tan\\theta = 1$ และ $180^\circ < \\theta < 270^\circ$ จงหาค่า $\\theta$`,
+      choices: [
+        { key: "A", text: "$210^\circ$" },
+        { key: "B", text: "$225^\circ$" },
+        { key: "C", text: "$240^\circ$" },
+        { key: "D", text: "$300^\circ$" }
+      ],
+      answer: "A"
+    },
+    {
+      id: "q18",
+      prompt: `ถ้า $\\sec\\theta = -2$ และ $90^\circ < \\theta < 180^\circ$ แล้ว $\\theta$ มีค่าเท่าใด`,
+      choices: [
+        { key: "A", text: "$120^\circ$" },
+        { key: "B", text: "$135^\circ$" },
+        { key: "C", text: "$150^\circ$" },
+        { key: "D", text: "$180^\circ$" }
+      ],
+      answer: "A"
+    },
+    {
+      id: "q19",
+      prompt: `จากสมการ $\\cos^2\\theta = 1$ เมื่อ $0^\circ \\le \\theta < 360^\circ$ เซตคำตอบของ $\\theta$ คือข้อใด`,
+      choices: [
+        { key: "A", text: "$\\{0^\circ\\}$" },
+        { key: "B", text: "$\\{0^\circ, 180^\circ\\}$" },
+        { key: "C", text: "$\\{90^\circ, 270^\circ\\}$" },
+        { key: "D", text: "$\\{0^\circ, 90^\circ, 180^\circ\\}$" }
+      ],
+      answer: "B"
+    },
+    {
+      id: "q20",
+      prompt: `จงหาค่า $\\theta$ ที่ทำให้ $\\cot\\theta = -1$ เมื่อ $270^\circ < \\theta < 360^\circ$`,
+      choices: [
+        { key: "A", text: "$300^\circ$" },
+        { key: "B", text: "$315^\circ$" },
+        { key: "C", text: "$330^\circ$" },
+        { key: "D", text: "$345^\circ$" }
+      ],
+      answer: "B"
+    },
+
+    // --- สูตร cos(A+B) และ sin(A-B) (ข้อ 21-25) ---
+    {
+      id: "q21",
+      prompt: `ค่าของ $\\cos(60^\circ + 30^\circ)$ โดยใช้สูตร $\\cos(A+B)$ จะมีค่าเท่ากับข้อใด`,
+      choices: [
+        { key: "A", text: "$\\cos 60^\circ \\cos 30^\circ - \\sin 60^\circ \\sin 30^\circ$" },
+        { key: "B", text: "$\\cos 60^\circ \\cos 30^\circ + \\sin 60^\circ \\sin 30^\circ$" },
+        { key: "C", text: "$\\sin 60^\circ \\cos 30^\circ - \\cos 60^\circ \\sin 30^\circ$" },
+        { key: "D", text: "$\\cos 60^\circ + \\cos 30^\circ$" }
+      ],
+      answer: "A"
+    },
+    {
+      id: "q22",
+      prompt: `จงหาค่าของ $\\sin(15^\circ)$ โดยใช้สูตร $\\sin(45^\circ - 30^\circ)$`,
+      choices: [
+        { key: "A", text: "$\\frac{\\sqrt{6}-\\sqrt{2}}{4}$" },
+        { key: "B", text: "$\\frac{\\sqrt{6}+\\sqrt{2}}{4}$" },
+        { key: "C", text: "$\\frac{\\sqrt{2}-\\sqrt{6}}{4}$" },
+        { key: "D", text: "$\\frac{\\sqrt{3}-1}{2}$" }
+      ],
+      answer: "A"
+    },
+    {
+      id: "q23",
+      prompt: `$\\cos 75^\circ$ มีค่าเท่ากับข้อใด (คำใบ้: $75 = 45+30$)`,
+      choices: [
+        { key: "A", text: "$\\frac{\\sqrt{6}+\\sqrt{2}}{4}$" },
+        { key: "B", text: "$\\frac{\\sqrt{6}-\\sqrt{2}}{4}$" },
+        { key: "C", text: "$\\frac{\\sqrt{2}-\\sqrt{6}}{4}$" },
+        { key: "D", text: "$\\frac{1}{4}$" }
+      ],
+      answer: "B"
+    },
+    {
+      id: "q24",
+      prompt: `ค่าของ $\\sin 70^\circ \\cos 40^\circ - \\cos 70^\circ \\sin 40^\circ$ ตรงกับข้อใด`,
+      choices: [
+        { key: "A", text: "$\\sin 110^\circ$" },
+        { key: "B", text: "$\\cos 30^\circ$" },
+        { key: "C", text: "$\\sin 30^\circ$" },
+        { key: "D", text: "$\\sin 40^\circ$" }
+      ],
+      answer: "C"
+    },
+    {
+      id: "q25",
+      prompt: `ค่าของ $\\cos 20^\circ \\cos 10^\circ - \\sin 20^\circ \\sin 10^\circ$ ตรงกับข้อใด`,
+      choices: [
+        { key: "A", text: "$\\cos 30^\circ$" },
+        { key: "B", text: "$\\sin 30^\circ$" },
+        { key: "C", text: "$\\cos 10^\circ$" },
+        { key: "D", text: "$\\sin 10^\circ$" }
+      ],
+      answer: "A"
+    },
+
+    // --- ผสมผสาน/ทบทวน (ข้อ 26-30) ---
+    {
+      id: "q26",
+      prompt: `ถ้า $\\sin\\theta = \\frac{3}{5}$ และ $90^\circ < \\theta < 180^\circ$ แล้ว $\\cos\\theta$ มีค่าเท่าใด`,
+      choices: [
+        { key: "A", text: "$\\frac{4}{5}$" },
+        { key: "B", text: "$-\\frac{4}{5}$" },
+        { key: "C", text: "$\\frac{3}{4}$" },
+        { key: "D", text: "$-\\frac{3}{4}$" }
+      ],
+      answer: "B"
+    },
+    {
+      id: "q27",
+      prompt: `$\\tan(-315^\circ)$ มีค่าเท่ากับข้อใด`,
+      choices: [
+        { key: "A", text: "$1$" },
+        { key: "B", text: "$-1$" },
+        { key: "C", text: "$\\sqrt{3}$" },
+        { key: "D", text: "$-\\sqrt{3}$" }
+      ],
+      answer: "A"
+    },
+    {
+      id: "q28",
+      prompt: `$\\sec(-60^\circ)$ มีค่าเท่ากับข้อใด`,
+      choices: [
+        { key: "A", text: "$2$" },
+        { key: "B", text: "$-2$" },
+        { key: "C", text: "$\\frac{2}{\\sqrt{3}}$" },
+        { key: "D", text: "$-\\frac{2}{\\sqrt{3}}$" }
+      ],
+      answer: "A"
+    },
+    {
+      id: "q29",
+      prompt: `ค่าของ $\\cos(180^\circ - \\theta)$ มีค่าเท่ากับข้อใดเสมอ`,
+      choices: [
+        { key: "A", text: "$\\cos\\theta$" },
+        { key: "B", text: "$-\\cos\\theta$" },
+        { key: "C", text: "$\\sin\\theta$" },
+        { key: "D", text: "$-\\sin\\theta$" }
+      ],
+      answer: "B"
+    },
+    {
+      id: "q30",
+      prompt: `จงหาค่าของ $\\csc(-30^\circ) \\cdot \\sin(390^\circ)$`,
+      choices: [
+        { key: "A", text: "$1$" },
+        { key: "B", text: "$-1$" },
+        { key: "C", text: "$2$" },
+        { key: "D", text: "$-2$" }
+      ],
+      answer: "B"
+    }
+  ]
+}
 };
