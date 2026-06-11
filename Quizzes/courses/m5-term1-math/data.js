@@ -702,5 +702,357 @@ window.COURSE_DATA = {
       answer: "B"
     }
   ]
-}
+},
+  "quiz3": {
+  meta: {
+    courseId: "m5-term1-math",
+    quizKey: "quiz3",
+    title: "Quiz 3 : วงกลมหนึ่งหน่วย มุมพิเศษ และเอกลักษณ์ตรีโกณมิติ (30 ข้อ)",
+    enableTimer: true,
+    timeLimitSec: 3600
+  },
+  data: [
+    // --- ตอนที่ 1: วงกลมหนึ่งหน่วยและควอดรันต์ (ข้อ 1-5) ---
+    {
+      id: "q1",
+      prompt: `บนวงกลมหนึ่งหน่วย (Unit Circle) จุดปลายส่วนโค้งที่ยาว $\\theta$ หน่วย จะมีพิกัด $(x, y)$ ตรงกับฟังก์ชันตรีโกณมิติในข้อใด?`,
+      choices: [
+        { key: "A", text: "$(\\sin\\theta, \\cos\\theta)$" },
+        { key: "B", text: "$(\\cos\\theta, \\sin\\theta)$" },
+        { key: "C", text: "$(\\tan\\theta, \\cot\\theta)$" },
+        { key: "D", text: "$(\\sec\\theta, \\text{cosec}\\theta)$" }
+      ],
+      answer: "B"
+    },
+    {
+      id: "q2",
+      prompt: `มุม $\\theta$ ในจตุภาค (Quadrant) ใดที่ทำให้ฟังก์ชัน $\\sin\\theta$ มีค่าเป็นบวก และ $\\cos\\theta$ มีค่าเป็นลบ?`,
+      choices: [
+        { key: "A", text: "จตุภาคที่ 1" },
+        { key: "B", text: "จตุภาคที่ 2" },
+        { key: "C", text: "จตุภาคที่ 3" },
+        { key: "D", text: "จตุภาคที่ 4" }
+      ],
+      answer: "B"
+    },
+    {
+      id: "q3",
+      prompt: `ถ้ามุม $\\theta$ อยู่ในจตุภาคที่ 3 (Quadrant 3) ฟังก์ชันในข้อใดต่อไปนี้มีค่าเป็น **บวก**?`,
+      choices: [
+        { key: "A", text: "$\\sin\\theta$ และ $\\text{cosec}\\theta$" },
+        { key: "B", text: "$\\cos\\theta$ และ $\\sec\\theta$" },
+        { key: "C", text: "$\\tan\\theta$ และ $\\cot\\theta$" },
+        { key: "D", text: "ไม่มีฟังก์ชันใดมีค่าเป็นบวกเลย" }
+      ],
+      answer: "C"
+    },
+    {
+      id: "q4",
+      prompt: `พิกัด $(x,y)$ บนวงกลมหนึ่งหน่วยของมุม $270^\\circ$ หรือ $\\frac{3\\pi}{2}$ เรเดียน คือข้อใด?`,
+      choices: [
+        { key: "A", text: "$(1, 0)$" },
+        { key: "B", text: "$(0, 1)$" },
+        { key: "C", text: "$(-1, 0)$" },
+        { key: "D", text: "$(0, -1)$" }
+      ],
+      answer: "D"
+    },
+    {
+      id: "q5",
+      prompt: `กำหนดให้ $\\sin\\theta = \\frac{3}{5}$ และ $\\theta$ อยู่ในจตุภาคที่ 2 ค่าของ $\\cos\\theta$ คือเท่าใด?`,
+      choices: [
+        { key: "A", text: "$\\frac{4}{5}$" },
+        { key: "B", text: "$-\\frac{4}{5}$" },
+        { key: "C", text: "$\\frac{3}{4}$" },
+        { key: "D", text: "$-\\frac{3}{4}$" }
+      ],
+      answer: "B"
+    },
+
+    // --- ตอนที่ 2: มุมพิเศษ (Q1) (ข้อ 6-10) ---
+    {
+      id: "q6",
+      prompt: `ค่าของ $\\sin(30^\\circ) + \\cos(60^\\circ)$ เท่ากับเท่าใด?`,
+      choices: [
+        { key: "A", text: "$1$" },
+        { key: "B", text: "$\\frac{\\sqrt{3}}{2}$" },
+        { key: "C", text: "$\\sqrt{3}$" },
+        { key: "D", text: "$2$" }
+      ],
+      answer: "A"
+    },
+    {
+      id: "q7",
+      prompt: `ค่าของ $\\tan(45^\\circ) \\times \\cot(45^\\circ)$ มีค่าเท่าใด?`,
+      choices: [
+        { key: "A", text: "$0$" },
+        { key: "B", text: "$\\frac{1}{2}$" },
+        { key: "C", text: "$1$" },
+        { key: "D", text: "$\\sqrt{2}$" }
+      ],
+      answer: "C"
+    },
+    {
+      id: "q8",
+      prompt: `ค่าของ $\\sec(60^\\circ)$ เท่ากับเท่าใด?`,
+      choices: [
+        { key: "A", text: "$\\frac{1}{2}$" },
+        { key: "B", text: "$\\frac{\\sqrt{3}}{2}$" },
+        { key: "C", text: "$\\sqrt{2}$" },
+        { key: "D", text: "$2$" }
+      ],
+      answer: "D"
+    },
+    {
+      id: "q9",
+      prompt: `ค่าของ $\\text{cosec}\\left(\\frac{\\pi}{4}\\right)$ เท่ากับเท่าใด?`,
+      choices: [
+        { key: "A", text: "$\\frac{\\sqrt{2}}{2}$" },
+        { key: "B", text: "$\\sqrt{2}$" },
+        { key: "C", text: "$2$" },
+        { key: "D", text: "$1$" }
+      ],
+      answer: "B"
+    },
+    {
+      id: "q10",
+      prompt: `ค่าของ $\\sin\\left(\\frac{\\pi}{3}\\right) \\times \\tan\\left(\\frac{\\pi}{6}\\right)$ เท่ากับเท่าใด?`,
+      choices: [
+        { key: "A", text: "$\\frac{1}{2}$" },
+        { key: "B", text: "$\\frac{\\sqrt{3}}{2}$" },
+        { key: "C", text: "$\\frac{1}{4}$" },
+        { key: "D", text: "$1$" }
+      ],
+      answer: "A"
+    },
+
+    // --- ตอนที่ 3: มุมพิเศษ (Q2, Q3, Q4) (ข้อ 11-15) ---
+    {
+      id: "q11",
+      prompt: `ค่าของ $\\sin(120^\\circ)$ เท่ากับเท่าใด?`,
+      choices: [
+        { key: "A", text: "$\\frac{1}{2}$" },
+        { key: "B", text: "$-\\frac{1}{2}$" },
+        { key: "C", text: "$\\frac{\\sqrt{3}}{2}$" },
+        { key: "D", text: "$-\\frac{\\sqrt{3}}{2}$" }
+      ],
+      answer: "C"
+    },
+    {
+      id: "q12",
+      prompt: `ค่าของ $\\cos(135^\\circ)$ เท่ากับเท่าใด?`,
+      choices: [
+        { key: "A", text: "$\\frac{\\sqrt{2}}{2}$" },
+        { key: "B", text: "$-\\frac{\\sqrt{2}}{2}$" },
+        { key: "C", text: "$\\frac{1}{2}$" },
+        { key: "D", text: "$-\\frac{1}{2}$" }
+      ],
+      answer: "B"
+    },
+    {
+      id: "q13",
+      prompt: `ค่าของ $\\tan(225^\\circ)$ เท่ากับเท่าใด?`,
+      choices: [
+        { key: "A", text: "$1$" },
+        { key: "B", text: "$-1$" },
+        { key: "C", text: "$\\sqrt{3}$" },
+        { key: "D", text: "$-\\sqrt{3}$" }
+      ],
+      answer: "A"
+    },
+    {
+      id: "q14",
+      prompt: `ค่าของ $\\cos(300^\\circ)$ เท่ากับเท่าใด?`,
+      choices: [
+        { key: "A", text: "$\\frac{\\sqrt{3}}{2}$" },
+        { key: "B", text: "$-\\frac{\\sqrt{3}}{2}$" },
+        { key: "C", text: "$\\frac{1}{2}$" },
+        { key: "D", text: "$-\\frac{1}{2}$" }
+      ],
+      answer: "C"
+    },
+    {
+      id: "q15",
+      prompt: `ค่าของ $\\sin\\left(\\frac{7\\pi}{6}\\right)$ เท่ากับเท่าใด?`,
+      choices: [
+        { key: "A", text: "$\\frac{1}{2}$" },
+        { key: "B", text: "$-\\frac{1}{2}$" },
+        { key: "C", text: "$\\frac{\\sqrt{3}}{2}$" },
+        { key: "D", text: "$-\\frac{\\sqrt{3}}{2}$" }
+      ],
+      answer: "B"
+    },
+
+    // --- ตอนที่ 4: มุมรูปสามเหลี่ยม 3-4-5 (มุม 37° และ 53°) (ข้อ 16-20) ---
+    {
+      id: "q16",
+      prompt: `โดยประมาณแล้ว ค่าของ $\\sin(37^\\circ)$ มีค่าตรงกับข้อใด?`,
+      choices: [
+        { key: "A", text: "$\\frac{3}{5}$" },
+        { key: "B", text: "$\\frac{4}{5}$" },
+        { key: "C", text: "$\\frac{3}{4}$" },
+        { key: "D", text: "$\\frac{4}{3}$" }
+      ],
+      answer: "A"
+    },
+    {
+      id: "q17",
+      prompt: `ค่าของ $\\cos(53^\\circ) + \\sin(37^\\circ)$ เท่ากับเท่าใด?`,
+      choices: [
+        { key: "A", text: "$1$" },
+        { key: "B", text: "$\\frac{6}{5}$" },
+        { key: "C", text: "$\\frac{7}{5}$" },
+        { key: "D", text: "$\\frac{8}{5}$" }
+      ],
+      answer: "B"
+    },
+    {
+      id: "q18",
+      prompt: `ค่าของ $\\tan(37^\\circ) \\times \\tan(53^\\circ)$ เท่ากับเท่าใด?`,
+      choices: [
+        { key: "A", text: "$\\frac{9}{16}$" },
+        { key: "B", text: "$\\frac{16}{9}$" },
+        { key: "C", text: "$1$" },
+        { key: "D", text: "$0$" }
+      ],
+      answer: "C"
+    },
+    {
+      id: "q19",
+      prompt: `ค่าของ $\\sec(37^\\circ)$ เท่ากับเท่าใด?`,
+      choices: [
+        { key: "A", text: "$\\frac{5}{3}$" },
+        { key: "B", text: "$\\frac{5}{4}$" },
+        { key: "C", text: "$\\frac{4}{3}$" },
+        { key: "D", text: "$\\frac{3}{4}$" }
+      ],
+      answer: "B"
+    },
+    {
+      id: "q20",
+      prompt: `ค่าของ $\\text{cosec}(53^\\circ) - \\cot(53^\\circ)$ เท่ากับเท่าใด?`,
+      choices: [
+        { key: "A", text: "$\\frac{1}{4}$" },
+        { key: "B", text: "$\\frac{1}{2}$" },
+        { key: "C", text: "$\\frac{3}{4}$" },
+        { key: "D", text: "$1$" }
+      ],
+      answer: "B"
+    },
+
+    // --- ตอนที่ 5: สมการและการประเมินค่าฟังก์ชัน (ข้อ 21-25) ---
+    {
+      id: "q21",
+      prompt: `ค่าของ $\\sin^2(45^\\circ) + \\cos^2(45^\\circ)$ เท่ากับเท่าใด?`,
+      choices: [
+        { key: "A", text: "$\\frac{1}{2}$" },
+        { key: "B", text: "$1$" },
+        { key: "C", text: "$\\frac{\\sqrt{2}}{2}$" },
+        { key: "D", text: "$2$" }
+      ],
+      answer: "B"
+    },
+    {
+      id: "q22",
+      prompt: `ค่าของ $\\sin^2(30^\\circ) + \\tan(135^\\circ)$ เท่ากับเท่าใด?`,
+      choices: [
+        { key: "A", text: "$-\\frac{3}{4}$" },
+        { key: "B", text: "$-\\frac{1}{4}$" },
+        { key: "C", text: "$\\frac{1}{4}$" },
+        { key: "D", text: "$\\frac{5}{4}$" }
+      ],
+      answer: "A"
+    },
+    {
+      id: "q23",
+      prompt: `ค่าของ $\\sin^2(37^\\circ) + \\frac{\\tan(135^\\circ)}{\\sec(240^\\circ)}$ เท่ากับเท่าใด?`,
+      choices: [
+        { key: "A", text: "$\\frac{18}{25}$" },
+        { key: "B", text: "$\\frac{19}{50}$" },
+        { key: "C", text: "$\\frac{43}{50}$" },
+        { key: "D", text: "$-\\frac{7}{50}$" }
+      ],
+      answer: "C"
+    },
+    {
+      id: "q24",
+      prompt: `ค่าของ $\\cos^2(60^\\circ) + \\text{cosec}(210^\\circ)$ เท่ากับเท่าใด?`,
+      choices: [
+        { key: "A", text: "$-\\frac{7}{4}$" },
+        { key: "B", text: "$-\\frac{3}{4}$" },
+        { key: "C", text: "$\\frac{5}{4}$" },
+        { key: "D", text: "$\\frac{9}{4}$" }
+      ],
+      answer: "A"
+    },
+    {
+      id: "q25",
+      prompt: `ค่าของ $2\\sin(30^\\circ)\\cos(30^\\circ) - \\sin(60^\\circ)$ เท่ากับเท่าใด?`,
+      choices: [
+        { key: "A", text: "$0$" },
+        { key: "B", text: "$\\frac{1}{2}$" },
+        { key: "C", text: "$\\frac{\\sqrt{3}}{2}$" },
+        { key: "D", text: "$1$" }
+      ],
+      answer: "A"
+    },
+
+    // --- ตอนที่ 6: เอกลักษณ์ตรีโกณมิติง่ายๆ (ข้อ 26-30) ---
+    {
+      id: "q26",
+      prompt: `จากเอกลักษณ์ตรีโกณมิติพื้นฐาน ข้อใดเป็นจริงเสมอสำหรับทุกมุม $\\theta$?`,
+      choices: [
+        { key: "A", text: "$\\sin\\theta + \\cos\\theta = 1$" },
+        { key: "B", text: "$\\sin^2\\theta - \\cos^2\\theta = 1$" },
+        { key: "C", text: "$\\sin^2\\theta + \\cos^2\\theta = 1$" },
+        { key: "D", text: "$\\sec^2\\theta + \\tan^2\\theta = 1$" }
+      ],
+      answer: "C"
+    },
+    {
+      id: "q27",
+      prompt: `เอกลักษณ์ $1 + \\tan^2\\theta$ มีค่าเท่ากับฟังก์ชันในข้อใด?`,
+      choices: [
+        { key: "A", text: "$\\sec^2\\theta$" },
+        { key: "B", text: "$\\text{cosec}^2\\theta$" },
+        { key: "C", text: "$\\cot^2\\theta$" },
+        { key: "D", text: "$\\cos^2\\theta$" }
+      ],
+      answer: "A"
+    },
+    {
+      id: "q28",
+      prompt: `เอกลักษณ์ $\\text{cosec}^2\\theta - \\cot^2\\theta$ มีค่าเท่ากับเท่าใด?`,
+      choices: [
+        { key: "A", text: "$-1$" },
+        { key: "B", text: "$0$" },
+        { key: "C", text: "$1$" },
+        { key: "D", text: "$\\tan^2\\theta$" }
+      ],
+      answer: "C"
+    },
+    {
+      id: "q29",
+      prompt: `นิพจน์ $\\tan\\theta \\times \\text{cosec}\\theta$ สามารถจัดรูปให้ง่ายที่สุดตรงกับข้อใด?`,
+      choices: [
+        { key: "A", text: "$\\sin\\theta$" },
+        { key: "B", text: "$\\cos\\theta$" },
+        { key: "C", text: "$\\sec\\theta$" },
+        { key: "D", text: "$\\cot\\theta$" }
+      ],
+      answer: "C"
+    },
+    {
+      id: "q30",
+      prompt: `นิพจน์ $\\cos\\theta (\\sec\\theta - \\cos\\theta)$ เมื่อกระจายและจัดรูปแล้ว จะมีค่าเท่ากับข้อใด?`,
+      choices: [
+        { key: "A", text: "$1$" },
+        { key: "B", text: "$\\sin^2\\theta$" },
+        { key: "C", text: "$\\cos^2\\theta$" },
+        { key: "D", text: "$\\tan^2\\theta$" }
+      ],
+      answer: "B"
+    }
+  ]
+}    
 };
