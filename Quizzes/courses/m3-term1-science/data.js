@@ -710,8 +710,8 @@ window.COURSE_DATA = {
     }
   ]
 },
-    "quiz3": {
-  meta: {
+  "quiz3": {
+    meta: {
     courseId: "m3-term1-science",
     quizKey: "quiz3",
     title: "Quiz 3 : กฎอนุรักษ์พลังงานและความร้อน (30 ข้อ)",
