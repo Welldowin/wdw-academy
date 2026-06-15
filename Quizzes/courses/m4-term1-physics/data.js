@@ -689,5 +689,355 @@ window.COURSE_DATA = {
       answer: "B"
     }
   ]
+},
+    "quiz3": {
+  meta: {
+    courseId: "m4-term1-physics",
+    quizKey: "quiz3",
+    title: "Quiz 3 : การวัดและเลขนัยสำคัญ (30 ข้อ)",
+    enableTimer: true,
+    timeLimitSec: 3600
+  },
+  data: [
+    // --- การอ่านค่าเวอร์เนียคาลิปเปอร์ (2 ข้อ) ---
+    {
+      id: "q1",
+      prompt: `จากรูปภาพการวัดด้วยเวอร์เนียคาลิปเปอร์ (ความละเอียด $0.05 \\text{ mm}$) ค่าที่อ่านได้คือข้อใด?<br><br><div style="background:#f8f9fa; padding:15px; border-radius:8px; text-align:center; border: 1px dashed #ccc;"><img src="./images/001.jpg" alt="รูปประกอบข้อสอบ" style="max-width:100%; border-radius:4px;"></div><br>`,
+      choices: [
+        { key: "A", text: "$24.14 \\text{ mm}$" },
+        { key: "B", text: "$24.70 \\text{ mm}$" },
+        { key: "C", text: "$25.14 \\text{ mm}$" },
+        { key: "D", text: "$24.07 \\text{ mm}$" }
+      ],
+      answer: "B"
+    },
+    {
+      id: "q2",
+      prompt: `จากรูปภาพการวัดด้วยเวอร์เนียคาลิปเปอร์ (ความละเอียด $0.05 \\text{ mm}$) ค่าที่วัดได้มีขนาดเท่าใด?<br><br><div style="background:#f8f9fa; padding:15px; border-radius:8px; text-align:center; border: 1px dashed #ccc;"><img src="./images/002.jpg" alt="รูปประกอบข้อสอบ" style="max-width:100%; border-radius:4px;"></div><br>`,
+      choices: [
+        { key: "A", text: "$15.15 \\text{ mm}$" },
+        { key: "B", text: "$15.30 \\text{ mm}$" },
+        { key: "C", text: "$16.15 \\text{ mm}$" },
+        { key: "D", text: "$15.03 \\text{ mm}$" }
+      ],
+      answer: "A"
+    },
+
+    // --- การอ่านค่าไมโครมิเตอร์ (2 ข้อ) ---
+    {
+      id: "q3",
+      prompt: `จากรูปภาพการวัดด้วยไมโครมิเตอร์ ค่าที่อ่านได้คือข้อใด?<br><br><div style="background:#f8f9fa; padding:15px; border-radius:8px; text-align:center; border: 1px dashed #ccc;"><img src="./images/003.jpg" alt="รูปประกอบข้อสอบ" style="max-width:100%; border-radius:4px;"></div><br>`,
+      choices: [
+        { key: "A", text: "$3.015 \\text{ mm}$" },
+        { key: "B", text: "$3.50 \\text{ mm}$" },
+        { key: "C", text: "$3.15 \\text{ mm}$" },
+        { key: "D", text: "$3.65 \\text{ mm}$" }
+      ],
+      answer: "C"
+    },
+    {
+      id: "q4",
+      prompt: `จากรูปภาพไมโครมิเตอร์นี้ วัดค่าความหนาได้เท่าใด?<br><br><div style="background:#f8f9fa; padding:15px; border-radius:8px; text-align:center; border: 1px dashed #ccc;"><img src="./images/004.jpg" alt="รูปประกอบข้อสอบ" style="max-width:100%; border-radius:4px;"></div><br>`,
+      choices: [
+        { key: "A", text: "$2.43 \\text{ mm}$" },
+        { key: "B", text: "$2.93 \\text{ mm}$" },
+        { key: "C", text: "$2.543 \\text{ mm}$" },
+        { key: "D", text: "$2.95 \\text{ mm}$" }
+      ],
+      answer: "B"
+    },
+
+    // --- จำนวนเลขนัยสำคัญ (11 ข้อ) ---
+    {
+      id: "q5",
+      prompt: `ตัวเลข $0.00450$ มีจำนวนเลขนัยสำคัญกี่ตัว?`,
+      choices: [
+        { key: "A", text: "2 ตัว" },
+        { key: "B", text: "3 ตัว" },
+        { key: "C", text: "5 ตัว" },
+        { key: "D", text: "6 ตัว" }
+      ],
+      answer: "B"
+    },
+    {
+      id: "q6",
+      prompt: `ตัวเลข $1.0020$ มีจำนวนเลขนัยสำคัญกี่ตัว?`,
+      choices: [
+        { key: "A", text: "2 ตัว" },
+        { key: "B", text: "3 ตัว" },
+        { key: "C", text: "4 ตัว" },
+        { key: "D", text: "5 ตัว" }
+      ],
+      answer: "D"
+    },
+    {
+      id: "q7",
+      prompt: `ตัวเลข $2.50 \\times 10^4$ มีจำนวนเลขนัยสำคัญกี่ตัว?`,
+      choices: [
+        { key: "A", text: "2 ตัว" },
+        { key: "B", text: "3 ตัว" },
+        { key: "C", text: "4 ตัว" },
+        { key: "D", text: "5 ตัว" }
+      ],
+      answer: "B"
+    },
+    {
+      id: "q8",
+      prompt: `ปริมาณในข้อใดมีจำนวนเลขนัยสำคัญ 4 ตัว?`,
+      choices: [
+        { key: "A", text: "$0.0400$" },
+        { key: "B", text: "$1000$" },
+        { key: "C", text: "$1.200$" },
+        { key: "D", text: "$0.0004$" }
+      ],
+      answer: "C"
+    },
+    {
+      id: "q9",
+      prompt: `ปริมาณ $0.03050$ มีจำนวนเลขนัยสำคัญกี่ตัว?`,
+      choices: [
+        { key: "A", text: "3 ตัว" },
+        { key: "B", text: "4 ตัว" },
+        { key: "C", text: "5 ตัว" },
+        { key: "D", text: "6 ตัว" }
+      ],
+      answer: "B"
+    },
+    {
+      id: "q10",
+      prompt: `ตามหลักการนับเลขนัยสำคัญ เลข "0" ในข้อใดที่ <b>ไม่นับ</b> เป็นเลขนัยสำคัญ?`,
+      choices: [
+        { key: "A", text: "เลข 0 ที่อยู่ระหว่างตัวเลขอื่น" },
+        { key: "B", text: "เลข 0 ที่อยู่หน้าสุดของตัวเลข (นำหน้าตัวเลขอื่น)" },
+        { key: "C", text: "เลข 0 ที่อยู่หลังสุดและมีจุดทศนิยม" },
+        { key: "D", text: "นับเลข 0 เป็นเลขนัยสำคัญเสมอในทุกกรณี" }
+      ],
+      answer: "B"
+    },
+    {
+      id: "q11",
+      prompt: `หากนักเรียนนับจำนวนแอปเปิ้ลในตะกร้าได้ $5$ ผลพอดี ตัวเลข $5$ นี้มีจำนวนเลขนัยสำคัญกี่ตัว?`,
+      choices: [
+        { key: "A", text: "1 ตัว" },
+        { key: "B", text: "2 ตัว" },
+        { key: "C", text: "0 ตัว" },
+        { key: "D", text: "มีจำนวนอนันต์ (Infinity)" }
+      ],
+      answer: "D"
+    },
+    {
+      id: "q12",
+      prompt: `ตัวเลข $1500.0$ มีจำนวนเลขนัยสำคัญกี่ตัว?`,
+      choices: [
+        { key: "A", text: "2 ตัว" },
+        { key: "B", text: "3 ตัว" },
+        { key: "C", text: "4 ตัว" },
+        { key: "D", text: "5 ตัว" }
+      ],
+      answer: "D"
+    },
+    {
+      id: "q13",
+      prompt: `ค่าในข้อใดต่อไปนี้ มีจำนวนเลขนัยสำคัญ <b>มากที่สุด</b>?`,
+      choices: [
+        { key: "A", text: "$0.0099$" },
+        { key: "B", text: "$0.100$" },
+        { key: "C", text: "$1.01$" },
+        { key: "D", text: "$1.0001$" }
+      ],
+      answer: "D"
+    },
+    {
+      id: "q14",
+      prompt: `การเขียนค่า $0.000450$ ในรูปสัญกรณ์วิทยาศาสตร์ (Scientific Notation) ที่ถูกต้องตามหลักเลขนัยสำคัญคือข้อใด?`,
+      choices: [
+        { key: "A", text: "$4.5 \\times 10^{-4}$" },
+        { key: "B", text: "$4.50 \\times 10^{-4}$" },
+        { key: "C", text: "$4.500 \\times 10^{-4}$" },
+        { key: "D", text: "$0.45 \\times 10^{-3}$" }
+      ],
+      answer: "B"
+    },
+    {
+      id: "q15",
+      prompt: `ตัวเลข $0.0102030$ มีจำนวนเลขนัยสำคัญกี่ตัว?`,
+      choices: [
+        { key: "A", text: "5 ตัว" },
+        { key: "B", text: "6 ตัว" },
+        { key: "C", text: "7 ตัว" },
+        { key: "D", text: "8 ตัว" }
+      ],
+      answer: "B"
+    },
+
+    // --- การบวกลบ คูณหาร เลขนัยสำคัญ (11 ข้อ) ---
+    {
+      id: "q16",
+      prompt: `ผลลัพธ์ของการคำนวณ $12.11 + 2.0$ ที่ถูกต้องตามหลักเลขนัยสำคัญคือข้อใด?`,
+      choices: [
+        { key: "A", text: "$14$" },
+        { key: "B", text: "$14.1$" },
+        { key: "C", text: "$14.11$" },
+        { key: "D", text: "$14.110$" }
+      ],
+      answer: "B"
+    },
+    {
+      id: "q17",
+      prompt: `ผลลัพธ์ของ $100.0 - 0.55$ ที่ถูกต้องตามหลักเลขนัยสำคัญคือข้อใด?`,
+      choices: [
+        { key: "A", text: "$99.4$" },
+        { key: "B", text: "$99.5$" },
+        { key: "C", text: "$99.45$" },
+        { key: "D", text: "$99$" }
+      ],
+      answer: "B"
+    },
+    {
+      id: "q18",
+      prompt: `ผลลัพธ์ของ $2.50 \\times 2.0$ ที่ถูกต้องตามหลักเลขนัยสำคัญคือข้อใด?`,
+      choices: [
+        { key: "A", text: "$5$" },
+        { key: "B", text: "$5.0$" },
+        { key: "C", text: "$5.00$" },
+        { key: "D", text: "$5.000$" }
+      ],
+      answer: "B"
+    },
+    {
+      id: "q19",
+      prompt: `ผลลัพธ์ของ $15.0 \\div 3.000$ ที่ถูกต้องตามหลักเลขนัยสำคัญคือข้อใด?`,
+      choices: [
+        { key: "A", text: "$5$" },
+        { key: "B", text: "$5.0$" },
+        { key: "C", text: "$5.00$" },
+        { key: "D", text: "$5.000$" }
+      ],
+      answer: "C"
+    },
+    {
+      id: "q20",
+      prompt: `ผลลัพธ์ของการคำนวณ $1.23 + 4.5$ ที่ถูกต้องตามหลักเลขนัยสำคัญคือข้อใด?`,
+      choices: [
+        { key: "A", text: "$5.7$" },
+        { key: "B", text: "$5.73$" },
+        { key: "C", text: "$6.0$" },
+        { key: "D", text: "$5.730$" }
+      ],
+      answer: "A"
+    },
+    {
+      id: "q21",
+      prompt: `ผลลัพธ์ของ $4.2 \\times 1.53$ ที่ถูกต้องตามหลักเลขนัยสำคัญคือข้อใด?`,
+      choices: [
+        { key: "A", text: "$6.4$" },
+        { key: "B", text: "$6.42$" },
+        { key: "C", text: "$6.43$" },
+        { key: "D", text: "$6.426$" }
+      ],
+      answer: "A"
+    },
+    {
+      id: "q22",
+      prompt: `ผลลัพธ์ของ $12.5 - 2.1 + 1.2$ ที่ถูกต้องตามหลักเลขนัยสำคัญคือข้อใด?`,
+      choices: [
+        { key: "A", text: "$11$" },
+        { key: "B", text: "$11.6$" },
+        { key: "C", text: "$11.60$" },
+        { key: "D", text: "$12$" }
+      ],
+      answer: "B"
+    },
+    {
+      id: "q23",
+      prompt: `ผลลัพธ์ของ $0.050 \\times 100.0$ ที่ถูกต้องตามหลักเลขนัยสำคัญคือข้อใด?`,
+      choices: [
+        { key: "A", text: "$5$" },
+        { key: "B", text: "$5.0$" },
+        { key: "C", text: "$5.00$" },
+        { key: "D", text: "$5.000$" }
+      ],
+      answer: "B"
+    },
+    {
+      id: "q24",
+      prompt: `ผลลัพธ์ของ $\\frac{8.00}{2.0}$ ที่ถูกต้องตามหลักเลขนัยสำคัญคือข้อใด?`,
+      choices: [
+        { key: "A", text: "$4$" },
+        { key: "B", text: "$4.0$" },
+        { key: "C", text: "$4.00$" },
+        { key: "D", text: "$4.000$" }
+      ],
+      answer: "B"
+    },
+    {
+      id: "q25",
+      prompt: `ผลลัพธ์ของการคำนวณ $(1.50 + 2.5) \\times 3.0$ ที่ถูกต้องตามหลักเลขนัยสำคัญคือข้อใด?`,
+      choices: [
+        { key: "A", text: "$12$" },
+        { key: "B", text: "$12.0$" },
+        { key: "C", text: "$12.00$" },
+        { key: "D", text: "$1.2 \\times 10^1$" }
+      ],
+      answer: "A"
+    },
+    {
+      id: "q26",
+      prompt: `ผลลัพธ์ของการคำนวณ $\\frac{10.0 \\times 2.00}{4.0}$ ที่ถูกต้องตามหลักเลขนัยสำคัญคือข้อใด?`,
+      choices: [
+        { key: "A", text: "$5$" },
+        { key: "B", text: "$5.0$" },
+        { key: "C", text: "$5.00$" },
+        { key: "D", text: "$5.000$" }
+      ],
+      answer: "B"
+    },
+
+    // --- จำลองสถานการณ์การวัดค่าพื้นที่ (4 ข้อ) ---
+    {
+      id: "q27",
+      prompt: `นักเรียนวัดด้านกว้างของแผ่นโลหะสี่เหลี่ยมได้ $2.5 \\text{ cm}$ และวัดด้านยาวได้ $4.00 \\text{ cm}$ พื้นที่ของแผ่นโลหะนี้คือข้อใดตามหลักเลขนัยสำคัญ?`,
+      choices: [
+        { key: "A", text: "$10 \\text{ cm}^2$" },
+        { key: "B", text: "$10.0 \\text{ cm}^2$" },
+        { key: "C", text: "$1.0 \\times 10^1 \\text{ cm}^2$" },
+        { key: "D", text: "$1.00 \\times 10^1 \\text{ cm}^2$" }
+      ],
+      answer: "C"
+    },
+    {
+      id: "q28",
+      prompt: `แผ่นพลาสติกรูปวงกลมมีรัศมีวัดได้ $2.0 \\text{ cm}$ พื้นที่ของแผ่นพลาสติกนี้คือข้อใดตามหลักเลขนัยสำคัญ? (กำหนด $\\pi \\approx 3.14$)`,
+      choices: [
+        { key: "A", text: "$12 \\text{ cm}^2$" },
+        { key: "B", text: "$12.6 \\text{ cm}^2$" },
+        { key: "C", text: "$13 \\text{ cm}^2$" },
+        { key: "D", text: "$12.56 \\text{ cm}^2$" }
+      ],
+      answer: "C"
+    },
+    {
+      id: "q29",
+      prompt: `ช่างปูพื้นวัดความกว้างของห้องได้ $3.50 \\text{ m}$ และความยาว $4.2 \\text{ m}$ พื้นที่ของห้องนี้ตามหลักเลขนัยสำคัญควรบันทึกผลเป็นเท่าใด?`,
+      choices: [
+        { key: "A", text: "$14 \\text{ m}^2$" },
+        { key: "B", text: "$14.7 \\text{ m}^2$" },
+        { key: "C", text: "$14.70 \\text{ m}^2$" },
+        { key: "D", text: "$15 \\text{ m}^2$" }
+      ],
+      answer: "D"
+    },
+    {
+      id: "q30",
+      prompt: `โต๊ะเรียนรูปสี่เหลี่ยมผืนผ้ามีความกว้าง $1.2 \\text{ m}$ และความยาว $5.00 \\text{ m}$ พื้นที่ของโต๊ะเรียนตัวนี้คือข้อใดตามหลักเลขนัยสำคัญ?`,
+      choices: [
+        { key: "A", text: "$6 \\text{ m}^2$" },
+        { key: "B", text: "$6.0 \\text{ m}^2$" },
+        { key: "C", text: "$6.00 \\text{ m}^2$" },
+        { key: "D", text: "$6.000 \\text{ m}^2$" }
+      ],
+      answer: "B"
+    }
+  ]
 }
 };
