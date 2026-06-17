@@ -1083,7 +1083,7 @@ window.COURSE_DATA = {
     }
   ]
 },
-    "quiz4": {
+  "quiz4": {
   meta: {
     courseId: "m5-term1-chem",
     quizKey: "quiz4",
