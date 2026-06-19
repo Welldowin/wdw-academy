@@ -1054,5 +1054,346 @@ window.COURSE_DATA = {
       answer: "B"
     }
   ]
-}    
+},
+  "quiz4": {
+  meta: {
+    courseId: "m5-term1-math",
+    quizKey: "quiz4",
+    title: "Quiz 4 : เอกลักษณ์ตรีโกณมิติ (30 ข้อ)",
+    enableTimer: true,
+    timeLimitSec: 3600
+  },
+  data: [
+    {
+      id: "q1",
+      prompt: `ค่าของ $\\sin^2 x + \\cos^2 x$ ตรงกับข้อใด`,
+      choices: [
+        { key: "A", text: "$0$" },
+        { key: "B", text: "$1$" },
+        { key: "C", text: "$-1$" },
+        { key: "D", text: "$\\tan^2 x$" }
+      ],
+      answer: "B"
+    },
+    {
+      id: "q2",
+      prompt: `เอกลักษณ์ในข้อใดคือรูปที่ถูกต้องของ $\\tan x$`,
+      choices: [
+        { key: "A", text: "$\\frac{\\cos x}{\\sin x}$" },
+        { key: "B", text: "$\\frac{1}{\\cos x}$" },
+        { key: "C", text: "$\\frac{\\sin x}{\\cos x}$" },
+        { key: "D", text: "$\\frac{1}{\\sin x}$" }
+      ],
+      answer: "C"
+    },
+    {
+      id: "q3",
+      prompt: `ค่าของ $\\sec^2 \\theta - \\tan^2 \\theta$ ตรงกับข้อใด`,
+      choices: [
+        { key: "A", text: "$1$" },
+        { key: "B", text: "$-1$" },
+        { key: "C", text: "$0$" },
+        { key: "D", text: "$\\cot^2 \\theta$" }
+      ],
+      answer: "A"
+    },
+    {
+      id: "q4",
+      prompt: `รูปอย่างง่ายของ $\\csc^2 \\theta - 1$ คือข้อใด`,
+      choices: [
+        { key: "A", text: "$\\tan^2 \\theta$" },
+        { key: "B", text: "$\\sec^2 \\theta$" },
+        { key: "C", text: "$\\cot^2 \\theta$" },
+        { key: "D", text: "$-\\cot^2 \\theta$" }
+      ],
+      answer: "C"
+    },
+    {
+      id: "q5",
+      prompt: `รูปอย่างง่ายของ $\\cos x \\cdot \\tan x$ คือข้อใด`,
+      choices: [
+        { key: "A", text: "$\\sin x$" },
+        { key: "B", text: "$\\cos x$" },
+        { key: "C", text: "$\\sec x$" },
+        { key: "D", text: "$\\csc x$" }
+      ],
+      answer: "A"
+    },
+    {
+      id: "q6",
+      prompt: `รูปอย่างง่ายของ $\\sin x \\cdot \\csc x$ คือข้อใด`,
+      choices: [
+        { key: "A", text: "$\\sin^2 x$" },
+        { key: "B", text: "$\\cos^2 x$" },
+        { key: "C", text: "$1$" },
+        { key: "D", text: "$0$" }
+      ],
+      answer: "C"
+    },
+    {
+      id: "q7",
+      prompt: `ผลสำเร็จของ $\\frac{\\sin^2 A + \\cos^2 A}{\\sec A}$ ตรงกับข้อใด`,
+      choices: [
+        { key: "A", text: "$\\sin A$" },
+        { key: "B", text: "$\\cos A$" },
+        { key: "C", text: "$\\tan A$" },
+        { key: "D", text: "$\\sec A$" }
+      ],
+      answer: "B"
+    },
+    {
+      id: "q8",
+      prompt: `รูปอย่างง่ายของ $(1 - \\cos^2 x)\\csc^2 x$ คือข้อใด`,
+      choices: [
+        { key: "A", text: "$0$" },
+        { key: "B", text: "$1$" },
+        { key: "C", text: "$\\sin x$" },
+        { key: "D", text: "$\\cos x$" }
+      ],
+      answer: "B"
+    },
+    {
+      id: "q9",
+      prompt: `ผลคูณของ $\\cot \\theta \\cdot \\sec \\theta$ ตรงกับข้อใด`,
+      choices: [
+        { key: "A", text: "$\\sin \\theta$" },
+        { key: "B", text: "$\\cos \\theta$" },
+        { key: "C", text: "$\\sec \\theta$" },
+        { key: "D", text: "$\\csc \\theta$" }
+      ],
+      answer: "D"
+    },
+    {
+      id: "q10",
+      prompt: `เอกลักษณ์ของ $\\sin(-\\theta)$ ตรงกับข้อใด`,
+      choices: [
+        { key: "A", text: "$\\sin \\theta$" },
+        { key: "B", text: "$-\\sin \\theta$" },
+        { key: "C", text: "$\\cos \\theta$" },
+        { key: "D", text: "$-\\cos \\theta$" }
+      ],
+      answer: "B"
+    },
+    {
+      id: "q11",
+      prompt: `เอกลักษณ์ของ $\\cos(-\\theta)$ ตรงกับข้อใด`,
+      choices: [
+        { key: "A", text: "$\\sin \\theta$" },
+        { key: "B", text: "$-\\sin \\theta$" },
+        { key: "C", text: "$\\cos \\theta$" },
+        { key: "D", text: "$-\\cos \\theta$" }
+      ],
+      answer: "C"
+    },
+    {
+      id: "q12",
+      prompt: `ค่าของ $\\sec x \\cdot \\cos x - 1$ ตรงกับข้อใด`,
+      choices: [
+        { key: "A", text: "$0$" },
+        { key: "B", text: "$1$" },
+        { key: "C", text: "$-1$" },
+        { key: "D", text: "$\\sin x$" }
+      ],
+      answer: "A"
+    },
+    {
+      id: "q13",
+      prompt: `รูปอย่างง่ายของ $\\frac{1}{\\cos^2 x} - 1$ คือข้อใด`,
+      choices: [
+        { key: "A", text: "$\\sin^2 x$" },
+        { key: "B", text: "$\\cos^2 x$" },
+        { key: "C", text: "$\\tan^2 x$" },
+        { key: "D", text: "$\\cot^2 x$" }
+      ],
+      answer: "C"
+    },
+    {
+      id: "q14",
+      prompt: `ผลสำเร็จของ $\\sin x (\\csc x - \\sin x)$ ตรงกับข้อใด`,
+      choices: [
+        { key: "A", text: "$\\sin^2 x$" },
+        { key: "B", text: "$\\cos^2 x$" },
+        { key: "C", text: "$\\tan^2 x$" },
+        { key: "D", text: "$1$" }
+      ],
+      answer: "B"
+    },
+    {
+      id: "q15",
+      prompt: `เอกลักษณ์โคฟังก์ชันของ $\\cos(90^\\circ - \\theta)$ คือข้อใด`,
+      choices: [
+        { key: "A", text: "$\\sin \\theta$" },
+        { key: "B", text: "$-\\sin \\theta$" },
+        { key: "C", text: "$\\csc \\theta$" },
+        { key: "D", text: "$\\cos \\theta$" }
+      ],
+      answer: "A"
+    },
+    {
+      id: "q16",
+      prompt: `รูปอย่างง่ายของ $\\frac{\\tan x}{\\sec x}$ คือข้อใด`,
+      choices: [
+        { key: "A", text: "$\\sin x$" },
+        { key: "B", text: "$\\cos x$" },
+        { key: "C", text: "$\\cot x$" },
+        { key: "D", text: "$\\csc x$" }
+      ],
+      answer: "A"
+    },
+    {
+      id: "q17",
+      prompt: `ค่าของ $\\cos^2 x + \\cos^2 x \\tan^2 x$ ตรงกับข้อใด`,
+      choices: [
+        { key: "A", text: "$0$" },
+        { key: "B", text: "$1$" },
+        { key: "C", text: "$\\sin^2 x$" },
+        { key: "D", text: "$\\cos^2 x$" }
+      ],
+      answer: "B"
+    },
+    {
+      id: "q18",
+      prompt: `ผลสำเร็จของ $\\frac{1 - \\sin^2 \\theta}{1 - \\cos^2 \\theta}$ คือข้อใด`,
+      choices: [
+        { key: "A", text: "$\\tan^2 \\theta$" },
+        { key: "B", text: "$\\cot^2 \\theta$" },
+        { key: "C", text: "$\\sec^2 \\theta$" },
+        { key: "D", text: "$\\csc^2 \\theta$" }
+      ],
+      answer: "B"
+    },
+    {
+      id: "q19",
+      prompt: `เอกลักษณ์ของ $\\tan(-\\theta)$ ตรงกับข้อใด`,
+      choices: [
+        { key: "A", text: "$\\tan \\theta$" },
+        { key: "B", text: "$-\\tan \\theta$" },
+        { key: "C", text: "$\\cot \\theta$" },
+        { key: "D", text: "$-\\cot \\theta$" }
+      ],
+      answer: "B"
+    },
+    {
+      id: "q20",
+      prompt: `ค่าของ $\\sin^2(30^\\circ) + \\cos^2(30^\\circ)$ ตรงกับข้อใด`,
+      choices: [
+        { key: "A", text: "$\\frac{1}{2}$" },
+        { key: "B", text: "$\\frac{\\sqrt{3}}{2}$" },
+        { key: "C", text: "$1$" },
+        { key: "D", text: "$2$" }
+      ],
+      answer: "C"
+    },
+    {
+      id: "q21",
+      prompt: `ผลสำเร็จของ $(1 - \\sin x)(1 + \\sin x)$ คือข้อใด`,
+      choices: [
+        { key: "A", text: "$\\sin^2 x$" },
+        { key: "B", text: "$\\cos^2 x$" },
+        { key: "C", text: "$\\tan^2 x$" },
+        { key: "D", text: "$1 + \\sin^2 x$" }
+      ],
+      answer: "B"
+    },
+    {
+      id: "q22",
+      prompt: `ค่าของ $\\frac{1}{\\csc^2 A} + \\frac{1}{\\sec^2 A}$ ตรงกับข้อใด`,
+      choices: [
+        { key: "A", text: "$0$" },
+        { key: "B", text: "$1$" },
+        { key: "C", text: "$2$" },
+        { key: "D", text: "$\\sec^2 A \\csc^2 A$" }
+      ],
+      answer: "B"
+    },
+    {
+      id: "q23",
+      prompt: `ข้อใดมีค่าเทียบเท่ากับ $\\frac{\\sin x}{\\cot x}$`,
+      choices: [
+        { key: "A", text: "$\\sin^2 x \\tan x$" },
+        { key: "B", text: "$\\sin x \\tan x$" },
+        { key: "C", text: "$\\cos x \\cot x$" },
+        { key: "D", text: "$\\cos^2 x \\tan x$" }
+      ],
+      answer: "B"
+    },
+    {
+      id: "q24",
+      prompt: `ผลสำเร็จของ $\\cos \\theta (\\sec \\theta - \\cos \\theta)$ คือข้อใด`,
+      choices: [
+        { key: "A", text: "$\\sin^2 \\theta$" },
+        { key: "B", text: "$\\cos^2 \\theta$" },
+        { key: "C", text: "$\\tan^2 \\theta$" },
+        { key: "D", text: "$1$" }
+      ],
+      answer: "A"
+    },
+    {
+      id: "q25",
+      prompt: `รูปอย่างง่ายของ $\\csc x \\cdot \\tan x$ คือข้อใด`,
+      choices: [
+        { key: "A", text: "$\\sin x$" },
+        { key: "B", text: "$\\cos x$" },
+        { key: "C", text: "$\\sec x$" },
+        { key: "D", text: "$\\csc x$" }
+      ],
+      answer: "C"
+    },
+    {
+      id: "q26",
+      prompt: `การแยกตัวประกอบและการจัดรูปของ $\\sin^4 x - \\cos^4 x$ ตรงกับข้อใด`,
+      choices: [
+        { key: "A", text: "$1$" },
+        { key: "B", text: "$\\sin^2 x - \\cos^2 x$" },
+        { key: "C", text: "$\\cos^2 x - \\sin^2 x$" },
+        { key: "D", text: "$1 - 2\\sin^2 x$" }
+      ],
+      answer: "B"
+    },
+    {
+      id: "q27",
+      prompt: `ผลสำเร็จของ $\\frac{\\sec x}{\\csc x}$ คือข้อใด`,
+      choices: [
+        { key: "A", text: "$\\sin x$" },
+        { key: "B", text: "$\\cos x$" },
+        { key: "C", text: "$\\tan x$" },
+        { key: "D", text: "$\\cot x$" }
+      ],
+      answer: "C"
+    },
+    {
+      id: "q28",
+      prompt: `ค่าของ $\\tan^2 \\theta - \\sec^2 \\theta$ ตรงกับข้อใด`,
+      choices: [
+        { key: "A", text: "$1$" },
+        { key: "B", text: "$0$" },
+        { key: "C", text: "$-1$" },
+        { key: "D", text: "$\\tan \\theta$" }
+      ],
+      answer: "C"
+    },
+    {
+      id: "q29",
+      prompt: `รูปอย่างง่ายของ $\\cos A + \\sin A \\tan A$ ตรงกับข้อใด`,
+      choices: [
+        { key: "A", text: "$\\sin A$" },
+        { key: "B", text: "$\\cos A$" },
+        { key: "C", text: "$\\sec A$" },
+        { key: "D", text: "$\\csc A$" }
+      ],
+      answer: "C"
+    },
+    {
+      id: "q30",
+      prompt: `ค่าของ $(\\tan x + \\cot x)\\sin x \\cos x$ ตรงกับข้อใด`,
+      choices: [
+        { key: "A", text: "$0$" },
+        { key: "B", text: "$1$" },
+        { key: "C", text: "$\\sin x \\cos x$" },
+        { key: "D", text: "$\\tan x \\cot x$" }
+      ],
+      answer: "B"
+    }
+  ]
+}
 };
