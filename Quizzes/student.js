@@ -75,9 +75,9 @@ function render(quizMaster, profile, quizzes) {
   const total = quizMaster.length;
 
   els.stuSummary.innerHTML = `
-    <div class="pill"><span class="num">${doneCount}/${total}</span><span class="lbl">ทำไปแล้ว</span></div>
+    <div class="pill ok"><span class="num">${doneCount}/${total}</span><span class="lbl">ทำไปแล้ว</span></div>
     <div class="pill"><span class="num">${totalScore}</span><span class="lbl">คะแนนรวม</span></div>
-    <div class="pill"><span class="num">${total - doneCount}</span><span class="lbl">ยังไม่ทำ</span></div>
+    <div class="pill warn"><span class="num">${total - doneCount}</span><span class="lbl">ยังไม่ทำ</span></div>
   `;
 
   // รายการ quiz
