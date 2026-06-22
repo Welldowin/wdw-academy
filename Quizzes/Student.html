@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>สถิติรายบุคคล | WDW</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./progress.css" />
+</head>
+<body>
+  <div class="page">
+
+    <section class="card hero-card">
+      <div class="hero-wrap">
+        <img src="./assets/logo-wdw.jpg" alt="WDW Logo" class="brand-logo" />
+        <div>
+          <h1 id="stuName">สถิติรายบุคคล</h1>
+          <p class="muted" id="stuMeta">กำลังโหลด...</p>
+        </div>
+      </div>
+      <div class="actions">
+        <a class="btn ghost" id="backBtn" href="./progress.html">← กลับหน้ารวม</a>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="summary-grid" id="stuSummary"></div>
+    </section>
+
+    <section class="card">
+      <h2>คะแนนแต่ละ Quiz</h2>
+      <div id="quizList">
+        <p class="state">⏳ กำลังโหลดข้อมูล...</p>
+      </div>
+    </section>
+
+  </div>
+
+  <script type="module" src="./firebase-config.js"></script>
+  <script src="./progress-config.js"></script>
+  <script type="module" src="./student.js"></script>
+</body>
+</html>
