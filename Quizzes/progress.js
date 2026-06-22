@@ -92,9 +92,9 @@ function renderSummary() {
 
   els.summary.innerHTML = `
     <div class="pill"><span class="num">${total}</span><span class="lbl">นักเรียนทั้งหมด</span></div>
-    <div class="pill"><span class="num">🚀 ${ok}</span><span class="lbl">ทำครบ</span></div>
-    <div class="pill"><span class="num">👍 ${warn}</span><span class="lbl">ข้ามบ้าง</span></div>
-    <div class="pill"><span class="num">💀 ${danger}</span><span class="lbl">ต้องจับตา</span></div>
+    <div class="pill ok"><span class="num">🚀 ${ok}</span><span class="lbl">ทำครบ</span></div>
+    <div class="pill warn"><span class="num">👍 ${warn}</span><span class="lbl">ข้ามบ้าง</span></div>
+    <div class="pill danger"><span class="num">💀 ${danger}</span><span class="lbl">ต้องจับตา</span></div>
   `;
 }
 
@@ -108,7 +108,7 @@ function renderTable() {
       <th class="name-col">นักเรียน</th>
       <th>สถานะ</th>
       ${state.quizMaster.map((q, i) =>
-        `<th title="${escapeHtml(q.title)}">Q${i + 1}</th>`).join("")}
+        `<th class="quiz-col" title="${escapeHtml(q.title)}">Q${i + 1}</th>`).join("")}
       <th>ทำแล้ว</th>
     </tr>
   `;
