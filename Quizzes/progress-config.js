@@ -6,7 +6,7 @@
 // 1) URL ของ Apps Script ตัวใหม่ (Progress) — เอามาวางหลัง Deploy
 //    *** อย่าลืมเปลี่ยนเป็น URL จริงหลัง deploy ***
 window.PROGRESS_API_URL =
-  "https://script.google.com/macros/s/AKfycbz25nXhnMO8KcmNRsFMlAUVJePI8qrpbcEpuFEgpC8alwiHEHZElZWLfELcTDxsF27KDg/exec";
+  "https://script.google.com/macros/s/AKfycbyDSjGx-TM8L0sZrv-IFyavH3H3Ag1smo-CEtoNrDiIL0oDpLKhrkvqShCq6bdmZQjy/exec";
 
 // 2) รายการคอร์สที่จะให้เลือกใน Dropdown
 //    เพิ่ม / ลด คอร์ส = เพิ่มหรือลบ 1 บรรทัด
