@@ -15,94 +15,117 @@ body {
   font-family: "Kanit", "Segoe UI", sans-serif;
   color: #f9fafb;
   background:
-    linear-gradient(rgba(8,10,18,0.82), rgba(8,10,18,0.82)),
+    linear-gradient(rgba(8,10,18,0.88), rgba(8,10,18,0.88)),
     url("./assets/quiz-bg.jpg") center center / cover no-repeat fixed;
+  min-height: 100vh;
 }
 
-.page { max-width: 980px; margin: 0 auto; padding: 24px 16px 48px; }
+.page { max-width: 820px; margin: 0 auto; padding: 0 16px 48px; }
 
+/* ---------- Header แยกด้วยเส้นใต้ ไม่ใช่กล่องไล่เฉด ---------- */
 .hero {
   display: flex; justify-content: space-between; align-items: center; gap: 16px;
-  background: linear-gradient(135deg, rgba(39,78,150,0.88), rgba(16,16,16,0.88));
-  border: 2px solid rgba(231,234,122,0.35); border-radius: 22px;
-  padding: 22px 24px; box-shadow: 0 14px 34px rgba(0,0,0,0.35);
-  margin-bottom: 20px; backdrop-filter: blur(4px);
+  flex-wrap: wrap;
+  padding: 28px 4px 18px;
+  border-bottom: 3px solid var(--wdw-yellow);
+  margin-bottom: 18px;
 }
 
 .hero-left { display: flex; align-items: center; gap: 16px; }
 
 .brand-logo {
-  width: 74px; height: 74px; object-fit: contain; border-radius: 16px;
-  background: rgba(255,255,255,0.08); padding: 6px;
+  width: 64px; height: 64px; object-fit: contain; border-radius: 14px;
+  background: rgba(255,255,255,0.06); padding: 6px;
 }
 
-.eyebrow { margin: 0 0 6px; color: var(--wdw-yellow); font-weight: 700; letter-spacing: 0.4px; }
-.hero h1 { margin: 0 0 8px; font-size: 2rem; color: #ffffff; }
-.subtext { margin: 0; color: #dbeafe; }
+.eyebrow { margin: 0 0 4px; color: var(--wdw-yellow); font-weight: 700; font-size: 0.8rem; letter-spacing: 0.5px; text-transform: uppercase; }
+.hero h1 { margin: 0 0 6px; font-size: 1.6rem; color: #ffffff; font-weight: 600; }
+.subtext { margin: 0; color: rgba(255,255,255,0.55); font-size: 0.88rem; }
 
 .timer {
-  background: linear-gradient(135deg, var(--wdw-gold), #f5c56f);
-  color: #111827; padding: 12px 18px; border-radius: 999px;
-  font-weight: 800; min-width: 110px; text-align: center;
-  box-shadow: 0 6px 20px rgba(227,165,68,0.3);
+  background: transparent;
+  border: 2px solid var(--wdw-gold);
+  color: var(--wdw-gold); padding: 10px 16px; border-radius: 999px;
+  font-weight: 700; min-width: 100px; text-align: center;
 }
 
 .hidden { display: none !important; }
 
-.status-card, .result-inline {
-  background: rgba(17,24,39,0.82); border: 1px solid rgba(235,201,163,0.28);
-  border-radius: 18px; padding: 18px 20px; box-shadow: 0 10px 24px rgba(0,0,0,0.22);
-  margin-bottom: 20px; backdrop-filter: blur(4px);
+/* ---------- Status bar บางๆ คั่นด้วยเส้น ไม่ใช้กล่องทึบ ---------- */
+.status-card {
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  padding: 4px 4px 18px;
+  margin-bottom: 22px;
 }
 
-.status-card p, .result-inline p, .result-inline h2 { color: #f9fafb; }
-.mode-info { margin-top: 6px; font-weight: 700; color: var(--wdw-yellow); }
-.display-name-box { margin-top: 18px; }
-.display-name-box label { display: block; margin-bottom: 6px; font-weight: 700; color: var(--wdw-yellow); }
+.status-card p { color: rgba(255,255,255,0.7); margin: 0 0 4px; font-size: 0.92rem; }
+.mode-info { margin-top: 4px; font-weight: 700; color: var(--wdw-yellow) !important; }
+
+.display-name-box { margin-top: 16px; }
+.display-name-box label { display: block; margin-bottom: 6px; font-weight: 700; color: var(--wdw-yellow); font-size: 0.9rem; }
 .display-name-box .answer-input { max-width: 420px; }
 
+/* ---------- การ์ดคำถาม: จุดสนใจหลักของหน้า ---------- */
 .quiz-form { display: grid; gap: 18px; }
 
 .question-card {
-  background: rgba(255,255,255,0.92); color: #111827;
-  border-radius: 18px; padding: 20px; border: 2px solid rgba(39,78,150,0.2);
-  border-left: 8px solid var(--wdw-gold); box-shadow: 0 12px 24px rgba(0,0,0,0.18);
+  background: rgba(255,255,255,0.96); color: #111827;
+  border-radius: 16px; padding: 20px 22px;
+  border-left: 6px solid var(--wdw-gold);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.28);
 }
-.question-card h3 { margin: 0 0 10px; color: var(--wdw-blue); font-size: 1.2rem; font-weight: 800; }
+.question-card h3 { margin: 0 0 10px; color: var(--wdw-blue); font-size: 1.05rem; font-weight: 700; }
 .question-card p { margin: 0 0 14px; color: #374151; }
-.question-card .question-text { white-space: pre-line; line-height: 1.6; }
+.question-card .question-text { white-space: pre-line; line-height: 1.7; }
 
 .options-grid { display: grid; gap: 10px; margin-top: 12px; }
 .option-label {
   display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px;
-  border: 2px solid rgba(39,78,150,0.15); border-radius: 14px;
-  background: #fffef7; cursor: pointer;
+  border: 1.5px solid rgba(39,78,150,0.15); border-radius: 12px;
+  background: #fcfbf6; cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease;
 }
-.option-label input[type="radio"] { margin-top: 3px; transform: scale(1.15); }
-.option-label:hover { border-color: rgba(227,165,68,0.55); background: #fff8e8; }
+.option-label span { line-height: 1.6; }
+.option-label input[type="radio"] { margin-top: 3px; transform: scale(1.1); flex-shrink: 0; }
+.option-label:hover { border-color: var(--wdw-gold); background: #fff8e8; }
 
 .answer-input {
-  width: 100%; border: 2px solid rgba(39,78,150,0.25); border-radius: 14px;
-  padding: 14px 16px; font-size: 1rem; outline: none; color: #111827; background: #fffef7;
+  width: 100%; border: 1.5px solid rgba(39,78,150,0.25); border-radius: 12px;
+  padding: 13px 15px; font-size: 1rem; outline: none; color: #111827; background: #fcfbf6;
+  font-family: inherit;
 }
-.answer-input:focus { border-color: var(--wdw-gold); box-shadow: 0 0 0 4px rgba(227,165,68,0.2); }
+.answer-input:focus { border-color: var(--wdw-gold); box-shadow: 0 0 0 3px rgba(227,165,68,0.18); }
 .answer-input::placeholder { color: #6b7280; }
 
-.review-badge { margin-top: 12px; font-weight: 800; }
+.review-badge { margin-top: 12px; font-weight: 700; font-size: 0.92rem; }
 .review-badge.correct { color: #0f9d58; }
 .review-badge.incorrect { color: #dc2626; }
 
-.actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 22px; }
+/* ---------- Actions ---------- */
+.actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 24px; }
 .btn {
   display: inline-flex; align-items: center; justify-content: center; text-decoration: none;
-  border: none; border-radius: 14px; padding: 12px 20px; font-size: 1rem;
-  cursor: pointer; font-weight: 800; transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+  border: none; border-radius: 12px; padding: 12px 22px; font-size: 0.95rem;
+  cursor: pointer; font-weight: 700; font-family: inherit;
+  transition: transform 0.15s ease, background 0.15s ease;
 }
 .btn:hover { transform: translateY(-1px); }
-.btn.primary { background: linear-gradient(135deg, var(--wdw-yellow), #f4d84f); color: #111827; box-shadow: 0 8px 18px rgba(231,234,122,0.28); }
-.btn.primary:hover { background: linear-gradient(135deg, #f0f28f, #f6de65); }
-.btn.ghost { background: rgba(39,78,150,0.88); color: #ffffff; border: 1px solid rgba(255,255,255,0.12); }
-.btn.ghost:hover { background: rgba(31,65,126,0.95); }
+.btn.primary { background: var(--wdw-yellow); color: #111827; }
+.btn.primary:hover { background: #f0f28f; }
+.btn.ghost { background: transparent; color: #ffffff; border: 1.5px solid rgba(255,255,255,0.3); }
+.btn.ghost:hover { border-color: rgba(255,255,255,0.55); background: rgba(255,255,255,0.05); }
 
-.result-inline h2 { margin-top: 0; color: var(--wdw-yellow); }
-.small-note { color: #d1d5db; font-size: 0.95rem; margin-top: 8px; }
+/* ---------- Result inline: คั่นด้วยเส้นบาง ไม่ใช่กล่องทึบ ---------- */
+.result-inline {
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding-top: 22px; margin-top: 8px;
+}
+.result-inline h2 { margin-top: 0; color: var(--wdw-yellow); font-size: 1.3rem; }
+.result-inline p { color: rgba(255,255,255,0.82); }
+.small-note { color: rgba(255,255,255,0.5); font-size: 0.88rem; margin-top: 10px; }
+
+@media (max-width: 560px) {
+  .hero { padding-top: 20px; }
+  .hero h1 { font-size: 1.3rem; }
+  .question-card { padding: 16px 18px; }
+}
