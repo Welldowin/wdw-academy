@@ -327,42 +327,25 @@ function loadDataScript(user) {
 
 document.getElementById("quizForm").addEventListener("submit", handleSubmit);
 
-// ----------------------------------------------------
-// จุดเริ่มต้นของระบบ — แก้ไข Race Condition
-// ----------------------------------------------------
-
-// ใช้ authResolved เพื่อรอให้ Firebase ยืนยันสถานะการ Login ก่อน
-// ปัญหาเดิม: onAuthStateChanged fire ด้วย null ทันทีขณะที่ Firebase
-// ยังโหลด session ไม่เสร็จ ทำให้ redirect ออกทั้งๆ ที่ login อยู่แล้ว
-let authResolved = false;
-
+// จุดเริ่มต้นของระบบ
 window.firebaseOnAuthStateChanged(window.firebaseAuth, (user) => {
-  // --- ครั้งแรกที่ Firebase ยืนยันสถานะเสร็จ ---
-  if (!authResolved) {
-    authResolved = true;
+  if (!user) {
+    // ซ่อนปุ่มต่างๆ
+    document.getElementById("actionsBar").classList.add("hidden");
+    
+    // เปลี่ยนข้อความบอกนักเรียน
+    showMessage("ยังไม่ได้ล็อกอิน", "กำลังพากลับไปหน้าเข้าสู่ระบบ...");
+    document.getElementById("quizTitle").textContent = "กรุณาเข้าสู่ระบบ";
+    document.getElementById("courseTitle").textContent = "Well-Do-Win Academy";
 
-    if (!user) {
-      // ตอนนี้มั่นใจแล้วว่าไม่ได้ login จริงๆ
-      document.getElementById("actionsBar").classList.add("hidden");
-      showMessage("ยังไม่ได้ล็อกอิน", "กำลังพากลับไปหน้าเข้าสู่ระบบ...");
-      document.getElementById("quizTitle").textContent = "กรุณาเข้าสู่ระบบ";
-      document.getElementById("courseTitle").textContent = "Well-Do-Win Academy";
-      setTimeout(() => {
-        window.location.href = "../login.html";
-      }, 1500);
-      return;
-    }
-
-    // Login อยู่ → โหลดข้อมูลควิซ
-    currentUser = user;
-    loadDataScript(user);
+    // หน่วงเวลา 1.5 วินาที แล้ว Redirect ไปหน้า Login
+    setTimeout(() => {
+      window.location.href = "../login.html"; // แก้ไขพาธให้ตรงกับหน้า Login จริง
+    }, 1500);
+    
     return;
   }
-
-  // --- Session เปลี่ยนหลังจากโหลดหน้าแล้ว (เช่น logout ระหว่างทำข้อสอบ) ---
-  if (!user) {
-    clearInterval(timerInterval);
-    alert("เซสชันหมดอายุ กรุณาล็อกอินใหม่");
-    window.location.href = "../login.html";
-  }
+  
+  currentUser = user; // บันทึก currentUser ไว้ใช้
+  loadDataScript(user);
 });
