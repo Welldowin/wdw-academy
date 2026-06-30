@@ -6,7 +6,7 @@ window.TEST_META = {
   courseId: "m3-term1-science",
   testKey: "test01",
   title: "ข้อสอบ : วิทยาศาสตร์ ม.3 เทอม 1 — ฟิสิกส์ & ชีววิทยา (30 ข้อ)",
-  timeLimitSec: 3600,
+  timeLimitSec: 5400,
 
   chapters: {
     "ฟิสิกส์": { label: "ฟิสิกส์" },
