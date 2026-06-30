@@ -5,7 +5,7 @@ window.TEST_META = {
   courseId: "m5-term1-chem",
   testKey: "test01",
   title: "ข้อสอบ : เคมี ม.5 เทอม 1 — แก๊สและสมบัติของแก๊ส (30 ข้อ)",
-  timeLimitSec: 3600,
+  timeLimitSec: 5400,
 
   // หัวข้อหลัก (ชุดนี้มีบทเดียว, หัวข้อย่อย = กฎ/หัวข้อต่างๆ)
   chapters: {
