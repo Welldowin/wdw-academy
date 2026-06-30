@@ -33,6 +33,9 @@ window.QUIZ_CONFIG = {
   //  รหัสผ่านเข้าหน้า admin.html (เปลี่ยนได้ตามต้องการ)
   adminPassword: "142599",
 
+  //  หน้าเข้าสู่ระบบ (กรณีนักเรียนยังไม่ได้ล็อกอิน Firebase) — ปรับ URL ตามจริง
+  loginUrl: "https://welldowinacademy.com",
+
   // ===========================================================
   // 3) ทักษะ (skill) — ใช้ร่วมกันทุกวิชา
   // ===========================================================
@@ -63,6 +66,14 @@ window.QUIZ_CONFIG = {
   //  prerequisiteQuizzes = รายชื่อ quizKey ที่ต้องทำให้ครบก่อนเข้าสอบ
   //  ถ้าเว้น [] = เข้าสอบได้เลยไม่ต้องเช็ค
   tests: {
+
+    "m3-term1-science__test01": {
+      courseId: "m3-term1-science",
+      testKey:  "test01",
+      title:    "ข้อสอบ : วิทยาศาสตร์ ม.3 เทอม 1 — ฟิสิกส์ & ชีววิทยา (30 ข้อ)",
+      prerequisiteQuizzes: ["quiz1", "quiz2", "quiz3", "quiz4"],
+      timeLimitSec: 3600,
+    },
 
     "m4-term1-chem__test01": {
       courseId: "m4-term1-chem",
