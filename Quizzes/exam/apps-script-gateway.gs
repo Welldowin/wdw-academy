@@ -80,25 +80,30 @@ function checkPrerequisites(data) {
   var required = data.quizKeys || [];
   if (!required.length) return json({ ok: true, missing: [] });
 
-  var resp = UrlFetchApp.fetch(CONFIG.PROGRESS_API_URL, {
-    method: "post",
-    contentType: "text/plain;charset=utf-8",
-    payload: JSON.stringify({
-      action: "getStudentDetail",
-      courseId: data.courseId,
-      userId: data.userId,
-    }),
-    muteHttpExceptions: true,
-  });
-  var result = JSON.parse(resp.getContentText());
-  var quizzes = (result && result.quizzes) || {};
+  var raw = "";
+  try {
+    raw = fetchFollowAsGet(CONFIG.PROGRESS_API_URL, {
+      method: "post",
+      contentType: "text/plain;charset=utf-8",
+      payload: JSON.stringify({
+        action: "getStudentDetail",
+        courseId: data.courseId,
+        userId: data.userId,
+      }),
+    });
+    var result = JSON.parse(raw);
+    var quizzes = (result && result.quizzes) || {};
 
-  var missing = [];
-  required.forEach(function (qk) {
-    var info = quizzes[qk];
-    if (!info || info.submitted !== true) missing.push({ quizKey: qk, title: qk });
-  });
-  return json({ ok: true, missing: missing });
+    var missing = [];
+    required.forEach(function (qk) {
+      var info = quizzes[qk];
+      if (!info || info.submitted !== true) missing.push({ quizKey: qk, title: qk });
+    });
+    return json({ ok: true, missing: missing });
+  } catch (e) {
+    // ส่งคำตอบดิบกลับไปด้วย เพื่อช่วยวินิจฉัย (เช่น progress API ตอบ HTML แทน JSON)
+    return json({ ok: false, message: "progress error: " + e + " | raw: " + String(raw).slice(0, 200) });
+  }
 }
 
 // ============ 3) (แอดมิน) รายชื่อผู้สอบของชุดสอบ ============
@@ -197,4 +202,22 @@ function json(obj) {
   return ContentService
     .createTextOutput(JSON.stringify(obj))
     .setMimeType(ContentService.MimeType.JSON);
+}
+
+// เรียก Apps Script web app อีกตัว แล้วตาม redirect (302) เองแบบ GET
+// (UrlFetchApp ปกติจะ re-POST ตาม redirect ทำให้ได้หน้า error — ต้องตามเป็น GET เหมือนเบราว์เซอร์)
+function fetchFollowAsGet(url, options) {
+  options = options || {};
+  options.followRedirects = false;
+  options.muteHttpExceptions = true;
+  var resp = UrlFetchApp.fetch(url, options);
+  for (var hops = 0; hops < 5; hops++) {
+    var code = resp.getResponseCode();
+    if (code < 300 || code >= 400) break;
+    var headers = resp.getAllHeaders();
+    var loc = headers["Location"] || headers["location"];
+    if (!loc) break;
+    resp = UrlFetchApp.fetch(loc, { method: "get", followRedirects: false, muteHttpExceptions: true });
+  }
+  return resp.getContentText();
 }

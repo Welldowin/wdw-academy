@@ -205,6 +205,7 @@ async function init() {
       action: "checkPrerequisites",
       userId, courseId, quizKeys: prereq,
     });
+    console.log("checkPrerequisites response:", r);
     if (r && r.ok && Array.isArray(r.missing) && r.missing.length > 0) {
       gateMissing(r.missing);
     } else if (r && r.ok) {
@@ -213,8 +214,9 @@ async function init() {
       throw new Error((r && r.message) || "รูปแบบข้อมูลไม่ถูกต้อง");
     }
   } catch (e) {
+    console.error("checkPrerequisites error:", e);
     gateError("ตรวจสอบสิทธิ์ไม่สำเร็จ",
-      "เชื่อมต่อระบบไม่ได้ กรุณาลองใหม่ หรือติดต่อผู้สอน",
+      `รายละเอียด: <code>${escapeHtml(e.message)}</code><br>uid: <code>${escapeHtml(userId)}</code>`,
       `<button class="btn primary" onclick="location.reload()">↻ ลองใหม่</button>`);
   }
 }
