@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Final Test</title>
+
+    <link rel="stylesheet" href="final-test.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+    <!-- ───────── หน้าโหลด / กั้นด้วย prerequisites ───────── -->
+    <div id="gate-screen" class="gate-screen">
+        <div class="gate-card">
+            <div id="gate-spinner" class="gate-spinner"></div>
+            <h2 id="gate-title">กำลังเตรียมข้อสอบ...</h2>
+            <p id="gate-msg" class="gate-msg">ตรวจสอบสิทธิ์การเข้าสอบ</p>
+            <div id="gate-missing" class="gate-missing hidden"></div>
+            <div id="gate-actions" class="gate-actions hidden"></div>
+        </div>
+    </div>
+
+    <!-- ───────── ตัวข้อสอบ ───────── -->
+    <div id="quiz-app" class="hidden">
+        <header class="quiz-header">
+            <div class="header-info">
+                <h1 id="quiz-title">Final Test</h1>
+                <p id="student-name">กำลังโหลดข้อมูลผู้ใช้...</p>
+            </div>
+            <div id="timer-box" class="timer-card">
+                <span class="timer-icon">⏱️</span>
+                <span id="time-display">60:00</span>
+            </div>
+        </header>
+
+        <main class="quiz-container">
+            <section class="question-section">
+                <div id="review-banner" class="review-banner hidden">
+                    โหมดทบทวนคำตอบ (คุณส่งข้อสอบนี้ไปแล้ว ไม่สามารถแก้ไขได้)
+                </div>
+
+                <div id="question-card" class="card">
+                    <div class="question-header">
+                        <span id="question-number">ข้อที่ 1 / 30</span>
+                        <span id="question-category" class="badge">ทฤษฎี</span>
+                    </div>
+
+                    <div id="question-content">
+                        <p id="question-text">กำลังโหลดโจทย์...</p>
+                        <div id="question-image-container"></div>
+                    </div>
+
+                    <div id="choices-list" class="choices-grid">
+                        </div>
+
+                    <div id="feedback-box" class="feedback-box hidden"></div>
+
+                    <div class="navigation-controls">
+                        <button id="prev-btn" class="btn secondary">|◀ ข้อก่อนหน้า</button>
+                        <button id="next-btn" class="btn primary">ข้อต่อไป ▶|</button>
+                        <button id="submit-btn" class="btn success hidden">ส่งข้อสอบ</button>
+                        <button id="back-to-result-btn" class="btn primary hidden">กลับไปหน้าประเมินผล</button>
+                    </div>
+                </div>
+            </section>
+
+            <aside class="navigator-section">
+                <div class="card">
+                    <h3>สถานะการทำข้อสอบ</h3>
+                    <div id="question-nav-grid" class="nav-grid"></div>
+                    <div class="nav-legend">
+                        <span class="legend-item"><i class="dot current"></i> ปัจจุบัน</span>
+                        <span class="legend-item"><i class="dot done"></i> ทำแล้ว</span>
+                        <span class="legend-item"><i class="dot empty"></i> ยังไม่ทำ</span>
+                    </div>
+                </div>
+            </aside>
+        </main>
+    </div>
+
+    <!-- ───────── หน้าผลการประเมิน ───────── -->
+    <div id="result-screen" class="hidden">
+        <header class="quiz-header" style="justify-content: center;">
+            <h1>รายงานผลการทดสอบของคุณ</h1>
+        </header>
+
+        <div class="result-container">
+
+            <div class="card persona-card">
+                <h2 style="margin-top: 0;">บุคลิกการทำข้อสอบของคุณคือ...</h2>
+                <div class="persona-content">
+                    <div class="persona-image">
+                        <img id="persona-img" src="images/default-animal.png" alt="Persona"
+                             onerror="this.style.visibility='hidden'">
+                    </div>
+                    <div class="persona-text">
+                        <h1 id="persona-name">กำลังประมวลผล...</h1>
+                        <p id="persona-desc" class="desc">-</p>
+                        <div class="persona-traits">
+                            <div class="trait strength">
+                                <strong>🟢 จุดแข็ง:</strong> <span id="persona-strength">-</span>
+                            </div>
+                            <div class="trait weakness">
+                                <strong>🔴 จุดที่ควรพัฒนา:</strong> <span id="persona-weakness">-</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card stats-card">
+                <h2>วิเคราะห์ความสามารถรายด้าน</h2>
+                <div id="stats-breakdown" class="stats-grid">
+                </div>
+            </div>
+
+            <div class="card chart-card">
+                <h2>กราฟความสมดุล (Radar Chart)</h2>
+                <div class="chart-wrapper">
+                    <canvas id="radarChart"></canvas>
+                </div>
+
+                <div class="final-score-box">
+                    <h3>คะแนนรวมของคุณ: <span id="final-score-text" style="color:var(--logo-red);">0 / 30</span></h3>
+                    <div class="rank-box">
+                        <span class="rank-label">Rank รวม</span>
+                        <h1 id="final-rank">C</h1>
+                    </div>
+                </div>
+            </div>
+
+            <div class="result-actions">
+                <button id="review-answers-btn" class="btn primary" style="width: 100%; max-width: 300px;">🔍 ย้อนกลับไปดูคำตอบตัวเอง</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="quiz-config.js"></script>
+    <script src="final-test.js"></script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+/* 📄 admin.css — สไตล์เฉพาะหน้า Admin (ใช้ร่วมกับ final-test.css) */
+
+.admin-container { max-width: 1100px; margin: 30px auto; padding: 0 20px; }
+
+.admin-input {
+    font-family: 'Kanit', sans-serif; font-size: 1rem;
+    padding: 11px 14px; border-radius: 10px;
+    border: 2px solid #e5e7eb; width: 100%; margin-top: 8px;
+}
+.admin-input:focus { outline: none; border-color: var(--logo-light-blue); }
+
+.login-error { color: var(--logo-red); font-weight: 600; margin: 10px 0 0; }
+
+.admin-controls {
+    display: flex; gap: 14px; align-items: flex-end; flex-wrap: wrap;
+}
+.admin-controls .field { display: flex; flex-direction: column; flex: 1; min-width: 220px; }
+.admin-controls label { font-size: 0.85rem; color: #6b7280; font-weight: 600; }
+.admin-controls select {
+    font-family: 'Kanit', sans-serif; font-size: 1rem; padding: 11px 14px;
+    border-radius: 10px; border: 2px solid #e5e7eb; margin-top: 8px; cursor: pointer;
+}
+.admin-controls .admin-input { flex: 1; min-width: 220px; margin-top: 0; }
+
+/* ตาราง */
+.table-wrap { overflow-x: auto; }
+.admin-table { width: 100%; border-collapse: collapse; min-width: 600px; }
+.admin-table th, .admin-table td {
+    padding: 12px 14px; border-bottom: 1px solid #eef0f3; text-align: center; white-space: nowrap;
+}
+.admin-table th {
+    background: #f8fafc; color: var(--logo-dark-blue); font-weight: 700; font-size: 0.9rem;
+}
+.admin-table th.left, .admin-table td.left { text-align: left; }
+.admin-table tbody tr:hover { background: #f0f4f8; }
+
+.score-pill { font-weight: 800; color: var(--logo-dark-blue); }
+.rank-badge {
+    display: inline-block; min-width: 28px; padding: 3px 10px; border-radius: 8px;
+    font-weight: 800; color: white;
+}
+.state { text-align: center; padding: 30px; color: #9ca3af; }
+
+.row-link {
+    background: var(--logo-dark-blue); color: white; border: none; cursor: pointer;
+    padding: 7px 14px; border-radius: 8px; font-family: 'Kanit', sans-serif; font-weight: 600;
+}
+.row-link:hover { background: #152b65; }
+
+/* รายละเอียดรายคน */
+.detail-summary {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 14px; margin-top: 10px;
+}
+.sum-box {
+    background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px;
+    padding: 14px; text-align: center;
+}
+.sum-box .sum-label { font-size: 0.8rem; color: #6b7280; }
+.sum-box .sum-value { font-size: 1.5rem; font-weight: 800; color: var(--logo-dark-blue); margin-top: 4px; }
+.detail-summary .sum-box.name-box { grid-column: 1 / -1; text-align: left; }
+
+.detail-table td { white-space: normal; }
+.detail-table .q-prompt { max-width: 320px; }
+.cell-correct { color: #16a34a; font-weight: 700; }
+.cell-wrong { color: var(--logo-red); font-weight: 700; }
+.cell-blank { color: #9ca3af; }
+.res-ico { font-size: 1.1rem; }
+tr.q-wrong td { background: #fef2f2; }
+tr.q-blank td { background: #fafafa; }

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin — ผลการประเมิน</title>
+    <link rel="stylesheet" href="final-test.css">
+    <link rel="stylesheet" href="admin.css">
+
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+    <!-- ───────── หน้าใส่รหัสผ่าน ───────── -->
+    <div id="login-screen" class="gate-screen">
+        <div class="gate-card">
+            <h2>🔐 เข้าสู่ระบบแอดมิน</h2>
+            <p class="gate-msg">กรอกรหัสผ่านเพื่อดูผลการประเมิน</p>
+            <input id="admin-pass" type="password" class="admin-input" placeholder="รหัสผ่าน" autocomplete="off">
+            <div id="login-error" class="login-error hidden">รหัสผ่านไม่ถูกต้อง</div>
+            <div class="gate-actions" style="display:flex;">
+                <button id="login-btn" class="btn primary" style="width:100%;">เข้าสู่ระบบ</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ───────── แอป admin ───────── -->
+    <div id="admin-app" class="hidden">
+        <header class="quiz-header">
+            <div class="header-info">
+                <h1>📊 ผลการประเมิน (Admin)</h1>
+                <p id="admin-sub">เลือกชุดสอบเพื่อดูรายชื่อผู้สอบ</p>
+            </div>
+            <button id="logout-btn" class="btn secondary">ออกจากระบบ</button>
+        </header>
+
+        <main class="admin-container">
+
+            <!-- แถบเลือกชุดสอบ -->
+            <div class="card">
+                <div class="admin-controls">
+                    <div class="field">
+                        <label>ชุดสอบ</label>
+                        <select id="test-select"></select>
+                    </div>
+                    <input id="search-box" type="search" class="admin-input" placeholder="🔎 ค้นหาชื่อผู้สอบ...">
+                    <button id="reload-btn" class="btn primary">↻ โหลดข้อมูล</button>
+                </div>
+            </div>
+
+            <!-- View 1: รายชื่อผู้สอบ -->
+            <div id="list-view" class="card">
+                <h2 id="list-title">รายชื่อผู้สอบ</h2>
+                <div class="table-wrap">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th class="left">ผู้สอบ</th>
+                                <th>คะแนน</th>
+                                <th>Rank</th>
+                                <th>เวลารวม</th>
+                                <th>วันที่สอบ</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="list-body">
+                            <tr><td class="state" colspan="6">เลือกชุดสอบแล้วกด “โหลดข้อมูล”</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- View 2: รายละเอียดรายคน -->
+            <div id="detail-view" class="card hidden">
+                <button id="back-list-btn" class="btn secondary" style="margin-bottom:15px;">◀ กลับไปรายชื่อ</button>
+                <div id="detail-summary" class="detail-summary"></div>
+                <h3 style="margin-top:25px;">รายละเอียดรายข้อ</h3>
+                <div class="table-wrap">
+                    <table class="admin-table detail-table">
+                        <thead>
+                            <tr>
+                                <th>ข้อ</th>
+                                <th class="left">บท / หัวข้อย่อย</th>
+                                <th>ทักษะ</th>
+                                <th>ตอบ</th>
+                                <th>เฉลย</th>
+                                <th>ผล</th>
+                                <th>เวลา</th>
+                            </tr>
+                        </thead>
+                        <tbody id="detail-body"></tbody>
+                    </table>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script src="quiz-config.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html>
