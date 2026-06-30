@@ -16,8 +16,9 @@ const params   = new URLSearchParams(location.search);
 const courseId = params.get("course");
 const testKey  = params.get("test");
 
-const userId          = localStorage.getItem("userId") || "guest";
-const userDisplayName = localStorage.getItem("userDisplayName") || "นักเรียน";
+// ตั้งค่าหลังล็อกอิน Firebase สำเร็จ (uid = userId เดียวกับระบบ quiz/progress)
+let userId          = "guest";
+let userDisplayName = "นักเรียน";
 
 // ===========================================================
 // ตัวแปรควบคุม (เซ็ตหลังโหลดไฟล์คำถามแล้ว)
@@ -95,6 +96,13 @@ function showQuizApp() {
   document.getElementById("quiz-app").classList.remove("hidden");
 }
 
+function gateRequireLogin() {
+  gateError("กรุณาเข้าสู่ระบบก่อน",
+    "ต้องเข้าสู่ระบบด้วยบัญชีของคุณก่อนจึงจะเข้าทำข้อสอบได้",
+    `<a class="btn primary" href="${CFG.loginUrl || '/'}">เข้าสู่ระบบ</a>` +
+    `<button class="btn secondary" onclick="location.reload()">↻ เข้าสู่ระบบแล้ว</button>`);
+}
+
 // ===========================================================
 // เรียก Apps Script กลาง (POST แบบ text/plain เพื่อเลี่ยง CORS preflight)
 // ===========================================================
@@ -108,9 +116,28 @@ async function callApi(payload) {
 }
 
 // ===========================================================
-// เริ่มต้น
+// เริ่มต้น — รอ Firebase auth ก่อน แล้วค่อยเข้าระบบข้อสอบ
 // ===========================================================
-window.addEventListener("DOMContentLoaded", init);
+function whenAuthReady(cb) {
+  if (window.firebaseOnAuthStateChanged && window.firebaseAuth) return cb();
+  setTimeout(() => whenAuthReady(cb), 50);
+}
+
+let authHandled = false;
+
+window.addEventListener("DOMContentLoaded", () => {
+  gateLoading("กำลังตรวจสอบการเข้าสู่ระบบ...", "");
+  whenAuthReady(() => {
+    window.firebaseOnAuthStateChanged(window.firebaseAuth, (user) => {
+      if (authHandled) return;        // กันทำงานซ้ำเมื่อ token refresh
+      if (!user) { gateRequireLogin(); return; }
+      authHandled = true;
+      userId = user.uid;
+      userDisplayName = user.displayName || user.email || "นักเรียน";
+      init();
+    });
+  });
+});
 
 async function init() {
   // 1) ตรวจพารามิเตอร์
@@ -593,11 +620,11 @@ function showResultScreen(radarData, totalScore) {
   // Radar Chart
   const canvas = document.getElementById("radarChart");
   if (canvas && window.Chart) {
-    const labels = axes.map(cat => {
+    const labels = radarCats.map(cat => {
       const d = radarData.details[cat];
       return (d && d.name) ? d.name : (skillLabel(cat) || cat);
     });
-    const data = axes.map(cat => radarData[cat] || 0);
+    const data = radarCats.map(cat => radarData[cat] || 0);
     new Chart(canvas.getContext("2d"), {
       type: "radar",
       data: {
