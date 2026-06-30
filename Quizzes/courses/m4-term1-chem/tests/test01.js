@@ -5,7 +5,7 @@ window.TEST_META = {
   courseId: "m4-term1-chem",
   testKey: "test01",
   title: "ข้อสอบ : เคมี ม.4 เทอม 1 — โครงสร้างอะตอม (30 ข้อ)",
-  timeLimitSec: 3600,
+  timeLimitSec: 5400,
 
   chapters: {
     "โครงสร้างอะตอม": { label: "โครงสร้างอะตอม" },
