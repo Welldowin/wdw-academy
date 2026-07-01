@@ -18,7 +18,7 @@
 // ============ CONFIG (แก้ตรงนี้) ============
 var CONFIG = {
   SHEET_NAME: "Scores",                       // ชื่อ tab ที่เก็บผลสอบ
-  ADMIN_PASSWORD: "wdw-admin-2026",           // ต้องตรงกับ adminPassword ใน quiz-config.js
+  ADMIN_PASSWORD: "142599",           // ต้องตรงกับ adminPassword ใน quiz-config.js
   // progress API เดิม (ใช้เช็ค prerequisites — อ่านชีต progress ให้เราอยู่แล้ว)
   PROGRESS_API_URL: "https://script.google.com/macros/s/AKfycbyDSjGx-TM8L0sZrv-IFyavH3H3Ag1smo-CEtoNrDiIL0oDpLKhrkvqShCq6bdmZQjy/exec",
 };
@@ -74,36 +74,30 @@ function saveScore(data) {
 }
 
 // ============ 2) เช็ค prerequisites (เรียกต่อ progress API เดิม) ============
-//  ใช้ action "getStudentDetail" ของ progress (ดึงเฉพาะนักเรียนคนเดียว)
-//  → คืน { profile, quizzes } โดย quizzes[quizKey].submitted = true/false
 function checkPrerequisites(data) {
   var required = data.quizKeys || [];
   if (!required.length) return json({ ok: true, missing: [] });
 
-  var raw = "";
-  try {
-    raw = fetchFollowAsGet(CONFIG.PROGRESS_API_URL, {
-      method: "post",
-      contentType: "text/plain;charset=utf-8",
-      payload: JSON.stringify({
-        action: "getStudentDetail",
-        courseId: data.courseId,
-        userId: data.userId,
-      }),
-    });
-    var result = JSON.parse(raw);
-    var quizzes = (result && result.quizzes) || {};
+  var resp = UrlFetchApp.fetch(CONFIG.PROGRESS_API_URL, {
+    method: "post",
+    contentType: "text/plain;charset=utf-8",
+    payload: JSON.stringify({ action: "getCourseProgress", courseId: data.courseId }),
+    muteHttpExceptions: true,
+  });
+  var result = JSON.parse(resp.getContentText());
+  var rows = result.rows || [];
 
-    var missing = [];
-    required.forEach(function (qk) {
-      var info = quizzes[qk];
-      if (!info || info.submitted !== true) missing.push({ quizKey: qk, title: qk });
-    });
-    return json({ ok: true, missing: missing });
-  } catch (e) {
-    // ส่งคำตอบดิบกลับไปด้วย เพื่อช่วยวินิจฉัย (เช่น progress API ตอบ HTML แทน JSON)
-    return json({ ok: false, message: "progress error: " + e + " | raw: " + String(raw).slice(0, 200) });
+  var me = null;
+  for (var i = 0; i < rows.length; i++) {
+    if (String(rows[i].userId) === String(data.userId)) { me = rows[i]; break; }
   }
+  var status = (me && me.status) || {};
+
+  var missing = [];
+  required.forEach(function (qk) {
+    if (status[qk] !== true) missing.push({ quizKey: qk, title: qk });
+  });
+  return json({ ok: true, missing: missing });
 }
 
 // ============ 3) (แอดมิน) รายชื่อผู้สอบของชุดสอบ ============
@@ -202,22 +196,4 @@ function json(obj) {
   return ContentService
     .createTextOutput(JSON.stringify(obj))
     .setMimeType(ContentService.MimeType.JSON);
-}
-
-// เรียก Apps Script web app อีกตัว แล้วตาม redirect (302) เองแบบ GET
-// (UrlFetchApp ปกติจะ re-POST ตาม redirect ทำให้ได้หน้า error — ต้องตามเป็น GET เหมือนเบราว์เซอร์)
-function fetchFollowAsGet(url, options) {
-  options = options || {};
-  options.followRedirects = false;
-  options.muteHttpExceptions = true;
-  var resp = UrlFetchApp.fetch(url, options);
-  for (var hops = 0; hops < 5; hops++) {
-    var code = resp.getResponseCode();
-    if (code < 300 || code >= 400) break;
-    var headers = resp.getAllHeaders();
-    var loc = headers["Location"] || headers["location"];
-    if (!loc) break;
-    resp = UrlFetchApp.fetch(loc, { method: "get", followRedirects: false, muteHttpExceptions: true });
-  }
-  return resp.getContentText();
 }

@@ -67,6 +67,14 @@ window.QUIZ_CONFIG = {
   //  ถ้าเว้น [] = เข้าสอบได้เลยไม่ต้องเช็ค
   tests: {
 
+    "m5-term1-physics__test01": {
+      courseId: "m5-term1-physics",
+      testKey:  "test01",
+      title:    "Final Test : ฟิสิกส์ ม.5 (การเคลื่อนที่แบบฮาร์มอนิกอย่างง่าย)",
+      prerequisiteQuizzes: ["quiz1", "quiz2", "quiz3", "quiz4"],
+      timeLimitSec: 5400,
+    },
+
     "m3-term1-science__test01": {
       courseId: "m3-term1-science",
       testKey:  "test01",
