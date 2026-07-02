@@ -67,6 +67,14 @@ window.QUIZ_CONFIG = {
   //  ถ้าเว้น [] = เข้าสอบได้เลยไม่ต้องเช็ค
   tests: {
 
+    "m4-term1-math__test01": {
+      courseId: "m4-term1-math",
+      testKey:  "test01",
+      title:    "Final Test : คณิตศาสตร์ ม.4 (เซตและพหุนาม)",
+      prerequisiteQuizzes: ["quiz1", "quiz2", "quiz3", "quiz4"],
+      timeLimitSec: 5400,
+    },
+
     "m4-term1-physics__test01": {
       courseId: "m4-term1-physics",
       testKey:  "test01",
