@@ -35,14 +35,29 @@ function escapeHtml(s) {
     ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 }
 
-/* ---------- โหลด quizmaster ของคอร์ส ---------- */
+/* ---------- สร้างรายชื่อ quiz จาก window.COURSE_DATA (data.js) ---------- */
+//  แหล่งข้อมูลเดียว = data.js → เพิ่ม quiz ใน data.js ที่เดียว หน้านี้ขึ้นเอง
+function buildQuizMaster() {
+  const cd = window.COURSE_DATA || {};
+  return Object.keys(cd).map(key => {
+    const meta = (cd[key] && cd[key].meta) || {};
+    // ตัดคำนำหน้า "Quiz N :" และท้าย "(NN ข้อ)" ออก ให้เหลือชื่อบทสั้น ๆ
+    const title = String(meta.title || key)
+      .replace(/^\s*Quiz\s*\d+\s*[:：]\s*/i, "")
+      .replace(/\s*\(\s*\d+\s*ข้อ\s*\)\s*$/, "")
+      .trim();
+    return { quizKey: key, title };
+  });
+}
+
+/* ---------- โหลด data.js ของคอร์ส ---------- */
 function loadQuizMaster(cid) {
   return new Promise((resolve, reject) => {
-    window.QUIZ_MASTER = null;
+    window.COURSE_DATA = null;
     const script = document.createElement("script");
-    script.src = `./courses/${cid}/quizmaster.js?v=${Date.now()}`;
-    script.onload = () => resolve(window.QUIZ_MASTER || []);
-    script.onerror = () => reject(new Error("ไม่พบไฟล์ quizmaster ของคอร์สนี้"));
+    script.src = `./courses/${cid}/data.js?v=${Date.now()}`;
+    script.onload = () => resolve(buildQuizMaster());
+    script.onerror = () => reject(new Error("ไม่พบไฟล์ข้อมูลของคอร์สนี้"));
     document.head.appendChild(script);
   });
 }
@@ -75,9 +90,9 @@ function render(quizMaster, profile, quizzes) {
   const total = quizMaster.length;
 
   els.stuSummary.innerHTML = `
-    <div class="pill ok"><span class="num">${doneCount}/${total}</span><span class="lbl">ทำไปแล้ว</span></div>
+    <div class="pill"><span class="num">${doneCount}/${total}</span><span class="lbl">ทำไปแล้ว</span></div>
     <div class="pill"><span class="num">${totalScore}</span><span class="lbl">คะแนนรวม</span></div>
-    <div class="pill warn"><span class="num">${total - doneCount}</span><span class="lbl">ยังไม่ทำ</span></div>
+    <div class="pill"><span class="num">${total - doneCount}</span><span class="lbl">ยังไม่ทำ</span></div>
   `;
 
   // รายการ quiz
@@ -129,7 +144,14 @@ async function init() {
       fetchStudentDetail(),
     ]);
     if (!result.ok) throw new Error(result.message || "โหลดข้อมูลไม่สำเร็จ");
-    render(quizMaster, result.profile, result.quizzes || {});
+
+    // แสดง/นับเฉพาะ quiz ที่ "เปิด" แล้ว (ตรงกับตารางรวมหน้า progress)
+    const course = COURSES.find(c => c.courseId === courseId);
+    const available = quizMaster.length;
+    const configured = Number.isFinite(course?.active) ? course.active : available;
+    const activeCount = Math.max(0, Math.min(configured, available));
+
+    render(quizMaster.slice(0, activeCount), result.profile, result.quizzes || {});
   } catch (err) {
     console.error(err);
     els.quizList.innerHTML = `<p class="state">❌ ${escapeHtml(err.message)}</p>`;

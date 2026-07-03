@@ -5,6 +5,7 @@
 
 const API_URL = window.PROGRESS_API_URL;
 const COURSES = window.PROGRESS_COURSES || [];
+const TOTAL_QUIZZES = window.PROGRESS_TOTAL_QUIZZES || 12;   // จำนวนคอลัมน์ที่โชว์เสมอ
 
 const els = {
   courseSelect: document.getElementById("courseSelect"),
@@ -18,7 +19,8 @@ const els = {
 // เก็บ state ปัจจุบันไว้สำหรับ filter / re-render
 let state = {
   courseId: "",
-  quizMaster: [],   // [{quizKey, title}, ...] เรียงตามลำดับสัปดาห์
+  quizMaster: [],   // [{quizKey, title}, ...] เฉพาะ quiz ที่ "เปิด" แล้ว (นับคะแนน)
+  activeCount: 0,   // จำนวน quiz ที่เปิด = คอลัมน์ที่นับจริง
   rows: [],         // ข้อมูลจาก API (พร้อม flag คำนวณแล้ว)
 };
 
@@ -29,15 +31,30 @@ function buildDropdown() {
     COURSES.map(c => `<option value="${c.courseId}">${c.label}</option>`).join("");
 }
 
-/* ---------- โหลด quizmaster.js ของคอร์สที่เลือก (แบบ dynamic) ---------- */
+/* ---------- สร้างรายชื่อ quiz จาก window.COURSE_DATA (data.js) ---------- */
+//  แหล่งข้อมูลเดียว = data.js → เพิ่ม quiz ใน data.js ที่เดียว หน้านี้ขึ้นเอง
+function buildQuizMaster() {
+  const cd = window.COURSE_DATA || {};
+  return Object.keys(cd).map(key => {
+    const meta = (cd[key] && cd[key].meta) || {};
+    // ตัดคำนำหน้า "Quiz N :" และท้าย "(NN ข้อ)" ออก ให้เหลือชื่อบทสั้น ๆ
+    const title = String(meta.title || key)
+      .replace(/^\s*Quiz\s*\d+\s*[:：]\s*/i, "")
+      .replace(/\s*\(\s*\d+\s*ข้อ\s*\)\s*$/, "")
+      .trim();
+    return { quizKey: key, title };
+  });
+}
+
+/* ---------- โหลด data.js ของคอร์สที่เลือก (แบบ dynamic) ---------- */
 function loadQuizMaster(courseId) {
   return new Promise((resolve, reject) => {
     // ล้างค่าเดิมเพื่อกันค้าง
-    window.QUIZ_MASTER = null;
+    window.COURSE_DATA = null;
     const script = document.createElement("script");
-    script.src = `./courses/${courseId}/quizmaster.js?v=${Date.now()}`;
-    script.onload = () => resolve(window.QUIZ_MASTER || []);
-    script.onerror = () => reject(new Error("ไม่พบไฟล์ quizmaster ของคอร์สนี้"));
+    script.src = `./courses/${courseId}/data.js?v=${Date.now()}`;
+    script.onload = () => resolve(buildQuizMaster());
+    script.onerror = () => reject(new Error("ไม่พบไฟล์ข้อมูลของคอร์สนี้"));
     document.head.appendChild(script);
   });
 }
@@ -92,9 +109,9 @@ function renderSummary() {
 
   els.summary.innerHTML = `
     <div class="pill"><span class="num">${total}</span><span class="lbl">นักเรียนทั้งหมด</span></div>
-    <div class="pill ok"><span class="num">🚀 ${ok}</span><span class="lbl">ทำครบ</span></div>
-    <div class="pill warn"><span class="num">👍 ${warn}</span><span class="lbl">ข้ามบ้าง</span></div>
-    <div class="pill danger"><span class="num">💀 ${danger}</span><span class="lbl">ต้องจับตา</span></div>
+    <div class="pill"><span class="num">🚀 ${ok}</span><span class="lbl">ทำครบ</span></div>
+    <div class="pill"><span class="num">👍 ${warn}</span><span class="lbl">ข้ามบ้าง</span></div>
+    <div class="pill"><span class="num">💀 ${danger}</span><span class="lbl">ต้องจับตา</span></div>
   `;
 }
 
@@ -102,13 +119,17 @@ function renderSummary() {
 function renderTable() {
   const keyword = els.searchBox.value.trim().toLowerCase();
 
-  // หัวตาราง
+  // หัวตาราง — โชว์ Q1..Q(TOTAL) เสมอ, คอลัมน์ที่ยังไม่เปิด = ล็อก
   els.tableHead.innerHTML = `
     <tr>
       <th class="name-col">นักเรียน</th>
       <th>สถานะ</th>
-      ${state.quizMaster.map((q, i) =>
-        `<th class="quiz-col" title="${escapeHtml(q.title)}">Q${i + 1}</th>`).join("")}
+      ${Array.from({ length: TOTAL_QUIZZES }, (_, i) => {
+        const q = state.quizMaster[i];
+        return q
+          ? `<th title="${escapeHtml(q.title)}">Q${i + 1}</th>`
+          : `<th class="locked" title="ยังไม่เปิด">Q${i + 1}</th>`;
+      }).join("")}
       <th>ทำแล้ว</th>
     </tr>
   `;
@@ -122,7 +143,7 @@ function renderTable() {
 
   if (visible.length === 0) {
     els.tableBody.innerHTML =
-      `<tr><td class="state" colspan="${state.quizMaster.length + 3}">ไม่พบนักเรียนที่ตรงกับการค้นหา</td></tr>`;
+      `<tr><td class="state" colspan="${TOTAL_QUIZZES + 3}">ไม่พบนักเรียนที่ตรงกับการค้นหา</td></tr>`;
     return;
   }
 
@@ -132,7 +153,9 @@ function renderTable() {
     const detailUrl =
       `./student.html?course=${encodeURIComponent(state.courseId)}&user=${encodeURIComponent(r.userId)}`;
 
-    const cells = state.quizMaster.map(q => {
+    const cells = Array.from({ length: TOTAL_QUIZZES }, (_, i) => {
+      const q = state.quizMaster[i];
+      if (!q) return `<td class="locked"><span class="lock">🔒</span></td>`;
       const done = r.status[q.quizKey] === true;
       return done
         ? `<td><span class="done">✔</span></td>`
@@ -158,6 +181,7 @@ async function onCourseChange(courseId) {
   state.courseId = courseId;
   state.rows = [];
   state.quizMaster = [];
+  state.activeCount = 0;
 
   if (!courseId) {
     els.summary.innerHTML = "";
@@ -178,12 +202,20 @@ async function onCourseChange(courseId) {
 
     if (!result.ok) throw new Error(result.message || "โหลดข้อมูลไม่สำเร็จ");
 
-    state.quizMaster = quizMaster;
+    // จำนวน quiz ที่ "เปิด" = ค่า active ใน config แต่ไม่เกินจำนวนข้อสอบจริงใน data.js
+    const course = COURSES.find(c => c.courseId === courseId);
+    const available = quizMaster.length;
+    const configured = Number.isFinite(course?.active) ? course.active : available;
+    state.activeCount = Math.max(0, Math.min(configured, available));
+
+    // นับ/คิดสัญลักษณ์เฉพาะ quiz ที่เปิดแล้วเท่านั้น
+    const activeQuizzes = quizMaster.slice(0, state.activeCount);
+    state.quizMaster = activeQuizzes;
 
     // คำนวณ flag ของแต่ละคน + เรียง: 💀 ก่อน → 👍 → 🚀, ในกลุ่มเดียวกันเรียงตามทำน้อยสุด
     const order = { danger: 0, warn: 1, ok: 2 };
     state.rows = (result.rows || []).map(r => {
-      r._flag = calcFlag(r.status || {}, quizMaster);
+      r._flag = calcFlag(r.status || {}, activeQuizzes);
       return r;
     }).sort((a, b) => {
       if (order[a._flag.level] !== order[b._flag.level])
