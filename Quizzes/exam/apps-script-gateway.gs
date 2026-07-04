@@ -100,9 +100,16 @@ function checkPrerequisites(data) {
   return json({ ok: true, missing: missing });
 }
 
+// ============ ตรวจรหัสแอดมิน (ทนทานต่อชนิดตัวเลข/เว้นวรรค) ============
+//  แปลงเป็น string + trim ทั้งสองฝั่ง กันเคส ADMIN_PASSWORD ถูกใส่เป็นตัวเลข
+//  หรือมีช่องว่างติดมา ซึ่งทำให้ !== แบบเดิม fail แล้วขึ้น "unauthorized"
+function isAdmin(data) {
+  return String(data && data.adminPassword).trim() === String(CONFIG.ADMIN_PASSWORD).trim();
+}
+
 // ============ 3) (แอดมิน) รายชื่อผู้สอบของชุดสอบ ============
 function getResults(data) {
-  if (data.adminPassword !== CONFIG.ADMIN_PASSWORD)
+  if (!isAdmin(data))
     return json({ ok: false, message: "unauthorized" });
 
   var rows = readScoreRows(data.courseId, data.testKey);
@@ -124,7 +131,7 @@ function getResults(data) {
 
 // ============ 4) (แอดมิน) รายละเอียดรายคน ============
 function getStudentDetail(data) {
-  if (data.adminPassword !== CONFIG.ADMIN_PASSWORD)
+  if (!isAdmin(data))
     return json({ ok: false, message: "unauthorized" });
 
   var rows = readScoreRows(data.courseId, data.testKey);
