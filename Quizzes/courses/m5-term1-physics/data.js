@@ -1014,8 +1014,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$8 \\text{ รอบ}$" },
         { key: "D", text: "$16 \\text{ รอบ}$" }
       ],
-      answer: "C",
-      explanation: `$\\omega=4\\pi\\Rightarrow f=\\dfrac{\\omega}{2\\pi}=2$ Hz ใน 2 วิควรได้ 4 รอบ [หมายเหตุ: เฉลยในไฟล์ตอบ 8 ควรตรวจสอบอีกครั้ง]`
+      answer: "B",
+      explanation: `$\\omega=4\\pi\\Rightarrow f=\\dfrac{\\omega}{2\\pi}=2$ Hz ใน 2 วินาที สั่นได้ $f\\times t=2\\times2=4$ รอบ จึงตอบ B`
     },
     {
       id: "q18",
