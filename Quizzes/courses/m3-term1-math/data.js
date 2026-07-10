@@ -749,5 +749,1121 @@ window.COURSE_DATA = {
         explanation: `$|x-3|\\le2$: $1\\le x\\le5$ จำนวนเต็มคือ $1,2,3,4,5$ ผลบวก $=15$ จึงตอบ B`
         }
     ]
+  },
+
+  "quiz3": {
+    meta: {
+      courseId: "m3-term1-math",
+      quizKey: "quiz3",
+      title: "Quiz 3 : สมการ อสมการ และค่าสัมบูรณ์ (30 ข้อ)",
+      enableTimer: true,
+      timeLimitSec: 3600
+    },
+    data: [
+      {
+        id: "q1",
+        prompt: `แก้สมการ $2x + 5 = 13$ จะได้ $x$ เท่ากับเท่าใด?`,
+        choices: [
+          { key: "A", text: "$3$" },
+          { key: "B", text: "$4$" },
+          { key: "C", text: "$5$" },
+          { key: "D", text: "$9$" }
+        ],
+        answer: "B",
+        explanation: `$2x = 13 - 5 = 8 \\Rightarrow x = 4$ จึงตอบ B`
+      },
+      {
+        id: "q2",
+        prompt: `แก้สมการ $3x - 7 = 2x + 1$ จะได้ $x$ เท่ากับเท่าใด?`,
+        choices: [
+          { key: "A", text: "$-8$" },
+          { key: "B", text: "$6$" },
+          { key: "C", text: "$14$" },
+          { key: "D", text: "$8$" }
+        ],
+        answer: "D",
+        explanation: `$3x - 2x = 1 + 7 \\Rightarrow x = 8$ จึงตอบ D`
+      },
+      {
+        id: "q3",
+        prompt: `แก้สมการ $5(x - 2) = 3x + 4$ จะได้ $x$ เท่ากับเท่าใด?`,
+        choices: [
+          { key: "A", text: "$7$" },
+          { key: "B", text: "$3$" },
+          { key: "C", text: "$-7$" },
+          { key: "D", text: "$14$" }
+        ],
+        answer: "A",
+        explanation: `$5x - 10 = 3x + 4 \\Rightarrow 2x = 14 \\Rightarrow x = 7$ จึงตอบ A`
+      },
+      {
+        id: "q4",
+        prompt: `แก้สมการ $\\dfrac{x}{2} + 3 = 7$ จะได้ $x$ เท่ากับเท่าใด?`,
+        choices: [
+          { key: "A", text: "$2$" },
+          { key: "B", text: "$5$" },
+          { key: "C", text: "$8$" },
+          { key: "D", text: "$20$" }
+        ],
+        answer: "C",
+        explanation: `$\\dfrac{x}{2} = 4 \\Rightarrow x = 8$ จึงตอบ C`
+      },
+      {
+        id: "q5",
+        prompt: `จำนวนจริงที่สอดคล้องกับสมการ $x^2 = 49$ คือข้อใด?`,
+        choices: [
+          { key: "A", text: "$7$" },
+          { key: "B", text: "$\\pm 7$" },
+          { key: "C", text: "$-7$" },
+          { key: "D", text: "$\\pm 49$" }
+        ],
+        answer: "B",
+        explanation: `$x = \\pm\\sqrt{49} = \\pm 7$ จึงตอบ B`
+      },
+      {
+        id: "q6",
+        prompt: `แก้สมการ $x^2 - 5x + 6 = 0$ จะได้คำตอบคือข้อใด?`,
+        choices: [
+          { key: "A", text: "$x = -2, -3$" },
+          { key: "B", text: "$x = 1, 6$" },
+          { key: "C", text: "$x = -1, -6$" },
+          { key: "D", text: "$x = 2, 3$" }
+        ],
+        answer: "D",
+        explanation: `$(x-2)(x-3) = 0 \\Rightarrow x = 2, 3$ จึงตอบ D`
+      },
+      {
+        id: "q7",
+        prompt: `แก้สมการ $(x - 4)(x + 2) = 0$ จะได้คำตอบคือข้อใด?`,
+        choices: [
+          { key: "A", text: "$x = 4, -2$" },
+          { key: "B", text: "$x = -4, 2$" },
+          { key: "C", text: "$x = 4, 2$" },
+          { key: "D", text: "$x = -4, -2$" }
+        ],
+        answer: "A",
+        explanation: `ให้แต่ละวงเล็บเป็นศูนย์: $x = 4$ หรือ $x = -2$ จึงตอบ A`
+      },
+      {
+        id: "q8",
+        prompt: `แก้อสมการ $2x + 1 > 7$ จะได้ผลเฉลยคือข้อใด?`,
+        choices: [
+          { key: "A", text: "$x < 3$" },
+          { key: "B", text: "$x > 4$" },
+          { key: "C", text: "$x > 3$" },
+          { key: "D", text: "$x < 4$" }
+        ],
+        answer: "C",
+        explanation: `$2x > 6 \\Rightarrow x > 3$ จึงตอบ C`
+      },
+      {
+        id: "q9",
+        prompt: `แก้อสมการ $3x - 5 \\le 10$ จะได้ผลเฉลยคือข้อใด?`,
+        choices: [
+          { key: "A", text: "$x \\ge 5$" },
+          { key: "B", text: "$x \\le 5$" },
+          { key: "C", text: "$x < 5$" },
+          { key: "D", text: "$x \\le 15$" }
+        ],
+        answer: "B",
+        explanation: `$3x \\le 15 \\Rightarrow x \\le 5$ จึงตอบ B`
+      },
+      {
+        id: "q10",
+        prompt: `แก้อสมการ $-2x > 6$ จะได้ผลเฉลยคือข้อใด?`,
+        choices: [
+          { key: "A", text: "$x > -3$" },
+          { key: "B", text: "$x > 3$" },
+          { key: "C", text: "$x < 3$" },
+          { key: "D", text: "$x < -3$" }
+        ],
+        answer: "D",
+        explanation: `หารด้วย $-2$ ต้องกลับเครื่องหมาย: $x < -3$ จึงตอบ D`
+      },
+      {
+        id: "q11",
+        prompt: `แก้อสมการ $4 - x \\ge 1$ จะได้ผลเฉลยคือข้อใด?`,
+        choices: [
+          { key: "A", text: "$x \\le 3$" },
+          { key: "B", text: "$x \\ge 3$" },
+          { key: "C", text: "$x \\le -3$" },
+          { key: "D", text: "$x \\ge -3$" }
+        ],
+        answer: "A",
+        explanation: `$-x \\ge -3 \\Rightarrow x \\le 3$ (กลับเครื่องหมาย) จึงตอบ A`
+      },
+      {
+        id: "q12",
+        prompt: `สมการ $|x| = 5$ มีคำตอบที่เป็นจำนวนจริงกี่จำนวน?`,
+        choices: [
+          { key: "A", text: "$0$ จำนวน" },
+          { key: "B", text: "$1$ จำนวน" },
+          { key: "C", text: "$2$ จำนวน" },
+          { key: "D", text: "มากมายนับไม่ถ้วน" }
+        ],
+        answer: "C",
+        explanation: `$x = 5$ หรือ $x = -5$ รวม 2 จำนวน จึงตอบ C`
+      },
+      {
+        id: "q13",
+        prompt: `แก้สมการ $|x - 3| = 7$ จะได้คำตอบคือข้อใด?`,
+        choices: [
+          { key: "A", text: "$x = 3, 7$" },
+          { key: "B", text: "$x = 10, -4$" },
+          { key: "C", text: "$x = 10, 4$" },
+          { key: "D", text: "$x = -10, 4$" }
+        ],
+        answer: "B",
+        explanation: `$x - 3 = 7$ หรือ $x - 3 = -7 \\Rightarrow x = 10$ หรือ $x = -4$ จึงตอบ B`
+      },
+      {
+        id: "q14",
+        prompt: `แก้สมการ $|2x + 1| = 9$ จะได้คำตอบคือข้อใด?`,
+        choices: [
+          { key: "A", text: "$x = 4, 5$" },
+          { key: "B", text: "$x = -4, 5$" },
+          { key: "C", text: "$x = 4.5, -4.5$" },
+          { key: "D", text: "$x = 4, -5$" }
+        ],
+        answer: "D",
+        explanation: `$2x + 1 = 9 \\Rightarrow x = 4$ หรือ $2x + 1 = -9 \\Rightarrow x = -5$ จึงตอบ D`
+      },
+      {
+        id: "q15",
+        prompt: `แก้อสมการ $|x| < 4$ จะได้ผลเฉลยคือข้อใด?`,
+        choices: [
+          { key: "A", text: "$-4 < x < 4$" },
+          { key: "B", text: "$x < 4$" },
+          { key: "C", text: "$x > 4$" },
+          { key: "D", text: "$x < -4$ หรือ $x > 4$" }
+        ],
+        answer: "A",
+        explanation: `$|x| < 4 \\Rightarrow -4 < x < 4$ จึงตอบ A`
+      },
+      {
+        id: "q16",
+        prompt: `แก้อสมการ $|x| > 3$ จะได้ผลเฉลยคือข้อใด?`,
+        choices: [
+          { key: "A", text: "$-3 < x < 3$" },
+          { key: "B", text: "$x > 3$ เท่านั้น" },
+          { key: "C", text: "$x < -3$ หรือ $x > 3$" },
+          { key: "D", text: "$x < 3$" }
+        ],
+        answer: "C",
+        explanation: `$|x| > 3 \\Rightarrow x < -3$ หรือ $x > 3$ จึงตอบ C`
+      },
+      {
+        id: "q17",
+        prompt: `แก้อสมการ $|x - 2| < 5$ จะได้ผลเฉลยคือข้อใด?`,
+        choices: [
+          { key: "A", text: "$2 < x < 7$" },
+          { key: "B", text: "$-3 < x < 7$" },
+          { key: "C", text: "$-7 < x < 3$" },
+          { key: "D", text: "$x < 7$" }
+        ],
+        answer: "B",
+        explanation: `$-5 < x - 2 < 5 \\Rightarrow -3 < x < 7$ จึงตอบ B`
+      },
+      {
+        id: "q18",
+        prompt: `แก้อสมการ $|x + 1| \\le 4$ จะได้ผลเฉลยคือข้อใด?`,
+        choices: [
+          { key: "A", text: "$-4 \\le x \\le 4$" },
+          { key: "B", text: "$-3 \\le x \\le 5$" },
+          { key: "C", text: "$x \\le 3$" },
+          { key: "D", text: "$-5 \\le x \\le 3$" }
+        ],
+        answer: "D",
+        explanation: `$-4 \\le x + 1 \\le 4 \\Rightarrow -5 \\le x \\le 3$ จึงตอบ D`
+      },
+      {
+        id: "q19",
+        prompt: `แก้อสมการ $|2x - 6| \\le 4$ จะได้ผลเฉลยคือข้อใด?`,
+        choices: [
+          { key: "A", text: "$1 \\le x \\le 5$" },
+          { key: "B", text: "$-1 \\le x \\le 5$" },
+          { key: "C", text: "$2 \\le x \\le 10$" },
+          { key: "D", text: "$1 \\le x \\le 10$" }
+        ],
+        answer: "A",
+        explanation: `$-4 \\le 2x - 6 \\le 4 \\Rightarrow 2 \\le 2x \\le 10 \\Rightarrow 1 \\le x \\le 5$ จึงตอบ A`
+      },
+      {
+        id: "q20",
+        prompt: `แก้อสมการ $|x - 5| > 2$ จะได้ผลเฉลยคือข้อใด?`,
+        choices: [
+          { key: "A", text: "$3 < x < 7$" },
+          { key: "B", text: "$x > 7$ เท่านั้น" },
+          { key: "C", text: "$x < 3$ หรือ $x > 7$" },
+          { key: "D", text: "$x < 7$" }
+        ],
+        answer: "C",
+        explanation: `$x - 5 < -2$ หรือ $x - 5 > 2 \\Rightarrow x < 3$ หรือ $x > 7$ จึงตอบ C`
+      },
+      {
+        id: "q21",
+        prompt: `จำนวนเต็มที่สอดคล้องกับอสมการ $|x| \\le 3$ มีทั้งหมดกี่จำนวน?`,
+        choices: [
+          { key: "A", text: "$6$ จำนวน" },
+          { key: "B", text: "$7$ จำนวน" },
+          { key: "C", text: "$3$ จำนวน" },
+          { key: "D", text: "$4$ จำนวน" }
+        ],
+        answer: "B",
+        explanation: `จำนวนเต็มคือ $-3,-2,-1,0,1,2,3$ รวม 7 จำนวน จึงตอบ B`
+      },
+      {
+        id: "q22",
+        prompt: `ผลบวกของคำตอบทั้งหมดของสมการ $|x - 1| = 6$ เท่ากับเท่าใด?`,
+        choices: [
+          { key: "A", text: "$6$" },
+          { key: "B", text: "$-6$" },
+          { key: "C", text: "$12$" },
+          { key: "D", text: "$2$" }
+        ],
+        answer: "D",
+        explanation: `คำตอบคือ $x = 7$ และ $x = -5$ ผลบวก $= 7 + (-5) = 2$ จึงตอบ D`
+      },
+      {
+        id: "q23",
+        prompt: `แก้สมการ $2|x| = 10$ จะได้คำตอบคือข้อใด?`,
+        choices: [
+          { key: "A", text: "$x = \\pm 5$" },
+          { key: "B", text: "$x = 5$" },
+          { key: "C", text: "$x = \\pm 10$" },
+          { key: "D", text: "$x = \\pm 2.5$" }
+        ],
+        answer: "A",
+        explanation: `$|x| = 5 \\Rightarrow x = \\pm 5$ จึงตอบ A`
+      },
+      {
+        id: "q24",
+        prompt: `สมการ $|x - 2| = 0$ มีคำตอบคือข้อใด?`,
+        choices: [
+          { key: "A", text: "$x = \\pm 2$" },
+          { key: "B", text: "ไม่มีคำตอบ" },
+          { key: "C", text: "$x = 2$" },
+          { key: "D", text: "$x = 0$" }
+        ],
+        answer: "C",
+        explanation: `ค่าสัมบูรณ์เป็นศูนย์ได้เมื่อภายในเป็นศูนย์: $x - 2 = 0 \\Rightarrow x = 2$ จึงตอบ C`
+      },
+      {
+        id: "q25",
+        prompt: `แก้สมการ $x^2 + 4x = 0$ จะได้คำตอบคือข้อใด?`,
+        choices: [
+          { key: "A", text: "$x = 0, 4$" },
+          { key: "B", text: "$x = 0, -4$" },
+          { key: "C", text: "$x = -4$ เท่านั้น" },
+          { key: "D", text: "$x = 4$ เท่านั้น" }
+        ],
+        answer: "B",
+        explanation: `$x(x + 4) = 0 \\Rightarrow x = 0$ หรือ $x = -4$ จึงตอบ B`
+      },
+      {
+        id: "q26",
+        prompt: `แก้อสมการ $2(x - 1) < x + 3$ จะได้ผลเฉลยคือข้อใด?`,
+        choices: [
+          { key: "A", text: "$x < 1$" },
+          { key: "B", text: "$x > 5$" },
+          { key: "C", text: "$x < 4$" },
+          { key: "D", text: "$x < 5$" }
+        ],
+        answer: "D",
+        explanation: `$2x - 2 < x + 3 \\Rightarrow x < 5$ จึงตอบ D`
+      },
+      {
+        id: "q27",
+        prompt: `แก้สมการ $|3x| = 12$ จะได้คำตอบคือข้อใด?`,
+        choices: [
+          { key: "A", text: "$x = \\pm 4$" },
+          { key: "B", text: "$x = 4$" },
+          { key: "C", text: "$x = \\pm 36$" },
+          { key: "D", text: "$x = \\pm 3$" }
+        ],
+        answer: "A",
+        explanation: `$|3x| = 12 \\Rightarrow 3x = \\pm 12 \\Rightarrow x = \\pm 4$ จึงตอบ A`
+      },
+      {
+        id: "q28",
+        prompt: `แก้สมการ $\\dfrac{x}{3} - 1 = 2$ จะได้ $x$ เท่ากับเท่าใด?`,
+        choices: [
+          { key: "A", text: "$1$" },
+          { key: "B", text: "$3$" },
+          { key: "C", text: "$9$" },
+          { key: "D", text: "$6$" }
+        ],
+        answer: "C",
+        explanation: `$\\dfrac{x}{3} = 3 \\Rightarrow x = 9$ จึงตอบ C`
+      },
+      {
+        id: "q29",
+        prompt: `จำนวนเต็มบวกที่สอดคล้องกับเงื่อนไข $0 < x < 4$ มีทั้งหมดกี่จำนวน?`,
+        choices: [
+          { key: "A", text: "$2$ จำนวน" },
+          { key: "B", text: "$3$ จำนวน" },
+          { key: "C", text: "$4$ จำนวน" },
+          { key: "D", text: "มากมายนับไม่ถ้วน" }
+        ],
+        answer: "B",
+        explanation: `จำนวนเต็มบวกคือ $1, 2, 3$ รวม 3 จำนวน จึงตอบ B`
+      },
+      {
+        id: "q30",
+        prompt: `แก้สมการ $3x + 2 = x - 4$ จะได้ $x$ เท่ากับเท่าใด?`,
+        choices: [
+          { key: "A", text: "$3$" },
+          { key: "B", text: "$-1$" },
+          { key: "C", text: "$1$" },
+          { key: "D", text: "$-3$" }
+        ],
+        answer: "D",
+        explanation: `$3x - x = -4 - 2 \\Rightarrow 2x = -6 \\Rightarrow x = -3$ จึงตอบ D`
+      }
+    ]
+  },
+
+  "quiz4": {
+    meta: {
+      courseId: "m3-term1-math",
+      quizKey: "quiz4",
+      title: "Quiz 4 : เอกลักษณ์พีชคณิต และการหารสังเคราะห์ (30 ข้อ)",
+      enableTimer: true,
+      timeLimitSec: 3600
+    },
+    data: [
+      {
+        id: "q1",
+        prompt: `$(x + 3)^2$ เท่ากับข้อใด?`,
+        choices: [
+          { key: "A", text: "$x^2 + 9$" },
+          { key: "B", text: "$x^2 + 3x + 9$" },
+          { key: "C", text: "$x^2 + 6x + 9$" },
+          { key: "D", text: "$x^2 + 6x + 6$" }
+        ],
+        answer: "C",
+        explanation: `$(a+b)^2 = a^2 + 2ab + b^2 = x^2 + 6x + 9$ จึงตอบ C`
+      },
+      {
+        id: "q2",
+        prompt: `$(x - 5)^2$ เท่ากับข้อใด?`,
+        choices: [
+          { key: "A", text: "$x^2 - 10x + 25$" },
+          { key: "B", text: "$x^2 - 25$" },
+          { key: "C", text: "$x^2 - 5x + 25$" },
+          { key: "D", text: "$x^2 - 10x - 25$" }
+        ],
+        answer: "A",
+        explanation: `$(a-b)^2 = a^2 - 2ab + b^2 = x^2 - 10x + 25$ จึงตอบ A`
+      },
+      {
+        id: "q3",
+        prompt: `$(2x + 3)^2$ เท่ากับข้อใด?`,
+        choices: [
+          { key: "A", text: "$4x^2 + 9$" },
+          { key: "B", text: "$2x^2 + 12x + 9$" },
+          { key: "C", text: "$4x^2 + 6x + 9$" },
+          { key: "D", text: "$4x^2 + 12x + 9$" }
+        ],
+        answer: "D",
+        explanation: `$(2x)^2 + 2(2x)(3) + 3^2 = 4x^2 + 12x + 9$ จึงตอบ D`
+      },
+      {
+        id: "q4",
+        prompt: `แยกตัวประกอบ $x^2 - 16$ ได้เป็นข้อใด?`,
+        choices: [
+          { key: "A", text: "$(x - 16)(x + 1)$" },
+          { key: "B", text: "$(x - 4)(x + 4)$" },
+          { key: "C", text: "$(x - 4)^2$" },
+          { key: "D", text: "$(x - 8)(x + 8)$" }
+        ],
+        answer: "B",
+        explanation: `ผลต่างกำลังสอง $a^2 - b^2 = (a-b)(a+b) = (x-4)(x+4)$ จึงตอบ B`
+      },
+      {
+        id: "q5",
+        prompt: `แยกตัวประกอบ $9x^2 - 25$ ได้เป็นข้อใด?`,
+        choices: [
+          { key: "A", text: "$(9x - 25)(x + 1)$" },
+          { key: "B", text: "$(3x - 5)^2$" },
+          { key: "C", text: "$(3x - 5)(3x + 5)$" },
+          { key: "D", text: "$(9x - 5)(x + 5)$" }
+        ],
+        answer: "C",
+        explanation: `$(3x)^2 - 5^2 = (3x - 5)(3x + 5)$ จึงตอบ C`
+      },
+      {
+        id: "q6",
+        prompt: `$(x + 2)^3$ เท่ากับข้อใด?`,
+        choices: [
+          { key: "A", text: "$x^3 + 6x^2 + 12x + 8$" },
+          { key: "B", text: "$x^3 + 8$" },
+          { key: "C", text: "$x^3 + 6x^2 + 6x + 8$" },
+          { key: "D", text: "$x^3 + 2x^2 + 4x + 8$" }
+        ],
+        answer: "A",
+        explanation: `$(a+b)^3 = a^3 + 3a^2b + 3ab^2 + b^3 = x^3 + 6x^2 + 12x + 8$ จึงตอบ A`
+      },
+      {
+        id: "q7",
+        prompt: `$(x - 1)^3$ เท่ากับข้อใด?`,
+        choices: [
+          { key: "A", text: "$x^3 - 1$" },
+          { key: "B", text: "$x^3 - 3x^2 - 3x - 1$" },
+          { key: "C", text: "$x^3 + 3x^2 - 3x - 1$" },
+          { key: "D", text: "$x^3 - 3x^2 + 3x - 1$" }
+        ],
+        answer: "D",
+        explanation: `$(a-b)^3 = a^3 - 3a^2b + 3ab^2 - b^3 = x^3 - 3x^2 + 3x - 1$ จึงตอบ D`
+      },
+      {
+        id: "q8",
+        prompt: `แยกตัวประกอบ $x^3 + 8$ ได้เป็นข้อใด?`,
+        choices: [
+          { key: "A", text: "$(x + 2)^3$" },
+          { key: "B", text: "$(x + 2)(x^2 - 2x + 4)$" },
+          { key: "C", text: "$(x + 2)(x^2 + 2x + 4)$" },
+          { key: "D", text: "$(x - 2)(x^2 + 2x + 4)$" }
+        ],
+        answer: "B",
+        explanation: `ผลบวกกำลังสาม $a^3 + b^3 = (a+b)(a^2 - ab + b^2) = (x+2)(x^2 - 2x + 4)$ จึงตอบ B`
+      },
+      {
+        id: "q9",
+        prompt: `แยกตัวประกอบ $x^3 - 27$ ได้เป็นข้อใด?`,
+        choices: [
+          { key: "A", text: "$(x - 3)^3$" },
+          { key: "B", text: "$(x - 3)(x^2 - 3x + 9)$" },
+          { key: "C", text: "$(x - 3)(x^2 + 3x + 9)$" },
+          { key: "D", text: "$(x + 3)(x^2 - 3x + 9)$" }
+        ],
+        answer: "C",
+        explanation: `ผลต่างกำลังสาม $a^3 - b^3 = (a-b)(a^2 + ab + b^2) = (x-3)(x^2 + 3x + 9)$ จึงตอบ C`
+      },
+      {
+        id: "q10",
+        prompt: `รูปแบบการแยกตัวประกอบของผลต่างกำลังสอง $a^2 - b^2$ คือข้อใด?`,
+        choices: [
+          { key: "A", text: "$(a - b)(a + b)$" },
+          { key: "B", text: "$(a - b)^2$" },
+          { key: "C", text: "$(a + b)^2$" },
+          { key: "D", text: "$(a - b)(a - b)$" }
+        ],
+        answer: "A",
+        explanation: `$a^2 - b^2 = (a-b)(a+b)$ จึงตอบ A`
+      },
+      {
+        id: "q11",
+        prompt: `$(x + y + z)^2$ เท่ากับข้อใด?`,
+        choices: [
+          { key: "A", text: "$x^2 + y^2 + z^2$" },
+          { key: "B", text: "$x^2 + y^2 + z^2 + xy + yz + zx$" },
+          { key: "C", text: "$x^2 + y^2 + z^2 + 3xyz$" },
+          { key: "D", text: "$x^2 + y^2 + z^2 + 2xy + 2yz + 2zx$" }
+        ],
+        answer: "D",
+        explanation: `$(x+y+z)^2 = x^2 + y^2 + z^2 + 2xy + 2yz + 2zx$ จึงตอบ D`
+      },
+      {
+        id: "q12",
+        prompt: `$(x + 4)(x - 4)$ เท่ากับข้อใด?`,
+        choices: [
+          { key: "A", text: "$x^2 + 16$" },
+          { key: "B", text: "$x^2 - 16$" },
+          { key: "C", text: "$x^2 - 8x - 16$" },
+          { key: "D", text: "$x^2 - 8$" }
+        ],
+        answer: "B",
+        explanation: `$(a+b)(a-b) = a^2 - b^2 = x^2 - 16$ จึงตอบ B`
+      },
+      {
+        id: "q13",
+        prompt: `แยกตัวประกอบ $4x^2 + 12x + 9$ ได้เป็นข้อใด?`,
+        choices: [
+          { key: "A", text: "$(2x + 9)(2x + 1)$" },
+          { key: "B", text: "$(4x + 3)(x + 3)$" },
+          { key: "C", text: "$(2x + 3)^2$" },
+          { key: "D", text: "$(2x - 3)^2$" }
+        ],
+        answer: "C",
+        explanation: `เป็นกำลังสองสมบูรณ์: $(2x + 3)^2 = 4x^2 + 12x + 9$ จึงตอบ C`
+      },
+      {
+        id: "q14",
+        prompt: `แยกตัวประกอบ $x^2 - 6x + 9$ ได้เป็นข้อใด?`,
+        choices: [
+          { key: "A", text: "$(x - 3)^2$" },
+          { key: "B", text: "$(x + 3)^2$" },
+          { key: "C", text: "$(x - 3)(x + 3)$" },
+          { key: "D", text: "$(x - 9)(x - 1)$" }
+        ],
+        answer: "A",
+        explanation: `เป็นกำลังสองสมบูรณ์: $(x - 3)^2 = x^2 - 6x + 9$ จึงตอบ A`
+      },
+      {
+        id: "q15",
+        prompt: `รูปแบบการแยกตัวประกอบของผลบวกกำลังสาม $a^3 + b^3$ คือข้อใด?`,
+        choices: [
+          { key: "A", text: "$(a + b)^3$" },
+          { key: "B", text: "$(a + b)(a^2 + ab + b^2)$" },
+          { key: "C", text: "$(a - b)(a^2 + ab + b^2)$" },
+          { key: "D", text: "$(a + b)(a^2 - ab + b^2)$" }
+        ],
+        answer: "D",
+        explanation: `$a^3 + b^3 = (a + b)(a^2 - ab + b^2)$ จึงตอบ D`
+      },
+      {
+        id: "q16",
+        prompt: `รูปแบบการแยกตัวประกอบของผลต่างกำลังสาม $a^3 - b^3$ คือข้อใด?`,
+        choices: [
+          { key: "A", text: "$(a - b)^3$" },
+          { key: "B", text: "$(a - b)(a^2 + ab + b^2)$" },
+          { key: "C", text: "$(a - b)(a^2 - ab + b^2)$" },
+          { key: "D", text: "$(a + b)(a^2 + ab + b^2)$" }
+        ],
+        answer: "B",
+        explanation: `$a^3 - b^3 = (a - b)(a^2 + ab + b^2)$ จึงตอบ B`
+      },
+      {
+        id: "q17",
+        prompt: `ใช้เอกลักษณ์ $(a + b)^2$ หาค่าของ $102^2$ ได้เท่าใด?`,
+        choices: [
+          { key: "A", text: "$10204$" },
+          { key: "B", text: "$10400$" },
+          { key: "C", text: "$10404$" },
+          { key: "D", text: "$10024$" }
+        ],
+        answer: "C",
+        explanation: `$(100 + 2)^2 = 10000 + 400 + 4 = 10404$ จึงตอบ C`
+      },
+      {
+        id: "q18",
+        prompt: `ใช้เอกลักษณ์ผลต่างกำลังสอง หาค่าของ $98 \\times 102$ ได้เท่าใด?`,
+        choices: [
+          { key: "A", text: "$9996$" },
+          { key: "B", text: "$9998$" },
+          { key: "C", text: "$10000$" },
+          { key: "D", text: "$9994$" }
+        ],
+        answer: "A",
+        explanation: `$(100 - 2)(100 + 2) = 100^2 - 2^2 = 10000 - 4 = 9996$ จึงตอบ A`
+      },
+      {
+        id: "q19",
+        prompt: `เศษของการหารพหุนาม $P(x) = x^2 - 5x + 6$ ด้วย $(x - 2)$ เท่ากับเท่าใด? (ทฤษฎีเศษเหลือ)`,
+        choices: [
+          { key: "A", text: "$6$" },
+          { key: "B", text: "$2$" },
+          { key: "C", text: "$-4$" },
+          { key: "D", text: "$0$" }
+        ],
+        answer: "D",
+        explanation: `เศษ $= P(2) = 4 - 10 + 6 = 0$ จึงตอบ D`
+      },
+      {
+        id: "q20",
+        prompt: `เศษของการหารพหุนาม $P(x) = x^3 + 2x - 3$ ด้วย $(x - 1)$ เท่ากับเท่าใด?`,
+        choices: [
+          { key: "A", text: "$2$" },
+          { key: "B", text: "$0$" },
+          { key: "C", text: "$-3$" },
+          { key: "D", text: "$6$" }
+        ],
+        answer: "B",
+        explanation: `เศษ $= P(1) = 1 + 2 - 3 = 0$ จึงตอบ B`
+      },
+      {
+        id: "q21",
+        prompt: `การหารสังเคราะห์ (synthetic division) ใช้สำหรับสิ่งใด?`,
+        choices: [
+          { key: "A", text: "หา ห.ร.ม. ของจำนวนสองจำนวน" },
+          { key: "B", text: "หารากที่สองของพหุนาม" },
+          { key: "C", text: "หาผลหารและเศษเมื่อหารพหุนามด้วย $(x - c)$" },
+          { key: "D", text: "หาผลคูณของพหุนามสองพหุนาม" }
+        ],
+        answer: "C",
+        explanation: `การหารสังเคราะห์เป็นวิธีลัดในการหารพหุนามด้วย $(x - c)$ เพื่อหาผลหารและเศษ จึงตอบ C`
+      },
+      {
+        id: "q22",
+        prompt: `หาร $x^2 + 3x - 10$ ด้วย $(x - 2)$ จะได้ผลหารเป็นข้อใด?`,
+        choices: [
+          { key: "A", text: "$x + 5$" },
+          { key: "B", text: "$x - 5$" },
+          { key: "C", text: "$x + 3$" },
+          { key: "D", text: "$x - 2$" }
+        ],
+        answer: "A",
+        explanation: `$x^2 + 3x - 10 = (x - 2)(x + 5)$ ผลหารคือ $x + 5$ (เศษ 0) จึงตอบ A`
+      },
+      {
+        id: "q23",
+        prompt: `$(x - a)$ เป็นตัวประกอบของพหุนาม $P(x)$ ก็ต่อเมื่อข้อใดเป็นจริง? (ทฤษฎีตัวประกอบ)`,
+        choices: [
+          { key: "A", text: "$P(0) = a$" },
+          { key: "B", text: "$P(a) = 1$" },
+          { key: "C", text: "$P(-a) = 0$" },
+          { key: "D", text: "$P(a) = 0$" }
+        ],
+        answer: "D",
+        explanation: `ทฤษฎีตัวประกอบ: $(x - a)$ เป็นตัวประกอบก็ต่อเมื่อ $P(a) = 0$ จึงตอบ D`
+      },
+      {
+        id: "q24",
+        prompt: `พหุนามใดต่อไปนี้มี $(x - 3)$ เป็นตัวประกอบ?`,
+        choices: [
+          { key: "A", text: "$x^2 + 2x - 3$" },
+          { key: "B", text: "$x^2 - x - 6$" },
+          { key: "C", text: "$x^2 + x + 6$" },
+          { key: "D", text: "$x^2 - 2x - 1$" }
+        ],
+        answer: "B",
+        explanation: `แทน $x = 3$: ข้อ B ได้ $9 - 3 - 6 = 0$ จึงมี $(x-3)$ เป็นตัวประกอบ จึงตอบ B`
+      },
+      {
+        id: "q25",
+        prompt: `$(x + 5)(x - 5)$ เท่ากับข้อใด?`,
+        choices: [
+          { key: "A", text: "$x^2 + 25$" },
+          { key: "B", text: "$x^2 - 10x - 25$" },
+          { key: "C", text: "$x^2 - 25$" },
+          { key: "D", text: "$x^2 - 10$" }
+        ],
+        answer: "C",
+        explanation: `$(a+b)(a-b) = a^2 - b^2 = x^2 - 25$ จึงตอบ C`
+      },
+      {
+        id: "q26",
+        prompt: `แยกตัวประกอบ $x^2 + 10x + 25$ ได้เป็นข้อใด?`,
+        choices: [
+          { key: "A", text: "$(x + 5)^2$" },
+          { key: "B", text: "$(x - 5)^2$" },
+          { key: "C", text: "$(x + 5)(x - 5)$" },
+          { key: "D", text: "$(x + 25)(x + 1)$" }
+        ],
+        answer: "A",
+        explanation: `เป็นกำลังสองสมบูรณ์: $(x + 5)^2 = x^2 + 10x + 25$ จึงตอบ A`
+      },
+      {
+        id: "q27",
+        prompt: `แยกตัวประกอบ $27x^3 - 1$ ได้เป็นข้อใด?`,
+        choices: [
+          { key: "A", text: "$(3x - 1)^3$" },
+          { key: "B", text: "$(3x - 1)(9x^2 - 3x + 1)$" },
+          { key: "C", text: "$(3x + 1)(9x^2 - 3x + 1)$" },
+          { key: "D", text: "$(3x - 1)(9x^2 + 3x + 1)$" }
+        ],
+        answer: "D",
+        explanation: `$(3x)^3 - 1^3 = (3x - 1)((3x)^2 + 3x + 1) = (3x - 1)(9x^2 + 3x + 1)$ จึงตอบ D`
+      },
+      {
+        id: "q28",
+        prompt: `$(a - b)^2$ เท่ากับข้อใด?`,
+        choices: [
+          { key: "A", text: "$a^2 - b^2$" },
+          { key: "B", text: "$a^2 - 2ab + b^2$" },
+          { key: "C", text: "$a^2 + 2ab + b^2$" },
+          { key: "D", text: "$a^2 - 2ab - b^2$" }
+        ],
+        answer: "B",
+        explanation: `$(a - b)^2 = a^2 - 2ab + b^2$ จึงตอบ B`
+      },
+      {
+        id: "q29",
+        prompt: `เศษของการหารพหุนาม $P(x) = x^3 - 2x^2 + x - 5$ ด้วย $(x - 2)$ เท่ากับเท่าใด?`,
+        choices: [
+          { key: "A", text: "$5$" },
+          { key: "B", text: "$0$" },
+          { key: "C", text: "$-3$" },
+          { key: "D", text: "$-5$" }
+        ],
+        answer: "C",
+        explanation: `เศษ $= P(2) = 8 - 8 + 2 - 5 = -3$ จึงตอบ C`
+      },
+      {
+        id: "q30",
+        prompt: `แยกตัวประกอบ $x^2 - 7x + 12$ ได้เป็นข้อใด?`,
+        choices: [
+          { key: "A", text: "$(x - 3)(x - 4)$" },
+          { key: "B", text: "$(x + 3)(x + 4)$" },
+          { key: "C", text: "$(x - 2)(x - 6)$" },
+          { key: "D", text: "$(x - 12)(x + 1)$" }
+        ],
+        answer: "A",
+        explanation: `หาสองจำนวนที่คูณได้ 12 บวกได้ 7 คือ 3 กับ 4: $(x - 3)(x - 4)$ จึงตอบ A`
+      }
+    ]
+  },
+
+  "quiz5": {
+    meta: {
+      courseId: "m3-term1-math",
+      quizKey: "quiz5",
+      title: "Quiz 5 : เลขยกกำลัง ราก คอนจูเกต และทฤษฎีจำนวน (30 ข้อ)",
+      enableTimer: true,
+      timeLimitSec: 3600
+    },
+    data: [
+      {
+        id: "q1",
+        prompt: `$2^3 \\times 2^4$ เท่ากับเท่าใด?`,
+        choices: [
+          { key: "A", text: "$128$" },
+          { key: "B", text: "$64$" },
+          { key: "C", text: "$256$" },
+          { key: "D", text: "$2^{12}$" }
+        ],
+        answer: "A",
+        explanation: `$2^3 \\times 2^4 = 2^{7} = 128$ จึงตอบ A`
+      },
+      {
+        id: "q2",
+        prompt: `$\\dfrac{3^5}{3^2}$ เท่ากับเท่าใด?`,
+        choices: [
+          { key: "A", text: "$9$" },
+          { key: "B", text: "$27$" },
+          { key: "C", text: "$81$" },
+          { key: "D", text: "$3^{7}$" }
+        ],
+        answer: "B",
+        explanation: `$3^{5-2} = 3^3 = 27$ จึงตอบ B`
+      },
+      {
+        id: "q3",
+        prompt: `$(2^3)^2$ เท่ากับเท่าใด?`,
+        choices: [
+          { key: "A", text: "$16$" },
+          { key: "B", text: "$32$" },
+          { key: "C", text: "$64$" },
+          { key: "D", text: "$128$" }
+        ],
+        answer: "C",
+        explanation: `$(2^3)^2 = 2^{6} = 64$ จึงตอบ C`
+      },
+      {
+        id: "q4",
+        prompt: `$5^0$ เท่ากับเท่าใด?`,
+        choices: [
+          { key: "A", text: "$0$" },
+          { key: "B", text: "$5$" },
+          { key: "C", text: "$-1$" },
+          { key: "D", text: "$1$" }
+        ],
+        answer: "D",
+        explanation: `จำนวนใด ๆ (ที่ไม่ใช่ 0) ยกกำลัง 0 มีค่าเท่ากับ 1 จึงตอบ D`
+      },
+      {
+        id: "q5",
+        prompt: `$2^{-3}$ เท่ากับเท่าใด?`,
+        choices: [
+          { key: "A", text: "$\\dfrac{1}{8}$" },
+          { key: "B", text: "$-8$" },
+          { key: "C", text: "$-6$" },
+          { key: "D", text: "$8$" }
+        ],
+        answer: "A",
+        explanation: `$2^{-3} = \\dfrac{1}{2^3} = \\dfrac{1}{8}$ จึงตอบ A`
+      },
+      {
+        id: "q6",
+        prompt: `$\\sqrt{144}$ เท่ากับเท่าใด?`,
+        choices: [
+          { key: "A", text: "$14$" },
+          { key: "B", text: "$12$" },
+          { key: "C", text: "$24$" },
+          { key: "D", text: "$72$" }
+        ],
+        answer: "B",
+        explanation: `$12^2 = 144$ ดังนั้น $\\sqrt{144} = 12$ จึงตอบ B`
+      },
+      {
+        id: "q7",
+        prompt: `จัดรูป $\\sqrt{50}$ ให้อยู่ในรูปอย่างง่ายได้เป็นข้อใด?`,
+        choices: [
+          { key: "A", text: "$2\\sqrt{5}$" },
+          { key: "B", text: "$25\\sqrt{2}$" },
+          { key: "C", text: "$5\\sqrt{2}$" },
+          { key: "D", text: "$10\\sqrt{5}$" }
+        ],
+        answer: "C",
+        explanation: `$\\sqrt{50} = \\sqrt{25 \\times 2} = 5\\sqrt{2}$ จึงตอบ C`
+      },
+      {
+        id: "q8",
+        prompt: `จัดรูป $\\sqrt{72}$ ให้อยู่ในรูปอย่างง่ายได้เป็นข้อใด?`,
+        choices: [
+          { key: "A", text: "$8\\sqrt{3}$" },
+          { key: "B", text: "$3\\sqrt{8}$" },
+          { key: "C", text: "$2\\sqrt{18}$" },
+          { key: "D", text: "$6\\sqrt{2}$" }
+        ],
+        answer: "D",
+        explanation: `$\\sqrt{72} = \\sqrt{36 \\times 2} = 6\\sqrt{2}$ จึงตอบ D`
+      },
+      {
+        id: "q9",
+        prompt: `$\\sqrt{18} + \\sqrt{8}$ เท่ากับข้อใด?`,
+        choices: [
+          { key: "A", text: "$5\\sqrt{2}$" },
+          { key: "B", text: "$\\sqrt{26}$" },
+          { key: "C", text: "$6\\sqrt{2}$" },
+          { key: "D", text: "$\\sqrt{144}$" }
+        ],
+        answer: "A",
+        explanation: `$3\\sqrt{2} + 2\\sqrt{2} = 5\\sqrt{2}$ จึงตอบ A`
+      },
+      {
+        id: "q10",
+        prompt: `$\\sqrt{\\sqrt{81}}$ เท่ากับเท่าใด?`,
+        choices: [
+          { key: "A", text: "$9$" },
+          { key: "B", text: "$3$" },
+          { key: "C", text: "$81$" },
+          { key: "D", text: "$27$" }
+        ],
+        answer: "B",
+        explanation: `$\\sqrt{81} = 9$ แล้ว $\\sqrt{9} = 3$ จึงตอบ B`
+      },
+      {
+        id: "q11",
+        prompt: `จัดรูปรากซ้อนราก $\\sqrt{3 + 2\\sqrt{2}}$ ได้เป็นข้อใด?`,
+        choices: [
+          { key: "A", text: "$\\sqrt{2} + 2$" },
+          { key: "B", text: "$2 + \\sqrt{3}$" },
+          { key: "C", text: "$1 + \\sqrt{2}$" },
+          { key: "D", text: "$\\sqrt{3} + 1$" }
+        ],
+        answer: "C",
+        explanation: `$(1 + \\sqrt{2})^2 = 1 + 2\\sqrt{2} + 2 = 3 + 2\\sqrt{2}$ ดังนั้น $\\sqrt{3 + 2\\sqrt{2}} = 1 + \\sqrt{2}$ จึงตอบ C`
+      },
+      {
+        id: "q12",
+        prompt: `จัดรูปรากซ้อนราก $\\sqrt{7 + 4\\sqrt{3}}$ ได้เป็นข้อใด?`,
+        choices: [
+          { key: "A", text: "$1 + \\sqrt{3}$" },
+          { key: "B", text: "$3 + \\sqrt{2}$" },
+          { key: "C", text: "$\\sqrt{7} + 2$" },
+          { key: "D", text: "$2 + \\sqrt{3}$" }
+        ],
+        answer: "D",
+        explanation: `$(2 + \\sqrt{3})^2 = 4 + 4\\sqrt{3} + 3 = 7 + 4\\sqrt{3}$ ดังนั้น $\\sqrt{7 + 4\\sqrt{3}} = 2 + \\sqrt{3}$ จึงตอบ D`
+      },
+      {
+        id: "q13",
+        prompt: `ทำให้ส่วนไม่มีราก (rationalize) ของ $\\dfrac{1}{\\sqrt{2}}$ ได้เป็นข้อใด?`,
+        choices: [
+          { key: "A", text: "$\\dfrac{\\sqrt{2}}{2}$" },
+          { key: "B", text: "$\\dfrac{2}{\\sqrt{2}}$" },
+          { key: "C", text: "$\\sqrt{2}$" },
+          { key: "D", text: "$\\dfrac{1}{2}$" }
+        ],
+        answer: "A",
+        explanation: `$\\dfrac{1}{\\sqrt{2}} \\times \\dfrac{\\sqrt{2}}{\\sqrt{2}} = \\dfrac{\\sqrt{2}}{2}$ จึงตอบ A`
+      },
+      {
+        id: "q14",
+        prompt: `สังยุค (คอนจูเกต) ของ $3 + \\sqrt{5}$ คือข้อใด?`,
+        choices: [
+          { key: "A", text: "$-3 + \\sqrt{5}$" },
+          { key: "B", text: "$3 - \\sqrt{5}$" },
+          { key: "C", text: "$-3 - \\sqrt{5}$" },
+          { key: "D", text: "$\\sqrt{5} - 3$" }
+        ],
+        answer: "B",
+        explanation: `คอนจูเกตของ $a + \\sqrt{b}$ คือ $a - \\sqrt{b}$ ดังนั้นคือ $3 - \\sqrt{5}$ จึงตอบ B`
+      },
+      {
+        id: "q15",
+        prompt: `ทำให้ส่วนไม่มีราก $\\dfrac{1}{\\sqrt{3} + 1}$ โดยคูณด้วยสังยุค ได้เป็นข้อใด?`,
+        choices: [
+          { key: "A", text: "$\\dfrac{\\sqrt{3} + 1}{2}$" },
+          { key: "B", text: "$\\sqrt{3} - 1$" },
+          { key: "C", text: "$\\dfrac{\\sqrt{3} - 1}{2}$" },
+          { key: "D", text: "$\\dfrac{1 - \\sqrt{3}}{2}$" }
+        ],
+        answer: "C",
+        explanation: `คูณด้วย $\\dfrac{\\sqrt{3} - 1}{\\sqrt{3} - 1}$: $\\dfrac{\\sqrt{3} - 1}{3 - 1} = \\dfrac{\\sqrt{3} - 1}{2}$ จึงตอบ C`
+      },
+      {
+        id: "q16",
+        prompt: `$(\\sqrt{5} + \\sqrt{2})(\\sqrt{5} - \\sqrt{2})$ เท่ากับเท่าใด?`,
+        choices: [
+          { key: "A", text: "$\\sqrt{7}$" },
+          { key: "B", text: "$7$" },
+          { key: "C", text: "$\\sqrt{10}$" },
+          { key: "D", text: "$3$" }
+        ],
+        answer: "D",
+        explanation: `$(\\sqrt{5})^2 - (\\sqrt{2})^2 = 5 - 2 = 3$ จึงตอบ D`
+      },
+      {
+        id: "q17",
+        prompt: `$8^{\\frac{2}{3}}$ เท่ากับเท่าใด?`,
+        choices: [
+          { key: "A", text: "$4$" },
+          { key: "B", text: "$16$" },
+          { key: "C", text: "$64$" },
+          { key: "D", text: "$2$" }
+        ],
+        answer: "A",
+        explanation: `$8^{\\frac{2}{3}} = (\\sqrt[3]{8})^2 = 2^2 = 4$ จึงตอบ A`
+      },
+      {
+        id: "q18",
+        prompt: `จำนวนใดต่อไปนี้เป็น "จำนวนเฉพาะ"?`,
+        choices: [
+          { key: "A", text: "$1$" },
+          { key: "B", text: "$17$" },
+          { key: "C", text: "$21$" },
+          { key: "D", text: "$27$" }
+        ],
+        answer: "B",
+        explanation: `$17$ มีตัวประกอบเพียง 1 กับตัวเอง ($21 = 3 \\times 7$, $27 = 3^3$, $1$ ไม่ใช่จำนวนเฉพาะ) จึงตอบ B`
+      },
+      {
+        id: "q19",
+        prompt: `จำนวนใดต่อไปนี้หาร $84$ ลงตัว?`,
+        choices: [
+          { key: "A", text: "$5$" },
+          { key: "B", text: "$9$" },
+          { key: "C", text: "$7$" },
+          { key: "D", text: "$11$" }
+        ],
+        answer: "C",
+        explanation: `$84 = 2^2 \\times 3 \\times 7$ ดังนั้น $7$ หาร $84$ ลงตัว จึงตอบ C`
+      },
+      {
+        id: "q20",
+        prompt: `ห.ร.ม. (ตัวหารร่วมมาก) ของ $24$ และ $36$ เท่ากับเท่าใด?`,
+        choices: [
+          { key: "A", text: "$6$" },
+          { key: "B", text: "$72$" },
+          { key: "C", text: "$4$" },
+          { key: "D", text: "$12$" }
+        ],
+        answer: "D",
+        explanation: `$24 = 2^3 \\times 3$, $36 = 2^2 \\times 3^2$; ห.ร.ม. $= 2^2 \\times 3 = 12$ จึงตอบ D`
+      },
+      {
+        id: "q21",
+        prompt: `ใช้วิธียุคลิด (Euclidean algorithm) หา ห.ร.ม. ของ $48$ และ $18$ ได้เท่าใด?`,
+        choices: [
+          { key: "A", text: "$6$" },
+          { key: "B", text: "$12$" },
+          { key: "C", text: "$3$" },
+          { key: "D", text: "$2$" }
+        ],
+        answer: "A",
+        explanation: `$48 = 2(18) + 12$; $18 = 1(12) + 6$; $12 = 2(6) + 0$ ห.ร.ม. คือเศษสุดท้ายก่อนเป็นศูนย์ $= 6$ จึงตอบ A`
+      },
+      {
+        id: "q22",
+        prompt: `วิธีการของยุคลิด (Euclidean algorithm) ใช้สำหรับหาสิ่งใด?`,
+        choices: [
+          { key: "A", text: "หาจำนวนเฉพาะ" },
+          { key: "B", text: "หา ห.ร.ม. ของจำนวนสองจำนวน" },
+          { key: "C", text: "หา ค.ร.น. ของจำนวนสองจำนวน" },
+          { key: "D", text: "หารากที่สอง" }
+        ],
+        answer: "B",
+        explanation: `วิธียุคลิดใช้หารเอาเศษซ้ำ ๆ เพื่อหา ห.ร.ม. ของจำนวนสองจำนวน จึงตอบ B`
+      },
+      {
+        id: "q23",
+        prompt: `เศษเหลือของ $2^{10}$ เมื่อหารด้วย $3$ เท่ากับเท่าใด?`,
+        choices: [
+          { key: "A", text: "$2$" },
+          { key: "B", text: "$0$" },
+          { key: "C", text: "$1$" },
+          { key: "D", text: "$3$" }
+        ],
+        answer: "C",
+        explanation: `$2 \\equiv -1 \\pmod{3}$ ดังนั้น $2^{10} \\equiv (-1)^{10} = 1 \\pmod{3}$ เศษ $= 1$ จึงตอบ C`
+      },
+      {
+        id: "q24",
+        prompt: `เลขโดดในหลักหน่วยของ $2^{7}$ คือข้อใด?`,
+        choices: [
+          { key: "A", text: "$2$" },
+          { key: "B", text: "$4$" },
+          { key: "C", text: "$6$" },
+          { key: "D", text: "$8$" }
+        ],
+        answer: "D",
+        explanation: `$2^7 = 128$ หลักหน่วยคือ $8$ จึงตอบ D`
+      },
+      {
+        id: "q25",
+        prompt: `จำนวนฐานสอง $1101_2$ มีค่าเท่ากับจำนวนฐานสิบในข้อใด?`,
+        choices: [
+          { key: "A", text: "$13$" },
+          { key: "B", text: "$11$" },
+          { key: "C", text: "$12$" },
+          { key: "D", text: "$9$" }
+        ],
+        answer: "A",
+        explanation: `$1101_2 = 8 + 4 + 0 + 1 = 13$ จึงตอบ A`
+      },
+      {
+        id: "q26",
+        prompt: `จำนวนฐานสิบ $25$ เขียนเป็นจำนวนฐานสองได้เป็นข้อใด?`,
+        choices: [
+          { key: "A", text: "$10011_2$" },
+          { key: "B", text: "$11001_2$" },
+          { key: "C", text: "$11011_2$" },
+          { key: "D", text: "$10101_2$" }
+        ],
+        answer: "B",
+        explanation: `$25 = 16 + 8 + 1 = 11001_2$ จึงตอบ B`
+      },
+      {
+        id: "q27",
+        prompt: `จำนวนเฉพาะที่อยู่ระหว่าง $1$ ถึง $10$ มีทั้งหมดกี่จำนวน?`,
+        choices: [
+          { key: "A", text: "$3$ จำนวน" },
+          { key: "B", text: "$5$ จำนวน" },
+          { key: "C", text: "$4$ จำนวน" },
+          { key: "D", text: "$2$ จำนวน" }
+        ],
+        answer: "C",
+        explanation: `จำนวนเฉพาะคือ $2, 3, 5, 7$ รวม 4 จำนวน จึงตอบ C`
+      },
+      {
+        id: "q28",
+        prompt: `ค.ร.น. (ตัวคูณร่วมน้อย) ของ $4$ และ $6$ เท่ากับเท่าใด?`,
+        choices: [
+          { key: "A", text: "$2$" },
+          { key: "B", text: "$24$" },
+          { key: "C", text: "$6$" },
+          { key: "D", text: "$12$" }
+        ],
+        answer: "D",
+        explanation: `พหุคูณร่วมที่น้อยที่สุดของ 4 และ 6 คือ 12 จึงตอบ D`
+      },
+      {
+        id: "q29",
+        prompt: `จำนวนใดต่อไปนี้หารด้วย $6$ ลงตัว?`,
+        choices: [
+          { key: "A", text: "$18$" },
+          { key: "B", text: "$20$" },
+          { key: "C", text: "$15$" },
+          { key: "D", text: "$22$" }
+        ],
+        answer: "A",
+        explanation: `$18 = 6 \\times 3$ หารด้วย 6 ลงตัว (หารด้วยทั้ง 2 และ 3 ลงตัว) จึงตอบ A`
+      },
+      {
+        id: "q30",
+        prompt: `จำนวนฐานแปด $17_8$ มีค่าเท่ากับจำนวนฐานสิบในข้อใด?`,
+        choices: [
+          { key: "A", text: "$8$" },
+          { key: "B", text: "$15$" },
+          { key: "C", text: "$17$" },
+          { key: "D", text: "$23$" }
+        ],
+        answer: "B",
+        explanation: `$17_8 = 1 \\times 8 + 7 = 15$ จึงตอบ B`
+      }
+    ]
   }
 };
