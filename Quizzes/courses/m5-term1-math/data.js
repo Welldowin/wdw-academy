@@ -1695,5 +1695,382 @@ window.COURSE_DATA = {
       explanation: `$(\\tan x+\\cot x)\\sin x\\cos x=\\dfrac{1}{\\sin x\\cos x}\\cdot\\sin x\\cos x=1$ จึงตอบ B`
     }
   ]
-}
+},
+
+  "quiz5": {
+    meta: {
+      courseId: "m5-term1-math",
+      quizKey: "quiz5",
+      title: "Quiz 5 : กฎของโคไซน์ กฎของไซน์ และการแก้สมการตรีโกณมิติ (30 ข้อ)",
+      enableTimer: true,
+      timeLimitSec: 3600
+    },
+    data: [
+      // --- กฎของโคไซน์ (ข้อ 1-8) ---
+      {
+        id: "q1",
+        prompt: `กฎของโคไซน์ (Law of Cosines) เขียนได้ตามข้อใด`,
+        choices: [
+          { key: "A", text: "$c^2 = a^2 + b^2 + 2ab\\cos C$" },
+          { key: "B", text: "$c^2 = a^2 + b^2 - 2ab\\cos C$" },
+          { key: "C", text: "$c^2 = a^2 - b^2 - 2ab\\cos C$" },
+          { key: "D", text: "$c = a + b - 2ab\\cos C$" }
+        ],
+        answer: "B",
+        explanation: `กฎของโคไซน์คือ $c^2 = a^2 + b^2 - 2ab\\cos C$ จึงตอบ B`
+      },
+      {
+        id: "q2",
+        prompt: `กฎของโคไซน์เหมาะกับการแก้รูปสามเหลี่ยมในกรณีใด`,
+        choices: [
+          { key: "A", text: "ทราบมุม 2 มุมและด้าน 1 ด้าน" },
+          { key: "B", text: "ทราบด้าน 1 ด้านและมุมตรงข้ามด้านนั้น" },
+          { key: "C", text: "ทราบมุมทั้งสามมุม" },
+          { key: "D", text: "ทราบด้าน 2 ด้านและมุมระหว่างด้านทั้งสอง หรือทราบด้านทั้งสามด้าน" }
+        ],
+        answer: "D",
+        explanation: `กฎโคไซน์ใช้เมื่อทราบด้าน 2 ด้าน + มุมระหว่างด้าน (SAS) หรือทราบด้านทั้งสาม (SSS) จึงตอบ D`
+      },
+      {
+        id: "q3",
+        prompt: `สามเหลี่ยมมีด้าน $a = 3$, $b = 5$ และมุม $C = 60^\\circ$ ด้าน $c$ มีค่าเท่าใด?`,
+        choices: [
+          { key: "A", text: "$\\sqrt{34}$" },
+          { key: "B", text: "$7$" },
+          { key: "C", text: "$\\sqrt{19}$" },
+          { key: "D", text: "$8$" }
+        ],
+        answer: "C",
+        explanation: `$c^2 = 9 + 25 - 2(3)(5)\\cos 60^\\circ = 34 - 30(0.5) = 19 \\Rightarrow c = \\sqrt{19}$ จึงตอบ C`
+      },
+      {
+        id: "q4",
+        prompt: `สามเหลี่ยมมีด้าน $a = 4$, $b = 4$ และมุม $C = 90^\\circ$ ด้าน $c$ มีค่าเท่าใด?`,
+        choices: [
+          { key: "A", text: "$4\\sqrt{2}$" },
+          { key: "B", text: "$8$" },
+          { key: "C", text: "$16$" },
+          { key: "D", text: "$2\\sqrt{2}$" }
+        ],
+        answer: "A",
+        explanation: `$c^2 = 16 + 16 - 2(4)(4)\\cos 90^\\circ = 32 - 0 = 32 \\Rightarrow c = \\sqrt{32} = 4\\sqrt{2}$ จึงตอบ A`
+      },
+      {
+        id: "q5",
+        prompt: `สามเหลี่ยมมีด้านยาว $3$, $5$ และ $7$ หน่วย มุมที่อยู่ตรงข้ามด้านยาว $7$ มีขนาดกี่องศา?`,
+        choices: [
+          { key: "A", text: "$60^\\circ$" },
+          { key: "B", text: "$120^\\circ$" },
+          { key: "C", text: "$90^\\circ$" },
+          { key: "D", text: "$150^\\circ$" }
+        ],
+        answer: "B",
+        explanation: `$\\cos\\theta = \\dfrac{3^2 + 5^2 - 7^2}{2(3)(5)} = \\dfrac{-15}{30} = -\\dfrac{1}{2} \\Rightarrow \\theta = 120^\\circ$ จึงตอบ B`
+      },
+      {
+        id: "q6",
+        prompt: `เมื่อมุม $C = 90^\\circ$ กฎของโคไซน์ $c^2 = a^2 + b^2 - 2ab\\cos C$ จะลดรูปเป็นข้อใด`,
+        choices: [
+          { key: "A", text: "$c^2 = a^2 + b^2 - 2ab$" },
+          { key: "B", text: "$c^2 = a^2 - b^2$" },
+          { key: "C", text: "$c = a + b$" },
+          { key: "D", text: "$c^2 = a^2 + b^2$ (ทฤษฎีบทพีทาโกรัส)" }
+        ],
+        answer: "D",
+        explanation: `$\\cos 90^\\circ = 0$ พจน์สุดท้ายหายไป เหลือ $c^2 = a^2 + b^2$ จึงตอบ D`
+      },
+      {
+        id: "q7",
+        prompt: `สามเหลี่ยมมีด้าน $a = 5$, $b = 8$ และมุม $C = 60^\\circ$ ด้าน $c$ มีค่าเท่าใด?`,
+        choices: [
+          { key: "A", text: "$\\sqrt{89}$" },
+          { key: "B", text: "$13$" },
+          { key: "C", text: "$7$" },
+          { key: "D", text: "$9$" }
+        ],
+        answer: "C",
+        explanation: `$c^2 = 25 + 64 - 2(5)(8)\\cos 60^\\circ = 89 - 40 = 49 \\Rightarrow c = 7$ จึงตอบ C`
+      },
+      {
+        id: "q8",
+        prompt: `สามเหลี่ยมมีด้านยาว $5$, $7$ และ $8$ หน่วย มุมที่อยู่ตรงข้ามด้านยาว $7$ มีขนาดกี่องศา?`,
+        choices: [
+          { key: "A", text: "$60^\\circ$" },
+          { key: "B", text: "$45^\\circ$" },
+          { key: "C", text: "$90^\\circ$" },
+          { key: "D", text: "$120^\\circ$" }
+        ],
+        answer: "A",
+        explanation: `$\\cos\\theta = \\dfrac{5^2 + 8^2 - 7^2}{2(5)(8)} = \\dfrac{40}{80} = \\dfrac{1}{2} \\Rightarrow \\theta = 60^\\circ$ จึงตอบ A`
+      },
+
+      // --- กฎของไซน์ (ข้อ 9-16) ---
+      {
+        id: "q9",
+        prompt: `กฎของไซน์ (Law of Sines) เขียนได้ตามข้อใด`,
+        choices: [
+          { key: "A", text: "$a\\sin A = b\\sin B = c\\sin C$" },
+          { key: "B", text: "$\\dfrac{a}{\\sin A} = \\dfrac{b}{\\sin B} = \\dfrac{c}{\\sin C}$" },
+          { key: "C", text: "$\\dfrac{\\sin A}{a^2} = \\dfrac{\\sin B}{b^2}$" },
+          { key: "D", text: "$\\dfrac{a}{\\cos A} = \\dfrac{b}{\\cos B}$" }
+        ],
+        answer: "B",
+        explanation: `กฎของไซน์คือ $\\dfrac{a}{\\sin A} = \\dfrac{b}{\\sin B} = \\dfrac{c}{\\sin C}$ จึงตอบ B`
+      },
+      {
+        id: "q10",
+        prompt: `กฎของไซน์เหมาะกับการแก้รูปสามเหลี่ยมในกรณีใด`,
+        choices: [
+          { key: "A", text: "ทราบด้านทั้งสามด้าน" },
+          { key: "B", text: "ทราบด้าน 2 ด้านและมุมระหว่างด้านทั้งสอง" },
+          { key: "C", text: "ทราบมุมทั้งสามมุม" },
+          { key: "D", text: "ทราบด้านและมุมตรงข้าม พร้อมอีกมุม/ด้านหนึ่ง (เช่น AAS, ASA)" }
+        ],
+        answer: "D",
+        explanation: `กฎไซน์ใช้เมื่อมีคู่ของด้านและมุมตรงข้ามที่ทราบค่า จึงตอบ D`
+      },
+      {
+        id: "q11",
+        prompt: `สามเหลี่ยมมีด้าน $a = 10$, มุม $A = 30^\\circ$ และมุม $B = 45^\\circ$ ด้าน $b$ มีค่าเท่าใด?`,
+        choices: [
+          { key: "A", text: "$5\\sqrt{2}$" },
+          { key: "B", text: "$20$" },
+          { key: "C", text: "$10\\sqrt{2}$" },
+          { key: "D", text: "$5$" }
+        ],
+        answer: "C",
+        explanation: `$b = \\dfrac{a\\sin B}{\\sin A} = \\dfrac{10\\sin 45^\\circ}{\\sin 30^\\circ} = \\dfrac{10(\\frac{\\sqrt{2}}{2})}{\\frac{1}{2}} = 10\\sqrt{2}$ จึงตอบ C`
+      },
+      {
+        id: "q12",
+        prompt: `สามเหลี่ยมมีด้าน $a = 6$, มุม $A = 30^\\circ$ และมุม $B = 90^\\circ$ ด้าน $b$ มีค่าเท่าใด?`,
+        choices: [
+          { key: "A", text: "$12$" },
+          { key: "B", text: "$6$" },
+          { key: "C", text: "$3$" },
+          { key: "D", text: "$6\\sqrt{3}$" }
+        ],
+        answer: "A",
+        explanation: `$b = \\dfrac{a\\sin B}{\\sin A} = \\dfrac{6\\sin 90^\\circ}{\\sin 30^\\circ} = \\dfrac{6(1)}{\\frac{1}{2}} = 12$ จึงตอบ A`
+      },
+      {
+        id: "q13",
+        prompt: `สามเหลี่ยมมีด้าน $a = 10$, มุม $A = 30^\\circ$ และด้าน $b = 10\\sqrt{2}$ มุม $B$ (มุมแหลม) มีขนาดกี่องศา?`,
+        choices: [
+          { key: "A", text: "$30^\\circ$" },
+          { key: "B", text: "$45^\\circ$" },
+          { key: "C", text: "$60^\\circ$" },
+          { key: "D", text: "$90^\\circ$" }
+        ],
+        answer: "B",
+        explanation: `$\\sin B = \\dfrac{b\\sin A}{a} = \\dfrac{10\\sqrt{2}(\\frac{1}{2})}{10} = \\dfrac{\\sqrt{2}}{2} \\Rightarrow B = 45^\\circ$ จึงตอบ B`
+      },
+      {
+        id: "q14",
+        prompt: `ในกฎของไซน์ อัตราส่วน $\\dfrac{a}{\\sin A}$ มีค่าเท่ากับข้อใด (เมื่อ $R$ คือรัศมีวงกลมล้อมรอบ)`,
+        choices: [
+          { key: "A", text: "รัศมีวงกลมล้อมรอบ ($R$)" },
+          { key: "B", text: "พื้นที่ของสามเหลี่ยม" },
+          { key: "C", text: "ครึ่งหนึ่งของ $R$" },
+          { key: "D", text: "เส้นผ่านศูนย์กลางของวงกลมล้อมรอบ ($2R$)" }
+        ],
+        answer: "D",
+        explanation: `$\\dfrac{a}{\\sin A} = 2R$ คือเส้นผ่านศูนย์กลางของวงกลมล้อมรอบสามเหลี่ยม จึงตอบ D`
+      },
+      {
+        id: "q15",
+        prompt: `สามเหลี่ยมมีมุม $A = 45^\\circ$ และมุม $B = 60^\\circ$ มุม $C$ มีขนาดกี่องศา?`,
+        choices: [
+          { key: "A", text: "$85^\\circ$" },
+          { key: "B", text: "$90^\\circ$" },
+          { key: "C", text: "$75^\\circ$" },
+          { key: "D", text: "$105^\\circ$" }
+        ],
+        answer: "C",
+        explanation: `$C = 180^\\circ - 45^\\circ - 60^\\circ = 75^\\circ$ จึงตอบ C`
+      },
+      {
+        id: "q16",
+        prompt: `สามเหลี่ยมมีด้าน $a = 12$, มุม $A = 90^\\circ$ และมุม $B = 30^\\circ$ ด้าน $b$ มีค่าเท่าใด?`,
+        choices: [
+          { key: "A", text: "$6$" },
+          { key: "B", text: "$12$" },
+          { key: "C", text: "$3$" },
+          { key: "D", text: "$6\\sqrt{3}$" }
+        ],
+        answer: "A",
+        explanation: `$b = \\dfrac{a\\sin B}{\\sin A} = \\dfrac{12\\sin 30^\\circ}{\\sin 90^\\circ} = \\dfrac{12(\\frac{1}{2})}{1} = 6$ จึงตอบ A`
+      },
+
+      // --- การแก้สมการตรีโกณมิติโดยใช้เอกลักษณ์ (ข้อ 17-30) ---
+      {
+        id: "q17",
+        prompt: `ผลเฉลยของสมการ $\\sin x = \\dfrac{1}{2}$ ในช่วง $0^\\circ \\le x < 360^\\circ$ คือข้อใด?`,
+        choices: [
+          { key: "A", text: "$\\{30^\\circ\\}$" },
+          { key: "B", text: "$\\{30^\\circ, 150^\\circ\\}$" },
+          { key: "C", text: "$\\{60^\\circ, 120^\\circ\\}$" },
+          { key: "D", text: "$\\{30^\\circ, 210^\\circ\\}$" }
+        ],
+        answer: "B",
+        explanation: `$\\sin x = \\frac{1}{2}$ ในควอดรันต์ 1 และ 2: $x = 30^\\circ, 150^\\circ$ จึงตอบ B`
+      },
+      {
+        id: "q18",
+        prompt: `ผลเฉลยของสมการ $\\cos x = -\\dfrac{1}{2}$ ในช่วง $0^\\circ \\le x < 360^\\circ$ คือข้อใด?`,
+        choices: [
+          { key: "A", text: "$\\{60^\\circ, 120^\\circ\\}$" },
+          { key: "B", text: "$\\{120^\\circ\\}$" },
+          { key: "C", text: "$\\{60^\\circ, 300^\\circ\\}$" },
+          { key: "D", text: "$\\{120^\\circ, 240^\\circ\\}$" }
+        ],
+        answer: "D",
+        explanation: `$\\cos x = -\\frac{1}{2}$ ในควอดรันต์ 2 และ 3: $x = 120^\\circ, 240^\\circ$ จึงตอบ D`
+      },
+      {
+        id: "q19",
+        prompt: `ผลเฉลยของสมการ $\\tan x = 1$ ในช่วง $0^\\circ \\le x < 360^\\circ$ คือข้อใด?`,
+        choices: [
+          { key: "A", text: "$\\{45^\\circ\\}$" },
+          { key: "B", text: "$\\{135^\\circ, 315^\\circ\\}$" },
+          { key: "C", text: "$\\{45^\\circ, 225^\\circ\\}$" },
+          { key: "D", text: "$\\{45^\\circ, 135^\\circ\\}$" }
+        ],
+        answer: "C",
+        explanation: `$\\tan x = 1$ ในควอดรันต์ 1 และ 3: $x = 45^\\circ, 225^\\circ$ จึงตอบ C`
+      },
+      {
+        id: "q20",
+        prompt: `ผลเฉลยของสมการ $2\\sin^2 x + \\sin x - 1 = 0$ ในช่วง $0^\\circ \\le x < 360^\\circ$ คือข้อใด?`,
+        choices: [
+          { key: "A", text: "$\\{30^\\circ, 150^\\circ, 270^\\circ\\}$" },
+          { key: "B", text: "$\\{30^\\circ, 150^\\circ\\}$" },
+          { key: "C", text: "$\\{270^\\circ\\}$" },
+          { key: "D", text: "$\\{90^\\circ, 270^\\circ\\}$" }
+        ],
+        answer: "A",
+        explanation: `$(2\\sin x - 1)(\\sin x + 1) = 0 \\Rightarrow \\sin x = \\frac{1}{2}$ ($30^\\circ,150^\\circ$) หรือ $\\sin x = -1$ ($270^\\circ$) จึงตอบ A`
+      },
+      {
+        id: "q21",
+        prompt: `ผลเฉลยของสมการ $2\\cos^2 x + \\cos x - 1 = 0$ ในช่วง $0^\\circ \\le x < 360^\\circ$ คือข้อใด?`,
+        choices: [
+          { key: "A", text: "$\\{60^\\circ, 300^\\circ\\}$" },
+          { key: "B", text: "$\\{60^\\circ, 180^\\circ, 300^\\circ\\}$" },
+          { key: "C", text: "$\\{180^\\circ\\}$" },
+          { key: "D", text: "$\\{120^\\circ, 240^\\circ\\}$" }
+        ],
+        answer: "B",
+        explanation: `$(2\\cos x - 1)(\\cos x + 1) = 0 \\Rightarrow \\cos x = \\frac{1}{2}$ ($60^\\circ,300^\\circ$) หรือ $\\cos x = -1$ ($180^\\circ$) จึงตอบ B`
+      },
+      {
+        id: "q22",
+        prompt: `เอกลักษณ์มุมสองเท่า $\\sin 2x$ เท่ากับข้อใด`,
+        choices: [
+          { key: "A", text: "$2\\sin x$" },
+          { key: "B", text: "$\\sin^2 x - \\cos^2 x$" },
+          { key: "C", text: "$1 - 2\\sin^2 x$" },
+          { key: "D", text: "$2\\sin x\\cos x$" }
+        ],
+        answer: "D",
+        explanation: `$\\sin 2x = 2\\sin x\\cos x$ จึงตอบ D`
+      },
+      {
+        id: "q23",
+        prompt: `เอกลักษณ์มุมสองเท่า $\\cos 2x$ เขียนได้ตามข้อใด`,
+        choices: [
+          { key: "A", text: "$2\\cos x$" },
+          { key: "B", text: "$2\\sin x\\cos x$" },
+          { key: "C", text: "$1 - 2\\sin^2 x$" },
+          { key: "D", text: "$2\\cos^2 x + 1$" }
+        ],
+        answer: "C",
+        explanation: `$\\cos 2x = 1 - 2\\sin^2 x$ (หนึ่งในรูปของมุมสองเท่า) จึงตอบ C`
+      },
+      {
+        id: "q24",
+        prompt: `ผลเฉลยของสมการ $\\sin 2x = 0$ ในช่วง $0^\\circ \\le x < 360^\\circ$ คือข้อใด?`,
+        choices: [
+          { key: "A", text: "$\\{0^\\circ, 90^\\circ, 180^\\circ, 270^\\circ\\}$" },
+          { key: "B", text: "$\\{0^\\circ, 180^\\circ\\}$" },
+          { key: "C", text: "$\\{90^\\circ, 270^\\circ\\}$" },
+          { key: "D", text: "$\\{45^\\circ, 135^\\circ\\}$" }
+        ],
+        answer: "A",
+        explanation: `$2x = 0^\\circ, 180^\\circ, 360^\\circ, 540^\\circ \\Rightarrow x = 0^\\circ, 90^\\circ, 180^\\circ, 270^\\circ$ จึงตอบ A`
+      },
+      {
+        id: "q25",
+        prompt: `ผลเฉลยของสมการ $\\sin x = \\cos x$ ในช่วง $0^\\circ \\le x < 360^\\circ$ คือข้อใด?`,
+        choices: [
+          { key: "A", text: "$\\{45^\\circ\\}$" },
+          { key: "B", text: "$\\{45^\\circ, 225^\\circ\\}$" },
+          { key: "C", text: "$\\{135^\\circ, 315^\\circ\\}$" },
+          { key: "D", text: "$\\{90^\\circ\\}$" }
+        ],
+        answer: "B",
+        explanation: `หารด้วย $\\cos x$: $\\tan x = 1 \\Rightarrow x = 45^\\circ, 225^\\circ$ จึงตอบ B`
+      },
+      {
+        id: "q26",
+        prompt: `เอกลักษณ์ $1 + \\tan^2 x$ เท่ากับข้อใด`,
+        choices: [
+          { key: "A", text: "$\\csc^2 x$" },
+          { key: "B", text: "$\\cot^2 x$" },
+          { key: "C", text: "$\\sin^2 x$" },
+          { key: "D", text: "$\\sec^2 x$" }
+        ],
+        answer: "D",
+        explanation: `จากเอกลักษณ์พีทาโกรัส: $1 + \\tan^2 x = \\sec^2 x$ จึงตอบ D`
+      },
+      {
+        id: "q27",
+        prompt: `ผลเฉลยของสมการ $\\sin^2 x = 1$ ในช่วง $0^\\circ \\le x < 360^\\circ$ คือข้อใด?`,
+        choices: [
+          { key: "A", text: "$\\{0^\\circ, 180^\\circ\\}$" },
+          { key: "B", text: "$\\{90^\\circ\\}$" },
+          { key: "C", text: "$\\{90^\\circ, 270^\\circ\\}$" },
+          { key: "D", text: "$\\{0^\\circ, 90^\\circ, 180^\\circ, 270^\\circ\\}$" }
+        ],
+        answer: "C",
+        explanation: `$\\sin x = \\pm 1 \\Rightarrow x = 90^\\circ, 270^\\circ$ จึงตอบ C`
+      },
+      {
+        id: "q28",
+        prompt: `ผลเฉลยของสมการ $\\sin x\\,(2\\cos x - 1) = 0$ ในช่วง $0^\\circ \\le x < 360^\\circ$ คือข้อใด?`,
+        choices: [
+          { key: "A", text: "$\\{0^\\circ, 60^\\circ, 180^\\circ, 300^\\circ\\}$" },
+          { key: "B", text: "$\\{60^\\circ, 300^\\circ\\}$" },
+          { key: "C", text: "$\\{0^\\circ, 180^\\circ\\}$" },
+          { key: "D", text: "$\\{60^\\circ, 120^\\circ\\}$" }
+        ],
+        answer: "A",
+        explanation: `$\\sin x = 0$ ($0^\\circ,180^\\circ$) หรือ $\\cos x = \\frac{1}{2}$ ($60^\\circ,300^\\circ$) จึงตอบ A`
+      },
+      {
+        id: "q29",
+        prompt: `ผลเฉลยของสมการ $2\\cos^2 x - 1 = 0$ ในช่วง $0^\\circ \\le x < 360^\\circ$ คือข้อใด?`,
+        choices: [
+          { key: "A", text: "$\\{45^\\circ, 315^\\circ\\}$" },
+          { key: "B", text: "$\\{45^\\circ, 135^\\circ, 225^\\circ, 315^\\circ\\}$" },
+          { key: "C", text: "$\\{45^\\circ, 135^\\circ\\}$" },
+          { key: "D", text: "$\\{135^\\circ, 225^\\circ\\}$" }
+        ],
+        answer: "B",
+        explanation: `$\\cos^2 x = \\frac{1}{2} \\Rightarrow \\cos x = \\pm\\frac{\\sqrt{2}}{2} \\Rightarrow x = 45^\\circ, 135^\\circ, 225^\\circ, 315^\\circ$ จึงตอบ B`
+      },
+      {
+        id: "q30",
+        prompt: `สมการ $\\sin^2 x + \\cos^2 x = 1$ มีคำตอบเป็นอย่างไร?`,
+        choices: [
+          { key: "A", text: "$x = 90^\\circ$ เท่านั้น" },
+          { key: "B", text: "ไม่มีคำตอบ" },
+          { key: "C", text: "$x = 0^\\circ, 180^\\circ$ เท่านั้น" },
+          { key: "D", text: "เป็นจริงสำหรับทุกค่าของ $x$ (เป็นเอกลักษณ์)" }
+        ],
+        answer: "D",
+        explanation: `$\\sin^2 x + \\cos^2 x = 1$ เป็นเอกลักษณ์พีทาโกรัส เป็นจริงเสมอทุกค่า $x$ จึงตอบ D`
+      }
+    ]
+  }
 };
