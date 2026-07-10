@@ -14,6 +14,41 @@ let QUIZ_META = null;
 let QUIZ_DATA = null;
 let MAX_SCORE = 0;
 
+// ระบบตั้งเวลาเฉลย (ฝั่ง client)
+// เฉลย + วิธีคิดของข้อที่ผิด จะแสดงหลังนักเรียนส่งคำตอบครบ 15 นาที
+// จุดประสงค์: กันการลอกกันระหว่างที่นั่งทำพร้อมกัน ไม่ใช่การกันแบบเข้มงวดระดับ server
+const REVEAL_DELAY_MS = 15 * 60 * 1000;
+
+function submitTimeKey() {
+  const uid = currentUser ? currentUser.uid : "anon";
+  return `wdw_submitAt_${courseId}_${quizKey}_${uid}`;
+}
+
+// บันทึกเวลาที่นักเรียนส่งลงเครื่องนี้ (เรียกตอนส่งสำเร็จ)
+function markSubmitTime() {
+  try {
+    localStorage.setItem(submitTimeKey(), String(Date.now()));
+  } catch (e) {
+    /* localStorage อาจถูกปิด — ปล่อยผ่าน */
+  }
+}
+
+// ตัดสินฝั่ง client ว่าถึงเวลาเฉลยหรือยัง
+// - ไม่มี timestamp ในเครื่องนี้ = ส่งมาจากรอบ/เครื่องอื่น (ผ่านมานานแล้ว) → เฉลยได้
+// - มี timestamp = เฉลยเมื่อครบ REVEAL_DELAY_MS หลังส่ง
+function getRevealState() {
+  let t = null;
+  try {
+    const v = localStorage.getItem(submitTimeKey());
+    t = v ? Number(v) : null;
+  } catch (e) {
+    t = null;
+  }
+  if (!t || Number.isNaN(t)) return { reveal: true, remainMs: 0 };
+  const remainMs = REVEAL_DELAY_MS - (Date.now() - t);
+  return { reveal: remainMs <= 0, remainMs: Math.max(0, remainMs) };
+}
+
 function escapeHtml(text) {
   return String(text || "")
     .replaceAll("&", "&amp;")
@@ -43,13 +78,14 @@ function showMessage(text, modeText = "") {
   document.getElementById("modeInfo").textContent = modeText;
 }
 
-function renderQuiz(savedAnswers = {}, disableInputs = false, resultDetail = {}) {
+function renderQuiz(savedAnswers = {}, disableInputs = false, resultDetail = {}, revealAnswers = false) {
   const form = document.getElementById("quizForm");
   form.innerHTML = "";
 
   QUIZ_DATA.forEach((item, index) => {
     const userAnswer = savedAnswers[item.id] || "";
     const detail = resultDetail[item.id];
+    const isCorrect = !!detail;
 
     // แก้ไข Path รูปภาพอัตโนมัติ แปลง .../images/ หรือ ../images/ ให้ชี้ไปที่โฟลเดอร์วิชาปัจจุบัน
     let fixedPrompt = item.prompt;
@@ -57,34 +93,60 @@ function renderQuiz(savedAnswers = {}, disableInputs = false, resultDetail = {})
       fixedPrompt = fixedPrompt.replace(/(\.\.\.\/|\.\.\/|\.\/)?images\//g, `./courses/${courseId}/images/`);
     }
 
-    const choicesHtml = item.choices.map(choice => `
-      <label class="option-label">
+    const choicesHtml = item.choices.map(choice => {
+      const isUserChoice = userAnswer === choice.key;
+      const isCorrectChoice = choice.key === item.answer;
+
+      let cls = "option-label";
+      let tag = "";
+      if (revealAnswers && isCorrectChoice) {
+        cls += " reveal-correct";
+        tag = ` <span class="reveal-tag">✔ เฉลย</span>`;
+      }
+      if (revealAnswers && isUserChoice && !isCorrectChoice) {
+        cls += " reveal-wrong";
+        tag = ` <span class="reveal-tag wrong">✗ คำตอบของคุณ</span>`;
+      }
+
+      return `
+      <label class="${cls}">
         <input
           type="radio"
           name="${item.id}"
           value="${choice.key}"
-          ${userAnswer === choice.key ? "checked" : ""}
+          ${isUserChoice ? "checked" : ""}
           ${disableInputs ? "disabled" : ""}
           ${!disableInputs ? "required" : ""}
         />
-        <span><strong>${choice.key}.</strong> ${escapeHtml(choice.text)}</span>
+        <span><strong>${choice.key}.</strong> ${escapeHtml(choice.text)}${tag}</span>
       </label>
-    `).join("");
+    `;
+    }).join("");
+
+    // แสดงคำอธิบาย/วิธีคิด เฉพาะเมื่อถึงเวลาเฉลย และเฉพาะข้อที่ตอบผิด
+    let explanationHtml = "";
+    if (revealAnswers && !isCorrect) {
+      const body = item.explanation
+        ? `<div class="explanation-text">${item.explanation}</div>`
+        : `<div class="explanation-text">เฉลยข้อนี้คือตัวเลือก <strong>${escapeHtml(item.answer)}</strong> (ยังไม่มีคำอธิบายเพิ่มเติม)</div>`;
+      explanationHtml = `<div class="explanation-box"><strong>วิธีคิด / เฉลย</strong>${body}</div>`;
+    }
 
     const card = document.createElement("div");
     card.className = "question-card";
 
     card.innerHTML = `
       <h3>ข้อ ${index + 1}</h3>
-      <p class="question-text">${fixedPrompt}</p> 
+      <p class="question-text">${fixedPrompt}</p>
       <div class="options-grid">${choicesHtml}</div>
       ${
         disableInputs
-          ? `<div class="review-badge ${detail ? "correct" : "incorrect"}">
-               ${detail ? "✅ คำตอบของคุณถูกต้อง" : "❌ คำตอบของคุณไม่ถูกต้อง"}
+          ? `<div class="review-badge ${isCorrect ? "correct" : "incorrect"}">
+               ${isCorrect ? "✅ คำตอบของคุณถูกต้อง" : "❌ คำตอบของคุณไม่ถูกต้อง"}
              </div>`
           : ""
       }
+      ${explanationHtml}
     `;
     form.appendChild(card);
   });
@@ -219,6 +281,7 @@ async function handleSubmit(e) {
     });
 
     if (!result.ok) throw new Error(result.message || "Submit failed");
+    markSubmitTime(); // เก็บเวลาส่งไว้ เพื่อคำนวณเวลาเฉลย 15 นาที
     redirectToLeaderboard(score, reward.diamonds, elapsedTimeSec, reward.firework);
   } catch (error) {
     console.error(error);
@@ -268,7 +331,18 @@ async function initQuizSystem(user, quizData) {
 
     if (status.submitted) {
       reviewMode = true;
-      renderQuiz(status.answers || {}, true, status.detail || {});
+      const { reveal, remainMs } = getRevealState();
+      renderQuiz(status.answers || {}, true, status.detail || {}, reveal);
+
+      // ถ้ายังไม่ถึงเวลาเฉลยและหน้ายังเปิดค้างไว้ → เฉลยอัตโนมัติเมื่อครบเวลา
+      if (!reveal && remainMs > 0) {
+        setTimeout(() => {
+          if (!getRevealState().reveal) return;
+          renderQuiz(status.answers || {}, true, status.detail || {}, true);
+          const note = document.getElementById("revealNote");
+          if (note) note.textContent = "เฉลยและวิธีคิดของข้อที่ตอบผิดแสดงแล้วด้านบน";
+        }, remainMs + 500);
+      }
 
       if (status.displayName) {
         const nameInput = document.getElementById("displayNameInput");
@@ -287,7 +361,11 @@ async function initQuizSystem(user, quizData) {
         <p>ชื่อที่แสดงบน Leaderboard: <strong>${escapeHtml(status.displayName || "-")}</strong></p>
         <p>คะแนนของคุณ: <strong>${status.score ?? 0}/${MAX_SCORE}</strong></p>
         <p>เวลาที่ใช้: <strong>${formatTime(status.timeSec ?? 0)}</strong></p>
-        <p class="small-note">ระบบแสดงเฉพาะตัวเลือกที่คุณเคยตอบ พร้อมสถานะถูก/ผิด โดยไม่แสดงเฉลยจริง</p>
+        <p class="small-note" id="revealNote">${
+          reveal
+            ? "เฉลยและวิธีคิดของข้อที่ตอบผิดแสดงแล้วด้านบน"
+            : `เพื่อป้องกันการลอกกันระหว่างทำ ระบบจะแสดงเฉลยและวิธีคิดของข้อที่ผิดในอีกประมาณ ${Math.ceil(remainMs / 60000)} นาที`
+        }</p>
         <div class="actions">
           <a class="btn primary" href="./leaderboard.html?course=${encodeURIComponent(courseId)}&quiz=${encodeURIComponent(quizKey)}">ไปหน้า Leaderboard</a>
         </div>

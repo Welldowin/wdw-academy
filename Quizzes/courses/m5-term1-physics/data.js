@@ -19,7 +19,9 @@ window.COURSE_DATA = {
         { key: "C", text: "คาบ (Period)" },
         { key: "D", text: "เฟสเริ่มต้น (Initial phase)" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `แอมพลิจูด (A) คือขนาดการกระจัดสูงสุดจากตำแหน่งสมดุล
+ส่วนความถี่และคาบบอกเรื่องเวลา ไม่ใช่ระยะ จึงตอบ A`
     },
     {
       id: "q2",
@@ -30,7 +32,9 @@ window.COURSE_DATA = {
         { key: "C", text: "$2.0 \\text{ Hz}$" },
         { key: "D", text: "$4.0 \\text{ Hz}$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `ความถี่ $f = \\dfrac{1}{T} = \\dfrac{1}{0.5} = 2.0\\text{ Hz}$
+คาบ $T$ คือเวลาต่อรอบ ความถี่คือส่วนกลับของคาบ จึงตอบ C`
     },
     {
       id: "q3",
@@ -41,7 +45,8 @@ window.COURSE_DATA = {
         { key: "C", text: "ความเร่งเชิงมุม" },
         { key: "D", text: "มุมเฟสเริ่มต้น" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$\\omega$ คือความถี่เชิงมุม (angular frequency) จึงตอบ B`
     },
 
     // --- อ่านกราฟ 001.jpg (ข้อ 4-8) ---
@@ -57,7 +62,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$2.0 \\text{ cm}$" },
         { key: "D", text: "$3.0 \\text{ cm}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `อ่านค่าสูงสุดของกราฟได้แอมพลิจูด $A=1.5\\text{ cm}$ จึงตอบ B`
     },
     {
       id: "q5",
@@ -71,7 +77,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$2.0 \\text{ s}$" },
         { key: "D", text: "$4.0 \\text{ s}$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `กราฟครบ 1 รอบใช้เวลา $T=2.0\\text{ s}$ จึงตอบ C`
     },
     {
       id: "q6",
@@ -85,7 +92,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$1.00 \\text{ Hz}$" },
         { key: "D", text: "$2.00 \\text{ Hz}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$f=\\dfrac{1}{T}=\\dfrac{1}{2}=0.5\\text{ Hz}$ จึงตอบ B`
     },
     {
       id: "q7",
@@ -99,7 +107,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$180^\\circ$ (หรือ $\\pi$ เรเดียน)" },
         { key: "D", text: "$270^\\circ$ (หรือ $\\frac{3\\pi}{2}$ เรเดียน)" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `กราฟเริ่มที่ $x=0$ แล้วขึ้น (รูปไซน์) เฟสเริ่มต้น $=0^\\circ$ จึงตอบ A`
     },
     {
       id: "q8",
@@ -113,7 +122,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$1.5\\pi \\text{ cm/s}$" },
         { key: "D", text: "$3.0\\pi \\text{ cm/s}$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$V_{max}=\\omega A=\\dfrac{2\\pi}{2}\\times1.5=1.5\\pi\\text{ cm/s}$ จึงตอบ C`
     },
 
     // --- อ่านกราฟ 002.jpg (ข้อ 9-13) ---
@@ -129,7 +139,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$2.0 \\text{ cm}$" },
         { key: "D", text: "$2.5 \\text{ cm}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `อ่านค่าสูงสุดของกราฟได้ $A=1.5\\text{ cm}$ จึงตอบ B`
     },
     {
       id: "q10",
@@ -143,7 +154,8 @@ window.COURSE_DATA = {
         { key: "C", text: "ตำแหน่งการกระจัดสูงสุดทางบวก" },
         { key: "D", text: "ตำแหน่งการกระจัดสูงสุดทางลบ" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `ที่ $t=0$ กราฟอยู่ที่ค่าสูงสุดบวก = การกระจัดสูงสุดทางบวก จึงตอบ C`
     },
     {
       id: "q11",
@@ -157,7 +169,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\pi$" },
         { key: "D", text: "$\\frac{3\\pi}{2}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `กราฟเริ่มที่จุดสูงสุด (รูปโคไซน์) เฟสเริ่มต้น $=\\dfrac{\\pi}{2}$ จึงตอบ B`
     },
     {
       id: "q12",
@@ -171,7 +184,8 @@ window.COURSE_DATA = {
         { key: "C", text: "ข้อ ก และ ค ถูก" },
         { key: "D", text: "ถูกทุกข้อ" }
       ],
-      answer: "D"
+      answer: "D",
+      explanation: `$T=2.0$ s, $f=0.5$ Hz, เริ่มที่จุดสูงสุด $\\phi=90^\\circ$ ถูกทุกข้อ จึงตอบ D`
     },
     {
       id: "q13",
@@ -185,7 +199,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$3.0\\pi^2$" },
         { key: "D", text: "$6.0\\pi^2$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$a_{max}=\\omega^2 A=\\pi^2\\times1.5=1.5\\pi^2\\text{ cm/s}^2$ จึงตอบ B`
     },
 
     // --- อ่านกราฟ 003.jpg (ข้อ 14-18) ---
@@ -201,7 +216,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$1.00 \\text{ cm}$" },
         { key: "D", text: "$1.50 \\text{ cm}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `อ่านค่าสูงสุดของกราฟได้ $A=0.5\\text{ cm}$ จึงตอบ B`
     },
     {
       id: "q15",
@@ -215,7 +231,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$180^\\circ$" },
         { key: "D", text: "$270^\\circ$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `กราฟเริ่มที่ค่าต่ำสุด (ติดลบ) เฟสเริ่มต้น $=180^\\circ$ จึงตอบ C`
     },
     {
       id: "q16",
@@ -229,7 +246,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$2\\pi$" },
         { key: "D", text: "$4\\pi$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$\\omega=\\dfrac{2\\pi}{T}=\\dfrac{2\\pi}{2}=\\pi\\text{ rad/s}$ จึงตอบ B`
     },
     {
       id: "q17",
@@ -243,7 +261,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$y = 0.5 \\sin(\\pi t + \\pi)$" },
         { key: "D", text: "$y = 0.5 \\cos(\\pi t + \\pi)$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$A=0.5$, เริ่มที่ค่าลบสุด (เฟส $\\pi$): $y=0.5\\sin(\\pi t+\\pi)$ จึงตอบ C`
     },
     {
       id: "q18",
@@ -257,7 +276,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\pi$" },
         { key: "D", text: "$2\\pi$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$V_{max}=\\omega A=\\pi\\times0.5=0.5\\pi\\text{ cm/s}$ จึงตอบ B`
     },
 
     // --- การวิเคราะห์สมการ (ข้อ 19-30) ---
@@ -270,7 +290,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$8 \\text{ cm}$" },
         { key: "D", text: "$16 \\text{ cm}$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `แอมพลิจูดคือตัวเลขหน้า $\\sin$ คือ $8\\text{ cm}$ จึงตอบ C`
     },
     {
       id: "q20",
@@ -281,7 +302,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$10\\pi \\text{ Hz}$" },
         { key: "D", text: "$20 \\text{ Hz}$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$\\omega=10\\pi$ ดังนั้น $f=\\dfrac{\\omega}{2\\pi}=5\\text{ Hz}$ จึงตอบ A`
     },
     {
       id: "q21",
@@ -292,7 +314,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$0.5 \\text{ s}$" },
         { key: "D", text: "$4.0 \\text{ s}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$\\omega=8\\pi$, $T=\\dfrac{2\\pi}{\\omega}=\\dfrac{2\\pi}{8\\pi}=0.25\\text{ s}$ จึงตอบ B`
     },
     {
       id: "q22",
@@ -303,7 +326,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\frac{\\pi}{3}$" },
         { key: "D", text: "$2t$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `เฟสเริ่มต้นคือพจน์คงที่ในวงเล็บ $=\\dfrac{\\pi}{3}$ จึงตอบ C`
     },
     {
       id: "q23",
@@ -314,7 +338,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$45^\\circ$" },
         { key: "D", text: "$60^\\circ$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$\\dfrac{\\pi}{6}\\times\\dfrac{180}{\\pi}=30^\\circ$ จึงตอบ B`
     },
     {
       id: "q24",
@@ -325,7 +350,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$270^\\circ$" },
         { key: "D", text: "$360^\\circ$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$\\dfrac{3\\pi}{2}\\times\\dfrac{180}{\\pi}=270^\\circ$ จึงตอบ C`
     },
     {
       id: "q25",
@@ -336,7 +362,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\pi$" },
         { key: "D", text: "$2.5\\pi$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$V_{max}=\\omega A=5\\pi\\times0.2=\\pi\\text{ m/s}$ จึงตอบ C`
     },
     {
       id: "q26",
@@ -347,7 +374,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$12\\pi^2 \\text{ cm/s}^2$" },
         { key: "D", text: "$18\\pi^2 \\text{ cm/s}^2$" }
       ],
-      answer: "D"
+      answer: "D",
+      explanation: `$a_{max}=\\omega^2 A=(3\\pi)^2\\times2=18\\pi^2\\text{ cm/s}^2$ จึงตอบ D`
     },
     {
       id: "q27",
@@ -358,7 +386,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$10\\pi$" },
         { key: "D", text: "$20\\pi$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$\\omega=\\dfrac{2\\pi}{T}=\\dfrac{2\\pi}{4}=\\dfrac{\\pi}{2}$, $V_{max}=\\omega A=\\dfrac{\\pi}{2}\\times10=5\\pi$ จึงตอบ B`
     },
     {
       id: "q28",
@@ -369,7 +398,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$80\\pi^2$" },
         { key: "D", text: "$160\\pi^2$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$\\omega=2\\pi f=4\\pi$, $a_{max}=\\omega^2 A=(4\\pi)^2\\times5=80\\pi^2$ จึงตอบ C`
     },
     {
       id: "q29",
@@ -380,7 +410,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$x = 5 \\sin(2\\pi t)$" },
         { key: "D", text: "$x = 5 \\sin(10\\pi t)$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$A=2$, $\\omega=2\\pi f=10\\pi$: $x=2\\sin(10\\pi t)$ จึงตอบ B`
     },
     {
       id: "q30",
@@ -391,7 +422,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$x = 4 \\sin(\\pi t + \\frac{3\\pi}{2})$" },
         { key: "D", text: "$x = 4 \\sin(\\pi t + 2\\pi)$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$-4\\sin(\\pi t)=4\\sin(\\pi t+\\pi)$ (เลื่อนเฟส $\\pi$ กลับเครื่องหมาย) จึงตอบ B`
     }
   ]
 },
@@ -414,7 +446,8 @@ window.COURSE_DATA = {
         { key: "C", text: "ความเร่งแปรผกผันกับการกระจัด" },
         { key: "D", text: "แรงลัพธ์ที่กระทำต่อวัตถุมีค่าเป็นศูนย์ตลอดเวลา" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `SHM: ความเร่งแปรผันตรงกับการกระจัดและมีทิศตรงข้าม ($a=-\\omega^2 x$) จึงตอบ B`
     },
     {
       id: "q2",
@@ -425,7 +458,8 @@ window.COURSE_DATA = {
         { key: "C", text: "มีค่าสูงสุด" },
         { key: "D", text: "มีค่าเท่ากับครึ่งหนึ่งของแอมพลิจูด" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `ที่จุดสมดุล การกระจัด $x=0$ จึงตอบ A`
     },
     {
       id: "q3",
@@ -436,7 +470,8 @@ window.COURSE_DATA = {
         { key: "C", text: "มีความเร็วเท่ากับความเร่ง" },
         { key: "D", text: "มีความเร็วเพิ่มขึ้นเรื่อยๆ ไม่มีขีดจำกัด" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `ที่จุดสมดุล ความเร็วมีค่าสูงสุด จึงตอบ B`
     },
     {
       id: "q4",
@@ -447,7 +482,8 @@ window.COURSE_DATA = {
         { key: "C", text: "มีค่าเป็นศูนย์" },
         { key: "D", text: "มีค่าเท่ากับความเร็ว" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `ที่จุดสมดุล $x=0$ ดังนั้น $a=-\\omega^2 x=0$ จึงตอบ C`
     },
     {
       id: "q5",
@@ -458,7 +494,8 @@ window.COURSE_DATA = {
         { key: "C", text: "เท่ากับความถี่มุม" },
         { key: "D", text: "เท่ากับความเร็วที่จุดสมดุล" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `ที่ตำแหน่งแอมพลิจูด วัตถุหยุดชั่วขณะ ความเร็ว $=0$ จึงตอบ B`
     },
     {
       id: "q6",
@@ -469,7 +506,8 @@ window.COURSE_DATA = {
         { key: "C", text: "มีค่าคงที่เท่ากับจุดสมดุล" },
         { key: "D", text: "มีค่าสูงสุด" }
       ],
-      answer: "D"
+      answer: "D",
+      explanation: `ที่แอมพลิจูด $x$ มากสุด ความเร่ง $|a|=\\omega^2 A$ สูงสุด จึงตอบ D`
     },
     {
       id: "q7",
@@ -480,7 +518,8 @@ window.COURSE_DATA = {
         { key: "C", text: "ขนาดของการกระจัดสูงสุดจากจุดสมดุล" },
         { key: "D", text: "ความเร็วสูงสุดของการเคลื่อนที่" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `แอมพลิจูดคือขนาดการกระจัดสูงสุดจากจุดสมดุล จึงตอบ C`
     },
     {
       id: "q8",
@@ -491,7 +530,8 @@ window.COURSE_DATA = {
         { key: "C", text: "ชี้เข้าหาจุดสมดุลเสมอ" },
         { key: "D", text: "ตั้งฉากกับการกระจัดเสมอ" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `ความเร่ง (แรงดึงกลับ) ชี้เข้าหาจุดสมดุลเสมอ จึงตอบ C`
     },
     {
       id: "q9",
@@ -502,7 +542,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$180^\\circ$ หรือ $\\pi \\text{ rad}$" },
         { key: "D", text: "$360^\\circ$ หรือ $2\\pi \\text{ rad}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `ความเร็วนำหน้าการกระจัด $90^\\circ$ ($\\frac{\\pi}{2}$) จึงตอบ B`
     },
     {
       id: "q10",
@@ -513,7 +554,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$180^\\circ$ หรือ $\\pi \\text{ rad}$ (มีเฟสตรงข้ามกัน)" },
         { key: "D", text: "$270^\\circ$ หรือ $\\frac{3\\pi}{2} \\text{ rad}$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `ความเร่งต่างเฟสกับการกระจัด $180^\\circ$ (ตรงข้าม) จึงตอบ C`
     },
     {
       id: "q11",
@@ -524,7 +566,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$a = \\omega^2 x$" },
         { key: "D", text: "$a = -\\omega x$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `ความสัมพันธ์ SHM คือ $a=-\\omega^2 x$ จึงตอบ B`
     },
     {
       id: "q12",
@@ -535,7 +578,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$V_{max} = \\frac{A}{\\omega}$" },
         { key: "D", text: "$V_{max} = 2\\pi \\omega A$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$V_{max}=\\omega A$ จึงตอบ B`
     },
     {
       id: "q13",
@@ -546,7 +590,8 @@ window.COURSE_DATA = {
         { key: "C", text: "วัตถุมีมวลลดลง" },
         { key: "D", text: "วัตถุเคลื่อนที่ไปทางซ้ายมือเสมอ" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `เครื่องหมายลบหมายถึงแรง/ความเร่งมีทิศตรงข้ามกับการกระจัดเสมอ จึงตอบ B`
     },
     {
       id: "q14",
@@ -557,7 +602,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$a_{max} = \\sqrt{\\omega A}$" },
         { key: "D", text: "$a_{max} = \\frac{\\omega^2}{A}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$a_{max}=\\omega^2 A$ จึงตอบ B`
     },
     {
       id: "q15",
@@ -568,7 +614,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$10 \\text{ m/s}$" },
         { key: "D", text: "$20 \\text{ m/s}$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$V_{max}=\\omega A=2\\times5=10\\text{ m/s}$ จึงตอบ C`
     },
     {
       id: "q16",
@@ -579,7 +626,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$8\\pi \\text{ cm/s}$" },
         { key: "D", text: "$16\\pi \\text{ cm/s}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$\\omega=\\dfrac{2\\pi}{T}=\\pi$, $V_{max}=\\omega A=\\pi\\times4=4\\pi\\text{ cm/s}$ จึงตอบ B`
     },
     {
       id: "q17",
@@ -590,7 +638,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$12 \\text{ m/s}^2$" },
         { key: "D", text: "$18 \\text{ m/s}^2$" }
       ],
-      answer: "D"
+      answer: "D",
+      explanation: `$a_{max}=\\omega^2 A=3^2\\times2=18\\text{ m/s}^2$ จึงตอบ D`
     },
     {
       id: "q18",
@@ -601,7 +650,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$5\\pi \\text{ cm/s}^2$" },
         { key: "D", text: "$25 \\text{ cm/s}^2$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$\\omega=\\dfrac{2\\pi}{T}=\\dfrac{2\\pi}{\\pi}=2$, $a_{max}=\\omega^2 A=4\\times5=20$ จึงตอบ B`
     },
     {
       id: "q19",
@@ -612,7 +662,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$16 \\text{ m}$" },
         { key: "D", text: "$80 \\text{ m}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$A=\\dfrac{V_{max}}{\\omega}=\\dfrac{20}{4}=5\\text{ m}$ จึงตอบ B`
     },
     {
       id: "q20",
@@ -623,7 +674,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$25 \\text{ rad/s}$" },
         { key: "D", text: "$100 \\text{ rad/s}$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$\\omega=\\sqrt{\\dfrac{a_{max}}{A}}=\\sqrt{\\dfrac{50}{2}}=\\sqrt{25}=5$ จึงตอบ A`
     },
     {
       id: "q21",
@@ -634,7 +686,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$4 \\text{ rad/s}$" },
         { key: "D", text: "$200 \\text{ rad/s}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$\\omega=\\dfrac{a_{max}}{V_{max}}=\\dfrac{20}{10}=2\\text{ rad/s}$ จึงตอบ B`
     },
     {
       id: "q22",
@@ -645,7 +698,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$10 \\text{ cm}$" },
         { key: "D", text: "$20 \\text{ cm}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$A=\\dfrac{V_{max}}{\\omega}=\\dfrac{10}{2}=5\\text{ cm}$ จึงตอบ B`
     },
     {
       id: "q23",
@@ -656,7 +710,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$20 \\text{ m/s}$" },
         { key: "D", text: "$40 \\text{ m/s}$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$V_{max}=\\omega A=2\\times10=20\\text{ m/s}$ จึงตอบ C`
     },
     {
       id: "q24",
@@ -667,7 +722,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$80 \\text{ cm/s}^2$" },
         { key: "D", text: "$100 \\text{ cm/s}^2$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$a_{max}=\\omega^2 A=4^2\\times5=80\\text{ cm/s}^2$ จึงตอบ C`
     },
     {
       id: "q25",
@@ -678,7 +734,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$12 \\text{ cm}$" },
         { key: "D", text: "$6\\sqrt{3} \\text{ cm}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$x=12\\sin\\left(\\dfrac{\\pi}{6}\\right)=12\\times0.5=6\\text{ cm}$ จึงตอบ B`
     },
     {
       id: "q26",
@@ -689,7 +746,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$4\\sqrt{3} \\text{ cm}$" },
         { key: "D", text: "$8 \\text{ cm}$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$x=8\\cos\\left(\\dfrac{\\pi}{3}\\right)=8\\times0.5=4\\text{ cm}$ จึงตอบ A`
     },
     {
       id: "q27",
@@ -700,7 +758,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$20 \\text{ m/s}$" },
         { key: "D", text: "$40 \\text{ m/s}$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$v(0)=20\\cos0=20\\text{ m/s}$ จึงตอบ C`
     },
     {
       id: "q28",
@@ -711,7 +770,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$100 \\text{ m/s}^2$" },
         { key: "D", text: "$-100 \\text{ m/s}^2$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `ที่ $t=0$: $x=4\\sin0=0$ ดังนั้น $a=-\\omega^2 x=0$ จึงตอบ A`
     },
     {
       id: "q29",
@@ -722,7 +782,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$10\\pi \\text{ cm/s}$" },
         { key: "D", text: "$5\\pi \\text{ cm/s}$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$v=\\omega A\\cos(\\omega t)$, ที่ $t=0.5$: $\\cos\\left(\\dfrac{\\pi}{2}\\right)=0$ ดังนั้น $v=0$ จึงตอบ A`
     },
     {
       id: "q30",
@@ -733,7 +794,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$20 \\text{ cm}$" },
         { key: "D", text: "$20\\sqrt{3} \\text{ cm}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$x=20\\sin\\left(\\dfrac{2\\pi\\times2}{12}\\right)=20\\sin60^\\circ=20\\times\\dfrac{\\sqrt3}{2}=10\\sqrt3$ จึงตอบ B`
     }
   ]
 },
@@ -756,7 +818,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$180^\\circ$ (หรือ $\\pi$ เรเดียน)" },
         { key: "D", text: "$270^\\circ$ (หรือ $\\frac{3\\pi}{2}$ เรเดียน)" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `การกระจัดกับความเร่งต่างเฟส $180^\\circ$ (ทิศตรงข้าม) จึงตอบ C`
     },
     {
       id: "q2",
@@ -767,7 +830,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\pi$ เรเดียน" },
         { key: "D", text: "$2\\pi$ เรเดียน" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `ความเร็วนำหน้าการกระจัด $\\dfrac{\\pi}{2}$ จึงตอบ B`
     },
     {
       id: "q3",
@@ -778,7 +842,8 @@ window.COURSE_DATA = {
         { key: "C", text: "ตำแหน่งกึ่งกลางระหว่างสมดุลและแอมพลิจูด" },
         { key: "D", text: "ทุกตำแหน่งมีความเร็วเท่ากัน" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `ความเร็วสูงสุดที่ตำแหน่งสมดุล จึงตอบ A`
     },
     {
       id: "q4",
@@ -789,7 +854,8 @@ window.COURSE_DATA = {
         { key: "C", text: "เมื่อวัตถุมีการกระจัดสูงสุด" },
         { key: "D", text: "เมื่อเวลาผ่านไปครบ 1 คาบพอดี" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `ความเร่งสูงสุดที่ตำแหน่งการกระจัดสูงสุด จึงตอบ C`
     },
     {
       id: "q5",
@@ -800,7 +866,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$1.0 \\text{ s}$" },
         { key: "D", text: "$2.0 \\text{ s}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `จากสมดุลไปแอมพลิจูดใช้เวลา $\\dfrac{T}{4}=\\dfrac{2}{4}=0.5\\text{ s}$ จึงตอบ B`
     },
     {
       id: "q6",
@@ -811,7 +878,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\frac{T}{6}$" },
         { key: "D", text: "$\\frac{T}{4}$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$\\sin(\\omega t)=\\dfrac{1}{2}\\Rightarrow\\omega t=\\dfrac{\\pi}{6}\\Rightarrow t=\\dfrac{T}{12}$ จึงตอบ A`
     },
     {
       id: "q7",
@@ -822,7 +890,8 @@ window.COURSE_DATA = {
         { key: "C", text: "กราฟฟังก์ชันโคไซน์ (Cosine wave)" },
         { key: "D", text: "กราฟพาราโบลา" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `อนุพันธ์ของไซน์คือโคไซน์ กราฟ $v$-$t$ เป็นรูปโคไซน์ จึงตอบ C`
     },
     {
       id: "q8",
@@ -833,7 +902,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$a = \\omega^2 x$" },
         { key: "D", text: "$a = -\\omega^2 x$" }
       ],
-      answer: "D"
+      answer: "D",
+      explanation: `$a=-\\omega^2 x$ จึงตอบ D`
     },
     {
       id: "q9",
@@ -844,7 +914,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$-A$" },
         { key: "D", text: "$\\frac{A}{2}$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `ครบ 1 คาบกลับมาที่จุดเริ่ม (สมดุล) $x=0$ จึงตอบ A`
     },
     {
       id: "q10",
@@ -855,7 +926,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$a = -A \\omega^2 \\cos(\\omega t)$" },
         { key: "D", text: "$a = -A \\omega^2 \\sin(\\omega t)$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$x=A\\cos(\\omega t)\\Rightarrow a=-A\\omega^2\\cos(\\omega t)$ จึงตอบ C`
     },
 
     // --- อัตราเร็ว และอัตราเร่งที่ตำแหน่งใดๆ (5 ข้อ) ---
@@ -868,7 +940,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$v = \\pm \\omega^2 \\sqrt{A^2 - x^2}$" },
         { key: "D", text: "$v = \\pm \\omega \\sqrt{x^2 - A^2}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$v=\\pm\\omega\\sqrt{A^2-x^2}$ จึงตอบ B`
     },
     {
       id: "q12",
@@ -879,7 +952,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\frac{\\sqrt{3}}{2} v_{\\text{max}}$" },
         { key: "D", text: "$\\frac{3}{4} v_{\\text{max}}$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$v=\\omega\\sqrt{A^2-(A/2)^2}=\\omega A\\dfrac{\\sqrt3}{2}=\\dfrac{\\sqrt3}{2}v_{max}$ จึงตอบ C`
     },
     {
       id: "q13",
@@ -890,7 +964,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$20 \\text{ cm/s}$" },
         { key: "D", text: "$80 \\text{ cm/s}$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$V_{max}=\\omega A=4\\times5=20\\text{ cm/s}$ จึงตอบ C`
     },
     {
       id: "q14",
@@ -901,7 +976,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$80 \\text{ cm/s}^2$" },
         { key: "D", text: "$100 \\text{ cm/s}^2$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$a_{max}=\\omega^2 A=16\\times5=80\\text{ cm/s}^2$ จึงตอบ C`
     },
     {
       id: "q15",
@@ -912,7 +988,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$5.0 \\text{ m}$" },
         { key: "D", text: "$10.0 \\text{ m}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$A=\\dfrac{V_{max}^2}{a_{max}}=\\dfrac{100}{50}=2\\text{ m}$ จึงตอบ B`
     },
 
     // --- การให้สมการหาจำนวนรอบ/ระยะทาง (7 ข้อ) ---
@@ -925,7 +1002,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$15 \\text{ cm}$" },
         { key: "D", text: "$20 \\text{ cm}$" }
       ],
-      answer: "D"
+      answer: "D",
+      explanation: `$x=5\\sin(2\\pi t)$: $T=1$ s ใน 1 วิครบ 1 รอบ ระยะทาง $=4A=20\\text{ cm}$ จึงตอบ D`
     },
     {
       id: "q17",
@@ -936,7 +1014,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$8 \\text{ รอบ}$" },
         { key: "D", text: "$16 \\text{ รอบ}$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$\\omega=4\\pi\\Rightarrow f=\\dfrac{\\omega}{2\\pi}=2$ Hz ใน 2 วิควรได้ 4 รอบ [หมายเหตุ: เฉลยในไฟล์ตอบ 8 ควรตรวจสอบอีกครั้ง]`
     },
     {
       id: "q18",
@@ -947,7 +1026,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$12 \\text{ cm}$" },
         { key: "D", text: "$48 \\text{ cm}$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$V_{max}=\\omega A$: $12\\pi=4\\pi\\times A\\Rightarrow A=3\\text{ cm}$ จึงตอบ A`
     },
     {
       id: "q19",
@@ -958,7 +1038,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$20\\pi \\text{ Hz}$" },
         { key: "D", text: "$400 \\text{ Hz}$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$\\omega=20\\pi\\Rightarrow f=\\dfrac{\\omega}{2\\pi}=10$ Hz จึงตอบ A`
     },
     {
       id: "q20",
@@ -969,7 +1050,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$2 \\text{ m}$" },
         { key: "D", text: "$4 \\text{ m}$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$x=2\\sin(\\pi t)$: $T=2$ s, ใน 0.5 วิ = $\\dfrac{T}{4}$ ระยะทาง $=A=2$ m จึงตอบ C`
     },
     {
       id: "q21",
@@ -980,7 +1062,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$25 \\text{ รอบ}$" },
         { key: "D", text: "$50 \\text{ รอบ}$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$\\omega=5\\pi$, $T=\\dfrac{2\\pi}{5\\pi}=0.4$ s ใน 10 วิ $=\\dfrac{10}{0.4}=25$ รอบ จึงตอบ C`
     },
     {
       id: "q22",
@@ -991,7 +1074,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$9 \\text{ cm}$" },
         { key: "D", text: "$12 \\text{ cm}$" }
       ],
-      answer: "D"
+      answer: "D",
+      explanation: `ใน 1 รอบ ระยะทาง $=4A=4\\times3=12\\text{ cm}$ จึงตอบ D`
     },
 
     // --- การเปรียบเทียบตัวแปรเพื่อหา คาบ หรือ ความถี่ (8 ข้อ) ---
@@ -1004,7 +1088,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\sqrt{2}T$" },
         { key: "D", text: "$2T$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `คาบลูกตุ้ม $T=2\\pi\\sqrt{\\dfrac{L}{g}}$ ไม่ขึ้นกับมวล จึงเท่าเดิม ตอบ B`
     },
     {
       id: "q24",
@@ -1015,7 +1100,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$2 \\text{ เท่า}$" },
         { key: "D", text: "$4 \\text{ เท่า}$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$T\\propto\\sqrt{L}$: $L$ เพิ่ม 4 เท่า $\\Rightarrow T$ เพิ่ม $\\sqrt4=2$ เท่า จึงตอบ C`
     },
     {
       id: "q25",
@@ -1026,7 +1112,8 @@ window.COURSE_DATA = {
         { key: "C", text: "เพิ่มขึ้นเป็น $\\sqrt{6} \\text{ เท่า}$" },
         { key: "D", text: "เพิ่มขึ้นเป็น $6 \\text{ เท่า}$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$T\\propto\\dfrac{1}{\\sqrt{g}}$: $g$ ลดเหลือ $\\frac{1}{6}\\Rightarrow T$ เพิ่ม $\\sqrt6$ เท่า จึงตอบ C`
     },
     {
       id: "q26",
@@ -1037,7 +1124,8 @@ window.COURSE_DATA = {
         { key: "C", text: "เพิ่มขึ้นเป็น $2 \\text{ เท่า}$" },
         { key: "D", text: "เพิ่มขึ้นเป็น $4 \\text{ เท่า}$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$T\\propto\\sqrt{m}$: $m$ เพิ่ม 4 เท่า $\\Rightarrow T$ เพิ่ม 2 เท่า จึงตอบ C`
     },
     {
       id: "q27",
@@ -1048,7 +1136,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$4f$" },
         { key: "D", text: "$16f$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$f\\propto\\sqrt{k}$: $k$ เพิ่ม 4 เท่า $\\Rightarrow f$ เพิ่ม 2 เท่า จึงตอบ B`
     },
     {
       id: "q28",
@@ -1059,7 +1148,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\sqrt{2} \\text{ เท่า}$" },
         { key: "D", text: "$2 \\text{ เท่า}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `ตัดครึ่ง $k$ เพิ่ม 2 เท่า, $T\\propto\\dfrac{1}{\\sqrt{k}}\\Rightarrow T$ เป็น $\\dfrac{1}{\\sqrt2}$ เท่า จึงตอบ B`
     },
     {
       id: "q29",
@@ -1070,7 +1160,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\frac{T}{\\sin(30^\\circ)}$" },
         { key: "D", text: "$T \\text{ (คาบเท่าเดิม)}$" }
       ],
-      answer: "D"
+      answer: "D",
+      explanation: `คาบมวล-สปริงขึ้นกับ $m,k$ เท่านั้น ไม่ขึ้นกับความเอียง จึงเท่าเดิม ตอบ D`
     },
     {
       id: "q30",
@@ -1081,7 +1172,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$3 \\text{ เท่า}$" },
         { key: "D", text: "$9 \\text{ เท่า}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$f\\propto\\dfrac{1}{\\sqrt{L}}$: $L_A=9L_B\\Rightarrow f_A=\\dfrac{1}{\\sqrt9}f_B=\\dfrac{1}{3}f_B$ จึงตอบ B`
     }
   ]
 },
@@ -1103,7 +1195,8 @@ window.COURSE_DATA = {
         { key: "C", text: "ความเร่งคงที่ตลอดการเคลื่อนที่" },
         { key: "D", text: "พลังงานจลน์คงที่ตลอดการเคลื่อนที่" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `SHM: ความเร่งแปรผันตรงกับการกระจัดและทิศตรงข้าม จึงตอบ B`
     },
     {
       id: "q2",
@@ -1114,7 +1207,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$4\\pi \\text{ cm}$" },
         { key: "D", text: "$20\\pi \\text{ cm}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `แอมพลิจูดคือตัวเลขหน้า $\\sin$ คือ $5\\text{ cm}$ จึงตอบ B`
     },
     {
       id: "q3",
@@ -1125,7 +1219,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$4\\pi \\text{ rad/s}$" },
         { key: "D", text: "$20\\pi \\text{ rad/s}$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$\\omega$ คือพจน์หน้า $t$ ในวงเล็บ $=4\\pi\\text{ rad/s}$ จึงตอบ C`
     },
     {
       id: "q4",
@@ -1136,7 +1231,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$5 \\text{ cm/s}$" },
         { key: "D", text: "$4\\pi \\text{ cm/s}$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$v_{max}=\\omega A=4\\pi\\times5=20\\pi\\text{ cm/s}$ จึงตอบ A`
     },
     {
       id: "q5",
@@ -1147,7 +1243,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$80\\pi^2 \\text{ cm/s}^2$" },
         { key: "D", text: "$100\\pi^2 \\text{ cm/s}^2$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$a_{max}=\\omega^2 A=(4\\pi)^2\\times5=80\\pi^2\\text{ cm/s}^2$ จึงตอบ C`
     },
     {
       id: "q6",
@@ -1158,7 +1255,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\pi \\text{ เรเดียน}$" },
         { key: "D", text: "$2\\pi \\text{ เรเดียน}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `ความเร็วนำหน้าการกระจัด $\\dfrac{\\pi}{2}$ จึงตอบ B`
     },
     {
       id: "q7",
@@ -1169,7 +1267,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\pi \\text{ เรเดียน}$" },
         { key: "D", text: "$2\\pi \\text{ เรเดียน}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `ความเร่งนำหน้าความเร็ว $\\dfrac{\\pi}{2}$ จึงตอบ B`
     },
     {
       id: "q8",
@@ -1180,7 +1279,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\frac{3\\pi}{2} \\text{ เรเดียน}$" },
         { key: "D", text: "$2\\pi \\text{ เรเดียน}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `ความเร่งกับการกระจัดต่างเฟส $\\pi$ (ตรงข้าม) จึงตอบ B`
     },
     {
       id: "q9",
@@ -1191,7 +1291,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$100 \\text{ rad/s}$" },
         { key: "D", text: "$400 \\text{ rad/s}$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$\\omega=\\sqrt{\\dfrac{k}{m}}=\\sqrt{\\dfrac{200}{2}}=\\sqrt{100}=10\\text{ rad/s}$ จึงตอบ A`
     },
     {
       id: "q10",
@@ -1202,7 +1303,8 @@ window.COURSE_DATA = {
         { key: "C", text: "ลดมวลลงครึ่งหนึ่ง" },
         { key: "D", text: "ลดค่านิจสปริงลง $2$ เท่า" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$T\\propto\\sqrt{m}$: อยากได้ $T$ เพิ่ม 2 เท่า ต้องเพิ่มมวล $2^2=4$ เท่า จึงตอบ B`
     },
     {
       id: "q11",
@@ -1213,7 +1315,8 @@ window.COURSE_DATA = {
         { key: "C", text: "เท่าเดิม" },
         { key: "D", text: "หยุดแกว่ง" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$g$ น้อยลง, $T=2\\pi\\sqrt{L/g}$ เพิ่มขึ้น จึงตอบ A`
     },
     {
       id: "q12",
@@ -1224,7 +1327,8 @@ window.COURSE_DATA = {
         { key: "C", text: "เท่าเดิม" },
         { key: "D", text: "เพิ่มเป็น $2$ เท่า" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `คาบลูกตุ้มไม่ขึ้นกับมวล จึงเท่าเดิม ตอบ C`
     },
     {
       id: "q13",
@@ -1235,7 +1339,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$2.0 \\text{ s}$" },
         { key: "D", text: "$4.0 \\text{ s}$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$T=2\\pi\\sqrt{\\dfrac{L}{g}}=2\\pi\\sqrt{\\dfrac{1}{\\pi^2}}=2\\pi\\times\\dfrac{1}{\\pi}=2\\text{ s}$ จึงตอบ C`
     },
     {
       id: "q14",
@@ -1246,7 +1351,8 @@ window.COURSE_DATA = {
         { key: "C", text: "พลังงานศักย์ยืดหยุ่นมีค่าสูงสุด" },
         { key: "D", text: "อัตราเร็วมีค่าสูงสุด" }
       ],
-      answer: "D"
+      answer: "D",
+      explanation: `ที่จุดสมดุล อัตราเร็วสูงสุด จึงตอบ D`
     },
     {
       id: "q15",
@@ -1257,7 +1363,8 @@ window.COURSE_DATA = {
         { key: "C", text: "พลังงานจลน์มีค่าเป็นศูนย์" },
         { key: "D", text: "พลังงานกลทั้งหมดมีค่าเป็นศูนย์" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `ที่แอมพลิจูด วัตถุหยุดชั่วขณะ พลังงานจลน์ $=0$ จึงตอบ C`
     },
     {
       id: "q16",
@@ -1268,7 +1375,8 @@ window.COURSE_DATA = {
         { key: "C", text: "คาบการสั่น ($T$)" },
         { key: "D", text: "กำลังสองของความเร็ว ($v^2$)" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `พลังงานกลรวม $E=\\frac{1}{2}kA^2$ แปรผันกับ $A^2$ จึงตอบ B`
     },
     {
       id: "q17",
@@ -1279,7 +1387,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$20 \\text{ J}$" },
         { key: "D", text: "$40 \\text{ J}$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `ที่จุดสมดุลพลังงานทั้งหมดเป็นพลังงานจลน์ $=20\\text{ J}$ จึงตอบ C`
     },
     {
       id: "q18",
@@ -1290,7 +1399,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$x = \\frac{A}{4}$" },
         { key: "D", text: "$x = A$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `KE=PE เมื่อ $x=\\dfrac{A}{\\sqrt2}$ จึงตอบ B`
     },
     {
       id: "q19",
@@ -1301,7 +1411,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$2k$" },
         { key: "D", text: "$4k$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `ตัดสปริงครึ่งหนึ่ง ค่านิจเพิ่มเป็น $2k$ จึงตอบ C`
     },
     {
       id: "q20",
@@ -1312,7 +1423,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$450 \\text{ N/m}$" },
         { key: "D", text: "$900 \\text{ N/m}$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `อนุกรม: $\\dfrac{1}{k}=\\dfrac{1}{300}+\\dfrac{1}{600}=\\dfrac{3}{600}\\Rightarrow k=200\\text{ N/m}$ จึงตอบ A`
     },
     {
       id: "q21",
@@ -1323,7 +1435,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$450 \\text{ N/m}$" },
         { key: "D", text: "$900 \\text{ N/m}$" }
       ],
-      answer: "D"
+      answer: "D",
+      explanation: `ขนาน: $k=300+600=900\\text{ N/m}$ จึงตอบ D`
     },
     {
       id: "q22",
@@ -1334,7 +1447,8 @@ window.COURSE_DATA = {
         { key: "C", text: "คาบการแกว่งเท่าเดิม" },
         { key: "D", text: "แกว่งไม่ได้" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `ลิฟต์เร่งขึ้น $g$ ประสิทธิผลเพิ่ม, $T=2\\pi\\sqrt{L/g}$ ลดลง จึงตอบ B`
     },
     {
       id: "q23",
@@ -1345,7 +1459,8 @@ window.COURSE_DATA = {
         { key: "C", text: "เส้นโค้งพาราโบลาหงาย" },
         { key: "D", text: "เส้นโค้งพาราโบลาคว่ำ" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$a=-\\omega^2 x$ เป็นเส้นตรงผ่านจุดกำเนิด ความชันลบ จึงตอบ B`
     },
     {
       id: "q24",
@@ -1356,7 +1471,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$2.0 \\text{ s}$" },
         { key: "D", text: "$4.0 \\text{ s}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `จากแอมพลิจูดไปสมดุลใช้ $\\dfrac{T}{4}=\\dfrac{4}{4}=1\\text{ s}$ จึงตอบ B`
     },
     {
       id: "q25",
@@ -1367,7 +1483,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$10\\pi$" },
         { key: "D", text: "$20\\pi$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$V_{max}$ คือค่าสัมประสิทธิ์หน้า $\\cos$ คือ $10\\pi$ จึงตอบ C`
     },
     {
       id: "q26",
@@ -1378,7 +1495,8 @@ window.COURSE_DATA = {
         { key: "C", text: "การเคลื่อนที่แบบโพรเจกไทล์" },
         { key: "D", text: "การเคลื่อนที่แบบคาบ (Periodic Motion) ชนิดหนึ่ง" }
       ],
-      answer: "D"
+      answer: "D",
+      explanation: `SHM เป็นการเคลื่อนที่แบบคาบ (Periodic Motion) ชนิดหนึ่ง จึงตอบ D`
     },
     {
       id: "q27",
@@ -1389,7 +1507,8 @@ window.COURSE_DATA = {
         { key: "C", text: "เพิ่มขึ้น $2$ เท่า" },
         { key: "D", text: "เพิ่มขึ้น $4$ เท่า" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$V_{max}=\\omega A$ แปรผันตรงกับแอมพลิจูด: $A$ เพิ่ม 2 เท่า $V_{max}$ เพิ่ม 2 เท่า จึงตอบ C`
     },
     {
       id: "q28",
@@ -1400,7 +1519,8 @@ window.COURSE_DATA = {
         { key: "C", text: "ลดลง เพราะความเร่งโน้มถ่วงลดลง" },
         { key: "D", text: "ระบบไม่สามารถสั่นบนดวงจันทร์ได้" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `คาบมวล-สปริงขึ้นกับ $m,k$ เท่านั้น ไม่ขึ้นกับ $g$ จึงเท่าเดิม ตอบ A`
     },
     {
       id: "q29",
@@ -1411,7 +1531,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$3 \\text{ s}$" },
         { key: "D", text: "$4 \\text{ s}$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `จากสมดุลไป $\\frac{A}{2}$: $t=\\dfrac{T}{12}=\\dfrac{12}{12}=1\\text{ s}$ จึงตอบ A`
     },
     {
       id: "q30",
@@ -1422,7 +1543,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$3 \\text{ s}$" },
         { key: "D", text: "$4 \\text{ s}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `จาก $x=A$ ไป $\\frac{A}{2}$: $\\cos(\\omega t)=\\frac{1}{2}\\Rightarrow\\omega t=\\dfrac{\\pi}{3}\\Rightarrow t=\\dfrac{T}{6}=\\dfrac{12}{6}=2\\text{ s}$ จึงตอบ B`
     }
   ]
 }

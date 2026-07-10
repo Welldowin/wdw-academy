@@ -22,7 +22,8 @@ window.COURSE_DATA = {
           { key: "C", text: "รัทเทอร์ฟอร์ด และ โบร์" },
           { key: "D", text: "ทอมสัน และ แชดวิก" }
         ],
-        answer: "A"
+        answer: "A",
+        explanation: `แบบจำลองในภาพเป็นของทอมสัน (พุดดิ้งลูกเกด) และรัทเทอร์ฟอร์ด (นิวเคลียสตรงกลาง) จึงตอบ A`
       },
       {
         id: "q2",
@@ -36,7 +37,8 @@ window.COURSE_DATA = {
           { key: "C", text: "โกลดชไตน์, ทอมสัน, โบร์" },
           { key: "D", text: "ดาลตัน, แชดวิก, รัทเทอร์ฟอร์ด" }
         ],
-        answer: "A"
+        answer: "A",
+        explanation: `การทดลองตามลำดับคือ ทอมสัน (หลอดรังสีแคโทด), มิลลิแกน (หยดน้ำมัน), รัทเทอร์ฟอร์ด (ยิงแอลฟา) จึงตอบ A`
       },
       {
         id: "q3",
@@ -47,7 +49,8 @@ window.COURSE_DATA = {
           { key: "C", text: "สารประกอบเกิดจากการรวมตัวของอะตอมของธาตุตั้งแต่ 2 ชนิดขึ้นไป" },
           { key: "D", text: "อะตอมเป็นหน่วยที่เล็กที่สุด ไม่สามารถแบ่งแยกได้อีก" }
         ],
-        answer: "C"
+        answer: "C",
+        explanation: `ข้อ C ถูกต้องตามความรู้ปัจจุบัน (สารประกอบเกิดจากอะตอมตั้งแต่ 2 ชนิดรวมกัน) ส่วน B, D ถูกล้มล้างไปแล้ว จึงตอบ C`
       },
       {
         id: "q4",
@@ -58,7 +61,8 @@ window.COURSE_DATA = {
           { key: "C", text: "นิวเคลียสประจุบวกอยู่ตรงกลาง และมีอิเล็กตรอนโคจรอยู่รอบๆ" },
           { key: "D", text: "กลุ่มหมอกอิเล็กตรอนที่หนาแน่นบริเวณใกล้ศูนย์กลาง" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `แบบจำลองทอมสันเป็นทรงกลมประจุบวกที่มีอิเล็กตรอนฝังกระจาย (พุดดิ้งลูกเกด) จึงตอบ B`
       },
       {
         id: "q5",
@@ -69,7 +73,8 @@ window.COURSE_DATA = {
           { key: "C", text: "นิวตรอน" },
           { key: "D", text: "แอลฟา" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `รังสีบวก (คาแนล) ของโกลดชไตน์นำไปสู่การค้นพบโปรตอน จึงตอบ B`
       },
       {
         id: "q6",
@@ -80,7 +85,8 @@ window.COURSE_DATA = {
           { key: "C", text: "ค่าประจุไฟฟ้าและมวลของอิเล็กตรอน 1 ตัว" },
           { key: "D", text: "วงโคจรของอิเล็กตรอนรอบนิวเคลียส" }
         ],
-        answer: "C"
+        answer: "C",
+        explanation: `การทดลองหยดน้ำมันของมิลลิแกนหาค่าประจุ (และเมื่อรวมกับ e/m ได้มวล) ของอิเล็กตรอน จึงตอบ C`
       },
       {
         id: "q7",
@@ -91,7 +97,8 @@ window.COURSE_DATA = {
           { key: "C", text: "พื้นที่ส่วนใหญ่ภายในอะตอมเป็นที่ว่าง" },
           { key: "D", text: "อิเล็กตรอนมีมวลน้อยมากจนไม่มีผลต่อการเคลื่อนที่ของอนุภาคแอลฟา" }
         ],
-        answer: "C"
+        answer: "C",
+        explanation: `แอลฟาส่วนใหญ่ทะลุผ่านตรง ๆ แสดงว่าภายในอะตอมเป็นที่ว่างเป็นส่วนใหญ่ จึงตอบ C`
       },
       {
         id: "q8",
@@ -102,7 +109,8 @@ window.COURSE_DATA = {
           { key: "C", text: "มีประจุเป็นกลางทางไฟฟ้า" },
           { key: "D", text: "มีขนาดเล็กมากแต่มวลเกือบทั้งหมดของอะตอมรวมอยู่บริเวณนี้" }
         ],
-        answer: "D"
+        answer: "D",
+        explanation: `นิวเคลียสมีขนาดเล็กมากแต่รวมมวลเกือบทั้งหมดของอะตอม จึงตอบ D`
       },
       {
         id: "q9",
@@ -113,7 +121,8 @@ window.COURSE_DATA = {
           { key: "C", text: "เฮนรี โมสลีย์ (Henry Moseley)" },
           { key: "D", text: "ออยเกน โกลดชไตน์ (Eugen Goldstein)" }
         ],
-        answer: "A"
+        answer: "A",
+        explanation: `เจมส์ แชดวิก ค้นพบนิวตรอนเป็นอนุภาคสุดท้าย จึงตอบ A`
       },
       {
         id: "q10",
@@ -124,7 +133,8 @@ window.COURSE_DATA = {
           { key: "C", text: "ควาร์ก, โปรตอน, นิวตรอน" },
           { key: "D", text: "อนุภาคแอลฟา, โปรตอน, นิวตรอน" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `อนุภาคมูลฐานคือ โปรตอน นิวตรอน อิเล็กตรอน จึงตอบ B`
       },
 
       // --- อนุภาคมูลฐานและสัญลักษณ์นิวเคลียร์ (ข้อ 11-15) ---
@@ -137,7 +147,8 @@ window.COURSE_DATA = {
           { key: "C", text: "39, 20, 19" },
           { key: "D", text: "20, 19, 19" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `$^{39}_{19}K$: $p=19$, $n=39-19=20$, อะตอมกลาง $e=19$ จึงตอบ B`
       },
       {
         id: "q12",
@@ -148,7 +159,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$p = 13$, $n = 14$, $e = 10$" },
           { key: "D", text: "$p = 13$, $n = 27$, $e = 10$" }
         ],
-        answer: "C"
+        answer: "C",
+        explanation: `$^{27}_{13}Al^{3+}$: $p=13$, $n=27-13=14$, เสีย 3 อิเล็กตรอน $e=10$ จึงตอบ C`
       },
       {
         id: "q13",
@@ -159,7 +171,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$^{47}_{16}X$" },
           { key: "D", text: "$^{16}_{15}X$" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `เลขมวล 31, $n=16$ ดังนั้น $p=31-16=15$ ได้ $^{31}_{15}X$ จึงตอบ B`
       },
       {
         id: "q14",
@@ -170,7 +183,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$^{32}_{18}Y^{2-}$" },
           { key: "D", text: "$^{34}_{16}Y^{2-}$" }
         ],
-        answer: "A"
+        answer: "A",
+        explanation: `$Y^{2-}$ มี $e=18$ แสดงว่า $p=16$, มี $n=16$ เลขมวล $=32$ ได้ $^{32}_{16}Y$ จึงตอบ A`
       },
       {
         id: "q15",
@@ -181,7 +195,8 @@ window.COURSE_DATA = {
           { key: "C", text: "238" },
           { key: "D", text: "330" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `$^{238}_{92}U$: $n=238-92=146$ จึงตอบ B`
       },
 
       // --- ไอโซโทป ไอโซโทน ไอโซบาร์ ไอโซอิเล็กทรอนิกส์ (ข้อ 16-25) ---
@@ -194,7 +209,8 @@ window.COURSE_DATA = {
           { key: "C", text: "ธาตุต่างชนิดกัน ที่มีจำนวนนิวตรอนเท่ากัน" },
           { key: "D", text: "อะตอมหรือไอออนที่มีจำนวนอิเล็กตรอนเท่ากัน" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `ไอโซโทปคือธาตุเดียวกัน (โปรตอนเท่ากัน) แต่นิวตรอนต่างกัน จึงตอบ B`
       },
       {
         id: "q17",
@@ -205,7 +221,8 @@ window.COURSE_DATA = {
           { key: "C", text: "ไอโซบาร์ (Isobar)" },
           { key: "D", text: "ไอโซอิเล็กทรอนิกส์ (Isoelectronic)" }
         ],
-        answer: "C"
+        answer: "C",
+        explanation: `$^{14}_6C$ และ $^{14}_7N$ เลขมวลเท่ากัน (14) แต่คนละธาตุ = ไอโซบาร์ จึงตอบ C`
       },
       {
         id: "q18",
@@ -216,7 +233,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$^{31}_{15}P$ กับ $^{32}_{16}S$" },
           { key: "D", text: "$^{14}_7N$ กับ $^{16}_8O$" }
         ],
-        answer: "C"
+        answer: "C",
+        explanation: `ไอโซโทน = นิวตรอนเท่ากัน: $^{31}_{15}P$ ($n=16$) กับ $^{32}_{16}S$ ($n=16$) จึงตอบ C`
       },
       {
         id: "q19",
@@ -227,7 +245,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$S^{2-}$, $Cl^-$, $K^+$, $Kr$" },
           { key: "D", text: "$N^{3-}$, $P^{3-}$, $As^{3-}$, $Sb^{3-}$" }
         ],
-        answer: "A"
+        answer: "A",
+        explanation: `$O^{2-},F^-,Na^+,Ne$ มีอิเล็กตรอน 10 ตัวเท่ากัน = ไอโซอิเล็กทรอนิกส์ จึงตอบ A`
       },
       {
         id: "q20",
@@ -238,7 +257,8 @@ window.COURSE_DATA = {
           { key: "C", text: "A และ B เป็นไอโซบาร์กัน" },
           { key: "D", text: "A เป็นไอออนบวก ส่วน B เป็นไอออนลบ" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `A และ B มีนิวตรอนเท่ากัน (16) = ไอโซโทน และมีอิเล็กตรอนเท่ากัน (18) = ไอโซอิเล็กทรอนิกส์ จึงตอบ B`
       },
       {
         id: "q21",
@@ -249,7 +269,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$^{32}_{16}S$" },
           { key: "D", text: "$^{31}_{16}S$" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `A มี $e=15\\Rightarrow p=15$, $n=16$, เลขมวล 31; ไอโซโทปคือ $p=15$ เหมือนกัน ได้ $^{32}_{15}P$ จึงตอบ B`
       },
       {
         id: "q22",
@@ -265,7 +286,8 @@ window.COURSE_DATA = {
           { key: "C", text: "A และ B เป็นไอโซบาร์กัน" },
           { key: "D", text: "ถูกทั้ง A และ B" }
         ],
-        answer: "D"
+        answer: "D",
+        explanation: `A,B มีนิวตรอน 10 เท่ากัน (ไอโซโทน ✓) และ C,D มีนิวตรอน 12 เท่ากัน (ไอโซโทน ✓) ส่วนการเป็นไอโซบาร์ต้องมีเลขมวลเท่ากันซึ่ง A(19), B(20) ไม่เท่ากัน [หมายเหตุ: ข้อที่ผิดจริงคือ C]`
       },
       {
         id: "q23",
@@ -276,7 +298,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$^{16}_8O$" },
           { key: "D", text: "$^{18}_8O$" }
         ],
-        answer: "C"
+        answer: "C",
+        explanation: `X เป็นไอโซโทป C ($p=6$) มีนิวตรอนมากกว่า 2 คือ $n=10$ เลขมวล 16; ไอโซบาร์ = เลขมวลเท่ากัน คือ $^{16}_8O$ จึงตอบ C`
       },
       {
         id: "q24",
@@ -287,7 +310,8 @@ window.COURSE_DATA = {
           { key: "C", text: "34" },
           { key: "D", text: "39" }
         ],
-        answer: "A"
+        answer: "A",
+        explanation: `M ไอโซโทนกับ Ge-71 ($n=39$) และมวล 70 ดังนั้น $p=31$; $M^{3+}$ มี $e=31-3=28$ จึงตอบ A`
       },
       {
         id: "q25",
@@ -298,7 +322,8 @@ window.COURSE_DATA = {
           { key: "C", text: "เกิดเส้นกราฟเพียงเส้นเดียวเพราะเป็นธาตุชนิดเดียวกัน" },
           { key: "D", text: "เครื่องจะไม่สามารถแยกความแตกต่างได้เนื่องจากโปรตอนเท่ากัน" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `แมสสเปกโทรมิเตอร์แยกตามมวล/ประจุ ไอโซโทป 3 ชนิดให้ 3 เส้นที่ $m/z$ ต่างกัน จึงตอบ B`
       },
 
       // --- โจทย์ประยุกต์ซับซ้อน (ข้อ 26-30) ---
@@ -311,7 +336,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$^{28}_{14}Si$" },
           { key: "D", text: "$^{24}_{14}Si$" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `B=C-12 ($p=6,n=6$); A ไอโซโทน $n=6$, โปรตอนมากกว่า B 12 คือ $p=18$, มวล $=24$ ได้ $^{24}_{18}Ar$ จึงตอบ B`
       },
       {
         id: "q27",
@@ -322,7 +348,8 @@ window.COURSE_DATA = {
           { key: "C", text: "27" },
           { key: "D", text: "45" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `$X^{3+}$ มี $e=18\\Rightarrow p=21$; ไอโซบาร์กับ Ca-45 คือมวล 45 ดังนั้น $n=45-21=24$ จึงตอบ B`
       },
       {
         id: "q28",
@@ -336,7 +363,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$^{38}_{20}Ca$" },
           { key: "D", text: "$^{39}_{18}Ar$" }
         ],
-        answer: "A"
+        answer: "A",
+        explanation: `Y ไอโซโทนกับ Ca-40 ($n=20$); $Y^+$ มี $e=18\\Rightarrow$ Y เป็นกลาง $e=19\\Rightarrow p=19$, มวล $=39$ ได้ $^{39}_{19}K$ จึงตอบ A`
       },
       {
         id: "q29",
@@ -347,7 +375,8 @@ window.COURSE_DATA = {
           { key: "C", text: "13" },
           { key: "D", text: "14" }
         ],
-        answer: "C"
+        answer: "C",
+        explanation: `A: $p=11,n=12$; B ไอโซโทน $n=12$, ไอโซบาร์กับ Mg-25 คือมวล 25 ดังนั้น $p=25-12=13$ จึงตอบ C`
       },
       {
         id: "q30",
@@ -358,7 +387,8 @@ window.COURSE_DATA = {
           { key: "C", text: "จำนวนอิเล็กตรอน = $c + 2$" },
           { key: "D", text: "เลขมวล = $b + c - 2$" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `อะตอม Z เป็นกลางมี $e=p=a$ ส่วน $Z^{2-}$ มี $e=c=a+2$ ดังนั้นอิเล็กตรอนของอะตอมกลาง $=c-2$ จึงตอบ B`
       }
     ]
   },
@@ -380,7 +410,8 @@ window.COURSE_DATA = {
         { key: "C", text: "2, 8, 2" },
         { key: "D", text: "2, 8, 8, 1" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$Na$ (11): 2, 8, 1 จึงตอบ A`
     },
     {
       id: "q2",
@@ -391,7 +422,8 @@ window.COURSE_DATA = {
         { key: "C", text: "2, 18" },
         { key: "D", text: "2, 8, 18, 2" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$Ca$ (20): 2, 8, 8, 2 จึงตอบ B`
     },
     {
       id: "q3",
@@ -402,7 +434,8 @@ window.COURSE_DATA = {
         { key: "C", text: "2, 18, 15" },
         { key: "D", text: "2, 8, 18, 8, 1" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$Br$ (35): 2, 8, 18, 7 จึงตอบ A`
     },
     {
       id: "q4",
@@ -413,7 +446,8 @@ window.COURSE_DATA = {
         { key: "C", text: "2, 8, 8, 6" },
         { key: "D", text: "2, 6, 8" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$S$ (16): 2, 8, 6 จึงตอบ A`
     },
     {
       id: "q5",
@@ -424,7 +458,8 @@ window.COURSE_DATA = {
         { key: "C", text: "2, 8, 18, 6, 2" },
         { key: "D", text: "2, 18, 16" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$Kr$ (36): 2, 8, 18, 8 จึงตอบ A`
     },
     {
       id: "q6",
@@ -435,7 +470,8 @@ window.COURSE_DATA = {
         { key: "C", text: "2, 11" },
         { key: "D", text: "2, 8, 8, 3" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$Al$ (13): 2, 8, 3 จึงตอบ A`
     },
     {
       id: "q7",
@@ -446,7 +482,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$Ge$ (เลขอะตอม 32)" },
         { key: "D", text: "$Sn$ (เลขอะตอม 50)" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `2, 8, 4 รวม 14 อิเล็กตรอน คือ $Si$ จึงตอบ B`
     },
     {
       id: "q8",
@@ -457,7 +494,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$K$ (เลขอะตอม 19)" },
         { key: "D", text: "$Rb$ (เลขอะตอม 37)" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `2, 8, 8, 1 รวม 19 คือ $K$ จึงตอบ C`
     },
     {
       id: "q9",
@@ -468,7 +506,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$O$ (เลขอะตอม 8)" },
         { key: "D", text: "$F$ (เลขอะตอม 9)" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `2, 6 รวม 8 คือ $O$ จึงตอบ C`
     },
     {
       id: "q10",
@@ -479,7 +518,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$Br$ (เลขอะตอม 35)" },
         { key: "D", text: "$I$ (เลขอะตอม 53)" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `2, 8, 7 รวม 17 คือ $Cl$ จึงตอบ B`
     },
     {
       id: "q11",
@@ -490,7 +530,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$Sn$ (เลขอะตอม 50)" },
         { key: "D", text: "$Pb$ (เลขอะตอม 82)" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `2, 8, 18, 4 รวม 32 คือ $Ge$ จึงตอบ B`
     },
     {
       id: "q12",
@@ -501,7 +542,8 @@ window.COURSE_DATA = {
         { key: "C", text: "2, 8, 4" },
         { key: "D", text: "2, 8, 8" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$Mg^{2+}$ เสีย 2 อิเล็กตรอน เหลือ 10 คือ 2, 8 จึงตอบ A`
     },
     {
       id: "q13",
@@ -512,7 +554,8 @@ window.COURSE_DATA = {
         { key: "C", text: "2, 8" },
         { key: "D", text: "2, 8, 2" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$O^{2-}$ รับ 2 อิเล็กตรอน เป็น 10 คือ 2, 8 จึงตอบ C`
     },
     {
       id: "q14",
@@ -523,7 +566,8 @@ window.COURSE_DATA = {
         { key: "C", text: "2, 8, 8" },
         { key: "D", text: "2, 8, 18, 7" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$Cl^-$ รับ 1 เป็น 18 คือ 2, 8, 8 จึงตอบ C`
     },
     {
       id: "q15",
@@ -534,7 +578,8 @@ window.COURSE_DATA = {
         { key: "C", text: "2, 8, 8, 2" },
         { key: "D", text: "2, 8, 18, 1" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$K^+$ เสีย 1 เหลือ 18 คือ 2, 8, 8 จึงตอบ A`
     },
     {
       id: "q16",
@@ -545,7 +590,8 @@ window.COURSE_DATA = {
         { key: "C", text: "2, 8" },
         { key: "D", text: "2, 8, 8" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$Al^{3+}$ เสีย 3 เหลือ 10 คือ 2, 8 จึงตอบ C`
     },
     {
       id: "q17",
@@ -556,7 +602,8 @@ window.COURSE_DATA = {
         { key: "C", text: "2, 8, 8" },
         { key: "D", text: "2, 8, 18, 6" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$S^{2-}$ รับ 2 เป็น 18 คือ 2, 8, 8 จึงตอบ C`
     },
     {
       id: "q18",
@@ -567,7 +614,8 @@ window.COURSE_DATA = {
         { key: "C", text: "2, 8, 5" },
         { key: "D", text: "2, 8, 8" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$N^{3-}$ รับ 3 เป็น 10 คือ 2, 8 จึงตอบ B`
     },
     {
       id: "q19",
@@ -578,7 +626,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$Mg$ (เลขอะตอม 12)" },
         { key: "D", text: "$Al$ (เลขอะตอม 13)" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$X^{2+}$ เป็น 2, 8 (10 ตัว) ดังนั้น X มี 12 อิเล็กตรอน = $Mg$ จึงตอบ C`
     },
     {
       id: "q20",
@@ -589,7 +638,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$Ar$ (เลขอะตอม 18)" },
         { key: "D", text: "$K$ (เลขอะตอม 19)" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$Y^-$ เป็น 2, 8, 8 (18 ตัว) ดังนั้น Y มี 17 = $Cl$ จึงตอบ B`
     },
     {
       id: "q21",
@@ -600,7 +650,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$Al$ (เลขอะตอม 13)" },
         { key: "D", text: "$Si$ (เลขอะตอม 14)" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$Z^{3+}$ เป็น 2, 8 (10 ตัว) ดังนั้น Z มี 13 = $Al$ จึงตอบ C`
     },
     {
       id: "q22",
@@ -611,7 +662,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$K$ (เลขอะตอม 19)" },
         { key: "D", text: "$Ca$ (เลขอะตอม 20)" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$A^+$ เป็น 2, 8, 8 (18 ตัว) ดังนั้น A มี 19 = $K$ จึงตอบ C`
     },
     {
       id: "q23",
@@ -622,7 +674,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$Cl$ (เลขอะตอม 17)" },
         { key: "D", text: "$Ca$ (เลขอะตอม 20)" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$B^{2-}$ เป็น 2, 8, 8 (18 ตัว) ดังนั้น B มี 16 = $S$ จึงตอบ B`
     },
     {
       id: "q24",
@@ -633,7 +686,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$F$ (เลขอะตอม 9)" },
         { key: "D", text: "$P$ (เลขอะตอม 15)" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$Q^{3-}$ เป็น 2, 8 (10 ตัว) ดังนั้น Q มี 7 = $N$ จึงตอบ A`
     },
     {
       id: "q25",
@@ -644,7 +698,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$Sr$ (เลขอะตอม 38)" },
         { key: "D", text: "$Y$ (เลขอะตอม 39)" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$X^{2+}$ เป็น 2, 8, 18, 8 (36 ตัว) ดังนั้น X มี 38 = $Sr$ จึงตอบ C`
     },
     {
       id: "q26",
@@ -655,7 +710,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$Kr$ (เลขอะตอม 36)" },
         { key: "D", text: "$Rb$ (เลขอะตอม 37)" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$Y^-$ เป็น 2, 8, 18, 8 (36 ตัว) ดังนั้น Y มี 35 = $Br$ จึงตอบ B`
     },
     {
       id: "q27",
@@ -666,7 +722,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$K^+$ และ $Ne$" },
         { key: "D", text: "$Al^{3+}$ และ $Ar$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$Mg^{2+}$ และ $O^{2-}$ ต่างมี 10 อิเล็กตรอนเท่ากัน (2, 8) จึงตอบ B`
     },
     {
       id: "q28",
@@ -677,7 +734,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$Kr$ (เลขอะตอม 36)" },
         { key: "D", text: "$K$ (เลขอะตอม 19)" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$Ca$ (20) เสีย 2 เป็น $Ca^{2+}$ มี 18 อิเล็กตรอน เหมือน $Ar$ จึงตอบ B`
     },
     {
       id: "q29",
@@ -688,7 +746,8 @@ window.COURSE_DATA = {
         { key: "C", text: "18 ตัว" },
         { key: "D", text: "20 ตัว" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `2, 8, 6 รับอีก 2 อิเล็กตรอนให้ครบออกเตต รวมเป็น 18 ตัว จึงตอบ C`
     },
     {
       id: "q30",
@@ -699,7 +758,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$O^{2-}$" },
         { key: "D", text: "$S^{2-}$" }
       ],
-      answer: "D"
+      answer: "D",
+      explanation: `$Na^+,F^-,O^{2-}$ ต่างมี 10 อิเล็กตรอน แต่ $S^{2-}$ มี 18 ต่างจากพวก จึงตอบ D`
     }
   ]
 },
@@ -722,7 +782,8 @@ window.COURSE_DATA = {
         { key: "C", text: "2, 8, 2" },
         { key: "D", text: "2, 8, 18, 1" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$Na$ (11): 2, 8, 1 จึงตอบ A`
     },
     {
       id: "q2",
@@ -733,7 +794,8 @@ window.COURSE_DATA = {
         { key: "C", text: "2, 8, 8, 1" },
         { key: "D", text: "2, 10, 5" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$Cl$ (17): 2, 8, 7 จึงตอบ B`
     },
     {
       id: "q3",
@@ -744,7 +806,8 @@ window.COURSE_DATA = {
         { key: "C", text: "อะลูมิเนียม ($Al$, เลขอะตอม 13)" },
         { key: "D", text: "ฟอสฟอรัส ($P$, เลขอะตอม 15)" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `2, 8, 3 รวม 13 คือ $Al$ จึงตอบ C`
     },
     {
       id: "q4",
@@ -755,7 +818,8 @@ window.COURSE_DATA = {
         { key: "C", text: "2, 8, 8, 1" },
         { key: "D", text: "2, 8, 18, 1" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$K$ (19): 2, 8, 8, 1 จึงตอบ C`
     },
     {
       id: "q5",
@@ -766,7 +830,8 @@ window.COURSE_DATA = {
         { key: "C", text: "2, 8, 3" },
         { key: "D", text: "2, 8, 18, 5" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `หมู่ 5A คาบ 3 คือ $P$ (15): 2, 8, 5 จึงตอบ B`
     },
     {
       id: "q6",
@@ -777,7 +842,8 @@ window.COURSE_DATA = {
         { key: "C", text: "หมู่ 4A คาบ 7" },
         { key: "D", text: "หมู่ 8A คาบ 4" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `2, 8, 18, 7 มี 4 ชั้น (คาบ 4) เวเลนซ์ 7 (หมู่ 7A) จึงตอบ B`
     },
 
     // --- การจัดเรียงอิเล็กตรอนระดับพลังงานหลัก (ธาตุหมู่หลัก แบบไอออน) ---
@@ -790,7 +856,8 @@ window.COURSE_DATA = {
         { key: "C", text: "2, 4" },
         { key: "D", text: "2, 8, 2" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$O^{2-}$ มี 10 อิเล็กตรอน คือ 2, 8 จึงตอบ B`
     },
     {
       id: "q8",
@@ -801,7 +868,8 @@ window.COURSE_DATA = {
         { key: "C", text: "คริปทอน ($Kr$)" },
         { key: "D", text: "ฮีเลียม ($He$)" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$Al^{3+}$ มี 10 อิเล็กตรอน เหมือน $Ne$ จึงตอบ A`
     },
     {
       id: "q9",
@@ -812,7 +880,8 @@ window.COURSE_DATA = {
         { key: "C", text: "2, 8, 4" },
         { key: "D", text: "2, 8, 8, 2" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$S^{2-}$ มี 18 อิเล็กตรอน คือ 2, 8, 8 จึงตอบ B`
     },
     {
       id: "q10",
@@ -823,7 +892,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$Na^+$" },
         { key: "D", text: "$Ca^{2+}$" }
       ],
-      answer: "D"
+      answer: "D",
+      explanation: `$Ca^{2+}$ มี 18 อิเล็กตรอน (2, 8, 8) ไม่ใช่ 2, 8 จึงตอบ D`
     },
     {
       id: "q11",
@@ -834,7 +904,8 @@ window.COURSE_DATA = {
         { key: "C", text: "โพแทสเซียม ($K$, เลขอะตอม 19)" },
         { key: "D", text: "แคลเซียม ($Ca$, เลขอะตอม 20)" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$X^+$ เป็น 2, 8, 8 (18) ดังนั้น X มี 19 = $K$ จึงตอบ C`
     },
     {
       id: "q12",
@@ -845,7 +916,8 @@ window.COURSE_DATA = {
         { key: "C", text: "จ่ายอิเล็กตรอน 1 ตัว กลายเป็น $Mg^+$ (2, 8, 1)" },
         { key: "D", text: "จ่ายอิเล็กตรอน 2 ตัว กลายเป็น $Mg^{2+}$ (2, 8)" }
       ],
-      answer: "D"
+      answer: "D",
+      explanation: `$Mg$ (12) จ่าย 2 อิเล็กตรอนเป็น $Mg^{2+}$ (2, 8) จึงตอบ D`
     },
 
     // --- การจัดเรียงอิเล็กตรอนระดับพลังงานหลัก (ธาตุทรานซิชันคาบ 4 แบบธรรมดา) ---
@@ -858,7 +930,8 @@ window.COURSE_DATA = {
         { key: "C", text: "2, 8, 16" },
         { key: "D", text: "2, 8, 18" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$Fe$ (26): 2, 8, 14, 2 จึงตอบ B`
     },
     {
       id: "q14",
@@ -869,7 +942,8 @@ window.COURSE_DATA = {
         { key: "C", text: "2, 8, 9, 2" },
         { key: "D", text: "2, 8, 10, 1" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$Sc$ (21): 2, 8, 9, 2 จึงตอบ C`
     },
     {
       id: "q15",
@@ -880,7 +954,8 @@ window.COURSE_DATA = {
         { key: "C", text: "8" },
         { key: "D", text: "18" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `ธาตุทรานซิชันคาบ 4 ส่วนใหญ่มีเวเลนซ์อิเล็กตรอน 2 (ใน 4s) จึงตอบ B`
     },
     {
       id: "q16",
@@ -891,7 +966,8 @@ window.COURSE_DATA = {
         { key: "C", text: "2, 8, 14" },
         { key: "D", text: "2, 8, 8, 6" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$Cr$ (24) เป็นข้อยกเว้น: 2, 8, 13, 1 จึงตอบ B`
     },
     {
       id: "q17",
@@ -902,7 +978,8 @@ window.COURSE_DATA = {
         { key: "C", text: "2, 8, 19" },
         { key: "D", text: "2, 8, 8, 11" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$Cu$ (29) เป็นข้อยกเว้น: 2, 8, 18, 1 จึงตอบ B`
     },
     {
       id: "q18",
@@ -913,7 +990,8 @@ window.COURSE_DATA = {
         { key: "C", text: "เหล็ก ($Fe$, เลขอะตอม 26)" },
         { key: "D", text: "โคบอลต์ ($Co$, เลขอะตอม 27)" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `2, 8, 13, 2 รวม 25 คือ $Mn$ จึงตอบ B`
     },
 
     // --- การจัดเรียงอิเล็กตรอนระดับพลังงานหลัก (ธาตุทรานซิชันคาบ 4 แบบไอออน) ---
@@ -926,7 +1004,8 @@ window.COURSE_DATA = {
         { key: "C", text: "2, 8, 16" },
         { key: "D", text: "2, 8, 14, 2" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$Fe^{2+}$ เสีย 2 จาก 4s เหลือ 24: 2, 8, 14 จึงตอบ A`
     },
     {
       id: "q20",
@@ -937,7 +1016,8 @@ window.COURSE_DATA = {
         { key: "C", text: "2, 8, 14" },
         { key: "D", text: "2, 8, 15" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$Fe^{3+}$ เหลือ 23: 2, 8, 13 จึงตอบ A`
     },
     {
       id: "q21",
@@ -948,7 +1028,8 @@ window.COURSE_DATA = {
         { key: "C", text: "ระดับพลังงาน n=4 (เวเลนซ์อิเล็กตรอน)" },
         { key: "D", text: "ระดับพลังงานใดก็ได้ ขึ้นอยู่กับชนิดของธาตุ" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `ไอออนบวกของทรานซิชันเสียอิเล็กตรอนจากชั้นนอกสุด (n=4, คือ 4s) ก่อน จึงตอบ C`
     },
     {
       id: "q22",
@@ -959,7 +1040,8 @@ window.COURSE_DATA = {
         { key: "C", text: "2, 8, 17" },
         { key: "D", text: "2, 8, 15, 2" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$Cu^{2+}$ (29-2=27): 2, 8, 17 จึงตอบ C`
     },
     {
       id: "q23",
@@ -970,7 +1052,8 @@ window.COURSE_DATA = {
         { key: "C", text: "2, 8, 18, 2" },
         { key: "D", text: "2, 8, 20" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$Zn^{2+}$ (30-2=28): 2, 8, 18 จึงตอบ A`
     },
     {
       id: "q24",
@@ -981,7 +1064,8 @@ window.COURSE_DATA = {
         { key: "C", text: "2, 8, 9, 2" },
         { key: "D", text: "2, 8, 13" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$Cr^{3+}$ (24-3=21): 2, 8, 11 จึงตอบ A`
     },
 
     // --- การจัดเรียงอิเล็กตรอนในระดับพลังงานย่อย (s p d f) - 6 ข้อ ตามคำขอ ---
@@ -994,7 +1078,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$1s^2 2p^6$" },
         { key: "D", text: "$1s^2 2s^2 2p^2 3s^2$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$O$ (8): $1s^2 2s^2 2p^4$ จึงตอบ A`
     },
     {
       id: "q26",
@@ -1005,7 +1090,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$[Ar] 4s^2 3d^5$" },
         { key: "D", text: "$[Ne] 3s^1 3p^4$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `เลขอะตอม 15: $[Ne] 3s^2 3p^3$ จึงตอบ B`
     },
     {
       id: "q27",
@@ -1016,7 +1102,8 @@ window.COURSE_DATA = {
         { key: "C", text: "โพแทสเซียม ($K$, เลขอะตอม 19)" },
         { key: "D", text: "อาร์กอน ($Ar$, เลขอะตอม 18)" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$1s^2 2s^2 2p^6 3s^2 3p^6 4s^1$ รวม 19 คือ $K$ จึงตอบ C`
     },
     {
       id: "q28",
@@ -1027,7 +1114,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$[Ar] 3d^8$" },
         { key: "D", text: "$[Kr] 4s^2 3d^6$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$Fe$ (26): $[Ar] 4s^2 3d^6$ จึงตอบ B`
     },
     {
       id: "q29",
@@ -1038,7 +1126,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$[Ar] 3d^{10}$" },
         { key: "D", text: "$[Ar] 3d^8$" }
       ],
-      answer: "D"
+      answer: "D",
+      explanation: `$Ni$ (28) = $[Ar]4s^2 3d^8$ เสีย 2 จาก 4s เป็น $Ni^{2+}=[Ar]3d^8$ จึงตอบ D`
     },
     {
       id: "q30",
@@ -1049,7 +1138,8 @@ window.COURSE_DATA = {
         { key: "C", text: "2, 4, 6, 8" },
         { key: "D", text: "2, 6, 8, 10" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `s, p, d, f บรรจุได้ 2, 6, 10, 14 ตามลำดับ จึงตอบ A`
     }
   ]
 },
@@ -1071,7 +1161,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$[Ne] \\; 2s^1$" },
         { key: "D", text: "$[Ar] \\; 4s^1$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$Na$ (11): $[Ne]3s^1$ จึงตอบ B`
     },
     {
       id: "q2",
@@ -1082,7 +1173,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$[Ne] \\; 8, 2$" },
         { key: "D", text: "$[Ar] \\; 2$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$Mg$ (12) = 2,8,2 แกน $[Ne]$=2,8 เหลือ 2 คือ $[Ne]\\,2$ จึงตอบ B`
     },
     {
       id: "q3",
@@ -1093,7 +1185,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$[Ne] \\; 3p^3$" },
         { key: "D", text: "$[He] \\; 3s^2 \\; 3p^1$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$Al$ (13): $[Ne]3s^2 3p^1$ จึงตอบ A`
     },
     {
       id: "q4",
@@ -1104,7 +1197,8 @@ window.COURSE_DATA = {
         { key: "C", text: "อาร์กอน ($Ar$)" },
         { key: "D", text: "คริปทอน ($Kr$)" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$S$ (16) มี 16 อิเล็กตรอน ใช้แกน $Ne$ (10) เขียนต่อ $3s^2 3p^4$ จึงตอบ B`
     },
     {
       id: "q5",
@@ -1115,7 +1209,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$[Ar] \\; 3s^2 \\; 3p^5$" },
         { key: "D", text: "$[Ne] \\; 3s^1 \\; 3p^6$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$Cl$ (17): $[Ne]3s^2 3p^5$ จึงตอบ B`
     },
     {
       id: "q6",
@@ -1126,7 +1221,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$[Ar] \\; 3d^1$" },
         { key: "D", text: "$[Kr] \\; 4s^1$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$K$ (19): $[Ar]4s^1$ จึงตอบ B`
     },
     {
       id: "q7",
@@ -1137,7 +1233,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$[Ar] \\; 8, 2$" },
         { key: "D", text: "$[Kr] \\; 2$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$Ca$ (20) = 2,8,8,2 แกน $[Ar]$=2,8,8 เหลือ 2 คือ $[Ar]\\,2$ จึงตอบ B`
     },
     {
       id: "q8",
@@ -1148,7 +1245,8 @@ window.COURSE_DATA = {
         { key: "C", text: "คริปทอน ($Kr$)" },
         { key: "D", text: "ซีนอน ($Xe$)" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$Br$ (35) ใช้แกน $Ar$ (18) แล้วต่อ $4s^2 3d^{10} 4p^5$ จึงตอบ B`
     },
     {
       id: "q9",
@@ -1159,7 +1257,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$[Ar] \\; 4s^2 \\; 3d^1$" },
         { key: "D", text: "$[Ar] \\; 3d^3$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$Sc$ (21): $[Ar]4s^2 3d^1$ จึงตอบ C`
     },
     {
       id: "q10",
@@ -1170,7 +1269,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$[Ar] \\; 3d^4$" },
         { key: "D", text: "$[Ne] \\; 3s^2 \\; 3p^6 \\; 4s^2 \\; 3d^2$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$Ti$ (22): $[Ar]4s^2 3d^2$ จึงตอบ A`
     },
     {
       id: "q11",
@@ -1181,7 +1281,8 @@ window.COURSE_DATA = {
         { key: "C", text: "3 ตัว" },
         { key: "D", text: "5 ตัว" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$V$ (23): $[Ar]4s^2 3d^3$ ดังนั้น 3d มี 3 ตัว จึงตอบ C`
     },
     {
       id: "q12",
@@ -1192,7 +1293,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$[Ar] \\; 3d^6$" },
         { key: "D", text: "$[Ar] \\; 4s^2 \\; 4p^4$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$Cr$ (24) ยกเว้น: $[Ar]4s^1 3d^5$ (ครึ่งชั้น d เสถียร) จึงตอบ B`
     },
     {
       id: "q13",
@@ -1203,7 +1305,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$[Ar] \\; 4s^2 \\; 4p^5$" },
         { key: "D", text: "$[Ar] \\; 3d^7$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$Mn$ (25): $[Ar]4s^2 3d^5$ จึงตอบ B`
     },
     {
       id: "q14",
@@ -1214,7 +1317,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$[Ar] \\; 3d^8$" },
         { key: "D", text: "$[Ar] \\; 4s^2 \\; 4p^6$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$Fe$ (26): $[Ar]4s^2 3d^6$ จึงตอบ A`
     },
     {
       id: "q15",
@@ -1225,7 +1329,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$[Ar] \\; 15, 2$" },
         { key: "D", text: "$[Ar] \\; 7, 2$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$Co$ (27) = 2,8,15,2 แกน $[Ar]$ เหลือ 15,2 คือ $[Ar]\\,15,2$ จึงตอบ C`
     },
     {
       id: "q16",
@@ -1236,7 +1341,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$[Ar] \\; 4s^2 \\; 4p^8$" },
         { key: "D", text: "$[Ar] \\; 3d^{10}$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$Ni$ (28): $[Ar]4s^2 3d^8$ จึงตอบ A`
     },
     {
       id: "q17",
@@ -1247,7 +1353,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$[Ar] \\; 3d^{11}$" },
         { key: "D", text: "$[Ar] \\; 4s^2 \\; 4p^9$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$Cu$ (29) ยกเว้น: $[Ar]4s^1 3d^{10}$ (เต็มชั้น d เสถียร) จึงตอบ B`
     },
     {
       id: "q18",
@@ -1258,7 +1365,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$[Ar] \\; 4s^2 \\; 4p^{10}$" },
         { key: "D", text: "$[Kr] \\; 4s^2 \\; 3d^{10}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$Zn$ (30): $[Ar]4s^2 3d^{10}$ จึงตอบ B`
     },
     {
       id: "q19",
@@ -1269,7 +1377,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$[Ar] \\; 4s^2 \\; 3d^{11}$" },
         { key: "D", text: "$[Kr] \\; 4s^2 \\; 4p^1$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$Ga$ (31): $[Ar]4s^2 3d^{10} 4p^1$ จึงตอบ A`
     },
     {
       id: "q20",
@@ -1280,7 +1389,8 @@ window.COURSE_DATA = {
         { key: "C", text: "ไอโอดีน ($I$, Z=53)" },
         { key: "D", text: "คริปทอน ($Kr$, Z=36)" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$[Ar]4s^2 3d^{10} 4p^5$ รวม 35 คือ $Br$ จึงตอบ B`
     },
     {
       id: "q21",
@@ -1291,7 +1401,8 @@ window.COURSE_DATA = {
         { key: "C", text: "อาร์กอน ($Ar$)" },
         { key: "D", text: "คริปทอน ($Kr$)" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$Na^+$ เหลือ 10 อิเล็กตรอน เหมือน $Ne$ จึงตอบ B`
     },
     {
       id: "q22",
@@ -1302,7 +1413,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$[Ne] \\; 3s^2 \\; 3p^4$" },
         { key: "D", text: "$[Ar] \\; 4s^1$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$Cl^-$ รับ 1 เป็น 18 เหมือน $Ar$ เขียนเป็น $[Ar]$ จึงตอบ B`
     },
     {
       id: "q23",
@@ -1313,7 +1425,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$[Ne]$" },
         { key: "D", text: "$[Ar]$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$O^{2-}$ รับ 2 เป็น 10 เหมือน $Ne$ เขียนเป็น $[Ne]$ จึงตอบ C`
     },
     {
       id: "q24",
@@ -1324,7 +1437,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$[Ar] \\; 3d^6$" },
         { key: "D", text: "$[Ar] \\; 4s^2 \\; 3d^6$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$Fe^{2+}$ เสีย 2 จาก 4s: $[Ar]3d^6$ จึงตอบ C`
     },
     {
       id: "q25",
@@ -1335,7 +1449,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$[Ar] \\; 4s^1 \\; 3d^4$" },
         { key: "D", text: "$[Ar] \\; 3d^6$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$Fe^{3+}$ เสีย 4s สองและ 3d หนึ่ง: $[Ar]3d^5$ จึงตอบ A`
     },
     {
       id: "q26",
@@ -1346,7 +1461,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$[Ar] \\; 3d^{10}$" },
         { key: "D", text: "$[Ar] \\; 3d^9$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$Cu^+$ (28) จาก $[Ar]4s^1 3d^{10}$ เสีย 4s: $[Ar]3d^{10}$ จึงตอบ C`
     },
     {
       id: "q27",
@@ -1357,7 +1473,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$[Ar] \\; 3d^{10}$" },
         { key: "D", text: "$[Ar] \\; 4s^2 \\; 3d^7$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$Cu^{2+}$ (27): $[Ar]3d^9$ จึงตอบ B`
     },
     {
       id: "q28",
@@ -1368,7 +1485,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$[Ar] \\; 3d^{10}$" },
         { key: "D", text: "$[Ar] \\; 4s^2 \\; 3d^{10}$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$Zn^{2+}$ เสีย 2 จาก 4s: $[Ar]3d^{10}$ จึงตอบ C`
     },
     {
       id: "q29",
@@ -1379,7 +1497,8 @@ window.COURSE_DATA = {
         { key: "C", text: "คริปทอน ($Kr$)" },
         { key: "D", text: "ซีนอน ($Xe$)" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$S^{2-}$ รับ 2 เป็น 18 เหมือน $Ar$ จึงตอบ B`
     },
     {
       id: "q30",
@@ -1390,7 +1509,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$Fe^{2+}$" },
         { key: "D", text: "$Co^{2+}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$[Ar]3d^5$ มี 23 อิเล็กตรอน; $Mn$ (25) เสีย 2 = $Mn^{2+}$ จึงตอบ B`
     }
   ]
 },
@@ -1414,7 +1534,8 @@ window.COURSE_DATA = {
           { key: "C", text: "อิเล็กตรอนฝังอยู่ในเนื้อทรงกลมที่มีประจุบวก" },
           { key: "D", text: "อิเล็กตรอนเคลื่อนที่รอบนิวเคลียสได้ทุกค่าพลังงานอย่างต่อเนื่อง" }
         ],
-        answer: "A"
+        answer: "A",
+        explanation: `แบบจำลองโบร์: อิเล็กตรอนโคจรในระดับพลังงานเฉพาะค่า (ไม่ต่อเนื่อง) จึงตอบ A`
       },
       {
         id: "q2",
@@ -1425,7 +1546,8 @@ window.COURSE_DATA = {
           { key: "C", text: "อิเล็กตรอนหลุดออกจากอะตอมเสมอ" },
           { key: "D", text: "นิวเคลียสสลายตัว" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `ดูดกลืนพลังงานพอดี อิเล็กตรอนเลื่อนขึ้นสู่ระดับสูงขึ้น (สถานะกระตุ้น) จึงตอบ B`
       },
       {
         id: "q3",
@@ -1436,7 +1558,8 @@ window.COURSE_DATA = {
           { key: "C", text: "สภาวะที่อะตอมสูญเสียอิเล็กตรอนทั้งหมด" },
           { key: "D", text: "สภาวะที่อะตอมเปล่งแสงออกมาตลอดเวลา" }
         ],
-        answer: "A"
+        answer: "A",
+        explanation: `สถานะพื้นคือระดับพลังงานต่ำสุดของอิเล็กตรอน จึงตอบ A`
       },
       {
         id: "q4",
@@ -1447,7 +1570,8 @@ window.COURSE_DATA = {
           { key: "C", text: "โปรตอนในนิวเคลียสสั่นสะเทือน" },
           { key: "D", text: "นิวตรอนเปลี่ยนเป็นโปรตอน" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `สเปกตรัมเปล่งแสงเกิดจากอิเล็กตรอนคายพลังงานเป็นโฟตอนตอนตกลงระดับต่ำ จึงตอบ B`
       },
       {
         id: "q5",
@@ -1462,7 +1586,8 @@ window.COURSE_DATA = {
           { key: "C", text: "การแตกตัวเป็นไอออน" },
           { key: "D", text: "การสลายตัวของนิวเคลียส" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `$n=2\\to n=4$ เป็นการขึ้นสู่ระดับสูง = ดูดพลังงาน จึงตอบ B`
       },
 
       // --- การคำนวณพลังงาน ความถี่ ความยาวคลื่น (ข้อ 6 - 15) ---
@@ -1475,7 +1600,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$E = \\frac{\\nu}{h} = \\frac{\\lambda}{hc}$" },
           { key: "D", text: "$E = h\\lambda = \\frac{h\\nu}{c}$" }
         ],
-        answer: "A"
+        answer: "A",
+        explanation: `$E=h\\nu=\\dfrac{hc}{\\lambda}$ จึงตอบ A`
       },
       {
         id: "q7",
@@ -1486,7 +1612,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$1.32 \\times 10^{-18} \\text{ J}$" },
           { key: "D", text: "$7.6 \\times 10^{47} \\text{ J}$" }
         ],
-        answer: "A"
+        answer: "A",
+        explanation: `$E=h\\nu=6.6\\times10^{-34}\\times5.0\\times10^{14}=3.3\\times10^{-19}$ J จึงตอบ A`
       },
       {
         id: "q8",
@@ -1497,7 +1624,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$5.0 \\times 10^{-6} \\text{ m}$" },
           { key: "D", text: "$1.8 \\times 10^{23} \\text{ m}$" }
         ],
-        answer: "A"
+        answer: "A",
+        explanation: `$\\lambda=\\dfrac{c}{f}=\\dfrac{3.0\\times10^{8}}{6.0\\times10^{14}}=5.0\\times10^{-7}$ m จึงตอบ A`
       },
       {
         id: "q9",
@@ -1508,7 +1636,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$6.0 \\times 10^{15} \\text{ Hz}$" },
           { key: "D", text: "$1.67 \\times 10^{-15} \\text{ Hz}$" }
         ],
-        answer: "A"
+        answer: "A",
+        explanation: `$f=\\dfrac{c}{\\lambda}=\\dfrac{3.0\\times10^{8}}{5.0\\times10^{-7}}=6.0\\times10^{14}$ Hz จึงตอบ A`
       },
       {
         id: "q10",
@@ -1519,7 +1648,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$1.98 \\times 10^{-25} \\text{ J}$" },
           { key: "D", text: "$4.5 \\times 10^{-19} \\text{ J}$" }
         ],
-        answer: "A"
+        answer: "A",
+        explanation: `$E=\\dfrac{hc}{\\lambda}=\\dfrac{6.6\\times10^{-34}\\times3.0\\times10^{8}}{6.6\\times10^{-7}}=3.0\\times10^{-19}$ J จึงตอบ A`
       },
       {
         id: "q11",
@@ -1534,7 +1664,8 @@ window.COURSE_DATA = {
           { key: "C", text: "การเปลี่ยน C ($n=4 \\to n=3$)" },
           { key: "D", text: "การเปลี่ยน D ($n=3 \\to n=1$)" }
         ],
-        answer: "C"
+        answer: "C",
+        explanation: `ความยาวคลื่นยาวสุด = พลังงานน้อยสุด = ช่วงระดับแคบสุด คือ C ($n=4\\to3$) จึงตอบ C`
       },
       {
         id: "q12",
@@ -1545,7 +1676,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$-3.4 \\text{ eV}$" },
           { key: "D", text: "$-1.51 \\text{ eV}$" }
         ],
-        answer: "C"
+        answer: "C",
+        explanation: `$E_2=-\\dfrac{13.6}{2^2}=-3.4$ eV จึงตอบ C`
       },
       {
         id: "q13",
@@ -1556,7 +1688,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$10.2 \\text{ eV}$" },
           { key: "D", text: "$13.6 \\text{ eV}$" }
         ],
-        answer: "C"
+        answer: "C",
+        explanation: `$\\Delta E=E_1-E_2=-13.6-(-3.4)=-10.2$ คายออก $10.2$ eV จึงตอบ C`
       },
       {
         id: "q14",
@@ -1567,7 +1700,8 @@ window.COURSE_DATA = {
           { key: "C", text: "ทั้งสองการเปลี่ยนคายพลังงานเท่ากัน" },
           { key: "D", text: "$n=2 \\to n=1$ ปล่อยแสงที่มีความยาวคลื่นสั้นกว่า" }
         ],
-        answer: "A"
+        answer: "A",
+        explanation: `$n=3\\to1$ ช่วงพลังงานกว้างกว่า จึงคายพลังงานมากกว่าและความยาวคลื่นสั้นกว่า จึงตอบ A`
       },
       {
         id: "q15",
@@ -1578,7 +1712,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$13.6 \\text{ eV}$" },
           { key: "D", text: "$27.2 \\text{ eV}$" }
         ],
-        answer: "C"
+        answer: "C",
+        explanation: `พลังงานไอออไนซ์ $=0-(-13.6)=13.6$ eV จึงตอบ C`
       },
 
       // --- การจัดเรียงอิเล็กตรอน s p d f และลำดับพลังงาน (ข้อ 16 - 25) ---
@@ -1591,7 +1726,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$1, 3, 5, 7$" },
           { key: "D", text: "$2, 6, 8, 10$" }
         ],
-        answer: "A"
+        answer: "A",
+        explanation: `s, p, d, f บรรจุได้ 2, 6, 10, 14 จึงตอบ A`
       },
       {
         id: "q17",
@@ -1602,7 +1738,8 @@ window.COURSE_DATA = {
           { key: "C", text: "บรรจุพร้อมกันทั้งสองระดับ" },
           { key: "D", text: "$4s$ ก่อน เพราะ $4s$ บรรจุอิเล็กตรอนได้มากกว่า" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `$4s$ มีพลังงานต่ำกว่า $3d$ เล็กน้อย จึงบรรจุก่อน จึงตอบ B`
       },
       {
         id: "q18",
@@ -1617,7 +1754,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$1s \\; 2s \\; 3s \\; 4s \\; 2p \\; 3p \\; 4p \\ldots$" },
           { key: "D", text: "$1s \\; 2s \\; 2p \\; 3s \\; 3p \\; 4s \\; 4p \\; 3d \\ldots$" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `ลำดับที่ถูกคือ $1s\\,2s\\,2p\\,3s\\,3p\\,4s\\,3d\\,4p\\,5s\\ldots$ จึงตอบ B`
       },
       {
         id: "q19",
@@ -1628,7 +1766,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$1s^2 \\, 2s^2 \\, 2p^6 \\, 3s^2 \\, 3p^8$" },
           { key: "D", text: "$1s^2 \\, 2s^2 \\, 2p^6 \\, 3s^2 \\, 3p^6 \\, 4s^2 \\, 3d^2$" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `$Ca$ (20): $1s^2 2s^2 2p^6 3s^2 3p^6 4s^2$ จึงตอบ B`
       },
       {
         id: "q20",
@@ -1639,7 +1778,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$1s^2 \\, 2s^2 \\, 2p^6 \\, 3s^2 \\, 3p^6 \\, 3d^8$" },
           { key: "D", text: "$1s^2 \\, 2s^2 \\, 2p^6 \\, 3s^2 \\, 3p^6 \\, 4s^2 \\, 3d^4$" }
         ],
-        answer: "A"
+        answer: "A",
+        explanation: `$Fe$ (26): $1s^2 2s^2 2p^6 3s^2 3p^6 3d^6 4s^2$ จึงตอบ A`
       },
       {
         id: "q21",
@@ -1654,7 +1794,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$4s$ และ $3d$ มีพลังงานเท่ากันพอดี" },
           { key: "D", text: "$4p$ มีพลังงานต่ำกว่า $4s$" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `$4s$ มีพลังงานต่ำกว่า $3d$ เล็กน้อย จึงบรรจุก่อน จึงตอบ B`
       },
       {
         id: "q22",
@@ -1665,7 +1806,8 @@ window.COURSE_DATA = {
           { key: "C", text: "มีพลังงานเท่ากัน" },
           { key: "D", text: "เปรียบเทียบไม่ได้" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `กฎ $(n+\\ell)$: $4s$ ได้ 4 น้อยกว่า $3d$ ที่ได้ 5 จึงมีพลังงานต่ำกว่า จึงตอบ B`
       },
       {
         id: "q23",
@@ -1676,7 +1818,8 @@ window.COURSE_DATA = {
           { key: "C", text: "คาบ 3 หมู่ VA (15)" },
           { key: "D", text: "คาบ 5 หมู่ VIIA (17)" }
         ],
-        answer: "A"
+        answer: "A",
+        explanation: `เวเลนซ์ $3s^2 3p^5$ มี 3 ชั้น (คาบ 3) เวเลนซ์ 7 (หมู่ VIIA) จึงตอบ A`
       },
       {
         id: "q24",
@@ -1687,7 +1830,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$18$" },
           { key: "D", text: "$32$" }
         ],
-        answer: "C"
+        answer: "C",
+        explanation: `$n=3$: $2n^2=2(3)^2=18$ จึงตอบ C`
       },
       {
         id: "q25",
@@ -1698,7 +1842,8 @@ window.COURSE_DATA = {
           { key: "C", text: "เพราะ $4s$ บรรจุอิเล็กตรอนได้มากกว่า $3d$" },
           { key: "D", text: "เพราะ $3d$ อยู่ใกล้นิวเคลียสมากกว่า $4s$" }
         ],
-        answer: "A"
+        answer: "A",
+        explanation: `$4s$ พลังงานต่ำกว่า $3d$ (แม้ $n$ มากกว่า) จึงเข้า $4s$ ก่อน จึงตอบ A`
       },
 
       // --- ขนาดอะตอม (ข้อ 26 - 30) ---
@@ -1711,7 +1856,8 @@ window.COURSE_DATA = {
           { key: "C", text: "ไม่เปลี่ยนแปลง เพราะจำนวนชั้นพลังงานเท่ากัน" },
           { key: "D", text: "เพิ่มขึ้น เพราะมีการเพิ่มชั้นพลังงานใหม่" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `ซ้ายไปขวาในคาบ ประจุนิวเคลียสเพิ่ม ดึงอิเล็กตรอนชั้นเดิมเข้าใกล้ ขนาดจึงลดลง จึงตอบ B`
       },
       {
         id: "q27",
@@ -1726,7 +1872,8 @@ window.COURSE_DATA = {
           { key: "C", text: "ขนาดอะตอมลดลงทั้งเมื่อเลื่อนไปทางขวาและเลื่อนลงล่าง" },
           { key: "D", text: "ขนาดอะตอมเพิ่มขึ้นทั้งเมื่อเลื่อนไปทางขวาและเลื่อนลงล่าง" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `แนวโน้ม: ไปขวาในคาบขนาดลดลง, ลงล่างในหมู่ขนาดเพิ่มขึ้น จึงตอบ B`
       },
       {
         id: "q28",
@@ -1737,7 +1884,8 @@ window.COURSE_DATA = {
           { key: "C", text: "ไม่เปลี่ยนแปลง" },
           { key: "D", text: "เพิ่มขึ้นแล้วลดลง" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `ลงในหมู่ ชั้นพลังงานเพิ่ม ขนาดอะตอมจึงใหญ่ขึ้น จึงตอบ B`
       },
       {
         id: "q29",
@@ -1748,7 +1896,8 @@ window.COURSE_DATA = {
           { key: "C", text: "มีขนาดเท่ากัน" },
           { key: "D", text: "$Na^{+}$ ใหญ่กว่าเพราะมีประจุบวก" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `$Na^+$ เสียอิเล็กตรอนไป 1 ชั้น และแรงดึงต่อที่เหลือมากขึ้น จึงเล็กกว่า $Na$ จึงตอบ B`
       },
       {
         id: "q30",
@@ -1759,7 +1908,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$Na > Cl > Mg > Al$" },
           { key: "D", text: "$Al > Mg > Na > Cl$" }
         ],
-        answer: "A"
+        answer: "A",
+        explanation: `คาบ 3 ไปขวาขนาดลดลง: $Na>Mg>Al>Cl$ จึงตอบ A`
       }
     ]
   }

@@ -20,7 +20,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$x(2 + 6)$" },
           { key: "D", text: "$2(x - 3)$" }
         ],
-        answer: "A"
+        answer: "A",
+        explanation: `ดึงตัวร่วม 2 ออก: $2x+6 = 2(x+3)$ จึงตอบ A`
       },
       {
         id: "q2",
@@ -31,7 +32,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$5(x - 3)$" },
           { key: "D", text: "$x(5 - 15)$" }
         ],
-        answer: "C"
+        answer: "C",
+        explanation: `ดึงตัวร่วม 5 ออก: $5x-15 = 5(x-3)$ จึงตอบ C`
       },
       {
         id: "q3",
@@ -42,7 +44,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$4(x^2 + x)$" },
           { key: "D", text: "$x^2(1 + 4x)$" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `ดึงตัวร่วม $x$ ออก: $x^2+4x = x(x+4)$ จึงตอบ B`
       },
       {
         id: "q4",
@@ -53,7 +56,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$x(3x - 9)$" },
           { key: "D", text: "$3x(x - 9)$" }
         ],
-        answer: "A"
+        answer: "A",
+        explanation: `ตัวร่วมมากสุดคือ $3x$: $3x^2-9x = 3x(x-3)$ จึงตอบ A`
       },
       {
         id: "q5",
@@ -64,7 +68,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$4(2x^2 + 3x)$" },
           { key: "D", text: "$8x(x + 12)$" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `ตัวร่วมมากสุดคือ $4x$: $8x^2+12x = 4x(2x+3)$ จึงตอบ B`
       },
       {
         id: "q6",
@@ -75,7 +80,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$14x^2(x - 1)$" },
           { key: "D", text: "$7x^3(2 - x)$" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `ตัวร่วมมากสุดคือ $7x^2$: $14x^3-7x^2 = 7x^2(2x-1)$ จึงตอบ B`
       },
       {
         id: "q7",
@@ -86,7 +92,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$x(x^2 + x + 1)$" },
           { key: "D", text: "$x(x^3 + x^2 + x)$" }
         ],
-        answer: "C"
+        answer: "C",
+        explanation: `ดึง $x$ ออกได้ทุกพจน์: $x^3+x^2+x = x(x^2+x+1)$ จึงตอบ C`
       },
       {
         id: "q8",
@@ -97,7 +104,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$c(a + b)$" },
           { key: "D", text: "$a(bc)$" }
         ],
-        answer: "A"
+        answer: "A",
+        explanation: `ดึงตัวร่วม $a$: $ab+ac = a(b+c)$ จึงตอบ A`
       },
       {
         id: "q9",
@@ -108,7 +116,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$2y^2(x^2 + 2x)$" },
           { key: "D", text: "$4xy(x + y)$" }
         ],
-        answer: "A"
+        answer: "A",
+        explanation: `ตัวร่วมคือ $2xy$: $2x^2y+4xy^2 = 2xy(x+2y)$ จึงตอบ A`
       },
       {
         id: "q10",
@@ -119,7 +128,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$10ab(a - 1.5b)$" },
           { key: "D", text: "$5a^2b^2(2 - 3)$" }
         ],
-        answer: "A"
+        answer: "A",
+        explanation: `ตัวร่วมคือ $5ab$: $10a^2b-15ab^2 = 5ab(2a-3b)$ จึงตอบ A`
       },
       {
         id: "q11",
@@ -130,7 +140,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$3(-x + 3)$" },
           { key: "D", text: "$-x(3 + 9)$" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `ดึง $-3$ ออก: $-3x-9 = -3(x+3)$ จึงตอบ B`
       },
       {
         id: "q12",
@@ -141,7 +152,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$3x^3y^3(2 - 3)$" },
           { key: "D", text: "$x^2y^2(6x - 9y)$" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `ตัวร่วมคือ $3x^2y^2$: $6x^3y^2-9x^2y^3 = 3x^2y^2(2x-3y)$ จึงตอบ B`
       },
       {
         id: "q13",
@@ -152,7 +164,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$(x+y)(a-b)$" },
           { key: "D", text: "$xy(a+b)$" }
         ],
-        answer: "A"
+        answer: "A",
+        explanation: `มี $(a+b)$ เป็นตัวร่วม: $x(a+b)+y(a+b) = (a+b)(x+y)$ จึงตอบ A`
       },
       {
         id: "q14",
@@ -163,7 +176,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$(2a-3b)(x+y)$" },
           { key: "D", text: "$(2a-x)(3b-y)$" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `มี $(x-y)$ เป็นตัวร่วม: $2a(x-y)-3b(x-y) = (x-y)(2a-3b)$ จึงตอบ B`
       },
       {
         id: "q15",
@@ -174,7 +188,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$2x^2(2x^2 - 4x + 6)$" },
           { key: "D", text: "$4x^3(x - 2 + 3x^{-1})$" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `ตัวร่วมคือ $4x^2$: $4x^4-8x^3+12x^2 = 4x^2(x^2-2x+3)$ จึงตอบ B`
       },
 
       // --- ผลต่างกำลังสอง (ข้อ 16-25) ---
@@ -187,7 +202,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$(x-1)(x+1)$" },
           { key: "D", text: "$x(x-1)$" }
         ],
-        answer: "C"
+        answer: "C",
+        explanation: `ผลต่างกำลังสอง $a^2-b^2=(a-b)(a+b)$: $x^2-1 = (x-1)(x+1)$ จึงตอบ C`
       },
       {
         id: "q17",
@@ -198,7 +214,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$(x-4)^2$" },
           { key: "D", text: "$(x-2)(x+8)$" }
         ],
-        answer: "A"
+        answer: "A",
+        explanation: `$16=4^2$: $x^2-16 = (x-4)(x+4)$ จึงตอบ A`
       },
       {
         id: "q18",
@@ -209,7 +226,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$(y-49)(y+1)$" },
           { key: "D", text: "$(y-7)(y-7)$" }
         ],
-        answer: "A"
+        answer: "A",
+        explanation: `$49=7^2$: $y^2-49 = (y-7)(y+7)$ จึงตอบ A`
       },
       {
         id: "q19",
@@ -220,7 +238,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$(2x-3)^2$" },
           { key: "D", text: "$(2x-3)(2x+3)$" }
         ],
-        answer: "D"
+        answer: "D",
+        explanation: `$4x^2=(2x)^2,\\ 9=3^2$: $4x^2-9 = (2x-3)(2x+3)$ จึงตอบ D`
       },
       {
         id: "q20",
@@ -231,7 +250,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$(25x-1)(x+1)$" },
           { key: "D", text: "$(5x-1)(5x-1)$" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `$25x^2=(5x)^2,\\ 1=1^2$: $25x^2-1 = (5x-1)(5x+1)$ จึงตอบ B`
       },
       {
         id: "q21",
@@ -242,7 +262,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$(3x-32)(3x+32)$" },
           { key: "D", text: "$(3x-8)^2$" }
         ],
-        answer: "A"
+        answer: "A",
+        explanation: `$9x^2=(3x)^2,\\ 64=8^2$: $9x^2-64 = (3x-8)(3x+8)$ จึงตอบ A`
       },
       {
         id: "q22",
@@ -253,7 +274,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$(4a-9b)(4a+9b)$" },
           { key: "D", text: "$(8a-9b)(2a+9b)$" }
         ],
-        answer: "C"
+        answer: "C",
+        explanation: `$16a^2=(4a)^2,\\ 81b^2=(9b)^2$: $16a^2-81b^2 = (4a-9b)(4a+9b)$ จึงตอบ C`
       },
       {
         id: "q23",
@@ -264,7 +286,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$(50x-11y)(2x+11y)$" },
           { key: "D", text: "$(10x-121y)(10x+y)$" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `$100x^2=(10x)^2,\\ 121y^2=(11y)^2$: ได้ $(10x-11y)(10x+11y)$ จึงตอบ B`
       },
       {
         id: "q24",
@@ -275,7 +298,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$(x-15)^2$" },
           { key: "D", text: "$(x-5)(x+45)$" }
         ],
-        answer: "A"
+        answer: "A",
+        explanation: `$225=15^2$: $x^2-225 = (x-15)(x+15)$ จึงตอบ A`
       },
       {
         id: "q25",
@@ -286,7 +310,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$(x-72)(x+2)$" },
           { key: "D", text: "$(x-144)(x+1)$" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `$144=12^2$: $x^2-144 = (x-12)(x+12)$ จึงตอบ B`
       },
 
       // --- ดึงตัวร่วม + ผลต่างกำลังสอง (ข้อ 26-30) ---
@@ -299,7 +324,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$2(x-2)(x+2)$" },
           { key: "D", text: "$(x-2)(2x+4)$" }
         ],
-        answer: "C"
+        answer: "C",
+        explanation: `ดึง 2 ก่อนแล้วใช้ผลต่างกำลังสอง: $2x^2-8 = 2(x^2-4) = 2(x-2)(x+2)$ จึงตอบ C`
       },
       {
         id: "q27",
@@ -310,7 +336,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$(3x-9)(x+3)$" },
           { key: "D", text: "$3(x-9)(x+1)$" }
         ],
-        answer: "A"
+        answer: "A",
+        explanation: `ดึง 3 ก่อน: $3x^2-27 = 3(x^2-9) = 3(x-3)(x+3)$ จึงตอบ A`
       },
       {
         id: "q28",
@@ -321,7 +348,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$5(x^2-4)$" },
           { key: "D", text: "$(5x-10)(x+2)$" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `ดึง 5 ก่อน: $5x^2-20 = 5(x^2-4) = 5(x-2)(x+2)$ จึงตอบ B`
       },
       {
         id: "q29",
@@ -332,7 +360,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$a(x-y)(x-y)$" },
           { key: "D", text: "$a(x-y)(x+y)$" }
         ],
-        answer: "D"
+        answer: "D",
+        explanation: `ดึง $a$ ก่อน: $ax^2-ay^2 = a(x^2-y^2) = a(x-y)(x+y)$ จึงตอบ D`
       },
       {
         id: "q30",
@@ -343,7 +372,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$x(x-1)(x+1)$" },
           { key: "D", text: "$(x^2-1)(x)$" }
         ],
-        answer: "C"
+        answer: "C",
+        explanation: `ดึง $x$ ก่อน: $x^3-x = x(x^2-1) = x(x-1)(x+1)$ จึงตอบ C`
       }
     ]
   },
@@ -367,7 +397,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$0.333\\dots$" },
           { key: "D", text: "$\\sqrt{3}$" }
         ],
-        answer: "C"
+        answer: "C",
+        explanation: `$0.333\\dots = \\frac{1}{3}$ เขียนเป็นเศษส่วนได้ จึงเป็นจำนวนตรรกยะ ตอบ C (ส่วน $\\pi,\\sqrt{2},\\sqrt{3}$ เป็นอตรรกยะ)`
       },
       {
         id: "q2",
@@ -378,7 +409,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$1.414$" },
           { key: "D", text: "$\\sqrt{5}$" }
         ],
-        answer: "D"
+        answer: "D",
+        explanation: `$\\sqrt{9}=3,\\ \\frac{22}{7},\\ 1.414$ ล้วนเป็นตรรกยะ เหลือ $\\sqrt{5}$ ที่หารากไม่ลงตัว เป็นอตรรกยะ ตอบ D`
       },
       {
         id: "q3",
@@ -389,7 +421,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$\\frac{1}{2}$" },
           { key: "D", text: "$\\frac{5}{11}$" }
         ],
-        answer: "A"
+        answer: "A",
+        explanation: `ทศนิยมซ้ำหนึ่งหลัก $0.\\dot{5} = \\frac{5}{9}$ จึงตอบ A`
       },
       {
         id: "q4",
@@ -400,7 +433,8 @@ window.COURSE_DATA = {
           { key: "C", text: "เป็นไปได้ทั้งสองชนิด" },
           { key: "D", text: "จำนวนเต็ม" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `ตรรกยะ + อตรรกยะ ได้ผลเป็นอตรรกยะเสมอ จึงตอบ B`
       },
       {
         id: "q5",
@@ -411,7 +445,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$4\\sqrt{3}$" },
           { key: "D", text: "$6$" }
         ],
-        answer: "A"
+        answer: "A",
+        explanation: `$\\sqrt{12}=\\sqrt{4\\times3}=\\sqrt{4}\\,\\sqrt{3}=2\\sqrt{3}$ จึงตอบ A`
       },
       {
         id: "q6",
@@ -422,7 +457,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$\\sqrt{-4}$" },
           { key: "D", text: "$\\frac{0}{5}$" }
         ],
-        answer: "C"
+        answer: "C",
+        explanation: `รากที่สองของจำนวนลบไม่เป็นจำนวนจริง $\\sqrt{-4}$ จึงตอบ C`
       },
       {
         id: "q7",
@@ -433,7 +469,8 @@ window.COURSE_DATA = {
           { key: "C", text: "ทศนิยมซ้ำทุกตัวสามารถเขียนเป็นเศษส่วนได้ จึงเป็นจำนวนตรรกยะ" },
           { key: "D", text: "มีจำนวนจริงบางจำนวนที่สามารถหารด้วยศูนย์ได้" }
         ],
-        answer: "C"
+        answer: "C",
+        explanation: `ทศนิยมซ้ำทุกตัวเขียนเป็นเศษส่วนได้ จึงเป็นจำนวนตรรกยะ ตอบ C ($\\pi\\neq\\frac{22}{7}$, $\\sqrt{16}=4$ เป็นตรรกยะ, หารด้วยศูนย์ไม่ได้)`
       },
       {
         id: "q8",
@@ -444,7 +481,8 @@ window.COURSE_DATA = {
           { key: "C", text: "ทศนิยมไม่รู้จบแบบไม่ซ้ำ" },
           { key: "D", text: "ไม่ใช่จำนวนจริง" }
         ],
-        answer: "A"
+        answer: "A",
+        explanation: `$\\sqrt{2}\\times\\sqrt{8}=\\sqrt{16}=4$ เป็นจำนวนตรรกยะ จึงตอบ A`
       },
       {
         id: "q9",
@@ -455,7 +493,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$1.8$" },
           { key: "D", text: "$2.0$" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `$\\sqrt{2}\\approx1.41,\\ \\sqrt{3}\\approx1.73$ ค่าที่อยู่ระหว่างคือ $1.5$ จึงตอบ B`
       },
       {
         id: "q10",
@@ -466,7 +505,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$25$" },
           { key: "D", text: "ถูกทั้งข้อ A และ B" }
         ],
-        answer: "D"
+        answer: "D",
+        explanation: `$\\frac{\\sqrt{50}}{\\sqrt{2}}=\\sqrt{\\frac{50}{2}}=\\sqrt{25}=5$ ตรงทั้ง A และ B จึงตอบ D`
       },
       {
         id: "q11",
@@ -477,7 +517,8 @@ window.COURSE_DATA = {
           { key: "C", text: "ค่าของ $x$ ยกกำลังสอง" },
           { key: "D", text: "ส่วนกลับของ $x$" }
         ],
-        answer: "A"
+        answer: "A",
+        explanation: `ค่าสัมบูรณ์ $|x|$ คือระยะห่างจาก $x$ ถึง $0$ บนเส้นจำนวน จึงตอบ A`
       },
       {
         id: "q12",
@@ -488,7 +529,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$8$" },
           { key: "D", text: "$-8$" }
         ],
-        answer: "C"
+        answer: "C",
+        explanation: `$|-5|+|3| = 5+3 = 8$ จึงตอบ C`
       },
       {
         id: "q13",
@@ -499,7 +541,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$7$ และ $-7$" },
           { key: "D", text: "ไม่มีคำตอบเป็นจำนวนจริง" }
         ],
-        answer: "C"
+        answer: "C",
+        explanation: `$|x|=7$ ได้ $x=7$ หรือ $x=-7$ จึงตอบ C`
       },
       {
         id: "q14",
@@ -510,7 +553,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$3$ และ $-3$" },
           { key: "D", text: "$7$ และ $-7$" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `$|x-2|=5$ แยกเป็น $x-2=5\\Rightarrow x=7$ และ $x-2=-5\\Rightarrow x=-3$ จึงตอบ B`
       },
       {
         id: "q15",
@@ -521,7 +565,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$|x| = -2$" },
           { key: "D", text: "$|x - 1| = 0$" }
         ],
-        answer: "C"
+        answer: "C",
+        explanation: `ค่าสัมบูรณ์ติดลบไม่ได้ $|x|=-2$ จึงไม่มีคำตอบ ตอบ C`
       },
       {
         id: "q16",
@@ -532,7 +577,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$5$" },
           { key: "D", text: "$-4$" }
         ],
-        answer: "A"
+        answer: "A",
+        explanation: `$|2x-1|=9$: $2x-1=9\\Rightarrow x=5$ และ $2x-1=-9\\Rightarrow x=-4$ จึงตอบ A`
       },
       {
         id: "q17",
@@ -543,7 +589,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$x \\ge 0$" },
           { key: "D", text: "$x \\le 0$" }
         ],
-        answer: "C"
+        answer: "C",
+        explanation: `$|x|=x$ จริงเมื่อ $x$ ไม่เป็นลบ คือ $x\\ge0$ จึงตอบ C`
       },
       {
         id: "q18",
@@ -554,7 +601,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$x = -2$" },
           { key: "D", text: "ไม่มีคำตอบ" }
         ],
-        answer: "A"
+        answer: "A",
+        explanation: `$|x+3|=|x-1|$ คือจุดที่ห่างจาก $-3$ และ $1$ เท่ากัน คือจุดกึ่งกลาง $x=-1$ จึงตอบ A`
       },
       {
         id: "q19",
@@ -565,7 +613,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$7$" },
           { key: "D", text: "$-1$" }
         ],
-        answer: "A"
+        answer: "A",
+        explanation: `$|3-x|=4$: $3-x=4\\Rightarrow x=-1$ และ $3-x=-4\\Rightarrow x=7$ จึงตอบ A`
       },
       {
         id: "q20",
@@ -576,7 +625,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$8$" },
           { key: "D", text: "$-4$" }
         ],
-        answer: "A"
+        answer: "A",
+        explanation: `$\\left|\\frac{x}{2}-1\\right|=3$: $\\frac{x}{2}-1=3\\Rightarrow x=8$ และ $\\frac{x}{2}-1=-3\\Rightarrow x=-4$ จึงตอบ A`
       },
       {
         id: "q21",
@@ -587,7 +637,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$x > -4$" },
           { key: "D", text: "$x < -4$ หรือ $x > 4$" }
         ],
-        answer: "A"
+        answer: "A",
+        explanation: `$|x|<4$ แปลว่า $-4<x<4$ จึงตอบ A`
       },
       {
         id: "q22",
@@ -598,7 +649,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$x \\le -2$ หรือ $x \\ge 2$" },
           { key: "D", text: "$x \\le 2$" }
         ],
-        answer: "C"
+        answer: "C",
+        explanation: `$|x|\\ge2$ แปลว่า $x\\le-2$ หรือ $x\\ge2$ จึงตอบ C`
       },
       {
         id: "q23",
@@ -609,7 +661,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$4 < x < 6$" },
           { key: "D", text: "$-5 < x < 5$" }
         ],
-        answer: "A"
+        answer: "A",
+        explanation: `$|x-1|<5$: $-5<x-1<5$ บวก 1 ตลอด ได้ $-4<x<6$ จึงตอบ A`
       },
       {
         id: "q24",
@@ -620,7 +673,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$x \\le 3$" },
           { key: "D", text: "$x \\ge -4$" }
         ],
-        answer: "A"
+        answer: "A",
+        explanation: `$|2x+1|\\le7$: $-7\\le2x+1\\le7 \\Rightarrow -8\\le2x\\le6 \\Rightarrow -4\\le x\\le3$ จึงตอบ A`
       },
       {
         id: "q25",
@@ -631,7 +685,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$7$ จำนวน" },
           { key: "D", text: "$4$ จำนวน" }
         ],
-        answer: "C"
+        answer: "C",
+        explanation: `$|x|\\le3$ จำนวนเต็มคือ $-3,-2,-1,0,1,2,3$ รวม 7 จำนวน จึงตอบ C`
       },
       {
         id: "q26",
@@ -642,7 +697,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$x < -5$ หรือ $x > 1$" },
           { key: "D", text: "$-5 < x < 1$" }
         ],
-        answer: "C"
+        answer: "C",
+        explanation: `$|x+2|>3$: $x+2>3\\Rightarrow x>1$ หรือ $x+2<-3\\Rightarrow x<-5$ จึงตอบ C`
       },
       {
         id: "q27",
@@ -653,7 +709,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$|x| < 0$" },
           { key: "D", text: "$|x| \\le 0$" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `ค่าสัมบูรณ์ไม่มีทางติดลบ $|x|\\ge0$ จึงเป็นจริงเสมอ ตอบ B`
       },
       {
         id: "q28",
@@ -664,7 +721,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$|x + 1| > -1$" },
           { key: "D", text: "$|x| \\ge 0$" }
         ],
-        answer: "A"
+        answer: "A",
+        explanation: `$|x-5|<0$ เป็นไปไม่ได้ (ค่าสัมบูรณ์ติดลบไม่ได้) จึงไม่มีคำตอบ ตอบ A`
       },
       {
         id: "q29",
@@ -675,7 +733,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$|x| < 2$" },
           { key: "D", text: "$|x - 2| < 0$" }
         ],
-        answer: "C"
+        answer: "C",
+        explanation: `$-2<x<2$ คือระยะจาก 0 น้อยกว่า 2 เขียนได้เป็น $|x|<2$ จึงตอบ C`
       },
       {
         id: "q30",
@@ -686,7 +745,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$10$" },
           { key: "D", text: "$9$" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `$|x-3|\\le2$: $1\\le x\\le5$ จำนวนเต็มคือ $1,2,3,4,5$ ผลบวก $=15$ จึงตอบ B`
         }
     ]
   }

@@ -18,7 +18,8 @@ window.COURSE_DATA = {
           { key: "C", text: "สเกลาร์ใช้กับของแข็ง เวกเตอร์ใช้กับของไหล" },
           { key: "D", text: "สเกลาร์และเวกเตอร์บอกทั้งขนาดและทิศทางเหมือนกัน แต่เวกเตอร์มีหน่วย SI เท่านั้น" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `สเกลาร์บอกแต่ขนาด เวกเตอร์ต้องบอกทั้งขนาดและทิศทาง จึงตอบ B`
       },
       {
         id: "q2",
@@ -29,7 +30,8 @@ window.COURSE_DATA = {
           { key: "C", text: "การกระจัด, ความเร็ว, แรง" },
           { key: "D", text: "ปริมาตร, น้ำหนัก, ความดัน" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `มวล อุณหภูมิ พลังงาน ไม่มีทิศทาง เป็นสเกลาร์ทั้งหมด จึงตอบ B`
       },
       {
         id: "q3",
@@ -40,7 +42,8 @@ window.COURSE_DATA = {
           { key: "C", text: "มวล, แรง, เวลา" },
           { key: "D", text: "งาน, กำลัง, โมเมนตัม" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `การกระจัด ความเร็ว ความเร่ง มีทิศทาง เป็นเวกเตอร์ทั้งหมด จึงตอบ B`
       },
       {
         id: "q4",
@@ -51,7 +54,8 @@ window.COURSE_DATA = {
           { key: "C", text: "ระยะทางเป็นสเกลาร์ การกระจัดเป็นเวกเตอร์" },
           { key: "D", text: "ทั้งสองปริมาณเป็นสเกลาร์เหมือนกัน แต่การกระจัดวัดเป็นเส้นตรงเท่านั้น" }
         ],
-        answer: "C"
+        answer: "C",
+        explanation: `ระยะทางเป็นสเกลาร์ (แต่ขนาด) การกระจัดเป็นเวกเตอร์ (มีทิศ) จึงตอบ C`
       },
       {
         id: "q5",
@@ -62,7 +66,8 @@ window.COURSE_DATA = {
           { key: "C", text: "อัตราเร็ว และ ความเร็ว" },
           { key: "D", text: "พื้นที่ และ ปริมาตร" }
         ],
-        answer: "C"
+        answer: "C",
+        explanation: `อัตราเร็วเป็นสเกลาร์ ความเร็วเป็นเวกเตอร์ มีทั้งสองชนิด จึงตอบ C`
       },
       {
         id: "q6",
@@ -73,7 +78,8 @@ window.COURSE_DATA = {
           { key: "C", text: "ปริมาณสเกลาร์ เพราะมีเฉพาะขนาดเท่านั้น" },
           { key: "D", text: "ปริมาณอนุพัทธ์ที่ไม่มีทั้งขนาดและทิศทาง" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `น้ำหนักคือแรงโน้มถ่วง มีทิศชี้ลงสู่ศูนย์กลางโลก จึงเป็นเวกเตอร์ ตอบ B`
       },
       {
         id: "q7",
@@ -84,7 +90,8 @@ window.COURSE_DATA = {
           { key: "C", text: "วันนี้อากาศร้อนมีอุณหภูมิ $35^\\circ\\text{C}$" },
           { key: "D", text: "ลมพัดด้วยความเร็ว $15 \\text{ m/s}$ ไปทางทิศตะวันออก" }
         ],
-        answer: "D"
+        answer: "D",
+        explanation: `ข้อ D บอกทั้งขนาด ($15$ m/s) และทิศ (ตะวันออก) จึงเป็นเวกเตอร์สมบูรณ์ ตอบ D`
       },
       {
         id: "q8",
@@ -95,7 +102,8 @@ window.COURSE_DATA = {
           { key: "C", text: "หน่วยฐาน" },
           { key: "D", text: "หน่วยเสริม" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `แรงมีทั้งขนาดและทิศทาง จึงเป็นปริมาณเวกเตอร์ ตอบ B`
       },
 
       // --- หน่วย SI ฐาน และหน่วยเสริม (ข้อ 9-15) ---
@@ -108,7 +116,8 @@ window.COURSE_DATA = {
           { key: "C", text: "2 ประเภท คือ หน่วยสเกลาร์ และ หน่วยเวกเตอร์" },
           { key: "D", text: "3 ประเภท คือ หน่วยอังกฤษ, หน่วยเมตริก และ หน่วยอนุพัทธ์" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `ระบบ SI แบ่งเป็น 3 ประเภท: หน่วยฐาน หน่วยเสริม หน่วยอนุพัทธ์ จึงตอบ B`
       },
       {
         id: "q10",
@@ -119,7 +128,8 @@ window.COURSE_DATA = {
           { key: "C", text: "7 หน่วย" },
           { key: "D", text: "8 หน่วย" }
         ],
-        answer: "C"
+        answer: "C",
+        explanation: `หน่วยฐาน SI มี 7 หน่วย จึงตอบ C`
       },
       {
         id: "q11",
@@ -130,7 +140,8 @@ window.COURSE_DATA = {
           { key: "C", text: "แอมแปร์ (A)" },
           { key: "D", text: "นิวตัน (N)" }
         ],
-        answer: "D"
+        answer: "D",
+        explanation: `นิวตัน (N) เป็นหน่วยอนุพัทธ์ ไม่ใช่หน่วยฐาน จึงตอบ D`
       },
       {
         id: "q12",
@@ -141,7 +152,8 @@ window.COURSE_DATA = {
           { key: "C", text: "เคลวิน (K)" },
           { key: "D", text: "โรเมอร์ ($^\\circ\\text{R}$)" }
         ],
-        answer: "C"
+        answer: "C",
+        explanation: `หน่วยฐานของอุณหภูมิอุณหพลวัติคือเคลวิน (K) จึงตอบ C`
       },
       {
         id: "q13",
@@ -152,7 +164,8 @@ window.COURSE_DATA = {
           { key: "C", text: "ปริมาณสาร" },
           { key: "D", text: "มวล" }
         ],
-        answer: "C"
+        answer: "C",
+        explanation: `โมล (mol) เป็นหน่วยของปริมาณสาร จึงตอบ C`
       },
       {
         id: "q14",
@@ -163,7 +176,8 @@ window.COURSE_DATA = {
           { key: "C", text: "พื้นที่และปริมาตร" },
           { key: "D", text: "ความถี่และความยาวคลื่น" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `หน่วยเสริมใช้วัดมุมระนาบและมุมตัน จึงตอบ B`
       },
       {
         id: "q15",
@@ -174,7 +188,8 @@ window.COURSE_DATA = {
           { key: "C", text: "เรเดียน (rad)" },
           { key: "D", text: "เฮิรตซ์ (Hz)" }
         ],
-        answer: "C"
+        answer: "C",
+        explanation: `หน่วยของมุมระนาบคือเรเดียน (rad) จึงตอบ C`
       },
 
       // --- หน่วยอนุพัทธ์ (ข้อ 16-20) ---
@@ -187,7 +202,8 @@ window.COURSE_DATA = {
           { key: "C", text: "หน่วยที่ถูกยกเลิกไปแล้วในระบบ SI" },
           { key: "D", text: "หน่วยพื้นฐานที่ไม่สามารถแยกย่อยได้อีก" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `หน่วยอนุพัทธ์เกิดจากนำหน่วยฐานตั้งแต่ 2 หน่วยมาคูณหรือหารกัน จึงตอบ B`
       },
       {
         id: "q17",
@@ -198,7 +214,8 @@ window.COURSE_DATA = {
           { key: "C", text: "กิโลกรัมเมตรต่อวินาที ($\\text{kg}\\cdot\\text{m/s}$)" },
           { key: "D", text: "นิวตันเมตร ($\\text{N}\\cdot\\text{m}$)" }
         ],
-        answer: "A"
+        answer: "A",
+        explanation: `ความเร็ว = การกระจัด/เวลา หน่วยคือ m/s จึงตอบ A`
       },
       {
         id: "q18",
@@ -209,7 +226,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$\\text{kg}\\cdot\\text{m/s}^2$" },
           { key: "D", text: "$\\text{kg}/\\text{m}^3$" }
         ],
-        answer: "C"
+        answer: "C",
+        explanation: `$F=ma$ หน่วยนิวตัน $=\\text{kg}\\cdot\\text{m/s}^2$ จึงตอบ C`
       },
       {
         id: "q19",
@@ -220,7 +238,8 @@ window.COURSE_DATA = {
           { key: "C", text: "แอมแปร์, โมล, แคนเดลา" },
           { key: "D", text: "กิโลกรัม, ปาสคาล, เรเดียน" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `นิวตัน จูล วัตต์ ล้วนเป็นหน่วยอนุพัทธ์ จึงตอบ B`
       },
       {
         id: "q20",
@@ -231,7 +250,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$\\text{g}/\\text{cm}^3$" },
           { key: "D", text: "$\\text{N}/\\text{m}^3$" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `ความหนาแน่น $=\\frac{\\text{kg}}{\\text{m}^3}$ จึงตอบ B`
       },
 
       // --- คำอุปสรรค และการแปลงหน่วย 1 มิติ (ข้อ 21-25) ---
@@ -244,7 +264,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$10^{-9}$" },
           { key: "D", text: "$10^{-12}$" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `ไมโคร ($\\mu$) แทน $10^{-6}$ จึงตอบ B`
       },
       {
         id: "q22",
@@ -255,7 +276,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$10^{12}$ และ $10^{-12}$" },
           { key: "D", text: "$10^3$ และ $10^{-3}$" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `กิกะ $=10^9$, นาโน $=10^{-9}$ จึงตอบ B`
       },
       {
         id: "q23",
@@ -266,7 +288,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$5 \\times 10^{-3} \\text{ g}$" },
           { key: "D", text: "$5 \\times 10^6 \\text{ g}$" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `$5\\text{ kg} = 5\\times10^3\\text{ g}$ (1 kg = 1000 g) จึงตอบ B`
       },
       {
         id: "q24",
@@ -277,7 +300,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$4 \\times 10^{-6} \\text{ m}$" },
           { key: "D", text: "$4 \\times 10^{-5} \\text{ m}$" }
         ],
-        answer: "A"
+        answer: "A",
+        explanation: `$400\\text{ nm} = 400\\times10^{-9} = 4\\times10^{-7}\\text{ m}$ จึงตอบ A`
       },
       {
         id: "q25",
@@ -288,7 +312,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$500 \\mu\\text{A}$" },
           { key: "D", text: "$5000 \\mu\\text{A}$" }
         ],
-        answer: "D"
+        answer: "D",
+        explanation: `$5\\text{ mA} = 5\\times10^{-3}\\text{ A} = 5000\\ \\mu\\text{A}$ จึงตอบ D`
       },
 
       // --- การแปลงหน่วยพื้นที่และปริมาตร (ข้อ 26-30) ---
@@ -301,7 +326,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$5 \\times 10^{-6} \\text{ m}^2$" },
           { key: "D", text: "$5 \\times 10^4 \\text{ m}^2$" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `$1\\text{ cm}^2=10^{-4}\\text{ m}^2$ ดังนั้น $5\\text{ cm}^2=5\\times10^{-4}\\text{ m}^2$ จึงตอบ B`
       },
       {
         id: "q27",
@@ -312,7 +338,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$2 \\times 10^{-6} \\text{ m}^2$" },
           { key: "D", text: "$2 \\times 10^6 \\text{ m}^2$" }
         ],
-        answer: "C"
+        answer: "C",
+        explanation: `$1\\text{ mm}^2=10^{-6}\\text{ m}^2$ ดังนั้น $2\\text{ mm}^2=2\\times10^{-6}\\text{ m}^2$ จึงตอบ C`
       },
       {
         id: "q28",
@@ -323,7 +350,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$10 \\times 10^{-6} \\text{ m}^3$" },
           { key: "D", text: "$10 \\times 10^6 \\text{ m}^3$" }
         ],
-        answer: "C"
+        answer: "C",
+        explanation: `$1\\text{ cm}^3=10^{-6}\\text{ m}^3$ ดังนั้น $10\\text{ cm}^3=10\\times10^{-6}\\text{ m}^3$ จึงตอบ C`
       },
       {
         id: "q29",
@@ -334,7 +362,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$2 \\times 10^6 \\text{ cm}^3$" },
           { key: "D", text: "$2 \\times 10^9 \\text{ cm}^3$" }
         ],
-        answer: "C"
+        answer: "C",
+        explanation: `$1\\text{ m}^3=10^6\\text{ cm}^3$ ดังนั้น $2\\text{ m}^3=2\\times10^6\\text{ cm}^3$ จึงตอบ C`
       },
       {
         id: "q30",
@@ -345,7 +374,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$5 \\times 10^{-7} \\text{ m}^3$" },
           { key: "D", text: "$5 \\times 10^{-9} \\text{ m}^3$" }
         ],
-        answer: "C"
+        answer: "C",
+        explanation: `$1\\text{ mm}^3=10^{-9}\\text{ m}^3$ ดังนั้น $500\\text{ mm}^3=500\\times10^{-9}=5\\times10^{-7}\\text{ m}^3$ จึงตอบ C`
       }
     ]
   },
@@ -367,7 +397,8 @@ window.COURSE_DATA = {
         { key: "C", text: "4 ตัว" },
         { key: "D", text: "5 ตัว" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$0.00450$ นับจากเลขนัยแรก 4 ได้ 4,5,0 รวม 3 ตัว จึงตอบ B`
     },
     {
       id: "q2",
@@ -378,7 +409,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$4000$" },
         { key: "D", text: "$0.0004$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$1.002$ มีเลขนัยสำคัญ 4 ตัว (ศูนย์ระหว่างเลขนับด้วย) จึงตอบ B`
     },
     {
       id: "q3",
@@ -389,7 +421,8 @@ window.COURSE_DATA = {
         { key: "C", text: "4 ตัว" },
         { key: "D", text: "5 ตัว" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$3.50\\times10^4$ นับเฉพาะ 3,5,0 = 3 ตัว จึงตอบ B`
     },
     {
       id: "q4",
@@ -400,7 +433,8 @@ window.COURSE_DATA = {
         { key: "C", text: "4 ตัว" },
         { key: "D", text: "5 ตัว" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$12.00$ มี 4 ตัว (ศูนย์ท้ายหลังจุดนับด้วย) จึงตอบ C`
     },
     {
       id: "q5",
@@ -411,7 +445,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$0.005$" },
         { key: "D", text: "$2.50$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$0.005$ มีเลขนัยสำคัญเพียง 1 ตัว น้อยที่สุด จึงตอบ C`
     },
     {
       id: "q6",
@@ -422,7 +457,8 @@ window.COURSE_DATA = {
         { key: "C", text: "5 ตัว" },
         { key: "D", text: "6 ตัว" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$0.02050$ นับ 2,0,5,0 = 4 ตัว จึงตอบ B`
     },
     {
       id: "q7",
@@ -433,7 +469,8 @@ window.COURSE_DATA = {
         { key: "C", text: "เลขศูนย์ที่อยู่หลังจุดทศนิยมและตามหลังตัวเลขอื่น ถือเป็นเลขนัยสำคัญ" },
         { key: "D", text: "เลข 1-9 ทุกตัวถือเป็นเลขนัยสำคัญ" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `ศูนย์นำหน้าตัวเลขอื่นไม่นับเป็นเลขนัยสำคัญ ข้อ B จึงผิด ตอบ B`
     },
     {
       id: "q8",
@@ -444,7 +481,8 @@ window.COURSE_DATA = {
         { key: "C", text: "3 ตัว" },
         { key: "D", text: "มีจำนวนเลขนัยสำคัญเป็นอนันต์" }
       ],
-      answer: "D"
+      answer: "D",
+      explanation: `เลข 2 ในสูตรเป็นค่าคงตัวแท้ มีเลขนัยสำคัญเป็นอนันต์ จึงตอบ D`
     },
     {
       id: "q9",
@@ -455,7 +493,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$15.6$" },
         { key: "D", text: "$16$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$12.4+3.12=15.52$ ปัดตามทศนิยมน้อยสุด (1 ตำแหน่ง) $=15.5$ จึงตอบ B`
     },
     {
       id: "q10",
@@ -466,7 +505,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$23.8$" },
         { key: "D", text: "$24$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$25.0-1.25=23.75$ ปัดเหลือ 1 ตำแหน่ง $=23.8$ จึงตอบ C`
     },
     {
       id: "q11",
@@ -477,7 +517,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$102.2$" },
         { key: "D", text: "$102$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$100.5+2.11-0.5=102.11$ ปัดเหลือ 1 ตำแหน่ง $=102.1$ จึงตอบ B`
     },
     {
       id: "q12",
@@ -488,7 +529,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$8.2$" },
         { key: "D", text: "$8.0$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$5.0+2.05+1.1=8.15$ ปัดเหลือ 1 ตำแหน่ง $=8.2$ จึงตอบ C`
     },
     {
       id: "q13",
@@ -499,7 +541,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$6.4 \\text{ g}$" },
         { key: "D", text: "$6.0 \\text{ g}$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$2.0+1.25+3.123=6.373$ ปัดตามตัวที่หยาบสุด (1 ตำแหน่ง) $=6.4$ จึงตอบ C`
     },
     {
       id: "q14",
@@ -510,7 +553,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$15.00 - 0.01$" },
         { key: "D", text: "$15.0 - 0.005$" }
       ],
-      answer: "D"
+      answer: "D",
+      explanation: `$15.0-0.005=14.995$ ปัดเหลือ 1 ตำแหน่ง $=15.0$ จึงตอบ D`
     },
     {
       id: "q15",
@@ -521,7 +565,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$1.0 \\text{ m}$" },
         { key: "D", text: "$1.050 \\text{ m}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$1.2-0.15=1.05$ ปัดเหลือ 1 ตำแหน่ง $=1.1$ จึงตอบ B`
     },
     {
       id: "q16",
@@ -532,7 +577,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$7.5$" },
         { key: "D", text: "$8$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `คูณ ยึดเลขนัยสำคัญน้อยสุด (2 ตัว): $2.5\\times3.00=7.5$ จึงตอบ C`
     },
     {
       id: "q17",
@@ -543,7 +589,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$3.00$" },
         { key: "D", text: "$3.000$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$12.0/4.0=3.0$ เลขนัยสำคัญน้อยสุด 2 ตัว $=3.0$ จึงตอบ B`
     },
     {
       id: "q18",
@@ -554,7 +601,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$11$" },
         { key: "D", text: "$1 \\times 10^1$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$5.5\\times2.0=11$ เลขนัยสำคัญ 2 ตัว จึงตอบ C`
     },
     {
       id: "q19",
@@ -565,7 +613,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$5.00$" },
         { key: "D", text: "$5.000$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$15.0/3.00=5.00$ เลขนัยสำคัญ 3 ตัว จึงตอบ C`
     },
     {
       id: "q20",
@@ -576,7 +625,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$0.600$" },
         { key: "D", text: "$0.6000$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$1.20\\times0.50=0.60$ เลขนัยสำคัญน้อยสุด 2 ตัว จึงตอบ B`
     },
     {
       id: "q21",
@@ -587,7 +637,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$5.00$" },
         { key: "D", text: "$5.000$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$0.050\\times100.0=5.0$ เลขนัยสำคัญน้อยสุด 2 ตัว ($0.050$) จึงตอบ B`
     },
     {
       id: "q22",
@@ -598,7 +649,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$12.6 \\text{ cm}$" },
         { key: "D", text: "$13 \\text{ cm}$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `เส้นรอบวง $=\\pi d=3.14159\\times4.00=12.57$ ปัดเป็น 3 ตัว $=12.6$ จึงตอบ C`
     },
     {
       id: "q23",
@@ -609,7 +661,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$3.141 \\text{ cm}^2$" },
         { key: "D", text: "$3 \\text{ cm}^2$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$r=1.0$ cm, พื้นที่ $=\\pi r^2=3.14\\times1.0=3.14$ ปัดเป็น 2 ตัว $=3.1$ จึงตอบ A`
     },
     {
       id: "q24",
@@ -620,7 +673,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$23 \\text{ m}^2$" },
         { key: "D", text: "$20 \\text{ m}^2$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$4.5\\times5.2=23.4$ เลขนัยสำคัญ 2 ตัว $=23$ จึงตอบ C`
     },
     {
       id: "q25",
@@ -631,7 +685,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$24.00 \\text{ cm}^3$" },
         { key: "D", text: "$20 \\text{ cm}^3$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$2.00\\times3.00\\times4.0=24.0$ เลขนัยสำคัญน้อยสุด 2 ตัว $=24$ จึงตอบ A`
     },
     {
       id: "q26",
@@ -642,7 +697,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$22 \\text{ m/s}$" },
         { key: "D", text: "$20 \\text{ m/s}$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$100.0/4.5=22.2$ เลขนัยสำคัญน้อยสุด 2 ตัว $=22$ จึงตอบ C`
     },
     {
       id: "q27",
@@ -653,7 +709,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$5.00 \\text{ g/cm}^3$" },
         { key: "D", text: "$5.000 \\text{ g/cm}^3$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$15.0/3.0=5.0$ เลขนัยสำคัญ 2 ตัว จึงตอบ B`
     },
     {
       id: "q28",
@@ -664,7 +721,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$4.5 \\text{ m}$" },
         { key: "D", text: "$4.0 \\text{ m}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$1.2+1.25+2.1=4.55$ ปัดเหลือ 1 ตำแหน่ง $=4.6$ จึงตอบ B`
     },
     {
       id: "q29",
@@ -675,7 +733,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$7.400 \\text{ cm}$" },
         { key: "D", text: "$7.5 \\text{ cm}$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `เส้นรอบรูป $=2(1.2+2.50)=2(3.7)=7.4$ (บวกก่อนได้ 1 ตำแหน่ง) จึงตอบ A`
     },
     {
       id: "q30",
@@ -686,7 +745,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$1.25 \\times 10^2 \\text{ cm}^3$" },
         { key: "D", text: "$125.6 \\text{ cm}^3$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$V=\\pi r^2h=3.1416\\times(2.0)^2\\times10.0\\approx125.7$ เลขนัยสำคัญ 2 ตัว $=1.3\\times10^2$ จึงตอบ B`
     }
   ]
 },
@@ -709,7 +769,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$25.14 \\text{ mm}$" },
         { key: "D", text: "$24.07 \\text{ mm}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `อ่านสเกลหลัก + สเกลเวอร์เนียที่ขีดตรงกัน รวมได้ $24.70\\text{ mm}$ จึงตอบ B`
     },
     {
       id: "q2",
@@ -720,7 +781,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$16.15 \\text{ mm}$" },
         { key: "D", text: "$15.03 \\text{ mm}$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `อ่านสเกลหลัก + สเกลเวอร์เนีย รวมได้ $15.15\\text{ mm}$ จึงตอบ A`
     },
 
     // --- การอ่านค่าไมโครมิเตอร์ (2 ข้อ) ---
@@ -733,7 +795,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$3.15 \\text{ mm}$" },
         { key: "D", text: "$3.65 \\text{ mm}$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `อ่านสเกลปลอก + สเกลหมุนของไมโครมิเตอร์ รวมได้ $3.15\\text{ mm}$ จึงตอบ C`
     },
     {
       id: "q4",
@@ -744,7 +807,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$2.543 \\text{ mm}$" },
         { key: "D", text: "$2.95 \\text{ mm}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `อ่านสเกลปลอก + สเกลหมุน รวมได้ $2.93\\text{ mm}$ จึงตอบ B`
     },
 
     // --- จำนวนเลขนัยสำคัญ (11 ข้อ) ---
@@ -757,7 +821,8 @@ window.COURSE_DATA = {
         { key: "C", text: "5 ตัว" },
         { key: "D", text: "6 ตัว" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$0.00450$ มีเลขนัยสำคัญ 3 ตัว (4,5,0) จึงตอบ B`
     },
     {
       id: "q6",
@@ -768,7 +833,8 @@ window.COURSE_DATA = {
         { key: "C", text: "4 ตัว" },
         { key: "D", text: "5 ตัว" }
       ],
-      answer: "D"
+      answer: "D",
+      explanation: `$1.0020$ มีเลขนัยสำคัญ 5 ตัว จึงตอบ D`
     },
     {
       id: "q7",
@@ -779,7 +845,8 @@ window.COURSE_DATA = {
         { key: "C", text: "4 ตัว" },
         { key: "D", text: "5 ตัว" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$2.50\\times10^4$ มี 3 ตัว จึงตอบ B`
     },
     {
       id: "q8",
@@ -790,7 +857,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$1.200$" },
         { key: "D", text: "$0.0004$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$1.200$ มี 4 ตัว (ศูนย์ท้ายหลังจุดนับด้วย) จึงตอบ C`
     },
     {
       id: "q9",
@@ -801,7 +869,8 @@ window.COURSE_DATA = {
         { key: "C", text: "5 ตัว" },
         { key: "D", text: "6 ตัว" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$0.03050$ นับ 3,0,5,0 = 4 ตัว จึงตอบ B`
     },
     {
       id: "q10",
@@ -812,7 +881,8 @@ window.COURSE_DATA = {
         { key: "C", text: "เลข 0 ที่อยู่หลังสุดและมีจุดทศนิยม" },
         { key: "D", text: "นับเลข 0 เป็นเลขนัยสำคัญเสมอในทุกกรณี" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `ศูนย์ที่นำหน้าตัวเลขอื่นไม่นับเป็นเลขนัยสำคัญ จึงตอบ B`
     },
     {
       id: "q11",
@@ -823,7 +893,8 @@ window.COURSE_DATA = {
         { key: "C", text: "0 ตัว" },
         { key: "D", text: "มีจำนวนอนันต์ (Infinity)" }
       ],
-      answer: "D"
+      answer: "D",
+      explanation: `การนับจำนวนเต็มพอดีเป็นค่าที่แน่นอน มีเลขนัยสำคัญเป็นอนันต์ จึงตอบ D`
     },
     {
       id: "q12",
@@ -834,7 +905,8 @@ window.COURSE_DATA = {
         { key: "C", text: "4 ตัว" },
         { key: "D", text: "5 ตัว" }
       ],
-      answer: "D"
+      answer: "D",
+      explanation: `$1500.0$ มี 5 ตัว (ศูนย์ท้ายหลังจุดและระหว่างนับหมด) จึงตอบ D`
     },
     {
       id: "q13",
@@ -845,7 +917,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$1.01$" },
         { key: "D", text: "$1.0001$" }
       ],
-      answer: "D"
+      answer: "D",
+      explanation: `$1.0001$ มี 5 ตัว มากที่สุด จึงตอบ D`
     },
     {
       id: "q14",
@@ -856,7 +929,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$4.500 \\times 10^{-4}$" },
         { key: "D", text: "$0.45 \\times 10^{-3}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$0.000450$ = $4.50\\times10^{-4}$ (คง 3 เลขนัยสำคัญ) จึงตอบ B`
     },
     {
       id: "q15",
@@ -867,7 +941,8 @@ window.COURSE_DATA = {
         { key: "C", text: "7 ตัว" },
         { key: "D", text: "8 ตัว" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$0.0102030$ นับ 1,0,2,0,3,0 = 6 ตัว จึงตอบ B`
     },
 
     // --- การบวกลบ คูณหาร เลขนัยสำคัญ (11 ข้อ) ---
@@ -880,7 +955,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$14.11$" },
         { key: "D", text: "$14.110$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$12.11+2.0=14.11$ ปัดเหลือ 1 ตำแหน่ง $=14.1$ จึงตอบ B`
     },
     {
       id: "q17",
@@ -891,7 +967,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$99.45$" },
         { key: "D", text: "$99$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$100.0-0.55=99.45$ ปัดเหลือ 1 ตำแหน่ง $=99.5$ จึงตอบ B`
     },
     {
       id: "q18",
@@ -902,7 +979,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$5.00$" },
         { key: "D", text: "$5.000$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$2.50\\times2.0=5.0$ เลขนัยสำคัญน้อยสุด 2 ตัว จึงตอบ B`
     },
     {
       id: "q19",
@@ -913,7 +991,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$5.00$" },
         { key: "D", text: "$5.000$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$15.0/3.000=5.00$ เลขนัยสำคัญน้อยสุด 3 ตัว จึงตอบ C`
     },
     {
       id: "q20",
@@ -924,7 +1003,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$6.0$" },
         { key: "D", text: "$5.730$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$1.23+4.5=5.73$ ปัดเหลือ 1 ตำแหน่ง $=5.7$ จึงตอบ A`
     },
     {
       id: "q21",
@@ -935,7 +1015,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$6.43$" },
         { key: "D", text: "$6.426$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$4.2\\times1.53=6.426$ เลขนัยสำคัญน้อยสุด 2 ตัว $=6.4$ จึงตอบ A`
     },
     {
       id: "q22",
@@ -946,7 +1027,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$11.60$" },
         { key: "D", text: "$12$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$12.5-2.1+1.2=11.6$ (1 ตำแหน่ง) จึงตอบ B`
     },
     {
       id: "q23",
@@ -957,7 +1039,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$5.00$" },
         { key: "D", text: "$5.000$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$0.050\\times100.0=5.0$ เลขนัยสำคัญ 2 ตัว จึงตอบ B`
     },
     {
       id: "q24",
@@ -968,7 +1051,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$4.00$" },
         { key: "D", text: "$4.000$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$8.00/2.0=4.0$ เลขนัยสำคัญน้อยสุด 2 ตัว จึงตอบ B`
     },
     {
       id: "q25",
@@ -979,7 +1063,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$12.00$" },
         { key: "D", text: "$1.2 \\times 10^1$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$(1.50+2.5)=4.0$ แล้ว $\\times3.0=12$ เลขนัยสำคัญ 2 ตัว จึงตอบ A`
     },
     {
       id: "q26",
@@ -990,7 +1075,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$5.00$" },
         { key: "D", text: "$5.000$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$(10.0\\times2.00)/4.0=5.0$ เลขนัยสำคัญน้อยสุด 2 ตัว จึงตอบ B`
     },
 
     // --- จำลองสถานการณ์การวัดค่าพื้นที่ (4 ข้อ) ---
@@ -1003,7 +1089,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$1.0 \\times 10^1 \\text{ cm}^2$" },
         { key: "D", text: "$1.00 \\times 10^1 \\text{ cm}^2$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$2.5\\times4.00=10.0\\to$ เลขนัยสำคัญ 2 ตัว เขียนเป็น $1.0\\times10^1$ จึงตอบ C`
     },
     {
       id: "q28",
@@ -1014,7 +1101,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$13 \\text{ cm}^2$" },
         { key: "D", text: "$12.56 \\text{ cm}^2$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$\\pi r^2=3.14\\times(2.0)^2=12.56$ เลขนัยสำคัญ 2 ตัว $=13$ จึงตอบ C`
     },
     {
       id: "q29",
@@ -1025,7 +1113,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$14.70 \\text{ m}^2$" },
         { key: "D", text: "$15 \\text{ m}^2$" }
       ],
-      answer: "D"
+      answer: "D",
+      explanation: `$3.50\\times4.2=14.7$ เลขนัยสำคัญน้อยสุด 2 ตัว $=15$ จึงตอบ D`
     },
     {
       id: "q30",
@@ -1036,7 +1125,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$6.00 \\text{ m}^2$" },
         { key: "D", text: "$6.000 \\text{ m}^2$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$1.2\\times5.00=6.0$ เลขนัยสำคัญน้อยสุด 2 ตัว จึงตอบ B`
     }
   ]
 },
@@ -1058,7 +1148,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$(x + y) \\pm (\\Delta x \\times \\Delta y)$" },
         { key: "D", text: "$(x + y) \\pm \\sqrt{\\Delta x^2 + \\Delta y^2}$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `การบวก ค่าคลาดเคลื่อนสัมบูรณ์บวกกัน $(x+y)\\pm(\\Delta x+\\Delta y)$ จึงตอบ A`
     },
     {
       id: "q2",
@@ -1069,7 +1160,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$(x - y) \\pm |\\Delta x - \\Delta y|$" },
         { key: "D", text: "$(x - y) \\pm \\left(\\frac{\\Delta x}{x} + \\frac{\\Delta y}{y}\\right)$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `การลบ ค่าคลาดเคลื่อนสัมบูรณ์ก็ยังบวกกัน $(x-y)\\pm(\\Delta x+\\Delta y)$ จึงตอบ B`
     },
     {
       id: "q3",
@@ -1080,7 +1172,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$15.5 \\pm 0.3$" },
         { key: "D", text: "$15.5 \\pm 0.02$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$12.0+3.5=15.5$ คลาดเคลื่อน $0.2+0.1=0.3$ จึงตอบ C`
     },
     {
       id: "q4",
@@ -1091,7 +1184,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$13.3 \\pm 0.3$ cm" },
         { key: "D", text: "$13.3 \\pm 0.02$ cm" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$25.4-12.1=13.3$ คลาดเคลื่อนบวกกัน $0.2+0.1=0.3$ จึงตอบ C`
     },
     {
       id: "q5",
@@ -1102,7 +1196,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$130 \\pm 0$" },
         { key: "D", text: "$130 \\pm 2$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `ค่า $=100+50-20=130$ คลาดเคลื่อน $2+3+1=6$ จึงตอบ B`
     },
     {
       id: "q6",
@@ -1113,7 +1208,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$25.5 \\pm 0.3$ cm" },
         { key: "D", text: "$25.5 \\pm 0.02$ cm" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$15.0+10.5=25.5$ คลาดเคลื่อน $0.1+0.2=0.3$ จึงตอบ C`
     },
     {
       id: "q7",
@@ -1124,7 +1220,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$2\\%$" },
         { key: "D", text: "$10\\%$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `ร้อยละ $=\\frac{0.2}{20.0}\\times100=1\\%$ จึงตอบ B`
     },
     {
       id: "q8",
@@ -1135,7 +1232,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$50.0 \\pm 0.2$" },
         { key: "D", text: "$50.0 \\pm 0.5$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$2\\%$ ของ $50.0 = 1.0$ ดังนั้น $50.0\\pm1.0$ จึงตอบ A`
     },
     {
       id: "q9",
@@ -1146,7 +1244,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\%Z = \\%A + \\%B$" },
         { key: "D", text: "$\\%Z = \\frac{\\%A}{\\%B}$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `การคูณ เปอร์เซ็นต์คลาดเคลื่อนบวกกัน $\\%Z=\\%A+\\%B$ จึงตอบ C`
     },
     {
       id: "q10",
@@ -1157,7 +1256,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\%Z = \\frac{\\%A}{\\%B}$" },
         { key: "D", text: "$\\%Z = \\sqrt{\\%A^2 + \\%B^2}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `การหาร เปอร์เซ็นต์คลาดเคลื่อนบวกกัน $\\%Z=\\%A+\\%B$ จึงตอบ B`
     },
     {
       id: "q11",
@@ -1168,7 +1268,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$20.0 \\pm 1\\%$" },
         { key: "D", text: "$9.0 \\pm 3\\%$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$5.0\\times4.0=20.0$ เปอร์เซ็นต์ $=1\\%+2\\%=3\\%$ จึงตอบ B`
     },
     {
       id: "q12",
@@ -1179,7 +1280,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$3\\%$" },
         { key: "D", text: "$4\\%$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$\\%=\\frac{0.1}{10}(1\\%)+\\frac{0.4}{20}(2\\%)=3\\%$ จึงตอบ C`
     },
     {
       id: "q13",
@@ -1190,7 +1292,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$200.0 \\pm 6.0$ m$^2$" },
         { key: "D", text: "$200.0 \\pm 8.0$ m$^2$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `พื้นที่ $=200.0$, $3\\%$ ของ $200=6.0$ จึงตอบ C`
     },
     {
       id: "q14",
@@ -1201,7 +1304,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$3.0$ W" },
         { key: "D", text: "$4.0$ W" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$\\%P=\\frac{0.1}{2}(5\\%)+\\frac{1}{10}(10\\%)=15\\%$, $\\Delta P=15\\%\\times20=3.0$ W จึงตอบ C`
     },
     {
       id: "q15",
@@ -1212,7 +1316,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$5.0 \\pm 5\\%$" },
         { key: "D", text: "$32.0 \\pm 5\\%$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$40.0/8.0=5.0$ เปอร์เซ็นต์ $=4\\%+1\\%=5\\%$ จึงตอบ C`
     },
     {
       id: "q16",
@@ -1223,7 +1328,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$10.0 \\pm 6\\%$" },
         { key: "D", text: "$1000.0 \\pm 5\\%$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$v=100/10=10.0$ เปอร์เซ็นต์ $=2\\%+3\\%=5\\%$ จึงตอบ B`
     },
     {
       id: "q17",
@@ -1234,7 +1340,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$3\\%$" },
         { key: "D", text: "$4\\%$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$\\%=\\frac{0.4}{40}(1\\%)+\\frac{0.16}{8}(2\\%)=3\\%$ จึงตอบ C`
     },
     {
       id: "q18",
@@ -1245,7 +1352,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$5.0 \\pm 0.30$ kg/m$^3$" },
         { key: "D", text: "$5.0 \\pm 0.56$ kg/m$^3$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$\\rho=40/8=5.0$, $3\\%$ ของ $5.0=0.15$ จึงตอบ A`
     },
     {
       id: "q19",
@@ -1256,7 +1364,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\%Z = n \\times \\%A$" },
         { key: "D", text: "$\\%Z = \\frac{\\%A}{n}$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `ยกกำลัง $n$ เปอร์เซ็นต์คลาดเคลื่อน $\\%Z=n\\times\\%A$ จึงตอบ C`
     },
     {
       id: "q20",
@@ -1267,7 +1376,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$100 \\pm 8\\%$" },
         { key: "D", text: "$20 \\pm 4\\%$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$10^2=100$, $\\%=2\\times2\\%=4\\%$ จึงตอบ B`
     },
     {
       id: "q21",
@@ -1278,7 +1388,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$4\\%$" },
         { key: "D", text: "$5\\%$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `พื้นที่ $=l^2$, $\\%=2\\times\\frac{0.1}{5.0}=2\\times2\\%=4\\%$ จึงตอบ C`
     },
     {
       id: "q22",
@@ -1289,7 +1400,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$25.0 \\pm 1.0$ m$^2$" },
         { key: "D", text: "$25.0 \\pm 2.0$ m$^2$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `พื้นที่ $=25.0$, $4\\%$ ของ $25=1.0$ จึงตอบ C`
     },
     {
       id: "q23",
@@ -1300,7 +1412,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$4.5\\%$" },
         { key: "D", text: "$15.0\\%$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$V=l^3$, $\\%=3\\times1.5\\%=4.5\\%$ จึงตอบ C`
     },
     {
       id: "q24",
@@ -1311,7 +1424,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$8.0 \\pm 0.1$" },
         { key: "D", text: "$8.0 \\pm 1.5$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$2.0^3=8.0$, $\\%=3\\times\\frac{0.1}{2.0}=3\\times5\\%=15\\%$, $\\Delta=15\\%\\times8=1.2$ จึงตอบ B`
     },
     {
       id: "q25",
@@ -1322,7 +1436,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\%Z = \\frac{1}{2} \\times \\%A$" },
         { key: "D", text: "$\\%Z = \\%A$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `รากที่สอง $\\%Z=\\frac{1}{2}\\%A$ จึงตอบ C`
     },
     {
       id: "q26",
@@ -1333,7 +1448,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$10 \\pm 8\\%$" },
         { key: "D", text: "$10 \\pm 16\\%$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$\\sqrt{100}=10$, $\\%=\\frac{1}{2}\\times4\\%=2\\%$ จึงตอบ A`
     },
     {
       id: "q27",
@@ -1344,7 +1460,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$12\\%$" },
         { key: "D", text: "$36\\%$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$T\\propto\\sqrt{L}$ ดังนั้น $\\%T=\\frac{1}{2}\\times6\\%=3\\%$ จึงตอบ A`
     },
     {
       id: "q28",
@@ -1355,7 +1472,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$4\\%$" },
         { key: "D", text: "$0.2\\%$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$2\\pi$ เป็นค่าคงตัว $\\%$ เส้นรอบวง $=\\%r=\\frac{0.2}{10}=2\\%$ จึงตอบ B`
     },
     {
       id: "q29",
@@ -1366,7 +1484,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$500 \\pm 5\\%$" },
         { key: "D", text: "$500 \\pm 20\\%$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$\\%=2\\times1\\%+2\\%=4\\%$ จึงตอบ B`
     },
     {
       id: "q30",
@@ -1377,7 +1496,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$4.5\\%$" },
         { key: "D", text: "$7.0\\%$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$X=\\frac{A^2B}{\\sqrt{C}}$: $\\%=2(1)+2+\\frac{1}{2}(3)=2+2+1.5=5.5\\%$ จึงตอบ A`
     }
   ]
 }

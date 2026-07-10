@@ -26,7 +26,8 @@ window.COURSE_DATA = {
         { key: "C", text: "ก และ ค" },
         { key: "D", text: "ก ข และ ค" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `กราฟ P-V ที่อุณหภูมิคงที่ (ข ถูก) และเส้นที่อยู่สูงกว่าคืออุณหภูมิสูงกว่า $T_3>T_2>T_1$ (ค ถูก) ส่วน P แปรผกผันกับ V ไม่ใช่แปรผันตรง จึงตอบ B`
     },
     {
       id: "q2",
@@ -44,7 +45,8 @@ window.COURSE_DATA = {
         { key: "C", text: "ก และ ค" },
         { key: "D", text: "ก ข และ ค" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `กราฟ V-T แปรผันตรง (ก ถูก) และตัดแกนที่ $-273^\\circ$C (ข ถูก) จึงตอบ A`
     },
     {
       id: "q3",
@@ -63,7 +65,8 @@ window.COURSE_DATA = {
         { key: "C", text: "ก และ ค" },
         { key: "D", text: "ก ข และ ค" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `กราฟเส้นตรงผ่านจุดกำเนิดคือความสัมพันธ์แปรผันตรง: V-T (ก) และ P-(1/V) (ข) จึงตอบ A`
     },
     {
       id: "q4",
@@ -78,7 +81,8 @@ window.COURSE_DATA = {
         { key: "C", text: "ก และ ค" },
         { key: "D", text: "ก ข และ ค" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `ก. ข. ถูก ส่วน ค. กราฟ $P$ กับ $\\frac{1}{V}$ เป็นเส้นตรง (ไม่ใช่ไฮเพอร์โบลา) จึงตอบ A`
     },
     {
       id: "q5",
@@ -93,7 +97,8 @@ window.COURSE_DATA = {
         { key: "C", text: "ก และ ค" },
         { key: "D", text: "ก ข และ ค" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `ก. ข. ถูก ส่วน ค. ต้องใช้อุณหภูมิเคลวิน ไม่ใช่เซลเซียส จึงตอบ A`
     },
     {
       id: "q6",
@@ -108,7 +113,8 @@ window.COURSE_DATA = {
         { key: "C", text: "ก และ ค" },
         { key: "D", text: "ก ข และ ค" }
       ],
-      answer: "D"
+      answer: "D",
+      explanation: `ก. ข. ค. ถูกทั้งหมด (บอยล์คุม n,T; ชาร์ลคุม P,n; $PV$ คงที่เมื่อ T คงที่) จึงตอบ D`
     },
     {
       id: "q7",
@@ -123,7 +129,8 @@ window.COURSE_DATA = {
         { key: "C", text: "ก และ ค" },
         { key: "D", text: "ก ข และ ค" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `ก. ($0^\\circ$C=273.15 K) และ ข. (การหายใจตามกฎบอยล์) ถูก ส่วน ค. T เพิ่ม 2 เท่า V เพิ่ม 2 เท่า (ไม่ใช่ลดครึ่ง) จึงตอบ A`
     },
     {
       id: "q8",
@@ -138,7 +145,8 @@ window.COURSE_DATA = {
         { key: "C", text: "ก และ ค" },
         { key: "D", text: "ก ข และ ค" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `ก. สูตรชาร์ล และ ค. กราฟ V-T ผ่านจุดกำเนิด ถูก ส่วน ข. ผิด (ปริมาตรคงที่ใช้เกย์-ลูสแซก ไม่ใช่บอยล์) จึงตอบ C`
     },
     {
       id: "q9",
@@ -153,7 +161,8 @@ window.COURSE_DATA = {
         { key: "C", text: "ก และ ค" },
         { key: "D", text: "ก ข และ ค" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `ก. หน่วยความดันใช้อะไรก็ได้ขอให้เหมือนกัน และ ค. P เพิ่ม 2 เท่า V ลดครึ่ง ถูก ส่วน ข. ต้องใช้เคลวิน จึงตอบ C`
     },
 
     // --- คำนวณ (ข้อ 10 - 30) ---
@@ -166,7 +175,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$5.0 \\text{ atm}$" },
         { key: "D", text: "$10.0 \\text{ atm}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `บอยล์: $P_1V_1=P_2V_2$: $1.0\\times5=P_2\\times2\\Rightarrow P_2=2.5\\text{ atm}$ จึงตอบ B`
     },
     {
       id: "q11",
@@ -177,7 +187,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$7.50 \\text{ L}$" },
         { key: "D", text: "$12.70 \\text{ L}$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `ชาร์ล: $V_2=V_1\\dfrac{T_2}{T_1}=10\\times\\dfrac{400}{300}=13.33\\text{ L}$ (27→300K, 127→400K) จึงตอบ A`
     },
     {
       id: "q12",
@@ -188,7 +199,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$400 \\text{ mL}$" },
         { key: "D", text: "$800 \\text{ mL}$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$P_1V_1=P_2V_2$: $760\\times200=380\\times V_2\\Rightarrow V_2=400\\text{ mL}$ จึงตอบ C`
     },
     {
       id: "q13",
@@ -199,7 +211,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$600 \\text{ K}$" },
         { key: "D", text: "$750 \\text{ K}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `ชาร์ล: $T_2=T_1\\dfrac{V_2}{V_1}=300\\times\\dfrac{250}{500}=150\\text{ K}$ จึงตอบ B`
     },
     {
       id: "q14",
@@ -210,7 +223,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$4.0 \\text{ atm}$" },
         { key: "D", text: "$1.0 \\text{ atm}$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$P_2=\\dfrac{P_1V_1}{V_2}=\\dfrac{1.2\\times10}{30}=0.4\\text{ atm}$ จึงตอบ A`
     },
     {
       id: "q15",
@@ -221,7 +235,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$273^\\circ\\text{C}$" },
         { key: "D", text: "$546^\\circ\\text{C}$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$T_2=T_1\\dfrac{V_2}{V_1}=273\\times\\dfrac{4}{2}=546\\text{ K}=273^\\circ$C จึงตอบ C`
     },
     {
       id: "q16",
@@ -232,7 +247,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$1.25 \\text{ atm}$" },
         { key: "D", text: "$2.00 \\text{ atm}$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$V_2=0.8V_1$: $P_2=\\dfrac{P_1V_1}{0.8V_1}=\\dfrac{1.0}{0.8}=1.25\\text{ atm}$ จึงตอบ C`
     },
     {
       id: "q17",
@@ -243,7 +259,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$40 \\text{ L}$" },
         { key: "D", text: "$50 \\text{ L}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$T$ เพิ่ม $50\\%$: $V_2=20\\times1.5=30\\text{ L}$ จึงตอบ B`
     },
     {
       id: "q18",
@@ -254,7 +271,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$5.0 \\text{ atm}$" },
         { key: "D", text: "$7.5 \\text{ atm}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$P_2=\\dfrac{P_1V_1}{V_2}=\\dfrac{5\\times3}{5}=3\\text{ atm}$ (ปริมาตรรวม 5 L) จึงตอบ B`
     },
     {
       id: "q19",
@@ -265,7 +283,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$27^\\circ\\text{C}$" },
         { key: "D", text: "$546^\\circ\\text{C}$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$V$ เพิ่ม 3 เท่า $\\Rightarrow T$ เพิ่ม 3 เท่า: $T_1=\\dfrac{819}{3}=273\\text{ K}=0^\\circ$C จึงตอบ A`
     },
     {
       id: "q20",
@@ -276,7 +295,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$1.50 \\text{ mL}$" },
         { key: "D", text: "$6.00 \\text{ mL}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$V_2=\\dfrac{P_1V_1}{P_2}=\\dfrac{1.0\\times2.0}{3.0}=0.67\\text{ mL}$ จึงตอบ B`
     },
     {
       id: "q21",
@@ -287,7 +307,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$6.0 \\text{ L}$" },
         { key: "D", text: "$16.0 \\text{ L}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `400K→200K: $V_2=8\\times\\dfrac{200}{400}=4\\text{ L}$ จึงตอบ B`
     },
     {
       id: "q22",
@@ -298,7 +319,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$6.0 \\text{ atm}$" },
         { key: "D", text: "$8.0 \\text{ atm}$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$P_2=\\dfrac{P_1V_1}{V_2}=\\dfrac{1.5\\times4}{1}=6\\text{ atm}$ จึงตอบ C`
     },
     {
       id: "q23",
@@ -309,7 +331,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$323^\\circ\\text{C}$" },
         { key: "D", text: "$596^\\circ\\text{C}$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$T_2=T_1\\dfrac{V_2}{V_1}=298\\times\\dfrac{5.0}{2.5}=596\\text{ K}=323^\\circ$C จึงตอบ C`
     },
     {
       id: "q24",
@@ -320,7 +343,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$500 \\text{ cm}^3$" },
         { key: "D", text: "$750 \\text{ cm}^3$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$V_2=\\dfrac{P_1V_1}{P_2}=\\dfrac{2.5\\times100}{0.5}=500\\text{ cm}^3$ จึงตอบ C`
     },
     {
       id: "q25",
@@ -331,7 +355,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$250 \\text{ K}$" },
         { key: "D", text: "$450 \\text{ K}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$T_2=T_1\\dfrac{V_2}{V_1}=300\\times\\dfrac{10}{15}=200\\text{ K}$ จึงตอบ B`
     },
     {
       id: "q26",
@@ -342,7 +367,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$750 \\text{ cm}^3$" },
         { key: "D", text: "$1000 \\text{ cm}^3$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$V_2=\\dfrac{P_1V_1}{P_2}=\\dfrac{800\\times250}{400}=500\\text{ cm}^3$ จึงตอบ B`
     },
     {
       id: "q27",
@@ -353,7 +379,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$177^\\circ\\text{C}$" },
         { key: "D", text: "$450^\\circ\\text{C}$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$T_2=T_1\\dfrac{V_2}{V_1}=300\\times\\dfrac{750}{500}=450\\text{ K}=177^\\circ$C จึงตอบ C`
     },
     {
       id: "q28",
@@ -364,7 +391,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$6.0 \\text{ atm}$" },
         { key: "D", text: "$12.0 \\text{ atm}$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$500\\text{ mL}=0.5$ L: $P_2=\\dfrac{1.5\\times2.0}{0.5}=6\\text{ atm}$ จึงตอบ C`
     },
     {
       id: "q29",
@@ -375,7 +403,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$3.60 \\text{ L}$" },
         { key: "D", text: "$4.80 \\text{ L}$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `293K→333K: $V_2=1.2\\times\\dfrac{333}{293}=1.36\\text{ L}$ จึงตอบ A`
     },
     {
       id: "q30",
@@ -386,7 +415,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$3.0 \\text{ atm}$" },
         { key: "D", text: "$4.0 \\text{ atm}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$P_1(3)=P_2(1)$ และ $P_2=P_1+4$: $3P_1=P_1+4\\Rightarrow P_1=2\\text{ atm}$ จึงตอบ B`
       }
     ]
   },
@@ -410,7 +440,8 @@ window.COURSE_DATA = {
           { key: "C", text: "ความดันของแก๊สแปรผันตรงกับอุณหภูมิในหน่วยองศาเซลเซียส" },
           { key: "D", text: "ปริมาตรของแก๊สแปรผันตรงกับอุณหภูมิในหน่วยเคลวิน" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `เกย์-ลูสแซก: ความดันแปรผันตรงกับอุณหภูมิเคลวิน จึงตอบ B`
       },
       {
         id: "q2",
@@ -421,7 +452,8 @@ window.COURSE_DATA = {
           { key: "C", text: "กราฟเส้นตรงขนานกับแกน X" },
           { key: "D", text: "กราฟพาราโบลาหงาย" }
         ],
-        answer: "A"
+        answer: "A",
+        explanation: `P-T (เคลวิน) แปรผันตรง กราฟเป็นเส้นตรงผ่านจุดกำเนิด จึงตอบ A`
       },
       {
         id: "q3",
@@ -432,7 +464,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$4.0 \\text{ atm}$" },
           { key: "D", text: "$6.0 \\text{ atm}$" }
         ],
-        answer: "C"
+        answer: "C",
+        explanation: `$P_2=P_1\\dfrac{T_2}{T_1}=2.0\\times\\dfrac{600}{300}=4.0\\text{ atm}$ จึงตอบ C`
       },
       {
         id: "q4",
@@ -443,7 +476,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$1200 \\text{ K}$" },
           { key: "D", text: "$1500 \\text{ K}$" }
         ],
-        answer: "C"
+        answer: "C",
+        explanation: `$T_2=T_1\\dfrac{P_2}{P_1}=300\\times\\dfrac{6.0}{1.5}=1200\\text{ K}$ จึงตอบ C`
       },
       {
         id: "q5",
@@ -454,7 +488,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$7.5 \\text{ atm}$" },
           { key: "D", text: "$12.5 \\text{ atm}$" }
         ],
-        answer: "C"
+        answer: "C",
+        explanation: `400K→300K: $P_2=10.0\\times\\dfrac{300}{400}=7.5\\text{ atm}$ จึงตอบ C`
       },
       {
         id: "q6",
@@ -465,7 +500,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$400^\\circ\\text{C}$" },
           { key: "D", text: "$273^\\circ\\text{C}$" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `$T_2=T_1\\dfrac{P_2}{P_1}=300\\times\\dfrac{4.0}{3.0}=400\\text{ K}=127^\\circ$C จึงตอบ B`
       },
       {
         id: "q7",
@@ -476,7 +512,8 @@ window.COURSE_DATA = {
           { key: "C", text: "เพิ่มอุณหภูมิเป็น $9$ เท่า" },
           { key: "D", text: "ลดอุณหภูมิลง $1/3$ เท่า" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `$P\\propto T$: อยากได้ P เพิ่ม 3 เท่า ต้องเพิ่มอุณหภูมิ (เคลวิน) เป็น 3 เท่า จึงตอบ B`
       },
 
       // --- กฎของอาโวกาโดร (ทฤษฎี 2 ข้อ, คำนวณ 5 ข้อ) ---
@@ -489,7 +526,8 @@ window.COURSE_DATA = {
           { key: "C", text: "ปริมาตรของแก๊สแปรผันตรงกับจำนวนโมล" },
           { key: "D", text: "จำนวนโมลของแก๊สแปรผันตรงกับอุณหภูมิ" }
         ],
-        answer: "C"
+        answer: "C",
+        explanation: `อาโวกาโดร: ปริมาตรแปรผันตรงกับจำนวนโมล จึงตอบ C`
       },
       {
         id: "q9",
@@ -500,7 +538,8 @@ window.COURSE_DATA = {
           { key: "C", text: "อัตราการแพร่" },
           { key: "D", text: "จำนวนโมลและจำนวนโมเลกุล" }
         ],
-        answer: "D"
+        answer: "D",
+        explanation: `ปริมาตรเท่ากันที่ P,T เดียวกัน มีจำนวนโมล/โมเลกุลเท่ากัน จึงตอบ D`
       },
       {
         id: "q10",
@@ -511,7 +550,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$20.0 \\text{ L}$" },
           { key: "D", text: "$160.0 \\text{ L}$" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `$V_2=V_1\\dfrac{n_2}{n_1}=40\\times\\dfrac{0.5}{2.0}=10\\text{ L}$ จึงตอบ B`
       },
       {
         id: "q11",
@@ -522,7 +562,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$20.0 \\text{ L}$" },
           { key: "D", text: "$25.0 \\text{ L}$" }
         ],
-        answer: "C"
+        answer: "C",
+        explanation: `รวมเป็น 2.0 mol: $V=5.0\\times\\dfrac{2.0}{0.5}=20\\text{ L}$ จึงตอบ C`
       },
       {
         id: "q12",
@@ -533,7 +574,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$5.0 \\text{ mol}$" },
           { key: "D", text: "$10.0 \\text{ mol}$" }
         ],
-        answer: "C"
+        answer: "C",
+        explanation: `He 8 g $=2$ mol ใน 20 L; ต้องการ 50 L: $n=2\\times\\dfrac{50}{20}=5\\text{ mol}$ จึงตอบ C`
       },
       {
         id: "q13",
@@ -544,7 +586,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$1.5 \\text{ mol}$" },
           { key: "D", text: "$2.0 \\text{ mol}$" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `$n_2=n_1\\dfrac{V_2}{V_1}=3.0\\times\\dfrac{20}{60}=1.0\\text{ mol}$ จึงตอบ B`
       },
       {
         id: "q14",
@@ -555,7 +598,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$5.0 \\text{ mol}$" },
           { key: "D", text: "$6.0 \\text{ mol}$" }
         ],
-        answer: "C"
+        answer: "C",
+        explanation: `$n=\\dfrac{112}{22.4}=5\\text{ mol}$ จึงตอบ C`
       },
 
       // --- กฎรวมแก๊ส (ทฤษฎี 2 ข้อ, คำนวณ 6 ข้อ) ---
@@ -568,7 +612,8 @@ window.COURSE_DATA = {
           { key: "C", text: "อุณหภูมิ (T)" },
           { key: "D", text: "มวลหรือจำนวนโมล (n)" }
         ],
-        answer: "D"
+        answer: "D",
+        explanation: `กฎรวมแก๊สใช้เมื่อมวล/จำนวนโมล (n) คงที่ จึงตอบ D`
       },
       {
         id: "q16",
@@ -579,7 +624,8 @@ window.COURSE_DATA = {
           { key: "C", text: "กฎของบอยล์, กฎของชาร์ล และ กฎของอาโวกาโดร" },
           { key: "D", text: "กฎของบอยล์, กฎของชาร์ล และ กฎของเกย์-ลูสแซก" }
         ],
-        answer: "D"
+        answer: "D",
+        explanation: `กฎรวมแก๊สรวมบอยล์ + ชาร์ล + เกย์-ลูสแซก จึงตอบ D`
       },
       {
         id: "q17",
@@ -590,7 +636,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$20 \\text{ L}$" },
           { key: "D", text: "$40 \\text{ L}$" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `$V_2=V_1\\dfrac{P_1}{P_2}\\dfrac{T_2}{T_1}=10\\times\\dfrac{2}{4}\\times\\dfrac{600}{300}=10\\text{ L}$ จึงตอบ B`
       },
       {
         id: "q18",
@@ -601,7 +648,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$4.0 \\text{ atm}$" },
           { key: "D", text: "$8.0 \\text{ atm}$" }
         ],
-        answer: "C"
+        answer: "C",
+        explanation: `$P_2=\\dfrac{P_1V_1T_2}{T_1V_2}=\\dfrac{1\\times20\\times546}{273\\times10}=4\\text{ atm}$ จึงตอบ C`
       },
       {
         id: "q19",
@@ -612,7 +660,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$600 \\text{ K}$" },
           { key: "D", text: "$800 \\text{ K}$" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `$T_2=T_1\\dfrac{P_2V_2}{P_1V_1}=400\\times\\dfrac{2\\times30}{4\\times15}=400\\text{ K}$ จึงตอบ B`
       },
       {
         id: "q20",
@@ -623,7 +672,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$50.0 \\text{ L}$" },
           { key: "D", text: "$25.0 \\text{ L}$" }
         ],
-        answer: "A"
+        answer: "A",
+        explanation: `300K→400K: $V_2=50\\times\\dfrac{1}{2}\\times\\dfrac{400}{300}=33.3\\text{ L}$ จึงตอบ A`
       },
       {
         id: "q21",
@@ -634,7 +684,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$400 \\text{ K}$" },
           { key: "D", text: "$600 \\text{ K}$" }
         ],
-        answer: "D"
+        answer: "D",
+        explanation: `$T_2=T_1\\dfrac{P_2V_2}{P_1V_1}=200\\times\\dfrac{6\\times6}{3\\times4}=600\\text{ K}$ จึงตอบ D`
       },
       {
         id: "q22",
@@ -645,7 +696,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$1.5 \\text{ atm}$" },
           { key: "D", text: "$3.0 \\text{ atm}$" }
         ],
-        answer: "A"
+        answer: "A",
+        explanation: `$P_2=\\dfrac{P_1V_1T_2}{T_1V_2}=\\dfrac{1.5\\times10\\times150}{300\\times20}=0.375\\text{ atm}$ จึงตอบ A`
       },
 
       // --- แก๊สอุดมคติ (ทฤษฎี 3 ข้อ, คำนวณ 5 ข้อ) ---
@@ -658,7 +710,8 @@ window.COURSE_DATA = {
           { key: "C", text: "อุณหภูมิต่ำ ความดันสูง" },
           { key: "D", text: "อุณหภูมิสูง ความดันสูง" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `แก๊สจริงใกล้เคียงอุดมคติที่อุณหภูมิสูง ความดันต่ำ จึงตอบ B`
       },
       {
         id: "q24",
@@ -669,7 +722,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$\\text{L}\\cdot\\text{mmHg}/(\\text{mol}\\cdot\\text{K})$" },
           { key: "D", text: "$\\text{m}^3\\cdot\\text{Pa}/(\\text{mol}\\cdot\\text{K})$" }
         ],
-        answer: "A"
+        answer: "A",
+        explanation: `$R=0.0821$ มีหน่วย $\\text{L}\\cdot\\text{atm}/(\\text{mol}\\cdot\\text{K})$ จึงตอบ A`
       },
       {
         id: "q25",
@@ -680,7 +734,8 @@ window.COURSE_DATA = {
           { key: "C", text: "อุณหภูมิ $0^\\circ\\text{C}$ ความดัน $0 \\text{ atm}$" },
           { key: "D", text: "อุณหภูมิ $298 \\text{ K}$ ความดัน $1 \\text{ atm}$" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `STP คือ $273\\text{ K}$ ($0^\\circ$C) ความดัน $1\\text{ atm}$ จึงตอบ B`
       },
       {
         id: "q26",
@@ -691,7 +746,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$2.5 \\text{ mol}$" },
           { key: "D", text: "$10.0 \\text{ mol}$" }
         ],
-        answer: "A"
+        answer: "A",
+        explanation: `$n=\\dfrac{PV}{RT}=\\dfrac{0.82\\times4}{0.082\\times400}=0.1\\text{ mol}$ จึงตอบ A`
       },
       {
         id: "q27",
@@ -702,7 +758,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$6.0 \\text{ atm}$" },
           { key: "D", text: "$12.0 \\text{ atm}$" }
         ],
-        answer: "C"
+        answer: "C",
+        explanation: `$P=\\dfrac{nRT}{V}=\\dfrac{2\\times0.082\\times300}{8.2}=6\\text{ atm}$ จึงตอบ C`
       },
       {
         id: "q28",
@@ -713,7 +770,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$300 \\text{ K}$" },
           { key: "D", text: "$400 \\text{ K}$" }
         ],
-        answer: "D"
+        answer: "D",
+        explanation: `$T=\\dfrac{PV}{nR}=\\dfrac{4.1\\times4}{0.5\\times0.082}=400\\text{ K}$ จึงตอบ D`
       },
       {
         id: "q29",
@@ -724,7 +782,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$16.0 \\text{ g}$" },
           { key: "D", text: "$32.0 \\text{ g}$" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `$n=\\dfrac{PV}{RT}=\\dfrac{1.64\\times10}{0.082\\times400}=0.5$ mol, มวล $=0.5\\times16=8\\text{ g}$ จึงตอบ B`
       },
       {
         id: "q30",
@@ -735,7 +794,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$5.0 \\text{ g/L}$" },
           { key: "D", text: "$10.0 \\text{ g/L}$" }
         ],
-        answer: "C"
+        answer: "C",
+        explanation: `$d=\\dfrac{PM}{RT}=\\dfrac{2\\times41}{0.082\\times200}=5\\text{ g/L}$ จึงตอบ C`
       }
     ]
   },
@@ -758,7 +818,8 @@ window.COURSE_DATA = {
         { key: "C", text: "ความดันย่อยของแก๊สแต่ละชนิดจะแปรผกผันกับปริมาตรของแก๊สรวม" },
         { key: "D", text: "ความดันรวมของแก๊สผสมจะขึ้นอยู่กับชนิดของแก๊สที่มีมวลมากที่สุดเท่านั้น" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `ดอลตัน: ความดันรวม = ผลรวมของความดันย่อยของแก๊สแต่ละชนิด จึงตอบ B`
     },
     {
       id: "q2",
@@ -769,7 +830,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$P_i = X_i \\times P_{total}$" },
         { key: "D", text: "$P_i = \\frac{P_{total}}{X_i}$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$P_i=X_i\\times P_{total}$ จึงตอบ C`
     },
     {
       id: "q3",
@@ -780,7 +842,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$3.7 \\text{ atm}$" },
         { key: "D", text: "$4.2 \\text{ atm}$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$P_{total}=1.2+2.5=3.7\\text{ atm}$ จึงตอบ C`
     },
     {
       id: "q4",
@@ -791,7 +854,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$8 \\text{ atm}$" },
         { key: "D", text: "$10 \\text{ atm}$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$X_{O_2}=1-0.8=0.2$, $P_{O_2}=0.2\\times10=2\\text{ atm}$ จึงตอบ A`
     },
     {
       id: "q5",
@@ -802,7 +866,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$P_{total} = \\frac{P_{gas}}{P_{water}}$" },
         { key: "D", text: "$P_{total} = P_{gas} + P_{water}$" }
       ],
-      answer: "D"
+      answer: "D",
+      explanation: `เก็บแก๊สแทนที่น้ำ: $P_{total}=P_{gas}+P_{water}$ จึงตอบ D`
     },
     {
       id: "q6",
@@ -813,7 +878,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$784 \\text{ mmHg}$" },
         { key: "D", text: "$18240 \\text{ mmHg}$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$P_{H_2}=760-24=736\\text{ mmHg}$ จึงตอบ A`
     },
     {
       id: "q7",
@@ -824,7 +890,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$0.6$" },
         { key: "D", text: "$1.5$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$X_{He}=\\dfrac{2}{2+3}=0.4$ จึงตอบ B`
     },
     {
       id: "q8",
@@ -835,7 +902,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$6 \\text{ atm}$" },
         { key: "D", text: "$8 \\text{ atm}$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$X_{Ar}=\\dfrac{3}{5}=0.6$, $P_{Ar}=0.6\\times10=6\\text{ atm}$ จึงตอบ C`
     },
     {
       id: "q9",
@@ -846,7 +914,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$3 \\text{ atm}$" },
         { key: "D", text: "$4 \\text{ atm}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `He $\\frac{4}{4}=1$ mol, Ne $\\frac{20}{20}=1$ mol, $X_{He}=0.5$, $P_{He}=0.5\\times4=2\\text{ atm}$ จึงตอบ B`
     },
     {
       id: "q10",
@@ -857,7 +926,8 @@ window.COURSE_DATA = {
         { key: "C", text: "คงที่ ไม่เปลี่ยนแปลง" },
         { key: "D", text: "ขึ้นอยู่กับความดันรวมว่าเพิ่มขึ้นเท่าใด" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `เติมแก๊สเฉื่อยที่ V,T คงที่ ไม่กระทบความดันย่อยของ $CO_2$ (คงที่) จึงตอบ C`
     },
     {
       id: "q11",
@@ -868,7 +938,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$1.00 \\text{ atm}$" },
         { key: "D", text: "$750 \\text{ atm}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$P_{total}=550+150+50=750$ torr $=\\dfrac{750}{760}\\approx0.99\\text{ atm}$ จึงตอบ B`
     },
     {
       id: "q12",
@@ -879,7 +950,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$1.21 \\text{ atm}$" },
         { key: "D", text: "$21.0 \\text{ atm}$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$P_{O_2}=0.21\\times1.00=0.21\\text{ atm}$ จึงตอบ A`
     },
     {
       id: "q13",
@@ -890,7 +962,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$1.2 \\text{ atm}$" },
         { key: "D", text: "$2.0 \\text{ atm}$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$N_2$ ขยายจาก 3 L เป็น 5 L: $P_{N_2}=\\dfrac{2\\times3}{5}=1.2\\text{ atm}$ จึงตอบ C`
     },
     {
       id: "q14",
@@ -901,7 +974,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$2.4 \\text{ atm}$" },
         { key: "D", text: "$3.0 \\text{ atm}$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$P_{H_2}=\\dfrac{1\\times2}{5}=0.4$; $P_{total}=0.4+1.2=1.6\\text{ atm}$ จึงตอบ A`
     },
     {
       id: "q15",
@@ -912,7 +986,8 @@ window.COURSE_DATA = {
         { key: "C", text: "คงที่" },
         { key: "D", text: "ไม่สามารถระบุได้" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `ความดันรวมคงที่ เพิ่ม X ทำให้เศษส่วนโมลของ Y ลดลง ความดันย่อย Y จึงลดลง จึงตอบ B`
     },
 
     // --- เรื่อง อัตราการแพร่ของเกรแฮม (Graham's Law of Effusion and Diffusion) ---
@@ -925,7 +1000,8 @@ window.COURSE_DATA = {
         { key: "C", text: "แปรผันตรงกับรากที่สองของมวลโมเลกุลของแก๊ส" },
         { key: "D", text: "แปรผกผันกับรากที่สองของมวลโมเลกุลของแก๊ส" }
       ],
-      answer: "D"
+      answer: "D",
+      explanation: `เกรแฮม: อัตราการแพร่แปรผกผันกับรากที่สองของมวลโมเลกุล จึงตอบ D`
     },
     {
       id: "q17",
@@ -936,7 +1012,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$CH_4$" },
         { key: "D", text: "$SO_2$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `แก๊สเบาที่สุดแพร่เร็วที่สุด $H_2$ (M=2) จึงตอบ A`
     },
     {
       id: "q18",
@@ -947,7 +1024,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$NO_2$" },
         { key: "D", text: "$Cl_2$" }
       ],
-      answer: "D"
+      answer: "D",
+      explanation: `แก๊สหนักที่สุดแพร่ช้าที่สุด $Cl_2$ (M=71) จึงตอบ D`
     },
     {
       id: "q19",
@@ -958,7 +1036,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\frac{r_1}{r_2} = \\sqrt{\\frac{d_1}{d_2}}$" },
         { key: "D", text: "$\\frac{r_1}{r_2} = \\frac{d_2}{d_1}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$\\dfrac{r_1}{r_2}=\\sqrt{\\dfrac{M_2}{M_1}}$ จึงตอบ B`
     },
     {
       id: "q20",
@@ -969,7 +1048,8 @@ window.COURSE_DATA = {
         { key: "C", text: "แก๊ส $B$ มีมวลโมเลกุลเป็น 4 เท่าของแก๊ส $A$" },
         { key: "D", text: "แก๊ส $A$ มีมวลโมเลกุลเป็น 4 เท่าของแก๊ส $B$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$\\dfrac{r_A}{r_B}=2\\Rightarrow\\dfrac{M_B}{M_A}=4$ คือ B หนักเป็น 4 เท่าของ A จึงตอบ C`
     },
     {
       id: "q21",
@@ -980,7 +1060,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$4.0$ เท่า" },
         { key: "D", text: "$16.0$ เท่า" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$\\dfrac{r_{CH_4}}{r_{SO_2}}=\\sqrt{\\dfrac{64}{16}}=2$ เท่า จึงตอบ B`
     },
     {
       id: "q22",
@@ -991,7 +1072,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$36$" },
         { key: "D", text: "$48$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$\\dfrac{r_{He}}{r_X}=3\\Rightarrow\\dfrac{M_X}{4}=9\\Rightarrow M_X=36$ จึงตอบ C`
     },
     {
       id: "q23",
@@ -1002,7 +1084,8 @@ window.COURSE_DATA = {
         { key: "C", text: "ค่อนไปทางฝั่งสำลีชุบ $HCl$" },
         { key: "D", text: "เกิดกระจายทั่วทั้งหลอดอย่างสม่ำเสมอ" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$NH_3$ (M=17) เบากว่า $HCl$ (M=36.5) แพร่เร็วกว่า วงแหวนจึงเกิดค่อนไปทางฝั่ง $HCl$ จึงตอบ C`
     },
     {
       id: "q24",
@@ -1013,7 +1096,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$20.0$ นาที" },
         { key: "D", text: "$40.0$ นาที" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `เวลา $\\propto\\sqrt{M}$: $t_{H_2}=10\\sqrt{\\dfrac{2}{32}}=10\\times\\dfrac{1}{4}=2.5$ นาที จึงตอบ A`
     },
     {
       id: "q25",
@@ -1024,7 +1108,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$4.0$ เท่า" },
         { key: "D", text: "$16.0$ เท่า" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$\\dfrac{r_Y}{r_X}=\\sqrt{\\dfrac{d_X}{d_Y}}=\\sqrt{4}=2$ เท่า จึงตอบ B`
     },
     {
       id: "q26",
@@ -1035,7 +1120,8 @@ window.COURSE_DATA = {
         { key: "C", text: "กราฟระหว่าง $r$ กับ $\\sqrt{M}$" },
         { key: "D", text: "กราฟระหว่าง $r$ กับ $M^2$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$r\\propto\\dfrac{1}{\\sqrt{M}}$ กราฟ $r$ กับ $\\dfrac{1}{\\sqrt{M}}$ จึงเป็นเส้นตรง จึงตอบ B`
     },
     {
       id: "q27",
@@ -1046,7 +1132,8 @@ window.COURSE_DATA = {
         { key: "C", text: "การแพร่ผ่านใช้กับแก๊สที่มีมวลโมเลกุลต่ำเท่านั้น ส่วนการแพร่กระจายใช้กับแก๊สทุกชนิด" },
         { key: "D", text: "การแพร่กระจายไม่ต้องอาศัยความดัน แต่การแพร่ผ่านต้องอาศัยแรงโน้มถ่วงเสมอ" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `การแพร่ผ่าน (effusion) คือผ่านรูเล็กสู่สุญญากาศ ส่วนการแพร่กระจาย (diffusion) คือแทรกซึมผ่านกัน จึงตอบ A`
     },
     {
       id: "q28",
@@ -1057,7 +1144,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$112$" },
         { key: "D", text: "$140$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$\\dfrac{r_{N_2}}{r_X}=\\sqrt{\\dfrac{M_X}{28}}$: $\\dfrac{14}{7}=2\\Rightarrow M_X=4\\times28=112$ จึงตอบ C`
     },
     {
       id: "q29",
@@ -1068,7 +1156,8 @@ window.COURSE_DATA = {
         { key: "C", text: "การกำจัดแก๊สคาร์บอนมันออกไซด์ออกจากเตาปฏิกรณ์" },
         { key: "D", text: "การป้องกันกัมมันตภาพรังสีรั่วไหลสู่บรรยากาศ" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `ใช้แยกไอโซโทป U-235/U-238 ในรูป $UF_6$ จึงตอบ B`
     },
     {
       id: "q30",
@@ -1079,7 +1168,8 @@ window.COURSE_DATA = {
         { key: "C", text: "เพิ่มอุณหภูมิในหน่วยเคลวินเป็น 4 เท่า" },
         { key: "D", text: "ลดอุณหภูมิในหน่วยเคลวินเหลือ 1 ใน 4" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$v_{rms}\\propto\\sqrt{T}$: อยากให้เร็ว 2 เท่า ต้องเพิ่มอุณหภูมิเคลวินเป็น 4 เท่า จึงตอบ C`
     }
   ]
 },
@@ -1102,7 +1192,8 @@ window.COURSE_DATA = {
         { key: "C", text: "พื้นที่ผิวสัมผัส" },
         { key: "D", text: "ตัวเร่งปฏิกิริยา" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `ภาพเปรียบเทียบความเข้มข้นต่างกัน แสดงผลของปัจจัยความเข้มข้น จึงตอบ B`
     },
     {
       id: "q2",
@@ -1114,7 +1205,8 @@ window.COURSE_DATA = {
         { key: "C", text: "เพราะอนุภาคมีพลังงานจลน์สูงขึ้น เคลื่อนที่เร็วและชนกันแรงขึ้น" },
         { key: "D", text: "เพราะระยะห่างระหว่างอนุภาคลดลง" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `อุณหภูมิสูงทำให้อนุภาคมีพลังงานจลน์สูง เคลื่อนเร็วและชนแรงขึ้น จึงตอบ C`
     },
     {
       id: "q3",
@@ -1125,7 +1217,8 @@ window.COURSE_DATA = {
         { key: "C", text: "ความดันของระบบที่สารตั้งต้นทั้งหมดเป็นของเหลว" },
         { key: "D", text: "การเติมตัวเร่งปฏิกิริยา" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `ความดันมีผลชัดเจนกับแก๊ส ไม่ใช่ของเหลวทั้งหมด ข้อ C จึงไม่ใช่ปัจจัย จึงตอบ C`
     },
     {
       id: "q4",
@@ -1136,7 +1229,8 @@ window.COURSE_DATA = {
         { key: "C", text: "พื้นที่ผิวสัมผัส" },
         { key: "D", text: "ความดัน" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `เคี้ยวละเอียด = เพิ่มพื้นที่ผิวสัมผัส จึงตอบ C`
     },
     {
       id: "q5",
@@ -1147,7 +1241,8 @@ window.COURSE_DATA = {
         { key: "C", text: "สังกะสีแบบเม็ดกลม" },
         { key: "D", text: "ผงสังกะสี" }
       ],
-      answer: "D"
+      answer: "D",
+      explanation: `ผงสังกะสีมีพื้นที่ผิวมากที่สุด ทำปฏิกิริยาเร็วที่สุด จึงตอบ D`
     },
     {
       id: "q6",
@@ -1158,7 +1253,8 @@ window.COURSE_DATA = {
         { key: "C", text: "ทำให้อนุภาคมีพลังงานจลน์เพิ่มขึ้น มีจำนวนอนุภาคที่พลังงานถึงเกณฑ์ $E_a$ มากขึ้น" },
         { key: "D", text: "ทำให้พันธะของผลิตภัณฑ์แข็งแรงมากขึ้น" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `อุณหภูมิสูงเพิ่มพลังงานจลน์ ทำให้อนุภาคที่พลังงานถึง $E_a$ มีมากขึ้น จึงตอบ C`
     },
     {
       id: "q7",
@@ -1169,7 +1265,8 @@ window.COURSE_DATA = {
         { key: "C", text: "อุณหภูมิต่ำช่วยลดอัตราการเกิดปฏิกิริยาการเน่าเสีย" },
         { key: "D", text: "อุณหภูมิต่ำเป็นตัวหน่วงปฏิกิริยาทางกายภาพ" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `อุณหภูมิต่ำลดอัตราการเกิดปฏิกิริยาการเน่าเสีย จึงตอบ C`
     },
     {
       id: "q8",
@@ -1180,7 +1277,8 @@ window.COURSE_DATA = {
         { key: "C", text: "การหั่นผักเป็นชิ้นเล็กๆ ก่อนนำไปผัดให้สุกเร็วขึ้น" },
         { key: "D", text: "การเก็บนมสดไว้ในตู้เย็นไม่ให้บูดเร็ว" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `เอนไซม์ในผงซักฟอกเป็นตัวเร่งปฏิกิริยา จึงตอบ B`
     },
     {
       id: "q9",
@@ -1191,7 +1289,8 @@ window.COURSE_DATA = {
         { key: "C", text: "เปลี่ยนแปลงกลไกการเกิดปฏิกิริยาไปในทิศทางที่ค่า $E_a$ ลดลง" },
         { key: "D", text: "เพิ่มพื้นที่ผิวสัมผัสให้กับสารตั้งต้น" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `ตัวเร่งลดพลังงานก่อกัมมันต์ ($E_a$) โดยเปลี่ยนกลไก จึงตอบ C`
     },
     {
       id: "q10",
@@ -1202,7 +1301,8 @@ window.COURSE_DATA = {
         { key: "C", text: "ทำหน้าที่ดูดซับความร้อน ทำให้ระบบอุณหภูมิลดลง" },
         { key: "D", text: "สามารถเปลี่ยนปฏิกิริยาดูดความร้อนให้เป็นคายความร้อนได้" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `ตัวหน่วงทำให้ปฏิกิริยาช้าลงโดยรบกวนกลไก จึงตอบ B`
     },
     {
       id: "q11",
@@ -1213,7 +1313,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$N_2(g) + 3H_2(g) \\rightarrow 2NH_3(g)$" },
         { key: "D", text: "$Zn(s) + H_2SO_4(aq) \\rightarrow ZnSO_4(aq) + H_2(g)$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `ความดันมีผลกับปฏิกิริยาที่มีแก๊ส คือ $N_2+3H_2\\to2NH_3$ จึงตอบ C`
     },
     {
       id: "q12",
@@ -1224,7 +1325,8 @@ window.COURSE_DATA = {
         { key: "C", text: "พื้นที่ผิวสัมผัสของแก๊สเพิ่มขึ้น" },
         { key: "D", text: "พลังงานก่อกัมมันต์ของปฏิกิริยาลดลง" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `เพิ่มความดัน → ปริมาตรลด → ความเข้มข้นแก๊สเพิ่ม อนุภาคชนบ่อยขึ้น จึงตอบ B`
     },
     {
       id: "q13",
@@ -1235,7 +1337,8 @@ window.COURSE_DATA = {
         { key: "C", text: "เพิ่มพื้นที่ผิวสัมผัสให้ทำปฏิกิริยากับแก๊สออกซิเจนได้เร็วขึ้น" },
         { key: "D", text: "ลดจุดเดือดของถ่านหิน" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `บดถ่านเป็นผงเพิ่มพื้นที่ผิวสัมผัสกับออกซิเจน จึงตอบ C`
     },
     {
       id: "q14",
@@ -1246,7 +1349,8 @@ window.COURSE_DATA = {
         { key: "C", text: "การลดความเข้มข้น" },
         { key: "D", text: "การควบคุมพื้นที่ผิวสัมผัส" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `สารกันบูดคือตัวหน่วงปฏิกิริยา จึงตอบ B`
     },
     {
       id: "q15",
@@ -1257,7 +1361,8 @@ window.COURSE_DATA = {
         { key: "C", text: "หินปูนแบบก้อน, กรดความเข้มข้น $1.0 \\text{ M}$, อุณหภูมิ $50^\\circ\\text{C}$" },
         { key: "D", text: "หินปูนแบบผง, กรดความเข้มข้น $1.0 \\text{ M}$, อุณหภูมิ $50^\\circ\\text{C}$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `ช้าที่สุด = ก้อน + กรดเจือจาง + อุณหภูมิต่ำ จึงตอบ A`
     },
     {
       id: "q16",
@@ -1268,7 +1373,8 @@ window.COURSE_DATA = {
         { key: "C", text: "เท่าเดิม เพราะความเข้มข้นไม่เปลี่ยนแปลง" },
         { key: "D", text: "เร็วขึ้นชั่วขณะแล้วหยุดปฏิกิริยา" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `อ่างน้ำแข็งอุณหภูมิต่ำ อนุภาคพลังงานถึงเกณฑ์น้อยลง ปฏิกิริยาช้าลง จึงตอบ B`
     },
     {
       id: "q17",
@@ -1279,7 +1385,8 @@ window.COURSE_DATA = {
         { key: "C", text: "ชนกันเบาๆ เพื่อให้พันธะเดิมค่อยๆ คลายตัว" },
         { key: "D", text: "ชนกันระหว่างอนุภาคที่มีประจุตรงข้ามกันเท่านั้น" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `ต้องชนในทิศเหมาะสมและมีพลังงานไม่น้อยกว่า $E_a$ จึงตอบ B`
     },
     {
       id: "q18",
@@ -1290,7 +1397,8 @@ window.COURSE_DATA = {
         { key: "C", text: "เมื่อมีสารตั้งต้นอย่างน้อย 1 ชนิดมีสถานะเป็นของแข็ง" },
         { key: "D", text: "เมื่อสารตั้งต้นเป็นของเหลวเนื้อเดียวผสมกัน" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `พื้นที่ผิวมีผลชัดเมื่อมีสารตั้งต้นเป็นของแข็ง จึงตอบ C`
     },
     {
       id: "q19",
@@ -1301,7 +1409,8 @@ window.COURSE_DATA = {
         { key: "C", text: "ไปเพิ่มค่า $\\Delta H$ (ความร้อนของปฏิกิริยา) ทำให้เกิดผลิตภัณฑ์มากขึ้น" },
         { key: "D", text: "เป็นสารที่ต้องเติมในปริมาณมากๆ เสมอ จึงจะเห็นผลลัพธ์" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `ตัวเร่งร่วมในกลไกและได้กลับคืนปริมาณเท่าเดิมเมื่อจบ จึงตอบ B`
     },
     {
       id: "q20",
@@ -1312,7 +1421,8 @@ window.COURSE_DATA = {
         { key: "C", text: "เพราะจำนวนอนุภาคต่อหน่วยปริมาตรเพิ่มขึ้น ทำให้โอกาสชนกันบ่อยขึ้น" },
         { key: "D", text: "เพราะการเพิ่มความเข้มข้นทำให้อุณหภูมิสูงขึ้นโดยอัตโนมัติ" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `เพิ่มความเข้มข้น → อนุภาคต่อปริมาตรมากขึ้น ชนกันบ่อยขึ้น จึงตอบ C`
     },
     {
       id: "q21",
@@ -1323,7 +1433,8 @@ window.COURSE_DATA = {
         { key: "C", text: "นำสารละลายกรดไปแช่ตู้เย็นก่อนเริ่มทดลอง" },
         { key: "D", text: "เปลี่ยนไปใช้กรดไฮโดรคลอริกความเข้มข้น $1.0 \\text{ M}$" }
       ],
-      answer: "D"
+      answer: "D",
+      explanation: `กรดเข้มข้นสุด $1.0$ M ทำให้เร็วที่สุด จึงตอบ D`
     },
     {
       id: "q22",
@@ -1334,7 +1445,8 @@ window.COURSE_DATA = {
         { key: "C", text: "พื้นที่ผิวสัมผัส" },
         { key: "D", text: "ตัวเร่งปฏิกิริยา" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `ความร้อนจากเตาอบคือปัจจัยอุณหภูมิ จึงตอบ B`
     },
     {
       id: "q23",
@@ -1345,7 +1457,8 @@ window.COURSE_DATA = {
         { key: "C", text: "พื้นที่ผิวสัมผัส" },
         { key: "D", text: "ความดันต่ำ" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `ฝุ่นระเบิดเกิดจากพื้นที่ผิวสัมผัสมหาศาลของผงละเอียด จึงตอบ C`
     },
     {
       id: "q24",
@@ -1356,7 +1469,8 @@ window.COURSE_DATA = {
         { key: "C", text: "ตัวหน่วงปฏิกิริยาชีวภาพ" },
         { key: "D", text: "สารผลิตภัณฑ์ระดับกลาง" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `เอนไซม์อะไมเลสเป็นตัวเร่งปฏิกิริยาชีวภาพ จึงตอบ B`
     },
     {
       id: "q25",
@@ -1367,7 +1481,8 @@ window.COURSE_DATA = {
         { key: "C", text: "ใช้สาร A แบบก้อน เทียบกับสาร A แบบผง โดยให้สารแบบผงมีความเข้มข้นสูงกว่า" },
         { key: "D", text: "เติมตัวเร่งปฏิกิริยาลงในหลอดทดลองหนึ่ง แต่อีกหลอดไม่เติม" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `พิสูจน์พื้นที่ผิว: เทียบผงกับก้อน โดยคุมอุณหภูมิและความเข้มข้นให้เท่ากัน จึงตอบ A`
     },
     {
       id: "q26",
@@ -1378,7 +1493,8 @@ window.COURSE_DATA = {
         { key: "C", text: "ตัวหน่วงปฏิกิริยา" },
         { key: "D", text: "สารเพิ่มพื้นที่ผิว" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$MnO_2$ เร่งการสลาย $H_2O_2$ โดยไม่ถูกใช้ไป คือตัวเร่งปฏิกิริยา จึงตอบ B`
     },
     {
       id: "q27",
@@ -1389,7 +1505,8 @@ window.COURSE_DATA = {
         { key: "C", text: "แผ่นเหล็กหนา วางแช่จมมิดอยู่ในน้ำมันเครื่อง" },
         { key: "D", text: "ฝอยขัดหม้อเหล็กชื้นๆ วางในตู้เย็นอุณหภูมิ $4^\\circ\\text{C}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `เหล็กชื้น + อากาศร้อน เกิดสนิมเร็วที่สุด จึงตอบ B`
     },
     {
       id: "q28",
@@ -1400,7 +1517,8 @@ window.COURSE_DATA = {
         { key: "C", text: "ทำให้เส้นประที่แสดงค่าพลังงานก่อกัมมันต์ ($E_a$) เลื่อนมาทางซ้าย (ค่าลดลง)" },
         { key: "D", text: "ทำให้พื้นที่ใต้กราฟทั้งหมดเพิ่มขึ้นอย่างมหาศาล" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `ตัวเร่งทำให้เส้น $E_a$ เลื่อนมาทางซ้าย (ค่าลดลง) จึงตอบ C`
     },
     {
       id: "q29",
@@ -1411,7 +1529,8 @@ window.COURSE_DATA = {
         { key: "C", text: "ตัวเร่งปฏิกิริยา" },
         { key: "D", text: "ความดัน" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `น้ำร้อนราดตาม = เพิ่มอุณหภูมิ ทำให้ปฏิกิริยาเร็วขึ้น จึงตอบ A`
     },
     {
       id: "q30",
@@ -1422,7 +1541,8 @@ window.COURSE_DATA = {
         { key: "C", text: "เพิ่มขึ้น เพราะการลดปริมาตรทำให้ความเข้มข้นของแก๊สเพิ่มขึ้น อนุภาคจึงชนกันบ่อยขึ้น" },
         { key: "D", text: "ลดลง เพราะแก๊สสูญเสียความดันให้ระบบ" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `ลดปริมาตรครึ่งหนึ่ง → ความเข้มข้นแก๊สเพิ่ม อนุภาคชนบ่อยขึ้น เร็วขึ้น จึงตอบ C`
     }
   ]
 },
@@ -1446,7 +1566,8 @@ window.COURSE_DATA = {
           { key: "C", text: "ผลต่างของพลังงานระหว่างสารตั้งต้นและผลิตภัณฑ์" },
           { key: "D", text: "ปริมาณตัวเร่งปฏิกิริยาที่ใช้ไปต่อหน่วยเวลา" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `อัตราการเกิดปฏิกิริยา = การเปลี่ยนความเข้มข้นของสารต่อหน่วยเวลา จึงตอบ B`
       },
       {
         id: "q2",
@@ -1457,7 +1578,8 @@ window.COURSE_DATA = {
           { key: "C", text: "เพราะเวลาในปฏิกิริยาเดินถอยหลัง" },
           { key: "D", text: "เพราะสารตั้งต้นเป็นตัวถูกออกซิไดซ์เสมอ" }
         ],
-        answer: "A"
+        answer: "A",
+        explanation: `ความเข้มข้นสารตั้งต้นลดลง $\\Delta$ เป็นลบ ใส่ลบเพื่อให้อัตราเป็นบวก จึงตอบ A`
       },
       {
         id: "q3",
@@ -1468,7 +1590,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$\\text{mol/(L}\\cdot\\text{s)}$" },
           { key: "D", text: "$\\text{L/mol}$" }
         ],
-        answer: "C"
+        answer: "C",
+        explanation: `หน่วยคือ $\\text{mol/(L}\\cdot\\text{s)}$ จึงตอบ C`
       },
       {
         id: "q4",
@@ -1479,7 +1602,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$-3\\frac{\\Delta[N_2]}{\\Delta t} = -\\frac{\\Delta[H_2]}{\\Delta t} = 2\\frac{\\Delta[NH_3]}{\\Delta t}$" },
           { key: "D", text: "$-\\frac{1}{2}\\frac{\\Delta[N_2]}{\\Delta t} = -\\frac{1}{3}\\frac{\\Delta[H_2]}{\\Delta t} = \\frac{\\Delta[NH_3]}{\\Delta t}$" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `หารด้วยเลขสัมประสิทธิ์: $-\\frac{\\Delta[N_2]}{\\Delta t}=-\\frac{1}{3}\\frac{\\Delta[H_2]}{\\Delta t}=\\frac{1}{2}\\frac{\\Delta[NH_3]}{\\Delta t}$ จึงตอบ B`
       },
       {
         id: "q5",
@@ -1490,7 +1614,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$0.8 \\text{ mol/(L}\\cdot\\text{s)}$" },
           { key: "D", text: "$1.6 \\text{ mol/(L}\\cdot\\text{s)}$" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `อัตรา $O_2=\\dfrac{1}{2}\\times$ อัตรา $N_2O_5=\\dfrac{0.8}{2}=0.4$ จึงตอบ B`
       },
       {
         id: "q6",
@@ -1505,7 +1630,8 @@ window.COURSE_DATA = {
           { key: "C", text: "ก และ ค" },
           { key: "D", text: "ก ข และ ค" }
         ],
-        answer: "D"
+        answer: "D",
+        explanation: `ก. ข. ค. ถูกทั้งหมด (อัตราสูงตอนต้นแล้วลด เพราะสารตั้งต้นลด และเป็นศูนย์เมื่อจบ) จึงตอบ D`
       },
       {
         id: "q7",
@@ -1516,7 +1642,8 @@ window.COURSE_DATA = {
           { key: "C", text: "อัตราเฉลี่ยมีค่ามากกว่าอัตราขณะหนึ่งเสมอ" },
           { key: "D", text: "อัตราขณะหนึ่งคำนวณจากความชันของเส้นตรงที่ลากเชื่อมจุดเริ่มต้นกับจุดสุดท้าย" }
         ],
-        answer: "A"
+        answer: "A",
+        explanation: `อัตราเฉลี่ยคิดจากช่วงเวลา ส่วนอัตราขณะหนึ่งคือ ณ เวลาหนึ่ง (ความชันเส้นสัมผัส) จึงตอบ A`
       },
 
       // --- กราฟปริมาณสาร-เวลา และ อัตราเฉลี่ย/ขณะหนึ่ง (ข้อ 8 - 14) ---
@@ -1533,7 +1660,8 @@ window.COURSE_DATA = {
           { key: "C", text: "A เป็นสารตั้งต้น (ความเข้มข้นลดลง) และ B เป็นผลิตภัณฑ์ (ความเข้มข้นเพิ่มขึ้น)" },
           { key: "D", text: "ทั้ง A และ B เป็นสารตั้งต้น" }
         ],
-        answer: "C"
+        answer: "C",
+        explanation: `A ความเข้มข้นลดลง = สารตั้งต้น, B ความเข้มข้นเพิ่มขึ้น = ผลิตภัณฑ์ จึงตอบ C`
       },
       {
         id: "q9",
@@ -1548,7 +1676,8 @@ window.COURSE_DATA = {
           { key: "C", text: "เพราะอุณหภูมิของระบบลดลงตลอดเวลา" },
           { key: "D", text: "เพราะตัวเร่งปฏิกิริยาหมดฤทธิ์" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `ความชันลดลงเพราะอัตราลดลงเมื่อสารตั้งต้นถูกใช้ไปเกือบหมด จึงตอบ B`
       },
       {
         id: "q10",
@@ -1563,7 +1692,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$0.10 \\text{ mol/(L}\\cdot\\text{s)}$" },
           { key: "D", text: "$0.50 \\text{ mol/(L}\\cdot\\text{s)}$" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `อัตราเฉลี่ย = การเปลี่ยนความเข้มข้น/ช่วงเวลา อ่านจากกราฟได้ $0.05\\text{ mol/(L}\\cdot\\text{s)}$ จึงตอบ B`
       },
       {
         id: "q11",
@@ -1581,7 +1711,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$0.04 \\text{ mol/(L}\\cdot\\text{s)}$" },
           { key: "D", text: "$0.20 \\text{ mol/(L}\\cdot\\text{s)}$" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `อัตราเฉลี่ย $=\\dfrac{0.70-0.30}{30-10}=\\dfrac{0.40}{20}=0.02\\text{ mol/(L}\\cdot\\text{s)}$ จึงตอบ B`
       },
       {
         id: "q12",
@@ -1596,7 +1727,8 @@ window.COURSE_DATA = {
           { key: "C", text: "ความเข้มข้นเริ่มต้นของสารตั้งต้น" },
           { key: "D", text: "ปริมาณตัวเร่งปฏิกิริยาที่เติมลงไป" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `เส้นสัมผัสเส้นโค้ง ณ $t=20$ วิ บอกอัตราขณะหนึ่งที่เวลานั้น จึงตอบ B`
       },
       {
         id: "q13",
@@ -1607,7 +1739,8 @@ window.COURSE_DATA = {
           { key: "C", text: "พื้นที่ใต้กราฟความเข้มข้น–เวลา" },
           { key: "D", text: "ผลคูณของความเข้มข้นกับเวลา" }
         ],
-        answer: "A"
+        answer: "A",
+        explanation: `อัตราขณะหนึ่ง = ความชันของเส้นสัมผัส ณ จุดเวลานั้น จึงตอบ A`
       },
       {
         id: "q14",
@@ -1618,7 +1751,8 @@ window.COURSE_DATA = {
           { key: "C", text: "มีค่าเป็นศูนย์" },
           { key: "D", text: "เท่ากับอัตราขณะปฏิกิริยาสิ้นสุดเสมอ" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `อัตราเริ่มต้นมีค่ามากที่สุด เพราะความเข้มข้นสารตั้งต้นสูงสุด จึงตอบ B`
       },
 
       // --- กราฟพลังงาน, Ea, ΔH (ข้อ 15 - 25) ---
@@ -1631,7 +1765,8 @@ window.COURSE_DATA = {
           { key: "C", text: "ผลต่างพลังงานระหว่างสารตั้งต้นกับผลิตภัณฑ์" },
           { key: "D", text: "ปริมาณความร้อนที่ปฏิกิริยาคายออกมา" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `$E_a$ เป็นตัวกำหนดอัตราโดยตรง จึงตอบ B`
       },
       {
         id: "q16",
@@ -1642,7 +1777,8 @@ window.COURSE_DATA = {
           { key: "C", text: "ผลต่างพลังงานระหว่างสารตั้งต้นกับผลิตภัณฑ์" },
           { key: "D", text: "พลังงานจลน์เฉลี่ยของอนุภาคทั้งหมดในระบบ" }
         ],
-        answer: "A"
+        answer: "A",
+        explanation: `พลังงานก่อกัมมันต์ = พลังงานต่ำสุดที่อนุภาคต้องมีเพื่อเกิดปฏิกิริยา จึงตอบ A`
       },
       {
         id: "q17",
@@ -1653,7 +1789,8 @@ window.COURSE_DATA = {
           { key: "C", text: "สารตั้งต้นและผลิตภัณฑ์มีพลังงานเท่ากัน" },
           { key: "D", text: "ปฏิกิริยาคายพลังงานไม่มีพลังงานก่อกัมมันต์" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `คายพลังงาน: ผลิตภัณฑ์พลังงานต่ำกว่าสารตั้งต้น ($\\Delta H<0$) จึงตอบ B`
       },
       {
         id: "q18",
@@ -1668,7 +1805,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$90 \\text{ kJ}$" },
           { key: "D", text: "$120 \\text{ kJ}$" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `$E_a$ ไปข้างหน้า = พลังงานสถานะแทรนซิชัน − สารตั้งต้น อ่านได้ $70\\text{ kJ}$ จึงตอบ B`
       },
       {
         id: "q19",
@@ -1679,7 +1817,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$E_a$ ย้อนกลับ $= 90 \\text{ kJ}$, $\\Delta H = +20 \\text{ kJ}$ (ดูดพลังงาน)" },
           { key: "D", text: "$E_a$ ย้อนกลับ $= 20 \\text{ kJ}$, $\\Delta H = -20 \\text{ kJ}$ (คายพลังงาน)" }
         ],
-        answer: "A"
+        answer: "A",
+        explanation: `$E_a$ ย้อนกลับ $=120-30=90$ kJ, $\\Delta H=30-50=-20$ kJ (คาย) จึงตอบ A`
       },
       {
         id: "q20",
@@ -1694,7 +1833,8 @@ window.COURSE_DATA = {
           { key: "C", text: "เป็นปฏิกิริยาดูดพลังงาน $\\Delta H = +90 \\text{ kJ}$" },
           { key: "D", text: "เป็นปฏิกิริยาคายพลังงาน โดย $E_a$ ไปข้างหน้า $= 40 \\text{ kJ}$" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `ผลิตภัณฑ์สูงกว่า = ดูดพลังงาน $\\Delta H=+50$ kJ และ $E_a$ ไปข้างหน้า $=90$ kJ จึงตอบ B`
       },
       {
         id: "q21",
@@ -1705,7 +1845,8 @@ window.COURSE_DATA = {
           { key: "C", text: "อัตราการเกิดปฏิกิริยาขึ้นกับพลังงานก่อกัมมันต์ ($E_a$) ไม่ได้ขึ้นกับ $\\Delta H$ โดยตรง" },
           { key: "D", text: "ปฏิกิริยาดูดพลังงานไม่มีพลังงานก่อกัมมันต์" }
         ],
-        answer: "C"
+        answer: "C",
+        explanation: `อัตราขึ้นกับ $E_a$ ไม่ได้ขึ้นกับ $\\Delta H$ โดยตรง จึงตอบ C`
       },
       {
         id: "q22",
@@ -1720,7 +1861,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$E_a$ ไปข้างหน้า $=$ $E_a$ ย้อนกลับ" },
           { key: "D", text: "$E_a$ ย้อนกลับ $= 40 \\text{ kJ}$" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `ปฏิกิริยาคายพลังงาน $E_a$ ไปข้างหน้า $<$ ย้อนกลับ ($40<80$) จึงตอบ B`
       },
       {
         id: "q23",
@@ -1731,7 +1873,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$\\Delta H = E_{ar} - E_{af}$" },
           { key: "D", text: "$\\Delta H = E_{af} \\times E_{ar}$" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `$\\Delta H=E_{af}-E_{ar}$ จึงตอบ B`
       },
       {
         id: "q24",
@@ -1742,7 +1885,8 @@ window.COURSE_DATA = {
           { key: "C", text: "$E_a$ ไปข้างหน้า เท่ากับ $E_a$ ย้อนกลับ" },
           { key: "D", text: "ปฏิกิริยาทิศย้อนกลับไม่มีพลังงานก่อกัมมันต์" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `คายพลังงาน: $E_a$ ไปข้างหน้าน้อยกว่า $E_a$ ย้อนกลับ จึงตอบ B`
       },
       {
         id: "q25",
@@ -1753,7 +1897,8 @@ window.COURSE_DATA = {
           { key: "C", text: "เพิ่มพลังงานของสารตั้งต้นให้สูงขึ้น" },
           { key: "D", text: "เพิ่มพลังงานก่อกัมมันต์ทั้งทิศไปข้างหน้าและย้อนกลับ" }
         ],
-        answer: "A"
+        answer: "A",
+        explanation: `ตัวเร่งลด $E_a$ ทำให้เร็วขึ้น แต่ไม่เปลี่ยน $\\Delta H$ จึงตอบ A`
       },
 
       // --- ปฏิกิริยาหลายขั้นตอนและขั้นกำหนดอัตรา (ข้อ 26 - 30) ---
@@ -1766,7 +1911,8 @@ window.COURSE_DATA = {
           { key: "C", text: "ขั้นแรกเสมอ" },
           { key: "D", text: "ขั้นสุดท้ายเสมอ" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `ขั้นกำหนดอัตราคือขั้นช้าที่สุด ($E_a$ สูงสุด) จึงตอบ B`
       },
       {
         id: "q27",
@@ -1781,7 +1927,8 @@ window.COURSE_DATA = {
           { key: "C", text: "ทั้งสองขั้นเกิดเร็วเท่ากัน" },
           { key: "D", text: "ขั้นที่ 2 เพราะเป็นขั้นที่เกิดหลังสุด" }
         ],
-        answer: "A"
+        answer: "A",
+        explanation: `ขั้นที่ 1 มี $E_a$ สูงสุด (80 kJ) เป็นขั้นกำหนดอัตรา จึงตอบ A`
       },
       {
         id: "q28",
@@ -1792,7 +1939,8 @@ window.COURSE_DATA = {
           { key: "C", text: "ที่จุดเริ่มต้นซึ่งเป็นสารตั้งต้น" },
           { key: "D", text: "ที่จุดต่ำสุดซึ่งเป็นผลิตภัณฑ์" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `สารมัธยันตร์อยู่ที่หลุมพลังงาน (จุดต่ำ) ระหว่างยอดสองยอด จึงตอบ B`
       },
       {
         id: "q29",
@@ -1803,7 +1951,8 @@ window.COURSE_DATA = {
           { key: "C", text: "ปฏิกิริยาคายพลังงานเกิดเร็วกว่าปฏิกิริยาดูดพลังงานเสมอ" },
           { key: "D", text: "ขั้นกำหนดอัตราคือขั้นที่มีพลังงานก่อกัมมันต์สูงที่สุด" }
         ],
-        answer: "C"
+        answer: "C",
+        explanation: `ข้อ C ผิด: ปฏิกิริยาคายพลังงานไม่จำเป็นต้องเร็วกว่าดูดพลังงานเสมอ จึงตอบ C`
       },
       {
         id: "q30",
@@ -1814,7 +1963,8 @@ window.COURSE_DATA = {
           { key: "C", text: "ค่าเฉลี่ยของทั้งสองขั้น" },
           { key: "D", text: "ขั้นที่ 2 เพราะมี $E_a$ ต่ำสุด" }
         ],
-        answer: "B"
+        answer: "B",
+        explanation: `ขั้นที่ 1 ช้าที่สุด ($E_a=75$ kJ สูงสุด) จึงเป็นขั้นกำหนดอัตรา จึงตอบ B`
       }
     ]
   }

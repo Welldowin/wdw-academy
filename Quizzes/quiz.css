@@ -101,6 +101,29 @@ body {
 .review-badge.correct { color: #0f9d58; }
 .review-badge.incorrect { color: #dc2626; }
 
+/* ---- เฉลยหลังถึงเวลา (reveal) ---- */
+.option-label.reveal-correct {
+  border-color: #0f9d58;
+  background: #e9f9ef;
+}
+.option-label.reveal-wrong {
+  border-color: #dc2626;
+  background: #fdecec;
+}
+.reveal-tag {
+  display: inline-block; margin-left: 6px; font-size: 0.78rem; font-weight: 700;
+  color: #0f9d58; white-space: nowrap;
+}
+.reveal-tag.wrong { color: #dc2626; }
+
+.explanation-box {
+  margin-top: 14px; padding: 12px 14px;
+  border: 1.5px solid rgba(39,78,150,0.18); border-left: 4px solid var(--wdw-gold);
+  border-radius: 10px; background: #fffdf6;
+}
+.explanation-box > strong { display: block; margin-bottom: 6px; color: var(--wdw-blue); font-size: 0.95rem; }
+.explanation-text { color: #374151; line-height: 1.7; white-space: pre-line; }
+
 /* ---------- Actions ---------- */
 .actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 24px; }
 .btn {

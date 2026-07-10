@@ -22,7 +22,8 @@ window.COURSE_DATA = {
         { key: "C", text: `$\\dfrac{\\pi}{3}$` },
         { key: "D", text: `$\\dfrac{\\pi}{2}$` }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$30\\times\\dfrac{\\pi}{180}=\\dfrac{\\pi}{6}$ จึงตอบ A`
     },
     {
       id: "q2",
@@ -36,7 +37,8 @@ window.COURSE_DATA = {
         { key: "C", text: `$150^\\circ$` },
         { key: "D", text: `$210^\\circ$` }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$\\dfrac{3\\pi}{4}\\times\\dfrac{180}{\\pi}=135^\\circ$ จึงตอบ B`
     },
     {
       id: "q3",
@@ -50,7 +52,8 @@ window.COURSE_DATA = {
         { key: "C", text: `$\\dfrac{5\\pi}{6}$` },
         { key: "D", text: `$\\dfrac{4\\pi}{3}$` }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$120\\times\\dfrac{\\pi}{180}=\\dfrac{2\\pi}{3}$ จึงตอบ A`
     },
     {
       id: "q4",
@@ -64,7 +67,8 @@ window.COURSE_DATA = {
         { key: "C", text: `$150^\\circ$` },
         { key: "D", text: `$210^\\circ$` }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$\\dfrac{5\\pi}{6}\\times\\dfrac{180}{\\pi}=150^\\circ$ จึงตอบ C`
     },
     {
       id: "q5",
@@ -78,7 +82,8 @@ window.COURSE_DATA = {
         { key: "C", text: `$\\dfrac{5\\pi}{4}$` },
         { key: "D", text: `$2\\pi$` }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$270\\times\\dfrac{\\pi}{180}=\\dfrac{3\\pi}{2}$ จึงตอบ B`
     },
 
     // --- ค่าฟังก์ชันตรีโกณมิติพื้นฐาน 0, 30, 45, 60, 90 (ข้อ 6-10) ---
@@ -101,7 +106,8 @@ window.COURSE_DATA = {
         { key: "C", text: `$\\dfrac{\\sqrt{3}}{2}$` },
         { key: "D", text: `$1$` }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$\\sin30^\\circ=\\dfrac{1}{2}$ จึงตอบ A`
     },
     {
       id: "q7",
@@ -122,7 +128,8 @@ window.COURSE_DATA = {
         { key: "C", text: `$\\dfrac{\\sqrt{3}}{2}$` },
         { key: "D", text: `$1$` }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$\\cos60^\\circ=\\dfrac{1}{2}$ จึงตอบ A`
     },
     {
       id: "q8",
@@ -143,7 +150,8 @@ window.COURSE_DATA = {
         { key: "C", text: `$\\sqrt{3}$` },
         { key: "D", text: `หาค่าไม่ได้` }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$\\tan45^\\circ=1$ จึงตอบ B`
     },
     {
       id: "q9",
@@ -157,7 +165,8 @@ window.COURSE_DATA = {
         { key: "C", text: `$2$` },
         { key: "D", text: `$-1$` }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$\\sin90^\\circ+\\cos0^\\circ=1+1=2$ จึงตอบ C`
     },
     {
       id: "q10",
@@ -171,7 +180,8 @@ window.COURSE_DATA = {
         { key: "C", text: `$\\sqrt{3}$` },
         { key: "D", text: `หาค่าไม่ได้` }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$\\tan60^\\circ=\\sqrt{3}$ จึงตอบ C`
     },
 
     // --- ค่ามุม 37 และ 53 (ข้อ 11-13) ---
@@ -190,7 +200,8 @@ window.COURSE_DATA = {
         { key: "C", text: `$\\dfrac{3}{4}$` },
         { key: "D", text: `$\\dfrac{4}{3}$` }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `จากสามเหลี่ยม 3:4:5 ได้ $\\sin37^\\circ\\approx\\dfrac{3}{5}$ จึงตอบ A`
     },
     {
       id: "q12",
@@ -207,7 +218,8 @@ window.COURSE_DATA = {
         { key: "C", text: `$\\dfrac{3}{4}$` },
         { key: "D", text: `$\\dfrac{4}{3}$` }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$\\cos53^\\circ=\\sin37^\\circ\\approx\\dfrac{3}{5}$ จึงตอบ A`
     },
     {
       id: "q13",
@@ -223,7 +235,8 @@ window.COURSE_DATA = {
         { key: "C", text: `$\\dfrac{3}{4}$` },
         { key: "D", text: `$\\dfrac{4}{3}$` }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$\\tan37^\\circ=\\dfrac{\\sin}{\\cos}=\\dfrac{3/5}{4/5}=\\dfrac{3}{4}$ จึงตอบ C`
     },
 
     // --- เครื่องหมายและจตุภาค (Quadrant) (ข้อ 14-18) ---
@@ -243,7 +256,8 @@ window.COURSE_DATA = {
         { key: "C", text: `จตุภาคที่ III` },
         { key: "D", text: `จตุภาคที่ IV` }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$150^\\circ$ อยู่ระหว่าง $90^\\circ$–$180^\\circ$ = จตุภาคที่ II จึงตอบ B`
     },
     {
       id: "q15",
@@ -261,7 +275,8 @@ window.COURSE_DATA = {
         { key: "C", text: `$\\tan$ และ $\\cot$` },
         { key: "D", text: `เป็นบวกทุกฟังก์ชัน` }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `จตุภาค III มีเพียง $\\tan,\\cot$ เป็นบวก จึงตอบ C`
     },
     {
       id: "q16",
@@ -279,7 +294,8 @@ window.COURSE_DATA = {
         { key: "C", text: `จตุภาคที่ III` },
         { key: "D", text: `จตุภาคที่ IV` }
       ],
-      answer: "D"
+      answer: "D",
+      explanation: `$\\sin<0,\\cos>0$ ตรงกับจตุภาคที่ IV จึงตอบ D`
     },
     {
       id: "q17",
@@ -297,7 +313,8 @@ window.COURSE_DATA = {
         { key: "C", text: `จตุภาคที่ III` },
         { key: "D", text: `จตุภาคที่ IV` }
       ],
-      answer: "D"
+      answer: "D",
+      explanation: `$\\dfrac{7\\pi}{4}=315^\\circ$ อยู่ในจตุภาคที่ IV จึงตอบ D`
     },
     {
       id: "q18",
@@ -316,7 +333,8 @@ window.COURSE_DATA = {
         { key: "C", text: `$(-,\\; -)$` },
         { key: "D", text: `$(+,\\; -)$` }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$\\dfrac{4\\pi}{3}=240^\\circ$ จตุภาค III ทั้ง $\\cos,\\sin$ เป็นลบ $(-,-)$ จึงตอบ C`
     },
 
     // --- คู่อันดับ (x, y) บนวงกลมหนึ่งหน่วย (ข้อ 19-23) ---
@@ -338,7 +356,8 @@ window.COURSE_DATA = {
         { key: "C", text: `$(0, -1)$` },
         { key: "D", text: `$(-1, 0)$` }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `มุม 0: $(\\cos0,\\sin0)=(1,0)$ จึงตอบ B`
     },
     {
       id: "q20",
@@ -356,7 +375,8 @@ window.COURSE_DATA = {
         { key: "C", text: `$(0, -1)$` },
         { key: "D", text: `$(-1, 0)$` }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `มุม $\\dfrac{\\pi}{2}$: $(\\cos90^\\circ,\\sin90^\\circ)=(0,1)$ จึงตอบ A`
     },
     {
       id: "q21",
@@ -374,7 +394,8 @@ window.COURSE_DATA = {
         { key: "C", text: `$(0, -1)$` },
         { key: "D", text: `$(-1, 0)$` }
       ],
-      answer: "D"
+      answer: "D",
+      explanation: `มุม $180^\\circ$: $(\\cos180^\\circ,\\sin180^\\circ)=(-1,0)$ จึงตอบ D`
     },
     {
       id: "q22",
@@ -391,7 +412,8 @@ window.COURSE_DATA = {
         { key: "C", text: `$\\left(\\dfrac{\\sqrt{2}}{2},\\; \\dfrac{\\sqrt{2}}{2}\\right)$` },
         { key: "D", text: `$(1,\\; 1)$` }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `มุม $\\dfrac{\\pi}{4}$: $\\left(\\dfrac{\\sqrt2}{2},\\dfrac{\\sqrt2}{2}\\right)$ จึงตอบ C`
     },
     {
       id: "q23",
@@ -410,7 +432,8 @@ window.COURSE_DATA = {
         { key: "C", text: `$\\left(-\\dfrac{\\sqrt{3}}{2},\\; \\dfrac{1}{2}\\right)$` },
         { key: "D", text: `$\\left(-\\dfrac{\\sqrt{3}}{2},\\; -\\dfrac{1}{2}\\right)$` }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$330^\\circ$ จตุภาค IV, มุมอ้างอิง $30^\\circ$: $\\left(\\dfrac{\\sqrt3}{2},-\\dfrac{1}{2}\\right)$ จึงตอบ B`
     },
 
     // --- สมการและการคำนวณพื้นฐาน (ข้อ 24-30) ---
@@ -427,7 +450,8 @@ window.COURSE_DATA = {
         { key: "C", text: `$1$` },
         { key: "D", text: `$2$` }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$\\sin^2\\theta+\\cos^2\\theta=1$ เสมอ จึงตอบ C`
     },
     {
       id: "q25",
@@ -443,7 +467,8 @@ window.COURSE_DATA = {
         { key: "C", text: `$\\dfrac{\\sqrt{3}}{2}$` },
         { key: "D", text: `$1$` }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$2\\sin30^\\circ\\cos30^\\circ=\\sin60^\\circ=\\dfrac{\\sqrt3}{2}$ จึงตอบ C`
     },
     {
       id: "q26",
@@ -461,7 +486,8 @@ window.COURSE_DATA = {
         { key: "C", text: `$\\dfrac{1}{2}$` },
         { key: "D", text: `$1$` }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$\\cos^2 60^\\circ-\\sin^2 60^\\circ=\\cos120^\\circ=-\\dfrac{1}{2}$ จึงตอบ A`
     },
     {
       id: "q27",
@@ -476,7 +502,8 @@ window.COURSE_DATA = {
         { key: "C", text: `$2$` },
         { key: "D", text: `$3$` }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$\\tan^2 60^\\circ-1=(\\sqrt3)^2-1=3-1=2$ จึงตอบ C`
     },
     {
       id: "q28",
@@ -494,7 +521,8 @@ window.COURSE_DATA = {
         { key: "C", text: `$\\dfrac{3}{2}$` },
         { key: "D", text: `$2$` }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$\\sin30^\\circ+\\cos60^\\circ=\\dfrac{1}{2}+\\dfrac{1}{2}=1$ จึงตอบ B`
     },
     {
       id: "q29",
@@ -510,7 +538,8 @@ window.COURSE_DATA = {
         { key: "C", text: `$3$` },
         { key: "D", text: `$4$` }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$4(\\tfrac12)+2(\\tfrac12)=2+1=3$ จึงตอบ C`
     },
     {
       id: "q30",
@@ -528,7 +557,8 @@ window.COURSE_DATA = {
         { key: "C", text: `$1$` },
         { key: "D", text: `$\\dfrac{24}{25}$` }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `เป็นสูตร $\\sin(37^\\circ+53^\\circ)=\\sin90^\\circ=1$ จึงตอบ C`
     }
   ]
 },
@@ -552,7 +582,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$-1$" },
         { key: "D", text: "$\\frac{1}{2}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$\\sin450^\\circ=\\sin(450-360)^\\circ=\\sin90^\\circ=1$ จึงตอบ B`
     },
     {
       id: "q2",
@@ -563,7 +594,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$-1$" },
         { key: "D", text: "หาค่าไม่ได้" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$\\cos720^\\circ=\\cos0^\\circ=1$ จึงตอบ B`
     },
     {
       id: "q3",
@@ -574,7 +606,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\frac{\\sqrt{2}}{2}$" },
         { key: "D", text: "$-\\frac{\\sqrt{2}}{2}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$\\tan(-45^\\circ)=-\\tan45^\\circ=-1$ จึงตอบ B`
     },
     {
       id: "q4",
@@ -585,7 +618,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\frac{1}{2}$" },
         { key: "D", text: "$-\\frac{1}{2}$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$\\sin(-300^\\circ)=-\\sin300^\\circ=-(-\\tfrac{\\sqrt3}{2})=\\dfrac{\\sqrt3}{2}$ จึงตอบ A`
     },
     {
       id: "q5",
@@ -596,7 +630,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\frac{\\sqrt{3}}{2}$" },
         { key: "D", text: "$-\\frac{\\sqrt{3}}{2}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$\\cos(-120^\\circ)=\\cos120^\\circ=-\\dfrac{1}{2}$ จึงตอบ B`
     },
     {
       id: "q6",
@@ -607,7 +642,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$1$" },
         { key: "D", text: "$\sqrt{3}$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$1125^\\circ-3(360^\\circ)=45^\\circ$ ดังนั้น $\\tan1125^\\circ=\\tan45^\\circ=1$ จึงตอบ C`
     },
     {
       id: "q7",
@@ -618,7 +654,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$-1$" },
         { key: "D", text: "$-2$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$\\theta=-90^\\circ$: $\\sin=-1,\\cos=0$ รวม $=-1$ จึงตอบ C`
     },
     {
       id: "q8",
@@ -629,7 +666,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$-\\frac{1}{2}$" },
         { key: "D", text: "$-\\frac{\\sqrt{3}}{2}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$\\cos390^\\circ=\\cos30^\\circ=\\dfrac{\\sqrt3}{2}$ จึงตอบ B`
     },
     {
       id: "q9",
@@ -640,7 +678,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$-\\frac{\\sqrt{3}}{2}$" },
         { key: "D", text: "$\\frac{\\sqrt{3}}{2}$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$\\sin(-150^\\circ)=-\\sin150^\\circ=-\\dfrac{1}{2}$ จึงตอบ A`
     },
     {
       id: "q10",
@@ -651,7 +690,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\frac{1}{\\sqrt{3}}$" },
         { key: "D", text: "$-\\frac{1}{\\sqrt{3}}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$\\tan(-240^\\circ)=-\\tan240^\\circ=-\\tan60^\\circ=-\\sqrt3$ จึงตอบ B`
     },
 
     // --- ฟังก์ชันส่วนกลับ cosec, sec, cot (ข้อ 11-15) ---
@@ -664,7 +704,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$2$" },
         { key: "D", text: "$\\sqrt{2}$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$\\sec60^\\circ=\\dfrac{1}{\\cos60^\\circ}=\\dfrac{1}{1/2}=2$ จึงตอบ C`
     },
     {
       id: "q12",
@@ -675,7 +716,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$1 + \\sqrt{2}$" },
         { key: "D", text: "$\\frac{2}{\\sqrt{3}} + 1$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$\\csc30^\\circ+\\cot45^\\circ=2+1=3$ จึงตอบ B`
     },
     {
       id: "q13",
@@ -686,7 +728,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\frac{1}{\\sqrt{3}}$" },
         { key: "D", text: "$-\\frac{1}{\\sqrt{3}}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$\\cot(-30^\\circ)=-\\cot30^\\circ=-\\sqrt3$ จึงตอบ B`
     },
     {
       id: "q14",
@@ -697,7 +740,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\frac{2}{\\sqrt{3}}$" },
         { key: "D", text: "$-\\frac{2}{\\sqrt{3}}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$\\sec135^\\circ=\\dfrac{1}{\\cos135^\\circ}=\\dfrac{1}{-\\sqrt2/2}=-\\sqrt2$ จึงตอบ B`
     },
     {
       id: "q15",
@@ -708,7 +752,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$-1$" },
         { key: "D", text: "หาค่าไม่ได้" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$\\csc270^\\circ=\\dfrac{1}{\\sin270^\\circ}=\\dfrac{1}{-1}=-1$ จึงตอบ C`
     },
 
     // --- แก้สมการ (ข้อ 16-20) ---
@@ -721,7 +766,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$60^\circ$" },
         { key: "D", text: "$90^\circ$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$\\sin\\theta=\\dfrac{1}{2}$ ในช่วง Q1 ได้ $\\theta=30^\\circ$ จึงตอบ A`
     },
     {
       id: "q17",
@@ -732,7 +778,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$240^\circ$" },
         { key: "D", text: "$300^\circ$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$\\tan\\theta=\\dfrac{1}{\\sqrt3}$ มุมอ้างอิง $30^\\circ$ ในจตุภาค III ได้ $210^\\circ$ จึงตอบ A`
     },
     {
       id: "q18",
@@ -743,7 +790,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$150^\circ$" },
         { key: "D", text: "$180^\circ$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$\\sec\\theta=-2\\Rightarrow\\cos\\theta=-\\dfrac{1}{2}$ ในจตุภาค II ได้ $120^\\circ$ จึงตอบ A`
     },
     {
       id: "q19",
@@ -754,7 +802,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\{90^\circ, 270^\circ\\}$" },
         { key: "D", text: "$\\{0^\circ, 90^\circ, 180^\circ\\}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$\\cos^2\\theta=1\\Rightarrow\\cos\\theta=\\pm1$ ได้ $\\theta=0^\\circ,180^\\circ$ จึงตอบ B`
     },
     {
       id: "q20",
@@ -765,7 +814,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$330^\circ$" },
         { key: "D", text: "$345^\circ$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$\\cot\\theta=-1\\Rightarrow\\tan\\theta=-1$ ในจตุภาค IV ได้ $315^\\circ$ จึงตอบ B`
     },
 
     // --- สูตร cos(A+B) และ sin(A-B) (ข้อ 21-25) ---
@@ -778,7 +828,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\sin 60^\circ \\cos 30^\circ - \\cos 60^\circ \\sin 30^\circ$" },
         { key: "D", text: "$\\cos 60^\circ + \\cos 30^\circ$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `สูตร $\\cos(A+B)=\\cos A\\cos B-\\sin A\\sin B$ จึงตอบ A`
     },
     {
       id: "q22",
@@ -789,7 +840,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\frac{\\sqrt{2}-\\sqrt{6}}{4}$" },
         { key: "D", text: "$\\frac{\\sqrt{3}-1}{2}$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$\\sin15^\\circ=\\sin(45^\\circ-30^\\circ)=\\dfrac{\\sqrt6-\\sqrt2}{4}$ จึงตอบ A`
     },
     {
       id: "q23",
@@ -800,7 +852,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\frac{\\sqrt{2}-\\sqrt{6}}{4}$" },
         { key: "D", text: "$\\frac{1}{4}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$\\cos75^\\circ=\\cos(45^\\circ+30^\\circ)=\\dfrac{\\sqrt6-\\sqrt2}{4}$ จึงตอบ B`
     },
     {
       id: "q24",
@@ -811,7 +864,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\sin 30^\circ$" },
         { key: "D", text: "$\\sin 40^\circ$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `เป็นสูตร $\\sin(70^\\circ-40^\\circ)=\\sin30^\\circ$ จึงตอบ C`
     },
     {
       id: "q25",
@@ -822,7 +876,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\cos 10^\circ$" },
         { key: "D", text: "$\\sin 10^\circ$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `เป็นสูตร $\\cos(20^\\circ+10^\\circ)=\\cos30^\\circ$ จึงตอบ A`
     },
 
     // --- ผสมผสาน/ทบทวน (ข้อ 26-30) ---
@@ -835,7 +890,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\frac{3}{4}$" },
         { key: "D", text: "$-\\frac{3}{4}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$\\sin\\theta=\\dfrac{3}{5}$ ในจตุภาค II $\\cos\\theta$ เป็นลบ $=-\\dfrac{4}{5}$ จึงตอบ B`
     },
     {
       id: "q27",
@@ -846,7 +902,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\sqrt{3}$" },
         { key: "D", text: "$-\\sqrt{3}$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$\\tan(-315^\\circ)=-\\tan315^\\circ=-(-1)=1$ จึงตอบ A`
     },
     {
       id: "q28",
@@ -857,7 +914,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\frac{2}{\\sqrt{3}}$" },
         { key: "D", text: "$-\\frac{2}{\\sqrt{3}}$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$\\sec(-60^\\circ)=\\sec60^\\circ=2$ จึงตอบ A`
     },
     {
       id: "q29",
@@ -868,7 +926,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\sin\\theta$" },
         { key: "D", text: "$-\\sin\\theta$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$\\cos(180^\\circ-\\theta)=-\\cos\\theta$ จึงตอบ B`
     },
     {
       id: "q30",
@@ -879,7 +938,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$2$" },
         { key: "D", text: "$-2$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$\\csc(-30^\\circ)\\cdot\\sin390^\\circ=(-2)\\left(\\dfrac{1}{2}\\right)=-1$ จึงตอบ B`
     }
   ]
 },
@@ -902,7 +962,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$(\\tan\\theta, \\cot\\theta)$" },
         { key: "D", text: "$(\\sec\\theta, \\text{cosec}\\theta)$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `จุดบนวงกลมหนึ่งหน่วยคือ $(\\cos\\theta,\\sin\\theta)$ จึงตอบ B`
     },
     {
       id: "q2",
@@ -913,7 +974,8 @@ window.COURSE_DATA = {
         { key: "C", text: "จตุภาคที่ 3" },
         { key: "D", text: "จตุภาคที่ 4" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$\\sin>0,\\cos<0$ อยู่ในจตุภาคที่ 2 จึงตอบ B`
     },
     {
       id: "q3",
@@ -924,7 +986,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\tan\\theta$ และ $\\cot\\theta$" },
         { key: "D", text: "ไม่มีฟังก์ชันใดมีค่าเป็นบวกเลย" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `จตุภาค 3 มี $\\tan,\\cot$ เป็นบวก จึงตอบ C`
     },
     {
       id: "q4",
@@ -935,7 +998,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$(-1, 0)$" },
         { key: "D", text: "$(0, -1)$" }
       ],
-      answer: "D"
+      answer: "D",
+      explanation: `$270^\\circ$: $(\\cos,\\sin)=(0,-1)$ จึงตอบ D`
     },
     {
       id: "q5",
@@ -946,7 +1010,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\frac{3}{4}$" },
         { key: "D", text: "$-\\frac{3}{4}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$\\sin\\theta=\\dfrac{3}{5}$ จตุภาค 2, $\\cos\\theta=-\\dfrac{4}{5}$ จึงตอบ B`
     },
 
     // --- ตอนที่ 2: มุมพิเศษ (Q1) (ข้อ 6-10) ---
@@ -959,7 +1024,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\sqrt{3}$" },
         { key: "D", text: "$2$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$\\dfrac{1}{2}+\\dfrac{1}{2}=1$ จึงตอบ A`
     },
     {
       id: "q7",
@@ -970,7 +1036,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$1$" },
         { key: "D", text: "$\\sqrt{2}$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$\\tan45^\\circ\\times\\cot45^\\circ=1\\times1=1$ จึงตอบ C`
     },
     {
       id: "q8",
@@ -981,7 +1048,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\sqrt{2}$" },
         { key: "D", text: "$2$" }
       ],
-      answer: "D"
+      answer: "D",
+      explanation: `$\\sec60^\\circ=\\dfrac{1}{1/2}=2$ จึงตอบ D`
     },
     {
       id: "q9",
@@ -992,7 +1060,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$2$" },
         { key: "D", text: "$1$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$\\csc\\dfrac{\\pi}{4}=\\dfrac{1}{\\sin45^\\circ}=\\sqrt2$ จึงตอบ B`
     },
     {
       id: "q10",
@@ -1003,7 +1072,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\frac{1}{4}$" },
         { key: "D", text: "$1$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$\\sin\\dfrac{\\pi}{3}\\times\\tan\\dfrac{\\pi}{6}=\\dfrac{\\sqrt3}{2}\\times\\dfrac{1}{\\sqrt3}=\\dfrac{1}{2}$ จึงตอบ A`
     },
 
     // --- ตอนที่ 3: มุมพิเศษ (Q2, Q3, Q4) (ข้อ 11-15) ---
@@ -1016,7 +1086,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\frac{\\sqrt{3}}{2}$" },
         { key: "D", text: "$-\\frac{\\sqrt{3}}{2}$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$\\sin120^\\circ=\\sin60^\\circ=\\dfrac{\\sqrt3}{2}$ จึงตอบ C`
     },
     {
       id: "q12",
@@ -1027,7 +1098,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\frac{1}{2}$" },
         { key: "D", text: "$-\\frac{1}{2}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$\\cos135^\\circ=-\\cos45^\\circ=-\\dfrac{\\sqrt2}{2}$ จึงตอบ B`
     },
     {
       id: "q13",
@@ -1038,7 +1110,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\sqrt{3}$" },
         { key: "D", text: "$-\\sqrt{3}$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$\\tan225^\\circ=\\tan45^\\circ=1$ จึงตอบ A`
     },
     {
       id: "q14",
@@ -1049,7 +1122,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\frac{1}{2}$" },
         { key: "D", text: "$-\\frac{1}{2}$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$\\cos300^\\circ=\\cos60^\\circ=\\dfrac{1}{2}$ จึงตอบ C`
     },
     {
       id: "q15",
@@ -1060,7 +1134,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\frac{\\sqrt{3}}{2}$" },
         { key: "D", text: "$-\\frac{\\sqrt{3}}{2}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$\\sin\\dfrac{7\\pi}{6}=\\sin210^\\circ=-\\dfrac{1}{2}$ จึงตอบ B`
     },
 
     // --- ตอนที่ 4: มุมรูปสามเหลี่ยม 3-4-5 (มุม 37° และ 53°) (ข้อ 16-20) ---
@@ -1073,7 +1148,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\frac{3}{4}$" },
         { key: "D", text: "$\\frac{4}{3}$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$\\sin37^\\circ\\approx\\dfrac{3}{5}$ จึงตอบ A`
     },
     {
       id: "q17",
@@ -1084,7 +1160,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\frac{7}{5}$" },
         { key: "D", text: "$\\frac{8}{5}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$\\cos53^\\circ+\\sin37^\\circ=\\dfrac{3}{5}+\\dfrac{3}{5}=\\dfrac{6}{5}$ จึงตอบ B`
     },
     {
       id: "q18",
@@ -1095,7 +1172,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$1$" },
         { key: "D", text: "$0$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$\\tan37^\\circ\\times\\tan53^\\circ=\\dfrac{3}{4}\\times\\dfrac{4}{3}=1$ จึงตอบ C`
     },
     {
       id: "q19",
@@ -1106,7 +1184,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\frac{4}{3}$" },
         { key: "D", text: "$\\frac{3}{4}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$\\sec37^\\circ=\\dfrac{1}{\\cos37^\\circ}=\\dfrac{1}{4/5}=\\dfrac{5}{4}$ จึงตอบ B`
     },
     {
       id: "q20",
@@ -1117,7 +1196,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\frac{3}{4}$" },
         { key: "D", text: "$1$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$\\csc53^\\circ-\\cot53^\\circ=\\dfrac{5}{4}-\\dfrac{3}{4}=\\dfrac{1}{2}$ จึงตอบ B`
     },
 
     // --- ตอนที่ 5: สมการและการประเมินค่าฟังก์ชัน (ข้อ 21-25) ---
@@ -1130,7 +1210,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\frac{\\sqrt{2}}{2}$" },
         { key: "D", text: "$2$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$\\sin^2+\\cos^2=1$ จึงตอบ B`
     },
     {
       id: "q22",
@@ -1141,7 +1222,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\frac{1}{4}$" },
         { key: "D", text: "$\\frac{5}{4}$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$\\sin^2 30^\\circ+\\tan135^\\circ=\\dfrac{1}{4}+(-1)=-\\dfrac{3}{4}$ จึงตอบ A`
     },
     {
       id: "q23",
@@ -1152,7 +1234,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\frac{43}{50}$" },
         { key: "D", text: "$-\\frac{7}{50}$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$\\sin^2 37^\\circ=\\dfrac{9}{25}$; $\\dfrac{\\tan135^\\circ}{\\sec240^\\circ}=\\dfrac{-1}{-2}=\\dfrac{1}{2}$; รวม $=\\dfrac{18}{50}+\\dfrac{25}{50}=\\dfrac{43}{50}$ จึงตอบ C`
     },
     {
       id: "q24",
@@ -1163,7 +1246,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\frac{5}{4}$" },
         { key: "D", text: "$\\frac{9}{4}$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$\\cos^2 60^\\circ+\\csc210^\\circ=\\dfrac{1}{4}+(-2)=-\\dfrac{7}{4}$ จึงตอบ A`
     },
     {
       id: "q25",
@@ -1174,7 +1258,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\frac{\\sqrt{3}}{2}$" },
         { key: "D", text: "$1$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$2\\sin30^\\circ\\cos30^\\circ=\\sin60^\\circ$ ดังนั้นลบกันได้ $0$ จึงตอบ A`
     },
 
     // --- ตอนที่ 6: เอกลักษณ์ตรีโกณมิติง่ายๆ (ข้อ 26-30) ---
@@ -1187,7 +1272,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\sin^2\\theta + \\cos^2\\theta = 1$" },
         { key: "D", text: "$\\sec^2\\theta + \\tan^2\\theta = 1$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `เอกลักษณ์จริงเสมอคือ $\\sin^2\\theta+\\cos^2\\theta=1$ จึงตอบ C`
     },
     {
       id: "q27",
@@ -1198,7 +1284,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\cot^2\\theta$" },
         { key: "D", text: "$\\cos^2\\theta$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$1+\\tan^2\\theta=\\sec^2\\theta$ จึงตอบ A`
     },
     {
       id: "q28",
@@ -1209,7 +1296,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$1$" },
         { key: "D", text: "$\\tan^2\\theta$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$\\csc^2\\theta-\\cot^2\\theta=1$ จึงตอบ C`
     },
     {
       id: "q29",
@@ -1220,7 +1308,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\sec\\theta$" },
         { key: "D", text: "$\\cot\\theta$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$\\tan\\theta\\cdot\\csc\\theta=\\dfrac{\\sin}{\\cos}\\cdot\\dfrac{1}{\\sin}=\\dfrac{1}{\\cos}=\\sec\\theta$ จึงตอบ C`
     },
     {
       id: "q30",
@@ -1231,7 +1320,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\cos^2\\theta$" },
         { key: "D", text: "$\\tan^2\\theta$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$\\cos\\theta(\\sec\\theta-\\cos\\theta)=1-\\cos^2\\theta=\\sin^2\\theta$ จึงตอบ B`
     }
   ]
 },
@@ -1253,7 +1343,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$-1$" },
         { key: "D", text: "$\\tan^2 x$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$\\sin^2 x+\\cos^2 x=1$ จึงตอบ B`
     },
     {
       id: "q2",
@@ -1264,7 +1355,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\frac{\\sin x}{\\cos x}$" },
         { key: "D", text: "$\\frac{1}{\\sin x}$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$\\tan x=\\dfrac{\\sin x}{\\cos x}$ จึงตอบ C`
     },
     {
       id: "q3",
@@ -1275,7 +1367,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$0$" },
         { key: "D", text: "$\\cot^2 \\theta$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$\\sec^2\\theta-\\tan^2\\theta=1$ จึงตอบ A`
     },
     {
       id: "q4",
@@ -1286,7 +1379,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\cot^2 \\theta$" },
         { key: "D", text: "$-\\cot^2 \\theta$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$\\csc^2\\theta-1=\\cot^2\\theta$ จึงตอบ C`
     },
     {
       id: "q5",
@@ -1297,7 +1391,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\sec x$" },
         { key: "D", text: "$\\csc x$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$\\cos x\\cdot\\tan x=\\cos x\\cdot\\dfrac{\\sin x}{\\cos x}=\\sin x$ จึงตอบ A`
     },
     {
       id: "q6",
@@ -1308,7 +1403,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$1$" },
         { key: "D", text: "$0$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$\\sin x\\cdot\\csc x=\\sin x\\cdot\\dfrac{1}{\\sin x}=1$ จึงตอบ C`
     },
     {
       id: "q7",
@@ -1319,7 +1415,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\tan A$" },
         { key: "D", text: "$\\sec A$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$\\dfrac{\\sin^2 A+\\cos^2 A}{\\sec A}=\\dfrac{1}{\\sec A}=\\cos A$ จึงตอบ B`
     },
     {
       id: "q8",
@@ -1330,7 +1427,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\sin x$" },
         { key: "D", text: "$\\cos x$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$(1-\\cos^2 x)\\csc^2 x=\\sin^2 x\\cdot\\dfrac{1}{\\sin^2 x}=1$ จึงตอบ B`
     },
     {
       id: "q9",
@@ -1341,7 +1439,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\sec \\theta$" },
         { key: "D", text: "$\\csc \\theta$" }
       ],
-      answer: "D"
+      answer: "D",
+      explanation: `$\\cot\\theta\\cdot\\sec\\theta=\\dfrac{\\cos}{\\sin}\\cdot\\dfrac{1}{\\cos}=\\dfrac{1}{\\sin}=\\csc\\theta$ จึงตอบ D`
     },
     {
       id: "q10",
@@ -1352,7 +1451,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\cos \\theta$" },
         { key: "D", text: "$-\\cos \\theta$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$\\sin(-\\theta)=-\\sin\\theta$ (ฟังก์ชันคี่) จึงตอบ B`
     },
     {
       id: "q11",
@@ -1363,7 +1463,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\cos \\theta$" },
         { key: "D", text: "$-\\cos \\theta$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$\\cos(-\\theta)=\\cos\\theta$ (ฟังก์ชันคู่) จึงตอบ C`
     },
     {
       id: "q12",
@@ -1374,7 +1475,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$-1$" },
         { key: "D", text: "$\\sin x$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$\\sec x\\cos x-1=1-1=0$ จึงตอบ A`
     },
     {
       id: "q13",
@@ -1385,7 +1487,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\tan^2 x$" },
         { key: "D", text: "$\\cot^2 x$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$\\dfrac{1}{\\cos^2 x}-1=\\sec^2 x-1=\\tan^2 x$ จึงตอบ C`
     },
     {
       id: "q14",
@@ -1396,7 +1499,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\tan^2 x$" },
         { key: "D", text: "$1$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$\\sin x(\\csc x-\\sin x)=1-\\sin^2 x=\\cos^2 x$ จึงตอบ B`
     },
     {
       id: "q15",
@@ -1407,7 +1511,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\csc \\theta$" },
         { key: "D", text: "$\\cos \\theta$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `โคฟังก์ชัน $\\cos(90^\\circ-\\theta)=\\sin\\theta$ จึงตอบ A`
     },
     {
       id: "q16",
@@ -1418,7 +1523,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\cot x$" },
         { key: "D", text: "$\\csc x$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$\\dfrac{\\tan x}{\\sec x}=\\dfrac{\\sin/\\cos}{1/\\cos}=\\sin x$ จึงตอบ A`
     },
     {
       id: "q17",
@@ -1429,7 +1535,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\sin^2 x$" },
         { key: "D", text: "$\\cos^2 x$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$\\cos^2 x(1+\\tan^2 x)=\\cos^2 x\\cdot\\sec^2 x=1$ จึงตอบ B`
     },
     {
       id: "q18",
@@ -1440,7 +1547,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\sec^2 \\theta$" },
         { key: "D", text: "$\\csc^2 \\theta$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$\\dfrac{1-\\sin^2\\theta}{1-\\cos^2\\theta}=\\dfrac{\\cos^2\\theta}{\\sin^2\\theta}=\\cot^2\\theta$ จึงตอบ B`
     },
     {
       id: "q19",
@@ -1451,7 +1559,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\cot \\theta$" },
         { key: "D", text: "$-\\cot \\theta$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$\\tan(-\\theta)=-\\tan\\theta$ จึงตอบ B`
     },
     {
       id: "q20",
@@ -1462,7 +1571,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$1$" },
         { key: "D", text: "$2$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$\\sin^2 30^\\circ+\\cos^2 30^\\circ=1$ จึงตอบ C`
     },
     {
       id: "q21",
@@ -1473,7 +1583,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\tan^2 x$" },
         { key: "D", text: "$1 + \\sin^2 x$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$(1-\\sin x)(1+\\sin x)=1-\\sin^2 x=\\cos^2 x$ จึงตอบ B`
     },
     {
       id: "q22",
@@ -1484,7 +1595,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$2$" },
         { key: "D", text: "$\\sec^2 A \\csc^2 A$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$\\dfrac{1}{\\csc^2 A}+\\dfrac{1}{\\sec^2 A}=\\sin^2 A+\\cos^2 A=1$ จึงตอบ B`
     },
     {
       id: "q23",
@@ -1495,7 +1607,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\cos x \\cot x$" },
         { key: "D", text: "$\\cos^2 x \\tan x$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$\\dfrac{\\sin x}{\\cot x}=\\sin x\\cdot\\dfrac{\\sin x}{\\cos x}=\\sin x\\tan x$ จึงตอบ B`
     },
     {
       id: "q24",
@@ -1506,7 +1619,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\tan^2 \\theta$" },
         { key: "D", text: "$1$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$\\cos\\theta(\\sec\\theta-\\cos\\theta)=1-\\cos^2\\theta=\\sin^2\\theta$ จึงตอบ A`
     },
     {
       id: "q25",
@@ -1517,7 +1631,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\sec x$" },
         { key: "D", text: "$\\csc x$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$\\csc x\\cdot\\tan x=\\dfrac{1}{\\sin}\\cdot\\dfrac{\\sin}{\\cos}=\\dfrac{1}{\\cos}=\\sec x$ จึงตอบ C`
     },
     {
       id: "q26",
@@ -1528,7 +1643,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\cos^2 x - \\sin^2 x$" },
         { key: "D", text: "$1 - 2\\sin^2 x$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$\\sin^4 x-\\cos^4 x=(\\sin^2 x-\\cos^2 x)(\\sin^2 x+\\cos^2 x)=\\sin^2 x-\\cos^2 x$ จึงตอบ B`
     },
     {
       id: "q27",
@@ -1539,7 +1655,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\tan x$" },
         { key: "D", text: "$\\cot x$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$\\dfrac{\\sec x}{\\csc x}=\\dfrac{1/\\cos}{1/\\sin}=\\dfrac{\\sin}{\\cos}=\\tan x$ จึงตอบ C`
     },
     {
       id: "q28",
@@ -1550,7 +1667,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$-1$" },
         { key: "D", text: "$\\tan \\theta$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$\\tan^2\\theta-\\sec^2\\theta=-1$ จึงตอบ C`
     },
     {
       id: "q29",
@@ -1561,7 +1679,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\sec A$" },
         { key: "D", text: "$\\csc A$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$\\cos A+\\sin A\\tan A=\\dfrac{\\cos^2 A+\\sin^2 A}{\\cos A}=\\dfrac{1}{\\cos A}=\\sec A$ จึงตอบ C`
     },
     {
       id: "q30",
@@ -1572,7 +1691,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\sin x \\cos x$" },
         { key: "D", text: "$\\tan x \\cot x$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$(\\tan x+\\cot x)\\sin x\\cos x=\\dfrac{1}{\\sin x\\cos x}\\cdot\\sin x\\cos x=1$ จึงตอบ B`
     }
   ]
 }

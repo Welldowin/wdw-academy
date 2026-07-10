@@ -17,7 +17,8 @@ window.COURSE_DATA = {
         { key: "C", text: "เวกเตอร์มีหน่วย แต่สเกลาร์ไม่มีหน่วย" },
         { key: "D", text: "เวกเตอร์ใช้กับการเคลื่อนที่เท่านั้น สเกลาร์ใช้กับแรงเท่านั้น" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `เวกเตอร์มีทั้งขนาดและทิศทาง ส่วนสเกลาร์มีแต่ขนาด ไม่มีทิศทาง จึงตอบ A`
     },
     {
       id: "q2",
@@ -28,7 +29,8 @@ window.COURSE_DATA = {
         { key: "C", text: "เวลา, อุณหภูมิ, ความเร่ง" },
         { key: "D", text: "น้ำหนัก, พลังงาน, ความดัน" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `การกระจัด ความเร็ว และแรง ล้วนมีทิศทาง จึงเป็นเวกเตอร์ทั้งหมด ตอบ B`
     },
     {
       id: "q3",
@@ -39,7 +41,8 @@ window.COURSE_DATA = {
         { key: "C", text: "แรง, ความเร่ง, เวลา" },
         { key: "D", text: "อุณหภูมิ, ปริมาตร, โมเมนตัม" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `ระยะทาง อัตราเร็ว มวล ไม่มีทิศทาง จึงเป็นสเกลาร์ทั้งหมด ตอบ A`
     },
     {
       id: "q4",
@@ -50,7 +53,8 @@ window.COURSE_DATA = {
         { key: "C", text: "ก. และ ค." },
         { key: "D", text: "ถูกทุกข้อ" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `ก. น้ำหนักเป็นเวกเตอร์ (ถูก), ข. อัตราเร็วเป็นสเกลาร์ไม่ใช่เวกเตอร์ (ผิด), ค. อุณหภูมิเป็นสเกลาร์ (ถูก) จึงตอบ C`
     },
     {
       id: "q5",
@@ -61,7 +65,8 @@ window.COURSE_DATA = {
         { key: "C", text: "ระยะทาง $0 \\text{ m}$, การกระจัด $800 \\text{ m}$" },
         { key: "D", text: "ระยะทาง $0 \\text{ m}$, การกระจัด $0 \\text{ m}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `ไป-กลับเส้นเดิม ระยะทาง $=400+400=800\\text{ m}$ แต่จุดเริ่มและจุดสุดท้ายเป็นที่เดียวกัน การกระจัด $=0$ จึงตอบ B`
     },
     {
       id: "q6",
@@ -72,7 +77,8 @@ window.COURSE_DATA = {
         { key: "C", text: "ระยะทาง $44 \\text{ m}$, การกระจัด $0 \\text{ m}$" },
         { key: "D", text: "ระยะทาง $14 \\text{ m}$, การกระจัด $0 \\text{ m}$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `ครบวงกลม ระยะทาง = เส้นรอบวง $=2\\pi r = 2\\times\\frac{22}{7}\\times7 = 44\\text{ m}$ กลับที่เดิมการกระจัด $=0$ จึงตอบ C`
     },
     {
       id: "q7",
@@ -83,7 +89,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$10\\pi$ และ $10$" },
         { key: "D", text: "$20\\pi$ และ $20$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `ครึ่งวงกลม ระยะทาง = ครึ่งเส้นรอบวง $=\\pi r = 10\\pi$ การกระจัด = เส้นผ่านศูนย์กลาง $=2r = 20$ จึงตอบ A`
     },
     {
       id: "q8",
@@ -94,7 +101,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$\\sqrt{2}r$" },
         { key: "D", text: "$2r$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `เสี้ยววงกลม การกระจัดคือคอร์ดจากปลายหนึ่งไปอีกปลาย $=\\sqrt{r^2+r^2}=\\sqrt{2}\\,r$ จึงตอบ C`
     },
     {
       id: "q9",
@@ -105,7 +113,8 @@ window.COURSE_DATA = {
         { key: "C", text: "ระยะทาง $5 \\text{ m}$, การกระจัด $0 \\text{ m}$" },
         { key: "D", text: "ระยะทาง $10 \\text{ m}$, การกระจัด $0 \\text{ m}$" }
       ],
-      answer: "D"
+      answer: "D",
+      explanation: `ขึ้น 5 m ลง 5 m ระยะทาง $=10\\text{ m}$ กลับจุดเดิมการกระจัด $=0$ จึงตอบ D`
     },
     {
       id: "q10",
@@ -116,7 +125,8 @@ window.COURSE_DATA = {
         { key: "C", text: "ก. และ ค." },
         { key: "D", text: "ถูกทั้ง ก. ข. และ ค." }
       ],
-      answer: "D"
+      answer: "D",
+      explanation: `ทั้ง ก. ข. ค. ถูกต้อง (ครบรอบวงกลมการกระจัด = 0 ความเร็วเฉลี่ยจึงเป็นศูนย์) จึงตอบ D`
     },
     {
       id: "q11",
@@ -127,7 +137,8 @@ window.COURSE_DATA = {
         { key: "C", text: "มีค่าสูงสุดที่จุดสูงสุดของการกระจัด" },
         { key: "D", text: "ไม่สามารถหาค่าได้เนื่องจากไม่มีการบอกระยะทาง" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `เหรียญกลับมาจุดเดิม การกระจัด $=0$ ความเร็วเฉลี่ย = การกระจัด/เวลา $=0$ จึงตอบ B`
     },
     {
       id: "q12",
@@ -138,7 +149,8 @@ window.COURSE_DATA = {
         { key: "C", text: "หากวัตถุมีการกระจัดเป็นศูนย์ ระยะทางต้องมีค่าเป็นศูนย์ด้วยเสมอ" },
         { key: "D", text: "ความเร็วมีหน่วยเป็นเมตรต่อวินาที ($\\text{m/s}$) ซึ่งเหมือนกับหน่วยของอัตราเร็ว" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `ข้อ C ผิด เพราะการกระจัดเป็นศูนย์ได้แม้ระยะทางไม่เป็นศูนย์ (เช่นเดินครบรอบ) จึงตอบ C`
     },
     {
       id: "q13",
@@ -149,7 +161,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$450 \\text{ m}$" },
         { key: "D", text: "$600 \\text{ m}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `ระยะทาง $=vt = 20\\times15 = 300\\text{ m}$ จึงตอบ B`
     },
     {
       id: "q14",
@@ -160,7 +173,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$5 \\text{ m/s}$" },
         { key: "D", text: "$8 \\text{ m/s}$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$1$ นาที $20$ วิ $=80\\text{ s}$ อัตราเร็ว $=\\frac{400}{80}=5\\text{ m/s}$ จึงตอบ C`
     },
     {
       id: "q15",
@@ -171,7 +185,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$60 \\text{ km/hr}$" },
         { key: "D", text: "$100 \\text{ km/hr}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `อัตราเร็วเฉลี่ย = ระยะทางรวม/เวลารวม $=\\frac{60+40}{1+1}=\\frac{100}{2}=50\\text{ km/hr}$ จึงตอบ B`
     },
     {
       id: "q16",
@@ -182,7 +197,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$15 \\text{ m/s}$" },
         { key: "D", text: "$25 \\text{ m/s}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$v = u+at = 0 + 2\\times5 = 10\\text{ m/s}$ จึงตอบ B`
     },
     {
       id: "q17",
@@ -193,7 +209,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$12 \\text{ m/s}$" },
         { key: "D", text: "$15 \\text{ m/s}$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$v=u+at$: $0 = u + (-3)(4) \\Rightarrow u = 12\\text{ m/s}$ จึงตอบ C`
     },
     {
       id: "q18",
@@ -204,7 +221,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$45 \\text{ m}$" },
         { key: "D", text: "$90 \\text{ m}$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$h=\\frac{1}{2}gt^2 = \\frac{1}{2}\\times10\\times3^2 = 45\\text{ m}$ จึงตอบ C`
     },
     {
       id: "q19",
@@ -215,7 +233,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$25 \\text{ m/s}$" },
         { key: "D", text: "$30 \\text{ m/s}$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$v = u+gt = 5 + 10\\times2 = 25\\text{ m/s}$ จึงตอบ C`
     },
     {
       id: "q20",
@@ -226,7 +245,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$3 \\text{ s}$" },
         { key: "D", text: "$4 \\text{ s}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `ที่จุดสูงสุด $v=0$: $t = \\frac{u}{g} = \\frac{20}{10} = 2\\text{ s}$ จึงตอบ B`
     },
     {
       id: "q21",
@@ -237,7 +257,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$20 \\text{ m}$" },
         { key: "D", text: "$40 \\text{ m}$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$h = \\frac{u^2}{2g} = \\frac{20^2}{2\\times10} = \\frac{400}{20} = 20\\text{ m}$ จึงตอบ C`
     },
     {
       id: "q22",
@@ -248,7 +269,8 @@ window.COURSE_DATA = {
         { key: "C", text: "กฎข้อที่ 3 (กฎของแรงกิริยาและแรงปฏิกิริยา)" },
         { key: "D", text: "กฎแรงดึงดูดระหว่างมวล" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `ผู้โดยสารพุ่งไปข้างหน้าเพราะความเฉื่อยรักษาสภาพเคลื่อนที่ ตรงกับกฎข้อ 1 จึงตอบ A`
     },
     {
       id: "q23",
@@ -259,7 +281,8 @@ window.COURSE_DATA = {
         { key: "C", text: "กฎข้อที่ 3" },
         { key: "D", text: "ไม่เกี่ยวกับกฎของนิวตัน" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `จรวดพ่นแก๊สลง (กิริยา) แก๊สดันจรวดขึ้น (ปฏิกิริยา) ตรงกับกฎข้อ 3 จึงตอบ C`
     },
     {
       id: "q24",
@@ -270,7 +293,8 @@ window.COURSE_DATA = {
         { key: "C", text: "ต้องออกแรงเข็นรถเก๋งมากกว่ารถบรรทุก" },
         { key: "D", text: "แรงที่ใช้ไม่ขึ้นอยู่กับมวลของรถ" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `กฎข้อ 2 $F=ma$ ความเร่งเท่ากันแต่รถบรรทุกมวลมากกว่า จึงต้องใช้แรงมากกว่า ตอบ B`
     },
     {
       id: "q25",
@@ -281,7 +305,8 @@ window.COURSE_DATA = {
         { key: "C", text: "ก. และ ค." },
         { key: "D", text: "ถูกทั้ง ก. ข. และ ค." }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `ก. ถูก (กฎข้อ1), ข. ผิด (แรงกิริยา-ปฏิกิริยาอยู่คนละวัตถุจึงไม่หักล้างกัน), ค. ถูก จึงตอบ C`
     },
     {
       id: "q26",
@@ -292,7 +317,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$5 \\text{ m/s}^2$" },
         { key: "D", text: "$100 \\text{ m/s}^2$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `พื้นลื่น $a=\\frac{F}{m}=\\frac{20}{5}=4\\text{ m/s}^2$ จึงตอบ B`
     },
     {
       id: "q27",
@@ -303,7 +329,8 @@ window.COURSE_DATA = {
         { key: "C", text: "แรงเสียดทานที่เกิดขึ้นขณะที่วัตถุยังไม่เคลื่อนที่" },
         { key: "D", text: "แรงเสียดทานที่มีทิศทางเดียวกับการเคลื่อนที่ของวัตถุเสมอ" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `แรงเสียดทานสถิตคือแรงเสียดทานขณะวัตถุยังไม่เคลื่อนที่ จึงตอบ C`
     },
     {
       id: "q28",
@@ -314,7 +341,8 @@ window.COURSE_DATA = {
         { key: "C", text: "แรงเสียดทานมีค่าแปรผันตามขนาดของพื้นที่ผิวสัมผัสอย่างมาก" },
         { key: "D", text: "แรงเสียดทานมีทิศตรงข้ามกับการเคลื่อนที่หรือแนวโน้มการเคลื่อนที่" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `ข้อ C ผิด แรงเสียดทานแทบไม่ขึ้นกับขนาดพื้นที่ผิวสัมผัส จึงตอบ C`
     },
     {
       id: "q29",
@@ -325,7 +353,8 @@ window.COURSE_DATA = {
         { key: "C", text: "การใส่ล้อเลื่อนที่ฐานของตู้เก็บของ" },
         { key: "D", text: "การผลิตยางรถยนต์ให้มีลวดลาย (ดอกยาง)" }
       ],
-      answer: "D"
+      answer: "D",
+      explanation: `ดอกยางเพิ่มความขรุขระ = เพิ่มแรงเสียดทาน จึงตอบ D`
     },
     {
       id: "q30",
@@ -336,7 +365,8 @@ window.COURSE_DATA = {
         { key: "C", text: "ก. และ ค." },
         { key: "D", text: "ถูกทั้ง ก. ข. และ ค." }
       ],
-      answer: "D"
+      answer: "D",
+      explanation: `ก. ข. ค. ถูกทั้งหมด (เดินได้เพราะแรงเสียดทานดันเท้าไปข้างหน้า) จึงตอบ D`
     }
   ]
 },
@@ -359,7 +389,8 @@ window.COURSE_DATA = {
         { key: "C", text: "เป็นแรงเสียดทานจลน์ และมีขนาดเท่ากับแรงผลัก" },
         { key: "D", text: "เป็นแรงเสียดทานสถิตสูงสุดเสมอ ไม่ว่าจะออกแรงผลักเท่าใด" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `ผลักแล้วตู้ไม่ขยับ แสดงว่าเป็นแรงเสียดทานสถิตที่ปรับตัวมีขนาดเท่ากับแรงผลักพอดี จึงตอบ B`
     },
     {
       id: "q2",
@@ -370,7 +401,8 @@ window.COURSE_DATA = {
         { key: "C", text: "แรงผลักมีขนาดเท่ากับแรงเสียดทานสถิต" },
         { key: "D", text: "กล่องไม่มีแรงเสียดทานมากระทำแล้ว" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `ไถลด้วยความเร็วคงที่ แรงลัพธ์เป็นศูนย์ แรงผลัก = แรงเสียดทานจลน์ จึงตอบ B`
     },
     {
       id: "q3",
@@ -381,7 +413,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$30 \\text{ N}$" },
         { key: "D", text: "$50 \\text{ N}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `แรงเริ่มเคลื่อน = แรงเสียดทานสถิตสูงสุด $=\\mu_s mg = 0.4\\times5\\times10 = 20\\text{ N}$ จึงตอบ B`
     },
     {
       id: "q4",
@@ -392,7 +425,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$25 \\text{ N}$" },
         { key: "D", text: "$50 \\text{ N}$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `เคลื่อนที่ด้วยความเร็วคงที่ต้องใช้แรง = แรงเสียดทานจลน์ $=\\mu_k mg = 0.3\\times5\\times10 = 15\\text{ N}$ จึงตอบ A`
     },
     {
       id: "q5",
@@ -403,7 +437,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$20 \\text{ m/s}^2$" },
         { key: "D", text: "$25 \\text{ m/s}^2$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `แรงเสียดทาน $=\\mu_k mg = 0.5\\times2\\times10 = 10\\text{ N}$ แรงลัพธ์ $=40-10=30$ $a=\\frac{30}{2}=15\\text{ m/s}^2$ จึงตอบ B`
     },
     {
       id: "q6",
@@ -414,7 +449,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$0.5$" },
         { key: "D", text: "$0.8$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `ความหน่วง $a=\\frac{v}{t}=\\frac{20}{5}=4$ และ $\\mu = \\frac{a}{g}=\\frac{4}{10}=0.4$ จึงตอบ B`
     },
     {
       id: "q7",
@@ -425,7 +461,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$40 \\text{ m}$" },
         { key: "D", text: "$80 \\text{ m}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `แรงเสียดทาน $=0.1\\times10\\times10=10$ แรงลัพธ์ $=50-10=40$ $a=4$ ระยะ $s=\\frac{1}{2}at^2=\\frac{1}{2}\\times4\\times4^2=32\\text{ m}$ จึงตอบ B`
     },
     {
       id: "q8",
@@ -436,7 +473,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$34.6 \\text{ N}$" },
         { key: "D", text: "$40 \\text{ N}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `ไถลลงด้วยความเร็วคงที่ แรงเสียดทาน = องค์ประกอบน้ำหนักตามพื้นเอียง $=mg\\sin30^\\circ = 4\\times10\\times0.5 = 20\\text{ N}$ จึงตอบ B`
     },
     {
       id: "q9",
@@ -447,7 +485,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$40 \\text{ N}$" },
         { key: "D", text: "$60 \\text{ N}$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `ดันขึ้นความเร็วคงที่ ต้องสู้ทั้งน้ำหนักตามพื้น ($20$) และแรงเสียดทาน ($20$): $F=20+20=40\\text{ N}$ จึงตอบ C`
     },
     {
       id: "q10",
@@ -458,7 +497,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$0.4$" },
         { key: "D", text: "$0.5$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$v^2 = 2as \\Rightarrow a = \\frac{v^2}{2s} = \\frac{10^2}{2\\times25}=2$ และ $\\mu=\\frac{a}{g}=0.2$ จึงตอบ B`
     },
     {
       id: "q11",
@@ -469,7 +509,8 @@ window.COURSE_DATA = {
         { key: "C", text: "สัมประสิทธิ์ความเสียดทานสถิตมีค่า $0.6$ เสมอ" },
         { key: "D", text: "แรงเสียดทานสถิตมีขนาดมากกว่า $30 \\text{ N}$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `ดึง 30 N แล้วยังนิ่ง แรงเสียดทานสถิตปรับตัวมาสมดุลพอดี = $30\\text{ N}$ จึงตอบ A`
     },
     {
       id: "q12",
@@ -480,7 +521,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$4 \\text{ m/s}^2$" },
         { key: "D", text: "$8 \\text{ m/s}^2$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `ความเร่งการไถลลงพื้นเอียง $a=g(\\sin\\theta-\\mu\\cos\\theta)$ ไม่ขึ้นกับมวล จึงยังเท่าเดิม $2\\text{ m/s}^2$ ตอบ B`
     },
 
     // --- เรื่อง การชนแบบติดกันไป ---
@@ -493,7 +535,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$3 \\text{ m/s}$" },
         { key: "D", text: "$4 \\text{ m/s}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `ชนติดกันไป $v=\\frac{m_Av_A}{m_A+m_B}=\\frac{2\\times6}{2+4}=\\frac{12}{6}=2\\text{ m/s}$ จึงตอบ B`
     },
     {
       id: "q14",
@@ -504,7 +547,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$36 \\text{ J}$" },
         { key: "D", text: "$48 \\text{ J}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `KE ก่อน $=\\frac{1}{2}\\times2\\times6^2=36$ J, หลัง $=\\frac{1}{2}\\times6\\times2^2=12$ J สูญเสีย $=36-12=24$ J จึงตอบ B`
     },
     {
       id: "q15",
@@ -515,7 +559,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$5 \\text{ m/s}$ ทิศไปทางขวา" },
         { key: "D", text: "หยุดนิ่ง" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `โมเมนตัม $=3(5)-2(5)=5$ (ทางขวา) มวลรวม 5 kg $v=\\frac{5}{5}=1\\text{ m/s}$ ทางขวา จึงตอบ A`
     },
     {
       id: "q16",
@@ -526,7 +571,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$60 \\text{ J}$" },
         { key: "D", text: "$62.5 \\text{ J}$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `KE ก่อน $=\\frac{1}{2}(3)(5^2)+\\frac{1}{2}(2)(5^2)=37.5+25=62.5$ หลัง $=\\frac{1}{2}(5)(1^2)=2.5$ สูญเสีย $=60$ J จึงตอบ C`
     },
     {
       id: "q17",
@@ -537,7 +583,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$15 \\text{ m/s}$" },
         { key: "D", text: "$16 \\text{ m/s}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$v=\\frac{1000(20)+1500(10)}{2500}=\\frac{35000}{2500}=14\\text{ m/s}$ จึงตอบ B`
     },
     {
       id: "q18",
@@ -548,7 +595,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$4 \\text{ m/s}$" },
         { key: "D", text: "$5 \\text{ m/s}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$v=\\frac{0.5\\times10}{0.5+2}=\\frac{5}{2.5}=2\\text{ m/s}$ จึงตอบ B`
     },
     {
       id: "q19",
@@ -559,7 +607,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$75\\%$" },
         { key: "D", text: "$100\\%$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `ชนติดกัน $v'=\\frac{v}{2}$ KE หลัง $=\\frac{1}{2}(2m)(\\frac{v}{2})^2=\\frac{1}{4}mv^2$ เทียบก่อน $\\frac{1}{2}mv^2$ เหลือ $50\\%$ จึงตอบ B`
     },
     {
       id: "q20",
@@ -570,7 +619,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$2 \\text{ m/s}$ ทางซ้าย" },
         { key: "D", text: "หยุดนิ่งตั้งแต่แรก" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `หลังชนหยุดนิ่ง โมเมนตัมรวม = 0: $2(4)+2v_2=0 \\Rightarrow v_2=-4$ คือ $4\\text{ m/s}$ ทางซ้าย จึงตอบ B`
     },
 
     // --- เรื่อง งานและพลังงาน ---
@@ -583,7 +633,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$5000 \\text{ J}$" },
         { key: "D", text: "$10000 \\text{ J}$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `แบกเดินแนวราบ แรง (ขึ้น) ตั้งฉากกับการกระจัด (แนวราบ) งาน $=0$ จึงตอบ A`
     },
     {
       id: "q22",
@@ -594,7 +645,8 @@ window.COURSE_DATA = {
         { key: "C", text: "เพราะทิศทางของแรงที่กระทำตั้งฉากกับทิศทางการกระจัด" },
         { key: "D", text: "เพราะน้ำหนักของกระสอบหักล้างกับแรงปฏิกิริยาตั้งฉากพอดี" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `งานเป็นศูนย์เพราะแรงตั้งฉากกับทิศการกระจัด ($W=Fs\\cos90^\\circ=0$) จึงตอบ C`
     },
     {
       id: "q23",
@@ -605,7 +657,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$1000 \\text{ J}$" },
         { key: "D", text: "$2000 \\text{ J}$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `งานต้านแรงโน้มถ่วง $=mgh=20\\times10\\times5=1000\\text{ J}$ จึงตอบ C`
     },
     {
       id: "q24",
@@ -616,7 +669,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$2000 \\text{ J}$" },
         { key: "D", text: "$4000 \\text{ J}$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$E_p=mgh=10\\times10\\times20=2000\\text{ J}$ จึงตอบ C`
     },
     {
       id: "q25",
@@ -627,7 +681,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$30 \\text{ m/s}$" },
         { key: "D", text: "$45 \\text{ m/s}$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$v=\\sqrt{2gh}=\\sqrt{2\\times10\\times45}=\\sqrt{900}=30\\text{ m/s}$ จึงตอบ C`
     },
     {
       id: "q26",
@@ -638,7 +693,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$128 \\text{ J}$" },
         { key: "D", text: "$320 \\text{ J}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `พื้นไม่มีเสียดทาน KE ล่าง = PE บน $=mgh=2\\times10\\times3.2=64\\text{ J}$ จึงตอบ B`
     },
     {
       id: "q27",
@@ -649,7 +705,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$40 \\text{ m}$" },
         { key: "D", text: "$50 \\text{ m}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$h=\\frac{u^2}{2g}=\\frac{20^2}{2\\times10}=20\\text{ m}$ จึงตอบ B`
     },
     {
       id: "q28",
@@ -660,7 +717,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$200 \\text{ J}$" },
         { key: "D", text: "$400 \\text{ J}$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `พื้นลื่น งาน = KE: $W=Fs=50\\times4=200\\text{ J}$ จึงตอบ C`
     },
     {
       id: "q29",
@@ -671,7 +729,8 @@ window.COURSE_DATA = {
         { key: "C", text: "ตำแหน่งต่ำสุดของการแกว่ง" },
         { key: "D", text: "พลังงานจลน์มีค่าเท่ากันทุกตำแหน่ง" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `ลูกตุ้มมี KE สูงสุดที่จุดต่ำสุด (เร็วที่สุด) จึงตอบ C`
     },
     {
       id: "q30",
@@ -682,7 +741,8 @@ window.COURSE_DATA = {
         { key: "C", text: "พลังงานจลน์เพิ่มขึ้น พลังงานศักย์โน้มถ่วงลดลง" },
         { key: "D", text: "พลังงานกลรวมของระบบลดลงอย่างต่อเนื่อง" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `ลงจากยอดเนิน PE ลดลง เปลี่ยนเป็น KE ที่เพิ่มขึ้น จึงตอบ C`
     }
   ]
 },
@@ -705,7 +765,8 @@ window.COURSE_DATA = {
         { key: "C", text: "พลังงานรวมของระบบจะลดลงเมื่อเกิดการเปลี่ยนรูปพลังงาน" },
         { key: "D", text: "พลังงานกลของวัตถุจะคงที่เสมอแม้จะมีแรงเสียดทานมากระทำ" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `กฎอนุรักษ์พลังงาน: พลังงานไม่สูญหาย เปลี่ยนรูปจากรูปหนึ่งเป็นอีกรูปได้ จึงตอบ B`
     },
     {
       id: "q2",
@@ -716,7 +777,8 @@ window.COURSE_DATA = {
         { key: "C", text: "พลังงานจลน์ และ พลังงานเคมี" },
         { key: "D", text: "พลังงานศักย์ และ พลังงานไฟฟ้า" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `พลังงานกล = พลังงานจลน์ + พลังงานศักย์ จึงตอบ A`
     },
     {
       id: "q3",
@@ -727,7 +789,8 @@ window.COURSE_DATA = {
         { key: "C", text: "พลังงานจลน์ เปลี่ยนเป็น พลังงานศักย์โน้มถ่วง" },
         { key: "D", text: "พลังงานจลน์ เปลี่ยนเป็น พลังงานความร้อน" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `ขาขึ้น ความเร็วลดลง (KE ลด) ความสูงเพิ่ม (PE เพิ่ม) คือ KE เปลี่ยนเป็น PE จึงตอบ C`
     },
     {
       id: "q4",
@@ -738,7 +801,8 @@ window.COURSE_DATA = {
         { key: "C", text: "พลังงานเคมี" },
         { key: "D", text: "พลังงานศักย์ยืดหยุ่น" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `ขณะกระทบพื้น ความสูง = 0 พลังงานเกือบทั้งหมดเป็นพลังงานจลน์ จึงตอบ B`
     },
     {
       id: "q5",
@@ -749,7 +813,8 @@ window.COURSE_DATA = {
         { key: "C", text: "ตำแหน่งต่ำสุดของการแกว่ง (จุดกึ่งกลาง)" },
         { key: "D", text: "ลูกตุ้มมีพลังงานจลน์เท่ากันทุกตำแหน่ง" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `จุดต่ำสุดของการแกว่งเร็วที่สุด KE สูงสุด จึงตอบ C`
     },
     {
       id: "q6",
@@ -760,7 +825,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$100 \\text{ J}$" },
         { key: "D", text: "$200 \\text{ J}$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `KE ล่าง = PE บน $=mgh=2\\times10\\times5=100\\text{ J}$ จึงตอบ C`
     },
     {
       id: "q7",
@@ -771,7 +837,8 @@ window.COURSE_DATA = {
         { key: "C", text: "พลังงานเคมี -> พลังงานความร้อน -> พลังงานไฟฟ้า" },
         { key: "D", text: "พลังงานไฟฟ้า -> พลังงานศักย์ -> พลังงานจลน์" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `เขื่อน: น้ำบนสูง (ศักย์) ไหลลงเป็นจลน์ ปั่นเทอร์ไบน์เป็นไฟฟ้า จึงตอบ B`
     },
     {
       id: "q8",
@@ -782,7 +849,8 @@ window.COURSE_DATA = {
         { key: "C", text: "พลังงานความร้อนและเสียง" },
         { key: "D", text: "พลังงานแสง" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `เบรกรถ พลังงานจลน์เปลี่ยนเป็นความร้อน (และเสียง) ที่ผ้าเบรก จึงตอบ C`
     },
     {
       id: "q9",
@@ -793,7 +861,8 @@ window.COURSE_DATA = {
         { key: "C", text: "พลังงานความร้อน เป็น พลังงานแสง" },
         { key: "D", text: "พลังงานไฟฟ้า เป็น พลังงานจลน์" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `LED เปลี่ยนพลังงานไฟฟ้าเป็นแสง (มีความร้อนเล็กน้อย) จึงตอบ B`
     },
     {
       id: "q10",
@@ -804,7 +873,8 @@ window.COURSE_DATA = {
         { key: "C", text: "พลังงานจลน์" },
         { key: "D", text: "พลังงานความร้อน" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `กดสปริงสะสมพลังงานศักย์ยืดหยุ่น จึงตอบ A`
     },
 
     // --- ความร้อน: การถ่ายโอนความร้อนและสมบัติพื้นฐาน (ข้อ 11-17) ---
@@ -817,7 +887,8 @@ window.COURSE_DATA = {
         { key: "C", text: "การแผ่รังสีความร้อน (Radiation)" },
         { key: "D", text: "อาศัยทั้ง 3 วิธีร่วมกันในสัดส่วนเท่าๆ กัน" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `ความร้อนจากดวงอาทิตย์ผ่านอวกาศ (สุญญากาศ) มาถึงโลกด้วยการแผ่รังสี จึงตอบ C`
     },
     {
       id: "q12",
@@ -828,7 +899,8 @@ window.COURSE_DATA = {
         { key: "C", text: "การแผ่รังสีความร้อน" },
         { key: "D", text: "การดูดกลืนความร้อน" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `น้ำร้อนลอยขึ้น-น้ำเย็นจมลง เป็นการเคลื่อนที่ของของไหล = การพาความร้อน จึงตอบ B`
     },
     {
       id: "q13",
@@ -839,7 +911,8 @@ window.COURSE_DATA = {
         { key: "C", text: "การแผ่รังสีความร้อนจากผิวกาแฟ" },
         { key: "D", text: "การสะท้อนความร้อนของช้อน" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `ความร้อนไหลผ่านเนื้อโลหะช้อนมาถึงมือ = การนำความร้อน จึงตอบ A`
     },
     {
       id: "q14",
@@ -850,7 +923,8 @@ window.COURSE_DATA = {
         { key: "C", text: "ความร้อนที่สะสมอยู่ภายในร่างกายของสิ่งมีชีวิต" },
         { key: "D", text: "ความร้อนที่เกิดจากการเสียดสีของวัตถุ" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `ความร้อนแฝงคือความร้อนที่ใช้เปลี่ยนสถานะโดยอุณหภูมิคงที่ จึงตอบ B`
     },
     {
       id: "q15",
@@ -861,7 +935,8 @@ window.COURSE_DATA = {
         { key: "C", text: "คงที่อยู่ที่ $0^\\circ\\text{C}$ จนกว่าจะละลายหมด" },
         { key: "D", text: "คงที่อยู่ที่ $100^\\circ\\text{C}$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `ระหว่างหลอมเหลว อุณหภูมิคงที่ $0^\\circ\\text{C}$ จนละลายหมด จึงตอบ C`
     },
     {
       id: "q16",
@@ -872,7 +947,8 @@ window.COURSE_DATA = {
         { key: "C", text: "การเกิดแผ่นดินไหวใต้ทะเล" },
         { key: "D", text: "การเกิดพายุหมุนเขตร้อน" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `น้ำมีความร้อนจำเพาะสูง ทำให้ทะเลกับพื้นดินร้อน-เย็นต่างกัน เกิดลมบก-ลมทะเล จึงตอบ B`
     },
     {
       id: "q17",
@@ -883,7 +959,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$E = mc^2$" },
         { key: "D", text: "$P = \\frac{W}{t}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `เปลี่ยนอุณหภูมิโดยไม่เปลี่ยนสถานะใช้ $Q=mc\\Delta T$ จึงตอบ B`
     },
 
     // --- ความร้อน: การคำนวณ Q=mcT, Q=mL (ข้อ 18-21) ---
@@ -896,7 +973,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$5000 \\text{ cal}$" },
         { key: "D", text: "$7000 \\text{ cal}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$Q=mc\\Delta T=100\\times1\\times(50-20)=3000\\text{ cal}$ จึงตอบ B`
     },
     {
       id: "q19",
@@ -907,7 +985,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$4000 \\text{ cal}$" },
         { key: "D", text: "$8000 \\text{ cal}$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$Q=mL=50\\times80=4000\\text{ cal}$ จึงตอบ C`
     },
     {
       id: "q20",
@@ -918,7 +997,8 @@ window.COURSE_DATA = {
         { key: "C", text: "3 ขั้นตอน (เพิ่มอุณหภูมิน้ำแข็ง -> เปลี่ยนสถานะ -> เพิ่มอุณหภูมิน้ำ)" },
         { key: "D", text: "4 ขั้นตอน" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `ต้อง 3 ขั้น: อุ่นน้ำแข็งขึ้นถึง 0 → หลอมเหลว → อุ่นน้ำขึ้นถึง 20 จึงตอบ C`
     },
     {
       id: "q21",
@@ -929,7 +1009,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$900 \\text{ cal}$" },
         { key: "D", text: "$1000 \\text{ cal}$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `หลอมน้ำแข็ง $=10\\times80=800$ + อุ่นน้ำ $=10\\times1\\times10=100$ รวม $=900\\text{ cal}$ จึงตอบ C`
     },
 
     // --- สมดุลความร้อนและการประยุกต์ (ข้อ 22-30) ---
@@ -942,7 +1023,8 @@ window.COURSE_DATA = {
         { key: "C", text: "ภาวะที่มีการถ่ายโอนความร้อนจนวัตถุทั้งสองมีอุณหภูมิเท่ากัน" },
         { key: "D", text: "ภาวะที่วัตถุคายความร้อนจนอุณหภูมิลดลงเหลือ $0^\\circ\\text{C}$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `สมดุลความร้อนคือถ่ายโอนความร้อนจนอุณหภูมิเท่ากัน จึงตอบ C`
     },
     {
       id: "q23",
@@ -953,7 +1035,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$60^\\circ\\text{C}$" },
         { key: "D", text: "$100^\\circ\\text{C}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `มวลเท่ากัน c เท่ากัน อุณหภูมิผสม = ค่าเฉลี่ย $=\\frac{80+20}{2}=50^\\circ\\text{C}$ จึงตอบ B`
     },
     {
       id: "q24",
@@ -964,7 +1047,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$35^\\circ\\text{C}$" },
         { key: "D", text: "$60^\\circ\\text{C}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `เหล็กคาย = น้ำรับ: $200(0.1)(100-T)=180(1)(T-20)$ → $20(100-T)=180(T-20)$ → $T=28^\\circ\\text{C}$ จึงตอบ B`
     },
     {
       id: "q25",
@@ -975,7 +1059,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$30^\\circ\\text{C}$" },
         { key: "D", text: "$40^\\circ\\text{C}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `น้ำคาย = ละลายน้ำแข็ง + อุ่นน้ำที่ละลาย: $80(50-T)=20(80)+20T$ → $4000-80T=1600+20T$ → $T=24^\\circ\\text{C}$ จึงตอบ B`
     },
     {
       id: "q26",
@@ -986,7 +1071,8 @@ window.COURSE_DATA = {
         { key: "C", text: "เป็นน้ำทั้งหมด ที่อุณหภูมิ $0^\\circ\\text{C}$" },
         { key: "D", text: "เป็นน้ำผสมน้ำแข็ง ที่อุณหภูมิ $25^\\circ\\text{C}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `น้ำคายได้มากสุด $20\\times50=1000$ cal แต่ละลายน้ำแข็งทั้งหมดต้อง $50\\times80=4000$ cal ไม่พอ น้ำแข็งละลายบางส่วน สมดุลที่ $0^\\circ\\text{C}$ (น้ำผสมน้ำแข็ง) จึงตอบ B`
     },
     {
       id: "q27",
@@ -997,7 +1083,8 @@ window.COURSE_DATA = {
         { key: "C", text: "$12.5^\\circ\\text{C}$" },
         { key: "D", text: "$25^\\circ\\text{C}$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `ทองแดงคายได้ $100\\times0.09\\times100=900$ cal แต่ละลายน้ำแข็งหมดต้อง $8000$ cal ไม่พอ สมดุลคงที่ $0^\\circ\\text{C}$ จึงตอบ A`
     },
     {
       id: "q28",
@@ -1008,7 +1095,8 @@ window.COURSE_DATA = {
         { key: "C", text: "การดูดกลืนความร้อนของโลหะ" },
         { key: "D", text: "ป้องกันการขยายตัวของเหลว" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `ช่องสุญญากาศตัดการนำและการพาความร้อน จึงตอบ A`
     },
     {
       id: "q29",
@@ -1019,7 +1107,8 @@ window.COURSE_DATA = {
         { key: "C", text: "อนุภาคมีพลังงานจลน์มากขึ้น สั่นแรงขึ้น ทำให้ระยะห่างระหว่างอนุภาคเพิ่มขึ้น" },
         { key: "D", text: "ความร้อนแทรกตัวเข้าไปอยู่ในช่องว่างระหว่างอนุภาค" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `ได้ความร้อน อนุภาคสั่นแรงขึ้น ระยะห่างเพิ่ม วัตถุจึงขยายตัว จึงตอบ C`
     },
     {
       id: "q30",
@@ -1030,7 +1119,8 @@ window.COURSE_DATA = {
         { key: "C", text: "เพื่อรองรับการขยายตัวของเหล็กเมื่ออุณหภูมิสูงขึ้น ป้องกันไม่ให้รางโก่งงอ" },
         { key: "D", text: "เพื่อให้น้ำฝนระบายออกได้ง่าย ป้องกันสนิม" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `เว้นช่องเพื่อรองรับการขยายตัวของเหล็กเมื่อร้อน กันรางโก่ง จึงตอบ C`
     }
   ]
 },
@@ -1052,7 +1142,8 @@ window.COURSE_DATA = {
         { key: "C", text: "โครโมโซม -> นิวเคลียส -> ยีน -> ดีเอ็นเอ" },
         { key: "D", text: "ดีเอ็นเอ -> นิวเคลียส -> โครโมโซม -> ยีน" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `ใหญ่ไปเล็ก: นิวเคลียส → โครโมโซม → ดีเอ็นเอ → ยีน จึงตอบ A`
     },
     {
       id: "q2",
@@ -1063,7 +1154,8 @@ window.COURSE_DATA = {
         { key: "C", text: "เป็นเยื่อหุ้มเซลล์เพื่อป้องกันอันตราย" },
         { key: "D", text: "ย่อยสลายสารอาหารภายในเซลล์" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `ยีนควบคุมการสร้างโปรตีนเพื่อแสดงลักษณะทางพันธุกรรม จึงตอบ B`
     },
     {
       id: "q3",
@@ -1074,7 +1166,8 @@ window.COURSE_DATA = {
         { key: "C", text: "เป็นเส้นตรงเกาะอยู่รอบนิวเคลียส" },
         { key: "D", text: "เป็นสายเดี่ยวพันกันเป็นเกลียว" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `DNA เป็นเกลียวคู่ (double helix) จึงตอบ B`
     },
     {
       id: "q4",
@@ -1085,7 +1178,8 @@ window.COURSE_DATA = {
         { key: "C", text: "กรดไขมัน (Fatty acid)" },
         { key: "D", text: "โพลีเปปไทด์ (Polypeptide)" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `หน่วยย่อยของ DNA คือนิวคลีโอไทด์ จึงตอบ B`
     },
     {
       id: "q5",
@@ -1096,7 +1190,8 @@ window.COURSE_DATA = {
         { key: "C", text: "46 แท่ง" },
         { key: "D", text: "48 แท่ง" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `เซลล์ร่างกายมนุษย์มี 46 แท่ง (23 คู่) จึงตอบ C`
     },
     {
       id: "q6",
@@ -1107,7 +1202,8 @@ window.COURSE_DATA = {
         { key: "C", text: "23 คู่" },
         { key: "D", text: "46 คู่" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `ออโตโซมมี 22 คู่ (อีก 1 คู่เป็นโครโมโซมเพศ) จึงตอบ B`
     },
     {
       id: "q7",
@@ -1118,7 +1214,8 @@ window.COURSE_DATA = {
         { key: "C", text: "YY และ XX" },
         { key: "D", text: "XX และ YY" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `ชาย XY หญิง XX จึงตอบ B`
     },
     {
       id: "q8",
@@ -1129,7 +1226,8 @@ window.COURSE_DATA = {
         { key: "C", text: "โฮโมโลกัสโครโมโซม (Homologous chromosome)" },
         { key: "D", text: "เซนโทรเมียร์ (Centromere)" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `โครโมโซมคู่เหมือน = โฮโมโลกัสโครโมโซม จึงตอบ C`
     },
     {
       id: "q9",
@@ -1140,7 +1238,8 @@ window.COURSE_DATA = {
         { key: "C", text: "เทโลเมียร์ (Telomere)" },
         { key: "D", text: "ยีน (Gene)" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `จุดคอดที่ยึดเส้นใยสปินเดิล = เซนโทรเมียร์ จึงตอบ B`
     },
     {
       id: "q10",
@@ -1151,7 +1250,8 @@ window.COURSE_DATA = {
         { key: "C", text: "เพื่อการเจริญเติบโตและซ่อมแซมเนื้อเยื่อที่สึกหรอ" },
         { key: "D", text: "เพื่อลดจำนวนโครโมโซมลงครึ่งหนึ่ง" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `ไมโทซิสเพื่อการเจริญเติบโตและซ่อมแซมเนื้อเยื่อ จึงตอบ C`
     },
     {
       id: "q11",
@@ -1162,7 +1262,8 @@ window.COURSE_DATA = {
         { key: "C", text: "4 เซลล์ จำนวนโครโมโซมลดลงครึ่งหนึ่ง ($n$)" },
         { key: "D", text: "4 เซลล์ จำนวนโครโมโซมเท่าเดิม ($2n$)" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `ไมโทซิสได้ 2 เซลล์ โครโมโซมเท่าเดิม ($2n$) จึงตอบ B`
     },
     {
       id: "q12",
@@ -1173,7 +1274,8 @@ window.COURSE_DATA = {
         { key: "C", text: "ระยะเมทาเฟส (Metaphase)" },
         { key: "D", text: "ระยะแอนาเฟส (Anaphase)" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `การจำลอง DNA เกิดในระยะอินเตอร์เฟส จึงตอบ A`
     },
     {
       id: "q13",
@@ -1184,7 +1286,8 @@ window.COURSE_DATA = {
         { key: "C", text: "ระยะแอนาเฟส (Anaphase)" },
         { key: "D", text: "ระยะเทโลเฟส (Telophase)" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `เมทาเฟส โครโมโซมเรียงกลางเซลล์ จึงตอบ B`
     },
     {
       id: "q14",
@@ -1195,7 +1298,8 @@ window.COURSE_DATA = {
         { key: "C", text: "ซิสเตอร์โครมาทิดถูกดึงแยกออกจากกันไปยังแต่ละขั้วของเซลล์" },
         { key: "D", text: "เกิดการคอดกิ่วของเยื่อหุ้มเซลล์เพื่อแบ่งไซโทพลาซึม" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `แอนาเฟส ซิสเตอร์โครมาทิดถูกดึงแยกไปคนละขั้ว จึงตอบ C`
     },
     {
       id: "q15",
@@ -1206,7 +1310,8 @@ window.COURSE_DATA = {
         { key: "C", text: "เซลล์พืชแบ่งไซโทพลาซึมก่อน เซลล์สัตว์แบ่งนิวเคลียสก่อน" },
         { key: "D", text: "ไม่มีความแตกต่างกัน" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `เซลล์พืชสร้างแผ่นกั้นเซลล์ เซลล์สัตว์คอดกิ่ว จึงตอบ B`
     },
     {
       id: "q16",
@@ -1217,7 +1322,8 @@ window.COURSE_DATA = {
         { key: "C", text: "เซลล์สืบพันธุ์ (ไข่และอสุจิ)" },
         { key: "D", text: "เซลล์เยื่อบุข้างแก้ม" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `เซลล์สืบพันธุ์สร้างด้วยไมโอซิส ไม่ใช่ไมโทซิส จึงตอบ C`
     },
     {
       id: "q17",
@@ -1228,7 +1334,8 @@ window.COURSE_DATA = {
         { key: "C", text: "เพื่อสร้างเซลล์สืบพันธุ์" },
         { key: "D", text: "เพื่อสร้างเซลล์เม็ดเลือดแดง" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `ไมโอซิสเพื่อสร้างเซลล์สืบพันธุ์ จึงตอบ C`
     },
     {
       id: "q18",
@@ -1239,7 +1346,8 @@ window.COURSE_DATA = {
         { key: "C", text: "4 เซลล์ จำนวนโครโมโซมลดลงครึ่งหนึ่ง ($n$)" },
         { key: "D", text: "4 เซลล์ จำนวนโครโมโซมเท่าเดิม ($2n$)" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `ไมโอซิสได้ 4 เซลล์ โครโมโซมลดครึ่ง ($n$) จึงตอบ C`
     },
     {
       id: "q19",
@@ -1250,7 +1358,8 @@ window.COURSE_DATA = {
         { key: "C", text: "ระยะโพรเฟส (Prophase) ของไมโทซิส" },
         { key: "D", text: "ระยะแอนาเฟส II (Anaphase II) ของไมโอซิส" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `Crossing over เกิดในระยะโพรเฟส I ของไมโอซิส จึงตอบ A`
     },
     {
       id: "q20",
@@ -1261,7 +1370,8 @@ window.COURSE_DATA = {
         { key: "C", text: "ทำให้เกิดความหลากหลายทางพันธุกรรมในสิ่งมีชีวิต" },
         { key: "D", text: "ทำให้เซลล์ลูกทั้ง 4 เซลล์มีลักษณะเหมือนกันทุกประการ" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `Crossing over ทำให้เกิดความหลากหลายทางพันธุกรรม จึงตอบ C`
     },
     {
       id: "q21",
@@ -1272,7 +1382,8 @@ window.COURSE_DATA = {
         { key: "C", text: "นิวคลิโอลัส (Nucleolus)" },
         { key: "D", text: "สายดีเอ็นเอ (DNA strand)" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `แอนาเฟส I แยกโฮโมโลกัสโครโมโซมออกจากกัน จึงตอบ B`
     },
     {
       id: "q22",
@@ -1283,7 +1394,8 @@ window.COURSE_DATA = {
         { key: "C", text: "มีลักษณะกระบวนการคล้ายกับการแบ่งแบบไมโทซิส คือแยกซิสเตอร์โครมาทิด" },
         { key: "D", text: "เกิด Crossing over ในระยะนี้" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `ไมโอซิส II คล้ายไมโทซิส คือแยกซิสเตอร์โครมาทิด จึงตอบ C`
     },
     {
       id: "q23",
@@ -1294,7 +1406,8 @@ window.COURSE_DATA = {
         { key: "C", text: "เซลล์ละ 46 แท่ง" },
         { key: "D", text: "อสุจิ 23 แท่ง ไข่ 46 แท่ง" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `เซลล์สืบพันธุ์เป็นแฮพลอยด์ มี 23 แท่ง จึงตอบ B`
     },
     {
       id: "q24",
@@ -1305,7 +1418,8 @@ window.COURSE_DATA = {
         { key: "C", text: "78 แท่ง" },
         { key: "D", text: "156 แท่ง" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$2n=78$ เซลล์สืบพันธุ์ $n=39$ แท่ง จึงตอบ B`
     },
     {
       id: "q25",
@@ -1316,7 +1430,8 @@ window.COURSE_DATA = {
         { key: "C", text: "38 แท่ง, 76 โครมาทิด" },
         { key: "D", text: "76 แท่ง, 76 โครมาทิด" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `เมทาเฟสยังไม่แยกโครมาทิด: 38 แท่ง แต่ละแท่งมี 2 โครมาทิด = 76 โครมาทิด จึงตอบ C`
     },
     {
       id: "q26",
@@ -1327,7 +1442,8 @@ window.COURSE_DATA = {
         { key: "C", text: "ไมโทซิสได้เซลล์ลูกที่มีโครโมโซมเท่าเซลล์แม่ ส่วนไมโอซิสโครโมโซมลดลงครึ่งหนึ่ง" },
         { key: "D", text: "ไมโทซิสมีการเกิด Crossing over ส่วนไมโอซิสไม่มีการเกิด Crossing over" }
       ],
-      answer: "D"
+      answer: "D",
+      explanation: `ข้อ D ผิด เพราะ Crossing over เกิดในไมโอซิส ไม่ใช่ไมโทซิส จึงตอบ D`
     },
     {
       id: "q27",
@@ -1338,7 +1454,8 @@ window.COURSE_DATA = {
         { key: "C", text: "ไมโอซิสสลับกับไมโทซิส" },
         { key: "D", text: "ไม่มีการแบ่งเซลล์ เกิดจากการขยายขนาดเซลล์เดิม" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `ซ่อมแซมบาดแผลใช้ไมโทซิสเท่านั้น จึงตอบ B`
     },
     {
       id: "q28",
@@ -1349,7 +1466,8 @@ window.COURSE_DATA = {
         { key: "C", text: "ขนราก (Root hair)" },
         { key: "D", text: "ท่อลำเลียงน้ำ (Xylem)" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `แบ่งเซลล์มากสุดที่เนื้อเยื่อเจริญปลายราก (apical meristem) จึงตอบ A`
     },
     {
       id: "q29",
@@ -1360,7 +1478,8 @@ window.COURSE_DATA = {
         { key: "C", text: "Prophase (ระยะโพรเฟส)" },
         { key: "D", text: "Cytokinesis (ระยะแบ่งไซโทพลาซึม)" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `อินเตอร์เฟสใช้เวลานานที่สุดในวัฏจักรเซลล์ จึงตอบ B`
     },
     {
       id: "q30",
@@ -1371,7 +1490,8 @@ window.COURSE_DATA = {
         { key: "C", text: "โปรตีนฮิสโตนที่ทำหน้าที่พันสาย DNA" },
         { key: "D", text: "การผิดปกติของจำนวนโครโมโซม" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `แอลลีลคือรูปแบบต่าง ๆ ของยีนที่ตำแหน่งเดียวกันบนโฮโมโลกัสโครโมโซม จึงตอบ B`
     }
   ]
 }

@@ -23,7 +23,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$\\{-3, -2, -1, 0, 1\\}$" },
         { key: "D", text: "$\\{-2, -1, 1, 2\\}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `จำนวนเต็มที่ $-3 < x \\le 2$ คือ $-2,-1,0,1,2$ (ไม่รวม $-3$ แต่รวม $2$) จึงตอบ B`
     },
     {
       id: "q2",
@@ -34,7 +35,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$\\{1, 2, 3\\}$" },
         { key: "D", text: "$\\{-3, -2, -1, 0, 1, 2, 3\\}$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `จำนวนเต็มบวกที่ $x^2<15$: $1,2,3$ (เพราะ $4^2=16>15$) จึงตอบ C`
     },
     {
       id: "q3",
@@ -45,7 +47,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "-10" },
         { key: "D", text: "0" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `จำนวนเต็มลบที่ $2x+7>0$ คือ $x>-3.5$ ได้ $-3,-2,-1$ ผลบวก $=-6$ จึงตอบ A`
     },
     {
       id: "q4",
@@ -56,7 +59,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$\\{ x \\mid x = n^2 \\text{ และ } n \\in \\mathbb{N} \\}$" },
         { key: "D", text: "$\\{ x \\in \\mathbb{R} \\mid x > 0 \\}$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$S$ คือกำลังสองของจำนวนนับ เขียนแบบเงื่อนไขคือ $\\{x \\mid x=n^2, n\\in\\mathbb{N}\\}$ จึงตอบ C`
     },
     {
       id: "q5",
@@ -67,7 +71,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$\\{ x \\in \\mathbb{N} \\mid x < 4 \\}$" },
         { key: "D", text: "$\\{ x \\in \\mathbb{I} \\mid |x| \\le 2 \\}$" }
       ],
-      answer: "D"
+      answer: "D",
+      explanation: `นับสมาชิก: A มี 2, B ($x^2=25$) มี 2, C ($\\mathbb{N},x<4$) มี 3, D ($|x|\\le2$) มี 5 มากสุด จึงตอบ D`
     },
     // --- ข้อ 6-10: เซตว่าง และความสัมพันธ์ของการเป็นสมาชิก ---
     {
@@ -79,7 +84,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$\\{ x \\in \\mathbb{N} \\mid x + 1 > 1 \\}$" },
         { key: "D", text: "$\\{ \\emptyset \\}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `B: จำนวนเต็มที่ $\\frac{2x}{3}=1$ คือ $x=1.5$ ไม่เป็นจำนวนเต็ม จึงเป็นเซตว่าง ตอบ B`
     },
     {
       id: "q7",
@@ -90,7 +96,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$\\{0, 1\\} \\in A$" },
         { key: "D", text: "$\\{0, 1\\} \\subset A$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `สมาชิกของ $A$ คือ $\\emptyset,0,1,\\{0,1\\}$ แต่ $\\{0\\}$ ไม่ได้เป็นสมาชิก ข้อ B จึงผิด ตอบ B`
     },
     {
       id: "q8",
@@ -101,7 +108,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$B$ มีสมาชิก 4 ตัว" },
         { key: "D", text: "$\\{\\emptyset, \\{\\emptyset\\}\\} \\notin B$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$\\{\\emptyset\\}$ เป็นสมาชิกของ $B$ ดังนั้น $\\{\\{\\emptyset\\}\\}\\subset B$ เป็นจริง จึงตอบ B`
     },
     {
       id: "q9",
@@ -112,7 +120,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "สับเซตทั้งหมดของ $\\{ \\emptyset \\}$ มี 2 เซต คือ $\\emptyset$ และ $\\{ \\emptyset \\}$" },
         { key: "D", text: "$\\emptyset \\in \\emptyset$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `สับเซตของ $\\{\\emptyset\\}$ มี 2 เซต คือ $\\emptyset$ และ $\\{\\emptyset\\}$ จึงตอบ C`
     },
     {
       id: "q10",
@@ -123,7 +132,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "2" },
         { key: "D", text: "หาค่าไม่ได้" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$x^2<0$ ไม่มีจำนวนเต็มใดจริง $M$ เป็นเซตว่าง สับเซตมี $2^0=1$ เซต จึงตอบ B`
     },
     // --- ข้อ 11-15: การหาสับเซตและสับเซตแท้พื้นฐาน ---
     {
@@ -135,7 +145,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "32" },
         { key: "D", text: "64" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `สมาชิก 5 ตัว สับเซตทั้งหมด $=2^5=32$ จึงตอบ C`
     },
     {
       id: "q12",
@@ -146,7 +157,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "32" },
         { key: "D", text: "63" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$B=\\{-2,-1,0,1,2\\}$ มี 5 ตัว สับเซตแท้ $=2^5-1=31$ จึงตอบ B`
     },
     {
       id: "q13",
@@ -157,7 +169,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "8" },
         { key: "D", text: "128" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$2^n-1=127 \\Rightarrow 2^n=128 \\Rightarrow n=7$ จึงตอบ B`
     },
     {
       id: "q14",
@@ -168,7 +181,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "16" },
         { key: "D", text: "31" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$(x^2-1)(x^2-4)=0$ ได้ $x=\\pm1,\\pm2$ มี 4 ตัว สับเซตแท้ $=2^4-1=15$ จึงตอบ B`
     },
     {
       id: "q15",
@@ -179,7 +193,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "128" },
         { key: "D", text: "255" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `ตัวอักษรต่างกันใน THAILAND คือ T,H,A,I,L,N,D มี 7 ตัว สับเซตแท้ $=2^7-1=127$ จึงตอบ B`
     },
     // --- ข้อ 16-20: สับเซตแบบมีเงื่อนไข (รวม/ไม่รวมสมาชิก) ---
     {
@@ -191,7 +206,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "32" },
         { key: "D", text: "64" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `บังคับให้มี 1 เลือกที่เหลือจาก 5 ตัว $=2^5=32$ จึงตอบ C`
     },
     {
       id: "q17",
@@ -202,7 +218,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "24" },
         { key: "D", text: "32" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `ไม่เอา $a,b$ เลือกจาก $\\{c,d,e\\}$ $=2^3=8$ จึงตอบ A`
     },
     {
       id: "q18",
@@ -213,7 +230,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "16" },
         { key: "D", text: "32" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$A=\\{1,2,3,4,5\\}$ บังคับมี 1 ไม่เอา 5 เลือกจาก $\\{2,3,4\\}$ $=2^3=8$ จึงตอบ B`
     },
     {
       id: "q19",
@@ -224,7 +242,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "8" },
         { key: "D", text: "16" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$C$ ต้องมี $1,2$ ที่เหลือเลือกจาก $\\{3,4,5\\}$ $=2^3=8$ จึงตอบ C`
     },
     {
       id: "q20",
@@ -235,7 +254,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "8" },
         { key: "D", text: "15" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `จาก 8 เซต ตัดกรณี $C=B$ ออก 1 เซต เหลือ $8-1=7$ จึงตอบ B`
     },
     // --- ข้อ 21-25: การวิเคราะห์เชิงซ้อนและทฤษฎีเซต ---
     {
@@ -247,7 +267,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "7" },
         { key: "D", text: "8" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$2^{n+2}-2^n=192 \\Rightarrow 2^n(3)=192 \\Rightarrow 2^n=64 \\Rightarrow n=6$ จึงตอบ B`
     },
     {
       id: "q22",
@@ -258,7 +279,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "6" },
         { key: "D", text: "10" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `สับเซต 2 ตัว $=\\binom{n}{2}=10 \\Rightarrow n(n-1)=20 \\Rightarrow n=5$ จึงตอบ B`
     },
     {
       id: "q23",
@@ -269,7 +291,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "16" },
         { key: "D", text: "32" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$X$: $x^2<20$ ได้ $-4..4$; $Y$ ส่วนที่ $>0$ คือ $1,2,3,4$ มี 4 ตัว สับเซต $=2^4=16$ จึงตอบ C`
     },
     {
       id: "q24",
@@ -280,7 +303,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "32" },
         { key: "D", text: "64" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$A=\\{-2,0,2\\},\\ A\\cup B=\\{-2,0,1,2,3,4,5\\}$ ส่วนที่เลือกได้ $=(A\\cup B)-A$ มี 4 ตัว $=2^4=16$ จึงตอบ B`
     },
     {
       id: "q25",
@@ -291,7 +315,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$\\{3, 4\\} \\subset X$" },
         { key: "D", text: "$\\{\\{3, 4\\}\\} \\subset X$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$\\{3,4\\}$ เป็นสมาชิกหนึ่งตัวของ $X$ แต่ $3,4$ ไม่ได้เป็นสมาชิกเดี่ยว ดังนั้น $\\{3,4\\}\\subset X$ ผิด จึงตอบ C`
     },
     // --- ข้อ 26-30: โจทย์ประยุกต์และสมบัติของสับเซต ---
     {
@@ -303,7 +328,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "(1) ผิด, (2) ถูก" },
         { key: "D", text: "(1) ผิด, (2) ผิด" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `(1) สมบัติถ่ายทอดของสับเซตถูก (2) $\\emptyset$ เป็นสับเซตของทุกเซตถูก จึงตอบ A`
     },
     {
       id: "q27",
@@ -314,7 +340,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$\\{ \\{\\emptyset\\} \\}$" },
         { key: "D", text: "$\\emptyset$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$A=\\{\\emptyset\\}$ สับเซตคือ $\\emptyset$ และ $\\{\\emptyset\\}$ รวมเป็น $\\{\\emptyset,\\{\\emptyset\\}\\}$ จึงตอบ B`
     },
     {
       id: "q28",
@@ -325,7 +352,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "4" },
         { key: "D", text: "หาไม่ได้เนื่องจากเป็นเซตอนันต์" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$|x-2|\\le0$ ได้ $x=2$ ตัวเดียว สับเซต $=2^1=2$ จึงตอบ B`
     },
     {
       id: "q29",
@@ -336,7 +364,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "256" },
         { key: "D", text: "512" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `จำนวนนับที่หาร 24 ลงตัว: $1,2,3,4,6,8,12,24$ มี 8 ตัว สับเซต $=2^8=256$ จึงตอบ C`
     },
     {
       id: "q30",
@@ -347,7 +376,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "จำนวนสับเซตของ $A$ ที่มีสมาชิก 1 ตัว เท่ากับจำนวนสับเซตแท้ทั้งหมดของ $A$" },
         { key: "D", text: "$\\emptyset \\in A$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `สับเซตแท้ 2 ตัวของ $\\{1,2,3\\}$ คือ $\\{1,2\\},\\{1,3\\},\\{2,3\\}$ รวม 3 เซต จึงตอบ B`
     }
   ]
 },
@@ -369,7 +399,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$\\{1, 2, 4, 5\\}$" },
         { key: "D", text: "$\\{1, 2, 3, 3, 4, 5\\}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$A\\cup B$ รวมสมาชิกทั้งหมดไม่ซ้ำ $=\\{1,2,3,4,5\\}$ จึงตอบ B`
     },
     {
       id: "q2",
@@ -380,7 +411,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$A$ และ $B$ ไม่มีสมาชิกตัวใดร่วมกันเลย" },
         { key: "D", text: "$A$ และ $B$ ต้องเป็นเซตว่างทั้งคู่" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$A\\cap B=\\emptyset$ หมายถึงไม่มีสมาชิกร่วมกันเลย จึงตอบ C`
     },
     {
       id: "q3",
@@ -391,7 +423,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$\\{1, 2, 3, 4, 5\\}$" },
         { key: "D", text: "$\\{\\emptyset\\}$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$A'$ คือสมาชิกใน $U$ ที่ไม่อยู่ใน $A$ $=\\{1,3,5\\}$ จึงตอบ A`
     },
     {
       id: "q4",
@@ -402,7 +435,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$\\{a, c\\}$" },
         { key: "D", text: "$\\{a, b, c, d, e\\}$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$A-B$ คือสมาชิกใน $A$ ที่ไม่อยู่ใน $B$ $=\\{a,c\\}$ จึงตอบ C`
     },
     {
       id: "q5",
@@ -413,7 +447,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$(A \\cap B)'$" },
         { key: "D", text: "$A \\cup B'$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `เดอมอร์แกน: $(A\\cup B)'=A'\\cap B'$ จึงตอบ B`
     },
     {
       id: "q6",
@@ -424,7 +459,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$\\emptyset$" },
         { key: "D", text: "$U$ (เอกภพสัมพัทธ์)" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$A\\subset B$ ทำให้ $A\\cup B=B$ จึงตอบ B`
     },
     {
       id: "q7",
@@ -435,7 +471,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$25$" },
         { key: "D", text: "$0$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$n(A\\cap B)=n(A)+n(B)-n(A\\cup B)=10+15-20=5$ จึงตอบ A`
     },
     {
       id: "q8",
@@ -446,7 +483,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$A \\cup B'$" },
         { key: "D", text: "$A' \\cup B$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$A-B=A\\cap B'$ จึงตอบ A`
     },
     {
       id: "q9",
@@ -457,7 +495,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$\\{1, 9\\}$" },
         { key: "D", text: "$\\{2, 4, 6, 8\\}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$A\\cap B=\\{3,5,7\\}$ ส่วนเติมเต็มใน $U=\\{1,2,4,6,8,9\\}$ จึงตอบ B`
     },
     {
       id: "q10",
@@ -468,7 +507,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$\\emptyset$" },
         { key: "D", text: "$U$" }
       ],
-      answer: "D"
+      answer: "D",
+      explanation: `$A\\cup A'=U$ เสมอ จึงตอบ D`
     },
     {
       id: "q11",
@@ -479,7 +519,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$35$" },
         { key: "D", text: "$40$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$n(A\\cup B)=20+25-10=35$ ดังนั้น $n((A\\cup B)')=50-35=15$ จึงตอบ B`
     },
     {
       id: "q12",
@@ -490,7 +531,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$\\{2, 3, 5, 7\\}$" },
         { key: "D", text: "$\\emptyset$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `จำนวนคู่บวก $<10=\\{2,4,6,8\\}$ จำนวนเฉพาะ $<10=\\{2,3,5,7\\}$ ร่วมกันคือ $\\{2\\}$ จึงตอบ A`
     },
     {
       id: "q13",
@@ -501,7 +543,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$(A \\cup B) - (A \\cap B)$" },
         { key: "D", text: "$\\emptyset$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$(A-B)\\cup(B-A)$ คือผลต่างสมมาตร $=(A\\cup B)-(A\\cap B)$ จึงตอบ C`
     },
     {
       id: "q14",
@@ -512,7 +555,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$\\{\\{1\\}, \\{2\\}\\}$" },
         { key: "D", text: "$\\{\\emptyset, \\{1\\}, \\{2\\}, \\{1, 2\\}, 1, 2\\}$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$P(A)=\\{\\emptyset,\\{1\\},\\{2\\},\\{1,2\\}\\}$ ไม่มีสมาชิก $1,2$ เดี่ยว ดังนั้น $P(A)-A=P(A)$ จึงตอบ A`
     },
     {
       id: "q15",
@@ -523,7 +567,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$A = B$" },
         { key: "D", text: "$A \\cap B = \\emptyset$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$A\\cap B=B$ แสดงว่า $B\\subset A$ จึงตอบ B`
     },
     {
       id: "q16",
@@ -534,7 +579,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$\\{1, 2, 3, 4, 5\\}$" },
         { key: "D", text: "$\\emptyset$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$A\\cup B=\\{1,2,3,4,5\\}$ ตัด $A-B$ และ $B-A$ ออก เหลือ $A\\cap B=\\{3\\}$ จึงตอบ A`
     },
     {
       id: "q17",
@@ -545,7 +591,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$A \\cup B$ เมื่อ $A = B$" },
         { key: "D", text: "$A - B$ เมื่อ $A \\subset B$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$A\\cup B$ ใหญ่สุดเมื่อไม่มีสมาชิกร่วม $=5+5=10$ จึงตอบ B`
     },
     {
       id: "q18",
@@ -556,7 +603,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$A - \\emptyset = A$" },
         { key: "D", text: "$\\emptyset - A = A$" }
       ],
-      answer: "D"
+      answer: "D",
+      explanation: `$\\emptyset-A=\\emptyset$ ไม่ใช่ $A$ ข้อ D จึงผิด ตอบ D`
     },
     {
       id: "q19",
@@ -567,7 +615,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$\\emptyset$" },
         { key: "D", text: "$U$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$U=\\mathbb{I}$, $A=\\{x>0\\}$ ส่วนเติมเต็มคือ $\\{x\\le0\\}$ (รวม 0 และลบ) จึงตอบ B`
     },
     {
       id: "q20",
@@ -578,7 +627,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$A$ และ $B$ แยกกันอยู่" },
         { key: "D", text: "$A$ และ $B$ เป็นเซตว่าง" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$A\\cap B'=\\emptyset$ แปลว่าไม่มีส่วนของ $A$ ที่อยู่นอก $B$ คือ $A\\subset B$ จึงตอบ A`
     },
     {
       id: "q21",
@@ -589,7 +639,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$55$" },
         { key: "D", text: "$70$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$n(A'\\cap B')=n(U)-n(A\\cup B)=100-(40+30-15)=100-55=45$ จึงตอบ B`
     },
     {
       id: "q22",
@@ -600,7 +651,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$(A \\cup B) \\cup C = A \\cup (B \\cup C)$" },
         { key: "D", text: "$(A')' = A$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `กฎการจัดหมู่คือ $(A\\cup B)\\cup C=A\\cup(B\\cup C)$ จึงตอบ C`
     },
     {
       id: "q23",
@@ -611,7 +663,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$15$ คน" },
         { key: "D", text: "$20$ คน" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `ชอบอย่างน้อยหนึ่ง $=25+20-10=35$ ไม่ชอบเลย $=40-35=5$ จึงตอบ A`
     },
     {
       id: "q24",
@@ -622,7 +675,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$A \\cap B$" },
         { key: "D", text: "$U$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$(A\\cap B)\\cup(A\\cap B')=A\\cap(B\\cup B')=A\\cap U=A$ จึงตอบ A`
     },
     {
       id: "q25",
@@ -633,7 +687,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$8$" },
         { key: "D", text: "$16$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$A\\cap B=\\{3,4\\}$ มี 2 ตัว $n(P)=2^2=4$ จึงตอบ B`
     },
     {
       id: "q26",
@@ -644,7 +699,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$\\{1, 2, 3, 4, 5, 6\\}$" },
         { key: "D", text: "$\\emptyset$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$A=U-A'=\\{1..6\\}-\\{1,2,3,4\\}=\\{5,6\\}$ จึงตอบ B`
     },
     {
       id: "q27",
@@ -655,7 +711,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$U' = \\emptyset$" },
         { key: "D", text: "$A \\cap A' = U$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$U'=\\emptyset$ จึงตอบ C`
     },
     {
       id: "q28",
@@ -666,7 +723,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$\\{6, 7\\}$" },
         { key: "D", text: "$\\{1, 2, 3, 4, 5\\}$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$A=\\{1,2,3,4,5\\}$, $B=\\{4,5,6,7\\}$, $A-B=\\{1,2,3\\}$ จึงตอบ A`
     },
     {
       id: "q29",
@@ -677,7 +735,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "Power Set" },
         { key: "D", text: "Universal Set" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$(A\\cup B)-(A\\cap B)$ เรียกว่าผลต่างสมมาตร (Symmetric Difference) จึงตอบ A`
     },
     {
       id: "q30",
@@ -688,7 +747,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$A - B = \\emptyset$" },
         { key: "D", text: "$B - A = \\emptyset$" }
       ],
-      answer: "D"
+      answer: "D",
+      explanation: `$A\\subset B$ ทำให้ $B-A$ อาจไม่ว่าง ดังนั้น $B-A=\\emptyset$ ผิด จึงตอบ D`
     }
   ]
 },
@@ -711,7 +771,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$n(A \\cup B) = n(A) + n(B) - n(A \\cap B)$" },
         { key: "D", text: "$n(A \\cup B) = n(A) \\times n(B) - n(A \\cap B)$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `สูตร $n(A\\cup B)=n(A)+n(B)-n(A\\cap B)$ จึงตอบ C`
     },
     {
       id: "q2",
@@ -722,7 +783,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$43$" },
         { key: "D", text: "$20$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$15+20-8=27$ จึงตอบ A`
     },
     {
       id: "q3",
@@ -733,7 +795,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$18$" },
         { key: "D", text: "$30$" }
       ],
-      answer: "D"
+      answer: "D",
+      explanation: `ไม่มีสมาชิกร่วม $n(A\\cup B)=12+18=30$ จึงตอบ D`
     },
     {
       id: "q4",
@@ -744,7 +807,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$15$" },
         { key: "D", text: "$20$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$n(A\\cap B)=n(A)+n(B)-n(A\\cup B)=25+30-45=10$ จึงตอบ B`
     },
     {
       id: "q5",
@@ -755,7 +819,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$50$" },
         { key: "D", text: "$70$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$n(A')=50-20=30$ จึงตอบ B`
     },
     {
       id: "q6",
@@ -766,7 +831,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$n(B) - n(A \\cap B)$" },
         { key: "D", text: "$n(A) - n(A \\cap B)$" }
       ],
-      answer: "D"
+      answer: "D",
+      explanation: `$n(A-B)=n(A)-n(A\\cap B)$ จึงตอบ D`
     },
     {
       id: "q7",
@@ -777,7 +843,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$24$" },
         { key: "D", text: "$33$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$24-9=15$ จึงตอบ B`
     },
 
     // --- ตอนที่ 2: โจทย์ปัญหาเซต (2 เซต) ---
@@ -790,7 +857,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$40$ คน" },
         { key: "D", text: "$45$ คน" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `อย่างน้อยหนึ่งวิชา $=25+20-10=35$ จึงตอบ B`
     },
     {
       id: "q9",
@@ -801,7 +869,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$10$ คน" },
         { key: "D", text: "$15$ คน" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `ไม่ชอบเลย $=40-35=5$ จึงตอบ B`
     },
     {
       id: "q10",
@@ -812,7 +881,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$15$ คน" },
         { key: "D", text: "$20$ คน" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `ดื่มอย่างน้อยหนึ่ง $=50-5=45$ ทั้งสอง $=30+25-45=10$ จึงตอบ B`
     },
     {
       id: "q11",
@@ -823,7 +893,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$20$ คน" },
         { key: "D", text: "$30$ คน" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `ชาอย่างเดียว $=30-10=20$ จึงตอบ C`
     },
     {
       id: "q12",
@@ -834,7 +905,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$40$ คน" },
         { key: "D", text: "$55$ คน" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `เล่นชนิดเดียว $=(40-15)+(30-15)=25+15=40$ จึงตอบ C`
     },
     {
       id: "q13",
@@ -845,7 +917,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$40$ คน" },
         { key: "D", text: "$50$ คน" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `เลี้ยงอย่างน้อยหนึ่ง $=100-20=80$ ทั้งสอง $=60+50-80=30$ สุนัขแต่ไม่แมว $=60-30=30$ จึงตอบ B`
     },
     {
       id: "q14",
@@ -856,7 +929,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$20$ คน" },
         { key: "D", text: "$25$ คน" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `เคยไปอย่างน้อยหนึ่ง $=45+35-15=65$ ไม่เคยเลย $=80-65=15$ จึงตอบ B`
     },
     {
       id: "q15",
@@ -867,7 +941,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$30$" },
         { key: "D", text: "$40$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$n(A\\cup B)=120-20=100$ ดังนั้น $n(A\\cap B)=60+70-100=30$ จึงตอบ C`
     },
 
     // --- ตอนที่ 3: พื้นที่ในแผนภาพเวนน์-ออยเลอร์ และสมบัติของเซต ---
@@ -880,7 +955,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$A - B$" },
         { key: "D", text: "$B - A$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `เฉพาะ $A$ ไม่ทับ $B$ คือ $A-B$ จึงตอบ C`
     },
     {
       id: "q17",
@@ -891,7 +967,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$A' \\cup B'$" },
         { key: "D", text: "$A - B'$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `นอกวงทั้งสองคือ $(A\\cup B)'$ จึงตอบ B`
     },
     {
       id: "q18",
@@ -902,7 +979,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$A \\cap B'$" },
         { key: "D", text: "$A' - B'$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `เดอมอร์แกน $(A\\cup B)'=A'\\cap B'$ จึงตอบ A`
     },
     {
       id: "q19",
@@ -913,7 +991,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "คือสมาชิกทั้งหมดที่ไม่อยู่ใน $A$ และ $B$" },
         { key: "D", text: "คือสมาชิกทั้งหมดในเอกภพสัมพัทธ์ยกเว้น $B$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$A\\cap B'=A-B$ จึงตอบ B`
     },
 
     // --- ตอนที่ 4: สูตรและโจทย์ปัญหา (3 เซต) ---
@@ -926,7 +1005,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$n(A) + n(B) + n(C) - n(A \\cap B) - n(A \\cap C) - n(B \\cap C) - n(A \\cap B \\cap C)$" },
         { key: "D", text: "$n(A) + n(B) + n(C) - n(A \\cap B) - n(A \\cap C) - n(B \\cap C) + n(A \\cap B \\cap C)$" }
       ],
-      answer: "D"
+      answer: "D",
+      explanation: `สูตร 3 เซตต้อง $+n(A\\cap B\\cap C)$ ตอนท้าย จึงตอบ D`
     },
     {
       id: "q21",
@@ -937,7 +1017,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$28$" },
         { key: "D", text: "$37$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$10+12+15-4-5-6+2=24$ จึงตอบ B`
     },
     {
       id: "q22",
@@ -948,7 +1029,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$95$ คน" },
         { key: "D", text: "$100$ คน" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$40+50+45-15-10-20+5=95$ จึงตอบ C`
     },
     {
       id: "q23",
@@ -959,7 +1041,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$15$ คน" },
         { key: "D", text: "$20$ คน" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `ไม่ชอบเลย $=100-95=5$ จึงตอบ A`
     },
     {
       id: "q24",
@@ -970,7 +1053,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$25$ คน" },
         { key: "D", text: "$40$ คน" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `คณิตอย่างเดียว $=40-15-10+5=20$ จึงตอบ B`
     },
     {
       id: "q25",
@@ -981,7 +1065,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$70$ คน" },
         { key: "D", text: "$75$ คน" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$30+40+25-10-8-12+5=70$ จึงตอบ C`
     },
     {
       id: "q26",
@@ -992,7 +1077,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$15$ คน" },
         { key: "D", text: "$20$ คน" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `ไม่อ่านเลย $=80-70=10$ จึงตอบ B`
     },
     {
       id: "q27",
@@ -1003,7 +1089,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$A \\cap B \\cap C$" },
         { key: "D", text: "$(A \\cup B)' \\cap C$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `ตรงกลางซ้อนทั้งสามคือ $A\\cap B\\cap C$ จึงตอบ C`
     },
     {
       id: "q28",
@@ -1014,7 +1101,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$150$" },
         { key: "D", text: "$265$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `ไม่อยู่ในเซตใดเลย $=150-115=35$ จึงตอบ A`
     },
     {
       id: "q29",
@@ -1025,7 +1113,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$90$" },
         { key: "D", text: "$0$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `ไม่มีสมาชิกร่วม $=30+30+30=90$ จึงตอบ C`
     },
     {
       id: "q30",
@@ -1036,7 +1125,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$25$ คน" },
         { key: "D", text: "$50$ คน" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `ทุกคนเลือกอย่างน้อยหนึ่ง ส่วนนอกทั้งสาม $(I\\cup C\\cup P)'=0$ จึงตอบ A`
     }
   ]
 },
@@ -1058,7 +1148,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$\\{-2, 3\\}$" },
         { key: "D", text: "$\\{2, -3\\}$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$(x-2)(x-3)=0$ ได้ $x=2,3$ จึงตอบ A`
     },
     {
       id: "q2",
@@ -1069,7 +1160,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$\\{2, -3\\}$" },
         { key: "D", text: "$\\{-2, 3\\}$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$(2x-1)(x+3)=0$ ได้ $x=\\frac{1}{2},-3$ จึงตอบ A`
     },
     {
       id: "q3",
@@ -1080,7 +1172,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$7$" },
         { key: "D", text: "$10$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `ผลบวกราก $=-\\frac{b}{a}=-\\frac{-7}{1}=7$ จึงตอบ C`
     },
     {
       id: "q4",
@@ -1091,7 +1184,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$4$" },
         { key: "D", text: "$9$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$3x^2-12x+9=3(x-1)(x-3)$ ผลคูณราก $=\\frac{c}{a}=\\frac{9}{3}=3$ จึงตอบ B`
     },
     {
       id: "q5",
@@ -1102,7 +1196,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$x^2 - 6x + 9 = 0$" },
         { key: "D", text: "$x^2 - 9 = 0$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$x^2-6x+9=(x-3)^2$ มีรากซ้ำ $x=3$ จึงตอบ C`
     },
     {
       id: "q6",
@@ -1113,7 +1208,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$x^2 - 6x + 8 = 0$" },
         { key: "D", text: "$x^2 + 6x + 8 = 0$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `ราก $4,-2$: $(x-4)(x+2)=x^2-2x-8$ จึงตอบ A`
     },
     {
       id: "q7",
@@ -1124,7 +1220,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$1$" },
         { key: "D", text: "$4$" }
       ],
-      answer: "D"
+      answer: "D",
+      explanation: `$\\alpha+\\beta=-\\frac{b}{a}=4$ จึงตอบ D`
     },
     {
       id: "q8",
@@ -1135,7 +1232,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$1$" },
         { key: "D", text: "$4$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$\\alpha\\beta=\\frac{c}{a}=1$ จึงตอบ C`
     },
     {
       id: "q9",
@@ -1146,7 +1244,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$18$" },
         { key: "D", text: "$20$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$\\alpha^2+\\beta^2=(\\alpha+\\beta)^2-2\\alpha\\beta=4^2-2(1)=14$ จึงตอบ A`
     },
     {
       id: "q10",
@@ -1157,7 +1256,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$k = 16, -16$" },
         { key: "D", text: "$k = 0$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `รากซ้ำ ดิสคริมิแนนต์ $=0$: $k^2-4(16)=0 \\Rightarrow k^2=64 \\Rightarrow k=\\pm8$ จึงตอบ B`
     },
     {
       id: "q11",
@@ -1168,7 +1268,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$8$ เมตร" },
         { key: "D", text: "$10$ เมตร" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `ให้กว้าง $w$: $w(w+3)=40 \\Rightarrow w^2+3w-40=0 \\Rightarrow (w+8)(w-5)=0 \\Rightarrow w=5$ จึงตอบ B`
     },
     {
       id: "q12",
@@ -1179,7 +1280,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$\\{3, -3\\}$" },
         { key: "D", text: "$\\emptyset$ (เซตว่าง)" }
       ],
-      answer: "D"
+      answer: "D",
+      explanation: `$x^2=-9$ ไม่มีคำตอบจริง จึงเป็นเซตว่าง ตอบ D`
     },
     {
       id: "q13",
@@ -1190,7 +1292,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$3$" },
         { key: "D", text: "$7$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `ทฤษฎีเศษเหลือ เศษ $=P(2)=4-10+7=1$ จึงตอบ A`
     },
     {
       id: "q14",
@@ -1201,7 +1304,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$4$" },
         { key: "D", text: "$6$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$x+1$ เป็นตัวประกอบ $\\Rightarrow P(-1)=0$: $1-k-5=0 \\Rightarrow k=-4$ จึงตอบ B`
     },
     {
       id: "q15",
@@ -1212,7 +1316,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$\\{\\frac{9}{4}, -\\frac{9}{4}\\}$" },
         { key: "D", text: "$\\{3, -3\\}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$4x^2=9 \\Rightarrow x^2=\\frac{9}{4} \\Rightarrow x=\\pm\\frac{3}{2}$ จึงตอบ B`
     },
     {
       id: "q16",
@@ -1223,7 +1328,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$\\{-1, 0, 1\\}$" },
         { key: "D", text: "$\\{1\\}$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$x(x-1)(x+1)=0$ ได้ $x=-1,0,1$ จึงตอบ C`
     },
     {
       id: "q17",
@@ -1234,7 +1340,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$\\{-2\\}$" },
         { key: "D", text: "$\\{2, 4\\}$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$x^3=8 \\Rightarrow x=2$ (รากจริงเดียว) จึงตอบ A`
     },
     {
       id: "q18",
@@ -1245,7 +1352,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$\\{2, 3, -3\\}$" },
         { key: "D", text: "$\\{-2, 3, -3\\}$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$(x+3)(x^2-4)=(x+3)(x-2)(x+2)$ ได้ $x=-3,2,-2$ จึงตอบ B`
     },
     {
       id: "q19",
@@ -1256,7 +1364,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$2$" },
         { key: "D", text: "$4$" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `$2x(x-3)(x+1)=0$ ได้ $0,3,-1$ ผลบวก $=2$ จึงตอบ C`
     },
     {
       id: "q20",
@@ -1267,7 +1376,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$5$" },
         { key: "D", text: "$6$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `ผลคูณราก $=-\\frac{d}{a}=-\\frac{6}{1}=-6$ จึงตอบ A`
     },
     {
       id: "q21",
@@ -1278,7 +1388,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$x + 2$" },
         { key: "D", text: "$x + 3$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `ลอง $x=1$: $1-6+11-6=0$ ดังนั้น $x-1$ เป็นตัวประกอบ จึงตอบ B`
     },
     {
       id: "q22",
@@ -1289,7 +1400,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$\\{1, -2, 3\\}$" },
         { key: "D", text: "$\\{1, 2, 3\\}$" }
       ],
-      answer: "D"
+      answer: "D",
+      explanation: `แยกได้ $(x-1)(x-2)(x-3)$ ได้ราก $1,2,3$ จึงตอบ D`
     },
     {
       id: "q23",
@@ -1300,7 +1412,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$P(-c)$" },
         { key: "D", text: "$0$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `ทฤษฎีเศษเหลือ เศษ $=P(c)$ จึงตอบ B`
     },
     {
       id: "q24",
@@ -1311,7 +1424,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$11$" },
         { key: "D", text: "$15$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$P(3)=27-18+3-5=7$ จึงตอบ B`
     },
     {
       id: "q25",
@@ -1322,7 +1436,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$2$" },
         { key: "D", text: "$4$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$x-2$ หารลงตัว $\\Rightarrow P(2)=0$: $8-12+2k+4=0 \\Rightarrow k=0$ จึงตอบ B`
     },
     {
       id: "q26",
@@ -1333,7 +1448,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$3$ ค่า" },
         { key: "D", text: "$4$ ค่า" }
       ],
-      answer: "C"
+      answer: "C",
+      explanation: `สมการกำลังสามมีรากจริงได้มากที่สุด 3 ค่า จึงตอบ C`
     },
     {
       id: "q27",
@@ -1344,7 +1460,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$x^3 - x^2 - 2x + 2 = 0$" },
         { key: "D", text: "$x^3 + x^2 - 2x - 2 = 0$" }
       ],
-      answer: "A"
+      answer: "A",
+      explanation: `$(x+1)(x-1)(x-2)=x^3-2x^2-x+2$ จึงตอบ A`
     },
     {
       id: "q28",
@@ -1355,7 +1472,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$(x - 3)(x^2 + 3x + 9)$" },
         { key: "D", text: "$(x + 3)(x^2 + 3x + 9)$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `ผลบวกกำลังสาม $a^3+b^3=(a+b)(a^2-ab+b^2)$: $x^3+27=(x+3)(x^2-3x+9)$ จึงตอบ B`
     },
     {
       id: "q29",
@@ -1366,7 +1484,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$12$" },
         { key: "D", text: "$24$" }
       ],
-      answer: "D"
+      answer: "D",
+      explanation: `$c$ = ค่าคงที่ $=-(\\text{ผลคูณราก})=-(2)(-3)(4)=24$ จึงตอบ D`
     },
     {
       id: "q30",
@@ -1377,7 +1496,8 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         { key: "C", text: "$x$ เป็นตัวประกอบของ $P(x)$" },
         { key: "D", text: "$1$ เป็นเศษเหลือจากการหาร $P(x)$ ด้วย $x$" }
       ],
-      answer: "B"
+      answer: "B",
+      explanation: `$P(1)=0$ แสดงว่า $x-1$ เป็นตัวประกอบของ $P(x)$ จึงตอบ B`
     }
   ]
 }
