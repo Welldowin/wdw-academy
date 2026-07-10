@@ -1547,5 +1547,399 @@ window.COURSE_DATA = {
       explanation: `จาก $x=A$ ไป $\\frac{A}{2}$: $\\cos(\\omega t)=\\frac{1}{2}\\Rightarrow\\omega t=\\dfrac{\\pi}{3}\\Rightarrow t=\\dfrac{T}{6}=\\dfrac{12}{6}=2\\text{ s}$ จึงตอบ B`
     }
   ]
-}
+},
+
+  "quiz5": {
+    meta: {
+      courseId: "m5-term1-physics",
+      quizKey: "quiz5",
+      title: "Quiz 5 : คลื่นกล อัตราเร็วคลื่น กราฟคลื่น และเฟส (30 ข้อ)",
+      enableTimer: true,
+      timeLimitSec: 3600
+    },
+    data: [
+      // --- ทฤษฎีพื้นฐานของคลื่น (ข้อ 1-8) ---
+      {
+        id: "q1",
+        prompt: `คลื่นเป็นการถ่ายโอนสิ่งใดจากที่หนึ่งไปยังอีกที่หนึ่ง โดยที่อนุภาคของตัวกลางไม่ได้เคลื่อนที่ไปพร้อมกับคลื่น?`,
+        choices: [
+          { key: "A", text: "มวลสารของตัวกลาง" },
+          { key: "B", text: "พลังงาน" },
+          { key: "C", text: "ประจุไฟฟ้า" },
+          { key: "D", text: "อนุภาคของตัวกลางทั้งหมด" }
+        ],
+        answer: "B",
+        explanation: `คลื่นถ่ายโอนพลังงานผ่านตัวกลาง โดยอนุภาคเพียงสั่นรอบจุดสมดุล ไม่ได้เคลื่อนที่ไปกับคลื่น จึงตอบ B`
+      },
+      {
+        id: "q2",
+        prompt: `คลื่นชนิดใดที่ต้องอาศัยตัวกลางในการเคลื่อนที่ (เคลื่อนที่ผ่านสุญญากาศไม่ได้)?`,
+        choices: [
+          { key: "A", text: "คลื่นแม่เหล็กไฟฟ้า" },
+          { key: "B", text: "คลื่นแสง" },
+          { key: "C", text: "คลื่นกล" },
+          { key: "D", text: "คลื่นวิทยุ" }
+        ],
+        answer: "C",
+        explanation: `คลื่นกล (เช่น เสียง คลื่นน้ำ คลื่นในเส้นเชือก) ต้องอาศัยตัวกลาง ส่วนคลื่นแสง/วิทยุเป็นคลื่นแม่เหล็กไฟฟ้าเดินทางในสุญญากาศได้ จึงตอบ C`
+      },
+      {
+        id: "q3",
+        prompt: `ข้อใดคือความแตกต่างที่สำคัญที่สุดระหว่างคลื่นแม่เหล็กไฟฟ้ากับคลื่นกล?`,
+        choices: [
+          { key: "A", text: "คลื่นแม่เหล็กไฟฟ้าเคลื่อนที่ผ่านสุญญากาศได้ แต่คลื่นกลต้องอาศัยตัวกลาง" },
+          { key: "B", text: "คลื่นกลเคลื่อนที่เร็วกว่าคลื่นแม่เหล็กไฟฟ้าเสมอ" },
+          { key: "C", text: "คลื่นแม่เหล็กไฟฟ้าเป็นคลื่นตามยาวเสมอ" },
+          { key: "D", text: "คลื่นกลไม่มีการถ่ายโอนพลังงาน" }
+        ],
+        answer: "A",
+        explanation: `คลื่นแม่เหล็กไฟฟ้าเกิดจากการเปลี่ยนแปลงสนามไฟฟ้า-สนามแม่เหล็ก เดินทางในสุญญากาศได้ ต่างจากคลื่นกลที่ต้องมีตัวกลาง จึงตอบ A`
+      },
+      {
+        id: "q4",
+        prompt: `คลื่นตามขวาง (transverse wave) อนุภาคของตัวกลางสั่นในทิศทางใดเทียบกับทิศการเคลื่อนที่ของคลื่น?`,
+        choices: [
+          { key: "A", text: "สั่นในทิศขนานกับทิศการเคลื่อนที่ของคลื่น" },
+          { key: "B", text: "สั่นเป็นวงกลมรอบจุดสมดุล" },
+          { key: "C", text: "ไม่มีการสั่น" },
+          { key: "D", text: "สั่นในทิศตั้งฉากกับทิศการเคลื่อนที่ของคลื่น" }
+        ],
+        answer: "D",
+        explanation: `คลื่นตามขวาง อนุภาคสั่นตั้งฉากกับทิศการเคลื่อนที่ของคลื่น เช่น คลื่นในเส้นเชือกและคลื่นแสง จึงตอบ D`
+      },
+      {
+        id: "q5",
+        prompt: `ข้อใดกล่าวถึงคลื่นตามยาว (longitudinal wave) พร้อมตัวอย่างได้ถูกต้อง?`,
+        choices: [
+          { key: "A", text: "อนุภาคสั่นตั้งฉากกับทิศการเคลื่อนที่ เช่น คลื่นแสง" },
+          { key: "B", text: "อนุภาคสั่นขนานกับทิศการเคลื่อนที่ เช่น คลื่นเสียง" },
+          { key: "C", text: "อนุภาคสั่นเป็นวงกลม เช่น คลื่นแม่เหล็กไฟฟ้า" },
+          { key: "D", text: "อนุภาคไม่สั่น เช่น คลื่นวิทยุ" }
+        ],
+        answer: "B",
+        explanation: `คลื่นตามยาว อนุภาคสั่นขนานกับทิศการเคลื่อนที่ ทำให้เกิดส่วนอัด-ส่วนขยาย ตัวอย่างชัดเจนคือคลื่นเสียง จึงตอบ B`
+      },
+      {
+        id: "q6",
+        prompt: `ข้อใดจับคู่ชนิดของคลื่นได้ถูกต้อง?`,
+        choices: [
+          { key: "A", text: "คลื่นเสียงเป็นคลื่นตามขวาง" },
+          { key: "B", text: "คลื่นแสงเป็นคลื่นตามยาว" },
+          { key: "C", text: "คลื่นเสียงเป็นคลื่นตามยาว ส่วนคลื่นแสงเป็นคลื่นตามขวาง" },
+          { key: "D", text: "คลื่นน้ำเป็นคลื่นตามยาวเพียงอย่างเดียว" }
+        ],
+        answer: "C",
+        explanation: `คลื่นเสียงเป็นคลื่นตามยาว ส่วนคลื่นแสง (คลื่นแม่เหล็กไฟฟ้า) เป็นคลื่นตามขวาง จึงตอบ C`
+      },
+      {
+        id: "q7",
+        prompt: `แอมพลิจูด (amplitude) ของคลื่นหมายถึงข้อใด?`,
+        choices: [
+          { key: "A", text: "ขนาดการกระจัดสูงสุดของอนุภาคจากตำแหน่งสมดุล ซึ่งสัมพันธ์กับพลังงานของคลื่น" },
+          { key: "B", text: "ระยะทางที่คลื่นเคลื่อนที่ได้ใน 1 วินาที" },
+          { key: "C", text: "จำนวนรอบที่คลื่นสั่นได้ใน 1 วินาที" },
+          { key: "D", text: "เวลาที่คลื่นใช้ในการสั่นครบ 1 รอบ" }
+        ],
+        answer: "A",
+        explanation: `แอมพลิจูดคือขนาดการกระจัดสูงสุดจากตำแหน่งสมดุล และยิ่งมากคลื่นยิ่งพาพลังงานมาก จึงตอบ A`
+      },
+      {
+        id: "q8",
+        prompt: `ความสัมพันธ์ระหว่างความถี่ (f) และคาบ (T) ของคลื่นเป็นไปตามข้อใด?`,
+        choices: [
+          { key: "A", text: "$f = T$" },
+          { key: "B", text: "$f = 2\\pi T$" },
+          { key: "C", text: "$f = \\dfrac{T}{2}$" },
+          { key: "D", text: "$f = \\dfrac{1}{T}$" }
+        ],
+        answer: "D",
+        explanation: `ความถี่คือจำนวนรอบต่อวินาที ซึ่งเป็นส่วนกลับของคาบ ($f=1/T$) จึงตอบ D`
+      },
+
+      // --- อัตราเร็วคลื่นและการคำนวณ (ข้อ 9-15) ---
+      {
+        id: "q9",
+        prompt: `สมการหาอัตราเร็วของคลื่น (v) เมื่อทราบความถี่ (f) และความยาวคลื่น ($\\lambda$) คือข้อใด?`,
+        choices: [
+          { key: "A", text: "$v = \\dfrac{f}{\\lambda}$" },
+          { key: "B", text: "$v = f\\lambda$" },
+          { key: "C", text: "$v = \\dfrac{\\lambda}{f}$" },
+          { key: "D", text: "$v = f + \\lambda$" }
+        ],
+        answer: "B",
+        explanation: `อัตราเร็วคลื่น $v = f\\lambda$ (ความถี่คูณความยาวคลื่น) จึงตอบ B`
+      },
+      {
+        id: "q10",
+        prompt: `คลื่นมีความถี่ $50 \\text{ Hz}$ และความยาวคลื่น $0.2 \\text{ m}$ อัตราเร็วของคลื่นเป็นเท่าใด?`,
+        choices: [
+          { key: "A", text: "$250 \\text{ m/s}$" },
+          { key: "B", text: "$0.004 \\text{ m/s}$" },
+          { key: "C", text: "$10 \\text{ m/s}$" },
+          { key: "D", text: "$50 \\text{ m/s}$" }
+        ],
+        answer: "C",
+        explanation: `$v = f\\lambda = 50 \\times 0.2 = 10 \\text{ m/s}$ จึงตอบ C`
+      },
+      {
+        id: "q11",
+        prompt: `คลื่นเสียงมีอัตราเร็ว $340 \\text{ m/s}$ และความถี่ $170 \\text{ Hz}$ ความยาวคลื่นเป็นเท่าใด?`,
+        choices: [
+          { key: "A", text: "$2 \\text{ m}$" },
+          { key: "B", text: "$0.5 \\text{ m}$" },
+          { key: "C", text: "$4 \\text{ m}$" },
+          { key: "D", text: "$510 \\text{ m}$" }
+        ],
+        answer: "A",
+        explanation: `$\\lambda = v/f = 340/170 = 2 \\text{ m}$ จึงตอบ A`
+      },
+      {
+        id: "q12",
+        prompt: `คลื่นเคลื่อนที่ด้วยอัตราเร็ว $12 \\text{ m/s}$ มีความยาวคลื่น $3 \\text{ m}$ ความถี่เป็นเท่าใด?`,
+        choices: [
+          { key: "A", text: "$36 \\text{ Hz}$" },
+          { key: "B", text: "$0.25 \\text{ Hz}$" },
+          { key: "C", text: "$15 \\text{ Hz}$" },
+          { key: "D", text: "$4 \\text{ Hz}$" }
+        ],
+        answer: "D",
+        explanation: `$f = v/\\lambda = 12/3 = 4 \\text{ Hz}$ จึงตอบ D`
+      },
+      {
+        id: "q13",
+        prompt: `คลื่นมีความถี่ $5 \\text{ Hz}$ คาบของคลื่นเป็นเท่าใด?`,
+        choices: [
+          { key: "A", text: "$5 \\text{ s}$" },
+          { key: "B", text: "$0.2 \\text{ s}$" },
+          { key: "C", text: "$0.5 \\text{ s}$" },
+          { key: "D", text: "$2 \\text{ s}$" }
+        ],
+        answer: "B",
+        explanation: `$T = 1/f = 1/5 = 0.2 \\text{ s}$ จึงตอบ B`
+      },
+      {
+        id: "q14",
+        prompt: `เมื่อคลื่นเคลื่อนที่จากตัวกลางหนึ่งไปยังอีกตัวกลางหนึ่ง ปริมาณใดของคลื่นมีค่าคงที่?`,
+        choices: [
+          { key: "A", text: "อัตราเร็วของคลื่น" },
+          { key: "B", text: "ความยาวคลื่น" },
+          { key: "C", text: "ความถี่" },
+          { key: "D", text: "ทั้งอัตราเร็วและความยาวคลื่น" }
+        ],
+        answer: "C",
+        explanation: `ความถี่ถูกกำหนดโดยแหล่งกำเนิด จึงคงที่เมื่อเปลี่ยนตัวกลาง ส่วน v และ λ เปลี่ยนไป (v=fλ) จึงตอบ C`
+      },
+      {
+        id: "q15",
+        prompt: `แหล่งกำเนิดคลื่นน้ำทำให้เกิดคลื่น 20 ลูก ในเวลา 4 วินาที ความถี่ของคลื่นเป็นเท่าใด?`,
+        choices: [
+          { key: "A", text: "$5 \\text{ Hz}$" },
+          { key: "B", text: "$0.2 \\text{ Hz}$" },
+          { key: "C", text: "$80 \\text{ Hz}$" },
+          { key: "D", text: "$4 \\text{ Hz}$" }
+        ],
+        answer: "A",
+        explanation: `$f = \\dfrac{จำนวนรอบ}{เวลา} = \\dfrac{20}{4} = 5 \\text{ Hz}$ จึงตอบ A`
+      },
+
+      // --- กราฟคลื่น (ข้อ 16-23) ---
+      {
+        id: "q16",
+        prompt: `จากกราฟการกระจัด–ตำแหน่ง (y–x) ของคลื่นต่อไปนี้ ความยาวคลื่น ($\\lambda$) มีค่ากี่เมตร?<br><br>
+      <div style="background:#f8f9fa; padding:15px; border-radius:8px; text-align:center; border: 1px dashed #ccc;">
+         <img src="./images/q5_16.png" alt="รูปประกอบข้อสอบ" style="max-width:100%; border-radius:4px;">
+      </div><br>`,
+        choices: [
+          { key: "A", text: "$1 \\text{ m}$" },
+          { key: "B", text: "$2 \\text{ m}$" },
+          { key: "C", text: "$4 \\text{ m}$" },
+          { key: "D", text: "$0.5 \\text{ m}$" }
+        ],
+        answer: "B",
+        explanation: `ความยาวคลื่นคือระยะระหว่างยอดคลื่นสองยอดที่ติดกัน (จาก x=0.5 ถึง x=2.5) = 2 m จึงตอบ B`
+      },
+      {
+        id: "q17",
+        prompt: `แอมพลิจูดของคลื่นมีความสัมพันธ์โดยตรงกับปริมาณใดของคลื่น?`,
+        choices: [
+          { key: "A", text: "ความถี่ของคลื่น" },
+          { key: "B", text: "ความยาวคลื่น" },
+          { key: "C", text: "อัตราเร็วของคลื่น" },
+          { key: "D", text: "พลังงานที่คลื่นถ่ายโอน" }
+        ],
+        answer: "D",
+        explanation: `แอมพลิจูดยิ่งมาก คลื่นยิ่งพาพลังงานมาก (พลังงานแปรผันตามกำลังสองของแอมพลิจูด) จึงตอบ D`
+      },
+      {
+        id: "q18",
+        prompt: `จากกราฟการกระจัด–เวลา (y–t) ของอนุภาคต่อไปนี้ คาบ (T) ของคลื่นมีค่ากี่วินาที?<br><br>
+      <div style="background:#f8f9fa; padding:15px; border-radius:8px; text-align:center; border: 1px dashed #ccc;">
+         <img src="./images/q5_18.png" alt="รูปประกอบข้อสอบ" style="max-width:100%; border-radius:4px;">
+      </div><br>`,
+        choices: [
+          { key: "A", text: "$0.2 \\text{ s}$" },
+          { key: "B", text: "$0.8 \\text{ s}$" },
+          { key: "C", text: "$0.4 \\text{ s}$" },
+          { key: "D", text: "$2.5 \\text{ s}$" }
+        ],
+        answer: "C",
+        explanation: `คาบคือเวลาในการสั่นครบ 1 รอบเต็ม จากกราฟอ่านได้ $T = 0.4 \\text{ s}$ จึงตอบ C`
+      },
+      {
+        id: "q19",
+        prompt: `อนุภาคหนึ่งสั่นด้วยคาบ $0.4 \\text{ s}$ ความถี่ของการสั่นเป็นเท่าใด?`,
+        choices: [
+          { key: "A", text: "$2.5 \\text{ Hz}$" },
+          { key: "B", text: "$0.4 \\text{ Hz}$" },
+          { key: "C", text: "$4 \\text{ Hz}$" },
+          { key: "D", text: "$25 \\text{ Hz}$" }
+        ],
+        answer: "A",
+        explanation: `$f = 1/T = 1/0.4 = 2.5 \\text{ Hz}$ จึงตอบ A`
+      },
+      {
+        id: "q20",
+        prompt: `กราฟการกระจัด–ตำแหน่ง (y–x) และกราฟการกระจัด–เวลา (y–t) ให้ข้อมูลของคลื่นต่างกันอย่างไร?`,
+        choices: [
+          { key: "A", text: "ทั้งสองกราฟอ่านความยาวคลื่นได้เหมือนกัน" },
+          { key: "B", text: "กราฟ y–x ใช้อ่านความยาวคลื่น (λ) ส่วนกราฟ y–t ใช้อ่านคาบ (T)" },
+          { key: "C", text: "กราฟ y–x ใช้อ่านคาบ ส่วนกราฟ y–t ใช้อ่านความยาวคลื่น" },
+          { key: "D", text: "ทั้งสองกราฟอ่านได้เฉพาะแอมพลิจูดเท่านั้น" }
+        ],
+        answer: "B",
+        explanation: `แกนนอนเป็นตำแหน่ง (x) จะอ่านความยาวคลื่น λ ส่วนแกนนอนเป็นเวลา (t) จะอ่านคาบ T จึงตอบ B`
+      },
+      {
+        id: "q21",
+        prompt: `รูปแสดงตำแหน่งของพัลส์คลื่นบนเส้นเชือกที่เวลา $t=0$ และ $t=2$ วินาที อัตราเร็วของคลื่นเป็นเท่าใด?<br><br>
+      <div style="background:#f8f9fa; padding:15px; border-radius:8px; text-align:center; border: 1px dashed #ccc;">
+         <img src="./images/q5_21.png" alt="รูปประกอบข้อสอบ" style="max-width:100%; border-radius:4px;">
+      </div><br>`,
+        choices: [
+          { key: "A", text: "$2 \\text{ m/s}$" },
+          { key: "B", text: "$4 \\text{ m/s}$" },
+          { key: "C", text: "$8 \\text{ m/s}$" },
+          { key: "D", text: "$1 \\text{ m/s}$" }
+        ],
+        answer: "A",
+        explanation: `พัลส์เลื่อนไป $\\Delta x = 4 \\text{ m}$ ในเวลา $\\Delta t = 2 \\text{ s}$ ดังนั้น $v = \\Delta x/\\Delta t = 4/2 = 2 \\text{ m/s}$ จึงตอบ A`
+      },
+      {
+        id: "q22",
+        prompt: `คลื่นเคลื่อนที่ได้ระยะ $12 \\text{ m}$ ในเวลา $3 \\text{ s}$ ถ้าความยาวคลื่นเท่ากับ $2 \\text{ m}$ ความถี่ของคลื่นเป็นเท่าใด?`,
+        choices: [
+          { key: "A", text: "$6 \\text{ Hz}$" },
+          { key: "B", text: "$24 \\text{ Hz}$" },
+          { key: "C", text: "$0.5 \\text{ Hz}$" },
+          { key: "D", text: "$2 \\text{ Hz}$" }
+        ],
+        answer: "D",
+        explanation: `$v = 12/3 = 4 \\text{ m/s}$ แล้ว $f = v/\\lambda = 4/2 = 2 \\text{ Hz}$ จึงตอบ D`
+      },
+      {
+        id: "q23",
+        prompt: `จากรูปคลื่นตามยาวต่อไปนี้ บริเวณที่อนุภาคของตัวกลางอยู่ชิดกันหนาแน่นที่สุดเรียกว่าอะไร?<br><br>
+      <div style="background:#f8f9fa; padding:15px; border-radius:8px; text-align:center; border: 1px dashed #ccc;">
+         <img src="./images/q5_23.png" alt="รูปประกอบข้อสอบ" style="max-width:100%; border-radius:4px;">
+      </div><br>`,
+        choices: [
+          { key: "A", text: "ส่วนอัด (compression)" },
+          { key: "B", text: "ส่วนขยาย (rarefaction)" },
+          { key: "C", text: "ยอดคลื่น (crest)" },
+          { key: "D", text: "ท้องคลื่น (trough)" }
+        ],
+        answer: "A",
+        explanation: `ในคลื่นตามยาว บริเวณที่อนุภาคชิดกันหนาแน่นคือส่วนอัด ส่วนบริเวณที่ห่างกันคือส่วนขยาย (ยอด/ท้องคลื่นใช้กับคลื่นตามขวาง) จึงตอบ A`
+      },
+
+      // --- เฟสและความต่างเฟส (ข้อ 24-30) ---
+      {
+        id: "q24",
+        prompt: `เฟสเริ่มต้น (initial phase) ของคลื่นบอกถึงสิ่งใด?`,
+        choices: [
+          { key: "A", text: "ความยาวคลื่นของคลื่น" },
+          { key: "B", text: "อัตราเร็วของคลื่น" },
+          { key: "C", text: "จำนวนรอบต่อวินาที" },
+          { key: "D", text: "สถานะการสั่น (ตำแหน่งบนวงรอบการสั่น) ของคลื่น ณ เวลาเริ่มต้น $t=0$" }
+        ],
+        answer: "D",
+        explanation: `เฟสเริ่มต้นบอกสถานะการสั่น ณ เวลา $t=0$ ว่าเริ่มจากตำแหน่งใดของวงรอบ จึงตอบ D`
+      },
+      {
+        id: "q25",
+        prompt: `ความต่างเฟส ($\\Delta\\phi$) ระหว่างจุดสองจุดบนคลื่นที่ห่างกันเป็นระยะ $\\Delta x$ เมื่อความยาวคลื่นเป็น $\\lambda$ หาได้จากข้อใด?`,
+        choices: [
+          { key: "A", text: "$\\Delta\\phi = \\dfrac{2\\pi\\lambda}{\\Delta x}$" },
+          { key: "B", text: "$\\Delta\\phi = \\dfrac{\\pi\\,\\Delta x}{\\lambda}$" },
+          { key: "C", text: "$\\Delta\\phi = \\dfrac{2\\pi\\,\\Delta x}{\\lambda}$" },
+          { key: "D", text: "$\\Delta\\phi = \\dfrac{\\Delta x}{\\lambda}$" }
+        ],
+        answer: "C",
+        explanation: `ระยะห่าง 1 ความยาวคลื่นเทียบเท่าเฟส $2\\pi$ ดังนั้น $\\Delta\\phi = 2\\pi\\dfrac{\\Delta x}{\\lambda}$ จึงตอบ C`
+      },
+      {
+        id: "q26",
+        prompt: `จากรูป จุด P และ จุด Q อยู่บนคลื่นเดียวกัน (ความยาวคลื่น $4 \\text{ m}$) ความต่างเฟสระหว่างจุด P และ Q มีค่าเท่าใด?<br><br>
+      <div style="background:#f8f9fa; padding:15px; border-radius:8px; text-align:center; border: 1px dashed #ccc;">
+         <img src="./images/q5_26.png" alt="รูปประกอบข้อสอบ" style="max-width:100%; border-radius:4px;">
+      </div><br>`,
+        choices: [
+          { key: "A", text: "$\\dfrac{\\pi}{2} \\text{ rad}$" },
+          { key: "B", text: "$\\pi \\text{ rad}$" },
+          { key: "C", text: "$2\\pi \\text{ rad}$" },
+          { key: "D", text: "$\\dfrac{\\pi}{4} \\text{ rad}$" }
+        ],
+        answer: "B",
+        explanation: `P (ยอดคลื่น) กับ Q (ท้องคลื่น) ห่างกัน $\\Delta x = 2 \\text{ m} = \\lambda/2$ ดังนั้น $\\Delta\\phi = 2\\pi\\cdot\\dfrac{1}{2} = \\pi$ จึงตอบ B`
+      },
+      {
+        id: "q27",
+        prompt: `จุดสองจุดบนคลื่นอยู่ห่างกันเป็นระยะ $\\dfrac{\\lambda}{4}$ ความต่างเฟสของสองจุดนี้เป็นเท่าใด?`,
+        choices: [
+          { key: "A", text: "$2\\pi \\text{ rad}$" },
+          { key: "B", text: "$\\pi \\text{ rad}$" },
+          { key: "C", text: "$\\dfrac{\\pi}{4} \\text{ rad}$" },
+          { key: "D", text: "$\\dfrac{\\pi}{2} \\text{ rad}$" }
+        ],
+        answer: "D",
+        explanation: `$\\Delta\\phi = 2\\pi\\cdot\\dfrac{\\lambda/4}{\\lambda} = \\dfrac{2\\pi}{4} = \\dfrac{\\pi}{2}$ จึงตอบ D`
+      },
+      {
+        id: "q28",
+        prompt: `จุดสองจุดบนคลื่นอยู่ห่างกัน $3 \\text{ m}$ ถ้าความยาวคลื่นเป็น $4 \\text{ m}$ ความต่างเฟสของสองจุดนี้เป็นเท่าใด?`,
+        choices: [
+          { key: "A", text: "$\\dfrac{\\pi}{2} \\text{ rad}$" },
+          { key: "B", text: "$\\pi \\text{ rad}$" },
+          { key: "C", text: "$\\dfrac{3\\pi}{2} \\text{ rad}$" },
+          { key: "D", text: "$3\\pi \\text{ rad}$" }
+        ],
+        answer: "C",
+        explanation: `$\\Delta\\phi = 2\\pi\\cdot\\dfrac{\\Delta x}{\\lambda} = 2\\pi\\cdot\\dfrac{3}{4} = \\dfrac{3\\pi}{2}$ จึงตอบ C`
+      },
+      {
+        id: "q29",
+        prompt: `จุดสองจุดบนคลื่นที่มีเฟสตรงกัน (in phase) จะอยู่ห่างกันเป็นระยะเท่าใด (เมื่อ n เป็นจำนวนเต็ม)?`,
+        choices: [
+          { key: "A", text: "จำนวนเต็มเท่าของความยาวคลื่น ($n\\lambda$)" },
+          { key: "B", text: "ครึ่งหนึ่งของความยาวคลื่น ($\\lambda/2$)" },
+          { key: "C", text: "หนึ่งในสี่ของความยาวคลื่น ($\\lambda/4$)" },
+          { key: "D", text: "$\\left(n+\\dfrac{1}{2}\\right)\\lambda$" }
+        ],
+        answer: "A",
+        explanation: `จุดที่เฟสตรงกันต่างเฟส $2\\pi$ พอดี ระยะห่างจึงเป็นจำนวนเต็มเท่าของความยาวคลื่น $n\\lambda$ จึงตอบ A`
+      },
+      {
+        id: "q30",
+        prompt: `จุดสองจุดบนคลื่นที่มีเฟสตรงข้ามกัน (ต่างเฟส $\\pi$) จะอยู่ห่างกันเป็นระยะเท่าใด (เมื่อ n เป็นจำนวนเต็ม)?`,
+        choices: [
+          { key: "A", text: "$n\\lambda$" },
+          { key: "B", text: "$\\left(n+\\dfrac{1}{2}\\right)\\lambda$" },
+          { key: "C", text: "$\\dfrac{\\lambda}{4}$" },
+          { key: "D", text: "$2n\\lambda$" }
+        ],
+        answer: "B",
+        explanation: `เฟสตรงข้ามต่างเฟส $\\pi$ ระยะห่างเป็นครึ่งความยาวคลื่นบวกจำนวนเต็มเท่า คือ $\\left(n+\\dfrac{1}{2}\\right)\\lambda$ จึงตอบ B`
+      }
+    ]
+  }
 };
