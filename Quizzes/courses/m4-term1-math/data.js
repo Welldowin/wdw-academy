@@ -1881,5 +1881,382 @@ prompt: `กำหนดให้ $A = \\{ x \\in \\mathbb{I} \\mid -3 < x \\le 
         explanation: `$-3 < x < 3$ จำนวนเต็มคือ $-2,-1,0,1,2$ รวม 5 จำนวน จึงตอบ A`
       }
     ]
+  },
+
+  "quiz6": {
+    meta: {
+      courseId: "m4-term1-math",
+      quizKey: "quiz6",
+      title: "Quiz 6 : สมการ อสมการ และค่าสัมบูรณ์ (30 ข้อ)",
+      enableTimer: true,
+      timeLimitSec: 3600
+    },
+    data: [
+      // --- สมการกำลังสอง (ข้อ 1-8) ---
+      {
+        id: "q1",
+        prompt: `เซตคำตอบของสมการ $x^2 - 4x + 3 = 0$ คือข้อใด?`,
+        choices: [
+          { key: "A", text: "$\\{-1, -3\\}$" },
+          { key: "B", text: "$\\{4, 3\\}$" },
+          { key: "C", text: "$\\{-1, 3\\}$" },
+          { key: "D", text: "$\\{1, 3\\}$" }
+        ],
+        answer: "D",
+        explanation: `$(x-1)(x-3)=0 \\Rightarrow x = 1, 3$ จึงตอบ D`
+      },
+      {
+        id: "q2",
+        prompt: `เซตคำตอบของสมการ $x^2 + 6x + 9 = 0$ คือข้อใด?`,
+        choices: [
+          { key: "A", text: "$\\{3\\}$" },
+          { key: "B", text: "$\\{-3\\}$" },
+          { key: "C", text: "$\\{-3, 3\\}$" },
+          { key: "D", text: "$\\{9\\}$" }
+        ],
+        answer: "B",
+        explanation: `$(x+3)^2 = 0 \\Rightarrow x = -3$ (รากซ้ำ) จึงตอบ B`
+      },
+      {
+        id: "q3",
+        prompt: `สูตรสำหรับหาคำตอบของสมการกำลังสอง $ax^2 + bx + c = 0$ คือข้อใด?`,
+        choices: [
+          { key: "A", text: "$x = \\dfrac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}$" },
+          { key: "B", text: "$x = \\dfrac{-b \\pm \\sqrt{b^2 + 4ac}}{2a}$" },
+          { key: "C", text: "$x = \\dfrac{b \\pm \\sqrt{b^2 - 4ac}}{2a}$" },
+          { key: "D", text: "$x = \\dfrac{-b \\pm \\sqrt{4ac - b^2}}{2a}$" }
+        ],
+        answer: "A",
+        explanation: `สูตรกำลังสองคือ $x = \\dfrac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}$ จึงตอบ A`
+      },
+      {
+        id: "q4",
+        prompt: `คำตอบของสมการ $x^2 - 2x - 1 = 0$ (ใช้สูตรกำลังสอง) คือข้อใด?`,
+        choices: [
+          { key: "A", text: "$1 \\pm \\sqrt{3}$" },
+          { key: "B", text: "$2 \\pm \\sqrt{2}$" },
+          { key: "C", text: "$1 \\pm \\sqrt{2}$" },
+          { key: "D", text: "$-1 \\pm \\sqrt{2}$" }
+        ],
+        answer: "C",
+        explanation: `$x = \\dfrac{2 \\pm \\sqrt{4 + 4}}{2} = \\dfrac{2 \\pm 2\\sqrt{2}}{2} = 1 \\pm \\sqrt{2}$ จึงตอบ C`
+      },
+      {
+        id: "q5",
+        prompt: `สมการ $x^2 + x + 1 = 0$ มีคำตอบที่เป็นจำนวนจริงกี่จำนวน?`,
+        choices: [
+          { key: "A", text: "$2$ จำนวน" },
+          { key: "B", text: "$1$ จำนวน" },
+          { key: "C", text: "มากมายนับไม่ถ้วน" },
+          { key: "D", text: "$0$ จำนวน (ไม่มีคำตอบจริง)" }
+        ],
+        answer: "D",
+        explanation: `ดิสคริมิแนนต์ $b^2 - 4ac = 1 - 4 = -3 < 0$ จึงไม่มีคำตอบจริง จึงตอบ D`
+      },
+      {
+        id: "q6",
+        prompt: `ถ้าดิสคริมิแนนต์ $b^2 - 4ac > 0$ สมการกำลังสองจะมีคำตอบจริงลักษณะใด?`,
+        choices: [
+          { key: "A", text: "ไม่มีคำตอบจริง" },
+          { key: "B", text: "มีคำตอบจริง 2 จำนวนที่แตกต่างกัน" },
+          { key: "C", text: "มีคำตอบจริงซ้ำกัน 1 จำนวน" },
+          { key: "D", text: "มีคำตอบจริง 3 จำนวน" }
+        ],
+        answer: "B",
+        explanation: `เมื่อ $b^2 - 4ac > 0$ สมการมีคำตอบจริง 2 จำนวนที่ต่างกัน จึงตอบ B`
+      },
+      {
+        id: "q7",
+        prompt: `สมการกำลังสองที่มีราก (คำตอบ) เป็น $2$ และ $5$ คือข้อใด?`,
+        choices: [
+          { key: "A", text: "$x^2 - 7x + 10 = 0$" },
+          { key: "B", text: "$x^2 + 7x + 10 = 0$" },
+          { key: "C", text: "$x^2 - 7x - 10 = 0$" },
+          { key: "D", text: "$x^2 - 3x + 10 = 0$" }
+        ],
+        answer: "A",
+        explanation: `$x^2 - (2+5)x + (2 \\cdot 5) = x^2 - 7x + 10 = 0$ จึงตอบ A`
+      },
+      {
+        id: "q8",
+        prompt: `ผลบวกและผลคูณของรากของสมการ $x^2 - 8x + 12 = 0$ คือข้อใด?`,
+        choices: [
+          { key: "A", text: "ผลบวก $8$, ผลคูณ $-12$" },
+          { key: "B", text: "ผลบวก $-8$, ผลคูณ $12$" },
+          { key: "C", text: "ผลบวก $8$, ผลคูณ $12$" },
+          { key: "D", text: "ผลบวก $12$, ผลคูณ $8$" }
+        ],
+        answer: "C",
+        explanation: `ผลบวกราก $= -\\dfrac{b}{a} = 8$, ผลคูณราก $= \\dfrac{c}{a} = 12$ จึงตอบ C`
+      },
+
+      // --- อสมการ (ข้อ 9-17) ---
+      {
+        id: "q9",
+        prompt: `ผลเฉลยของอสมการ $x^2 - x - 12 > 0$ คือข้อใด?`,
+        choices: [
+          { key: "A", text: "$-3 < x < 4$" },
+          { key: "B", text: "$x > 4$ เท่านั้น" },
+          { key: "C", text: "$x < 4$" },
+          { key: "D", text: "$x < -3$ หรือ $x > 4$" }
+        ],
+        answer: "D",
+        explanation: `$(x-4)(x+3) > 0 \\Rightarrow x < -3$ หรือ $x > 4$ จึงตอบ D`
+      },
+      {
+        id: "q10",
+        prompt: `ผลเฉลยของอสมการ $x^2 \\le 16$ คือข้อใด?`,
+        choices: [
+          { key: "A", text: "$x \\le 4$" },
+          { key: "B", text: "$-4 \\le x \\le 4$" },
+          { key: "C", text: "$x \\le -4$ หรือ $x \\ge 4$" },
+          { key: "D", text: "$0 \\le x \\le 4$" }
+        ],
+        answer: "B",
+        explanation: `$x^2 \\le 16 \\Rightarrow -4 \\le x \\le 4$ จึงตอบ B`
+      },
+      {
+        id: "q11",
+        prompt: `ผลเฉลยของอสมการ $x^2 + 2x + 1 > 0$ คือข้อใด?`,
+        choices: [
+          { key: "A", text: "จำนวนจริงทุกค่า ยกเว้น $x = -1$" },
+          { key: "B", text: "$x > -1$" },
+          { key: "C", text: "ไม่มีคำตอบ" },
+          { key: "D", text: "$x < -1$" }
+        ],
+        answer: "A",
+        explanation: `$(x+1)^2 > 0$ จริงเสมอ ยกเว้นเมื่อ $x = -1$ (ที่ทำให้เท่ากับ 0) จึงตอบ A`
+      },
+      {
+        id: "q12",
+        prompt: `ผลเฉลยของอสมการ $x^2 + 4 < 0$ คือข้อใด?`,
+        choices: [
+          { key: "A", text: "จำนวนจริงทุกค่า" },
+          { key: "B", text: "$x > 0$" },
+          { key: "C", text: "ไม่มีคำตอบ" },
+          { key: "D", text: "$x < -2$" }
+        ],
+        answer: "C",
+        explanation: `$x^2 \\ge 0$ เสมอ ทำให้ $x^2 + 4 \\ge 4 > 0$ ไม่มีทางน้อยกว่า 0 จึงไม่มีคำตอบ จึงตอบ C`
+      },
+      {
+        id: "q13",
+        prompt: `ผลเฉลยของอสมการ $\\dfrac{x + 2}{x - 3} \\ge 0$ คือข้อใด?`,
+        choices: [
+          { key: "A", text: "$-2 \\le x < 3$" },
+          { key: "B", text: "$x > 3$ เท่านั้น" },
+          { key: "C", text: "$x \\le -2$ เท่านั้น" },
+          { key: "D", text: "$x \\le -2$ หรือ $x > 3$" }
+        ],
+        answer: "D",
+        explanation: `จุดวิกฤต $x=-2$ (รวมได้) และ $x=3$ (ห้าม); เศษส่วน $\\ge 0$ เมื่อ $x \\le -2$ หรือ $x > 3$ จึงตอบ D`
+      },
+      {
+        id: "q14",
+        prompt: `ผลเฉลยของอสมการ $\\dfrac{x - 1}{x + 4} \\le 0$ คือข้อใด?`,
+        choices: [
+          { key: "A", text: "$x \\le 1$" },
+          { key: "B", text: "$-4 < x \\le 1$" },
+          { key: "C", text: "$-4 \\le x \\le 1$" },
+          { key: "D", text: "$x < -4$ หรือ $x \\ge 1$" }
+        ],
+        answer: "B",
+        explanation: `ตัวเศษเป็นศูนย์ที่ $x=1$ (รวมได้) ตัวส่วนเป็นศูนย์ที่ $x=-4$ (ห้าม); เศษส่วน $\\le 0$ เมื่อ $-4 < x \\le 1$ จึงตอบ B`
+      },
+      {
+        id: "q15",
+        prompt: `ผลเฉลยของระบบอสมการ $x > -1$ และ $x < 3$ พร้อมกัน คือข้อใด?`,
+        choices: [
+          { key: "A", text: "$-1 < x < 3$" },
+          { key: "B", text: "$x < 3$" },
+          { key: "C", text: "$x > -1$" },
+          { key: "D", text: "ไม่มีคำตอบ" }
+        ],
+        answer: "A",
+        explanation: `ค่าที่สอดคล้องทั้งสองเงื่อนไขคือส่วนที่ซ้อนทับกัน: $-1 < x < 3$ จึงตอบ A`
+      },
+      {
+        id: "q16",
+        prompt: `ผลเฉลยของอสมการ $3x - 2 \\ge x + 4$ คือข้อใด?`,
+        choices: [
+          { key: "A", text: "$x \\le 3$" },
+          { key: "B", text: "$x > 3$" },
+          { key: "C", text: "$x \\ge 3$" },
+          { key: "D", text: "$x \\ge 1$" }
+        ],
+        answer: "C",
+        explanation: `$3x - x \\ge 4 + 2 \\Rightarrow 2x \\ge 6 \\Rightarrow x \\ge 3$ จึงตอบ C`
+      },
+      {
+        id: "q17",
+        prompt: `ผลเฉลยของอสมการ $-2 \\le x - 3 < 4$ คือข้อใด?`,
+        choices: [
+          { key: "A", text: "$-2 \\le x < 4$" },
+          { key: "B", text: "$1 < x < 7$" },
+          { key: "C", text: "$x < 7$" },
+          { key: "D", text: "$1 \\le x < 7$" }
+        ],
+        answer: "D",
+        explanation: `บวก 3 ตลอด: $1 \\le x < 7$ จึงตอบ D`
+      },
+
+      // --- ค่าสัมบูรณ์ (ข้อ 18-30) ---
+      {
+        id: "q18",
+        prompt: `เซตคำตอบของสมการ $|3x - 6| = 9$ คือข้อใด?`,
+        choices: [
+          { key: "A", text: "$\\{5, 1\\}$" },
+          { key: "B", text: "$\\{5, -1\\}$" },
+          { key: "C", text: "$\\{-5, 1\\}$" },
+          { key: "D", text: "$\\{3, -3\\}$" }
+        ],
+        answer: "B",
+        explanation: `$3x - 6 = 9 \\Rightarrow x = 5$ หรือ $3x - 6 = -9 \\Rightarrow x = -1$ จึงตอบ B`
+      },
+      {
+        id: "q19",
+        prompt: `เซตคำตอบของสมการ $|x + 2| = |x - 4|$ คือข้อใด?`,
+        choices: [
+          { key: "A", text: "$\\{1\\}$" },
+          { key: "B", text: "$\\{3\\}$" },
+          { key: "C", text: "$\\{-1, 3\\}$" },
+          { key: "D", text: "ไม่มีคำตอบ" }
+        ],
+        answer: "A",
+        explanation: `จุดที่ห่างจาก $-2$ และ $4$ เท่ากันคือจุดกึ่งกลาง $x = \\dfrac{-2 + 4}{2} = 1$ จึงตอบ A`
+      },
+      {
+        id: "q20",
+        prompt: `เซตคำตอบของสมการ $|2x + 1| = |x - 3|$ คือข้อใด?`,
+        choices: [
+          { key: "A", text: "$\\{-4\\}$" },
+          { key: "B", text: "$\\left\\{\\dfrac{2}{3}\\right\\}$" },
+          { key: "C", text: "$\\left\\{-4, \\dfrac{2}{3}\\right\\}$" },
+          { key: "D", text: "$\\left\\{4, -\\dfrac{2}{3}\\right\\}$" }
+        ],
+        answer: "C",
+        explanation: `$2x+1 = x-3 \\Rightarrow x = -4$ หรือ $2x+1 = -(x-3) \\Rightarrow 3x = 2 \\Rightarrow x = \\dfrac{2}{3}$ จึงตอบ C`
+      },
+      {
+        id: "q21",
+        prompt: `สมการ $|x| = x$ เป็นจริงเมื่อใด?`,
+        choices: [
+          { key: "A", text: "เมื่อ $x < 0$" },
+          { key: "B", text: "เมื่อ $x = 0$ เท่านั้น" },
+          { key: "C", text: "จำนวนจริงทุกค่า" },
+          { key: "D", text: "เมื่อ $x \\ge 0$" }
+        ],
+        answer: "D",
+        explanation: `$|x| = x$ ก็ต่อเมื่อ $x$ ไม่เป็นลบ คือ $x \\ge 0$ จึงตอบ D`
+      },
+      {
+        id: "q22",
+        prompt: `ผลเฉลยของอสมการ $|x - 3| < 5$ คือข้อใด?`,
+        choices: [
+          { key: "A", text: "$x < 8$" },
+          { key: "B", text: "$-2 < x < 8$" },
+          { key: "C", text: "$-8 < x < 2$" },
+          { key: "D", text: "$x > -2$" }
+        ],
+        answer: "B",
+        explanation: `$-5 < x - 3 < 5 \\Rightarrow -2 < x < 8$ จึงตอบ B`
+      },
+      {
+        id: "q23",
+        prompt: `ผลเฉลยของอสมการ $|2x - 1| \\le 7$ คือข้อใด?`,
+        choices: [
+          { key: "A", text: "$-3 \\le x \\le 4$" },
+          { key: "B", text: "$-4 \\le x \\le 3$" },
+          { key: "C", text: "$-3 \\le x \\le 7$" },
+          { key: "D", text: "$x \\le 4$" }
+        ],
+        answer: "A",
+        explanation: `$-7 \\le 2x - 1 \\le 7 \\Rightarrow -6 \\le 2x \\le 8 \\Rightarrow -3 \\le x \\le 4$ จึงตอบ A`
+      },
+      {
+        id: "q24",
+        prompt: `ผลเฉลยของอสมการ $|x + 5| > 3$ คือข้อใด?`,
+        choices: [
+          { key: "A", text: "$-8 < x < -2$" },
+          { key: "B", text: "$x > -2$ เท่านั้น" },
+          { key: "C", text: "$x < -8$ หรือ $x > -2$" },
+          { key: "D", text: "$x < -2$" }
+        ],
+        answer: "C",
+        explanation: `$x + 5 < -3$ หรือ $x + 5 > 3 \\Rightarrow x < -8$ หรือ $x > -2$ จึงตอบ C`
+      },
+      {
+        id: "q25",
+        prompt: `ผลเฉลยของอสมการ $|3x| \\ge 12$ คือข้อใด?`,
+        choices: [
+          { key: "A", text: "$-4 \\le x \\le 4$" },
+          { key: "B", text: "$x \\ge 4$ เท่านั้น" },
+          { key: "C", text: "$x \\le 4$" },
+          { key: "D", text: "$x \\le -4$ หรือ $x \\ge 4$" }
+        ],
+        answer: "D",
+        explanation: `$3x \\le -12$ หรือ $3x \\ge 12 \\Rightarrow x \\le -4$ หรือ $x \\ge 4$ จึงตอบ D`
+      },
+      {
+        id: "q26",
+        prompt: `จำนวนเต็มที่สอดคล้องกับอสมการ $|x - 2| < 3$ มีทั้งหมดกี่จำนวน?`,
+        choices: [
+          { key: "A", text: "$4$ จำนวน" },
+          { key: "B", text: "$5$ จำนวน" },
+          { key: "C", text: "$6$ จำนวน" },
+          { key: "D", text: "$3$ จำนวน" }
+        ],
+        answer: "B",
+        explanation: `$-1 < x < 5$ จำนวนเต็มคือ $0,1,2,3,4$ รวม 5 จำนวน จึงตอบ B`
+      },
+      {
+        id: "q27",
+        prompt: `เซตคำตอบของสมการ $|x| + 2 = 6$ คือข้อใด?`,
+        choices: [
+          { key: "A", text: "$\\{4, -4\\}$" },
+          { key: "B", text: "$\\{4\\}$" },
+          { key: "C", text: "$\\{6, -6\\}$" },
+          { key: "D", text: "$\\{2, -2\\}$" }
+        ],
+        answer: "A",
+        explanation: `$|x| = 4 \\Rightarrow x = \\pm 4$ จึงตอบ A`
+      },
+      {
+        id: "q28",
+        prompt: `เซตคำตอบของสมการ $|2x - 4| = 0$ คือข้อใด?`,
+        choices: [
+          { key: "A", text: "$\\{2, -2\\}$" },
+          { key: "B", text: "ไม่มีคำตอบ" },
+          { key: "C", text: "$\\{2\\}$" },
+          { key: "D", text: "$\\{0\\}$" }
+        ],
+        answer: "C",
+        explanation: `ค่าสัมบูรณ์เป็นศูนย์เมื่อภายในเป็นศูนย์: $2x - 4 = 0 \\Rightarrow x = 2$ จึงตอบ C`
+      },
+      {
+        id: "q29",
+        prompt: `ผลเฉลยของอสมการ $|x - 1| \\ge 0$ คือข้อใด?`,
+        choices: [
+          { key: "A", text: "$x = 1$ เท่านั้น" },
+          { key: "B", text: "ไม่มีคำตอบ" },
+          { key: "C", text: "$x \\ge 1$" },
+          { key: "D", text: "จำนวนจริงทุกค่า" }
+        ],
+        answer: "D",
+        explanation: `ค่าสัมบูรณ์ไม่เป็นลบเสมอ ($\\ge 0$) ดังนั้นอสมการเป็นจริงสำหรับทุกค่า $x$ จึงตอบ D`
+      },
+      {
+        id: "q30",
+        prompt: `ผลบวกของคำตอบทั้งหมดของสมการ $|2x + 3| = 7$ เท่ากับเท่าใด?`,
+        choices: [
+          { key: "A", text: "$2$" },
+          { key: "B", text: "$-3$" },
+          { key: "C", text: "$7$" },
+          { key: "D", text: "$-2$" }
+        ],
+        answer: "B",
+        explanation: `$2x+3 = 7 \\Rightarrow x = 2$ และ $2x+3 = -7 \\Rightarrow x = -5$; ผลบวก $= 2 + (-5) = -3$ จึงตอบ B`
+      }
+    ]
   }
 };
