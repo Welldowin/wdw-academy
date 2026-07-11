@@ -2072,5 +2072,394 @@ window.COURSE_DATA = {
         explanation: `$\\sin^2 x + \\cos^2 x = 1$ เป็นเอกลักษณ์พีทาโกรัส เป็นจริงเสมอทุกค่า $x$ จึงตอบ D`
       }
     ]
+  },
+
+  "quiz6": {
+    meta: {
+      courseId: "m5-term1-math",
+      quizKey: "quiz6",
+      title: "Quiz 6 : เลขยกกำลังและกรณฑ์ (เตรียมสอบกลางภาค) (30 ข้อ)",
+      enableTimer: true,
+      timeLimitSec: 3600
+    },
+    data: [
+      // --- จัดรูปตามกฎเลขยกกำลัง (ข้อ 1-4) ---
+      {
+        id: "q1",
+        prompt: `จงทำให้อยู่ในรูปอย่างง่าย $\\left(\\dfrac{x^{-3}y^{-2}}{x^{4}z^{-2}}\\right)^{-3}$`,
+        choices: [
+          { key: "A", text: "$\\dfrac{x^{21}y^{6}}{z^{6}}$" },
+          { key: "B", text: "$\\dfrac{x^{6}y^{6}}{z^{6}}$" },
+          { key: "C", text: "$\\dfrac{z^{6}}{x^{21}y^{6}}$" },
+          { key: "D", text: "$x^{21}y^{6}z^{6}$" }
+        ],
+        answer: "A",
+        explanation: `ในวงเล็บ $= x^{-7}y^{-2}z^{2}$ ยกกำลัง $-3$ ได้ $x^{21}y^{6}z^{-6} = \\dfrac{x^{21}y^{6}}{z^{6}}$ จึงตอบ A`
+      },
+      {
+        id: "q2",
+        prompt: `จงทำให้อยู่ในรูปอย่างง่าย $\\left(\\dfrac{x^{-2}y^{-4}}{x^{5}z^{-4}}\\right)^{-2}$`,
+        choices: [
+          { key: "A", text: "$x^{14}y^{8}z^{8}$" },
+          { key: "B", text: "$\\dfrac{z^{8}}{x^{14}y^{8}}$" },
+          { key: "C", text: "$\\dfrac{x^{14}y^{8}}{z^{8}}$" },
+          { key: "D", text: "$\\dfrac{x^{7}y^{8}}{z^{8}}$" }
+        ],
+        answer: "C",
+        explanation: `ในวงเล็บ $= x^{-7}y^{-4}z^{4}$ ยกกำลัง $-2$ ได้ $x^{14}y^{8}z^{-8} = \\dfrac{x^{14}y^{8}}{z^{8}}$ จึงตอบ C`
+      },
+      {
+        id: "q3",
+        prompt: `จงทำให้อยู่ในรูปอย่างง่าย $\\left(\\dfrac{x^{-5}y^{-3}}{x^{3}z^{-3}}\\right)^{-2}$`,
+        choices: [
+          { key: "A", text: "$\\dfrac{x^{6}y^{6}}{z^{6}}$" },
+          { key: "B", text: "$\\dfrac{x^{16}y^{6}}{z^{6}}$" },
+          { key: "C", text: "$\\dfrac{z^{6}}{x^{16}y^{6}}$" },
+          { key: "D", text: "$x^{16}y^{6}z^{6}$" }
+        ],
+        answer: "B",
+        explanation: `ในวงเล็บ $= x^{-8}y^{-3}z^{3}$ ยกกำลัง $-2$ ได้ $x^{16}y^{6}z^{-6} = \\dfrac{x^{16}y^{6}}{z^{6}}$ จึงตอบ B`
+      },
+      {
+        id: "q4",
+        prompt: `จงทำให้อยู่ในรูปอย่างง่าย $\\left(\\dfrac{x^{-1}y^{-2}}{x^{2}z^{-3}}\\right)^{-2}$`,
+        choices: [
+          { key: "A", text: "$\\dfrac{x^{3}y^{4}}{z^{6}}$" },
+          { key: "B", text: "$\\dfrac{z^{6}}{x^{6}y^{4}}$" },
+          { key: "C", text: "$x^{6}y^{4}z^{6}$" },
+          { key: "D", text: "$\\dfrac{x^{6}y^{4}}{z^{6}}$" }
+        ],
+        answer: "D",
+        explanation: `ในวงเล็บ $= x^{-3}y^{-2}z^{3}$ ยกกำลัง $-2$ ได้ $x^{6}y^{4}z^{-6} = \\dfrac{x^{6}y^{4}}{z^{6}}$ จึงตอบ D`
+      },
+
+      // --- ทำตัวส่วนให้เป็นจำนวนตรรกยะ (ข้อ 5-7) ---
+      {
+        id: "q5",
+        prompt: `จงทำตัวส่วนให้เป็นจำนวนตรรกยะ $\\dfrac{6}{2\\sqrt{3} - 1}$`,
+        choices: [
+          { key: "A", text: "$\\dfrac{6(2\\sqrt{3} + 1)}{11}$" },
+          { key: "B", text: "$\\dfrac{6(2\\sqrt{3} - 1)}{11}$" },
+          { key: "C", text: "$\\dfrac{6(2\\sqrt{3} + 1)}{13}$" },
+          { key: "D", text: "$6(2\\sqrt{3} + 1)$" }
+        ],
+        answer: "A",
+        explanation: `คูณด้วยสังยุค $\\dfrac{2\\sqrt{3}+1}{2\\sqrt{3}+1}$: ส่วน $= (2\\sqrt{3})^2 - 1^2 = 12 - 1 = 11$ ได้ $\\dfrac{6(2\\sqrt{3}+1)}{11}$ จึงตอบ A`
+      },
+      {
+        id: "q6",
+        prompt: `จงทำตัวส่วนให้เป็นจำนวนตรรกยะ $\\dfrac{5}{2\\sqrt{7} - 3}$`,
+        choices: [
+          { key: "A", text: "$\\dfrac{5(2\\sqrt{7} - 3)}{19}$" },
+          { key: "B", text: "$\\dfrac{5(2\\sqrt{7} + 3)}{25}$" },
+          { key: "C", text: "$\\dfrac{5(2\\sqrt{7} + 3)}{19}$" },
+          { key: "D", text: "$\\dfrac{5(2\\sqrt{7} + 3)}{11}$" }
+        ],
+        answer: "C",
+        explanation: `คูณด้วยสังยุค: ส่วน $= (2\\sqrt{7})^2 - 3^2 = 28 - 9 = 19$ ได้ $\\dfrac{5(2\\sqrt{7}+3)}{19}$ จึงตอบ C`
+      },
+      {
+        id: "q7",
+        prompt: `จงทำตัวส่วนให้เป็นจำนวนตรรกยะ $\\dfrac{8}{5\\sqrt{2} - 3}$`,
+        choices: [
+          { key: "A", text: "$\\dfrac{8(5\\sqrt{2} + 3)}{47}$" },
+          { key: "B", text: "$\\dfrac{8(5\\sqrt{2} + 3)}{41}$" },
+          { key: "C", text: "$\\dfrac{8(5\\sqrt{2} - 3)}{41}$" },
+          { key: "D", text: "$\\dfrac{8(5\\sqrt{2} + 3)}{25}$" }
+        ],
+        answer: "B",
+        explanation: `คูณด้วยสังยุค: ส่วน $= (5\\sqrt{2})^2 - 3^2 = 50 - 9 = 41$ ได้ $\\dfrac{8(5\\sqrt{2}+3)}{41}$ จึงตอบ B`
+      },
+
+      // --- การหารกรณฑ์ (ข้อ 8-11) ---
+      {
+        id: "q8",
+        prompt: `จงหาผลลัพธ์ $\\sqrt[4]{48} \\div \\sqrt[4]{3}$`,
+        choices: [
+          { key: "A", text: "$4$" },
+          { key: "B", text: "$16$" },
+          { key: "C", text: "$2\\sqrt[4]{3}$" },
+          { key: "D", text: "$2$" }
+        ],
+        answer: "D",
+        explanation: `$\\sqrt[4]{\\dfrac{48}{3}} = \\sqrt[4]{16} = 2$ จึงตอบ D`
+      },
+      {
+        id: "q9",
+        prompt: `จงหาผลลัพธ์ $\\sqrt[5]{96} \\div \\sqrt[5]{3}$`,
+        choices: [
+          { key: "A", text: "$2$" },
+          { key: "B", text: "$32$" },
+          { key: "C", text: "$4$" },
+          { key: "D", text: "$8$" }
+        ],
+        answer: "A",
+        explanation: `$\\sqrt[5]{\\dfrac{96}{3}} = \\sqrt[5]{32} = 2$ จึงตอบ A`
+      },
+      {
+        id: "q10",
+        prompt: `จงหาผลลัพธ์ $\\sqrt[4]{405} \\div \\sqrt[4]{5}$`,
+        choices: [
+          { key: "A", text: "$81$" },
+          { key: "B", text: "$9$" },
+          { key: "C", text: "$3$" },
+          { key: "D", text: "$27$" }
+        ],
+        answer: "C",
+        explanation: `$\\sqrt[4]{\\dfrac{405}{5}} = \\sqrt[4]{81} = 3$ จึงตอบ C`
+      },
+      {
+        id: "q11",
+        prompt: `จงหาผลลัพธ์ $\\sqrt[3]{54} \\div \\sqrt[3]{2}$`,
+        choices: [
+          { key: "A", text: "$27$" },
+          { key: "B", text: "$3$" },
+          { key: "C", text: "$9$" },
+          { key: "D", text: "$\\sqrt[3]{52}$" }
+        ],
+        answer: "B",
+        explanation: `$\\sqrt[3]{\\dfrac{54}{2}} = \\sqrt[3]{27} = 3$ จึงตอบ B`
+      },
+
+      // --- การบวกลบกรณฑ์ที่คล้ายกัน (ข้อ 12-14) ---
+      {
+        id: "q12",
+        prompt: `จงหาค่า $\\sqrt{45x} + \\sqrt{20x} - \\sqrt{5x}$`,
+        choices: [
+          { key: "A", text: "$6\\sqrt{5x}$" },
+          { key: "B", text: "$\\sqrt{60x}$" },
+          { key: "C", text: "$2\\sqrt{5x}$" },
+          { key: "D", text: "$4\\sqrt{5x}$" }
+        ],
+        answer: "D",
+        explanation: `$3\\sqrt{5x} + 2\\sqrt{5x} - \\sqrt{5x} = 4\\sqrt{5x}$ จึงตอบ D`
+      },
+      {
+        id: "q13",
+        prompt: `จงหาค่า $\\sqrt{98x} + \\sqrt{32x} - \\sqrt{2x}$`,
+        choices: [
+          { key: "A", text: "$10\\sqrt{2x}$" },
+          { key: "B", text: "$12\\sqrt{2x}$" },
+          { key: "C", text: "$\\sqrt{128x}$" },
+          { key: "D", text: "$8\\sqrt{2x}$" }
+        ],
+        answer: "A",
+        explanation: `$7\\sqrt{2x} + 4\\sqrt{2x} - \\sqrt{2x} = 10\\sqrt{2x}$ จึงตอบ A`
+      },
+      {
+        id: "q14",
+        prompt: `จงหาค่า $\\sqrt{108x} + \\sqrt{48x} - \\sqrt{3x}$`,
+        choices: [
+          { key: "A", text: "$11\\sqrt{3x}$" },
+          { key: "B", text: "$\\sqrt{153x}$" },
+          { key: "C", text: "$9\\sqrt{3x}$" },
+          { key: "D", text: "$7\\sqrt{3x}$" }
+        ],
+        answer: "C",
+        explanation: `$6\\sqrt{3x} + 4\\sqrt{3x} - \\sqrt{3x} = 9\\sqrt{3x}$ จึงตอบ C`
+      },
+
+      // --- ผลคูณของสังยุค (ข้อ 15-18) ---
+      {
+        id: "q15",
+        prompt: `จงหาผลคูณ $(2\\sqrt{7} - 3\\sqrt{3})(2\\sqrt{7} + 3\\sqrt{3})$`,
+        choices: [
+          { key: "A", text: "$55$" },
+          { key: "B", text: "$1$" },
+          { key: "C", text: "$-1$" },
+          { key: "D", text: "$5$" }
+        ],
+        answer: "B",
+        explanation: `$(2\\sqrt{7})^2 - (3\\sqrt{3})^2 = 28 - 27 = 1$ จึงตอบ B`
+      },
+      {
+        id: "q16",
+        prompt: `จงหาผลคูณ $(4\\sqrt{3} - 2\\sqrt{5})(4\\sqrt{3} + 2\\sqrt{5})$`,
+        choices: [
+          { key: "A", text: "$68$" },
+          { key: "B", text: "$8$" },
+          { key: "C", text: "$-28$" },
+          { key: "D", text: "$28$" }
+        ],
+        answer: "D",
+        explanation: `$(4\\sqrt{3})^2 - (2\\sqrt{5})^2 = 48 - 20 = 28$ จึงตอบ D`
+      },
+      {
+        id: "q17",
+        prompt: `จงหาผลคูณ $(5\\sqrt{2} - 3\\sqrt{3})(5\\sqrt{2} + 3\\sqrt{3})$`,
+        choices: [
+          { key: "A", text: "$23$" },
+          { key: "B", text: "$77$" },
+          { key: "C", text: "$19$" },
+          { key: "D", text: "$-23$" }
+        ],
+        answer: "A",
+        explanation: `$(5\\sqrt{2})^2 - (3\\sqrt{3})^2 = 50 - 27 = 23$ จึงตอบ A`
+      },
+      {
+        id: "q18",
+        prompt: `จงหาผลคูณ $(3\\sqrt{2} - \\sqrt{5})(3\\sqrt{2} + \\sqrt{5})$`,
+        choices: [
+          { key: "A", text: "$23$" },
+          { key: "B", text: "$-13$" },
+          { key: "C", text: "$13$" },
+          { key: "D", text: "$4$" }
+        ],
+        answer: "C",
+        explanation: `$(3\\sqrt{2})^2 - (\\sqrt{5})^2 = 18 - 5 = 13$ จึงตอบ C`
+      },
+
+      // --- สมการติดกรณฑ์ (ข้อ 19-21) ---
+      {
+        id: "q19",
+        prompt: `จงหาค่า $x$ จากสมการ $2\\sqrt{3x + 4} = 10$`,
+        choices: [
+          { key: "A", text: "$5$" },
+          { key: "B", text: "$7$" },
+          { key: "C", text: "$3$" },
+          { key: "D", text: "$21$" }
+        ],
+        answer: "B",
+        explanation: `$\\sqrt{3x+4} = 5 \\Rightarrow 3x+4 = 25 \\Rightarrow x = 7$ จึงตอบ B`
+      },
+      {
+        id: "q20",
+        prompt: `จงหาค่า $x$ จากสมการ $5\\sqrt{2x + 6} = 20$`,
+        choices: [
+          { key: "A", text: "$8$" },
+          { key: "B", text: "$10$" },
+          { key: "C", text: "$3$" },
+          { key: "D", text: "$5$" }
+        ],
+        answer: "D",
+        explanation: `$\\sqrt{2x+6} = 4 \\Rightarrow 2x+6 = 16 \\Rightarrow x = 5$ จึงตอบ D`
+      },
+      {
+        id: "q21",
+        prompt: `จงหาค่า $x$ จากสมการ $4\\sqrt{5x + 1} = 24$`,
+        choices: [
+          { key: "A", text: "$7$" },
+          { key: "B", text: "$5$" },
+          { key: "C", text: "$35$" },
+          { key: "D", text: "$6$" }
+        ],
+        answer: "A",
+        explanation: `$\\sqrt{5x+1} = 6 \\Rightarrow 5x+1 = 36 \\Rightarrow x = 7$ จึงตอบ A`
+      },
+
+      // --- เลขชี้กำลังลบ/เศษส่วน ฐานลบ (ข้อ 22-24) ---
+      {
+        id: "q22",
+        prompt: `จงหาค่า $(-64)^{-\\frac{2}{3}}$`,
+        choices: [
+          { key: "A", text: "$-\\dfrac{1}{16}$" },
+          { key: "B", text: "$16$" },
+          { key: "C", text: "$\\dfrac{1}{16}$" },
+          { key: "D", text: "$-16$" }
+        ],
+        answer: "C",
+        explanation: `$(-64)^{-\\frac{2}{3}} = \\dfrac{1}{(\\sqrt[3]{-64})^2} = \\dfrac{1}{(-4)^2} = \\dfrac{1}{16}$ จึงตอบ C`
+      },
+      {
+        id: "q23",
+        prompt: `จงหาค่า $(-125)^{-\\frac{4}{3}}$`,
+        choices: [
+          { key: "A", text: "$-\\dfrac{1}{625}$" },
+          { key: "B", text: "$\\dfrac{1}{625}$" },
+          { key: "C", text: "$625$" },
+          { key: "D", text: "$\\dfrac{1}{125}$" }
+        ],
+        answer: "B",
+        explanation: `$(-125)^{-\\frac{4}{3}} = \\dfrac{1}{(\\sqrt[3]{-125})^4} = \\dfrac{1}{(-5)^4} = \\dfrac{1}{625}$ จึงตอบ B`
+      },
+      {
+        id: "q24",
+        prompt: `จงหาค่า $(-8)^{-\\frac{5}{3}}$`,
+        choices: [
+          { key: "A", text: "$\\dfrac{1}{32}$" },
+          { key: "B", text: "$32$" },
+          { key: "C", text: "$-32$" },
+          { key: "D", text: "$-\\dfrac{1}{32}$" }
+        ],
+        answer: "D",
+        explanation: `$(-8)^{-\\frac{5}{3}} = \\dfrac{1}{(\\sqrt[3]{-8})^5} = \\dfrac{1}{(-2)^5} = -\\dfrac{1}{32}$ จึงตอบ D`
+      },
+
+      // --- (N^(1/m))^k (ข้อ 25-27) ---
+      {
+        id: "q25",
+        prompt: `จงหาค่า $\\left(64^{\\frac{1}{6}}\\right)^{4}$`,
+        choices: [
+          { key: "A", text: "$16$" },
+          { key: "B", text: "$4$" },
+          { key: "C", text: "$64$" },
+          { key: "D", text: "$256$" }
+        ],
+        answer: "A",
+        explanation: `$64 = 2^6$ ดังนั้น $\\left((2^6)^{\\frac{1}{6}}\\right)^{4} = 2^{4} = 16$ จึงตอบ A`
+      },
+      {
+        id: "q26",
+        prompt: `จงหาค่า $\\left(512^{\\frac{1}{9}}\\right)^{6}$`,
+        choices: [
+          { key: "A", text: "$8$" },
+          { key: "B", text: "$512$" },
+          { key: "C", text: "$64$" },
+          { key: "D", text: "$128$" }
+        ],
+        answer: "C",
+        explanation: `$512 = 2^9$ ดังนั้น $\\left((2^9)^{\\frac{1}{9}}\\right)^{6} = 2^{6} = 64$ จึงตอบ C`
+      },
+      {
+        id: "q27",
+        prompt: `จงหาค่า $\\left(6561^{\\frac{1}{8}}\\right)^{6}$`,
+        choices: [
+          { key: "A", text: "$6561$" },
+          { key: "B", text: "$729$" },
+          { key: "C", text: "$81$" },
+          { key: "D", text: "$243$" }
+        ],
+        answer: "B",
+        explanation: `$6561 = 3^8$ ดังนั้น $\\left((3^8)^{\\frac{1}{8}}\\right)^{6} = 3^{6} = 729$ จึงตอบ B`
+      },
+
+      // --- สมการเลขชี้กำลัง (ข้อ 28-30) ---
+      {
+        id: "q28",
+        prompt: `จงหาค่า $x$ จากสมการ $\\left(\\dfrac{2}{5}\\right)^{x+1} = \\dfrac{25}{4}$`,
+        choices: [
+          { key: "A", text: "$3$" },
+          { key: "B", text: "$-2$" },
+          { key: "C", text: "$2$" },
+          { key: "D", text: "$-3$" }
+        ],
+        answer: "D",
+        explanation: `$\\dfrac{25}{4} = \\left(\\dfrac{2}{5}\\right)^{-2}$ ดังนั้น $x+1 = -2 \\Rightarrow x = -3$ จึงตอบ D`
+      },
+      {
+        id: "q29",
+        prompt: `จงหาค่า $x$ จากสมการ $\\left(\\dfrac{5}{2}\\right)^{x+1} = \\dfrac{8}{125}$`,
+        choices: [
+          { key: "A", text: "$-4$" },
+          { key: "B", text: "$-3$" },
+          { key: "C", text: "$4$" },
+          { key: "D", text: "$3$" }
+        ],
+        answer: "A",
+        explanation: `$\\dfrac{8}{125} = \\left(\\dfrac{2}{5}\\right)^{3} = \\left(\\dfrac{5}{2}\\right)^{-3}$ ดังนั้น $x+1 = -3 \\Rightarrow x = -4$ จึงตอบ A`
+      },
+      {
+        id: "q30",
+        prompt: `จงหาค่า $x$ จากสมการ $\\left(\\dfrac{4}{3}\\right)^{x+1} = \\dfrac{27}{64}$`,
+        choices: [
+          { key: "A", text: "$-3$" },
+          { key: "B", text: "$3$" },
+          { key: "C", text: "$-4$" },
+          { key: "D", text: "$4$" }
+        ],
+        answer: "C",
+        explanation: `$\\dfrac{27}{64} = \\left(\\dfrac{3}{4}\\right)^{3} = \\left(\\dfrac{4}{3}\\right)^{-3}$ ดังนั้น $x+1 = -3 \\Rightarrow x = -4$ จึงตอบ C`
+      }
+    ]
   }
 };
