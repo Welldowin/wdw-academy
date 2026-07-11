@@ -1941,5 +1941,401 @@ window.COURSE_DATA = {
         explanation: `เฟสตรงข้ามต่างเฟส $\\pi$ ระยะห่างเป็นครึ่งความยาวคลื่นบวกจำนวนเต็มเท่า คือ $\\left(n+\\dfrac{1}{2}\\right)\\lambda$ จึงตอบ B`
       }
     ]
+  },
+
+  "quiz6": {
+    meta: {
+      courseId: "m5-term1-physics",
+      quizKey: "quiz6",
+      title: "Quiz 6 : การเคลื่อนที่แบบ SHM (เตรียมสอบกลางภาค) (30 ข้อ)",
+      enableTimer: true,
+      timeLimitSec: 3600
+    },
+    data: [
+      // --- นิยามและปริมาณพื้นฐาน (ข้อ 1-9) ---
+      {
+        id: "q1",
+        prompt: `การเคลื่อนที่แบบฮาร์มอนิกอย่างง่าย (SHM) มีลักษณะสำคัญตรงกับข้อใด`,
+        choices: [
+          { key: "A", text: "ความเร็วคงที่ตลอดการเคลื่อนที่" },
+          { key: "B", text: "ความเร่งคงที่ตลอดการเคลื่อนที่" },
+          { key: "C", text: "ความเร่งแปรผันตรงกับการกระจัด และมีทิศตรงข้ามกับการกระจัดเสมอ" },
+          { key: "D", text: "การกระจัดแปรผันตรงกับเวลา" }
+        ],
+        answer: "C",
+        explanation: `SHM มีความเร่งแปรผันตรงกับการกระจัดและทิศตรงข้ามเสมอ ($a = -\\omega^2 x$) จึงตอบ C`
+      },
+      {
+        id: "q2",
+        prompt: `แอมพลิจูดของการเคลื่อนที่แบบ SHM หมายถึงข้อใด`,
+        choices: [
+          { key: "A", text: "ขนาดการกระจัดสูงสุดจากตำแหน่งสมดุล" },
+          { key: "B", text: "จำนวนรอบต่อวินาที" },
+          { key: "C", text: "เวลาในการเคลื่อนที่ครบ 1 รอบ" },
+          { key: "D", text: "ความเร็วสูงสุดของวัตถุ" }
+        ],
+        answer: "A",
+        explanation: `แอมพลิจูด (A) คือขนาดการกระจัดสูงสุดจากตำแหน่งสมดุล จึงตอบ A`
+      },
+      {
+        id: "q3",
+        prompt: `ความสัมพันธ์ระหว่างความถี่เชิงมุม ($\\omega$), คาบ ($T$) และความถี่ ($f$) ข้อใดถูกต้อง`,
+        choices: [
+          { key: "A", text: "$\\omega = \\dfrac{T}{2\\pi}$" },
+          { key: "B", text: "$\\omega = \\dfrac{2\\pi}{f}$" },
+          { key: "C", text: "$\\omega = \\dfrac{f}{2\\pi}$" },
+          { key: "D", text: "$\\omega = 2\\pi f = \\dfrac{2\\pi}{T}$" }
+        ],
+        answer: "D",
+        explanation: `$\\omega = 2\\pi f = \\dfrac{2\\pi}{T}$ จึงตอบ D`
+      },
+      {
+        id: "q4",
+        prompt: `วัตถุสั่นแบบ SHM ด้วยความถี่ $2 \\text{ Hz}$ ความถี่เชิงมุม ($\\omega$) เป็นเท่าใด`,
+        choices: [
+          { key: "A", text: "$2\\pi \\text{ rad/s}$" },
+          { key: "B", text: "$4\\pi \\text{ rad/s}$" },
+          { key: "C", text: "$\\pi \\text{ rad/s}$" },
+          { key: "D", text: "$\\dfrac{1}{2\\pi} \\text{ rad/s}$" }
+        ],
+        answer: "B",
+        explanation: `$\\omega = 2\\pi f = 2\\pi(2) = 4\\pi \\text{ rad/s}$ จึงตอบ B`
+      },
+      {
+        id: "q5",
+        prompt: `วัตถุสั่นแบบ SHM มีความถี่เชิงมุม $\\omega = \\pi \\text{ rad/s}$ คาบ ($T$) เป็นเท่าใด`,
+        choices: [
+          { key: "A", text: "$\\pi \\text{ s}$" },
+          { key: "B", text: "$\\dfrac{1}{\\pi} \\text{ s}$" },
+          { key: "C", text: "$2 \\text{ s}$" },
+          { key: "D", text: "$2\\pi \\text{ s}$" }
+        ],
+        answer: "C",
+        explanation: `$T = \\dfrac{2\\pi}{\\omega} = \\dfrac{2\\pi}{\\pi} = 2 \\text{ s}$ จึงตอบ C`
+      },
+      {
+        id: "q6",
+        prompt: `วัตถุสั่นแบบ SHM มีคาบ $0.25 \\text{ s}$ ความถี่ ($f$) เป็นเท่าใด`,
+        choices: [
+          { key: "A", text: "$4 \\text{ Hz}$" },
+          { key: "B", text: "$0.25 \\text{ Hz}$" },
+          { key: "C", text: "$2 \\text{ Hz}$" },
+          { key: "D", text: "$8 \\text{ Hz}$" }
+        ],
+        answer: "A",
+        explanation: `$f = \\dfrac{1}{T} = \\dfrac{1}{0.25} = 4 \\text{ Hz}$ จึงตอบ A`
+      },
+      {
+        id: "q7",
+        prompt: `ขณะที่วัตถุ SHM เคลื่อนที่ผ่านตำแหน่งสมดุล ข้อใดถูกต้อง`,
+        choices: [
+          { key: "A", text: "ความเร็วเป็นศูนย์ ความเร่งสูงสุด" },
+          { key: "B", text: "ความเร็วสูงสุด ความเร่งสูงสุด" },
+          { key: "C", text: "ความเร็วเป็นศูนย์ ความเร่งเป็นศูนย์" },
+          { key: "D", text: "ความเร็วสูงสุด และความเร่งเป็นศูนย์" }
+        ],
+        answer: "D",
+        explanation: `ที่ตำแหน่งสมดุล การกระจัดเป็นศูนย์ ความเร่ง ($a=-\\omega^2 x$) จึงเป็นศูนย์ ส่วนความเร็วมีค่าสูงสุด จึงตอบ D`
+      },
+      {
+        id: "q8",
+        prompt: `ขณะที่วัตถุ SHM อยู่ที่ตำแหน่งการกระจัดสูงสุด (แอมพลิจูด) ข้อใดถูกต้อง`,
+        choices: [
+          { key: "A", text: "ความเร็วสูงสุด ความเร่งเป็นศูนย์" },
+          { key: "B", text: "ความเร็วเป็นศูนย์ และความเร่งมีค่าสูงสุด" },
+          { key: "C", text: "ความเร็วและความเร่งสูงสุดพร้อมกัน" },
+          { key: "D", text: "พลังงานจลน์มีค่าสูงสุด" }
+        ],
+        answer: "B",
+        explanation: `ที่ตำแหน่งขอบสุด วัตถุหยุดชั่วขณะ (v=0) และความเร่งมีค่าสูงสุด (การกระจัดมากสุด) จึงตอบ B`
+      },
+      {
+        id: "q9",
+        prompt: `จากรูปวงกลมอ้างอิงต่อไปนี้ การเคลื่อนที่แบบ SHM สัมพันธ์กับการเคลื่อนที่แบบวงกลมสม่ำเสมออย่างไร?<br><br>
+      <div style="background:#f8f9fa; padding:15px; border-radius:8px; text-align:center; border: 1px dashed #ccc;">
+         <img src="./images/q6_09.png" alt="รูปประกอบข้อสอบ" style="max-width:100%; border-radius:4px;">
+      </div><br>`,
+        choices: [
+          { key: "A", text: "SHM ไม่มีความเกี่ยวข้องกับการเคลื่อนที่แบบวงกลม" },
+          { key: "B", text: "SHM คือการเคลื่อนที่เป็นวงกลมจริง ๆ" },
+          { key: "C", text: "SHM คือภาพฉาย (projection) ของการเคลื่อนที่แบบวงกลมสม่ำเสมอลงบนเส้นผ่านศูนย์กลาง โดยมี $\\omega$ เท่ากัน" },
+          { key: "D", text: "SHM มีความเร็วเชิงมุมมากกว่าการเคลื่อนที่แบบวงกลม 2 เท่า" }
+        ],
+        answer: "C",
+        explanation: `SHM คือภาพฉายของอนุภาคที่เคลื่อนที่เป็นวงกลมสม่ำเสมอลงบนแกน โดยใช้ความถี่เชิงมุม $\\omega$ เดียวกัน จึงตอบ C`
+      },
+
+      // --- สมการการเคลื่อนที่และการคำนวณ (ข้อ 10-15) ---
+      {
+        id: "q10",
+        prompt: `สมการการกระจัด $x = 5\\sin(4t)$ เซนติเมตร แอมพลิจูดมีค่าเท่าใด`,
+        choices: [
+          { key: "A", text: "$5 \\text{ cm}$" },
+          { key: "B", text: "$4 \\text{ cm}$" },
+          { key: "C", text: "$20 \\text{ cm}$" },
+          { key: "D", text: "$8 \\text{ cm}$" }
+        ],
+        answer: "A",
+        explanation: `จาก $x = A\\sin(\\omega t)$ ค่าสัมประสิทธิ์หน้า sin คือแอมพลิจูด $A = 5 \\text{ cm}$ จึงตอบ A`
+      },
+      {
+        id: "q11",
+        prompt: `จากสมการ $x = 5\\sin(4t)$ เซนติเมตร ความถี่เชิงมุม ($\\omega$) เป็นเท่าใด`,
+        choices: [
+          { key: "A", text: "$5 \\text{ rad/s}$" },
+          { key: "B", text: "$20 \\text{ rad/s}$" },
+          { key: "C", text: "$\\pi \\text{ rad/s}$" },
+          { key: "D", text: "$4 \\text{ rad/s}$" }
+        ],
+        answer: "D",
+        explanation: `ค่าสัมประสิทธิ์ของ $t$ ในวงเล็บคือ $\\omega = 4 \\text{ rad/s}$ จึงตอบ D`
+      },
+      {
+        id: "q12",
+        prompt: `จากสมการ $x = 5\\sin(4t)$ เซนติเมตร คาบ ($T$) เป็นเท่าใด`,
+        choices: [
+          { key: "A", text: "$4 \\text{ s}$" },
+          { key: "B", text: "$\\dfrac{\\pi}{2} \\text{ s}$" },
+          { key: "C", text: "$2\\pi \\text{ s}$" },
+          { key: "D", text: "$8 \\text{ s}$" }
+        ],
+        answer: "B",
+        explanation: `$T = \\dfrac{2\\pi}{\\omega} = \\dfrac{2\\pi}{4} = \\dfrac{\\pi}{2} \\text{ s}$ จึงตอบ B`
+      },
+      {
+        id: "q13",
+        prompt: `จากสมการ $x = 5\\sin(4t)$ เซนติเมตร ความถี่ ($f$) เป็นเท่าใด`,
+        choices: [
+          { key: "A", text: "$4 \\text{ Hz}$" },
+          { key: "B", text: "$2\\pi \\text{ Hz}$" },
+          { key: "C", text: "$\\dfrac{2}{\\pi} \\text{ Hz}$" },
+          { key: "D", text: "$\\dfrac{\\pi}{2} \\text{ Hz}$" }
+        ],
+        answer: "C",
+        explanation: `$f = \\dfrac{\\omega}{2\\pi} = \\dfrac{4}{2\\pi} = \\dfrac{2}{\\pi} \\text{ Hz}$ จึงตอบ C`
+      },
+      {
+        id: "q14",
+        prompt: `จากสมการ $x = 5\\sin(4t)$ เซนติเมตร อัตราเร็วสูงสุด ($v_{max}$) เป็นเท่าใด`,
+        choices: [
+          { key: "A", text: "$20 \\text{ cm/s}$" },
+          { key: "B", text: "$5 \\text{ cm/s}$" },
+          { key: "C", text: "$4 \\text{ cm/s}$" },
+          { key: "D", text: "$80 \\text{ cm/s}$" }
+        ],
+        answer: "A",
+        explanation: `$v_{max} = A\\omega = 5 \\times 4 = 20 \\text{ cm/s}$ จึงตอบ A`
+      },
+      {
+        id: "q15",
+        prompt: `จากสมการ $x = 5\\sin(4t)$ เซนติเมตร ขนาดความเร่งสูงสุด ($a_{max}$) เป็นเท่าใด`,
+        choices: [
+          { key: "A", text: "$20 \\text{ cm/s}^2$" },
+          { key: "B", text: "$40 \\text{ cm/s}^2$" },
+          { key: "C", text: "$5 \\text{ cm/s}^2$" },
+          { key: "D", text: "$80 \\text{ cm/s}^2$" }
+        ],
+        answer: "D",
+        explanation: `$a_{max} = A\\omega^2 = 5 \\times 4^2 = 5 \\times 16 = 80 \\text{ cm/s}^2$ จึงตอบ D`
+      },
+
+      // --- กราฟและความสัมพันธ์ (ข้อ 16-20) ---
+      {
+        id: "q16",
+        prompt: `จากกราฟการกระจัด–เวลา (x–t) ของการเคลื่อนที่แบบ SHM ต่อไปนี้ คาบ (T) มีค่ากี่วินาที?<br><br>
+      <div style="background:#f8f9fa; padding:15px; border-radius:8px; text-align:center; border: 1px dashed #ccc;">
+         <img src="./images/q6_16.png" alt="รูปประกอบข้อสอบ" style="max-width:100%; border-radius:4px;">
+      </div><br>`,
+        choices: [
+          { key: "A", text: "$2 \\text{ s}$" },
+          { key: "B", text: "$4 \\text{ s}$" },
+          { key: "C", text: "$8 \\text{ s}$" },
+          { key: "D", text: "$5 \\text{ s}$" }
+        ],
+        answer: "B",
+        explanation: `กราฟครบ 1 รอบเต็มในเวลา 4 วินาที ดังนั้น $T = 4 \\text{ s}$ จึงตอบ B`
+      },
+      {
+        id: "q17",
+        prompt: `ทิศของความเร่งของวัตถุที่สั่นแบบ SHM เป็นอย่างไร`,
+        choices: [
+          { key: "A", text: "ทิศเดียวกับการกระจัดเสมอ" },
+          { key: "B", text: "ทิศเดียวกับความเร็วเสมอ" },
+          { key: "C", text: "ทิศเข้าหาตำแหน่งสมดุลเสมอ (ตรงข้ามกับการกระจัด)" },
+          { key: "D", text: "คงที่ ไม่เปลี่ยนทิศ" }
+        ],
+        answer: "C",
+        explanation: `ความเร่ง $a = -\\omega^2 x$ มีทิศตรงข้ามกับการกระจัด คือชี้เข้าหาตำแหน่งสมดุลเสมอ จึงตอบ C`
+      },
+      {
+        id: "q18",
+        prompt: `แรงดึงกลับ (restoring force) ที่ทำให้เกิดการเคลื่อนที่แบบ SHM สัมพันธ์กับการกระจัดอย่างไร`,
+        choices: [
+          { key: "A", text: "$F = -kx$ (แปรผันตรงกับการกระจัด และมีทิศตรงข้าม)" },
+          { key: "B", text: "$F = kx^2$" },
+          { key: "C", text: "$F = $ ค่าคงที่" },
+          { key: "D", text: "$F = kv$" }
+        ],
+        answer: "A",
+        explanation: `แรงดึงกลับใน SHM เป็นไปตาม $F = -kx$ แปรผันตรงกับการกระจัดและมีทิศตรงข้าม จึงตอบ A`
+      },
+      {
+        id: "q19",
+        prompt: `จากกราฟความเร็ว–เวลา (v–t) ต่อไปนี้ ขณะที่ความเร็วมีค่าสูงสุด (ที่ $t = 0$) วัตถุอยู่ที่ตำแหน่งใด?<br><br>
+      <div style="background:#f8f9fa; padding:15px; border-radius:8px; text-align:center; border: 1px dashed #ccc;">
+         <img src="./images/q6_19.png" alt="รูปประกอบข้อสอบ" style="max-width:100%; border-radius:4px;">
+      </div><br>`,
+        choices: [
+          { key: "A", text: "ตำแหน่งการกระจัดสูงสุด (แอมพลิจูด)" },
+          { key: "B", text: "ตำแหน่งที่ $x = \\dfrac{A}{2}$" },
+          { key: "C", text: "หยุดนิ่งถาวร" },
+          { key: "D", text: "ตำแหน่งสมดุล ($x = 0$)" }
+        ],
+        answer: "D",
+        explanation: `ความเร็วสูงสุดเกิดที่ตำแหน่งสมดุล ($x = 0$) จึงตอบ D`
+      },
+      {
+        id: "q20",
+        prompt: `ความสัมพันธ์ระหว่างความเร่ง ($a$) กับการกระจัด ($x$) ในการเคลื่อนที่แบบ SHM คือข้อใด`,
+        choices: [
+          { key: "A", text: "$a = \\omega^2 x$" },
+          { key: "B", text: "$a = -\\omega^2 x$" },
+          { key: "C", text: "$a = -\\omega x$" },
+          { key: "D", text: "$a = \\omega x^2$" }
+        ],
+        answer: "B",
+        explanation: `ใน SHM ความเร่ง $a = -\\omega^2 x$ (แปรผันตรงกับ $x$ ทิศตรงข้าม) จึงตอบ B`
+      },
+
+      // --- มวล-สปริง และลูกตุ้มอย่างง่าย (ข้อ 21-27) ---
+      {
+        id: "q21",
+        prompt: `ระบบมวล-สปริงที่สั่นแบบ SHM มีความถี่เชิงมุม $\\omega$ สัมพันธ์กับค่านิจสปริง ($k$) และมวล ($m$) อย่างไร`,
+        choices: [
+          { key: "A", text: "$\\omega = \\sqrt{\\dfrac{m}{k}}$" },
+          { key: "B", text: "$\\omega = \\dfrac{k}{m}$" },
+          { key: "C", text: "$\\omega = \\sqrt{\\dfrac{k}{m}}$" },
+          { key: "D", text: "$\\omega = \\dfrac{m}{k}$" }
+        ],
+        answer: "C",
+        explanation: `ระบบมวล-สปริงมี $\\omega = \\sqrt{\\dfrac{k}{m}}$ จึงตอบ C`
+      },
+      {
+        id: "q22",
+        prompt: `คาบการสั่นของระบบมวล-สปริง ($T$) หาได้จากสูตรใด`,
+        choices: [
+          { key: "A", text: "$T = 2\\pi\\sqrt{\\dfrac{m}{k}}$" },
+          { key: "B", text: "$T = 2\\pi\\sqrt{\\dfrac{k}{m}}$" },
+          { key: "C", text: "$T = 2\\pi\\sqrt{\\dfrac{L}{g}}$" },
+          { key: "D", text: "$T = 2\\pi\\dfrac{m}{k}$" }
+        ],
+        answer: "A",
+        explanation: `คาบของระบบมวล-สปริงคือ $T = 2\\pi\\sqrt{\\dfrac{m}{k}}$ จึงตอบ A`
+      },
+      {
+        id: "q23",
+        prompt: `จากระบบมวล-สปริงในรูป ถ้าเพิ่มมวล $m$ เป็น 4 เท่า (โดยค่านิจสปริง $k$ เท่าเดิม) คาบการสั่น $T$ จะเปลี่ยนแปลงอย่างไร?<br><br>
+      <div style="background:#f8f9fa; padding:15px; border-radius:8px; text-align:center; border: 1px dashed #ccc;">
+         <img src="./images/q6_23.png" alt="รูปประกอบข้อสอบ" style="max-width:100%; border-radius:4px;">
+      </div><br>`,
+        choices: [
+          { key: "A", text: "ลดลงครึ่งหนึ่ง" },
+          { key: "B", text: "เท่าเดิม" },
+          { key: "C", text: "เพิ่มเป็น 4 เท่า" },
+          { key: "D", text: "เพิ่มเป็น 2 เท่า" }
+        ],
+        answer: "D",
+        explanation: `$T \\propto \\sqrt{m}$ เมื่อ $m$ เพิ่มเป็น 4 เท่า $T$ จึงเพิ่มเป็น $\\sqrt{4} = 2$ เท่า จึงตอบ D`
+      },
+      {
+        id: "q24",
+        prompt: `ระบบมวล-สปริงมีมวล $2 \\text{ kg}$ ค่านิจสปริง $8 \\text{ N/m}$ คาบการสั่นเป็นเท่าใด`,
+        choices: [
+          { key: "A", text: "$2\\pi \\text{ s}$" },
+          { key: "B", text: "$\\pi \\text{ s}$" },
+          { key: "C", text: "$\\dfrac{\\pi}{2} \\text{ s}$" },
+          { key: "D", text: "$4\\pi \\text{ s}$" }
+        ],
+        answer: "B",
+        explanation: `$T = 2\\pi\\sqrt{\\dfrac{m}{k}} = 2\\pi\\sqrt{\\dfrac{2}{8}} = 2\\pi\\sqrt{\\dfrac{1}{4}} = 2\\pi \\times \\dfrac{1}{2} = \\pi \\text{ s}$ จึงตอบ B`
+      },
+      {
+        id: "q25",
+        prompt: `คาบการแกว่งของลูกตุ้มอย่างง่าย ($T$) หาได้จากสูตรใด (เมื่อ $L$ = ความยาวเชือก, $g$ = ความเร่งโน้มถ่วง)`,
+        choices: [
+          { key: "A", text: "$T = 2\\pi\\sqrt{\\dfrac{g}{L}}$" },
+          { key: "B", text: "$T = 2\\pi\\sqrt{\\dfrac{m}{L}}$" },
+          { key: "C", text: "$T = 2\\pi\\sqrt{\\dfrac{L}{g}}$" },
+          { key: "D", text: "$T = 2\\pi\\dfrac{L}{g}$" }
+        ],
+        answer: "C",
+        explanation: `คาบของลูกตุ้มอย่างง่ายคือ $T = 2\\pi\\sqrt{\\dfrac{L}{g}}$ จึงตอบ C`
+      },
+      {
+        id: "q26",
+        prompt: `คาบการแกว่งของลูกตุ้มอย่างง่ายขึ้นอยู่กับปัจจัยใด`,
+        choices: [
+          { key: "A", text: "ความยาวเชือกและความเร่งโน้มถ่วง แต่ไม่ขึ้นกับมวลของลูกตุ้ม" },
+          { key: "B", text: "มวลของลูกตุ้มเท่านั้น" },
+          { key: "C", text: "แอมพลิจูดการแกว่งเท่านั้น" },
+          { key: "D", text: "ชนิดของวัสดุที่ใช้ทำลูกตุ้ม" }
+        ],
+        answer: "A",
+        explanation: `$T = 2\\pi\\sqrt{\\dfrac{L}{g}}$ ขึ้นกับ $L$ และ $g$ เท่านั้น ไม่ขึ้นกับมวล จึงตอบ A`
+      },
+      {
+        id: "q27",
+        prompt: `ลูกตุ้มอย่างง่ายยาว $1 \\text{ m}$ แกว่งบนพื้นโลกที่ $g \\approx \\pi^2 \\text{ m/s}^2$ คาบการแกว่งมีค่าประมาณเท่าใด`,
+        choices: [
+          { key: "A", text: "$0.5 \\text{ s}$" },
+          { key: "B", text: "$1 \\text{ s}$" },
+          { key: "C", text: "$4 \\text{ s}$" },
+          { key: "D", text: "$2 \\text{ s}$" }
+        ],
+        answer: "D",
+        explanation: `$T = 2\\pi\\sqrt{\\dfrac{L}{g}} = 2\\pi\\sqrt{\\dfrac{1}{\\pi^2}} = 2\\pi \\times \\dfrac{1}{\\pi} = 2 \\text{ s}$ จึงตอบ D`
+      },
+
+      // --- พลังงานในการเคลื่อนที่แบบ SHM (ข้อ 28-30) ---
+      {
+        id: "q28",
+        prompt: `จากกราฟพลังงานของ SHM ต่อไปนี้ พลังงานศักย์ (PE) มีค่าสูงสุดที่ตำแหน่งใด?<br><br>
+      <div style="background:#f8f9fa; padding:15px; border-radius:8px; text-align:center; border: 1px dashed #ccc;">
+         <img src="./images/q6_28.png" alt="รูปประกอบข้อสอบ" style="max-width:100%; border-radius:4px;">
+      </div><br>`,
+        choices: [
+          { key: "A", text: "ที่ตำแหน่งสมดุล ($x = 0$)" },
+          { key: "B", text: "ที่ตำแหน่งขอบสุด ($x = \\pm A$)" },
+          { key: "C", text: "มีค่าคงที่เท่ากันทุกตำแหน่ง" },
+          { key: "D", text: "ที่ตำแหน่ง $x = \\dfrac{A}{2}$" }
+        ],
+        answer: "B",
+        explanation: `พลังงานศักย์มีค่าสูงสุดที่การกระจัดมากสุด คือที่ขอบสุด $x = \\pm A$ (จุดที่ KE = 0) จึงตอบ B`
+      },
+      {
+        id: "q29",
+        prompt: `พลังงานกลรวมของระบบที่สั่นแบบ SHM (แอมพลิจูด $A$, ค่านิจสปริง $k$) มีค่าเท่าใด`,
+        choices: [
+          { key: "A", text: "$\\dfrac{1}{2}kA$" },
+          { key: "B", text: "$kA^2$" },
+          { key: "C", text: "$\\dfrac{1}{2}kA^2$" },
+          { key: "D", text: "$\\dfrac{1}{2}kv^2$" }
+        ],
+        answer: "C",
+        explanation: `พลังงานกลรวมของ SHM คงที่และเท่ากับ $E = \\dfrac{1}{2}kA^2$ จึงตอบ C`
+      },
+      {
+        id: "q30",
+        prompt: `พลังงานจลน์ (KE) ของวัตถุที่สั่นแบบ SHM มีค่าสูงสุดที่ตำแหน่งใด`,
+        choices: [
+          { key: "A", text: "ที่ตำแหน่งสมดุล ($x = 0$)" },
+          { key: "B", text: "ที่ตำแหน่งขอบสุด ($x = \\pm A$)" },
+          { key: "C", text: "ที่ตำแหน่ง $x = \\dfrac{A}{2}$" },
+          { key: "D", text: "มีค่าคงที่ทุกตำแหน่ง" }
+        ],
+        answer: "A",
+        explanation: `ที่ตำแหน่งสมดุลวัตถุมีความเร็วสูงสุด พลังงานจลน์จึงสูงสุด จึงตอบ A`
+      }
+    ]
   }
 };
