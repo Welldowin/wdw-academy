@@ -1877,5 +1877,382 @@ window.COURSE_DATA = {
         explanation: `$a = \\dfrac{v-u}{t} = \\dfrac{8-20}{4} = \\dfrac{-12}{4} = -3 \\text{ m/s}^2$ (ชะลอความเร็ว) จึงตอบ C`
       }
     ]
+  },
+
+  "quiz6": {
+    meta: {
+      courseId: "m4-term1-physics",
+      quizKey: "quiz6",
+      title: "Quiz 6 : การเคลื่อนที่แนวตรงด้วยสมการการเคลื่อนที่ 5 สูตร (30 ข้อ)",
+      enableTimer: true,
+      timeLimitSec: 3600
+    },
+    data: [
+      // --- เลือกใช้สมการ (ข้อ 1-5) ---
+      {
+        id: "q1",
+        prompt: `สมการใดใช้หาความเร็วปลาย ($v$) เมื่อทราบความเร็วต้น ($u$), ความเร่ง ($a$) และเวลา ($t$)?`,
+        choices: [
+          { key: "A", text: "$s = ut + \\frac{1}{2}at^2$" },
+          { key: "B", text: "$v = u + at$" },
+          { key: "C", text: "$v^2 = u^2 + 2as$" },
+          { key: "D", text: "$s = \\left(\\dfrac{u+v}{2}\\right)t$" }
+        ],
+        answer: "B",
+        explanation: `$v = u + at$ เชื่อม $v, u, a, t$ โดยไม่ต้องใช้การกระจัด จึงตอบ B`
+      },
+      {
+        id: "q2",
+        prompt: `สมการการเคลื่อนที่ข้อใดที่ "ไม่มีตัวแปรเวลา ($t$)"?`,
+        choices: [
+          { key: "A", text: "$v = u + at$" },
+          { key: "B", text: "$s = ut + \\frac{1}{2}at^2$" },
+          { key: "C", text: "$s = \\left(\\dfrac{u+v}{2}\\right)t$" },
+          { key: "D", text: "$v^2 = u^2 + 2as$" }
+        ],
+        answer: "D",
+        explanation: `$v^2 = u^2 + 2as$ เชื่อม $v, u, a, s$ โดยไม่มีเวลา $t$ จึงตอบ D`
+      },
+      {
+        id: "q3",
+        prompt: `สมการการเคลื่อนที่ข้อใดที่ "ไม่มีตัวแปรความเร่ง ($a$)"?`,
+        choices: [
+          { key: "A", text: "$s = \\left(\\dfrac{u+v}{2}\\right)t$" },
+          { key: "B", text: "$v = u + at$" },
+          { key: "C", text: "$v^2 = u^2 + 2as$" },
+          { key: "D", text: "$s = ut + \\frac{1}{2}at^2$" }
+        ],
+        answer: "A",
+        explanation: `$s = \\left(\\dfrac{u+v}{2}\\right)t$ ใช้ความเร็วเฉลี่ยคูณเวลา โดยไม่มี $a$ จึงตอบ A`
+      },
+      {
+        id: "q4",
+        prompt: `สมการการเคลื่อนที่ข้อใดที่ "ไม่มีตัวแปรความเร็วปลาย ($v$)"?`,
+        choices: [
+          { key: "A", text: "$v = u + at$" },
+          { key: "B", text: "$v^2 = u^2 + 2as$" },
+          { key: "C", text: "$s = ut + \\frac{1}{2}at^2$" },
+          { key: "D", text: "$s = \\left(\\dfrac{u+v}{2}\\right)t$" }
+        ],
+        answer: "C",
+        explanation: `$s = ut + \\frac{1}{2}at^2$ เชื่อม $s, u, a, t$ โดยไม่มีความเร็วปลาย $v$ จึงตอบ C`
+      },
+      {
+        id: "q5",
+        prompt: `สมการการเคลื่อนที่ข้อใดที่เขียนในรูปที่ "ไม่มีตัวแปรความเร็วต้น ($u$)"?`,
+        choices: [
+          { key: "A", text: "$v = u + at$" },
+          { key: "B", text: "$s = vt - \\frac{1}{2}at^2$" },
+          { key: "C", text: "$s = ut + \\frac{1}{2}at^2$" },
+          { key: "D", text: "$v^2 = u^2 + 2as$" }
+        ],
+        answer: "B",
+        explanation: `$s = vt - \\frac{1}{2}at^2$ เชื่อม $s, v, a, t$ โดยไม่มีความเร็วต้น $u$ จึงตอบ B`
+      },
+
+      // --- คำนวณด้วย 5 สูตร (ข้อ 6-25) ---
+      {
+        id: "q6",
+        prompt: `วัตถุมีความเร็วต้น $8 \\text{ m/s}$ ความเร่ง $3 \\text{ m/s}^2$ เป็นเวลา $5 \\text{ s}$ ความเร็วปลายเป็นเท่าใด?`,
+        choices: [
+          { key: "A", text: "$15 \\text{ m/s}$" },
+          { key: "B", text: "$40 \\text{ m/s}$" },
+          { key: "C", text: "$11 \\text{ m/s}$" },
+          { key: "D", text: "$23 \\text{ m/s}$" }
+        ],
+        answer: "D",
+        explanation: `$v = u + at = 8 + (3)(5) = 23 \\text{ m/s}$ จึงตอบ D`
+      },
+      {
+        id: "q7",
+        prompt: `วัตถุเริ่มจากหยุดนิ่ง มีความเร่ง $4 \\text{ m/s}^2$ เป็นเวลา $6 \\text{ s}$ ความเร็วปลายเป็นเท่าใด?`,
+        choices: [
+          { key: "A", text: "$24 \\text{ m/s}$" },
+          { key: "B", text: "$10 \\text{ m/s}$" },
+          { key: "C", text: "$4 \\text{ m/s}$" },
+          { key: "D", text: "$20 \\text{ m/s}$" }
+        ],
+        answer: "A",
+        explanation: `$v = 0 + (4)(6) = 24 \\text{ m/s}$ จึงตอบ A`
+      },
+      {
+        id: "q8",
+        prompt: `วัตถุเพิ่มความเร็วจาก $10 \\text{ m/s}$ เป็น $30 \\text{ m/s}$ ในเวลา $4 \\text{ s}$ ความเร่งเป็นเท่าใด?`,
+        choices: [
+          { key: "A", text: "$10 \\text{ m/s}^2$" },
+          { key: "B", text: "$2.5 \\text{ m/s}^2$" },
+          { key: "C", text: "$5 \\text{ m/s}^2$" },
+          { key: "D", text: "$20 \\text{ m/s}^2$" }
+        ],
+        answer: "C",
+        explanation: `$a = \\dfrac{v-u}{t} = \\dfrac{30-10}{4} = 5 \\text{ m/s}^2$ จึงตอบ C`
+      },
+      {
+        id: "q9",
+        prompt: `วัตถุมีความเร็วต้น $5 \\text{ m/s}$ ความเร่ง $2 \\text{ m/s}^2$ จะใช้เวลากี่วินาทีจึงจะมีความเร็ว $25 \\text{ m/s}$?`,
+        choices: [
+          { key: "A", text: "$5 \\text{ s}$" },
+          { key: "B", text: "$10 \\text{ s}$" },
+          { key: "C", text: "$15 \\text{ s}$" },
+          { key: "D", text: "$20 \\text{ s}$" }
+        ],
+        answer: "B",
+        explanation: `$t = \\dfrac{v-u}{a} = \\dfrac{25-5}{2} = 10 \\text{ s}$ จึงตอบ B`
+      },
+      {
+        id: "q10",
+        prompt: `วัตถุเริ่มจากหยุดนิ่ง ความเร่ง $2 \\text{ m/s}^2$ เป็นเวลา $5 \\text{ s}$ การกระจัดเป็นเท่าใด?`,
+        choices: [
+          { key: "A", text: "$10 \\text{ m}$" },
+          { key: "B", text: "$50 \\text{ m}$" },
+          { key: "C", text: "$5 \\text{ m}$" },
+          { key: "D", text: "$25 \\text{ m}$" }
+        ],
+        answer: "D",
+        explanation: `$s = ut + \\frac{1}{2}at^2 = 0 + \\frac{1}{2}(2)(25) = 25 \\text{ m}$ จึงตอบ D`
+      },
+      {
+        id: "q11",
+        prompt: `วัตถุมีความเร็วต้น $4 \\text{ m/s}$ ความเร่ง $2 \\text{ m/s}^2$ เป็นเวลา $3 \\text{ s}$ การกระจัดเป็นเท่าใด?`,
+        choices: [
+          { key: "A", text: "$21 \\text{ m}$" },
+          { key: "B", text: "$30 \\text{ m}$" },
+          { key: "C", text: "$12 \\text{ m}$" },
+          { key: "D", text: "$9 \\text{ m}$" }
+        ],
+        answer: "A",
+        explanation: `$s = (4)(3) + \\frac{1}{2}(2)(3^2) = 12 + 9 = 21 \\text{ m}$ จึงตอบ A`
+      },
+      {
+        id: "q12",
+        prompt: `วัตถุเริ่มจากหยุดนิ่ง ความเร่ง $3 \\text{ m/s}^2$ เคลื่อนที่ได้ระยะ $24 \\text{ m}$ ความเร็วปลายเป็นเท่าใด?`,
+        choices: [
+          { key: "A", text: "$72 \\text{ m/s}$" },
+          { key: "B", text: "$6 \\text{ m/s}$" },
+          { key: "C", text: "$12 \\text{ m/s}$" },
+          { key: "D", text: "$144 \\text{ m/s}$" }
+        ],
+        answer: "C",
+        explanation: `$v^2 = u^2 + 2as = 0 + 2(3)(24) = 144 \\Rightarrow v = 12 \\text{ m/s}$ จึงตอบ C`
+      },
+      {
+        id: "q13",
+        prompt: `วัตถุเริ่มจากหยุดนิ่ง ความเร่ง $2 \\text{ m/s}^2$ เคลื่อนที่ได้ระยะ $25 \\text{ m}$ ความเร็วปลายเป็นเท่าใด?`,
+        choices: [
+          { key: "A", text: "$5 \\text{ m/s}$" },
+          { key: "B", text: "$10 \\text{ m/s}$" },
+          { key: "C", text: "$50 \\text{ m/s}$" },
+          { key: "D", text: "$100 \\text{ m/s}$" }
+        ],
+        answer: "B",
+        explanation: `$v^2 = 0 + 2(2)(25) = 100 \\Rightarrow v = 10 \\text{ m/s}$ จึงตอบ B`
+      },
+      {
+        id: "q14",
+        prompt: `วัตถุเริ่มจากหยุดนิ่ง เร่งจนมีความเร็ว $20 \\text{ m/s}$ ด้วยความเร่ง $4 \\text{ m/s}^2$ เคลื่อนที่ได้ระยะเท่าใด?`,
+        choices: [
+          { key: "A", text: "$100 \\text{ m}$" },
+          { key: "B", text: "$5 \\text{ m}$" },
+          { key: "C", text: "$25 \\text{ m}$" },
+          { key: "D", text: "$50 \\text{ m}$" }
+        ],
+        answer: "D",
+        explanation: `$s = \\dfrac{v^2 - u^2}{2a} = \\dfrac{400 - 0}{2(4)} = 50 \\text{ m}$ จึงตอบ D`
+      },
+      {
+        id: "q15",
+        prompt: `วัตถุเคลื่อนที่ด้วยความเร็วต้น $10 \\text{ m/s}$ และความเร็วปลาย $30 \\text{ m/s}$ ในเวลา $4 \\text{ s}$ การกระจัดเป็นเท่าใด?`,
+        choices: [
+          { key: "A", text: "$80 \\text{ m}$" },
+          { key: "B", text: "$40 \\text{ m}$" },
+          { key: "C", text: "$160 \\text{ m}$" },
+          { key: "D", text: "$20 \\text{ m}$" }
+        ],
+        answer: "A",
+        explanation: `$s = \\left(\\dfrac{u+v}{2}\\right)t = \\left(\\dfrac{10+30}{2}\\right)(4) = 20 \\times 4 = 80 \\text{ m}$ จึงตอบ A`
+      },
+      {
+        id: "q16",
+        prompt: `รถลดความเร็วจาก $20 \\text{ m/s}$ จนหยุดนิ่งในเวลา $5 \\text{ s}$ ความเร่งเป็นเท่าใด?`,
+        choices: [
+          { key: "A", text: "$-2 \\text{ m/s}^2$" },
+          { key: "B", text: "$4 \\text{ m/s}^2$" },
+          { key: "C", text: "$-4 \\text{ m/s}^2$" },
+          { key: "D", text: "$-20 \\text{ m/s}^2$" }
+        ],
+        answer: "C",
+        explanation: `$a = \\dfrac{0 - 20}{5} = -4 \\text{ m/s}^2$ (ความหน่วง) จึงตอบ C`
+      },
+      {
+        id: "q17",
+        prompt: `รถวิ่งด้วยความเร็ว $20 \\text{ m/s}$ เบรกด้วยความหน่วง $4 \\text{ m/s}^2$ จนหยุดนิ่ง ระยะทางที่ใช้ในการเบรกเป็นเท่าใด?`,
+        choices: [
+          { key: "A", text: "$100 \\text{ m}$" },
+          { key: "B", text: "$50 \\text{ m}$" },
+          { key: "C", text: "$25 \\text{ m}$" },
+          { key: "D", text: "$80 \\text{ m}$" }
+        ],
+        answer: "B",
+        explanation: `$s = \\dfrac{v^2 - u^2}{2a} = \\dfrac{0 - 400}{2(-4)} = 50 \\text{ m}$ จึงตอบ B`
+      },
+      {
+        id: "q18",
+        prompt: `วัตถุตกอย่างอิสระจากหยุดนิ่ง ($g = 10 \\text{ m/s}^2$) เป็นเวลา $3 \\text{ s}$ ความเร็วขณะนั้นเป็นเท่าใด?`,
+        choices: [
+          { key: "A", text: "$10 \\text{ m/s}$" },
+          { key: "B", text: "$15 \\text{ m/s}$" },
+          { key: "C", text: "$45 \\text{ m/s}$" },
+          { key: "D", text: "$30 \\text{ m/s}$" }
+        ],
+        answer: "D",
+        explanation: `$v = u + gt = 0 + (10)(3) = 30 \\text{ m/s}$ จึงตอบ D`
+      },
+      {
+        id: "q19",
+        prompt: `วัตถุตกอย่างอิสระจากหยุดนิ่ง ($g = 10 \\text{ m/s}^2$) เป็นเวลา $2 \\text{ s}$ ตกได้ระยะทางเท่าใด?`,
+        choices: [
+          { key: "A", text: "$20 \\text{ m}$" },
+          { key: "B", text: "$40 \\text{ m}$" },
+          { key: "C", text: "$10 \\text{ m}$" },
+          { key: "D", text: "$5 \\text{ m}$" }
+        ],
+        answer: "A",
+        explanation: `$s = \\frac{1}{2}gt^2 = \\frac{1}{2}(10)(2^2) = 20 \\text{ m}$ จึงตอบ A`
+      },
+      {
+        id: "q20",
+        prompt: `ขว้างวัตถุขึ้นตรง ๆ ด้วยความเร็วต้น $20 \\text{ m/s}$ ($g = 10 \\text{ m/s}^2$) จะใช้เวลากี่วินาทีถึงจุดสูงสุด?`,
+        choices: [
+          { key: "A", text: "$1 \\text{ s}$" },
+          { key: "B", text: "$4 \\text{ s}$" },
+          { key: "C", text: "$2 \\text{ s}$" },
+          { key: "D", text: "$20 \\text{ s}$" }
+        ],
+        answer: "C",
+        explanation: `ที่จุดสูงสุด $v = 0$: $t = \\dfrac{0 - 20}{-10} = 2 \\text{ s}$ จึงตอบ C`
+      },
+      {
+        id: "q21",
+        prompt: `ขว้างวัตถุขึ้นตรง ๆ ด้วยความเร็วต้น $20 \\text{ m/s}$ ($g = 10 \\text{ m/s}^2$) จะขึ้นได้สูงสุดเท่าใด?`,
+        choices: [
+          { key: "A", text: "$40 \\text{ m}$" },
+          { key: "B", text: "$20 \\text{ m}$" },
+          { key: "C", text: "$10 \\text{ m}$" },
+          { key: "D", text: "$80 \\text{ m}$" }
+        ],
+        answer: "B",
+        explanation: `$s = \\dfrac{v^2 - u^2}{2a} = \\dfrac{0 - 400}{2(-10)} = 20 \\text{ m}$ จึงตอบ B`
+      },
+      {
+        id: "q22",
+        prompt: `วัตถุมีความเร็วต้น $6 \\text{ m/s}$ ความเร่ง $2 \\text{ m/s}^2$ เป็นเวลา $4 \\text{ s}$ การกระจัดเป็นเท่าใด?`,
+        choices: [
+          { key: "A", text: "$24 \\text{ m}$" },
+          { key: "B", text: "$16 \\text{ m}$" },
+          { key: "C", text: "$48 \\text{ m}$" },
+          { key: "D", text: "$40 \\text{ m}$" }
+        ],
+        answer: "D",
+        explanation: `$s = (6)(4) + \\frac{1}{2}(2)(4^2) = 24 + 16 = 40 \\text{ m}$ จึงตอบ D`
+      },
+      {
+        id: "q23",
+        prompt: `วัตถุเริ่มจากหยุดนิ่ง ความเร่ง $5 \\text{ m/s}^2$ หลังจาก $4 \\text{ s}$ ความเร็วเป็นเท่าใด?`,
+        choices: [
+          { key: "A", text: "$20 \\text{ m/s}$" },
+          { key: "B", text: "$9 \\text{ m/s}$" },
+          { key: "C", text: "$5 \\text{ m/s}$" },
+          { key: "D", text: "$40 \\text{ m/s}$" }
+        ],
+        answer: "A",
+        explanation: `$v = 0 + (5)(4) = 20 \\text{ m/s}$ จึงตอบ A`
+      },
+      {
+        id: "q24",
+        prompt: `วัตถุมีความเร่ง $5 \\text{ m/s}^2$ หลังเวลา $6 \\text{ s}$ มีความเร็วปลาย $40 \\text{ m/s}$ ความเร็วต้นเป็นเท่าใด?`,
+        choices: [
+          { key: "A", text: "$70 \\text{ m/s}$" },
+          { key: "B", text: "$40 \\text{ m/s}$" },
+          { key: "C", text: "$10 \\text{ m/s}$" },
+          { key: "D", text: "$5 \\text{ m/s}$" }
+        ],
+        answer: "C",
+        explanation: `$u = v - at = 40 - (5)(6) = 40 - 30 = 10 \\text{ m/s}$ จึงตอบ C`
+      },
+      {
+        id: "q25",
+        prompt: `วัตถุมีความเร็วต้น $2 \\text{ m/s}$ ความเร่ง $4 \\text{ m/s}^2$ เป็นเวลา $3 \\text{ s}$ การกระจัดเป็นเท่าใด?`,
+        choices: [
+          { key: "A", text: "$18 \\text{ m}$" },
+          { key: "B", text: "$24 \\text{ m}$" },
+          { key: "C", text: "$12 \\text{ m}$" },
+          { key: "D", text: "$30 \\text{ m}$" }
+        ],
+        answer: "B",
+        explanation: `$s = (2)(3) + \\frac{1}{2}(4)(3^2) = 6 + 18 = 24 \\text{ m}$ จึงตอบ B`
+      },
+
+      // --- โจทย์ประยุกต์ระดับยากขึ้น (ข้อ 26-30) ---
+      {
+        id: "q26",
+        prompt: `รถวิ่งด้วยความเร็วคงที่ $20 \\text{ m/s}$ เมื่อคนขับเห็นสิ่งกีดขวางจึงเบรกด้วยความหน่วง $5 \\text{ m/s}^2$ จนหยุดสนิท รถจะเคลื่อนที่ต่อไปอีกกี่เมตรหลังเริ่มเบรก?`,
+        choices: [
+          { key: "A", text: "$20 \\text{ m}$" },
+          { key: "B", text: "$80 \\text{ m}$" },
+          { key: "C", text: "$100 \\text{ m}$" },
+          { key: "D", text: "$40 \\text{ m}$" }
+        ],
+        answer: "D",
+        explanation: `$s = \\dfrac{v^2 - u^2}{2a} = \\dfrac{0 - 20^2}{2(-5)} = \\dfrac{-400}{-10} = 40 \\text{ m}$ ถ้าสิ่งกีดขวางอยู่ไกลกว่า 40 m จึงจะหยุดทัน จึงตอบ D`
+      },
+      {
+        id: "q27",
+        prompt: `รถไฟวิ่งด้วยความเร็ว $30 \\text{ m/s}$ เริ่มเบรกด้วยความหน่วงคงที่ $3 \\text{ m/s}^2$ จะใช้เวลากี่วินาทีจึงจะหยุดสนิท?`,
+        choices: [
+          { key: "A", text: "$10 \\text{ s}$" },
+          { key: "B", text: "$15 \\text{ s}$" },
+          { key: "C", text: "$5 \\text{ s}$" },
+          { key: "D", text: "$90 \\text{ s}$" }
+        ],
+        answer: "A",
+        explanation: `$t = \\dfrac{v - u}{a} = \\dfrac{0 - 30}{-3} = 10 \\text{ s}$ จึงตอบ A`
+      },
+      {
+        id: "q28",
+        prompt: `รถออกจากสถานีจากหยุดนิ่ง เร่งด้วยความเร่ง $2 \\text{ m/s}^2$ เป็นเวลา $10 \\text{ s}$ แล้ววิ่งด้วยความเร็วคงที่ต่ออีก $20 \\text{ s}$ ระยะทางรวมทั้งหมดเป็นเท่าใด?`,
+        choices: [
+          { key: "A", text: "$200 \\text{ m}$" },
+          { key: "B", text: "$300 \\text{ m}$" },
+          { key: "C", text: "$500 \\text{ m}$" },
+          { key: "D", text: "$600 \\text{ m}$" }
+        ],
+        answer: "C",
+        explanation: `ช่วงเร่ง: $s_1 = \\frac{1}{2}(2)(10^2) = 100 \\text{ m}$, ความเร็วปลาย $= (2)(10) = 20 \\text{ m/s}$; ช่วงคงที่: $s_2 = 20 \\times 20 = 400 \\text{ m}$; รวม $= 500 \\text{ m}$ จึงตอบ C`
+      },
+      {
+        id: "q29",
+        prompt: `รถสองคันวิ่งเข้าหากันบนถนนตรงเดียวกัน เริ่มห่างกัน $200 \\text{ m}$ คันแรกวิ่ง $15 \\text{ m/s}$ คันที่สองวิ่ง $25 \\text{ m/s}$ (ความเร็วคงที่ทั้งคู่) จะพบกันในเวลากี่วินาที?`,
+        choices: [
+          { key: "A", text: "$10 \\text{ s}$" },
+          { key: "B", text: "$5 \\text{ s}$" },
+          { key: "C", text: "$8 \\text{ s}$" },
+          { key: "D", text: "$4 \\text{ s}$" }
+        ],
+        answer: "B",
+        explanation: `อัตราเร็วที่เข้าใกล้กัน $= 15 + 25 = 40 \\text{ m/s}$; เวลา $= \\dfrac{200}{40} = 5 \\text{ s}$ จึงตอบ B`
+      },
+      {
+        id: "q30",
+        prompt: `รถไฟ 2 ขบวนวิ่งเข้าหากันด้วยความเร็วเท่ากัน $20 \\text{ m/s}$ เริ่มห่างกัน $300 \\text{ m}$ ทั้งคู่เบรกพร้อมกันด้วยความหน่วง $2 \\text{ m/s}^2$ จนหยุดสนิท เมื่อหยุดแล้วรถไฟทั้งสองจะเหลือระยะห่างกันเท่าใด?`,
+        choices: [
+          { key: "A", text: "$0 \\text{ m}$ (ชนกันพอดี)" },
+          { key: "B", text: "$50 \\text{ m}$" },
+          { key: "C", text: "$200 \\text{ m}$" },
+          { key: "D", text: "$100 \\text{ m}$" }
+        ],
+        answer: "D",
+        explanation: `ระยะเบรกของแต่ละขบวน $= \\dfrac{v^2}{2a} = \\dfrac{400}{4} = 100 \\text{ m}$; รวมสองขบวน $= 200 \\text{ m}$; ระยะที่เหลือ $= 300 - 200 = 100 \\text{ m}$ จึงตอบ D`
+      }
+    ]
   }
 };
