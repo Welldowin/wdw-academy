@@ -1967,5 +1967,448 @@ window.COURSE_DATA = {
         explanation: `ขั้นที่ 1 ช้าที่สุด ($E_a=75$ kJ สูงสุด) จึงเป็นขั้นกำหนดอัตรา จึงตอบ B`
       }
     ]
+  },
+
+  "quiz6": {
+    meta: {
+      courseId: "m5-term1-chem",
+      quizKey: "quiz6",
+      title: "Quiz 6 : การคำนวณอัตราการเกิดปฏิกิริยา และกราฟการดำเนินไปของปฏิกิริยา (30 ข้อ)",
+      enableTimer: true,
+      timeLimitSec: 3600
+    },
+    data: [
+      // --- การคำนวณอัตราการเกิดของสารและปฏิกิริยารวม (ข้อ 1-10) ---
+      {
+        id: "q1",
+        prompt: `ปฏิกิริยา $N_2 + 3H_2 \\rightarrow 2NH_3$ ถ้าอัตราการใช้ $N_2$ เท่ากับ $0.2 \\text{ mol/(L}\\cdot\\text{s)}$ อัตราการใช้ $H_2$ เป็นเท่าใด?`,
+        choices: [
+          { key: "A", text: "$0.2 \\text{ mol/(L}\\cdot\\text{s)}$" },
+          { key: "B", text: "$0.6 \\text{ mol/(L}\\cdot\\text{s)}$" },
+          { key: "C", text: "$0.067 \\text{ mol/(L}\\cdot\\text{s)}$" },
+          { key: "D", text: "$0.4 \\text{ mol/(L}\\cdot\\text{s)}$" }
+        ],
+        answer: "B",
+        explanation: `อัตราส่วนสัมประสิทธิ์ $N_2 : H_2 = 1 : 3$ ดังนั้นอัตราการใช้ $H_2 = 3 \\times 0.2 = 0.6$ จึงตอบ B`
+      },
+      {
+        id: "q2",
+        prompt: `ปฏิกิริยา $N_2 + 3H_2 \\rightarrow 2NH_3$ ถ้าอัตราการใช้ $N_2$ เท่ากับ $0.2 \\text{ mol/(L}\\cdot\\text{s)}$ อัตราการเกิด $NH_3$ เป็นเท่าใด?`,
+        choices: [
+          { key: "A", text: "$0.2 \\text{ mol/(L}\\cdot\\text{s)}$" },
+          { key: "B", text: "$0.6 \\text{ mol/(L}\\cdot\\text{s)}$" },
+          { key: "C", text: "$0.1 \\text{ mol/(L}\\cdot\\text{s)}$" },
+          { key: "D", text: "$0.4 \\text{ mol/(L}\\cdot\\text{s)}$" }
+        ],
+        answer: "D",
+        explanation: `อัตราส่วน $N_2 : NH_3 = 1 : 2$ ดังนั้นอัตราการเกิด $NH_3 = 2 \\times 0.2 = 0.4$ จึงตอบ D`
+      },
+      {
+        id: "q3",
+        prompt: `ปฏิกิริยา $2SO_2 + O_2 \\rightarrow 2SO_3$ ถ้าอัตราการใช้ $O_2$ เท่ากับ $0.1 \\text{ mol/(L}\\cdot\\text{s)}$ อัตราการใช้ $SO_2$ เป็นเท่าใด?`,
+        choices: [
+          { key: "A", text: "$0.2 \\text{ mol/(L}\\cdot\\text{s)}$" },
+          { key: "B", text: "$0.1 \\text{ mol/(L}\\cdot\\text{s)}$" },
+          { key: "C", text: "$0.05 \\text{ mol/(L}\\cdot\\text{s)}$" },
+          { key: "D", text: "$0.4 \\text{ mol/(L}\\cdot\\text{s)}$" }
+        ],
+        answer: "A",
+        explanation: `อัตราส่วน $O_2 : SO_2 = 1 : 2$ ดังนั้นอัตราการใช้ $SO_2 = 2 \\times 0.1 = 0.2$ จึงตอบ A`
+      },
+      {
+        id: "q4",
+        prompt: `ปฏิกิริยา $2SO_2 + O_2 \\rightarrow 2SO_3$ ถ้าอัตราการใช้ $O_2$ เท่ากับ $0.1 \\text{ mol/(L}\\cdot\\text{s)}$ อัตราการเกิด $SO_3$ เป็นเท่าใด?`,
+        choices: [
+          { key: "A", text: "$0.1 \\text{ mol/(L}\\cdot\\text{s)}$" },
+          { key: "B", text: "$0.05 \\text{ mol/(L}\\cdot\\text{s)}$" },
+          { key: "C", text: "$0.2 \\text{ mol/(L}\\cdot\\text{s)}$" },
+          { key: "D", text: "$0.4 \\text{ mol/(L}\\cdot\\text{s)}$" }
+        ],
+        answer: "C",
+        explanation: `อัตราส่วน $O_2 : SO_3 = 1 : 2$ ดังนั้นอัตราการเกิด $SO_3 = 2 \\times 0.1 = 0.2$ จึงตอบ C`
+      },
+      {
+        id: "q5",
+        prompt: `ปฏิกิริยา $2N_2O_5 \\rightarrow 4NO_2 + O_2$ ถ้าอัตราการสลายตัวของ $N_2O_5$ เท่ากับ $0.8 \\text{ mol/(L}\\cdot\\text{s)}$ อัตราการเกิด $O_2$ เป็นเท่าใด?`,
+        choices: [
+          { key: "A", text: "$0.8 \\text{ mol/(L}\\cdot\\text{s)}$" },
+          { key: "B", text: "$0.4 \\text{ mol/(L}\\cdot\\text{s)}$" },
+          { key: "C", text: "$1.6 \\text{ mol/(L}\\cdot\\text{s)}$" },
+          { key: "D", text: "$0.2 \\text{ mol/(L}\\cdot\\text{s)}$" }
+        ],
+        answer: "B",
+        explanation: `อัตราส่วน $N_2O_5 : O_2 = 2 : 1$ ดังนั้นอัตราการเกิด $O_2 = \\dfrac{1}{2} \\times 0.8 = 0.4$ จึงตอบ B`
+      },
+      {
+        id: "q6",
+        prompt: `ปฏิกิริยา $2N_2O_5 \\rightarrow 4NO_2 + O_2$ ถ้าอัตราการสลายตัวของ $N_2O_5$ เท่ากับ $0.8 \\text{ mol/(L}\\cdot\\text{s)}$ อัตราการเกิด $NO_2$ เป็นเท่าใด?`,
+        choices: [
+          { key: "A", text: "$0.8 \\text{ mol/(L}\\cdot\\text{s)}$" },
+          { key: "B", text: "$0.4 \\text{ mol/(L}\\cdot\\text{s)}$" },
+          { key: "C", text: "$0.2 \\text{ mol/(L}\\cdot\\text{s)}$" },
+          { key: "D", text: "$1.6 \\text{ mol/(L}\\cdot\\text{s)}$" }
+        ],
+        answer: "D",
+        explanation: `อัตราส่วน $N_2O_5 : NO_2 = 2 : 4 = 1 : 2$ ดังนั้นอัตราการเกิด $NO_2 = 2 \\times 0.8 = 1.6$ จึงตอบ D`
+      },
+      {
+        id: "q7",
+        prompt: `สำหรับปฏิกิริยา $aA + bB \\rightarrow cC$ ข้อใดเขียนอัตราการเกิดปฏิกิริยา (rate) ได้ถูกต้อง?`,
+        choices: [
+          { key: "A", text: "$\\text{rate} = -\\dfrac{1}{a}\\dfrac{\\Delta[A]}{\\Delta t} = -\\dfrac{1}{b}\\dfrac{\\Delta[B]}{\\Delta t} = +\\dfrac{1}{c}\\dfrac{\\Delta[C]}{\\Delta t}$" },
+          { key: "B", text: "$\\text{rate} = -a\\dfrac{\\Delta[A]}{\\Delta t}$" },
+          { key: "C", text: "$\\text{rate} = \\dfrac{\\Delta[A]}{\\Delta t}$" },
+          { key: "D", text: "$\\text{rate} = a\\dfrac{\\Delta[A]}{\\Delta t} + c\\dfrac{\\Delta[C]}{\\Delta t}$" }
+        ],
+        answer: "A",
+        explanation: `อัตราการเกิดปฏิกิริยารวม = อัตราการเปลี่ยนแปลงของสารแต่ละตัวหารด้วยสัมประสิทธิ์ (สารตั้งต้นใส่เครื่องหมายลบ) จึงตอบ A`
+      },
+      {
+        id: "q8",
+        prompt: `ปฏิกิริยา $N_2 + 3H_2 \\rightarrow 2NH_3$ ถ้า $[NH_3]$ เพิ่มขึ้น $0.6 \\text{ mol/L}$ ในเวลา $3 \\text{ s}$ อัตราการเกิดปฏิกิริยารวมเป็นเท่าใด?`,
+        choices: [
+          { key: "A", text: "$0.2 \\text{ mol/(L}\\cdot\\text{s)}$" },
+          { key: "B", text: "$0.6 \\text{ mol/(L}\\cdot\\text{s)}$" },
+          { key: "C", text: "$0.1 \\text{ mol/(L}\\cdot\\text{s)}$" },
+          { key: "D", text: "$0.05 \\text{ mol/(L}\\cdot\\text{s)}$" }
+        ],
+        answer: "C",
+        explanation: `อัตราการเกิด $NH_3 = \\dfrac{0.6}{3} = 0.2$; อัตราปฏิกิริยารวม $= \\dfrac{1}{2}(0.2) = 0.1$ จึงตอบ C`
+      },
+      {
+        id: "q9",
+        prompt: `ปฏิกิริยา $2A \\rightarrow B$ ถ้าความเข้มข้นของ $A$ ลดลงจาก $1.0$ เป็น $0.6 \\text{ mol/L}$ ในเวลา $4 \\text{ s}$ อัตราการเกิดปฏิกิริยารวมเป็นเท่าใด?`,
+        choices: [
+          { key: "A", text: "$0.1 \\text{ mol/(L}\\cdot\\text{s)}$" },
+          { key: "B", text: "$0.05 \\text{ mol/(L}\\cdot\\text{s)}$" },
+          { key: "C", text: "$0.2 \\text{ mol/(L}\\cdot\\text{s)}$" },
+          { key: "D", text: "$0.025 \\text{ mol/(L}\\cdot\\text{s)}$" }
+        ],
+        answer: "B",
+        explanation: `อัตราการสลายของ $A = \\dfrac{1.0-0.6}{4} = 0.1$; อัตราปฏิกิริยารวม $= \\dfrac{1}{2}(0.1) = 0.05$ จึงตอบ B`
+      },
+      {
+        id: "q10",
+        prompt: `ปฏิกิริยา $N_2 + 3H_2 \\rightarrow 2NH_3$ ถ้าอัตราการใช้ $H_2$ เท่ากับ $0.9 \\text{ mol/(L}\\cdot\\text{s)}$ อัตราการเกิดปฏิกิริยารวมเป็นเท่าใด?`,
+        choices: [
+          { key: "A", text: "$0.9 \\text{ mol/(L}\\cdot\\text{s)}$" },
+          { key: "B", text: "$2.7 \\text{ mol/(L}\\cdot\\text{s)}$" },
+          { key: "C", text: "$0.45 \\text{ mol/(L}\\cdot\\text{s)}$" },
+          { key: "D", text: "$0.3 \\text{ mol/(L}\\cdot\\text{s)}$" }
+        ],
+        answer: "D",
+        explanation: `อัตราปฏิกิริยารวม $= \\dfrac{1}{3} \\times$ อัตราการใช้ $H_2 = \\dfrac{1}{3}(0.9) = 0.3$ จึงตอบ D`
+      },
+
+      // --- กราฟการดำเนินไปของปฏิกิริยา : แผนภาพ d1 (ข้อ 11-13) ---
+      {
+        id: "q11",
+        prompt: `จากแผนภาพพลังงานของปฏิกิริยาต่อไปนี้ พลังงานก่อกัมมันต์ไปข้างหน้า ($E_a$ ไปข้างหน้า) มีค่าเท่าใด?<br><br>
+<div style="background:#f8f9fa; padding:15px; border-radius:8px; text-align:center; border: 1px dashed #ccc;">
+   <img src="images/q6_d1.png" alt="รูปประกอบข้อสอบ" style="max-width:100%; border-radius:4px;">
+</div><br>`,
+        choices: [
+          { key: "A", text: "$70 \\text{ kJ}$" },
+          { key: "B", text: "$90 \\text{ kJ}$" },
+          { key: "C", text: "$20 \\text{ kJ}$" },
+          { key: "D", text: "$120 \\text{ kJ}$" }
+        ],
+        answer: "A",
+        explanation: `$E_a$ ไปข้างหน้า $= E_{TS} - E_{สารตั้งต้น} = 120 - 50 = 70 \\text{ kJ}$ จึงตอบ A`
+      },
+      {
+        id: "q12",
+        prompt: `จากแผนภาพพลังงานเดียวกันนี้ พลังงานก่อกัมมันต์ย้อนกลับ ($E_a$ ย้อนกลับ) มีค่าเท่าใด?<br><br>
+<div style="background:#f8f9fa; padding:15px; border-radius:8px; text-align:center; border: 1px dashed #ccc;">
+   <img src="images/q6_d1.png" alt="รูปประกอบข้อสอบ" style="max-width:100%; border-radius:4px;">
+</div><br>`,
+        choices: [
+          { key: "A", text: "$70 \\text{ kJ}$" },
+          { key: "B", text: "$20 \\text{ kJ}$" },
+          { key: "C", text: "$90 \\text{ kJ}$" },
+          { key: "D", text: "$50 \\text{ kJ}$" }
+        ],
+        answer: "C",
+        explanation: `$E_a$ ย้อนกลับ $= E_{TS} - E_{ผลิตภัณฑ์} = 120 - 30 = 90 \\text{ kJ}$ จึงตอบ C`
+      },
+      {
+        id: "q13",
+        prompt: `จากแผนภาพพลังงานเดียวกันนี้ ปฏิกิริยาเป็นแบบใด และ $\\Delta H$ มีค่าเท่าใด?<br><br>
+<div style="background:#f8f9fa; padding:15px; border-radius:8px; text-align:center; border: 1px dashed #ccc;">
+   <img src="images/q6_d1.png" alt="รูปประกอบข้อสอบ" style="max-width:100%; border-radius:4px;">
+</div><br>`,
+        choices: [
+          { key: "A", text: "ดูดพลังงาน, $\\Delta H = +20 \\text{ kJ}$" },
+          { key: "B", text: "คายพลังงาน, $\\Delta H = -20 \\text{ kJ}$" },
+          { key: "C", text: "ดูดพลังงาน, $\\Delta H = +70 \\text{ kJ}$" },
+          { key: "D", text: "คายพลังงาน, $\\Delta H = -90 \\text{ kJ}$" }
+        ],
+        answer: "B",
+        explanation: `$\\Delta H = E_{ผลิตภัณฑ์} - E_{สารตั้งต้น} = 30 - 50 = -20 \\text{ kJ}$ (ผลิตภัณฑ์ต่ำกว่า จึงคายพลังงาน) จึงตอบ B`
+      },
+
+      // --- แผนภาพ d2 (ข้อ 14-15) ---
+      {
+        id: "q14",
+        prompt: `จากแผนภาพพลังงานของปฏิกิริยาต่อไปนี้ พลังงานก่อกัมมันต์ไปข้างหน้า ($E_a$ ไปข้างหน้า) มีค่าเท่าใด?<br><br>
+<div style="background:#f8f9fa; padding:15px; border-radius:8px; text-align:center; border: 1px dashed #ccc;">
+   <img src="images/q6_d2.png" alt="รูปประกอบข้อสอบ" style="max-width:100%; border-radius:4px;">
+</div><br>`,
+        choices: [
+          { key: "A", text: "$40 \\text{ kJ}$" },
+          { key: "B", text: "$50 \\text{ kJ}$" },
+          { key: "C", text: "$130 \\text{ kJ}$" },
+          { key: "D", text: "$90 \\text{ kJ}$" }
+        ],
+        answer: "D",
+        explanation: `$E_a$ ไปข้างหน้า $= 130 - 40 = 90 \\text{ kJ}$ จึงตอบ D`
+      },
+      {
+        id: "q15",
+        prompt: `จากแผนภาพพลังงานเดียวกันนี้ ปฏิกิริยาเป็นแบบใด และ $\\Delta H$ มีค่าเท่าใด?<br><br>
+<div style="background:#f8f9fa; padding:15px; border-radius:8px; text-align:center; border: 1px dashed #ccc;">
+   <img src="images/q6_d2.png" alt="รูปประกอบข้อสอบ" style="max-width:100%; border-radius:4px;">
+</div><br>`,
+        choices: [
+          { key: "A", text: "ดูดพลังงาน, $\\Delta H = +50 \\text{ kJ}$" },
+          { key: "B", text: "คายพลังงาน, $\\Delta H = -50 \\text{ kJ}$" },
+          { key: "C", text: "ดูดพลังงาน, $\\Delta H = +90 \\text{ kJ}$" },
+          { key: "D", text: "คายพลังงาน, $\\Delta H = -40 \\text{ kJ}$" }
+        ],
+        answer: "A",
+        explanation: `$\\Delta H = 90 - 40 = +50 \\text{ kJ}$ (ผลิตภัณฑ์สูงกว่า จึงดูดพลังงาน) จึงตอบ A`
+      },
+
+      // --- แผนภาพ d3 (ข้อ 16-17) ---
+      {
+        id: "q16",
+        prompt: `จากแผนภาพพลังงานของปฏิกิริยาต่อไปนี้ พลังงานก่อกัมมันต์ไปข้างหน้า ($E_a$ ไปข้างหน้า) มีค่าเท่าใด?<br><br>
+<div style="background:#f8f9fa; padding:15px; border-radius:8px; text-align:center; border: 1px dashed #ccc;">
+   <img src="images/q6_d3.png" alt="รูปประกอบข้อสอบ" style="max-width:100%; border-radius:4px;">
+</div><br>`,
+        choices: [
+          { key: "A", text: "$80 \\text{ kJ}$" },
+          { key: "B", text: "$100 \\text{ kJ}$" },
+          { key: "C", text: "$40 \\text{ kJ}$" },
+          { key: "D", text: "$20 \\text{ kJ}$" }
+        ],
+        answer: "C",
+        explanation: `$E_a$ ไปข้างหน้า $= 100 - 60 = 40 \\text{ kJ}$ จึงตอบ C`
+      },
+      {
+        id: "q17",
+        prompt: `จากแผนภาพพลังงานเดียวกันนี้ พลังงานก่อกัมมันต์ย้อนกลับ ($E_a$ ย้อนกลับ) มีค่าเท่าใด?<br><br>
+<div style="background:#f8f9fa; padding:15px; border-radius:8px; text-align:center; border: 1px dashed #ccc;">
+   <img src="images/q6_d3.png" alt="รูปประกอบข้อสอบ" style="max-width:100%; border-radius:4px;">
+</div><br>`,
+        choices: [
+          { key: "A", text: "$40 \\text{ kJ}$" },
+          { key: "B", text: "$80 \\text{ kJ}$" },
+          { key: "C", text: "$100 \\text{ kJ}$" },
+          { key: "D", text: "$20 \\text{ kJ}$" }
+        ],
+        answer: "B",
+        explanation: `$E_a$ ย้อนกลับ $= 100 - 20 = 80 \\text{ kJ}$ จึงตอบ B`
+      },
+
+      // --- แผนภาพ d4 (ข้อ 18-19) ---
+      {
+        id: "q18",
+        prompt: `จากแผนภาพพลังงานของปฏิกิริยาต่อไปนี้ ปฏิกิริยาเป็นแบบใด และ $\\Delta H$ มีค่าเท่าใด?<br><br>
+<div style="background:#f8f9fa; padding:15px; border-radius:8px; text-align:center; border: 1px dashed #ccc;">
+   <img src="images/q6_d4.png" alt="รูปประกอบข้อสอบ" style="max-width:100%; border-radius:4px;">
+</div><br>`,
+        choices: [
+          { key: "A", text: "คายพลังงาน, $\\Delta H = -40 \\text{ kJ}$" },
+          { key: "B", text: "ดูดพลังงาน, $\\Delta H = +80 \\text{ kJ}$" },
+          { key: "C", text: "คายพลังงาน, $\\Delta H = -80 \\text{ kJ}$" },
+          { key: "D", text: "ดูดพลังงาน, $\\Delta H = +40 \\text{ kJ}$" }
+        ],
+        answer: "D",
+        explanation: `$\\Delta H = 60 - 20 = +40 \\text{ kJ}$ (ผลิตภัณฑ์สูงกว่า จึงดูดพลังงาน) จึงตอบ D`
+      },
+      {
+        id: "q19",
+        prompt: `จากแผนภาพพลังงานเดียวกันนี้ พลังงานก่อกัมมันต์ไปข้างหน้า ($E_a$ ไปข้างหน้า) มีค่าเท่าใด?<br><br>
+<div style="background:#f8f9fa; padding:15px; border-radius:8px; text-align:center; border: 1px dashed #ccc;">
+   <img src="images/q6_d4.png" alt="รูปประกอบข้อสอบ" style="max-width:100%; border-radius:4px;">
+</div><br>`,
+        choices: [
+          { key: "A", text: "$80 \\text{ kJ}$" },
+          { key: "B", text: "$40 \\text{ kJ}$" },
+          { key: "C", text: "$100 \\text{ kJ}$" },
+          { key: "D", text: "$20 \\text{ kJ}$" }
+        ],
+        answer: "A",
+        explanation: `$E_a$ ไปข้างหน้า $= 100 - 20 = 80 \\text{ kJ}$ จึงตอบ A`
+      },
+
+      // --- แผนภาพ d5 : ปฏิกิริยา 2 ขั้นตอน (ข้อ 20-22) ---
+      {
+        id: "q20",
+        prompt: `จากแผนภาพพลังงานของปฏิกิริยา 2 ขั้นตอนต่อไปนี้ ขั้นตอนใดเป็นขั้นกำหนดอัตรา (rate-determining step)?<br><br>
+<div style="background:#f8f9fa; padding:15px; border-radius:8px; text-align:center; border: 1px dashed #ccc;">
+   <img src="images/q6_d5.png" alt="รูปประกอบข้อสอบ" style="max-width:100%; border-radius:4px;">
+</div><br>`,
+        choices: [
+          { key: "A", text: "ขั้นที่ 2 เพราะมี $E_a$ ต่ำกว่า" },
+          { key: "B", text: "ทั้งสองขั้นเร็วเท่ากัน" },
+          { key: "C", text: "ขั้นที่ 1 เพราะมี $E_a$ สูงที่สุด ($80 \\text{ kJ}$)" },
+          { key: "D", text: "ขั้นที่ 2 เพราะเกิดหลังสุด" }
+        ],
+        answer: "C",
+        explanation: `ยอดที่ 1 สูงที่สุด (120 kJ) $E_a$ ขั้นที่ 1 $= 120 - 40 = 80$ kJ สูงสุด จึงเป็นขั้นกำหนดอัตรา จึงตอบ C`
+      },
+      {
+        id: "q21",
+        prompt: `จากแผนภาพพลังงาน 2 ขั้นตอนเดียวกันนี้ พลังงานก่อกัมมันต์ของขั้นที่ 1 มีค่าเท่าใด?<br><br>
+<div style="background:#f8f9fa; padding:15px; border-radius:8px; text-align:center; border: 1px dashed #ccc;">
+   <img src="images/q6_d5.png" alt="รูปประกอบข้อสอบ" style="max-width:100%; border-radius:4px;">
+</div><br>`,
+        choices: [
+          { key: "A", text: "$50 \\text{ kJ}$" },
+          { key: "B", text: "$80 \\text{ kJ}$" },
+          { key: "C", text: "$30 \\text{ kJ}$" },
+          { key: "D", text: "$90 \\text{ kJ}$" }
+        ],
+        answer: "B",
+        explanation: `$E_a$ ขั้นที่ 1 $= E_{ยอดที่ 1} - E_{สารตั้งต้น} = 120 - 40 = 80 \\text{ kJ}$ จึงตอบ B`
+      },
+      {
+        id: "q22",
+        prompt: `จากแผนภาพพลังงาน 2 ขั้นตอนเดียวกันนี้ ปฏิกิริยารวมเป็นแบบใด และ $\\Delta H$ รวมมีค่าเท่าใด?<br><br>
+<div style="background:#f8f9fa; padding:15px; border-radius:8px; text-align:center; border: 1px dashed #ccc;">
+   <img src="images/q6_d5.png" alt="รูปประกอบข้อสอบ" style="max-width:100%; border-radius:4px;">
+</div><br>`,
+        choices: [
+          { key: "A", text: "ดูดพลังงาน, $\\Delta H = +10 \\text{ kJ}$" },
+          { key: "B", text: "คายพลังงาน, $\\Delta H = -40 \\text{ kJ}$" },
+          { key: "C", text: "ดูดพลังงาน, $\\Delta H = +30 \\text{ kJ}$" },
+          { key: "D", text: "คายพลังงาน, $\\Delta H = -10 \\text{ kJ}$" }
+        ],
+        answer: "D",
+        explanation: `$\\Delta H$ รวม $= E_{ผลิตภัณฑ์} - E_{สารตั้งต้น} = 30 - 40 = -10 \\text{ kJ}$ (คายพลังงาน) จึงตอบ D`
+      },
+
+      // --- แผนภาพ d6 : ปฏิกิริยา 2 ขั้นตอน (ข้อ 23-25) ---
+      {
+        id: "q23",
+        prompt: `จากแผนภาพพลังงานของปฏิกิริยา 2 ขั้นตอนต่อไปนี้ ขั้นตอนใดเป็นขั้นกำหนดอัตรา?<br><br>
+<div style="background:#f8f9fa; padding:15px; border-radius:8px; text-align:center; border: 1px dashed #ccc;">
+   <img src="images/q6_d6.png" alt="รูปประกอบข้อสอบ" style="max-width:100%; border-radius:4px;">
+</div><br>`,
+        choices: [
+          { key: "A", text: "ขั้นที่ 2 เพราะยอดพลังงานสูงที่สุด ($E_a$ สูงสุด)" },
+          { key: "B", text: "ขั้นที่ 1 เพราะเกิดก่อน" },
+          { key: "C", text: "ทั้งสองขั้นเร็วเท่ากัน" },
+          { key: "D", text: "ไม่มีขั้นกำหนดอัตรา" }
+        ],
+        answer: "A",
+        explanation: `ยอดที่ 2 สูงที่สุด (130 kJ) $E_a$ ขั้นที่ 2 $= 130 - 50 = 80$ kJ สูงกว่าขั้นที่ 1 (60 kJ) จึงเป็นขั้นกำหนดอัตรา จึงตอบ A`
+      },
+      {
+        id: "q24",
+        prompt: `จากแผนภาพพลังงาน 2 ขั้นตอนเดียวกันนี้ พลังงานก่อกัมมันต์ของขั้นที่ 2 (วัดจากสารมัธยันตร์ถึงยอดที่ 2) มีค่าเท่าใด?<br><br>
+<div style="background:#f8f9fa; padding:15px; border-radius:8px; text-align:center; border: 1px dashed #ccc;">
+   <img src="images/q6_d6.png" alt="รูปประกอบข้อสอบ" style="max-width:100%; border-radius:4px;">
+</div><br>`,
+        choices: [
+          { key: "A", text: "$60 \\text{ kJ}$" },
+          { key: "B", text: "$100 \\text{ kJ}$" },
+          { key: "C", text: "$80 \\text{ kJ}$" },
+          { key: "D", text: "$50 \\text{ kJ}$" }
+        ],
+        answer: "C",
+        explanation: `$E_a$ ขั้นที่ 2 $= E_{ยอดที่ 2} - E_{สารมัธยันตร์} = 130 - 50 = 80 \\text{ kJ}$ จึงตอบ C`
+      },
+      {
+        id: "q25",
+        prompt: `จากแผนภาพพลังงาน 2 ขั้นตอนเดียวกันนี้ ปฏิกิริยารวมเป็นแบบใด และ $\\Delta H$ รวมมีค่าเท่าใด?<br><br>
+<div style="background:#f8f9fa; padding:15px; border-radius:8px; text-align:center; border: 1px dashed #ccc;">
+   <img src="images/q6_d6.png" alt="รูปประกอบข้อสอบ" style="max-width:100%; border-radius:4px;">
+</div><br>`,
+        choices: [
+          { key: "A", text: "คายพลังงาน, $\\Delta H = -50 \\text{ kJ}$" },
+          { key: "B", text: "ดูดพลังงาน, $\\Delta H = +50 \\text{ kJ}$" },
+          { key: "C", text: "คายพลังงาน, $\\Delta H = -80 \\text{ kJ}$" },
+          { key: "D", text: "ดูดพลังงาน, $\\Delta H = +30 \\text{ kJ}$" }
+        ],
+        answer: "B",
+        explanation: `$\\Delta H$ รวม $= 80 - 30 = +50 \\text{ kJ}$ (ผลิตภัณฑ์สูงกว่า จึงดูดพลังงาน) จึงตอบ B`
+      },
+
+      // --- แผนภาพ d7 (ข้อ 26-28) ---
+      {
+        id: "q26",
+        prompt: `จากแผนภาพพลังงานของปฏิกิริยาต่อไปนี้ พลังงานก่อกัมมันต์ไปข้างหน้า ($E_a$ ไปข้างหน้า) มีค่าเท่าใด?<br><br>
+<div style="background:#f8f9fa; padding:15px; border-radius:8px; text-align:center; border: 1px dashed #ccc;">
+   <img src="images/q6_d7.png" alt="รูปประกอบข้อสอบ" style="max-width:100%; border-radius:4px;">
+</div><br>`,
+        choices: [
+          { key: "A", text: "$90 \\text{ kJ}$" },
+          { key: "B", text: "$140 \\text{ kJ}$" },
+          { key: "C", text: "$30 \\text{ kJ}$" },
+          { key: "D", text: "$60 \\text{ kJ}$" }
+        ],
+        answer: "D",
+        explanation: `$E_a$ ไปข้างหน้า $= 140 - 80 = 60 \\text{ kJ}$ จึงตอบ D`
+      },
+      {
+        id: "q27",
+        prompt: `จากแผนภาพพลังงานเดียวกันนี้ พลังงานก่อกัมมันต์ย้อนกลับ ($E_a$ ย้อนกลับ) มีค่าเท่าใด?<br><br>
+<div style="background:#f8f9fa; padding:15px; border-radius:8px; text-align:center; border: 1px dashed #ccc;">
+   <img src="images/q6_d7.png" alt="รูปประกอบข้อสอบ" style="max-width:100%; border-radius:4px;">
+</div><br>`,
+        choices: [
+          { key: "A", text: "$90 \\text{ kJ}$" },
+          { key: "B", text: "$60 \\text{ kJ}$" },
+          { key: "C", text: "$30 \\text{ kJ}$" },
+          { key: "D", text: "$140 \\text{ kJ}$" }
+        ],
+        answer: "A",
+        explanation: `$E_a$ ย้อนกลับ $= 140 - 50 = 90 \\text{ kJ}$ จึงตอบ A`
+      },
+      {
+        id: "q28",
+        prompt: `จากแผนภาพพลังงานเดียวกันนี้ ปฏิกิริยาเป็นแบบใด และ $\\Delta H$ มีค่าเท่าใด?<br><br>
+<div style="background:#f8f9fa; padding:15px; border-radius:8px; text-align:center; border: 1px dashed #ccc;">
+   <img src="images/q6_d7.png" alt="รูปประกอบข้อสอบ" style="max-width:100%; border-radius:4px;">
+</div><br>`,
+        choices: [
+          { key: "A", text: "ดูดพลังงาน, $\\Delta H = +30 \\text{ kJ}$" },
+          { key: "B", text: "คายพลังงาน, $\\Delta H = -60 \\text{ kJ}$" },
+          { key: "C", text: "คายพลังงาน, $\\Delta H = -30 \\text{ kJ}$" },
+          { key: "D", text: "ดูดพลังงาน, $\\Delta H = +90 \\text{ kJ}$" }
+        ],
+        answer: "C",
+        explanation: `$\\Delta H = 50 - 80 = -30 \\text{ kJ}$ (ผลิตภัณฑ์ต่ำกว่า จึงคายพลังงาน) จึงตอบ C`
+      },
+
+      // --- ความสัมพันธ์จากแผนภาพพลังงาน (ข้อ 29-30) ---
+      {
+        id: "q29",
+        prompt: `ความสัมพันธ์ระหว่างพลังงานก่อกัมมันต์ไปข้างหน้า ($E_{a,f}$), ย้อนกลับ ($E_{a,r}$) และ $\\Delta H$ ที่อ่านได้จากแผนภาพพลังงาน คือข้อใด?`,
+        choices: [
+          { key: "A", text: "$\\Delta H = E_{a,f} + E_{a,r}$" },
+          { key: "B", text: "$\\Delta H = E_{a,f} - E_{a,r}$" },
+          { key: "C", text: "$\\Delta H = E_{a,r} - E_{a,f}$" },
+          { key: "D", text: "$\\Delta H = E_{a,f} \\times E_{a,r}$" }
+        ],
+        answer: "B",
+        explanation: `จากแผนภาพ $\\Delta H = E_{a,f} - E_{a,r}$ จึงตอบ B`
+      },
+      {
+        id: "q30",
+        prompt: `ปฏิกิริยาหนึ่งมีพลังงานก่อกัมมันต์ไปข้างหน้า $E_{a,f} = 60 \\text{ kJ}$ และย้อนกลับ $E_{a,r} = 90 \\text{ kJ}$ ปฏิกิริยานี้เป็นแบบใด และ $\\Delta H$ เท่าใด?`,
+        choices: [
+          { key: "A", text: "ดูดพลังงาน, $\\Delta H = +30 \\text{ kJ}$" },
+          { key: "B", text: "ดูดพลังงาน, $\\Delta H = +150 \\text{ kJ}$" },
+          { key: "C", text: "คายพลังงาน, $\\Delta H = -150 \\text{ kJ}$" },
+          { key: "D", text: "คายพลังงาน, $\\Delta H = -30 \\text{ kJ}$" }
+        ],
+        answer: "D",
+        explanation: `$\\Delta H = E_{a,f} - E_{a,r} = 60 - 90 = -30 \\text{ kJ}$ (คายพลังงาน) จึงตอบ D`
+      }
+    ]
   }
 };
