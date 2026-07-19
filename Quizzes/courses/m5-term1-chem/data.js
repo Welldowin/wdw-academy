@@ -2410,5 +2410,413 @@ window.COURSE_DATA = {
         explanation: `$\\Delta H = E_{a,f} - E_{a,r} = 60 - 90 = -30 \\text{ kJ}$ (คายพลังงาน) จึงตอบ D`
       }
     ]
+  },
+
+  "quiz7": {
+    meta: {
+      courseId: "m5-term1-chem",
+      quizKey: "quiz7",
+      title: "Quiz 7 : กฎอัตรา อันดับปฏิกิริยา และค่าคงที่อัตรา (30 ข้อ)",
+      enableTimer: true,
+      timeLimitSec: 3600
+    },
+    data: [
+      // --- แนวคิดพื้นฐานของกฎอัตรา (ข้อ 1-6) ---
+      {
+        id: "q1",
+        prompt: `กฎอัตรา (rate law) ของปฏิกิริยา $A + B \\rightarrow$ ผลิตภัณฑ์ เขียนได้ในรูปใด`,
+        choices: [
+          { key: "A", text: "$\\text{rate} = k[A] + [B]$" },
+          { key: "B", text: "$\\text{rate} = \\dfrac{k}{[A][B]}$" },
+          { key: "C", text: "$\\text{rate} = k[A]^m[B]^n$ เมื่อ $m, n$ คืออันดับของปฏิกิริยาเทียบกับ $A$ และ $B$" },
+          { key: "D", text: "$\\text{rate} = \\dfrac{[A][B]}{k}$" }
+        ],
+        answer: "C",
+        explanation: `กฎอัตราเขียนในรูป $\\text{rate} = k[A]^m[B]^n$ โดย $m, n$ เป็นอันดับที่ได้จากการทดลอง จึงตอบ C`
+      },
+      {
+        id: "q2",
+        prompt: `อันดับของปฏิกิริยา (order of reaction) หาได้จากสิ่งใด`,
+        choices: [
+          { key: "A", text: "จากข้อมูลการทดลองเท่านั้น ไม่สามารถอ่านจากสัมประสิทธิ์ในสมการเคมีได้โดยตรง" },
+          { key: "B", text: "จากสัมประสิทธิ์ในสมการเคมีที่ดุลแล้วเสมอ" },
+          { key: "C", text: "จากมวลโมเลกุลของสารตั้งต้น" },
+          { key: "D", text: "จากค่า $\\Delta H$ ของปฏิกิริยา" }
+        ],
+        answer: "A",
+        explanation: `อันดับปฏิกิริยาเป็นค่าที่ได้จากการทดลอง ไม่จำเป็นต้องเท่ากับสัมประสิทธิ์ในสมการเคมี จึงตอบ A`
+      },
+      {
+        id: "q3",
+        prompt: `ปฏิกิริยาหนึ่งมีกฎอัตรา $\\text{rate} = k[A]^2[B]$ อันดับรวมของปฏิกิริยานี้เป็นเท่าใด`,
+        choices: [
+          { key: "A", text: "$2$" },
+          { key: "B", text: "$3$" },
+          { key: "C", text: "$1$" },
+          { key: "D", text: "$6$" }
+        ],
+        answer: "B",
+        explanation: `อันดับรวม = ผลบวกของเลขชี้กำลัง $= 2 + 1 = 3$ จึงตอบ B`
+      },
+      {
+        id: "q4",
+        prompt: `ถ้าอันดับของปฏิกิริยาเทียบกับสาร $A$ เป็นศูนย์ หมายความว่าอย่างไร`,
+        choices: [
+          { key: "A", text: "ปฏิกิริยาไม่เกิดขึ้นเลย" },
+          { key: "B", text: "อัตราเพิ่มขึ้นอย่างมากเมื่อเพิ่ม $[A]$" },
+          { key: "C", text: "อัตราลดลงเมื่อเพิ่ม $[A]$" },
+          { key: "D", text: "การเปลี่ยนความเข้มข้นของ $A$ ไม่มีผลต่ออัตราการเกิดปฏิกิริยา" }
+        ],
+        answer: "D",
+        explanation: `$[A]^0 = 1$ เสมอ ความเข้มข้นของ $A$ จึงไม่มีผลต่ออัตรา จึงตอบ D`
+      },
+      {
+        id: "q5",
+        prompt: `ถ้าปฏิกิริยาเป็นอันดับ 1 เทียบกับ $A$ เมื่อเพิ่ม $[A]$ เป็น 2 เท่า อัตราจะเปลี่ยนแปลงอย่างไร`,
+        choices: [
+          { key: "A", text: "เพิ่มเป็น $2$ เท่า" },
+          { key: "B", text: "เพิ่มเป็น $4$ เท่า" },
+          { key: "C", text: "ไม่เปลี่ยนแปลง" },
+          { key: "D", text: "ลดลงครึ่งหนึ่ง" }
+        ],
+        answer: "A",
+        explanation: `อันดับ 1: $\\text{rate} \\propto [A]^1$ เมื่อ $[A]$ เพิ่ม 2 เท่า อัตราจึงเพิ่ม $2^1 = 2$ เท่า จึงตอบ A`
+      },
+      {
+        id: "q6",
+        prompt: `ถ้าปฏิกิริยาเป็นอันดับ 2 เทียบกับ $A$ เมื่อเพิ่ม $[A]$ เป็น 3 เท่า อัตราจะเปลี่ยนแปลงอย่างไร`,
+        choices: [
+          { key: "A", text: "เพิ่มเป็น $3$ เท่า" },
+          { key: "B", text: "เพิ่มเป็น $6$ เท่า" },
+          { key: "C", text: "เพิ่มเป็น $9$ เท่า" },
+          { key: "D", text: "ไม่เปลี่ยนแปลง" }
+        ],
+        answer: "C",
+        explanation: `อันดับ 2: อัตราเพิ่ม $3^2 = 9$ เท่า จึงตอบ C`
+      },
+
+      // --- ชุดการทดลองที่ 1 (ข้อ 7-13) ---
+      {
+        id: "q7",
+        prompt: `จากข้อมูลการทดลองของปฏิกิริยา $A + B \\rightarrow$ ผลิตภัณฑ์<br><br>
+<div style="text-align:center;">
+<table style="margin:0 auto; border-collapse:collapse;" border="1" cellpadding="6">
+<tr><th>การทดลอง</th><th>[A] (mol/L)</th><th>[B] (mol/L)</th><th>อัตราเริ่มต้น (mol/(L·s))</th></tr>
+<tr><td>1</td><td>0.10</td><td>0.10</td><td>0.020</td></tr>
+<tr><td>2</td><td>0.20</td><td>0.10</td><td>0.040</td></tr>
+<tr><td>3</td><td>0.10</td><td>0.20</td><td>0.080</td></tr>
+</table>
+</div><br>
+        อันดับของปฏิกิริยาเทียบกับสาร $A$ เป็นเท่าใด?`,
+        choices: [
+          { key: "A", text: "$0$" },
+          { key: "B", text: "$2$" },
+          { key: "C", text: "$3$" },
+          { key: "D", text: "$1$" }
+        ],
+        answer: "D",
+        explanation: `เทียบการทดลอง 1 กับ 2 ($[B]$ คงที่): $[A]$ เพิ่ม 2 เท่า อัตราเพิ่ม 2 เท่า $\\Rightarrow 2^m = 2 \\Rightarrow m = 1$ จึงตอบ D`
+      },
+      {
+        id: "q8",
+        prompt: `จากชุดการทดลองเดียวกัน (การทดลอง 1, 2, 3 ข้างต้น) อันดับของปฏิกิริยาเทียบกับสาร $B$ เป็นเท่าใด?`,
+        choices: [
+          { key: "A", text: "$1$" },
+          { key: "B", text: "$2$" },
+          { key: "C", text: "$0$" },
+          { key: "D", text: "$4$" }
+        ],
+        answer: "B",
+        explanation: `เทียบการทดลอง 1 กับ 3 ($[A]$ คงที่): $[B]$ เพิ่ม 2 เท่า อัตราเพิ่ม 4 เท่า $\\Rightarrow 2^n = 4 \\Rightarrow n = 2$ จึงตอบ B`
+      },
+      {
+        id: "q9",
+        prompt: `จากชุดการทดลองเดียวกัน อันดับรวมของปฏิกิริยานี้เป็นเท่าใด?`,
+        choices: [
+          { key: "A", text: "$3$" },
+          { key: "B", text: "$2$" },
+          { key: "C", text: "$1$" },
+          { key: "D", text: "$4$" }
+        ],
+        answer: "A",
+        explanation: `อันดับรวม $= 1 + 2 = 3$ จึงตอบ A`
+      },
+      {
+        id: "q10",
+        prompt: `จากชุดการทดลองเดียวกัน กฎอัตราของปฏิกิริยานี้คือข้อใด?`,
+        choices: [
+          { key: "A", text: "$\\text{rate} = k[A]^2[B]$" },
+          { key: "B", text: "$\\text{rate} = k[A][B]$" },
+          { key: "C", text: "$\\text{rate} = k[A][B]^2$" },
+          { key: "D", text: "$\\text{rate} = k[A]^2[B]^2$" }
+        ],
+        answer: "C",
+        explanation: `อันดับเทียบกับ $A$ เป็น 1 และเทียบกับ $B$ เป็น 2 จึงได้ $\\text{rate} = k[A][B]^2$ จึงตอบ C`
+      },
+      {
+        id: "q11",
+        prompt: `จากชุดการทดลองเดียวกัน ค่าคงที่อัตรา ($k$) ของปฏิกิริยานี้มีค่าเท่าใด?`,
+        choices: [
+          { key: "A", text: "$2$" },
+          { key: "B", text: "$0.2$" },
+          { key: "C", text: "$200$" },
+          { key: "D", text: "$20$" }
+        ],
+        answer: "D",
+        explanation: `ใช้การทดลอง 1: $k = \\dfrac{\\text{rate}}{[A][B]^2} = \\dfrac{0.020}{(0.10)(0.10)^2} = \\dfrac{0.020}{0.001} = 20$ จึงตอบ D`
+      },
+      {
+        id: "q12",
+        prompt: `หน่วยของค่าคงที่อัตรา $k$ สำหรับปฏิกิริยาที่มีอันดับรวมเป็น 3 คือข้อใด?`,
+        choices: [
+          { key: "A", text: "$\\text{L}^2/(\\text{mol}^2\\cdot\\text{s})$" },
+          { key: "B", text: "$\\text{s}^{-1}$" },
+          { key: "C", text: "$\\text{L}/(\\text{mol}\\cdot\\text{s})$" },
+          { key: "D", text: "$\\text{mol}/(\\text{L}\\cdot\\text{s})$" }
+        ],
+        answer: "A",
+        explanation: `$k = \\dfrac{\\text{rate}}{[\\ ]^3}$ มีหน่วย $\\dfrac{\\text{mol/(L}\\cdot\\text{s)}}{(\\text{mol/L})^3} = \\text{L}^2/(\\text{mol}^2\\cdot\\text{s})$ จึงตอบ A`
+      },
+      {
+        id: "q13",
+        prompt: `จากชุดการทดลองเดียวกัน ($k = 20$, $\\text{rate} = k[A][B]^2$) ถ้า $[A] = 0.20 \\text{ mol/L}$ และ $[B] = 0.20 \\text{ mol/L}$ อัตราการเกิดปฏิกิริยาเป็นเท่าใด?`,
+        choices: [
+          { key: "A", text: "$0.08 \\text{ mol/(L}\\cdot\\text{s)}$" },
+          { key: "B", text: "$0.16 \\text{ mol/(L}\\cdot\\text{s)}$" },
+          { key: "C", text: "$0.32 \\text{ mol/(L}\\cdot\\text{s)}$" },
+          { key: "D", text: "$0.04 \\text{ mol/(L}\\cdot\\text{s)}$" }
+        ],
+        answer: "B",
+        explanation: `$\\text{rate} = 20 \\times 0.20 \\times (0.20)^2 = 20 \\times 0.20 \\times 0.04 = 0.16$ จึงตอบ B`
+      },
+
+      // --- ชุดการทดลองที่ 2 (ข้อ 14-19) ---
+      {
+        id: "q14",
+        prompt: `จากข้อมูลการทดลองของปฏิกิริยา $X + Y \\rightarrow$ ผลิตภัณฑ์<br><br>
+<div style="text-align:center;">
+<table style="margin:0 auto; border-collapse:collapse;" border="1" cellpadding="6">
+<tr><th>การทดลอง</th><th>[X] (mol/L)</th><th>[Y] (mol/L)</th><th>อัตราเริ่มต้น (mol/(L·s))</th></tr>
+<tr><td>1</td><td>0.10</td><td>0.10</td><td>0.005</td></tr>
+<tr><td>2</td><td>0.20</td><td>0.10</td><td>0.020</td></tr>
+<tr><td>3</td><td>0.10</td><td>0.30</td><td>0.005</td></tr>
+</table>
+</div><br>
+        อันดับของปฏิกิริยาเทียบกับสาร $X$ เป็นเท่าใด?`,
+        choices: [
+          { key: "A", text: "$1$" },
+          { key: "B", text: "$0$" },
+          { key: "C", text: "$2$" },
+          { key: "D", text: "$4$" }
+        ],
+        answer: "C",
+        explanation: `เทียบการทดลอง 1 กับ 2: $[X]$ เพิ่ม 2 เท่า อัตราเพิ่ม 4 เท่า $\\Rightarrow 2^m = 4 \\Rightarrow m = 2$ จึงตอบ C`
+      },
+      {
+        id: "q15",
+        prompt: `จากชุดการทดลองเดียวกัน (ตาราง $X$, $Y$ ข้างต้น) อันดับของปฏิกิริยาเทียบกับสาร $Y$ เป็นเท่าใด?`,
+        choices: [
+          { key: "A", text: "$0$" },
+          { key: "B", text: "$1$" },
+          { key: "C", text: "$2$" },
+          { key: "D", text: "$3$" }
+        ],
+        answer: "A",
+        explanation: `เทียบการทดลอง 1 กับ 3: $[Y]$ เพิ่ม 3 เท่า แต่อัตราเท่าเดิม $\\Rightarrow 3^n = 1 \\Rightarrow n = 0$ จึงตอบ A`
+      },
+      {
+        id: "q16",
+        prompt: `จากชุดการทดลองเดียวกัน กฎอัตราของปฏิกิริยานี้คือข้อใด?`,
+        choices: [
+          { key: "A", text: "$\\text{rate} = k[X][Y]$" },
+          { key: "B", text: "$\\text{rate} = k[X][Y]^2$" },
+          { key: "C", text: "$\\text{rate} = k[Y]^2$" },
+          { key: "D", text: "$\\text{rate} = k[X]^2$" }
+        ],
+        answer: "D",
+        explanation: `อันดับเทียบกับ $X$ เป็น 2 และเทียบกับ $Y$ เป็น 0 จึงได้ $\\text{rate} = k[X]^2$ จึงตอบ D`
+      },
+      {
+        id: "q17",
+        prompt: `จากชุดการทดลองเดียวกัน ค่าคงที่อัตรา $k$ มีค่าเท่าใด?`,
+        choices: [
+          { key: "A", text: "$0.05$" },
+          { key: "B", text: "$0.5$" },
+          { key: "C", text: "$5$" },
+          { key: "D", text: "$50$" }
+        ],
+        answer: "B",
+        explanation: `ใช้การทดลอง 1: $k = \\dfrac{0.005}{(0.10)^2} = \\dfrac{0.005}{0.01} = 0.5$ จึงตอบ B`
+      },
+      {
+        id: "q18",
+        prompt: `จากชุดการทดลองเดียวกัน ($k = 0.5$, $\\text{rate} = k[X]^2$) ถ้า $[X] = 0.30 \\text{ mol/L}$ และ $[Y] = 0.20 \\text{ mol/L}$ อัตราการเกิดปฏิกิริยาเป็นเท่าใด?`,
+        choices: [
+          { key: "A", text: "$0.090 \\text{ mol/(L}\\cdot\\text{s)}$" },
+          { key: "B", text: "$0.015 \\text{ mol/(L}\\cdot\\text{s)}$" },
+          { key: "C", text: "$0.045 \\text{ mol/(L}\\cdot\\text{s)}$" },
+          { key: "D", text: "$0.135 \\text{ mol/(L}\\cdot\\text{s)}$" }
+        ],
+        answer: "C",
+        explanation: `$[Y]$ ไม่มีผล (อันดับ 0): $\\text{rate} = 0.5 \\times (0.30)^2 = 0.5 \\times 0.09 = 0.045$ จึงตอบ C`
+      },
+      {
+        id: "q19",
+        prompt: `จากชุดการทดลองเดียวกัน อันดับรวมของปฏิกิริยานี้เป็นเท่าใด?`,
+        choices: [
+          { key: "A", text: "$0$" },
+          { key: "B", text: "$1$" },
+          { key: "C", text: "$3$" },
+          { key: "D", text: "$2$" }
+        ],
+        answer: "D",
+        explanation: `อันดับรวม $= 2 + 0 = 2$ จึงตอบ D`
+      },
+
+      // --- ชุดการทดลองที่ 3 และการประยุกต์ (ข้อ 20-26) ---
+      {
+        id: "q20",
+        prompt: `จากข้อมูลการทดลองของปฏิกิริยาที่มีสารตั้งต้น $A$ เพียงตัวเดียว<br><br>
+<div style="text-align:center;">
+<table style="margin:0 auto; border-collapse:collapse;" border="1" cellpadding="6">
+<tr><th>การทดลอง</th><th>[A] (mol/L)</th><th>อัตราเริ่มต้น (mol/(L·s))</th></tr>
+<tr><td>1</td><td>0.20</td><td>0.010</td></tr>
+<tr><td>2</td><td>0.40</td><td>0.020</td></tr>
+<tr><td>3</td><td>0.60</td><td>0.030</td></tr>
+</table>
+</div><br>
+        อันดับของปฏิกิริยาเทียบกับ $A$ เป็นเท่าใด?`,
+        choices: [
+          { key: "A", text: "$1$" },
+          { key: "B", text: "$2$" },
+          { key: "C", text: "$0$" },
+          { key: "D", text: "$3$" }
+        ],
+        answer: "A",
+        explanation: `อัตราแปรผันตรงกับ $[A]$ (เพิ่ม 2 เท่า อัตราเพิ่ม 2 เท่า) จึงเป็นอันดับ 1 จึงตอบ A`
+      },
+      {
+        id: "q21",
+        prompt: `จากชุดการทดลองเดียวกัน (ตาราง $A$ ข้างต้น) ค่าคงที่อัตรา $k$ มีค่าเท่าใด?`,
+        choices: [
+          { key: "A", text: "$0.5$" },
+          { key: "B", text: "$5$" },
+          { key: "C", text: "$0.05$" },
+          { key: "D", text: "$0.02$" }
+        ],
+        answer: "C",
+        explanation: `$k = \\dfrac{\\text{rate}}{[A]} = \\dfrac{0.010}{0.20} = 0.05$ จึงตอบ C`
+      },
+      {
+        id: "q22",
+        prompt: `จากชุดการทดลองเดียวกัน ($k = 0.05$, $\\text{rate} = k[A]$) ถ้า $[A] = 1.00 \\text{ mol/L}$ อัตราการเกิดปฏิกิริยาเป็นเท่าใด?`,
+        choices: [
+          { key: "A", text: "$0.010 \\text{ mol/(L}\\cdot\\text{s)}$" },
+          { key: "B", text: "$0.050 \\text{ mol/(L}\\cdot\\text{s)}$" },
+          { key: "C", text: "$0.100 \\text{ mol/(L}\\cdot\\text{s)}$" },
+          { key: "D", text: "$0.005 \\text{ mol/(L}\\cdot\\text{s)}$" }
+        ],
+        answer: "B",
+        explanation: `$\\text{rate} = 0.05 \\times 1.00 = 0.050 \\text{ mol/(L}\\cdot\\text{s)}$ จึงตอบ B`
+      },
+      {
+        id: "q23",
+        prompt: `หน่วยของค่าคงที่อัตรา $k$ สำหรับปฏิกิริยาอันดับรวมเป็น 1 คือข้อใด?`,
+        choices: [
+          { key: "A", text: "$\\text{mol}/(\\text{L}\\cdot\\text{s})$" },
+          { key: "B", text: "$\\text{L}/(\\text{mol}\\cdot\\text{s})$" },
+          { key: "C", text: "$\\text{L}^2/(\\text{mol}^2\\cdot\\text{s})$" },
+          { key: "D", text: "$\\text{s}^{-1}$" }
+        ],
+        answer: "D",
+        explanation: `$k = \\dfrac{\\text{mol/(L}\\cdot\\text{s)}}{\\text{mol/L}} = \\text{s}^{-1}$ จึงตอบ D`
+      },
+      {
+        id: "q24",
+        prompt: `หน่วยของค่าคงที่อัตรา $k$ สำหรับปฏิกิริยาอันดับรวมเป็น 2 คือข้อใด?`,
+        choices: [
+          { key: "A", text: "$\\text{L}/(\\text{mol}\\cdot\\text{s})$" },
+          { key: "B", text: "$\\text{s}^{-1}$" },
+          { key: "C", text: "$\\text{mol}/(\\text{L}\\cdot\\text{s})$" },
+          { key: "D", text: "$\\text{L}^2/(\\text{mol}^2\\cdot\\text{s})$" }
+        ],
+        answer: "A",
+        explanation: `$k = \\dfrac{\\text{mol/(L}\\cdot\\text{s)}}{(\\text{mol/L})^2} = \\text{L}/(\\text{mol}\\cdot\\text{s})$ จึงตอบ A`
+      },
+      {
+        id: "q25",
+        prompt: `ปฏิกิริยาหนึ่งมีกฎอัตรา $\\text{rate} = k[A]^2$ ถ้าลด $[A]$ ลงเหลือครึ่งหนึ่ง อัตราจะเปลี่ยนแปลงอย่างไร?`,
+        choices: [
+          { key: "A", text: "ลดลงเหลือครึ่งหนึ่งของเดิม" },
+          { key: "B", text: "ลดลงเหลือ $\\dfrac{1}{4}$ ของเดิม" },
+          { key: "C", text: "เพิ่มเป็น 2 เท่า" },
+          { key: "D", text: "ไม่เปลี่ยนแปลง" }
+        ],
+        answer: "B",
+        explanation: `$\\left(\\dfrac{1}{2}\\right)^2 = \\dfrac{1}{4}$ อัตราจึงเหลือ $\\dfrac{1}{4}$ ของเดิม จึงตอบ B`
+      },
+      {
+        id: "q26",
+        prompt: `ปฏิกิริยาหนึ่งมีกฎอัตรา $\\text{rate} = k[A][B]$ ถ้าเพิ่ม $[A]$ เป็น 2 เท่า และเพิ่ม $[B]$ เป็น 3 เท่าพร้อมกัน อัตราจะเป็นกี่เท่าของเดิม?`,
+        choices: [
+          { key: "A", text: "$5$ เท่า" },
+          { key: "B", text: "$9$ เท่า" },
+          { key: "C", text: "$6$ เท่า" },
+          { key: "D", text: "$12$ เท่า" }
+        ],
+        answer: "C",
+        explanation: `$2^1 \\times 3^1 = 6$ เท่า จึงตอบ C`
+      },
+
+      // --- การประยุกต์และแนวคิดเพิ่มเติม (ข้อ 27-30) ---
+      {
+        id: "q27",
+        prompt: `ปฏิกิริยา $2NO + O_2 \\rightarrow 2NO_2$ พบจากการทดลองว่ากฎอัตราคือ $\\text{rate} = k[NO]^2[O_2]$ ข้อใดถูกต้อง?`,
+        choices: [
+          { key: "A", text: "อันดับเทียบกับ $NO$ เป็น 2, เทียบกับ $O_2$ เป็น 1 และอันดับรวมเป็น 3" },
+          { key: "B", text: "อันดับรวมเป็น 2" },
+          { key: "C", text: "อันดับเทียบกับ $O_2$ เป็น 2" },
+          { key: "D", text: "อันดับรวมเป็น 4" }
+        ],
+        answer: "A",
+        explanation: `เลขชี้กำลังของ $NO$ คือ 2 และของ $O_2$ คือ 1 อันดับรวม $= 2+1 = 3$ จึงตอบ A`
+      },
+      {
+        id: "q28",
+        prompt: `ค่าคงที่อัตรา ($k$) ของปฏิกิริยาขึ้นอยู่กับปัจจัยใด`,
+        choices: [
+          { key: "A", text: "ความเข้มข้นของสารตั้งต้น" },
+          { key: "B", text: "ปริมาตรของภาชนะที่ใช้" },
+          { key: "C", text: "เวลาที่ใช้ในการทดลอง" },
+          { key: "D", text: "อุณหภูมิและตัวเร่งปฏิกิริยา แต่ไม่ขึ้นกับความเข้มข้น" }
+        ],
+        answer: "D",
+        explanation: `$k$ เป็นค่าคงที่ที่อุณหภูมิหนึ่ง ๆ เปลี่ยนได้เมื่ออุณหภูมิเปลี่ยนหรือมีตัวเร่งปฏิกิริยา แต่ไม่ขึ้นกับความเข้มข้น จึงตอบ D`
+      },
+      {
+        id: "q29",
+        prompt: `วิธีการหาอันดับของปฏิกิริยาโดยเปรียบเทียบอัตราเริ่มต้นจากการทดลองหลาย ๆ ครั้ง เรียกว่าวิธีใด`,
+        choices: [
+          { key: "A", text: "วิธีกราฟพลังงาน" },
+          { key: "B", text: "วิธีอัตราเริ่มต้น (method of initial rates)" },
+          { key: "C", text: "วิธีของยุคลิด" },
+          { key: "D", text: "วิธีไทเทรต" }
+        ],
+        answer: "B",
+        explanation: `การเปรียบเทียบอัตราเริ่มต้นเมื่อเปลี่ยนความเข้มข้นทีละตัว เรียกว่าวิธีอัตราเริ่มต้น จึงตอบ B`
+      },
+      {
+        id: "q30",
+        prompt: `เพราะเหตุใดในการหาอันดับเทียบกับสารตัวหนึ่ง จึงต้องเลือกคู่การทดลองที่ความเข้มข้นของสารตัวอื่นคงที่`,
+        choices: [
+          { key: "A", text: "เพื่อประหยัดสารเคมีที่ใช้ในการทดลอง" },
+          { key: "B", text: "เพราะอัตราไม่ขึ้นกับสารตัวอื่นอยู่แล้ว" },
+          { key: "C", text: "เพื่อให้การเปลี่ยนแปลงของอัตราเป็นผลมาจากสารที่เปลี่ยนความเข้มข้นเพียงตัวเดียว" },
+          { key: "D", text: "เพราะค่า $k$ จะเปลี่ยนไปถ้าเปลี่ยนสารสองตัวพร้อมกัน" }
+        ],
+        answer: "C",
+        explanation: `ต้องควบคุมตัวแปรอื่นให้คงที่ เพื่อให้ผลที่สังเกตได้มาจากตัวแปรที่เปลี่ยนเพียงตัวเดียว จึงตอบ C`
+      }
+    ]
   }
 };
