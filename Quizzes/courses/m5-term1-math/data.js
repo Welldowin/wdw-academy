@@ -2461,5 +2461,394 @@ window.COURSE_DATA = {
         explanation: `$\\dfrac{27}{64} = \\left(\\dfrac{3}{4}\\right)^{3} = \\left(\\dfrac{4}{3}\\right)^{-3}$ ดังนั้น $x+1 = -3 \\Rightarrow x = -4$ จึงตอบ C`
       }
     ]
+  },
+
+  "quiz7": {
+    meta: {
+      courseId: "m5-term1-math",
+      quizKey: "quiz7",
+      title: "Quiz 7 : การแก้สมการตรีโกณมิติ (30 ข้อ)",
+      enableTimer: true,
+      timeLimitSec: 3600
+    },
+    data: [
+      // --- รูปแบบคำตอบทั่วไป (ข้อ 1-3) ---
+      {
+        id: "q1",
+        prompt: `คำตอบทั่วไปของสมการ $\\sin x = a$ เมื่อ $\\theta$ เป็นคำตอบที่มีค่าน้อยที่สุดในช่วง $[0, 2\\pi)$ คือข้อใด`,
+        choices: [
+          { key: "A", text: "$x = 2n\\pi \\pm \\theta$" },
+          { key: "B", text: "$x = n\\pi + \\theta$" },
+          { key: "C", text: "$x = n\\pi + (-1)^n\\theta$" },
+          { key: "D", text: "$x = 2n\\pi + \\theta$" }
+        ],
+        answer: "C",
+        explanation: `สำหรับ $\\sin x = a$ (และ $\\text{cosec}\\,x = a$) คำตอบทั่วไปแบบที่ 2 คือ $x = n\\pi + (-1)^n\\theta$ จึงตอบ C`
+      },
+      {
+        id: "q2",
+        prompt: `คำตอบทั่วไปของสมการ $\\cos x = a$ คือข้อใด`,
+        choices: [
+          { key: "A", text: "$x = 2n\\pi \\pm \\theta$" },
+          { key: "B", text: "$x = n\\pi + (-1)^n\\theta$" },
+          { key: "C", text: "$x = n\\pi + \\theta$" },
+          { key: "D", text: "$x = n\\pi - \\theta$" }
+        ],
+        answer: "A",
+        explanation: `สำหรับ $\\cos x = a$ (และ $\\sec x = a$) คำตอบทั่วไปคือ $x = 2n\\pi \\pm \\theta$ จึงตอบ A`
+      },
+      {
+        id: "q3",
+        prompt: `คำตอบทั่วไปของสมการ $\\tan x = a$ คือข้อใด`,
+        choices: [
+          { key: "A", text: "$x = 2n\\pi \\pm \\theta$" },
+          { key: "B", text: "$x = n\\pi + (-1)^n\\theta$" },
+          { key: "C", text: "$x = 2n\\pi + \\theta$" },
+          { key: "D", text: "$x = n\\pi + \\theta$" }
+        ],
+        answer: "D",
+        explanation: `สำหรับ $\\tan x = a$ (และ $\\cot x = a$) คำตอบทั่วไปคือ $x = n\\pi + \\theta$ จึงตอบ D`
+      },
+
+      // --- สมการพื้นฐาน (ข้อ 4-8) ---
+      {
+        id: "q4",
+        prompt: `เซตคำตอบในช่วง $[0, 2\\pi)$ ของสมการ $\\sin x = \\dfrac{1}{2}$ คือข้อใด`,
+        choices: [
+          { key: "A", text: "$\\left\\{\\dfrac{\\pi}{6}, \\dfrac{7\\pi}{6}\\right\\}$" },
+          { key: "B", text: "$\\left\\{\\dfrac{\\pi}{6}, \\dfrac{5\\pi}{6}\\right\\}$" },
+          { key: "C", text: "$\\left\\{\\dfrac{\\pi}{3}, \\dfrac{2\\pi}{3}\\right\\}$" },
+          { key: "D", text: "$\\left\\{\\dfrac{\\pi}{6}\\right\\}$" }
+        ],
+        answer: "B",
+        explanation: `$\\sin x$ เป็นบวกในควอดรันต์ 1 และ 2; มุมอ้างอิง $\\dfrac{\\pi}{6}$ จึงได้ $x = \\dfrac{\\pi}{6}, \\pi - \\dfrac{\\pi}{6} = \\dfrac{5\\pi}{6}$ จึงตอบ B`
+      },
+      {
+        id: "q5",
+        prompt: `คำตอบทั่วไปของสมการ $\\sin x = \\dfrac{1}{2}$ คือข้อใด`,
+        choices: [
+          { key: "A", text: "$x = n\\pi + (-1)^n\\dfrac{\\pi}{6}$" },
+          { key: "B", text: "$x = 2n\\pi \\pm \\dfrac{\\pi}{6}$" },
+          { key: "C", text: "$x = n\\pi + \\dfrac{\\pi}{6}$" },
+          { key: "D", text: "$x = 2n\\pi + \\dfrac{\\pi}{3}$" }
+        ],
+        answer: "A",
+        explanation: `ใช้รูปแบบของ $\\sin$: $x = n\\pi + (-1)^n\\theta$ โดย $\\theta = \\dfrac{\\pi}{6}$ จึงตอบ A`
+      },
+      {
+        id: "q6",
+        prompt: `เซตคำตอบในช่วง $[0, 2\\pi)$ ของสมการ $\\cos x = -\\dfrac{\\sqrt{2}}{2}$ คือข้อใด`,
+        choices: [
+          { key: "A", text: "$\\left\\{\\dfrac{\\pi}{4}, \\dfrac{7\\pi}{4}\\right\\}$" },
+          { key: "B", text: "$\\left\\{\\dfrac{\\pi}{4}, \\dfrac{3\\pi}{4}\\right\\}$" },
+          { key: "C", text: "$\\left\\{\\dfrac{3\\pi}{4}, \\dfrac{5\\pi}{4}\\right\\}$" },
+          { key: "D", text: "$\\left\\{\\dfrac{5\\pi}{4}, \\dfrac{7\\pi}{4}\\right\\}$" }
+        ],
+        answer: "C",
+        explanation: `$\\cos x$ เป็นลบในควอดรันต์ 2 และ 3; มุมอ้างอิง $\\dfrac{\\pi}{4}$ จึงได้ $x = \\dfrac{3\\pi}{4}, \\dfrac{5\\pi}{4}$ จึงตอบ C`
+      },
+      {
+        id: "q7",
+        prompt: `เซตคำตอบในช่วง $[0, 2\\pi)$ ของสมการ $\\tan x = -\\sqrt{3}$ คือข้อใด`,
+        choices: [
+          { key: "A", text: "$\\left\\{\\dfrac{\\pi}{3}, \\dfrac{4\\pi}{3}\\right\\}$" },
+          { key: "B", text: "$\\left\\{\\dfrac{\\pi}{6}, \\dfrac{7\\pi}{6}\\right\\}$" },
+          { key: "C", text: "$\\left\\{\\dfrac{2\\pi}{3}, \\dfrac{4\\pi}{3}\\right\\}$" },
+          { key: "D", text: "$\\left\\{\\dfrac{2\\pi}{3}, \\dfrac{5\\pi}{3}\\right\\}$" }
+        ],
+        answer: "D",
+        explanation: `$\\tan x$ เป็นลบในควอดรันต์ 2 และ 4; มุมอ้างอิง $\\dfrac{\\pi}{3}$ จึงได้ $x = \\pi - \\dfrac{\\pi}{3} = \\dfrac{2\\pi}{3}$ และ $2\\pi - \\dfrac{\\pi}{3} = \\dfrac{5\\pi}{3}$ จึงตอบ D`
+      },
+      {
+        id: "q8",
+        prompt: `คำตอบทั่วไปของสมการ $\\tan x = -\\sqrt{3}$ (ใช้ $\\theta$ ที่น้อยที่สุดในช่วง $[0, 2\\pi)$) คือข้อใด`,
+        choices: [
+          { key: "A", text: "$x = 2n\\pi \\pm \\dfrac{2\\pi}{3}$" },
+          { key: "B", text: "$x = n\\pi + \\dfrac{2\\pi}{3}$" },
+          { key: "C", text: "$x = n\\pi + (-1)^n\\dfrac{2\\pi}{3}$" },
+          { key: "D", text: "$x = 2n\\pi + \\dfrac{2\\pi}{3}$" }
+        ],
+        answer: "B",
+        explanation: `รูปแบบของ $\\tan$ คือ $x = n\\pi + \\theta$ โดย $\\theta = \\dfrac{2\\pi}{3}$ จึงตอบ B`
+      },
+
+      // --- สมการกำลังสองในฟังก์ชันเดียว (ข้อ 9-13) ---
+      {
+        id: "q9",
+        prompt: `ขั้นตอนแรกที่เหมาะสมที่สุดในการแก้สมการ $2\\cos^2 x + 3\\sin x - 3 = 0$ คือข้อใด`,
+        choices: [
+          { key: "A", text: "แทน $\\cos^2 x = 1 - \\sin^2 x$ เพื่อให้เป็นสมการกำลังสองในตัวแปร $\\sin x$" },
+          { key: "B", text: "แทน $\\sin x = 1 - \\cos x$" },
+          { key: "C", text: "หารทั้งสมการด้วย $\\cos x$" },
+          { key: "D", text: "แทน $\\cos^2 x = 1 + \\sin^2 x$" }
+        ],
+        answer: "A",
+        explanation: `ใช้เอกลักษณ์ $\\sin^2 x + \\cos^2 x = 1$ เปลี่ยนให้เหลือฟังก์ชันเดียว จะได้สมการกำลังสองที่แยกตัวประกอบได้ จึงตอบ A`
+      },
+      {
+        id: "q10",
+        prompt: `เซตคำตอบในช่วง $[0, 2\\pi)$ ของสมการ $2\\cos^2 x + 3\\sin x - 3 = 0$ คือข้อใด`,
+        choices: [
+          { key: "A", text: "$\\left\\{\\dfrac{\\pi}{6}, \\dfrac{5\\pi}{6}\\right\\}$" },
+          { key: "B", text: "$\\left\\{\\dfrac{\\pi}{2}\\right\\}$" },
+          { key: "C", text: "$\\left\\{\\dfrac{\\pi}{6}, \\dfrac{\\pi}{2}, \\dfrac{5\\pi}{6}\\right\\}$" },
+          { key: "D", text: "$\\left\\{\\dfrac{\\pi}{3}, \\dfrac{\\pi}{2}, \\dfrac{2\\pi}{3}\\right\\}$" }
+        ],
+        answer: "C",
+        explanation: `แทน $\\cos^2 x = 1-\\sin^2 x$ ได้ $2\\sin^2 x - 3\\sin x + 1 = 0 \\Rightarrow (2\\sin x - 1)(\\sin x - 1) = 0$; $\\sin x = \\dfrac{1}{2}$ ให้ $\\dfrac{\\pi}{6}, \\dfrac{5\\pi}{6}$ และ $\\sin x = 1$ ให้ $\\dfrac{\\pi}{2}$ จึงตอบ C`
+      },
+      {
+        id: "q11",
+        prompt: `เซตคำตอบในช่วง $[0, 2\\pi)$ ของสมการ $\\sin^2 x + \\cos x - 1 = 0$ คือข้อใด`,
+        choices: [
+          { key: "A", text: "$\\left\\{\\dfrac{\\pi}{2}, \\dfrac{3\\pi}{2}\\right\\}$" },
+          { key: "B", text: "$\\left\\{0, \\pi\\right\\}$" },
+          { key: "C", text: "$\\left\\{0, \\dfrac{\\pi}{2}\\right\\}$" },
+          { key: "D", text: "$\\left\\{0, \\dfrac{\\pi}{2}, \\dfrac{3\\pi}{2}\\right\\}$" }
+        ],
+        answer: "D",
+        explanation: `แทน $\\sin^2 x = 1-\\cos^2 x$ ได้ $\\cos x(1 - \\cos x) = 0$; $\\cos x = 0$ ให้ $\\dfrac{\\pi}{2}, \\dfrac{3\\pi}{2}$ และ $\\cos x = 1$ ให้ $0$ จึงตอบ D`
+      },
+      {
+        id: "q12",
+        prompt: `เซตคำตอบในช่วง $[0, 2\\pi)$ ของสมการ $2\\sin^2 x - 3\\cos x = 0$ คือข้อใด`,
+        choices: [
+          { key: "A", text: "$\\left\\{\\dfrac{\\pi}{3}, \\dfrac{2\\pi}{3}\\right\\}$" },
+          { key: "B", text: "$\\left\\{\\dfrac{\\pi}{3}, \\dfrac{5\\pi}{3}\\right\\}$" },
+          { key: "C", text: "$\\left\\{\\dfrac{\\pi}{6}, \\dfrac{11\\pi}{6}\\right\\}$" },
+          { key: "D", text: "$\\left\\{\\dfrac{2\\pi}{3}, \\dfrac{4\\pi}{3}\\right\\}$" }
+        ],
+        answer: "B",
+        explanation: `แทน $\\sin^2 x = 1-\\cos^2 x$ ได้ $2\\cos^2 x + 3\\cos x - 2 = 0 \\Rightarrow (2\\cos x - 1)(\\cos x + 2) = 0$; $\\cos x = -2$ ใช้ไม่ได้ เหลือ $\\cos x = \\dfrac{1}{2}$ ให้ $\\dfrac{\\pi}{3}, \\dfrac{5\\pi}{3}$ จึงตอบ B`
+      },
+      {
+        id: "q13",
+        prompt: `เซตคำตอบในช่วง $[0, 2\\pi)$ ของสมการ $2\\cos^2 x - \\sin x + 1 = 0$ คือข้อใด`,
+        choices: [
+          { key: "A", text: "$\\left\\{\\dfrac{\\pi}{2}\\right\\}$" },
+          { key: "B", text: "$\\left\\{\\dfrac{\\pi}{6}, \\dfrac{5\\pi}{6}\\right\\}$" },
+          { key: "C", text: "$\\left\\{0, \\pi\\right\\}$" },
+          { key: "D", text: "$\\left\\{\\dfrac{3\\pi}{2}\\right\\}$" }
+        ],
+        answer: "A",
+        explanation: `แทน $\\cos^2 x = 1-\\sin^2 x$ ได้ $2\\sin^2 x + \\sin x - 3 = 0 \\Rightarrow (2\\sin x + 3)(\\sin x - 1) = 0$; $\\sin x = -\\dfrac{3}{2}$ ใช้ไม่ได้ เหลือ $\\sin x = 1$ ให้ $\\dfrac{\\pi}{2}$ จึงตอบ A`
+      },
+
+      // --- การแยกตัวประกอบแบบจับกลุ่ม (ข้อ 14-16) ---
+      {
+        id: "q14",
+        prompt: `วิธีที่เหมาะสมที่สุดในการแก้สมการ $2\\sin x \\cdot \\tan x - 2\\sin x - \\tan x + 1 = 0$ คือข้อใด`,
+        choices: [
+          { key: "A", text: "ยกกำลังสองทั้งสองข้างของสมการ" },
+          { key: "B", text: "หารทั้งสมการด้วย $\\sin x$" },
+          { key: "C", text: "จัดกลุ่มแล้วแยกตัวประกอบเป็น $(\\tan x - 1)(2\\sin x - 1) = 0$" },
+          { key: "D", text: "แทน $\\tan x = 1 - \\sin x$" }
+        ],
+        answer: "C",
+        explanation: `จับกลุ่ม: $2\\sin x(\\tan x - 1) - (\\tan x - 1) = (\\tan x - 1)(2\\sin x - 1) = 0$ จึงตอบ C`
+      },
+      {
+        id: "q15",
+        prompt: `เซตคำตอบในช่วง $[0, 2\\pi)$ ของสมการ $2\\sin x \\cdot \\tan x - 2\\sin x - \\tan x + 1 = 0$ คือข้อใด`,
+        choices: [
+          { key: "A", text: "$\\left\\{\\dfrac{\\pi}{4}, \\dfrac{5\\pi}{4}\\right\\}$" },
+          { key: "B", text: "$\\left\\{\\dfrac{\\pi}{6}, \\dfrac{\\pi}{4}, \\dfrac{5\\pi}{6}, \\dfrac{5\\pi}{4}\\right\\}$" },
+          { key: "C", text: "$\\left\\{\\dfrac{\\pi}{6}, \\dfrac{5\\pi}{6}\\right\\}$" },
+          { key: "D", text: "$\\left\\{\\dfrac{\\pi}{3}, \\dfrac{\\pi}{4}, \\dfrac{2\\pi}{3}, \\dfrac{5\\pi}{4}\\right\\}$" }
+        ],
+        answer: "B",
+        explanation: `$(\\tan x - 1)(2\\sin x - 1) = 0$; $\\tan x = 1$ ให้ $\\dfrac{\\pi}{4}, \\dfrac{5\\pi}{4}$ และ $\\sin x = \\dfrac{1}{2}$ ให้ $\\dfrac{\\pi}{6}, \\dfrac{5\\pi}{6}$ จึงตอบ B`
+      },
+      {
+        id: "q16",
+        prompt: `เซตคำตอบในช่วง $[0, 2\\pi)$ ของสมการ $2\\cos x \\cdot \\tan x - 2\\cos x - \\tan x + 1 = 0$ คือข้อใด`,
+        choices: [
+          { key: "A", text: "$\\left\\{\\dfrac{\\pi}{4}, \\dfrac{5\\pi}{4}\\right\\}$" },
+          { key: "B", text: "$\\left\\{\\dfrac{\\pi}{3}, \\dfrac{5\\pi}{3}\\right\\}$" },
+          { key: "C", text: "$\\left\\{\\dfrac{\\pi}{6}, \\dfrac{\\pi}{4}, \\dfrac{5\\pi}{6}, \\dfrac{5\\pi}{4}\\right\\}$" },
+          { key: "D", text: "$\\left\\{\\dfrac{\\pi}{4}, \\dfrac{\\pi}{3}, \\dfrac{5\\pi}{4}, \\dfrac{5\\pi}{3}\\right\\}$" }
+        ],
+        answer: "D",
+        explanation: `จับกลุ่ม: $(\\tan x - 1)(2\\cos x - 1) = 0$; $\\tan x = 1$ ให้ $\\dfrac{\\pi}{4}, \\dfrac{5\\pi}{4}$ และ $\\cos x = \\dfrac{1}{2}$ ให้ $\\dfrac{\\pi}{3}, \\dfrac{5\\pi}{3}$ จึงตอบ D`
+      },
+
+      // --- ลดรูปด้วยเอกลักษณ์ (cosec, cot, sec) (ข้อ 17-19) ---
+      {
+        id: "q17",
+        prompt: `ขั้นตอนแรกที่เหมาะสมในการแก้สมการ $\\cot x + 2\\sin x = \\text{cosec}\\,x$ คือข้อใด`,
+        choices: [
+          { key: "A", text: "เขียน $\\cot x$ และ $\\text{cosec}\\,x$ ในรูปของ $\\sin x, \\cos x$ แล้วคูณทั้งสมการด้วย $\\sin x$" },
+          { key: "B", text: "ยกกำลังสองทั้งสองข้างของสมการ" },
+          { key: "C", text: "แทน $\\cot x$ ด้วย $\\tan x$" },
+          { key: "D", text: "หารทั้งสมการด้วย $\\cos x$" }
+        ],
+        answer: "A",
+        explanation: `เปลี่ยนเป็น $\\dfrac{\\cos x}{\\sin x} + 2\\sin x = \\dfrac{1}{\\sin x}$ แล้วคูณด้วย $\\sin x$ จะได้ $\\cos x + 2\\sin^2 x = 1$ จึงตอบ A`
+      },
+      {
+        id: "q18",
+        prompt: `เซตคำตอบในช่วง $[0, 2\\pi)$ ของสมการ $\\cot x + 2\\sin x = \\text{cosec}\\,x$ คือข้อใด`,
+        choices: [
+          { key: "A", text: "$\\left\\{0, \\dfrac{2\\pi}{3}, \\dfrac{4\\pi}{3}\\right\\}$" },
+          { key: "B", text: "$\\left\\{\\dfrac{\\pi}{3}, \\dfrac{5\\pi}{3}\\right\\}$" },
+          { key: "C", text: "$\\left\\{\\dfrac{2\\pi}{3}, \\dfrac{4\\pi}{3}\\right\\}$" },
+          { key: "D", text: "$\\left\\{0\\right\\}$" }
+        ],
+        answer: "C",
+        explanation: `ได้ $2\\cos^2 x - \\cos x - 1 = 0 \\Rightarrow (2\\cos x + 1)(\\cos x - 1) = 0$; $\\cos x = 1$ ให้ $x=0$ แต่ทำให้ $\\sin x = 0$ ซึ่ง $\\cot, \\text{cosec}$ ไม่นิยาม ต้องตัดออก เหลือ $\\cos x = -\\dfrac{1}{2}$ ให้ $\\dfrac{2\\pi}{3}, \\dfrac{4\\pi}{3}$ จึงตอบ C`
+      },
+      {
+        id: "q19",
+        prompt: `เซตคำตอบในช่วง $[0, 2\\pi)$ ของสมการ $\\tan x + 2\\cos x = \\sec x$ คือข้อใด`,
+        choices: [
+          { key: "A", text: "$\\left\\{\\dfrac{\\pi}{2}, \\dfrac{7\\pi}{6}, \\dfrac{11\\pi}{6}\\right\\}$" },
+          { key: "B", text: "$\\left\\{\\dfrac{7\\pi}{6}, \\dfrac{11\\pi}{6}\\right\\}$" },
+          { key: "C", text: "$\\left\\{\\dfrac{\\pi}{6}, \\dfrac{5\\pi}{6}\\right\\}$" },
+          { key: "D", text: "$\\left\\{\\dfrac{\\pi}{2}\\right\\}$" }
+        ],
+        answer: "B",
+        explanation: `คูณด้วย $\\cos x$ ได้ $\\sin x + 2\\cos^2 x = 1 \\Rightarrow 2\\sin^2 x - \\sin x - 1 = 0 \\Rightarrow (2\\sin x + 1)(\\sin x - 1) = 0$; $\\sin x = 1$ ให้ $\\dfrac{\\pi}{2}$ แต่ $\\cos x = 0$ ไม่นิยาม ตัดออก เหลือ $\\sin x = -\\dfrac{1}{2}$ จึงตอบ B`
+      },
+
+      // --- มุมสองเท่า (ข้อ 20-22) ---
+      {
+        id: "q20",
+        prompt: `ในการแก้สมการ $\\cos x + 4\\sin x - \\sin 2x = 2$ ควรแทน $\\sin 2x$ ด้วยข้อใด`,
+        choices: [
+          { key: "A", text: "$2\\sin x$" },
+          { key: "B", text: "$1 - 2\\sin^2 x$" },
+          { key: "C", text: "$\\cos^2 x - \\sin^2 x$" },
+          { key: "D", text: "$2\\sin x \\cos x$" }
+        ],
+        answer: "D",
+        explanation: `เอกลักษณ์มุมสองเท่า $\\sin 2x = 2\\sin x\\cos x$ จึงตอบ D`
+      },
+      {
+        id: "q21",
+        prompt: `เซตคำตอบในช่วง $[0, 2\\pi)$ ของสมการ $\\cos x + 4\\sin x - \\sin 2x = 2$ คือข้อใด`,
+        choices: [
+          { key: "A", text: "$\\left\\{\\dfrac{\\pi}{6}, \\dfrac{5\\pi}{6}\\right\\}$" },
+          { key: "B", text: "$\\left\\{\\dfrac{\\pi}{3}, \\dfrac{2\\pi}{3}\\right\\}$" },
+          { key: "C", text: "$\\left\\{\\dfrac{\\pi}{6}, \\dfrac{\\pi}{2}, \\dfrac{5\\pi}{6}\\right\\}$" },
+          { key: "D", text: "ไม่มีคำตอบ" }
+        ],
+        answer: "A",
+        explanation: `แทน $\\sin 2x = 2\\sin x\\cos x$ แล้วจับกลุ่ม: $(1-2\\sin x)(\\cos x - 2) = 0$; $\\cos x = 2$ ใช้ไม่ได้ เหลือ $\\sin x = \\dfrac{1}{2}$ จึงตอบ A`
+      },
+      {
+        id: "q22",
+        prompt: `เซตคำตอบในช่วง $[0, 2\\pi)$ ของสมการ $\\sin x + 4\\cos x - \\sin 2x = 2$ คือข้อใด`,
+        choices: [
+          { key: "A", text: "$\\left\\{\\dfrac{\\pi}{6}, \\dfrac{5\\pi}{6}\\right\\}$" },
+          { key: "B", text: "$\\left\\{\\dfrac{\\pi}{3}, \\dfrac{2\\pi}{3}\\right\\}$" },
+          { key: "C", text: "$\\left\\{\\dfrac{\\pi}{3}, \\dfrac{5\\pi}{3}\\right\\}$" },
+          { key: "D", text: "ไม่มีคำตอบ" }
+        ],
+        answer: "C",
+        explanation: `จับกลุ่มได้ $(1-2\\cos x)(\\sin x - 2) = 0$; $\\sin x = 2$ ใช้ไม่ได้ เหลือ $\\cos x = \\dfrac{1}{2}$ ให้ $\\dfrac{\\pi}{3}, \\dfrac{5\\pi}{3}$ จึงตอบ C`
+      },
+
+      // --- รูป a sin Ax + b cos Ax (ข้อ 23-25) ---
+      {
+        id: "q23",
+        prompt: `สมการรูป $a\\sin Ax + b\\cos Ax$ สามารถเขียนใหม่ได้เป็นข้อใด`,
+        choices: [
+          { key: "A", text: "$(a+b)\\sin(Ax + \\theta)$" },
+          { key: "B", text: "$\\sqrt{a^2+b^2}\\,\\sin(Ax + \\theta)$ เมื่อ $\\tan\\theta = \\dfrac{b}{a}$" },
+          { key: "C", text: "$\\sqrt{a^2-b^2}\\,\\cos(Ax + \\theta)$" },
+          { key: "D", text: "$ab\\sin(Ax)$" }
+        ],
+        answer: "B",
+        explanation: `สูตรคือ $a\\sin Ax + b\\cos Ax = \\sqrt{a^2+b^2}\\,\\sin(Ax+\\theta)$ เมื่อ $\\tan\\theta = \\dfrac{b}{a}$ จึงตอบ B`
+      },
+      {
+        id: "q24",
+        prompt: `ค่าของ $\\sqrt{a^2+b^2}$ สำหรับสมการ $\\cos x + \\sqrt{3}\\sin x = 1$ มีค่าเท่าใด`,
+        choices: [
+          { key: "A", text: "$4$" },
+          { key: "B", text: "$\\sqrt{3}$" },
+          { key: "C", text: "$1$" },
+          { key: "D", text: "$2$" }
+        ],
+        answer: "D",
+        explanation: `สัมประสิทธิ์ของ $\\sin x$ คือ $\\sqrt{3}$ และของ $\\cos x$ คือ $1$; $\\sqrt{(\\sqrt{3})^2 + 1^2} = \\sqrt{4} = 2$ จึงตอบ D`
+      },
+      {
+        id: "q25",
+        prompt: `เซตคำตอบในช่วง $[0, 2\\pi)$ ของสมการ $\\cos x + \\sqrt{3}\\sin x = 1$ คือข้อใด`,
+        choices: [
+          { key: "A", text: "$\\left\\{\\dfrac{\\pi}{6}, \\dfrac{5\\pi}{6}\\right\\}$" },
+          { key: "B", text: "$\\left\\{\\dfrac{\\pi}{3}, \\pi\\right\\}$" },
+          { key: "C", text: "$\\left\\{0, \\dfrac{2\\pi}{3}\\right\\}$" },
+          { key: "D", text: "$\\left\\{0, \\dfrac{\\pi}{3}\\right\\}$" }
+        ],
+        answer: "C",
+        explanation: `เขียนเป็น $2\\sin\\left(x + \\dfrac{\\pi}{6}\\right) = 1 \\Rightarrow \\sin\\left(x+\\dfrac{\\pi}{6}\\right) = \\dfrac{1}{2}$; $x+\\dfrac{\\pi}{6} = \\dfrac{\\pi}{6}$ หรือ $\\dfrac{5\\pi}{6}$ จึงได้ $x = 0$ หรือ $\\dfrac{2\\pi}{3}$ จึงตอบ C`
+      },
+
+      // --- ผลบวก-ผลต่างเป็นผลคูณ (ข้อ 26-27) ---
+      {
+        id: "q26",
+        prompt: `$\\sin 5\\theta - \\sin 3\\theta$ เขียนในรูปผลคูณได้เป็นข้อใด`,
+        choices: [
+          { key: "A", text: "$2\\cos 4\\theta \\sin \\theta$" },
+          { key: "B", text: "$2\\sin 4\\theta \\cos \\theta$" },
+          { key: "C", text: "$-2\\sin 4\\theta \\sin \\theta$" },
+          { key: "D", text: "$2\\cos 4\\theta \\cos \\theta$" }
+        ],
+        answer: "A",
+        explanation: `$\\sin A - \\sin B = 2\\cos\\dfrac{1}{2}(A+B)\\sin\\dfrac{1}{2}(A-B) = 2\\cos 4\\theta \\sin\\theta$ จึงตอบ A`
+      },
+      {
+        id: "q27",
+        prompt: `$\\cos 5\\theta - \\cos 3\\theta$ เขียนในรูปผลคูณได้เป็นข้อใด`,
+        choices: [
+          { key: "A", text: "$2\\cos 4\\theta \\cos \\theta$" },
+          { key: "B", text: "$-2\\sin 4\\theta \\sin \\theta$" },
+          { key: "C", text: "$2\\sin 4\\theta \\sin \\theta$" },
+          { key: "D", text: "$2\\cos 4\\theta \\sin \\theta$" }
+        ],
+        answer: "B",
+        explanation: `$\\cos A - \\cos B = -2\\sin\\dfrac{1}{2}(A+B)\\sin\\dfrac{1}{2}(A-B) = -2\\sin 4\\theta \\sin\\theta$ จึงตอบ B`
+      },
+
+      // --- โจทย์ประยุกต์รวมเทคนิค (ข้อ 28-30) ---
+      {
+        id: "q28",
+        prompt: `เซตคำตอบในช่วง $[0, 2\\pi)$ ของสมการ $4\\cos^2 x + 2(\\sqrt{3}+1)\\sin x - 4 - \\sqrt{3} = 0$ คือข้อใด`,
+        choices: [
+          { key: "A", text: "$\\left\\{\\dfrac{\\pi}{6}, \\dfrac{5\\pi}{6}\\right\\}$" },
+          { key: "B", text: "$\\left\\{\\dfrac{\\pi}{3}, \\dfrac{2\\pi}{3}\\right\\}$" },
+          { key: "C", text: "$\\left\\{\\dfrac{\\pi}{4}, \\dfrac{\\pi}{3}, \\dfrac{2\\pi}{3}, \\dfrac{3\\pi}{4}\\right\\}$" },
+          { key: "D", text: "$\\left\\{\\dfrac{\\pi}{6}, \\dfrac{\\pi}{3}, \\dfrac{2\\pi}{3}, \\dfrac{5\\pi}{6}\\right\\}$" }
+        ],
+        answer: "D",
+        explanation: `แทน $\\cos^2 x = 1-\\sin^2 x$ ได้ $4\\sin^2 x - 2(\\sqrt{3}+1)\\sin x + \\sqrt{3} = 0 \\Rightarrow (2\\sin x - \\sqrt{3})(2\\sin x - 1) = 0$; $\\sin x = \\dfrac{\\sqrt{3}}{2}$ ให้ $\\dfrac{\\pi}{3}, \\dfrac{2\\pi}{3}$ และ $\\sin x = \\dfrac{1}{2}$ ให้ $\\dfrac{\\pi}{6}, \\dfrac{5\\pi}{6}$ จึงตอบ D`
+      },
+      {
+        id: "q29",
+        prompt: `เซตคำตอบในช่วง $[0, 2\\pi)$ ของสมการ $6\\tan\\theta - 5\\sqrt{3}\\sec\\theta + 12\\cot\\theta = 0$ คือข้อใด`,
+        choices: [
+          { key: "A", text: "$\\left\\{\\dfrac{\\pi}{3}, \\dfrac{2\\pi}{3}\\right\\}$" },
+          { key: "B", text: "$\\left\\{\\dfrac{\\pi}{6}, \\dfrac{5\\pi}{6}\\right\\}$" },
+          { key: "C", text: "$\\left\\{\\dfrac{\\pi}{3}, \\dfrac{5\\pi}{3}\\right\\}$" },
+          { key: "D", text: "$\\left\\{\\dfrac{\\pi}{2}\\right\\}$" }
+        ],
+        answer: "A",
+        explanation: `คูณด้วย $\\sin\\theta\\cos\\theta$ ได้ $6\\sin^2\\theta + 12\\cos^2\\theta = 5\\sqrt{3}\\sin\\theta \\Rightarrow 6\\sin^2\\theta + 5\\sqrt{3}\\sin\\theta - 12 = 0$; ได้ $\\sin\\theta = \\dfrac{\\sqrt{3}}{2}$ (อีกค่าน้อยกว่า $-1$ ใช้ไม่ได้) จึงตอบ A`
+      },
+      {
+        id: "q30",
+        prompt: `เซตคำตอบในช่วง $[0, 2\\pi)$ ของสมการ $\\text{cosec}\\,x + \\cot x = \\sqrt{3}$ คือข้อใด`,
+        choices: [
+          { key: "A", text: "$\\left\\{\\dfrac{\\pi}{6}\\right\\}$" },
+          { key: "B", text: "$\\left\\{\\dfrac{2\\pi}{3}\\right\\}$" },
+          { key: "C", text: "$\\left\\{\\dfrac{\\pi}{3}\\right\\}$" },
+          { key: "D", text: "$\\left\\{\\dfrac{\\pi}{3}, \\dfrac{5\\pi}{3}\\right\\}$" }
+        ],
+        answer: "C",
+        explanation: `$\\text{cosec}\\,x + \\cot x = \\dfrac{1+\\cos x}{\\sin x} = \\cot\\dfrac{x}{2} = \\sqrt{3} \\Rightarrow \\dfrac{x}{2} = \\dfrac{\\pi}{6} \\Rightarrow x = \\dfrac{\\pi}{3}$ จึงตอบ C`
+      }
+    ]
   }
 };
