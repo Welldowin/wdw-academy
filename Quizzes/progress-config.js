@@ -22,14 +22,16 @@ window.PROGRESS_TOTAL_QUIZZES = 12;
 //            • ระบบจะไม่เปิดเกินจำนวนข้อสอบจริงใน data.js (เปิด quiz ที่ยังไม่มีข้อไม่ได้)
 //            • ถ้าไม่ใส่ active = เปิดทุก quiz ที่มีใน data.js โดยอัตโนมัติ
 window.PROGRESS_COURSES = [
-  { courseId: "m3-term1-math",    label: "ม.3 เทอม 1 — คณิตศาสตร์", active: 5 },
-  { courseId: "m3-term1-science", label: "ม.3 เทอม 1 — วิทยาศาสตร์", active: 6  },
-  { courseId: "m4-term1-math",    label: "ม.4 เทอม 1 — คณิตศาสตร์", active: 7 },
-  { courseId: "m4-term1-physics", label: "ม.4 เทอม 1 — ฟิสิกส์",    active: 7 },
-  { courseId: "m4-term1-chem",    label: "ม.4 เทอม 1 — เคมี",       active: 7 },
-  { courseId: "m5-term1-math",    label: "ม.5 เทอม 1 — คณิตศาสตร์", active: 7 },
-  { courseId: "m5-term1-physics", label: "ม.5 เทอม 1 — ฟิสิกส์",    active: 7 },
-  { courseId: "m5-term1-chem",    label: "ม.5 เทอม 1 — เคมี",       active: 7 },
+  // หมายเหตุ: active = จำนวน quiz ที่ "ตั้งใจเปิด" (ระบบจะแสดงไม่เกินจำนวนที่มีจริงใน data.js อยู่แล้ว)
+  //           ค่าด้านล่างเผื่ออีก 2 quiz ที่กำลังจะเพิ่ม (quiz ใหม่จะโผล่อัตโนมัติเมื่อมีใน data.js)
+  { courseId: "m3-term1-math",    label: "ม.3 เทอม 1 — คณิตศาสตร์", active: 7 },
+  { courseId: "m3-term1-science", label: "ม.3 เทอม 1 — วิทยาศาสตร์", active: 8  },
+  { courseId: "m4-term1-math",    label: "ม.4 เทอม 1 — คณิตศาสตร์", active: 9 },
+  { courseId: "m4-term1-physics", label: "ม.4 เทอม 1 — ฟิสิกส์",    active: 9 },
+  { courseId: "m4-term1-chem",    label: "ม.4 เทอม 1 — เคมี",       active: 9 },
+  { courseId: "m5-term1-math",    label: "ม.5 เทอม 1 — คณิตศาสตร์", active: 9 },
+  { courseId: "m5-term1-physics", label: "ม.5 เทอม 1 — ฟิสิกส์",    active: 9 },
+  { courseId: "m5-term1-chem",    label: "ม.5 เทอม 1 — เคมี",       active: 9 },
   { courseId: "m6-term1-math",    label: "ม.6 เทอม 1 — คณิตศาสตร์" },
   { courseId: "m6-term1-physics", label: "ม.6 เทอม 1 — ฟิสิกส์" },
   { courseId: "m6-term1-chem",    label: "ม.6 เทอม 1 — เคมี" },
