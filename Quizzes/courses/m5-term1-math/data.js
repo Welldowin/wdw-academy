@@ -2850,5 +2850,414 @@ window.COURSE_DATA = {
         explanation: `$\\text{cosec}\\,x + \\cot x = \\dfrac{1+\\cos x}{\\sin x} = \\cot\\dfrac{x}{2} = \\sqrt{3} \\Rightarrow \\dfrac{x}{2} = \\dfrac{\\pi}{6} \\Rightarrow x = \\dfrac{\\pi}{3}$ จึงตอบ C`
       }
     ]
+  },
+
+  "quiz8": {
+    meta: {
+      courseId: "m5-term1-math",
+      quizKey: "quiz8",
+      title: "Quiz 8 : เมทริกซ์ การคูณ ทรานสโพส และดีเทอร์มิแนนต์ (30 ข้อ)",
+      enableTimer: true,
+      timeLimitSec: 3600
+    },
+    data: [
+      // --- การคูณเมทริกซ์ (ข้อ 1-6) ---
+      {
+        id: "q1",
+        prompt: `กำหนดเมทริกซ์ $A$ และ $B$ ดังรูป จงหา $AB$<br><br>
+<div style="background:#f8f9fa; padding:15px; border-radius:8px; text-align:center; border: 1px dashed #ccc;">
+   <img src="images/q8_01.png" alt="รูปประกอบข้อสอบ" style="max-width:100%; border-radius:4px;">
+</div><br>`,
+        choices: [
+          { key: "A", text: "$\\begin{bmatrix} 5 & 12 \\\\ 21 & 32 \\end{bmatrix}$" },
+          { key: "B", text: "$\\begin{bmatrix} 19 & 22 \\\\ 43 & 50 \\end{bmatrix}$" },
+          { key: "C", text: "$\\begin{bmatrix} 23 & 34 \\\\ 31 & 46 \\end{bmatrix}$" },
+          { key: "D", text: "$\\begin{bmatrix} 19 & 43 \\\\ 22 & 50 \\end{bmatrix}$" }
+        ],
+        answer: "B",
+        explanation: `คูณแถวของ $A$ กับหลักของ $B$: $(1)(5)+(2)(7)=19$, $(1)(6)+(2)(8)=22$, $(3)(5)+(4)(7)=43$, $(3)(6)+(4)(8)=50$ จึงตอบ B`
+      },
+      {
+        id: "q2",
+        prompt: `เมทริกซ์ $A$ และ $B$ จะคูณกันเป็น $AB$ ได้ เมื่อมีเงื่อนไขตามข้อใด`,
+        choices: [
+          { key: "A", text: "จำนวนแถวของ $A$ เท่ากับจำนวนแถวของ $B$" },
+          { key: "B", text: "จำนวนหลักของ $A$ เท่ากับจำนวนหลักของ $B$" },
+          { key: "C", text: "$A$ และ $B$ ต้องมีขนาดเท่ากันเสมอ" },
+          { key: "D", text: "จำนวนหลัก (คอลัมน์) ของ $A$ เท่ากับจำนวนแถวของ $B$" }
+        ],
+        answer: "D",
+        explanation: `$A$ ขนาด $m \\times n$ คูณ $B$ ขนาด $n \\times p$ ได้ก็ต่อเมื่อจำนวนหลักของ $A$ เท่ากับจำนวนแถวของ $B$ จึงตอบ D`
+      },
+      {
+        id: "q3",
+        prompt: `กำหนดเมทริกซ์ $A$ และ $B$ ดังรูป จงหา $AB$<br><br>
+<div style="background:#f8f9fa; padding:15px; border-radius:8px; text-align:center; border: 1px dashed #ccc;">
+   <img src="images/q8_03.png" alt="รูปประกอบข้อสอบ" style="max-width:100%; border-radius:4px;">
+</div><br>`,
+        choices: [
+          { key: "A", text: "$\\begin{bmatrix} 2 & 8 \\\\ 7 & 19 \\end{bmatrix}$" },
+          { key: "B", text: "$\\begin{bmatrix} 2 & 0 \\\\ 2 & 15 \\end{bmatrix}$" },
+          { key: "C", text: "$\\begin{bmatrix} 6 & 12 \\\\ 9 & 15 \\end{bmatrix}$" },
+          { key: "D", text: "$\\begin{bmatrix} 2 & 7 \\\\ 8 & 19 \\end{bmatrix}$" }
+        ],
+        answer: "A",
+        explanation: `$(2)(1)+(0)(2)=2$, $(2)(4)+(0)(5)=8$, $(1)(1)+(3)(2)=7$, $(1)(4)+(3)(5)=19$ จึงตอบ A`
+      },
+      {
+        id: "q4",
+        prompt: `ถ้า $A$ เป็นเมทริกซ์ขนาด $2 \\times 3$ และ $B$ เป็นเมทริกซ์ขนาด $3 \\times 4$ แล้ว $AB$ มีขนาดเท่าใด`,
+        choices: [
+          { key: "A", text: "$3 \\times 3$" },
+          { key: "B", text: "$3 \\times 4$" },
+          { key: "C", text: "$2 \\times 4$" },
+          { key: "D", text: "คูณกันไม่ได้" }
+        ],
+        answer: "C",
+        explanation: `$(m \\times n)(n \\times p) = m \\times p$ ดังนั้น $(2 \\times 3)(3 \\times 4) = 2 \\times 4$ จึงตอบ C`
+      },
+      {
+        id: "q5",
+        prompt: `กำหนดเมทริกซ์ $A$ และ $B$ ดังรูป จงหา $AB$<br><br>
+<div style="background:#f8f9fa; padding:15px; border-radius:8px; text-align:center; border: 1px dashed #ccc;">
+   <img src="images/q8_05.png" alt="รูปประกอบข้อสอบ" style="max-width:100%; border-radius:4px;">
+</div><br>`,
+        choices: [
+          { key: "A", text: "$\\begin{bmatrix} 32 \\end{bmatrix}$ (ขนาด $1 \\times 1$)" },
+          { key: "B", text: "$\\begin{bmatrix} 21 \\end{bmatrix}$ (ขนาด $1 \\times 1$)" },
+          { key: "C", text: "เมทริกซ์ขนาด $3 \\times 3$" },
+          { key: "D", text: "คูณกันไม่ได้ เพราะขนาดไม่สอดคล้องกัน" }
+        ],
+        answer: "A",
+        explanation: `$(1 \\times 3)(3 \\times 1) = 1 \\times 1$; ค่าคือ $(1)(4)+(2)(5)+(3)(6) = 4+10+18 = 32$ จึงตอบ A`
+      },
+      {
+        id: "q6",
+        prompt: `ข้อใดกล่าวถูกต้องเกี่ยวกับ $AB$ และ $BA$ ของเมทริกซ์จัตุรัสขนาดเดียวกัน`,
+        choices: [
+          { key: "A", text: "เท่ากันเสมอ เพราะการคูณเมทริกซ์มีสมบัติการสลับที่" },
+          { key: "B", text: "เท่ากันเสมอเมื่อ $A$ และ $B$ มีขนาดเท่ากัน" },
+          { key: "C", text: "$AB$ มากกว่า $BA$ เสมอ" },
+          { key: "D", text: "โดยทั่วไปไม่เท่ากัน เพราะการคูณเมทริกซ์ไม่มีสมบัติการสลับที่" }
+        ],
+        answer: "D",
+        explanation: `การคูณเมทริกซ์ไม่มีสมบัติการสลับที่ โดยทั่วไป $AB \\neq BA$ (ดูข้อ 1 และ 3 ประกอบ) จึงตอบ D`
+      },
+
+      // --- ทรานสโพสเมทริกซ์ (ข้อ 7-9) ---
+      {
+        id: "q7",
+        prompt: `กำหนดเมทริกซ์ $A$ ดังรูป จงหา $A^{T}$ (ทรานสโพสของ $A$)<br><br>
+<div style="background:#f8f9fa; padding:15px; border-radius:8px; text-align:center; border: 1px dashed #ccc;">
+   <img src="images/q8_07.png" alt="รูปประกอบข้อสอบ" style="max-width:100%; border-radius:4px;">
+</div><br>`,
+        choices: [
+          { key: "A", text: "$\\begin{bmatrix} 1 & 2 & 3 \\\\ 4 & 5 & 6 \\end{bmatrix}$" },
+          { key: "B", text: "$\\begin{bmatrix} 6 & 5 & 4 \\\\ 3 & 2 & 1 \\end{bmatrix}$" },
+          { key: "C", text: "$\\begin{bmatrix} 1 & 4 \\\\ 2 & 5 \\\\ 3 & 6 \\end{bmatrix}$" },
+          { key: "D", text: "$\\begin{bmatrix} 4 & 1 \\\\ 5 & 2 \\\\ 6 & 3 \\end{bmatrix}$" }
+        ],
+        answer: "C",
+        explanation: `ทรานสโพสคือสลับแถวเป็นหลัก: แถวที่ 1 คือ $[1\\ 2\\ 3]$ กลายเป็นหลักที่ 1 ได้เมทริกซ์ขนาด $3 \\times 2$ จึงตอบ C`
+      },
+      {
+        id: "q8",
+        prompt: `ถ้า $A$ เป็นเมทริกซ์ขนาด $3 \\times 5$ แล้ว $A^{T}$ มีขนาดเท่าใด`,
+        choices: [
+          { key: "A", text: "$3 \\times 5$" },
+          { key: "B", text: "$5 \\times 3$" },
+          { key: "C", text: "$3 \\times 3$" },
+          { key: "D", text: "$5 \\times 5$" }
+        ],
+        answer: "B",
+        explanation: `ทรานสโพสสลับจำนวนแถวกับจำนวนหลัก $3 \\times 5$ จึงกลายเป็น $5 \\times 3$ จึงตอบ B`
+      },
+      {
+        id: "q9",
+        prompt: `กำหนดเมทริกซ์ $A$ ดังรูป จงหา $A^{T}$<br><br>
+<div style="background:#f8f9fa; padding:15px; border-radius:8px; text-align:center; border: 1px dashed #ccc;">
+   <img src="images/q8_09.png" alt="รูปประกอบข้อสอบ" style="max-width:100%; border-radius:4px;">
+</div><br>`,
+        choices: [
+          { key: "A", text: "$\\begin{bmatrix} 1 & 2 \\\\ 3 & 4 \\\\ 5 & 6 \\end{bmatrix}$" },
+          { key: "B", text: "$\\begin{bmatrix} 2 & 4 & 6 \\\\ 1 & 3 & 5 \\end{bmatrix}$" },
+          { key: "C", text: "$\\begin{bmatrix} 6 & 4 & 2 \\\\ 5 & 3 & 1 \\end{bmatrix}$" },
+          { key: "D", text: "$\\begin{bmatrix} 1 & 3 & 5 \\\\ 2 & 4 & 6 \\end{bmatrix}$" }
+        ],
+        answer: "D",
+        explanation: `$A$ ขนาด $3 \\times 2$ ทรานสโพสได้ขนาด $2 \\times 3$ โดยหลักที่ 1 ของ $A$ คือ $[1\\ 3\\ 5]$ กลายเป็นแถวที่ 1 จึงตอบ D`
+      },
+
+      // --- ดีเทอร์มิแนนต์ : ทฤษฎีและ 2x2 (ข้อ 10-18) ---
+      {
+        id: "q10",
+        prompt: `ดีเทอร์มิแนนต์หาค่าได้กับเมทริกซ์ลักษณะใด`,
+        choices: [
+          { key: "A", text: "เมทริกซ์จัตุรัสเท่านั้น (จำนวนแถวเท่ากับจำนวนหลัก)" },
+          { key: "B", text: "เมทริกซ์ทุกขนาด" },
+          { key: "C", text: "เมทริกซ์ที่มีจำนวนแถวมากกว่าจำนวนหลัก" },
+          { key: "D", text: "เมทริกซ์แถวเดียวเท่านั้น" }
+        ],
+        answer: "A",
+        explanation: `ดีเทอร์มิแนนต์นิยามเฉพาะเมทริกซ์จัตุรัส ($n \\times n$) เท่านั้น จึงตอบ A`
+      },
+      {
+        id: "q11",
+        prompt: `ถ้า $A = \\begin{bmatrix} a & b \\\\ c & d \\end{bmatrix}$ แล้ว $\\det(A)$ เท่ากับข้อใด`,
+        choices: [
+          { key: "A", text: "$ab - cd$" },
+          { key: "B", text: "$ac - bd$" },
+          { key: "C", text: "$ad - bc$" },
+          { key: "D", text: "$ad + bc$" }
+        ],
+        answer: "C",
+        explanation: `ดีเทอร์มิแนนต์ $2 \\times 2$ คือผลคูณแนวทแยงหลักลบผลคูณแนวทแยงรอง $= ad - bc$ จึงตอบ C`
+      },
+      {
+        id: "q12",
+        prompt: `จากเมทริกซ์ $A$ ในรูป จงหา $\\det(A)$<br><br>
+<div style="background:#f8f9fa; padding:15px; border-radius:8px; text-align:center; border: 1px dashed #ccc;">
+   <img src="images/q8_12.png" alt="รูปประกอบข้อสอบ" style="max-width:100%; border-radius:4px;">
+</div><br>`,
+        choices: [
+          { key: "A", text: "$23$" },
+          { key: "B", text: "$7$" },
+          { key: "C", text: "$-7$" },
+          { key: "D", text: "$22$" }
+        ],
+        answer: "B",
+        explanation: `$\\det(A) = (3)(5) - (4)(2) = 15 - 8 = 7$ จึงตอบ B`
+      },
+      {
+        id: "q13",
+        prompt: `จงหาค่าของ $\\begin{vmatrix} 6 & 2 \\\\ 3 & 4 \\end{vmatrix}$`,
+        choices: [
+          { key: "A", text: "$18$" },
+          { key: "B", text: "$30$" },
+          { key: "C", text: "$-18$" },
+          { key: "D", text: "$24$" }
+        ],
+        answer: "A",
+        explanation: `$(6)(4) - (2)(3) = 24 - 6 = 18$ จึงตอบ A`
+      },
+      {
+        id: "q14",
+        prompt: `จงหาค่าของ $\\begin{vmatrix} 5 & -2 \\\\ 3 & 1 \\end{vmatrix}$`,
+        choices: [
+          { key: "A", text: "$-1$" },
+          { key: "B", text: "$-11$" },
+          { key: "C", text: "$1$" },
+          { key: "D", text: "$11$" }
+        ],
+        answer: "D",
+        explanation: `$(5)(1) - (-2)(3) = 5 + 6 = 11$ (ระวังเครื่องหมายลบคูณลบเป็นบวก) จึงตอบ D`
+      },
+      {
+        id: "q15",
+        prompt: `จากเมทริกซ์ $A$ ในรูป จงหา $\\det(A)$<br><br>
+<div style="background:#f8f9fa; padding:15px; border-radius:8px; text-align:center; border: 1px dashed #ccc;">
+   <img src="images/q8_15.png" alt="รูปประกอบข้อสอบ" style="max-width:100%; border-radius:4px;">
+</div><br>`,
+        choices: [
+          { key: "A", text: "$24$" },
+          { key: "B", text: "$0$" },
+          { key: "C", text: "$12$" },
+          { key: "D", text: "$-12$" }
+        ],
+        answer: "B",
+        explanation: `$(2)(6) - (3)(4) = 12 - 12 = 0$ (แถวที่ 2 เป็น 2 เท่าของแถวที่ 1) จึงตอบ B`
+      },
+      {
+        id: "q16",
+        prompt: `เมทริกซ์จัตุรัสที่มี $\\det(A) = 0$ เรียกว่าอะไร และมีสมบัติอย่างไร`,
+        choices: [
+          { key: "A", text: "เมทริกซ์เอกลักษณ์ และมีอินเวอร์สเสมอ" },
+          { key: "B", text: "เมทริกซ์ทรานสโพส และมีอินเวอร์สเสมอ" },
+          { key: "C", text: "เมทริกซ์เอกฐาน (singular) ซึ่งหาอินเวอร์สไม่ได้" },
+          { key: "D", text: "เมทริกซ์ศูนย์เท่านั้น" }
+        ],
+        answer: "C",
+        explanation: `เมทริกซ์ที่ $\\det = 0$ เรียกว่าเมทริกซ์เอกฐาน (singular matrix) หาอินเวอร์สไม่ได้ จึงตอบ C`
+      },
+      {
+        id: "q17",
+        prompt: `$\\det(A^{T})$ มีความสัมพันธ์กับ $\\det(A)$ อย่างไร`,
+        choices: [
+          { key: "A", text: "$\\det(A^{T}) = -\\det(A)$" },
+          { key: "B", text: "$\\det(A^{T}) = 0$ เสมอ" },
+          { key: "C", text: "$\\det(A^{T}) = 2\\det(A)$" },
+          { key: "D", text: "$\\det(A^{T}) = \\det(A)$" }
+        ],
+        answer: "D",
+        explanation: `การทรานสโพสไม่เปลี่ยนค่าดีเทอร์มิแนนต์ จึงได้ $\\det(A^{T}) = \\det(A)$ จึงตอบ D`
+      },
+      {
+        id: "q18",
+        prompt: `ดีเทอร์มิแนนต์ของเมทริกซ์เอกลักษณ์ $I_n$ มีค่าเท่าใด`,
+        choices: [
+          { key: "A", text: "$1$" },
+          { key: "B", text: "$0$" },
+          { key: "C", text: "$n$" },
+          { key: "D", text: "$n^2$" }
+        ],
+        answer: "A",
+        explanation: `$I_n$ เป็นเมทริกซ์สามเหลี่ยมที่แนวทแยงหลักเป็น 1 ทั้งหมด $\\det(I_n) = 1 \\times 1 \\times \\cdots = 1$ จึงตอบ A`
+      },
+
+      // --- ดีเทอร์มิแนนต์ 3x3 และสมบัติ (ข้อ 19-30) ---
+      {
+        id: "q19",
+        prompt: `วิธีใดใช้หาดีเทอร์มิแนนต์ของเมทริกซ์ขนาด $3 \\times 3$ ได้ถูกต้อง`,
+        choices: [
+          { key: "A", text: "บวกสมาชิกทุกตัวในเมทริกซ์เข้าด้วยกัน" },
+          { key: "B", text: "กระจายตามโคแฟกเตอร์ (cofactor expansion) หรือใช้กฎซาร์รูส" },
+          { key: "C", text: "คูณสมาชิกทุกตัวในเมทริกซ์เข้าด้วยกัน" },
+          { key: "D", text: "หาผลรวมของสมาชิกบนแนวทแยงมุมหลักเท่านั้น" }
+        ],
+        answer: "B",
+        explanation: `$\\det$ ของ $3 \\times 3$ หาได้จากการกระจายโคแฟกเตอร์ตามแถวหรือหลัก หรือใช้กฎซาร์รูส (ผลรวมแนวทแยงลง ลบ แนวทแยงขึ้น) จึงตอบ B`
+      },
+      {
+        id: "q20",
+        prompt: `จากเมทริกซ์ $A$ ในรูป จงหา $\\det(A)$<br><br>
+<div style="background:#f8f9fa; padding:15px; border-radius:8px; text-align:center; border: 1px dashed #ccc;">
+   <img src="images/q8_20.png" alt="รูปประกอบข้อสอบ" style="max-width:100%; border-radius:4px;">
+</div><br>`,
+        choices: [
+          { key: "A", text: "$3$" },
+          { key: "B", text: "$0$" },
+          { key: "C", text: "$-3$" },
+          { key: "D", text: "$6$" }
+        ],
+        answer: "C",
+        explanation: `กระจายตามแถวที่ 1: $1(5 \\cdot 10 - 6 \\cdot 8) - 2(4 \\cdot 10 - 6 \\cdot 7) + 3(4 \\cdot 8 - 5 \\cdot 7) = 1(2) - 2(-2) + 3(-3) = 2 + 4 - 9 = -3$ จึงตอบ C`
+      },
+      {
+        id: "q21",
+        prompt: `จงหาค่าของ $\\begin{vmatrix} 2 & 0 & 1 \\\\ 1 & 3 & 2 \\\\ 0 & 1 & 4 \\end{vmatrix}$`,
+        choices: [
+          { key: "A", text: "$21$" },
+          { key: "B", text: "$24$" },
+          { key: "C", text: "$19$" },
+          { key: "D", text: "$-21$" }
+        ],
+        answer: "A",
+        explanation: `กระจายตามแถวที่ 1: $2(3 \\cdot 4 - 2 \\cdot 1) - 0(1 \\cdot 4 - 2 \\cdot 0) + 1(1 \\cdot 1 - 3 \\cdot 0) = 2(10) - 0 + 1 = 21$ จึงตอบ A`
+      },
+      {
+        id: "q22",
+        prompt: `กำหนด $A = \\begin{bmatrix} 1 & 2 & 3 \\\\ 4 & 5 & 6 \\\\ 7 & 8 & 10 \\end{bmatrix}$ ไมเนอร์ $M_{11}$ ของ $A$ มีค่าเท่าใด`,
+        choices: [
+          { key: "A", text: "$5$" },
+          { key: "B", text: "$-2$" },
+          { key: "C", text: "$1$" },
+          { key: "D", text: "$2$" }
+        ],
+        answer: "D",
+        explanation: `$M_{11}$ คือดีเทอร์มิแนนต์ที่เหลือเมื่อตัดแถวที่ 1 และหลักที่ 1 ออก $= \\begin{vmatrix} 5 & 6 \\\\ 8 & 10 \\end{vmatrix} = 50 - 48 = 2$ จึงตอบ D`
+      },
+      {
+        id: "q23",
+        prompt: `จากเมทริกซ์ $A$ ในรูป จงหา $\\det(A)$<br><br>
+<div style="background:#f8f9fa; padding:15px; border-radius:8px; text-align:center; border: 1px dashed #ccc;">
+   <img src="images/q8_23.png" alt="รูปประกอบข้อสอบ" style="max-width:100%; border-radius:4px;">
+</div><br>`,
+        choices: [
+          { key: "A", text: "$1$" },
+          { key: "B", text: "$7$" },
+          { key: "C", text: "$13$" },
+          { key: "D", text: "$-13$" }
+        ],
+        answer: "C",
+        explanation: `กระจายตามแถวที่ 1: $1(1 \\cdot 1 - 0 \\cdot 2) - 0(3 \\cdot 1 - 0 \\cdot 0) + 2(3 \\cdot 2 - 1 \\cdot 0) = 1 - 0 + 12 = 13$ จึงตอบ C`
+      },
+      {
+        id: "q24",
+        prompt: `ความสัมพันธ์ระหว่างโคแฟกเตอร์ $C_{ij}$ กับไมเนอร์ $M_{ij}$ คือข้อใด`,
+        choices: [
+          { key: "A", text: "$C_{ij} = M_{ij}$ เสมอ" },
+          { key: "B", text: "$C_{ij} = (-1)^{i+j} M_{ij}$" },
+          { key: "C", text: "$C_{ij} = (-1)^{ij} M_{ij}$" },
+          { key: "D", text: "$C_{ij} = -M_{ij}$ เสมอ" }
+        ],
+        answer: "B",
+        explanation: `โคแฟกเตอร์คือไมเนอร์ที่ติดเครื่องหมายตามตำแหน่ง $C_{ij} = (-1)^{i+j} M_{ij}$ จึงตอบ B`
+      },
+      {
+        id: "q25",
+        prompt: `ถ้าสลับตำแหน่งของสองแถวในเมทริกซ์จัตุรัส ค่าดีเทอร์มิแนนต์จะเปลี่ยนแปลงอย่างไร`,
+        choices: [
+          { key: "A", text: "มีค่าคงเดิม" },
+          { key: "B", text: "กลายเป็นศูนย์" },
+          { key: "C", text: "เพิ่มขึ้นเป็น 2 เท่า" },
+          { key: "D", text: "เปลี่ยนเครื่องหมายเป็นตรงข้าม" }
+        ],
+        answer: "D",
+        explanation: `การสลับสองแถว (หรือสองหลัก) ทำให้ดีเทอร์มิแนนต์เปลี่ยนเครื่องหมาย จึงตอบ D`
+      },
+      {
+        id: "q26",
+        prompt: `ถ้าเมทริกซ์จัตุรัสมีสมาชิกในแถวใดแถวหนึ่งเป็นศูนย์ทั้งแถว ดีเทอร์มิแนนต์มีค่าเท่าใด`,
+        choices: [
+          { key: "A", text: "$0$" },
+          { key: "B", text: "$1$" },
+          { key: "C", text: "เท่ากับผลคูณของสมาชิกแนวทแยงหลัก" },
+          { key: "D", text: "หาค่าไม่ได้" }
+        ],
+        answer: "A",
+        explanation: `กระจายโคแฟกเตอร์ตามแถวที่เป็นศูนย์ทั้งแถว จะได้ผลรวมเป็น 0 ทุกพจน์ ดังนั้น $\\det = 0$ จึงตอบ A`
+      },
+      {
+        id: "q27",
+        prompt: `เมทริกซ์ $A$ ในรูปเป็นเมทริกซ์สามเหลี่ยมบน (สมาชิกใต้แนวทแยงหลักเป็นศูนย์) จงหา $\\det(A)$<br><br>
+<div style="background:#f8f9fa; padding:15px; border-radius:8px; text-align:center; border: 1px dashed #ccc;">
+   <img src="images/q8_27.png" alt="รูปประกอบข้อสอบ" style="max-width:100%; border-radius:4px;">
+</div><br>`,
+        choices: [
+          { key: "A", text: "$10$" },
+          { key: "B", text: "$30$" },
+          { key: "C", text: "$0$" },
+          { key: "D", text: "$45$" }
+        ],
+        answer: "B",
+        explanation: `ดีเทอร์มิแนนต์ของเมทริกซ์สามเหลี่ยมเท่ากับผลคูณของสมาชิกบนแนวทแยงหลัก $= 2 \\times 5 \\times 3 = 30$ จึงตอบ B`
+      },
+      {
+        id: "q28",
+        prompt: `ถ้า $\\det(A) = 3$ และ $\\det(B) = 4$ โดย $A, B$ เป็นเมทริกซ์จัตุรัสขนาดเดียวกัน แล้ว $\\det(AB)$ มีค่าเท่าใด`,
+        choices: [
+          { key: "A", text: "$7$" },
+          { key: "B", text: "$\\dfrac{3}{4}$" },
+          { key: "C", text: "$12$" },
+          { key: "D", text: "$1$" }
+        ],
+        answer: "C",
+        explanation: `$\\det(AB) = \\det(A) \\cdot \\det(B) = 3 \\times 4 = 12$ จึงตอบ C`
+      },
+      {
+        id: "q29",
+        prompt: `ถ้า $A$ เป็นเมทริกซ์ขนาด $2 \\times 2$ ที่มี $\\det(A) = 5$ แล้ว $\\det(3A)$ มีค่าเท่าใด`,
+        choices: [
+          { key: "A", text: "$45$" },
+          { key: "B", text: "$15$" },
+          { key: "C", text: "$5$" },
+          { key: "D", text: "$135$" }
+        ],
+        answer: "A",
+        explanation: `$\\det(kA) = k^{n}\\det(A)$ เมื่อ $A$ ขนาด $n \\times n$; ที่นี่ $n = 2$ จึงได้ $3^{2} \\times 5 = 9 \\times 5 = 45$ จึงตอบ A`
+      },
+      {
+        id: "q30",
+        prompt: `ถ้า $\\begin{vmatrix} 2 & 4 \\\\ 1 & k \\end{vmatrix} = 0$ แล้ว $k$ มีค่าเท่าใด`,
+        choices: [
+          { key: "A", text: "$-2$" },
+          { key: "B", text: "$4$" },
+          { key: "C", text: "$2$" },
+          { key: "D", text: "$8$" }
+        ],
+        answer: "C",
+        explanation: `$(2)(k) - (4)(1) = 0 \\Rightarrow 2k - 4 = 0 \\Rightarrow k = 2$ จึงตอบ C`
+      }
+    ]
   }
 };
