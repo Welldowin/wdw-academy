@@ -139,6 +139,22 @@ window.QUIZ_CONFIG = {
       timeLimitSec: 3600,
     },
 
+    "m6-term1-physics__test01": {
+      courseId: "m6-term1-physics",
+      testKey:  "test01",
+      title:    "แบบจำลองข้อสอบ NETSAT วิชาฟิสิกส์ ชุดที่ 1 (25 ข้อ)",
+      prerequisiteQuizzes: [],
+      timeLimitSec: 5400,
+    },
+
+    "m6-term1-physics__test02": {
+      courseId: "m6-term1-physics",
+      testKey:  "test02",
+      title:    "แบบจำลองข้อสอบ NETSAT วิชาฟิสิกส์ ชุดที่ 2 (25 ข้อ)",
+      prerequisiteQuizzes: [],
+      timeLimitSec: 5400,
+    },
+
     // ── ตัวอย่างการเพิ่มชุดสอบในอนาคต ───────────────────────────
     // "m4-term1-math__test01": {
     //   courseId: "m4-term1-math",
