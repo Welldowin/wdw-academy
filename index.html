@@ -238,6 +238,106 @@
       align-self: flex-start;
     }
 
+    /* ====== NETSAT HIGHLIGHT ====== */
+    .netsat-highlight{
+      max-width: 1100px;
+      margin: 2.5rem auto 0;
+      padding: 2rem 1.5rem 1.6rem;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #1E3D8F 0%, #2a52b8 55%, #16307a 100%);
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 15px 35px rgba(30,61,143,0.35);
+      border: 3px solid #ffce3d;
+    }
+
+    .netsat-badge{
+      position: absolute;
+      top: 14px;
+      right: -46px;
+      background: #D94C4C;
+      color: #fff;
+      padding: 6px 55px;
+      transform: rotate(35deg);
+      font-size: 0.85rem;
+      font-weight: 700;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .netsat-highlight .section-title{
+      color: #fff;
+      margin-bottom: 0.3rem;
+    }
+
+    .netsat-highlight .netsat-sub{
+      text-align: center;
+      color: #ffe9a8;
+      margin-top: 0;
+      margin-bottom: 1.4rem;
+      font-size: 0.95rem;
+    }
+
+    .netsat-grid{
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 20px;
+    }
+
+    @media (max-width: 700px){
+      .netsat-grid{ grid-template-columns: 1fr; }
+    }
+
+    .netsat-card{
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 16px;
+      padding: 1.2rem;
+    }
+
+    .netsat-card h3{
+      margin: 0 0 0.9rem;
+      font-size: 1.3rem;
+      color: #ffce3d;
+      text-align: center;
+    }
+
+    .netsat-btns{
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .netsat-btn{
+      background: #ffce3d;
+      color: #1E3D8F;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      font-family: 'Kanit', sans-serif;
+      font-size: 1rem;
+    }
+
+    .netsat-btn:hover{
+      background: #ffd966;
+      transform: translateY(-2px);
+    }
+
+    .netsat-btn.disabled{
+      background: rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.65);
+      cursor: not-allowed;
+      border: 1px dashed rgba(255,255,255,0.4);
+    }
+
+    .netsat-timer-note{
+      text-align: center;
+      font-size: 0.85rem;
+      color: #ffe9a8;
+      margin-top: 1.2rem;
+    }
+
     /* ====== SLIDER + TABS ====== */
     .slider-wrap{
       max-width: 1100px;
@@ -480,6 +580,44 @@
     </div>
   </section>
 
+  <section class="netsat-highlight">
+    <div class="netsat-badge">🔥 ใหม่!</div>
+    <h2 class="section-title" style="text-align:center;">📝 จำลองข้อสอบ NETSAT</h2>
+    <p class="netsat-sub">ลองทำข้อสอบจำลองแนว NETSAT จับเวลาจริง เลือกวิชาและชุดข้อสอบด้านล่าง</p>
+
+    <div class="netsat-grid">
+      <div class="netsat-card">
+        <h3>⚛️ ฟิสิกส์</h3>
+        <div class="netsat-btns">
+          <button type="button" class="btn netsat-btn" onclick="startNetsat('ฟิสิกส์','1','https://welldowinacademy.com/Quizzes/exam/final-test.html?course=m6-term1-physics&test=test01')">ชุดที่ 1</button>
+          <button type="button" class="btn netsat-btn" onclick="startNetsat('ฟิสิกส์','2','https://welldowinacademy.com/Quizzes/exam/final-test.html?course=m6-term1-physics&test=test02')">ชุดที่ 2</button>
+        </div>
+      </div>
+
+      <div class="netsat-card">
+        <h3>🧪 เคมี</h3>
+        <div class="netsat-btns">
+          <button type="button" class="btn netsat-btn disabled" disabled>ชุดที่ 1 (เร็วๆนี้)</button>
+          <button type="button" class="btn netsat-btn disabled" disabled>ชุดที่ 2 (เร็วๆนี้)</button>
+        </div>
+      </div>
+    </div>
+
+    <p class="netsat-timer-note">⏱ เมื่อเริ่มทำข้อสอบ ระบบจะจับเวลา 90 นาทีทันที</p>
+  </section>
+
+  <script>
+    function startNetsat(subject, setNo, url){
+      const ok = window.confirm(
+        `จำลองข้อสอบ NETSAT ${subject} ชุดที่ ${setNo}\n` +
+        `หากเริ่มทำข้อสอบเวลาจะเริ่มนับถอยหลัง 90 นาที (เวลามีผลต่อการประเมิน) ต้องการเริ่มทำข้อสอบเลยไหม?`
+      );
+      if (ok) {
+        window.location.href = url;
+      }
+    }
+  </script>
+
   <section class="slider-wrap">
     <h2 class="section-title" style="text-align:center;">ผลงาน & บรรยากาศกิจกรรม</h2>
 
@@ -592,9 +730,9 @@
       // ====== วิทยากร / แนะแนว ======
       { src:"images/speaker_01.jpg", caption:"ติว NETSAT ที่โรงเรียนชุมแพศึกษา", cat:"speaker" },
       { src:"images/speaker_02.jpg", caption:"ติว NETSAT ที่โรงเรียนชุมแพศึกษา", cat:"speaker" },
-      { src:"images/speaker_03.jpg", caption:"ติว NETSAT ที่โรงเรียนสาธิต ศึกษาศาสตร์ มข.", cat:"speaker" },
+      { src:"images/speaker_03.jpg", caption:"ติว NETSAT ที่โรงเรียนบ้านไผ่", cat:"speaker" },
       { src:"images/speaker_04.jpg", caption:"ติว NETSAT ที่โรงเรียนบ้านไผ่", cat:"speaker" },
-      { src:"images/speaker_05.jpg", caption:"ติว NETSAT ที่โรงเรียนบ้านไผ่", cat:"speaker" },	
+      { src:"images/speaker_05.jpg", caption:"ติว NETSAT ที่โรงเรียนสาธิต ศึกษาศาสตร์ มข.", cat:"speaker" },	
       { src:"images/speaker_06.jpg", caption:"ติวสอบกลางภาคคณะเทคโนโลยี ม.ขอนแก่น", cat:"speaker" },
       { src:"images/speaker_07.jpg", caption:"ติวสอบกลางภาคคณะเทคโนโลยี ม.ขอนแก่น", cat:"speaker" },
 
@@ -605,6 +743,9 @@
       { src:"images/classroom_04.jpg", caption:"บรรยากาศห้องเรียนติวเข้ม", cat:"classroom" },
 
       // ====== ผลงานสอบติด ======
+      { src:"images/success_01.jpg", caption:"ผลงานรุ่นพี่สอบติดคณะในฝัน", cat:"success" },
+      { src:"images/success_02.jpg", caption:"ผลงานรุ่นพี่สอบติดคณะในฝัน", cat:"success" },
+      { src:"images/success_03.jpg", caption:"ผลงานนักเรียน Well-Do-Win Academy", cat:"success" },
       { src:"images/success_04.jpg", caption:"นายสุทธราดร ภูครองจิตร (ปังปอนด์) สอบติดคณะแพทยศาสตร์ มหาวิทยาลัยขอนแก่น", cat:"success" },
       { src:"images/success_05.jpg", caption:"นางสาวธินันตา กาจหาญ (กิ๊ฟ) สอบติดคณะแพทยศาสตร์ มหาวิทยาลัยขอนแก่น", cat:"success" },
       { src:"images/success_06.jpg", caption:"นางสาวอมลรดา ศรีนิล (ฮานะ) สอบติดคณะแพทยศาสตร์ มหาวิทยาลัยขอนแก่น", cat:"success" },
@@ -615,15 +756,12 @@
       { src:"images/success_11.jpg", caption:"นางสาวสิริณัฏฐ์ พันธ์ศรี (ใบบัว) สอบติดคณะแพทยศาสตร์ (แผนไทยประยุกต์) มหาวิทยาลัยมหิดล (ig: sirinq3w)", cat:"success" },
       { src:"images/success_12.jpg", caption:"นางสาวไอริสสา กัลยา (ปูเป้) สอบติดคณะเภสัชศาสตร์ มหาวิทยาลัยพะเยา (ig: Pxpaeir)", cat:"success" },
       { src:"images/success_13.jpg", caption:"นางสาวจันทรัสม์ มากมี (เพิร์ส) สอบติดคณะแพทยศาสตร์ (เวชนิทัศน์) มหาวิทยาลัยขอนแก่น (ig: @latahen)", cat:"success" },
-      { src:"images/success_14.jpg", caption:"น.ส.ปุณยวีร์ ไพร์สิงห์ (โฟกัส) สอบติดคณะวิศวกรรมศาสตร์ (สาขาวิศวกรรมเคมี) มหาวิทยาลัยเทคโนโลยีสุรนารี", cat:"success" },
+      { src:"images/success_14.jpg", caption:"น.ส.ปุณยวีร์ ไพร่สิงห์ (โฟกัส) สอบติดคณะวิศวกรรมศาสตร์ (สาขาวิศวกรรมเคมี) มหาวิทยาลัยเทคโนโลยีสุรนารี", cat:"success" },
       { src:"images/success_15.jpg", caption:"น.ส.สิริวิมล คำมูล (มิ้ว) สอบติดคณะวิทยาการคอมพิวเตอร์ (ปัญญาประดิษฐ์) มหาวิทยาลัยขอนแก่น", cat:"success" },
       { src:"images/success_16.jpg", caption:"น.ส.ปิลันทนา มีชัยมาตย์ (น้ำอิง) สอบติดคณะเทคนิคการแพทย์ มหาวิทยาลัยขอนแก่น", cat:"success" },
       { src:"images/success_17.jpg", caption:"น.ส.นิลนภัส พันธุ์พล (นิล) สอบติดคณะศึกษาศาสตร์ (เอกวิทยาศาสตร์) มหาวิทยาลัยขอนแก่น", cat:"success" },
       { src:"images/success_18.jpg", caption:"นายปฏิภาณ ตั้งเพียร (แฟ้ม) สอบติดคณะวิศวกรรมศาสตร์ (อัตโนมัติ หุ่นยนต์และระบบอัจฉริยะ) มหาวิทยาลัยขอนแก่น (ig: pxtzpan)", cat:"success" },
-      { src:"images/success_01.jpg", caption:"ผลงานรุ่นพี่สอบติดคณะในฝัน", cat:"success" },
-      { src:"images/success_02.jpg", caption:"ผลงานรุ่นพี่สอบติดคณะในฝัน", cat:"success" },
-      { src:"images/success_03.jpg", caption:"ผลงานนักเรียน Well-Do-Win Academy", cat:"success" },
-		
+
       // ====== กิจกรรม ======
       { src:"images/activity_01.jpg", caption:"กิจกรรมคริสต์มาส / แจกของรางวัล", cat:"activity" },
       { src:"images/activity_03.jpg", caption:"กิจกรรมคริสต์มาส / แจกของรางวัล", cat:"activity" },
