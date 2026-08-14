@@ -155,6 +155,22 @@ window.QUIZ_CONFIG = {
       timeLimitSec: 5400,
     },
 
+    "m6-term1-chem__test01": {
+      courseId: "m6-term1-chem",
+      testKey:  "test01",
+      title:    "ข้อสอบ NETSAT วิชาเคมี ชุดที่ 1 (25 ข้อ)",
+      prerequisiteQuizzes: [],
+      timeLimitSec: 5400,
+    },
+
+    "m6-term1-chem__test02": {
+      courseId: "m6-term1-chem",
+      testKey:  "test02",
+      title:    "ข้อสอบ NETSAT วิชาเคมี ชุดที่ 2 (25 ข้อ)",
+      prerequisiteQuizzes: [],
+      timeLimitSec: 5400,
+    },
+
     // ── ตัวอย่างการเพิ่มชุดสอบในอนาคต ───────────────────────────
     // "m4-term1-math__test01": {
     //   courseId: "m4-term1-math",
