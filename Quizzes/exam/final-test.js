@@ -322,11 +322,19 @@ function renderQuestion(index) {
   q.choices.forEach(choice => {
     const isChecked = userAnswers[q.id] === choice.key ? "checked" : "";
     const disabledAttr = isSubmitted ? "disabled" : "";
-    const disabledClass = isSubmitted ? "disabled" : "";
+    let choiceClass = isSubmitted ? "disabled" : "";
+    let tag = "";
+    if (isSubmitted && choice.key === q.answer) {
+      choiceClass += " reveal-correct";
+      tag = ` <span class="reveal-tag">✔ เฉลย</span>`;
+    } else if (isSubmitted && choice.key === userAnswers[q.id]) {
+      choiceClass += " reveal-wrong";
+      tag = ` <span class="reveal-tag wrong">✗ คำตอบของคุณ</span>`;
+    }
     choicesHtml += `
-      <label class="choice-item ${disabledClass}">
+      <label class="choice-item ${choiceClass}">
         <input type="radio" name="choice" value="${choice.key}" ${isChecked} ${disabledAttr}>
-        ${choice.text}
+        ${choice.text}${tag}
       </label>`;
   });
   document.getElementById("choices-list").innerHTML = choicesHtml;
@@ -335,12 +343,15 @@ function renderQuestion(index) {
   if (isSubmitted) {
     document.getElementById("review-banner").classList.remove("hidden");
     fbBox.classList.remove("hidden");
+    const explanationHtml = q.explanation
+      ? `<div class="explanation-box"><strong>วิธีคิด / เฉลย</strong><div class="explanation-text">${q.explanation}</div></div>`
+      : `<div class="explanation-box"><strong>วิธีคิด / เฉลย</strong><div class="explanation-text">เฉลยข้อนี้คือตัวเลือก <strong>${escapeHtml(q.answer)}</strong> (ยังไม่มีคำอธิบายเพิ่มเติม)</div></div>`;
     if (userAnswers[q.id] === q.answer) {
       fbBox.className = "feedback-box correct";
       fbBox.innerHTML = "✅ คุณตอบถูก";
     } else {
       fbBox.className = "feedback-box incorrect";
-      fbBox.innerHTML = "❌ คุณตอบผิด (ไม่อนุญาตให้ดูเฉลยที่ถูกต้อง)";
+      fbBox.innerHTML = `❌ คุณตอบผิด${explanationHtml}`;
     }
   } else {
     fbBox.classList.add("hidden");
