@@ -1865,5 +1865,410 @@ window.COURSE_DATA = {
         explanation: `$17_8 = 1 \\times 8 + 7 = 15$ จึงตอบ B`
       }
     ]
+  },
+
+  "quiz6": {
+    meta: {
+      courseId: "m3-term1-math",
+      quizKey: "quiz6",
+      title: "Quiz 6 : สามเหลี่ยมและวงกลม (เตรียมสอบเข้า ม.4) (30 ข้อ)",
+      enableTimer: true,
+      timeLimitSec: 3600
+    },
+    data: [
+      // --- ตอนที่ 1 : สามเหลี่ยมและความคล้าย (ข้อ 1-15) ---
+      {
+        id: "q1",
+        prompt: `รูปสามเหลี่ยมมุมฉากรูปหนึ่งมีพื้นที่ $24$ ตารางหน่วย และด้านตรงข้ามมุมฉากยาว $10$ หน่วย ผลบวกของความยาวด้านประกอบมุมฉากทั้งสองด้านเท่ากับกี่หน่วย`,
+        choices: [
+          { key: "A", text: "$12$" },
+          { key: "B", text: "$13$" },
+          { key: "C", text: "$14$" },
+          { key: "D", text: "$16$" }
+        ],
+        answer: "C",
+        explanation: `ให้ด้านประกอบมุมฉากยาว $a, b$: พื้นที่ $\\Rightarrow ab = 48$; พีทาโกรัส $\\Rightarrow a^2+b^2 = 100$; $(a+b)^2 = a^2+b^2+2ab = 100+96 = 196 \\Rightarrow a+b = 14$ จึงตอบ C`
+      },
+      {
+        id: "q2",
+        prompt: `รูปสามเหลี่ยม $ABC$ มีพื้นที่ $54$ ตารางหน่วย จุด $D$ อยู่บน $BC$ โดย $BD:DC = 1:2$ และจุด $E$ เป็นจุดกึ่งกลางของ $AD$ พื้นที่ของรูปสามเหลี่ยม $BEC$ เท่ากับกี่ตารางหน่วย`,
+        choices: [
+          { key: "A", text: "$18$" },
+          { key: "B", text: "$27$" },
+          { key: "C", text: "$24$" },
+          { key: "D", text: "$36$" }
+        ],
+        answer: "B",
+        explanation: `$E$ เป็นจุดกึ่งกลาง $AD$ ระยะจาก $E$ ถึง $BC$ จึงเป็นครึ่งหนึ่งของระยะจาก $A$ ถึง $BC$ (อัตราส่วน $BD:DC$ ไม่มีผลต่อคำตอบ) พื้นที่ $BEC = \\frac{1}{2}(54) = 27$ ตารางหน่วย จึงตอบ B`
+      },
+      {
+        id: "q3",
+        prompt: `จากรูป รูปสามเหลี่ยม $ABC$ มีมุม $A$ เป็นมุมฉาก และ $AD$ ตั้งฉากกับ $BC$ ที่จุด $D$ ถ้า $BD = 5$ หน่วย และ $DC = 20$ หน่วย พื้นที่ของรูปสามเหลี่ยม $ABC$ เท่ากับกี่ตารางหน่วย<br><br>
+<div style="background:#f8f9fa; padding:15px; border-radius:8px; text-align:center; border: 1px dashed #ccc;">
+   <img src="images/q6_03.png" alt="รูปประกอบข้อสอบ" style="max-width:100%; border-radius:4px;">
+</div><br>`,
+        choices: [
+          { key: "A", text: "$125$" },
+          { key: "B", text: "$120$" },
+          { key: "C", text: "$110$" },
+          { key: "D", text: "$130$" }
+        ],
+        answer: "A",
+        explanation: `ทฤษฎีบทเส้นสูงในสามเหลี่ยมมุมฉาก $AD^2 = BD \\times DC = 5 \\times 20 = 100 \\Rightarrow AD = 10$; $BC = 25$; พื้นที่ $= \\frac{1}{2}(25)(10) = 125$ ตารางหน่วย จึงตอบ A`
+      },
+      {
+        id: "q4",
+        prompt: `รูปสามเหลี่ยมหน้าจั่ว $ABC$ มี $AB = AC = 17$ หน่วย และ $BC = 16$ หน่วย รัศมีของวงกลมที่แนบในรูปสามเหลี่ยมนี้ (incircle) ยาวกี่หน่วย`,
+        choices: [
+          { key: "A", text: "$4$" },
+          { key: "B", text: "$5$" },
+          { key: "C", text: "$24/5$" },
+          { key: "D", text: "$16/3$" }
+        ],
+        answer: "C",
+        explanation: `ลากเส้นสูงจากยอดแบ่งฐานเป็น $8, 8$: สูง $= \\sqrt{17^2-8^2} = 15$; พื้นที่ $= \\frac{1}{2}(16)(15) = 120$; $s = \\frac{17+17+16}{2} = 25$; $r = \\frac{120}{25} = \\frac{24}{5}$ หน่วย จึงตอบ C`
+      },
+      {
+        id: "q5",
+        prompt: `จากรูป $DE$ ขนานกับ $BC$ โดยที่ $AD:DB = 2:3$ ถ้ารูปสี่เหลี่ยมคางหมู $DECB$ มีพื้นที่ $42$ ตารางหน่วย พื้นที่ของรูปสามเหลี่ยม $ADE$ เท่ากับกี่ตารางหน่วย<br><br>
+<div style="background:#f8f9fa; padding:15px; border-radius:8px; text-align:center; border: 1px dashed #ccc;">
+   <img src="images/q6_05.png" alt="รูปประกอบข้อสอบ" style="max-width:100%; border-radius:4px;">
+</div><br>`,
+        choices: [
+          { key: "A", text: "$6$" },
+          { key: "B", text: "$7$" },
+          { key: "C", text: "$9$" },
+          { key: "D", text: "$8$" }
+        ],
+        answer: "D",
+        explanation: `$DE \\parallel BC$ ทำให้ $\\triangle ADE \\sim \\triangle ABC$ ด้วยอัตราส่วน $AD:AB = 2:5$; อัตราส่วนพื้นที่ $= 4:25$; คางหมู $DECB$ เทียบได้ $25-4=21$ ส่วน $= 42 \\Rightarrow 1$ ส่วน $=2$; พื้นที่ $ADE = 4(2) = 8$ ตารางหน่วย จึงตอบ D`
+      },
+      {
+        id: "q6",
+        prompt: `รูปสามเหลี่ยม $ABC$ มีพื้นที่ $90$ ตารางหน่วย จุด $D$ อยู่บน $AB$ โดย $AD:DB = 2:3$ และจุด $E$ อยู่บน $AC$ โดย $AE:EC = 1:2$ พื้นที่ของรูปสามเหลี่ยม $ADE$ เท่ากับกี่ตารางหน่วย`,
+        choices: [
+          { key: "A", text: "$10$" },
+          { key: "B", text: "$12$" },
+          { key: "C", text: "$15$" },
+          { key: "D", text: "$18$" }
+        ],
+        answer: "B",
+        explanation: `เมื่อสองรูปสามเหลี่ยมมีมุมร่วมกัน (มุม $A$) อัตราส่วนพื้นที่ $= \\frac{AD}{AB} \\times \\frac{AE}{AC} = \\frac{2}{5} \\times \\frac{1}{3} = \\frac{2}{15}$; พื้นที่ $ADE = 90 \\times \\frac{2}{15} = 12$ ตารางหน่วย จึงตอบ B`
+      },
+      {
+        id: "q7",
+        prompt: `รูปสามเหลี่ยม $ABC$ มีมุม $A$ เป็นมุมฉาก $AB = 9$ หน่วย $AC = 12$ หน่วย ถ้า $AD$ ตั้งฉากกับ $BC$ ที่จุด $D$ แล้ว $BD$ ยาวกี่หน่วย`,
+        choices: [
+          { key: "A", text: "$4.8$" },
+          { key: "B", text: "$5.0$" },
+          { key: "C", text: "$6.0$" },
+          { key: "D", text: "$5.4$" }
+        ],
+        answer: "D",
+        explanation: `$BC = \\sqrt{9^2+12^2} = 15$; จากสามเหลี่ยมคล้าย $AB^2 = BD \\times BC \\Rightarrow 81 = BD(15) \\Rightarrow BD = 5.4$ หน่วย จึงตอบ D`
+      },
+      {
+        id: "q8",
+        prompt: `รูปสามเหลี่ยม $ABC$ มี $AB = 5$ หน่วย $BC = 6$ หน่วย และ $CA = 7$ หน่วย พื้นที่ของรูปสามเหลี่ยมนี้เท่ากับกี่ตารางหน่วย`,
+        choices: [
+          { key: "A", text: "$6\\sqrt{5}$" },
+          { key: "B", text: "$4\\sqrt{6}$" },
+          { key: "C", text: "$6\\sqrt{6}$" },
+          { key: "D", text: "$12\\sqrt{2}$" }
+        ],
+        answer: "C",
+        explanation: `$s = \\frac{5+6+7}{2} = 9$; จากสูตรเฮรอน พื้นที่ $= \\sqrt{9 \\times 4 \\times 3 \\times 2} = \\sqrt{216} = 6\\sqrt{6}$ ตารางหน่วย จึงตอบ C`
+      },
+      {
+        id: "q9",
+        prompt: `จากรูป $DE$ ขนานกับ $BC$ ถ้าพื้นที่รูปสามเหลี่ยม $ADE$ ต่อพื้นที่รูปสี่เหลี่ยมคางหมู $DECB$ เท่ากับ $9:16$ แล้ว $AD:AB$ เป็นเท่าใด<br><br>
+<div style="background:#f8f9fa; padding:15px; border-radius:8px; text-align:center; border: 1px dashed #ccc;">
+   <img src="images/q6_09.png" alt="รูปประกอบข้อสอบ" style="max-width:100%; border-radius:4px;">
+</div><br>`,
+        choices: [
+          { key: "A", text: "$3:5$" },
+          { key: "B", text: "$3:4$" },
+          { key: "C", text: "$9:16$" },
+          { key: "D", text: "$9:25$" }
+        ],
+        answer: "A",
+        explanation: `พื้นที่ $ADE:$ พื้นที่ $ABC = 9:(9+16) = 9:25$; อัตราส่วนพื้นที่รูปคล้าย $=$ กำลังสองของอัตราส่วนด้าน จึงได้ $AD:AB = 3:5$ จึงตอบ A`
+      },
+      {
+        id: "q10",
+        prompt: `รูปสามเหลี่ยมมุมฉากรูปหนึ่งมีด้านประกอบมุมฉากยาว $8$ และ $15$ หน่วย รัศมีของวงกลมแนบในรูปสามเหลี่ยมนี้ยาวกี่หน่วย`,
+        choices: [
+          { key: "A", text: "$2$" },
+          { key: "B", text: "$4$" },
+          { key: "C", text: "$3$" },
+          { key: "D", text: "$5$" }
+        ],
+        answer: "C",
+        explanation: `ด้านตรงข้ามมุมฉาก $= \\sqrt{8^2+15^2} = 17$; สำหรับสามเหลี่ยมมุมฉาก $r = \\frac{a+b-c}{2} = \\frac{8+15-17}{2} = 3$ หน่วย จึงตอบ C`
+      },
+      {
+        id: "q11",
+        prompt: `$\\triangle ABC \\sim \\triangle DEF$ ด้วยอัตราส่วนความยาวด้าน $2:5$ ถ้าเส้นรอบรูป $ABC = 18$ หน่วย เส้นรอบรูป $DEF$ ยาวเท่าใด`,
+        choices: [
+          { key: "A", text: "$45$" },
+          { key: "B", text: "$40$" },
+          { key: "C", text: "$36$" },
+          { key: "D", text: "$50$" }
+        ],
+        answer: "A",
+        explanation: `อัตราส่วนเส้นรอบรูปเท่ากับอัตราส่วนด้าน $= 2:5$; เส้นรอบรูป $DEF = 18 \\times \\frac{5}{2} = 45$ หน่วย จึงตอบ A`
+      },
+      {
+        id: "q12",
+        prompt: `$\\triangle ABC \\sim \\triangle DEF$ โดยมีอัตราส่วนพื้นที่ $16:25$ ถ้าด้าน $BC = 8$ หน่วย ด้าน $EF$ ยาวเท่าใด`,
+        choices: [
+          { key: "A", text: "$8$" },
+          { key: "B", text: "$10$" },
+          { key: "C", text: "$9$" },
+          { key: "D", text: "$12$" }
+        ],
+        answer: "B",
+        explanation: `อัตราส่วนพื้นที่ $16:25$ ทำให้อัตราส่วนด้าน $= 4:5$; $EF = 8 \\times \\frac{5}{4} = 10$ หน่วย จึงตอบ B`
+      },
+      {
+        id: "q13",
+        prompt: `จากรูป $D$ อยู่บน $AB$ และ $E$ อยู่บน $AC$ โดย $AD:AB = 1:2$ และ $AE:AC = 2:3$ อัตราส่วนพื้นที่ $\\triangle ADE$ ต่อพื้นที่ $\\triangle ABC$ เป็นเท่าใด<br><br>
+<div style="background:#f8f9fa; padding:15px; border-radius:8px; text-align:center; border: 1px dashed #ccc;">
+   <img src="images/q6_13.png" alt="รูปประกอบข้อสอบ" style="max-width:100%; border-radius:4px;">
+</div><br>`,
+        choices: [
+          { key: "A", text: "$1:2$" },
+          { key: "B", text: "$2:3$" },
+          { key: "C", text: "$1:3$" },
+          { key: "D", text: "$1:4$" }
+        ],
+        answer: "C",
+        explanation: `เมื่อมีมุมร่วมกัน อัตราส่วนพื้นที่ $= \\frac{AD}{AB} \\times \\frac{AE}{AC} = \\frac{1}{2} \\times \\frac{2}{3} = \\frac{1}{3}$ จึงตอบ C`
+      },
+      {
+        id: "q14",
+        prompt: `รูปสามเหลี่ยม $ABC$ มีพื้นที่ $40$ ตารางหน่วย ให้ $AM$ เป็นเส้นมัธยฐานจากจุด $A$ ไปยังจุดกึ่งกลาง $M$ ของ $BC$ พื้นที่ของรูปสามเหลี่ยม $ABM$ เท่ากับกี่ตารางหน่วย`,
+        choices: [
+          { key: "A", text: "$10$" },
+          { key: "B", text: "$15$" },
+          { key: "C", text: "$25$" },
+          { key: "D", text: "$20$" }
+        ],
+        answer: "D",
+        explanation: `เส้นมัธยฐานแบ่งรูปสามเหลี่ยมออกเป็นสองส่วนที่มีพื้นที่เท่ากันเสมอ พื้นที่ $ABM = \\frac{1}{2}(40) = 20$ ตารางหน่วย จึงตอบ D`
+      },
+      {
+        id: "q15",
+        prompt: `รูปสามเหลี่ยมมุมฉากรูปหนึ่งมีความยาวรอบรูป $40$ หน่วย และด้านตรงข้ามมุมฉากยาว $17$ หน่วย พื้นที่ของรูปสามเหลี่ยมนี้เท่ากับกี่ตารางหน่วย`,
+        choices: [
+          { key: "A", text: "$50$" },
+          { key: "B", text: "$60$" },
+          { key: "C", text: "$55$" },
+          { key: "D", text: "$66$" }
+        ],
+        answer: "B",
+        explanation: `$a+b = 40-17 = 23$; $a^2+b^2 = 17^2 = 289$; $(a+b)^2 = a^2+b^2+2ab \\Rightarrow 529 = 289+2ab \\Rightarrow ab = 120$; พื้นที่ $= \\frac{1}{2}(120) = 60$ ตารางหน่วย จึงตอบ B`
+      },
+
+      // --- ตอนที่ 2 : วงกลมและรูปหลายเหลี่ยม (ข้อ 16-30) ---
+      {
+        id: "q16",
+        prompt: `จากรูป วงกลมวงหนึ่งมีรัศมี $17$ หน่วย มีคอร์ด $AB$ ยาว $30$ หน่วย ระยะจากจุดศูนย์กลาง $O$ ของวงกลมถึงคอร์ด $AB$ เท่ากับกี่หน่วย<br><br>
+<div style="background:#f8f9fa; padding:15px; border-radius:8px; text-align:center; border: 1px dashed #ccc;">
+   <img src="images/q6_16.png" alt="รูปประกอบข้อสอบ" style="max-width:100%; border-radius:4px;">
+</div><br>`,
+        choices: [
+          { key: "A", text: "$8$" },
+          { key: "B", text: "$7$" },
+          { key: "C", text: "$6$" },
+          { key: "D", text: "$9$" }
+        ],
+        answer: "A",
+        explanation: `เส้นจากจุดศูนย์กลางที่ตั้งฉากกับคอร์ดจะแบ่งครึ่งคอร์ดพอดี ครึ่งคอร์ด $= 15$; ระยะที่ต้องการ $= \\sqrt{17^2-15^2} = \\sqrt{64} = 8$ หน่วย จึงตอบ A`
+      },
+      {
+        id: "q17",
+        prompt: `จากรูป จากจุด $P$ ภายนอกวงกลม ลากเส้นตรงตัดวงกลมที่จุด $A$ และ $B$ โดย $PA = 9$ หน่วย และ $AB = 7$ หน่วย ถ้าลากเส้นสัมผัสวงกลมจากจุด $P$ ไปสัมผัสที่จุด $T$ แล้ว $PT$ ยาวกี่หน่วย<br><br>
+<div style="background:#f8f9fa; padding:15px; border-radius:8px; text-align:center; border: 1px dashed #ccc;">
+   <img src="images/q6_17.png" alt="รูปประกอบข้อสอบ" style="max-width:100%; border-radius:4px;">
+</div><br>`,
+        choices: [
+          { key: "A", text: "$10$" },
+          { key: "B", text: "$11$" },
+          { key: "C", text: "$13$" },
+          { key: "D", text: "$12$" }
+        ],
+        answer: "D",
+        explanation: `$PB = PA+AB = 9+7 = 16$; ทฤษฎีบท Power of a Point: $PT^2 = PA \\times PB = 9 \\times 16 = 144 \\Rightarrow PT = 12$ หน่วย จึงตอบ D`
+      },
+      {
+        id: "q18",
+        prompt: `รูปสี่เหลี่ยม $ABCD$ แนบในวงกลมวงหนึ่ง โดยมีขนาดของมุม $A$ เท่ากับ $(3x+10)$ องศา และมุม $C$ เท่ากับ $(2x+30)$ องศา ค่าของ $x$ เท่ากับเท่าใด`,
+        choices: [
+          { key: "A", text: "$28$" },
+          { key: "B", text: "$26$" },
+          { key: "C", text: "$30$" },
+          { key: "D", text: "$32$" }
+        ],
+        answer: "A",
+        explanation: `มุมตรงข้ามของรูปสี่เหลี่ยมแนบในวงกลมรวมกันได้ $180^\\circ$: $(3x+10)+(2x+30)=180 \\Rightarrow 5x+40=180 \\Rightarrow x=28$ จึงตอบ A`
+      },
+      {
+        id: "q19",
+        prompt: `รูปหลายเหลี่ยมด้านเท่ามุมเท่ารูปหนึ่งมีขนาดของมุมภายในแต่ละมุมเท่ากับ $144$ องศา รูปหลายเหลี่ยมนี้มีเส้นทแยงมุมทั้งหมดกี่เส้น`,
+        choices: [
+          { key: "A", text: "$27$" },
+          { key: "B", text: "$35$" },
+          { key: "C", text: "$44$" },
+          { key: "D", text: "$54$" }
+        ],
+        answer: "B",
+        explanation: `มุมภายนอก $= 180-144 = 36$; จำนวนด้าน $n = 360/36 = 10$; เส้นทแยงมุม $= \\frac{n(n-3)}{2} = \\frac{10 \\times 7}{2} = 35$ เส้น จึงตอบ B`
+      },
+      {
+        id: "q20",
+        prompt: `จากรูป วงกลมสองวงรัศมี $3$ หน่วย และ $12$ หน่วย สัมผัสกันภายนอก และมีเส้นตรงเส้นหนึ่งสัมผัสวงกลมทั้งสองวงที่จุด $P$ และ $Q$ ตามลำดับ ระยะ $PQ$ ยาวกี่หน่วย<br><br>
+<div style="background:#f8f9fa; padding:15px; border-radius:8px; text-align:center; border: 1px dashed #ccc;">
+   <img src="images/q6_20.png" alt="รูปประกอบข้อสอบ" style="max-width:100%; border-radius:4px;">
+</div><br>`,
+        choices: [
+          { key: "A", text: "$12$" },
+          { key: "B", text: "$11$" },
+          { key: "C", text: "$10$" },
+          { key: "D", text: "$13$" }
+        ],
+        answer: "A",
+        explanation: `สูตรลัด $PQ = 2\\sqrt{r_1 r_2} = 2\\sqrt{3 \\times 12} = 2\\sqrt{36} = 12$ หน่วย จึงตอบ A`
+      },
+      {
+        id: "q21",
+        prompt: `จากรูป คอร์ด $AB$ และคอร์ด $CD$ ของวงกลมวงหนึ่งตัดกันที่จุด $P$ ภายในวงกลม ถ้า $AP = 6$ หน่วย $PB = 8$ หน่วย และ $CP = 4$ หน่วย แล้ว $PD$ ยาวกี่หน่วย<br><br>
+<div style="background:#f8f9fa; padding:15px; border-radius:8px; text-align:center; border: 1px dashed #ccc;">
+   <img src="images/q6_21.png" alt="รูปประกอบข้อสอบ" style="max-width:100%; border-radius:4px;">
+</div><br>`,
+        choices: [
+          { key: "A", text: "$10$" },
+          { key: "B", text: "$11$" },
+          { key: "C", text: "$14$" },
+          { key: "D", text: "$12$" }
+        ],
+        answer: "D",
+        explanation: `ทฤษฎีบทคอร์ดตัดกัน: $AP \\times PB = CP \\times PD \\Rightarrow 48 = 4 \\times PD \\Rightarrow PD = 12$ หน่วย จึงตอบ D`
+      },
+      {
+        id: "q22",
+        prompt: `วงกลมวงหนึ่งมีรัศมี $13$ หน่วย มีคอร์ดสองเส้นขนานกันยาว $24$ หน่วย และ $10$ หน่วย อยู่คนละข้างของจุดศูนย์กลาง ระยะระหว่างคอร์ดทั้งสองเท่ากับกี่หน่วย`,
+        choices: [
+          { key: "A", text: "$7$" },
+          { key: "B", text: "$17$" },
+          { key: "C", text: "$12$" },
+          { key: "D", text: "$19$" }
+        ],
+        answer: "B",
+        explanation: `คอร์ด $24$: ระยะจากศูนย์กลาง $=\\sqrt{13^2-12^2}=5$; คอร์ด $10$: ระยะ $=\\sqrt{13^2-5^2}=12$; อยู่คนละข้าง ระยะรวม $=5+12=17$ หน่วย จึงตอบ B`
+      },
+      {
+        id: "q23",
+        prompt: `มุมที่จุดศูนย์กลางของวงกลมรองรับส่วนโค้งหนึ่งมีขนาด $100$ องศา มุมที่เส้นรอบวง (มุมในส่วนโค้งใหญ่) ที่รองรับส่วนโค้งเดียวกันมีขนาดเท่าใด`,
+        choices: [
+          { key: "A", text: "$50^\\circ$" },
+          { key: "B", text: "$40^\\circ$" },
+          { key: "C", text: "$80^\\circ$" },
+          { key: "D", text: "$100^\\circ$" }
+        ],
+        answer: "A",
+        explanation: `มุมที่เส้นรอบวงมีขนาดเป็นครึ่งหนึ่งของมุมที่จุดศูนย์กลางซึ่งรองรับส่วนโค้งเดียวกัน $= \\frac{100}{2} = 50^\\circ$ จึงตอบ A`
+      },
+      {
+        id: "q24",
+        prompt: `เส้นสัมผัสวงกลมทำมุมกับคอร์ดเส้นหนึ่ง $55$ องศา มุมในส่วนโค้งฝั่งตรงข้าม (alternate segment) ที่รองรับคอร์ดเส้นเดียวกันมีขนาดเท่าใด`,
+        choices: [
+          { key: "A", text: "$35^\\circ$" },
+          { key: "B", text: "$110^\\circ$" },
+          { key: "C", text: "$90^\\circ$" },
+          { key: "D", text: "$55^\\circ$" }
+        ],
+        answer: "D",
+        explanation: `ทฤษฎีบทมุมระหว่างเส้นสัมผัสกับคอร์ด: มุมนี้มีขนาดเท่ากับมุมในส่วนโค้งฝั่งตรงข้ามเสมอ $= 55^\\circ$ จึงตอบ D`
+      },
+      {
+        id: "q25",
+        prompt: `จากรูป รูปสามเหลี่ยม $ABC$ แนบในวงกลมโดยมี $BC$ เป็นเส้นผ่านศูนย์กลางยาว $26$ หน่วย ถ้าด้าน $AB = 10$ หน่วย ด้าน $AC$ ยาวกี่หน่วย<br><br>
+<div style="background:#f8f9fa; padding:15px; border-radius:8px; text-align:center; border: 1px dashed #ccc;">
+   <img src="images/q6_25.png" alt="รูปประกอบข้อสอบ" style="max-width:100%; border-radius:4px;">
+</div><br>`,
+        choices: [
+          { key: "A", text: "$20$" },
+          { key: "B", text: "$22$" },
+          { key: "C", text: "$24$" },
+          { key: "D", text: "$25$" }
+        ],
+        answer: "C",
+        explanation: `เมื่อด้านหนึ่งของสามเหลี่ยมที่แนบในวงกลมเป็นเส้นผ่านศูนย์กลาง มุมยอด ($A$) จะเป็นมุมฉากเสมอ; $AC = \\sqrt{26^2-10^2} = \\sqrt{576} = 24$ หน่วย จึงตอบ C`
+      },
+      {
+        id: "q26",
+        prompt: `รูปหลายเหลี่ยมนูนรูปหนึ่งมีผลบวกของขนาดมุมภายในทั้งหมดเท่ากับ $1440$ องศา รูปหลายเหลี่ยมนี้มีกี่ด้าน`,
+        choices: [
+          { key: "A", text: "$10$" },
+          { key: "B", text: "$9$" },
+          { key: "C", text: "$8$" },
+          { key: "D", text: "$12$" }
+        ],
+        answer: "A",
+        explanation: `$(n-2) \\times 180 = 1440 \\Rightarrow n-2 = 8 \\Rightarrow n = 10$ ด้าน จึงตอบ A`
+      },
+      {
+        id: "q27",
+        prompt: `รูปหลายเหลี่ยมนูนรูปหนึ่งมีเส้นทแยงมุมทั้งหมด $44$ เส้น รูปหลายเหลี่ยมนี้มีกี่ด้าน`,
+        choices: [
+          { key: "A", text: "$9$" },
+          { key: "B", text: "$11$" },
+          { key: "C", text: "$10$" },
+          { key: "D", text: "$12$" }
+        ],
+        answer: "B",
+        explanation: `$\\frac{n(n-3)}{2} = 44 \\Rightarrow n^2-3n-88=0 \\Rightarrow (n-11)(n+8)=0 \\Rightarrow n=11$ ด้าน จึงตอบ B`
+      },
+      {
+        id: "q28",
+        prompt: `จากรูป รูปหกเหลี่ยมด้านเท่ามุมเท่ารูปหนึ่งมีด้านยาวด้านละ $4$ หน่วย พื้นที่ของรูปหกเหลี่ยมนี้เท่ากับกี่ตารางหน่วย<br><br>
+<div style="background:#f8f9fa; padding:15px; border-radius:8px; text-align:center; border: 1px dashed #ccc;">
+   <img src="images/q6_28.png" alt="รูปประกอบข้อสอบ" style="max-width:100%; border-radius:4px;">
+</div><br>`,
+        choices: [
+          { key: "A", text: "$16\\sqrt{3}$" },
+          { key: "B", text: "$20\\sqrt{3}$" },
+          { key: "C", text: "$24\\sqrt{3}$" },
+          { key: "D", text: "$32\\sqrt{3}$" }
+        ],
+        answer: "C",
+        explanation: `รูปหกเหลี่ยมด้านเท่ามุมเท่าแบ่งได้เป็นสามเหลี่ยมด้านเท่า $6$ รูป ด้านละ $4$; พื้นที่สามเหลี่ยมด้านเท่าด้าน $a = \\frac{\\sqrt{3}}{4}a^2 = \\frac{\\sqrt{3}}{4}(16) = 4\\sqrt{3}$; พื้นที่ทั้งหมด $= 6 \\times 4\\sqrt{3} = 24\\sqrt{3}$ ตารางหน่วย จึงตอบ C`
+      },
+      {
+        id: "q29",
+        prompt: `ถ้าคอร์ดสองเส้นของวงกลมวงเดียวกันมีความยาวเท่ากัน ข้อใดสรุปเกี่ยวกับระยะห่างจากจุดศูนย์กลางถึงคอร์ดทั้งสองได้ถูกต้อง`,
+        choices: [
+          { key: "A", text: "ระยะห่างจากจุดศูนย์กลางถึงคอร์ดทั้งสองต่างกันเสมอ" },
+          { key: "B", text: "ระยะห่างจากจุดศูนย์กลางถึงคอร์ดทั้งสองเท่ากันเสมอ" },
+          { key: "C", text: "ไม่สามารถสรุปความสัมพันธ์ใด ๆ ได้เลย" },
+          { key: "D", text: "คอร์ดทั้งสองต้องขนานกันเสมอ" }
+        ],
+        answer: "B",
+        explanation: `คอร์ดที่มีความยาวเท่ากันในวงกลมวงเดียวกันจะอยู่ห่างจากจุดศูนย์กลางเป็นระยะเท่ากันเสมอ (และในทางกลับกันก็เป็นจริงด้วย) จึงตอบ B`
+      },
+      {
+        id: "q30",
+        prompt: `รูปสี่เหลี่ยม $ABCD$ แนบในวงกลมวงหนึ่ง ถ้ามุม $ABC$ มีขนาด $95$ องศา มุม $ADC$ มีขนาดเท่าใด`,
+        choices: [
+          { key: "A", text: "$75^\\circ$" },
+          { key: "B", text: "$80^\\circ$" },
+          { key: "C", text: "$95^\\circ$" },
+          { key: "D", text: "$85^\\circ$" }
+        ],
+        answer: "D",
+        explanation: `มุมตรงข้ามของรูปสี่เหลี่ยมแนบในวงกลมรวมกัน $180^\\circ$: มุม $ADC = 180-95 = 85^\\circ$ จึงตอบ D`
+      }
+    ]
   }
 };
