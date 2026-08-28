@@ -3259,5 +3259,380 @@ window.COURSE_DATA = {
         explanation: `$(2)(k) - (4)(1) = 0 \\Rightarrow 2k - 4 = 0 \\Rightarrow k = 2$ จึงตอบ C`
       }
     ]
+  },
+
+
+  "quiz9": {
+    meta: {
+      courseId: "m5-term1-math",
+      quizKey: "quiz9",
+      title: "Quiz 9 : การหาดีเทอร์มิแนนต์และเมทริกซ์ผกผัน (30 ข้อ)",
+      enableTimer: true,
+      timeLimitSec: 3600
+    },
+    data: [
+      // --- ตอนที่ 1 : การหาดีเทอร์มิแนนต์ (ข้อ 1-15) ---
+      {
+        id: "q1",
+        prompt: `กำหนดให้ $A=\\begin{bmatrix} 4 & 3 \\\\ 2 & 5 \\end{bmatrix}$ จงหา $\\det(A)$`,
+        choices: [
+          { key: "A", text: "$10$" },
+          { key: "B", text: "$17$" },
+          { key: "C", text: "$14$" },
+          { key: "D", text: "$20$" }
+        ],
+        answer: "C",
+        explanation: `$\\det(A)=(4)(5)-(3)(2)=20-6=14$ จึงตอบ C`
+      },
+      {
+        id: "q2",
+        prompt: `กำหนดให้ $A=\\begin{bmatrix} 6 & -2 \\\\ 3 & 4 \\end{bmatrix}$ จงหา $\\det(A)$`,
+        choices: [
+          { key: "A", text: "$30$" },
+          { key: "B", text: "$18$" },
+          { key: "C", text: "$24$" },
+          { key: "D", text: "$36$" }
+        ],
+        answer: "A",
+        explanation: `$\\det(A)=(6)(4)-(-2)(3)=24-(-6)=24+6=30$ จึงตอบ A`
+      },
+      {
+        id: "q3",
+        prompt: `ถ้า $\\det\\begin{pmatrix}\\begin{bmatrix} x & 3 \\\\ 2 & x \\end{bmatrix}\\end{pmatrix}=10$ และ $x>0$ แล้ว $x$ มีค่าเท่าใด`,
+        choices: [
+          { key: "A", text: "$2$" },
+          { key: "B", text: "$3$" },
+          { key: "C", text: "$5$" },
+          { key: "D", text: "$4$" }
+        ],
+        answer: "D",
+        explanation: `$x^2-(3)(2)=10 \\Rightarrow x^2-6=10 \\Rightarrow x^2=16 \\Rightarrow x=4$ (เลือกค่าบวก) จึงตอบ D`
+      },
+      {
+        id: "q4",
+        prompt: `กำหนดให้ $A=\\begin{bmatrix} 2 & 0 & 1 \\\\ 3 & 1 & 2 \\\\ 1 & 0 & 4 \\end{bmatrix}$ จงหา $\\det(A)$`,
+        choices: [
+          { key: "A", text: "$5$" },
+          { key: "B", text: "$7$" },
+          { key: "C", text: "$9$" },
+          { key: "D", text: "$11$" }
+        ],
+        answer: "B",
+        explanation: `ขยายตามหลักที่ 2 (มีศูนย์ 2 ตัว): $\\det(A)=1\\times(-1)^{2+2}\\begin{vmatrix} 2 & 1 \\\\ 1 & 4 \\end{vmatrix}=1(8-1)=7$ จึงตอบ B`
+      },
+      {
+        id: "q5",
+        prompt: `กำหนดให้ $A=\\begin{bmatrix} 1 & 2 & 3 \\\\ 4 & 5 & 6 \\\\ 7 & 8 & 10 \\end{bmatrix}$ จงหา $\\det(A)$`,
+        choices: [
+          { key: "A", text: "$5$" },
+          { key: "B", text: "$-1$" },
+          { key: "C", text: "$-3$" },
+          { key: "D", text: "$3$" }
+        ],
+        answer: "C",
+        explanation: `$\\det(A)=1(50-48)-2(40-42)+3(32-35)=1(2)-2(-2)+3(-3)=2+4-9=-3$ จึงตอบ C`
+      },
+      {
+        id: "q6",
+        prompt: `กำหนดให้ $A=\\begin{bmatrix} 3 & 1 & 0 \\\\ 2 & 4 & 0 \\\\ 5 & 6 & 2 \\end{bmatrix}$ จงหา $\\det(A)$`,
+        choices: [
+          { key: "A", text: "$20$" },
+          { key: "B", text: "$16$" },
+          { key: "C", text: "$18$" },
+          { key: "D", text: "$24$" }
+        ],
+        answer: "A",
+        explanation: `ขยายตามหลักที่ 3 (มีศูนย์ 2 ตัว): $\\det(A)=2\\times(-1)^{3+3}\\begin{vmatrix} 3 & 1 \\\\ 2 & 4 \\end{vmatrix}=2(12-2)=20$ จึงตอบ A`
+      },
+      {
+        id: "q7",
+        prompt: `ถ้า $A$ เป็นเมทริกซ์ขนาด $3\\times3$ ที่มี $\\det(A)=5$ แล้ว $\\det(2A)$ มีค่าเท่าใด`,
+        choices: [
+          { key: "A", text: "$10$" },
+          { key: "B", text: "$20$" },
+          { key: "C", text: "$80$" },
+          { key: "D", text: "$40$" }
+        ],
+        answer: "D",
+        explanation: `$\\det(kA)=k^{n}\\det(A)$ เมื่อ $n=3$: $\\det(2A)=2^3\\times5=8\\times5=40$ จึงตอบ D`
+      },
+      {
+        id: "q8",
+        prompt: `ถ้า $\\det(A)=6$ และ $\\det(B)=-2$ โดย $A,B$ เป็นเมทริกซ์จัตุรัสขนาดเดียวกัน แล้ว $\\det(AB)$ มีค่าเท่าใด`,
+        choices: [
+          { key: "A", text: "$4$" },
+          { key: "B", text: "$-12$" },
+          { key: "C", text: "$12$" },
+          { key: "D", text: "$-8$" }
+        ],
+        answer: "B",
+        explanation: `$\\det(AB)=\\det(A)\\cdot\\det(B)=6\\times(-2)=-12$ จึงตอบ B`
+      },
+      {
+        id: "q9",
+        prompt: `ถ้า $\\det(A)=4$ แล้ว $\\det(A^{-1})$ มีค่าเท่าใด`,
+        choices: [
+          { key: "A", text: "$\\dfrac{1}{4}$" },
+          { key: "B", text: "$4$" },
+          { key: "C", text: "$-4$" },
+          { key: "D", text: "$\\dfrac{1}{16}$" }
+        ],
+        answer: "A",
+        explanation: `$\\det(A^{-1})=\\dfrac{1}{\\det(A)}=\\dfrac{1}{4}$ จึงตอบ A`
+      },
+      {
+        id: "q10",
+        prompt: `ถ้าเมทริกซ์ $A=\\begin{bmatrix} k & 8 \\\\ 2 & k \\end{bmatrix}$ เป็นเมทริกซ์เอกฐาน (singular) และ $k>0$ แล้ว $k$ มีค่าเท่าใด`,
+        choices: [
+          { key: "A", text: "$2$" },
+          { key: "B", text: "$3$" },
+          { key: "C", text: "$4$" },
+          { key: "D", text: "$5$" }
+        ],
+        answer: "C",
+        explanation: `เมทริกซ์เอกฐานมี $\\det(A)=0$: $k^2-(8)(2)=0 \\Rightarrow k^2=16 \\Rightarrow k=4$ (เลือกค่าบวก) จึงตอบ C`
+      },
+      {
+        id: "q11",
+        prompt: `กำหนดให้ $A=\\begin{bmatrix} 5 & 0 & 0 \\\\ 3 & 2 & 0 \\\\ 1 & 4 & 7 \\end{bmatrix}$ จงหา $\\det(A)$`,
+        choices: [
+          { key: "A", text: "$56$" },
+          { key: "B", text: "$70$" },
+          { key: "C", text: "$63$" },
+          { key: "D", text: "$77$" }
+        ],
+        answer: "B",
+        explanation: `$A$ เป็นเมทริกซ์สามเหลี่ยมล่าง ดีเทอร์มิแนนต์เท่ากับผลคูณสมาชิกแนวทแยงหลัก $=5\\times2\\times7=70$ จึงตอบ B`
+      },
+      {
+        id: "q12",
+        prompt: `ถ้าคูณสมาชิกในแถวหนึ่งของเมทริกซ์จัตุรัส $A$ ด้วย $5$ ทั้งแถว ดีเทอร์มิแนนต์ใหม่จะเป็นกี่เท่าของดีเทอร์มิแนนต์เดิม`,
+        choices: [
+          { key: "A", text: "$25$ เท่า" },
+          { key: "B", text: "$15$ เท่า" },
+          { key: "C", text: "ไม่เปลี่ยนแปลง" },
+          { key: "D", text: "$5$ เท่า" }
+        ],
+        answer: "D",
+        explanation: `การคูณสมาชิกในแถวหนึ่งด้วยค่าคงตัว $c$ ทั้งแถว ทำให้ดีเทอร์มิแนนต์ถูกคูณด้วย $c$ นั้นด้วย ดังนั้นดีเทอร์มิแนนต์ใหม่เป็น $5$ เท่าของเดิม จึงตอบ D`
+      },
+      {
+        id: "q13",
+        prompt: `จงหาค่า $x$ จากระบบสมการ $3x+2y=16$ และ $x-2y=-4$ โดยใช้กฎของคราเมอร์ (Cramer's rule)`,
+        choices: [
+          { key: "A", text: "$2$" },
+          { key: "B", text: "$4$" },
+          { key: "C", text: "$3$" },
+          { key: "D", text: "$5$" }
+        ],
+        answer: "C",
+        explanation: `$D=\\begin{vmatrix} 3 & 2 \\\\ 1 & -2 \\end{vmatrix}=-6-2=-8$, $D_x=\\begin{vmatrix} 16 & 2 \\\\ -4 & -2 \\end{vmatrix}=-32+8=-24$ ดังนั้น $x=\\dfrac{D_x}{D}=\\dfrac{-24}{-8}=3$ จึงตอบ C`
+      },
+      {
+        id: "q14",
+        prompt: `จงหาค่า $y$ จากระบบสมการ $2x+3y=13$ และ $4x-y=5$ โดยใช้กฎของคราเมอร์ (Cramer's rule)`,
+        choices: [
+          { key: "A", text: "$3$" },
+          { key: "B", text: "$1$" },
+          { key: "C", text: "$2$" },
+          { key: "D", text: "$4$" }
+        ],
+        answer: "A",
+        explanation: `$D=\\begin{vmatrix} 2 & 3 \\\\ 4 & -1 \\end{vmatrix}=-2-12=-14$, $D_y=\\begin{vmatrix} 2 & 13 \\\\ 4 & 5 \\end{vmatrix}=10-52=-42$ ดังนั้น $y=\\dfrac{D_y}{D}=\\dfrac{-42}{-14}=3$ จึงตอบ A`
+      },
+      {
+        id: "q15",
+        prompt: `จงหาพื้นที่ของรูปสามเหลี่ยมที่มีจุดยอด $(1,2)$, $(4,6)$ และ $(5,2)$ โดยใช้ดีเทอร์มิแนนต์`,
+        choices: [
+          { key: "A", text: "$7$" },
+          { key: "B", text: "$8$" },
+          { key: "C", text: "$6$" },
+          { key: "D", text: "$9$" }
+        ],
+        answer: "B",
+        explanation: `พื้นที่ $=\\dfrac{1}{2}|x_1(y_2-y_3)+x_2(y_3-y_1)+x_3(y_1-y_2)|=\\dfrac{1}{2}|1(6-2)+4(2-2)+5(2-6)|=\\dfrac{1}{2}|4+0-20|=\\dfrac{1}{2}(16)=8$ จึงตอบ B`
+      },
+      // --- ตอนที่ 2 : เมทริกซ์ผกผัน (ข้อ 16-30) ---
+      {
+        id: "q16",
+        prompt: `เมทริกซ์ $A^{-1}$ เรียกว่าอินเวอร์สของเมทริกซ์ $A$ เมื่อสอดคล้องกับสมการใด`,
+        choices: [
+          { key: "A", text: "$AA^{-1}=0$" },
+          { key: "B", text: "$A+A^{-1}=I$" },
+          { key: "C", text: "$AA^{-1}=A$" },
+          { key: "D", text: "$AA^{-1}=A^{-1}A=I$" }
+        ],
+        answer: "D",
+        explanation: `นิยามของเมทริกซ์ผกผัน (inverse matrix) คือเมทริกซ์ $A^{-1}$ ที่คูณกับ $A$ แล้วได้เมทริกซ์เอกลักษณ์ ทั้งด้านซ้ายและด้านขวา: $AA^{-1}=A^{-1}A=I$ จึงตอบ D`
+      },
+      {
+        id: "q17",
+        prompt: `เมทริกซ์จัตุรัส $A$ จะมีอินเวอร์สได้ก็ต่อเมื่อข้อใดเป็นจริง`,
+        choices: [
+          { key: "A", text: "$\\det(A)=0$" },
+          { key: "B", text: "$A$ เป็นเมทริกซ์เอกลักษณ์" },
+          { key: "C", text: "$\\det(A)\\neq0$" },
+          { key: "D", text: "$A$ เป็นเมทริกซ์สมมาตร" }
+        ],
+        answer: "C",
+        explanation: `เมทริกซ์จัตุรัสจะมีอินเวอร์สได้ (nonsingular) ก็ต่อเมื่อ $\\det(A)\\neq0$ เท่านั้น จึงตอบ C`
+      },
+      {
+        id: "q18",
+        prompt: `ถ้า $A=\\begin{bmatrix} a & b \\\\ c & d \\end{bmatrix}$ และ $\\det(A)\\neq0$ แล้ว $A^{-1}$ ตรงกับข้อใด`,
+        choices: [
+          { key: "A", text: "$\\dfrac{1}{\\det(A)}\\begin{bmatrix} d & -b \\\\ -c & a \\end{bmatrix}$" },
+          { key: "B", text: "$\\dfrac{1}{\\det(A)}\\begin{bmatrix} a & -b \\\\ -c & d \\end{bmatrix}$" },
+          { key: "C", text: "$\\det(A)\\begin{bmatrix} d & -b \\\\ -c & a \\end{bmatrix}$" },
+          { key: "D", text: "$\\dfrac{1}{\\det(A)}\\begin{bmatrix} d & b \\\\ c & a \\end{bmatrix}$" }
+        ],
+        answer: "A",
+        explanation: `สูตรอินเวอร์สของเมทริกซ์ $2\\times2$ คือ สลับตำแหน่งสมาชิกแนวทแยงหลัก ($a \\leftrightarrow d$) และเปลี่ยนเครื่องหมายสมาชิกแนวทแยงรอง ($b, c \\to -b, -c$) แล้วหารด้วย $\\det(A)$ จึงตอบ A`
+      },
+      {
+        id: "q19",
+        prompt: `กำหนดให้ $A=\\begin{bmatrix} 3 & 5 \\\\ 1 & 2 \\end{bmatrix}$ จงหา $A^{-1}$`,
+        choices: [
+          { key: "A", text: "$\\begin{bmatrix} 2 & -5 \\\\ -1 & 3 \\end{bmatrix}$" },
+          { key: "B", text: "$\\begin{bmatrix} 2 & 5 \\\\ 1 & 3 \\end{bmatrix}$" },
+          { key: "C", text: "$\\begin{bmatrix} 3 & -5 \\\\ -1 & 2 \\end{bmatrix}$" },
+          { key: "D", text: "$\\begin{bmatrix} -2 & 5 \\\\ 1 & -3 \\end{bmatrix}$" }
+        ],
+        answer: "B",
+        explanation: `$\\det(A)=(3)(2)-(5)(1)=6-5=1$ ดังนั้น $A^{-1}=\\dfrac{1}{1}\\begin{bmatrix} 2 & -5 \\\\ -1 & 3 \\end{bmatrix}=\\begin{bmatrix} 2 & -5 \\\\ -1 & 3 \\end{bmatrix}$ จึงตอบ B`
+      },
+      {
+        id: "q20",
+        prompt: `กำหนดให้ $A=\\begin{bmatrix} 5 & 3 \\\\ 3 & 2 \\end{bmatrix}$ จงหา $A^{-1}$`,
+        choices: [
+          { key: "A", text: "$\\begin{bmatrix} 5 & -3 \\\\ -3 & 2 \\end{bmatrix}$" },
+          { key: "B", text: "$\\begin{bmatrix} -2 & 3 \\\\ 3 & -5 \\end{bmatrix}$" },
+          { key: "C", text: "$\\begin{bmatrix} 2 & 3 \\\\ 3 & 5 \\end{bmatrix}$" },
+          { key: "D", text: "$\\begin{bmatrix} 2 & -3 \\\\ -3 & 5 \\end{bmatrix}$" }
+        ],
+        answer: "D",
+        explanation: `$\\det(A)=(5)(2)-(3)(3)=10-9=1$ ดังนั้น $A^{-1}=\\dfrac{1}{1}\\begin{bmatrix} 2 & -3 \\\\ -3 & 5 \\end{bmatrix}=\\begin{bmatrix} 2 & -3 \\\\ -3 & 5 \\end{bmatrix}$ จึงตอบ D`
+      },
+      {
+        id: "q21",
+        prompt: `กำหนดให้ $A=\\begin{bmatrix} 7 & 3 \\\\ 2 & 1 \\end{bmatrix}$ ข้อใดคือ $A^{-1}$`,
+        choices: [
+          { key: "A", text: "$\\begin{bmatrix} 1 & 3 \\\\ 2 & 7 \\end{bmatrix}$" },
+          { key: "B", text: "$\\begin{bmatrix} 7 & -3 \\\\ -2 & 1 \\end{bmatrix}$" },
+          { key: "C", text: "$\\begin{bmatrix} 1 & -3 \\\\ -2 & 7 \\end{bmatrix}$" },
+          { key: "D", text: "$\\begin{bmatrix} -1 & 3 \\\\ 2 & -7 \\end{bmatrix}$" }
+        ],
+        answer: "C",
+        explanation: `$\\det(A)=(7)(1)-(3)(2)=7-6=1$ ดังนั้น $A^{-1}=\\begin{bmatrix} 1 & -3 \\\\ -2 & 7 \\end{bmatrix}$ (ตรวจสอบ $AA^{-1}=I$ ได้) จึงตอบ C`
+      },
+      {
+        id: "q22",
+        prompt: `$(A^{-1})^{-1}$ เท่ากับข้อใด (กำหนดให้ $A$ มีอินเวอร์ส)`,
+        choices: [
+          { key: "A", text: "$I$" },
+          { key: "B", text: "$A$" },
+          { key: "C", text: "$A^{-1}$" },
+          { key: "D", text: "$0$" }
+        ],
+        answer: "B",
+        explanation: `อินเวอร์สของอินเวอร์ส คือเมทริกซ์เดิม: $(A^{-1})^{-1}=A$ จึงตอบ B`
+      },
+      {
+        id: "q23",
+        prompt: `ถ้า $A,B$ เป็นเมทริกซ์จัตุรัสที่มีอินเวอร์ส แล้ว $(AB)^{-1}$ เท่ากับข้อใด`,
+        choices: [
+          { key: "A", text: "$B^{-1}A^{-1}$" },
+          { key: "B", text: "$A^{-1}B^{-1}$" },
+          { key: "C", text: "$A^{-1}+B^{-1}$" },
+          { key: "D", text: "$-A^{-1}B^{-1}$" }
+        ],
+        answer: "A",
+        explanation: `กฎอินเวอร์สของผลคูณเมทริกซ์ต้องสลับลำดับการคูณ: $(AB)^{-1}=B^{-1}A^{-1}$ จึงตอบ A`
+      },
+      {
+        id: "q24",
+        prompt: `$(A^{T})^{-1}$ มีความสัมพันธ์ตรงกับข้อใด`,
+        choices: [
+          { key: "A", text: "$A^{T}$" },
+          { key: "B", text: "$A$" },
+          { key: "C", text: "$(A^{T})^{2}$" },
+          { key: "D", text: "$(A^{-1})^{T}$" }
+        ],
+        answer: "D",
+        explanation: `อินเวอร์สของทรานสโพส เท่ากับทรานสโพสของอินเวอร์ส: $(A^{T})^{-1}=(A^{-1})^{T}$ จึงตอบ D`
+      },
+      {
+        id: "q25",
+        prompt: `จากระบบสมการในรูปเมทริกซ์ $AX=B$ โดย $A=\\begin{bmatrix} 2 & 1 \\\\ 1 & 1 \\end{bmatrix}$ และ $B=\\begin{bmatrix} 7 \\\\ 4 \\end{bmatrix}$ จงหา $X=A^{-1}B$ (ตอบในรูป $(x,y)$)`,
+        choices: [
+          { key: "A", text: "$(1,3)$" },
+          { key: "B", text: "$(4,3)$" },
+          { key: "C", text: "$(3,1)$" },
+          { key: "D", text: "$(2,5)$" }
+        ],
+        answer: "C",
+        explanation: `$\\det(A)=2-1=1$, $A^{-1}=\\begin{bmatrix} 1 & -1 \\\\ -1 & 2 \\end{bmatrix}$, $X=A^{-1}B=\\begin{bmatrix} (1)(7)+(-1)(4) \\\\ (-1)(7)+(2)(4) \\end{bmatrix}=\\begin{bmatrix} 3 \\\\ 1 \\end{bmatrix}$ ดังนั้น $(x,y)=(3,1)$ จึงตอบ C`
+      },
+      {
+        id: "q26",
+        prompt: `กำหนดให้ $A^{-1}=\\begin{bmatrix} 3 & -1 \\\\ -2 & 1 \\end{bmatrix}$ และ $B=\\begin{bmatrix} 5 \\\\ 3 \\end{bmatrix}$ จงหา $X$ จากสมการ $AX=B$ (ตอบในรูป $(x,y)$)`,
+        choices: [
+          { key: "A", text: "$(7,-12)$" },
+          { key: "B", text: "$(12,-7)$" },
+          { key: "C", text: "$(12,7)$" },
+          { key: "D", text: "$(-7,12)$" }
+        ],
+        answer: "B",
+        explanation: `$X=A^{-1}B=\\begin{bmatrix} (3)(5)+(-1)(3) \\\\ (-2)(5)+(1)(3) \\end{bmatrix}=\\begin{bmatrix} 15-3 \\\\ -10+3 \\end{bmatrix}=\\begin{bmatrix} 12 \\\\ -7 \\end{bmatrix}$ ดังนั้น $(x,y)=(12,-7)$ จึงตอบ B`
+      },
+      {
+        id: "q27",
+        prompt: `อินเวอร์สของเมทริกซ์เอกลักษณ์ $I$ คือข้อใด`,
+        choices: [
+          { key: "A", text: "$I$" },
+          { key: "B", text: "$0$" },
+          { key: "C", text: "$-I$" },
+          { key: "D", text: "ไม่มีอินเวอร์ส" }
+        ],
+        answer: "A",
+        explanation: `เมทริกซ์เอกลักษณ์เป็นอินเวอร์สของตัวเอง เพราะ $I \\cdot I=I$ ดังนั้น $I^{-1}=I$ จึงตอบ A`
+      },
+      {
+        id: "q28",
+        prompt: `กำหนดให้ $A=\\begin{bmatrix} 2 & 0 \\\\ 0 & 5 \\end{bmatrix}$ จงหา $A^{-1}$`,
+        choices: [
+          { key: "A", text: "$\\begin{bmatrix} 5 & 0 \\\\ 0 & 2 \\end{bmatrix}$" },
+          { key: "B", text: "$\\begin{bmatrix} -2 & 0 \\\\ 0 & -5 \\end{bmatrix}$" },
+          { key: "C", text: "$\\begin{bmatrix} \\frac{1}{5} & 0 \\\\ 0 & \\frac{1}{2} \\end{bmatrix}$" },
+          { key: "D", text: "$\\begin{bmatrix} \\frac{1}{2} & 0 \\\\ 0 & \\frac{1}{5} \\end{bmatrix}$" }
+        ],
+        answer: "D",
+        explanation: `อินเวอร์สของเมทริกซ์ทแยงมุม (diagonal matrix) คือการนำส่วนกลับของสมาชิกแต่ละตัวบนแนวทแยงหลักมาแทนที่: $A^{-1}=\\begin{bmatrix} \\frac{1}{2} & 0 \\\\ 0 & \\frac{1}{5} \\end{bmatrix}$ จึงตอบ D`
+      },
+      {
+        id: "q29",
+        prompt: `การหาอินเวอร์สของเมทริกซ์ขนาด $3\\times3$ โดยวิธีเมทริกซ์ผูกพัน (adjoint) ใช้สูตรตรงกับข้อใด`,
+        choices: [
+          { key: "A", text: "$A^{-1}=\\det(A)\\cdot\\text{adj}(A)$" },
+          { key: "B", text: "$A^{-1}=\\text{adj}(A)-\\det(A)$" },
+          { key: "C", text: "$A^{-1}=\\dfrac{1}{\\det(A)}\\cdot\\text{adj}(A)$" },
+          { key: "D", text: "$A^{-1}=\\text{adj}(A)$" }
+        ],
+        answer: "C",
+        explanation: `สูตรอินเวอร์สโดยวิธีเมทริกซ์ผูกพันคือ $A^{-1}=\\dfrac{1}{\\det(A)}\\cdot\\text{adj}(A)$ โดย $\\text{adj}(A)$ คือทรานสโพสของเมทริกซ์โคแฟกเตอร์ จึงตอบ C`
+      },
+      {
+        id: "q30",
+        prompt: `จงแก้ระบบสมการ $3x+y=11$ และ $2x+y=8$ ด้วยวิธีเมทริกซ์ผกผัน แล้วหาค่า $x+y$`,
+        choices: [
+          { key: "A", text: "$3$" },
+          { key: "B", text: "$5$" },
+          { key: "C", text: "$4$" },
+          { key: "D", text: "$6$" }
+        ],
+        answer: "B",
+        explanation: `เขียนในรูป $AX=B$ โดย $A=\\begin{bmatrix} 3 & 1 \\\\ 2 & 1 \\end{bmatrix}$, $B=\\begin{bmatrix} 11 \\\\ 8 \\end{bmatrix}$: $\\det(A)=3-2=1$, $A^{-1}=\\begin{bmatrix} 1 & -1 \\\\ -2 & 3 \\end{bmatrix}$, $X=A^{-1}B=\\begin{bmatrix} 11-8 \\\\ -22+24 \\end{bmatrix}=\\begin{bmatrix} 3 \\\\ 2 \\end{bmatrix}$ ดังนั้น $x=3,y=2$ และ $x+y=5$ จึงตอบ B`
+      }
+    ]
   }
 };
