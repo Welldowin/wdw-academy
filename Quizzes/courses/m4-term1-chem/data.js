@@ -3083,5 +3083,382 @@ window.COURSE_DATA = {
         explanation: `แขน 3 + คู่โดดเดี่ยว 2 คู่ รวม 5 กลุ่มอิเล็กตรอน เมื่อคู่โดดเดี่ยวเข้าแทนที่ 2 ตำแหน่งในระนาบศูนย์สูตร จึงเหลือรูปร่างเป็นตัว T เช่น $ClF_3$ จึงตอบ D`
       }
     ]
+  },
+
+
+  "quiz9": {
+    meta: {
+      courseId: "m4-term1-chem",
+      quizKey: "quiz9",
+      title: "Quiz 9 : การเรียกชื่อสารประกอบ การละลายน้ำ และสมการไอออนิกสุทธิ (30 ข้อ)",
+      enableTimer: true,
+      timeLimitSec: 3600
+    },
+    data: [
+      // --- ตอนที่ 1 : การเรียกชื่อและเขียนสูตรสารประกอบ (ข้อ 1-8) ---
+      {
+        id: "q1",
+        prompt: `ข้อใดเรียกชื่อสารประกอบได้ถูกต้องทั้ง 3 ชนิด (มีโลหะแทรนซิชันปนอยู่ด้วย)`,
+        choices: [
+          { key: "A", text: "$FeCl_2$ : Iron(III) chloride, $CO_2$ : Carbon oxide, $NaCl$ : Sodium chlorine" },
+          { key: "B", text: "$CuSO_4$ : Copper sulfate, $N_2O$ : Nitrogen oxide, $KF$ : Potassium fluoride" },
+          { key: "C", text: "$Fe_2O_3$ : Iron(III) oxide, $PCl_5$ : Phosphorus pentachloride, $NH_4Cl$ : Ammonium chloride" },
+          { key: "D", text: "$PbI_2$ : Lead iodide, $SF_6$ : Sulfur fluoride, $MgO_2$ : Magnesium oxide" }
+        ],
+        answer: "C",
+        explanation: `$Fe_2O_3$ เหล็กมีเลขออกซิเดชัน +3 จึงเรียกว่า Iron(III) oxide (ไอออนิก), $PCl_5$ เป็นโคเวเลนต์ อ่านจำนวนอะตอมด้วยเป็น Phosphorus pentachloride, $NH_4Cl$ คือ Ammonium chloride ส่วนข้ออื่นผิด เช่น $FeCl_2$ ต้องเป็น Iron(II) จึงตอบ C`
+      },
+      {
+        id: "q2",
+        prompt: `สูตรโมเลกุล $Cu_2O$ มีชื่อเรียกที่ถูกต้องตามระบบ IUPAC คือข้อใด`,
+        choices: [
+          { key: "A", text: "Copper(I) oxide" },
+          { key: "B", text: "Copper(II) oxide" },
+          { key: "C", text: "Dicopper oxide" },
+          { key: "D", text: "Copper(I) dioxide" }
+        ],
+        answer: "A",
+        explanation: `$O$ มีประจุ $-2$ ดังนั้น $Cu$ 2 อะตอมต้องมีประจุรวม $+2$ ทำให้ $Cu$ แต่ละอะตอมมีประจุ $+1$ จึงเป็นโลหะแทรนซิชันที่ต้องระบุตัวเลขโรมันเป็น Copper(I) oxide จึงตอบ A`
+      },
+      {
+        id: "q3",
+        prompt: `สูตรโมเลกุล $P_2O_5$ มีชื่อเรียกที่ถูกต้องคือข้อใด`,
+        choices: [
+          { key: "A", text: "Phosphorus pentoxide" },
+          { key: "B", text: "Phosphorus(II) oxide" },
+          { key: "C", text: "Diphosphorus oxide" },
+          { key: "D", text: "Diphosphorus pentoxide" }
+        ],
+        answer: "D",
+        explanation: `เป็นสารประกอบโคเวเลนต์ ต้องอ่านระบุจำนวนอะตอมของธาตุทั้งสอง $P=2$ (Di-), $O=5$ (Penta-) จึงอ่านว่า Diphosphorus pentoxide จึงตอบ D`
+      },
+      {
+        id: "q4",
+        prompt: `สูตรโมเลกุล $NH_4NO_3$ มีชื่อเรียกที่ถูกต้องคือข้อใด`,
+        choices: [
+          { key: "A", text: "Ammonia nitrate" },
+          { key: "B", text: "Ammonium nitrate" },
+          { key: "C", text: "Ammonium nitride" },
+          { key: "D", text: "Ammonia nitrite" }
+        ],
+        answer: "B",
+        explanation: `เป็นสารประกอบไอออนิกที่เกิดจากกลุ่มไอออนบวก $NH_4^+$ (Ammonium) และกลุ่มไอออนลบ $NO_3^-$ (Nitrate) จึงเรียกว่า Ammonium nitrate จึงตอบ B`
+      },
+      {
+        id: "q5",
+        prompt: `สารประกอบ "Iron(III) sulfate" เขียนสูตรโมเลกุลได้อย่างไร`,
+        choices: [
+          { key: "A", text: "$FeSO_4$" },
+          { key: "B", text: "$Fe_3(SO_4)_2$" },
+          { key: "C", text: "$Fe_2(SO_4)_3$" },
+          { key: "D", text: "$Fe_2SO_4$" }
+        ],
+        answer: "C",
+        explanation: `Iron(III) คือ $Fe^{3+}$ ส่วน sulfate ไอออนคือ $SO_4^{2-}$ เมื่อไขว้ประจุเพื่อให้ผลรวมเป็นศูนย์ จะได้ $Fe_2(SO_4)_3$ จึงตอบ C`
+      },
+      {
+        id: "q6",
+        prompt: `สารประกอบ "Dinitrogen tetroxide" เขียนสูตรโมเลกุลได้อย่างไร`,
+        choices: [
+          { key: "A", text: "$NO_2$" },
+          { key: "B", text: "$N_2O$" },
+          { key: "C", text: "$N_4O_2$" },
+          { key: "D", text: "$N_2O_4$" }
+        ],
+        answer: "D",
+        explanation: `เป็นสารประกอบโคเวเลนต์ Di- แปลว่า 2 จึงมี N 2 อะตอม, Tetra- แปลว่า 4 จึงมี O 4 อะตอม รวมเป็น $N_2O_4$ จึงตอบ D`
+      },
+      {
+        id: "q7",
+        prompt: `สารประกอบ "Lead(II) iodide" เขียนสูตรโมเลกุลได้อย่างไร`,
+        choices: [
+          { key: "A", text: "$Pb_2I$" },
+          { key: "B", text: "$PbI_2$" },
+          { key: "C", text: "$PbI$" },
+          { key: "D", text: "$Pb_2I_2$" }
+        ],
+        answer: "B",
+        explanation: `Lead(II) คือ $Pb^{2+}$ ส่วนไอโอไดด์ (iodide) คือหมู่ 7 มีประจุ $I^-$ ไขว้ประจุจะได้ $PbI_2$ จึงตอบ B`
+      },
+      {
+        id: "q8",
+        prompt: `สารประกอบ "Carbon tetrachloride" เขียนสูตรโมเลกุลได้อย่างไร`,
+        choices: [
+          { key: "A", text: "$CCl$" },
+          { key: "B", text: "$C_4Cl$" },
+          { key: "C", text: "$CCl_4$" },
+          { key: "D", text: "$CCl_2$" }
+        ],
+        answer: "C",
+        explanation: `เป็นสารประกอบโคเวเลนต์ คาร์บอน (C) ไม่มีคำนำหน้าแสดงว่ามี 1 อะตอม, chloride มีคำนำหน้า tetra- (4) แสดงว่ามี Cl 4 อะตอม จึงเป็น $CCl_4$ จึงตอบ C`
+      },
+      // --- ตอนที่ 2 : พลังงานผลึกและการละลายน้ำ (ข้อ 9-14) ---
+      {
+        id: "q9",
+        prompt: `สารประกอบชนิดหนึ่งมีพลังงานโครงร่างผลึก (Lattice energy) $800$ kJ/mol และมีพลังงานไฮเดรชัน (Hydration energy) $850$ kJ/mol การละลายน้ำของสารนี้เป็นอย่างไร`,
+        choices: [
+          { key: "A", text: "ละลายน้ำได้แบบคายความร้อน $50$ kJ/mol" },
+          { key: "B", text: "ละลายน้ำได้แบบดูดความร้อน $50$ kJ/mol" },
+          { key: "C", text: "ไม่ละลายน้ำ เพราะคายความร้อน" },
+          { key: "D", text: "ไม่ละลายน้ำ เพราะพลังงานไฮเดรชันสูงกว่า" }
+        ],
+        answer: "A",
+        explanation: `การละลายน้ำ = พลังงานที่ใช้ดูดสลายผลึก + พลังงานที่คายออกจากไฮเดรชัน เมื่อ $|Hydration| > |Lattice|$ ($850>800$) ระบบคายความร้อนออกมามากกว่าที่ใช้ดูดไปทำลายผลึก สุทธิคือคายความร้อน $50$ kJ/mol จึงตอบ A`
+      },
+      {
+        id: "q10",
+        prompt: `สารประกอบไอออนิกมีพลังงานโครงร่างผลึก $760$ kJ/mol และพลังงานไฮเดรชัน $710$ kJ/mol ข้อใดสรุปได้ถูกต้อง`,
+        choices: [
+          { key: "A", text: "เป็นปฏิกิริยาคายความร้อน $50$ kJ/mol เมื่ออุณหภูมิลดลงจะละลายได้ดีขึ้น" },
+          { key: "B", text: "เป็นปฏิกิริยาดูดความร้อน $1{,}470$ kJ/mol" },
+          { key: "C", text: "เป็นปฏิกิริยาคายความร้อน $1{,}470$ kJ/mol" },
+          { key: "D", text: "เป็นปฏิกิริยาดูดความร้อน $50$ kJ/mol เมื่ออุณหภูมิสูงขึ้นจะละลายได้ดีขึ้น" }
+        ],
+        answer: "D",
+        explanation: `$|Lattice| > |Hydration|$ ($760>710$) ใช้พลังงานในการทำลายพันธะมากกว่าที่คายออกมาตอนจับกับน้ำ สุทธิคือดูดความร้อน $50$ kJ/mol ปฏิกิริยาดูดความร้อนจะเกิดได้ดี (ละลายดีขึ้น) เมื่อเพิ่มอุณหภูมิ จึงตอบ D`
+      },
+      {
+        id: "q11",
+        prompt: `กำหนดให้สารประกอบ A มีพลังงานโครงร่างผลึก $3{,}200$ kJ/mol และพลังงานไฮเดรชัน $1{,}200$ kJ/mol สารประกอบ A เมื่อใส่ในน้ำจะเป็นอย่างไร`,
+        choices: [
+          { key: "A", text: "ละลายน้ำแบบดูดความร้อน $2{,}000$ kJ/mol" },
+          { key: "B", text: "ไม่ละลายน้ำ หรือละลายได้น้อยมาก" },
+          { key: "C", text: "ละลายน้ำแบบคายความร้อน $2{,}000$ kJ/mol" },
+          { key: "D", text: "ละลายน้ำได้ดีมากที่อุณหภูมิห้อง" }
+        ],
+        answer: "B",
+        explanation: `เมื่อพลังงานโครงร่างผลึก (Lattice) สูงกว่าพลังงานไฮเดรชันมาก ๆ (ต่างกันถึง $2{,}000$ kJ/mol) สารนั้นจะไม่สามารถละลายน้ำได้ เพราะน้ำไม่สามารถชดเชยพลังงานที่ใช้ในการทำลายโครงร่างผลึกได้ จึงตอบ B`
+      },
+      {
+        id: "q12",
+        prompt: `สารประกอบ B มีพลังงานโครงร่างผลึก $600$ kJ/mol และพลังงานไฮเดรชัน $720$ kJ/mol ข้อสรุปใดถูกต้อง`,
+        choices: [
+          { key: "A", text: "ละลายน้ำแบบดูดความร้อน $120$ kJ/mol" },
+          { key: "B", text: "ไม่ละลายน้ำ" },
+          { key: "C", text: "ละลายน้ำแบบคายความร้อน $120$ kJ/mol" },
+          { key: "D", text: "ละลายน้ำแบบคายความร้อน $1{,}320$ kJ/mol" }
+        ],
+        answer: "C",
+        explanation: `$|Hydration| > |Lattice|$ โดยคายออก $720$ และดูดไป $600$ ผลต่างคือ $120$ kJ/mol เป็นแบบคายความร้อน จึงตอบ C`
+      },
+      {
+        id: "q13",
+        prompt: `สารประกอบ C มีพลังงานโครงร่างผลึก $820$ kJ/mol และพลังงานไฮเดรชัน $790$ kJ/mol ความร้อนของการละลาย ($\\Delta H_{soln}$) มีค่าเท่าใดและเป็นกระบวนการใด`,
+        choices: [
+          { key: "A", text: "กระบวนการดูดความร้อน สุทธิ $30$ kJ/mol" },
+          { key: "B", text: "กระบวนการคายความร้อน สุทธิ $30$ kJ/mol" },
+          { key: "C", text: "กระบวนการไม่ละลายน้ำ สุทธิ $0$ kJ/mol" },
+          { key: "D", text: "กระบวนการดูดความร้อน สุทธิ $1{,}610$ kJ/mol" }
+        ],
+        answer: "A",
+        explanation: `$820$ (ดูด) $- 790$ (คาย) $= 30$ kJ/mol เนื่องจากค่าดูดมากกว่าค่าคาย จึงเป็นกระบวนการดูดความร้อน จึงตอบ A`
+      },
+      {
+        id: "q14",
+        prompt: `สาร D มีพลังงานโครงร่างผลึก $4{,}500$ kJ/mol และพลังงานไฮเดรชัน $1{,}500$ kJ/mol ข้อใดถูกต้อง`,
+        choices: [
+          { key: "A", text: "ดูดความร้อน $3{,}000$ kJ/mol" },
+          { key: "B", text: "คายความร้อน $3{,}000$ kJ/mol" },
+          { key: "C", text: "ดูดความร้อน $6{,}000$ kJ/mol" },
+          { key: "D", text: "ไม่ละลายน้ำ" }
+        ],
+        answer: "D",
+        explanation: `พลังงานโครงร่างผลึก ($4{,}500$) สูงกว่าไฮเดรชัน ($1{,}500$) มาก ๆ แรงดึงดูดระหว่างไอออนในผลึกแข็งแรงเกินกว่าที่โมเลกุลน้ำจะดึงแยกออกมาได้ จึงไม่ละลายน้ำ จึงตอบ D`
+      },
+      // --- ตอนที่ 3 : กฎการละลายน้ำของสารประกอบไอออนิก (ข้อ 15-24) ---
+      {
+        id: "q15",
+        prompt: `ข้อใดมีสารประกอบที่ ละลายน้ำได้ ทั้งหมด 3 ชนิด`,
+        choices: [
+          { key: "A", text: "$NaCl, CaCO_3, KNO_3$" },
+          { key: "B", text: "$LiCl, NH_4NO_3, Na_2SO_4$" },
+          { key: "C", text: "$AgCl, BaSO_4, PbI_2$" },
+          { key: "D", text: "$KCl, MgCO_3, Na_3PO_4$" }
+        ],
+        answer: "B",
+        explanation: `ข้อ B ถูก (หมู่ 1, แอมโมเนียม, ไนเตรต/ซัลเฟตของโลหะหมู่ 1 ละลายน้ำหมด) ส่วน A มี $CaCO_3$ ไม่ละลาย, C ไม่ละลายทั้ง 3 ตัว, D มี $MgCO_3$ ไม่ละลาย จึงตอบ B`
+      },
+      {
+        id: "q16",
+        prompt: `ข้อใดมีสารประกอบที่ ไม่ละลายน้ำ ทั้งหมด 3 ชนิด`,
+        choices: [
+          { key: "A", text: "$AgNO_3, PbCl_2, BaSO_4$" },
+          { key: "B", text: "$CaCO_3, Na_2CO_3, Mg(OH)_2$" },
+          { key: "C", text: "$AgCl, BaSO_4, PbI_2$" },
+          { key: "D", text: "$K_2SO_4, ZnS, Cu(OH)_2$" }
+        ],
+        answer: "C",
+        explanation: `ข้อ C ไม่ละลายน้ำทั้งหมด ($AgCl$ คลอไรด์โลหะหนัก, $BaSO_4$ ซัลเฟตหมู่ 2, $PbI_2$ ไอโอไดด์โลหะหนัก) ส่วน A มี $AgNO_3$ ละลาย, B มี $Na_2CO_3$ ละลาย, D มี $K_2SO_4$ ละลาย จึงตอบ C`
+      },
+      {
+        id: "q17",
+        prompt: `ข้อใดมีสารประกอบที่ ละลายน้ำได้ ทั้งหมด 3 ชนิด`,
+        choices: [
+          { key: "A", text: "$RbCl, NaOH, Ca(NO_3)_2$" },
+          { key: "B", text: "$NH_4Cl, AgCl, NaCl$" },
+          { key: "C", text: "$K_2CO_3, CaCO_3, Na_2CO_3$" },
+          { key: "D", text: "$Pb(NO_3)_2, PbCl_2, PbI_2$" }
+        ],
+        answer: "A",
+        explanation: `ข้อ A ถูกต้อง ($RbCl$ หมู่ 1, $NaOH$ หมู่ 1, ไนเตรตละลายหมด) ส่วน B มี $AgCl$ ไม่ละลาย, C มี $CaCO_3$ ไม่ละลาย, D มี $PbCl_2, PbI_2$ ไม่ละลาย จึงตอบ A`
+      },
+      {
+        id: "q18",
+        prompt: `ข้อใดมีสารประกอบที่ ไม่ละลายน้ำ ทั้งหมด 3 ชนิด`,
+        choices: [
+          { key: "A", text: "$Fe(OH)_3, NaOH, KOH$" },
+          { key: "B", text: "$ZnCO_3, K_2CO_3, BaCO_3$" },
+          { key: "C", text: "$AgNO_3, AgCl, AgBr$" },
+          { key: "D", text: "$MgCO_3, PbSO_4, Cu(OH)_2$" }
+        ],
+        answer: "D",
+        explanation: `ข้อ D ไม่ละลายน้ำทั้งหมด ($MgCO_3$ คาร์บอเนตหมู่ 2, $PbSO_4$ ซัลเฟตโลหะหนัก, $Cu(OH)_2$ ไฮดรอกไซด์โลหะทรานซิชัน) ส่วนข้ออื่นมีสารหมู่ 1 หรือไนเตรตปนอยู่ซึ่งละลายน้ำได้ จึงตอบ D`
+      },
+      {
+        id: "q19",
+        prompt: `ข้อใดมีสารประกอบที่ ละลายน้ำได้ ทั้งหมด 3 ชนิด`,
+        choices: [
+          { key: "A", text: "$BaCl_2, BaSO_4, Ba(NO_3)_2$" },
+          { key: "B", text: "$CH_3COONa, (NH_4)_3PO_4, KClO_4$" },
+          { key: "C", text: "$Na_2S, FeS, CuS$" },
+          { key: "D", text: "$Li_2O, MgO, Al_2O_3$" }
+        ],
+        answer: "B",
+        explanation: `ข้อ B เป็นเกลืออะซิเตต ($CH_3COO^-$), แอมโมเนียม ($NH_4^+$) และโพแทสเซียม ($K^+$) ซึ่งละลายน้ำได้เสมอ ส่วน A มี $BaSO_4$ ไม่ละลาย, C มี $FeS,CuS$ ไม่ละลาย, D สารประกอบออกไซด์ส่วนใหญ่ไม่ละลาย จึงตอบ B`
+      },
+      {
+        id: "q20",
+        prompt: `ข้อใดมีสารประกอบที่ ไม่ละลายน้ำ ทั้งหมด 3 ชนิด`,
+        choices: [
+          { key: "A", text: "$Ba(OH)_2, Ca(OH)_2, Sr(OH)_2$" },
+          { key: "B", text: "$Na_2SO_4, PbSO_4, BaSO_4$" },
+          { key: "C", text: "$Ag_2CO_3, ZnS, Fe(OH)_2$" },
+          { key: "D", text: "$NH_4OH, LiOH, KOH$" }
+        ],
+        answer: "C",
+        explanation: `ข้อ C ไม่ละลายน้ำทั้งหมด ($Ag_2CO_3, ZnS, Fe(OH)_2$) ส่วน A ไฮดรอกไซด์หมู่ 2 ตอนล่างละลายน้ำได้บ้าง, B มี $Na_2SO_4$ ละลาย, D ละลายทั้งหมด จึงตอบ C`
+      },
+      {
+        id: "q21",
+        prompt: `ข้อใดมีสารประกอบที่ ละลายน้ำได้ ทั้งหมด 3 ชนิด`,
+        choices: [
+          { key: "A", text: "$KMnO_4, Na_2Cr_2O_7, NH_4Cl$" },
+          { key: "B", text: "$BaSO_4, CaSO_4, MgSO_4$" },
+          { key: "C", text: "$AgCl, AgBr, AgI$" },
+          { key: "D", text: "$CaCO_3, BaCO_3, MgCO_3$" }
+        ],
+        answer: "A",
+        explanation: `ข้อ A มีโพแทสเซียม ($K^+$), โซเดียม ($Na^+$), และแอมโมเนียม ($NH_4^+$) ซึ่งละลายน้ำได้ 100% เสมอ ส่วน B, C, D ล้วนมีสารที่ไม่ละลายน้ำ จึงตอบ A`
+      },
+      {
+        id: "q22",
+        prompt: `ข้อใดมีสารประกอบที่ ไม่ละลายน้ำ ทั้งหมด 3 ชนิด`,
+        choices: [
+          { key: "A", text: "$NaCl, KCl, RbCl$" },
+          { key: "B", text: "$SrSO_4, BaCO_3, AgI$" },
+          { key: "C", text: "$KNO_3, NaNO_3, LiNO_3$" },
+          { key: "D", text: "$CuSO_4, ZnSO_4, FeSO_4$" }
+        ],
+        answer: "B",
+        explanation: `ข้อ B ไม่ละลายน้ำทั้งหมด ($SrSO_4$ ซัลเฟตหมู่ 2, $BaCO_3$ คาร์บอเนตหมู่ 2, $AgI$ ไอโอไดด์หมู่โลหะหนัก) ส่วนข้อ D ซัลเฟตของโลหะทรานซิชันเหล่านี้ละลายน้ำได้ จึงตอบ B`
+      },
+      {
+        id: "q23",
+        prompt: `ข้อใดมีสารประกอบที่ ละลายน้ำได้ ทั้งหมด 3 ชนิด`,
+        choices: [
+          { key: "A", text: "$Ag_2S, K_2S, Na_2S$" },
+          { key: "B", text: "$BaCl_2, PbCl_2, Hg_2Cl_2$" },
+          { key: "C", text: "$CaCO_3, (NH_4)_2CO_3, K_2CO_3$" },
+          { key: "D", text: "$KClO_3, NaNO_3, CsCl$" }
+        ],
+        answer: "D",
+        explanation: `ข้อ D มีไอออนหมู่ 1 ($K^+, Na^+, Cs^+$) ซึ่งละลายน้ำได้เสมอทั้งหมด ข้อ A มี $Ag_2S$ ไม่ละลาย, B มี $PbCl_2, Hg_2Cl_2$ ไม่ละลาย, C มี $CaCO_3$ ไม่ละลาย จึงตอบ D`
+      },
+      {
+        id: "q24",
+        prompt: `ข้อใดมีสารประกอบที่ ไม่ละลายน้ำ ทั้งหมด 3 ชนิด`,
+        choices: [
+          { key: "A", text: "$K_2SO_4, PbSO_4, CaSO_4$" },
+          { key: "B", text: "$AgNO_3, AgCl, AgBr$" },
+          { key: "C", text: "$NH_4Cl, MgCO_3, ZnS$" },
+          { key: "D", text: "$PbI_2, BaSO_4, CaCO_3$" }
+        ],
+        answer: "D",
+        explanation: `ข้อ D เป็นตะกอนทั้งหมด ($PbI_2$ ตะกอนเหลือง, $BaSO_4$ ตะกอนขาว, $CaCO_3$ หินปูนตะกอนขาว) จึงตอบ D`
+      },
+      // --- ตอนที่ 4 : สมการไอออนิกสุทธิ (ข้อ 25-30) ---
+      {
+        id: "q25",
+        prompt: `เมื่อผสมสารละลาย $Pb(NO_3)_2$ กับสารละลาย $KI$ สมการไอออนิกสุทธิ (Net ionic equation) คือข้อใด`,
+        choices: [
+          { key: "A", text: "$Pb^{2+}(aq)+2I^-(aq) \\rightarrow PbI_2(s)$" },
+          { key: "B", text: "$K^+(aq)+NO_3^-(aq) \\rightarrow KNO_3(aq)$" },
+          { key: "C", text: "$Pb^{2+}(aq)+2NO_3^-(aq) \\rightarrow Pb(NO_3)_2(s)$" },
+          { key: "D", text: "ไม่มีสมการไอออนิกสุทธิ เนื่องจากไม่เกิดตะกอน" }
+        ],
+        answer: "A",
+        explanation: `การผสมเกิดตะกอนสีเหลืองของตะกั่ว(II) ไอโอไดด์ ($PbI_2$) ไอออนที่เข้าทำปฏิกิริยากันเกิดเป็นของแข็งเท่านั้นที่นำมาเขียนสมการไอออนิกสุทธิ ส่วน $K^+$ และ $NO_3^-$ เป็น spectator ions จึงตอบ A`
+      },
+      {
+        id: "q26",
+        prompt: `เมื่อผสมสารละลาย $BaCl_2$ กับสารละลาย $Na_2SO_4$ สมการไอออนิกสุทธิคือข้อใด`,
+        choices: [
+          { key: "A", text: "$Na^+(aq)+Cl^-(aq) \\rightarrow NaCl(s)$" },
+          { key: "B", text: "$Ba^{2+}(aq)+2Cl^-(aq) \\rightarrow BaCl_2(s)$" },
+          { key: "C", text: "$Ba^{2+}(aq)+SO_4^{2-}(aq) \\rightarrow BaSO_4(s)$" },
+          { key: "D", text: "ไม่มีสมการไอออนิกสุทธิ" }
+        ],
+        answer: "C",
+        explanation: `ตะกอนที่เกิดขึ้นคือ Barium sulfate ($BaSO_4$) ไอออนของ Barium และ Sulfate จึงจับตัวกันเป็นของแข็ง จึงตอบ C`
+      },
+      {
+        id: "q27",
+        prompt: `เมื่อผสมสารละลาย $NaCl$ กับสารละลาย $KNO_3$ สมการไอออนิกสุทธิคือข้อใด`,
+        choices: [
+          { key: "A", text: "$Na^+(aq)+NO_3^-(aq) \\rightarrow NaNO_3(s)$" },
+          { key: "B", text: "$K^+(aq)+Cl^-(aq) \\rightarrow KCl(s)$" },
+          { key: "C", text: "$Na^+(aq)+K^+(aq) \\rightarrow NaK(s)$" },
+          { key: "D", text: "ไม่มีสมการไอออนิกสุทธิ" }
+        ],
+        answer: "D",
+        explanation: `สารผลิตภัณฑ์ที่อาจเกิดขึ้นคือ $NaNO_3$ และ $KCl$ ซึ่งทั้งสองตัวละลายน้ำได้ทั้งหมด ($aq$) ไม่เกิดตะกอนใด ๆ จึงถือว่าไม่มีปฏิกิริยาและไม่มีสมการไอออนิกสุทธิ จึงตอบ D`
+      },
+      {
+        id: "q28",
+        prompt: `เมื่อผสมสารละลาย $AgNO_3$ กับสารละลาย $CaCl_2$ สมการไอออนิกสุทธิคือข้อใด`,
+        choices: [
+          { key: "A", text: "$Ca^{2+}(aq)+2NO_3^-(aq) \\rightarrow Ca(NO_3)_2(s)$" },
+          { key: "B", text: "$Ag^+(aq)+Cl^-(aq) \\rightarrow AgCl(s)$" },
+          { key: "C", text: "$Ag^+(aq)+NO_3^-(aq) \\rightarrow AgNO_3(s)$" },
+          { key: "D", text: "ไม่มีสมการไอออนิกสุทธิ" }
+        ],
+        answer: "B",
+        explanation: `เกิดตะกอนสีขาวของ Silver chloride ($AgCl$) ส่วนแคลเซียมไนเตรตละลายน้ำได้ สมการไอออนิกสุทธิจึงนำเฉพาะ $Ag^+$ และ $Cl^-$ มาเขียน จึงตอบ B`
+      },
+      {
+        id: "q29",
+        prompt: `เมื่อผสมสารละลาย $Ca(OH)_2$ กับสารละลาย $Na_2CO_3$ สมการไอออนิกสุทธิคือข้อใด`,
+        choices: [
+          { key: "A", text: "$Ca^{2+}(aq)+CO_3^{2-}(aq) \\rightarrow CaCO_3(s)$" },
+          { key: "B", text: "$Na^+(aq)+OH^-(aq) \\rightarrow NaOH(s)$" },
+          { key: "C", text: "$Ca^{2+}(aq)+2OH^-(aq) \\rightarrow Ca(OH)_2(s)$" },
+          { key: "D", text: "ไม่มีสมการไอออนิกสุทธิ" }
+        ],
+        answer: "A",
+        explanation: `เกิดตะกอนหินปูน Calcium carbonate ($CaCO_3$) จึงเขียนแสดงไอออน $Ca^{2+}$ ทำปฏิกิริยากับ $CO_3^{2-}$ จึงตอบ A`
+      },
+      {
+        id: "q30",
+        prompt: `เมื่อผสมสารละลาย $CuSO_4$ กับสารละลาย $NaOH$ สมการไอออนิกสุทธิคือข้อใด`,
+        choices: [
+          { key: "A", text: "$Na^+(aq)+SO_4^{2-}(aq) \\rightarrow Na_2SO_4(s)$" },
+          { key: "B", text: "$Cu^{2+}(aq)+SO_4^{2-}(aq) \\rightarrow CuSO_4(s)$" },
+          { key: "C", text: "$Cu^{2+}(aq)+2OH^-(aq) \\rightarrow Cu(OH)_2(s)$" },
+          { key: "D", text: "ไม่มีสมการไอออนิกสุทธิ" }
+        ],
+        answer: "C",
+        explanation: `เกิดตะกอนสีฟ้าของ Copper(II) hydroxide ($Cu(OH)_2$) ส่วนโซเดียมซัลเฟตละลายน้ำได้ สมการสุทธิจึงแสดงการรวมตัวของ $Cu^{2+}$ และ $OH^-$ จึงตอบ C`
+      }
+    ]
   }
 };

@@ -3227,5 +3227,381 @@ window.COURSE_DATA = {
         explanation: `ขวดปิดสนิทเป็นระบบปิด น้ำระเหยเป็นไอและไอควบแน่นกลับด้วยอัตราเท่ากัน จึงเข้าสู่สมดุลได้ ส่วนข้ออื่นเป็นระบบเปิดที่สารหลุดออกไป จึงตอบ B`
       }
     ]
+  },
+
+
+  "quiz9": {
+    meta: {
+      courseId: "m5-term1-chem",
+      quizKey: "quiz9",
+      title: "Quiz 9 : สมดุลเคมี (การหาค่า K การผสมสมการ และความสัมพันธ์ Kp กับ Kc) (30 ข้อ)",
+      enableTimer: true,
+      timeLimitSec: 3600
+    },
+    data: [
+      // --- ตอนที่ 1 : การเขียนนิพจน์และคำนวณ Kc (ข้อ 1-10) ---
+      {
+        id: "q1",
+        prompt: `พิจารณาสมการ $A(g)+2B(g) \\rightleftharpoons 3C(g)$ การเขียนนิพจน์ค่าคงที่สมดุล ($K_c$) ในข้อใดถูกต้อง`,
+        choices: [
+          { key: "A", text: "$K_c = \\dfrac{[A][B]^2}{[C]^3}$" },
+          { key: "B", text: "$K_c = \\dfrac{[C]^3}{[A][B]^2}$" },
+          { key: "C", text: "$K_c = \\dfrac{3[C]}{[A]+2[B]}$" },
+          { key: "D", text: "$K_c = \\dfrac{[A]+2[B]}{3[C]}$" }
+        ],
+        answer: "B",
+        explanation: `นิพจน์ค่าคงที่สมดุล ($K_c$) คิดจากความเข้มข้นของผลิตภัณฑ์ยกกำลังด้วยสัมประสิทธิ์จำนวนโมล หารด้วยความเข้มข้นของสารตั้งต้นยกกำลังด้วยสัมประสิทธิ์จำนวนโมล จึงตอบ B`
+      },
+      {
+        id: "q2",
+        prompt: `ปฏิกิริยา $2A(g) \\rightleftharpoons B(g)+C(g)$ ที่สภาวะสมดุลพบว่ามีความเข้มข้นของ $A=2$ mol/L, $B=2$ mol/L และ $C=8$ mol/L ค่าคงที่สมดุล ($K_c$) ของปฏิกิริยานี้มีค่าเท่าใด`,
+        choices: [
+          { key: "A", text: "$2$" },
+          { key: "B", text: "$16$" },
+          { key: "C", text: "$8$" },
+          { key: "D", text: "$4$" }
+        ],
+        answer: "D",
+        explanation: `$K_c = \\dfrac{[B][C]}{[A]^2} = \\dfrac{(2)(8)}{2^2} = \\dfrac{16}{4} = 4$ จึงตอบ D`
+      },
+      {
+        id: "q3",
+        prompt: `ในภาชนะ 1 ลิตร บรรจุสาร A และ B อย่างละ 4 โมล เกิดปฏิกิริยา $A(g)+B(g) \\rightleftharpoons 2C(g)$ เมื่อถึงสมดุลพบว่ามีสาร C เกิดขึ้น 4 โมล ค่าคงที่สมดุล ($K_c$) มีค่าเท่าใด`,
+        choices: [
+          { key: "A", text: "$4$" },
+          { key: "B", text: "$2$" },
+          { key: "C", text: "$1$" },
+          { key: "D", text: "$8$" }
+        ],
+        answer: "A",
+        explanation: `ร: $A=4,B=4,C=0$; ป: $C$ เกิด 4 โมล ต้องใช้ $A,B$ อย่างละ 2 โมล; ส: $A=2,B=2,C=4$ ดังนั้น $K_c = \\dfrac{[C]^2}{[A][B]} = \\dfrac{4^2}{(2)(2)} = \\dfrac{16}{4} = 4$ จึงตอบ A`
+      },
+      {
+        id: "q4",
+        prompt: `ปฏิกิริยา $CaCO_3(s) \\rightleftharpoons CaO(s)+CO_2(g)$ ที่สมดุลพบว่ามีความเข้มข้นของก๊าซคาร์บอนไดออกไซด์เท่ากับ $0.5$ mol/L ค่าคงที่สมดุล ($K_c$) มีค่าเท่าใด`,
+        choices: [
+          { key: "A", text: "$0.25$" },
+          { key: "B", text: "$0.5/[CaCO_3]$" },
+          { key: "C", text: "$0.5$" },
+          { key: "D", text: "$1.0$" }
+        ],
+        answer: "C",
+        explanation: `สารที่มีสถานะของแข็ง ($s$) และของเหลวบริสุทธิ์ ($l$) จะไม่นำมาคิดในนิพจน์ค่า $K_c$ ดังนั้น $K_c=[CO_2]=0.5$ จึงตอบ C`
+      },
+      {
+        id: "q5",
+        prompt: `ปฏิกิริยา $X(g) \\rightleftharpoons 2Y(g)$ มีค่า $K_c=4$ หากเริ่มต้นใส่สาร X ลงในภาชนะ 1 ลิตร จำนวน 2 โมล (ไม่มี Y) เมื่อระบบเข้าสู่สมดุล จะมีสาร Y อยู่กี่โมล/ลิตร`,
+        choices: [
+          { key: "A", text: "$1$" },
+          { key: "B", text: "$2$" },
+          { key: "C", text: "$1.5$" },
+          { key: "D", text: "$0.5$" }
+        ],
+        answer: "B",
+        explanation: `ให้สมดุลมี X ลดลง $x$ เกิด Y ขึ้น $2x$: $K_c=\\dfrac{(2x)^2}{2-x}=4 \\Rightarrow 4x^2=4(2-x) \\Rightarrow x^2+x-2=0 \\Rightarrow (x+2)(x-1)=0 \\Rightarrow x=1$ ดังนั้น $[Y]=2(1)=2$ mol/L จึงตอบ B`
+      },
+      {
+        id: "q6",
+        prompt: `ปฏิกิริยา $H_2(g)+I_2(g) \\rightleftharpoons 2HI(g)$ ในภาชนะขนาด 2 ลิตร ที่สมดุลพบว่ามี $H_2$ 2 โมล, $I_2$ 2 โมล และ $HI$ 8 โมล ค่าคงที่สมดุลมีค่าเท่าใด`,
+        choices: [
+          { key: "A", text: "$16$" },
+          { key: "B", text: "$4$" },
+          { key: "C", text: "$32$" },
+          { key: "D", text: "$64$" }
+        ],
+        answer: "A",
+        explanation: `แปลงเป็นความเข้มข้น: $[H_2]=1,[I_2]=1,[HI]=4$ mol/L ดังนั้น $K_c=\\dfrac{[HI]^2}{[H_2][I_2]}=\\dfrac{4^2}{(1)(1)}=16$ จึงตอบ A`
+      },
+      {
+        id: "q7",
+        prompt: `ปฏิกิริยา $2NO_2(g) \\rightleftharpoons N_2O_4(g)$ บรรจุ $NO_2$ 4 mol/L ในภาชนะปิด เมื่อถึงสมดุลพบว่าเกิด $N_2O_4$ ขึ้น 1 mol/L ค่าคงที่สมดุล ($K_c$) มีค่าเท่าใด`,
+        choices: [
+          { key: "A", text: "$0.125$" },
+          { key: "B", text: "$0.5$" },
+          { key: "C", text: "$1.0$" },
+          { key: "D", text: "$0.25$" }
+        ],
+        answer: "D",
+        explanation: `ร: $NO_2=4$; ป: เกิด $N_2O_4$ $+1$ ใช้ $NO_2$ ไป $2$; ส: $NO_2=2,N_2O_4=1$ ดังนั้น $K_c=\\dfrac{[N_2O_4]}{[NO_2]^2}=\\dfrac{1}{2^2}=0.25$ จึงตอบ D`
+      },
+      {
+        id: "q8",
+        prompt: `ปฏิกิริยา $C(s)+H_2O(g) \\rightleftharpoons CO(g)+H_2(g)$ ที่สมดุลพบความเข้มข้นของ $H_2O=2$ mol/L, $CO=4$ mol/L และ $H_2=4$ mol/L ค่าคงที่สมดุลมีค่าเท่าใด`,
+        choices: [
+          { key: "A", text: "$2$" },
+          { key: "B", text: "$4$" },
+          { key: "C", text: "$8$" },
+          { key: "D", text: "$6$" }
+        ],
+        answer: "C",
+        explanation: `$C(s)$ เป็นของแข็งไม่นำมาคิด $K_c=\\dfrac{[CO][H_2]}{[H_2O]}=\\dfrac{(4)(4)}{2}=8$ จึงตอบ C`
+      },
+      {
+        id: "q9",
+        prompt: `นำก๊าซ $X_2$ 3 โมล และ $Y_2$ 3 โมล ผสมกันในภาชนะ 1 ลิตร เกิดสมดุล $X_2(g)+Y_2(g) \\rightleftharpoons 2XY(g)$ ที่สมดุลพบว่าเหลือ $X_2$ เพียง 1 โมล ค่า $K_c$ เท่ากับเท่าใด`,
+        choices: [
+          { key: "A", text: "$16$" },
+          { key: "B", text: "$8$" },
+          { key: "C", text: "$4$" },
+          { key: "D", text: "$2$" }
+        ],
+        answer: "A",
+        explanation: `$X_2$ เหลือ 1 แสดงว่าใช้ไป 2, $Y_2$ ใช้ไป 2 ด้วย, เกิด $XY=4$; ส: $X_2=1,Y_2=1,XY=4$ ดังนั้น $K_c=\\dfrac{[XY]^2}{[X_2][Y_2]}=\\dfrac{4^2}{(1)(1)}=16$ จึงตอบ A`
+      },
+      {
+        id: "q10",
+        prompt: `จากสมการ $PCl_5(g) \\rightleftharpoons PCl_3(g)+Cl_2(g)$ ที่สมดุลในภาชนะ 1 ลิตร พบ $PCl_5=2$ โมล, $PCl_3=4$ โมล และ $Cl_2=4$ โมล ค่าคงที่สมดุลมีค่าเท่าใด`,
+        choices: [
+          { key: "A", text: "$4$" },
+          { key: "B", text: "$12$" },
+          { key: "C", text: "$8$" },
+          { key: "D", text: "$16$" }
+        ],
+        answer: "C",
+        explanation: `$K_c=\\dfrac{[PCl_3][Cl_2]}{[PCl_5]}=\\dfrac{(4)(4)}{2}=8$ จึงตอบ C`
+      },
+      // --- ตอนที่ 2 : การผสม/ปรับสมการเพื่อหาค่า K ใหม่ (ข้อ 11-20) ---
+      {
+        id: "q11",
+        prompt: `กำหนดให้ปฏิกิริยา $A \\rightleftharpoons B$ มีค่า $K_1=4$ ปฏิกิริยา $B \\rightleftharpoons A$ จะมีค่าคงที่สมดุลเท่าใด`,
+        choices: [
+          { key: "A", text: "$4$" },
+          { key: "B", text: "$0.25$" },
+          { key: "C", text: "$-4$" },
+          { key: "D", text: "$0.5$" }
+        ],
+        answer: "B",
+        explanation: `เมื่อกลับสมการ (Reverse) ค่าคงที่สมดุลใหม่จะเท่ากับส่วนกลับของค่าเดิม $1/K_1 = 1/4 = 0.25$ จึงตอบ B`
+      },
+      {
+        id: "q12",
+        prompt: `กำหนดให้ปฏิกิริยา $A \\rightleftharpoons 2B$ มีค่า $K=3$ ปฏิกิริยา $2A \\rightleftharpoons 4B$ จะมีค่าคงที่สมดุลเท่าใด`,
+        choices: [
+          { key: "A", text: "$6$" },
+          { key: "B", text: "$1.5$" },
+          { key: "C", text: "$1/9$" },
+          { key: "D", text: "$9$" }
+        ],
+        answer: "D",
+        explanation: `เมื่อคูณสมการด้วยเลข $n$ (ในที่นี้คูณ 2) ค่าคงที่สมดุลใหม่จะนำค่าเดิมไปยกกำลัง $n$ ดังนั้น $K_{new}=3^2=9$ จึงตอบ D`
+      },
+      {
+        id: "q13",
+        prompt: `กำหนดปฏิกิริยา (1) $A \\rightleftharpoons B$ ($K_1=2$) และ (2) $B \\rightleftharpoons C$ ($K_2=5$) ปฏิกิริยา $A \\rightleftharpoons C$ จะมีค่าคงที่สมดุลเท่าใด`,
+        choices: [
+          { key: "A", text: "$2.5$" },
+          { key: "B", text: "$7$" },
+          { key: "C", text: "$10$" },
+          { key: "D", text: "$0.4$" }
+        ],
+        answer: "C",
+        explanation: `เมื่อนำสมการ (1) + (2) จะได้ $A \\rightleftharpoons C$ ค่าคงที่สมดุลใหม่เกิดจากการนำ $K$ มาคูณกัน $K_{new}=K_1 \\times K_2=2 \\times 5=10$ จึงตอบ C`
+      },
+      {
+        id: "q14",
+        prompt: `กำหนดปฏิกิริยา (1) $A+B \\rightleftharpoons C$ ($K_1=12$) และ (2) $A \\rightleftharpoons D$ ($K_2=3$) ปฏิกิริยา $C \\rightleftharpoons B+D$ จะมีค่าคงที่สมดุลเท่าใด`,
+        choices: [
+          { key: "A", text: "$0.25$" },
+          { key: "B", text: "$4$" },
+          { key: "C", text: "$36$" },
+          { key: "D", text: "$9$" }
+        ],
+        answer: "A",
+        explanation: `กลับสมการ (1): $C \\rightleftharpoons A+B$ ($K=1/12$) นำไปบวกกับสมการ (2) ตัด $A$ ทั้งสองข้างจะได้ $C \\rightleftharpoons B+D$: $K_{new}=(1/12) \\times 3 = 1/4 = 0.25$ จึงตอบ A`
+      },
+      {
+        id: "q15",
+        prompt: `กำหนดปฏิกิริยา (1) $X \\rightleftharpoons Y$ ($K_1=2$) และ (2) $2Z \\rightleftharpoons Y$ ($K_2=16$) ปฏิกิริยา $X \\rightleftharpoons 2Z$ จะมีค่าคงที่สมดุลเท่าใด`,
+        choices: [
+          { key: "A", text: "$32$" },
+          { key: "B", text: "$8$" },
+          { key: "C", text: "$14$" },
+          { key: "D", text: "$0.125$" }
+        ],
+        answer: "D",
+        explanation: `กลับสมการ (2): $Y \\rightleftharpoons 2Z$ ($K=1/16$) นำสมการ (1) บวกกับสมการที่กลับแล้ว จะได้ $X \\rightleftharpoons 2Z$: $K_{new}=2 \\times (1/16) = 1/8 = 0.125$ จึงตอบ D`
+      },
+      {
+        id: "q16",
+        prompt: `กำหนดปฏิกิริยา (1) $A \\rightleftharpoons 2B$ ($K_1=4$) และ (2) $B \\rightleftharpoons C$ ($K_2=3$) ปฏิกิริยา $A \\rightleftharpoons 2C$ จะมีค่าคงที่สมดุลเท่าใด`,
+        choices: [
+          { key: "A", text: "$7$" },
+          { key: "B", text: "$36$" },
+          { key: "C", text: "$144$" },
+          { key: "D", text: "$12$" }
+        ],
+        answer: "B",
+        explanation: `คูณสมการ (2) ด้วย 2: $2B \\rightleftharpoons 2C$ ($K=3^2=9$) นำสมการ (1) บวกกับสมการที่คูณแล้ว จะได้ $A \\rightleftharpoons 2C$: $K_{new}=4 \\times 9=36$ จึงตอบ B`
+      },
+      {
+        id: "q17",
+        prompt: `ปฏิกิริยา $2NO_2(g) \\rightleftharpoons N_2O_4(g)$ มีค่า $K=16$ ปฏิกิริยา $NO_2(g) \\rightleftharpoons \\frac{1}{2}N_2O_4(g)$ จะมีค่า $K$ เท่าใด`,
+        choices: [
+          { key: "A", text: "$4$" },
+          { key: "B", text: "$8$" },
+          { key: "C", text: "$256$" },
+          { key: "D", text: "$32$" }
+        ],
+        answer: "A",
+        explanation: `สมการใหม่เกิดจากการคูณสมการเดิมด้วย $1/2$ ดังนั้นค่า $K$ ใหม่คือการนำค่าเดิมมายกกำลัง $1/2$ (ถอดรากที่สอง): $\\sqrt{16}=4$ จึงตอบ A`
+      },
+      {
+        id: "q18",
+        prompt: `กำหนดปฏิกิริยา (1) $A+B \\rightleftharpoons C$ ($K_1$) และ (2) $2C \\rightleftharpoons D$ ($K_2$) ปฏิกิริยา $2A+2B \\rightleftharpoons D$ มีค่าคงที่สมดุลตรงกับข้อใด`,
+        choices: [
+          { key: "A", text: "$2K_1+K_2$" },
+          { key: "B", text: "$(K_1 \\times K_2)^2$" },
+          { key: "C", text: "$(K_1)^2 \\times K_2$" },
+          { key: "D", text: "$K_1 \\times (K_2)^2$" }
+        ],
+        answer: "C",
+        explanation: `นำสมการ (1) คูณ 2 จะได้ $2A+2B \\rightleftharpoons 2C$ ($K=K_1^2$) นำไปบวกกับสมการ (2) จะได้สมการเป้าหมาย ดังนั้น $K_{new}=K_1^2 \\times K_2$ จึงตอบ C`
+      },
+      {
+        id: "q19",
+        prompt: `กำหนดให้ $2A \\rightleftharpoons B$ มีค่า $K=0.5$ ปฏิกิริยา $2B \\rightleftharpoons 4A$ จะมีค่า $K$ เท่าใด`,
+        choices: [
+          { key: "A", text: "$1.0$" },
+          { key: "B", text: "$4.0$" },
+          { key: "C", text: "$2.0$" },
+          { key: "D", text: "$8.0$" }
+        ],
+        answer: "B",
+        explanation: `กลับสมการเป็น $B \\rightleftharpoons 2A$ ค่า $K$ จะเป็น $1/0.5=2$ คูณ 2 ทั้งสมการเป็น $2B \\rightleftharpoons 4A$ ค่า $K$ ใหม่จะเป็น $2^2=4$ จึงตอบ B`
+      },
+      {
+        id: "q20",
+        prompt: `กำหนดปฏิกิริยา (1) $M \\rightleftharpoons N$ ($K_1=10$) และ (2) $2O \\rightleftharpoons N$ ($K_2=2$) ปฏิกิริยา $2M \\rightleftharpoons 4O$ จะมีค่าคงที่สมดุลเท่าใด`,
+        choices: [
+          { key: "A", text: "$20$" },
+          { key: "B", text: "$50$" },
+          { key: "C", text: "$400$" },
+          { key: "D", text: "$25$" }
+        ],
+        answer: "D",
+        explanation: `คูณสมการ (1) ด้วย 2: $2M \\rightleftharpoons 2N$ ($K=10^2=100$) กลับสมการ (2) และคูณด้วย 2: $2N \\rightleftharpoons 4O$ ($K=(1/2)^2=1/4$) นำมาบวกกัน: $K_{new}=100 \\times 1/4=25$ จึงตอบ D`
+      },
+      // --- ตอนที่ 3 : ความสัมพันธ์ Kp กับ Kc (ข้อ 21-30) ---
+      {
+        id: "q21",
+        prompt: `จากสมการความสัมพันธ์ $K_p=K_c(RT)^{\\Delta n}$ ค่า $\\Delta n$ ของปฏิกิริยา $N_2(g)+3H_2(g) \\rightleftharpoons 2NH_3(g)$ มีค่าเท่าใด`,
+        choices: [
+          { key: "A", text: "$1$" },
+          { key: "B", text: "$-1$" },
+          { key: "C", text: "$-2$" },
+          { key: "D", text: "$2$" }
+        ],
+        answer: "C",
+        explanation: `$\\Delta n = $ (จำนวนโมลรวมของก๊าซผลิตภัณฑ์) $-$ (จำนวนโมลรวมของก๊าซสารตั้งต้น) $= 2-(1+3)=-2$ จึงตอบ C`
+      },
+      {
+        id: "q22",
+        prompt: `ปฏิกิริยาในข้อใดต่อไปนี้มีค่า $K_p$ เท่ากับ $K_c$ เสมอ`,
+        choices: [
+          { key: "A", text: "$H_2(g)+I_2(g) \\rightleftharpoons 2HI(g)$" },
+          { key: "B", text: "$2SO_2(g)+O_2(g) \\rightleftharpoons 2SO_3(g)$" },
+          { key: "C", text: "$PCl_5(g) \\rightleftharpoons PCl_3(g)+Cl_2(g)$" },
+          { key: "D", text: "$N_2(g)+3H_2(g) \\rightleftharpoons 2NH_3(g)$" }
+        ],
+        answer: "A",
+        explanation: `$K_p$ จะเท่ากับ $K_c$ ก็ต่อเมื่อ $\\Delta n=0$ ซึ่งในข้อ B จำนวนโมลของก๊าซผลิตภัณฑ์ (2) เท่ากับของก๊าซสารตั้งต้น (1+1=2) ทำให้ $\\Delta n=0$ และ $(RT)^0=1$ จึงตอบ A`
+      },
+      {
+        id: "q23",
+        prompt: `สำหรับปฏิกิริยา $A(g) \\rightleftharpoons 2B(g)$ ที่อุณหภูมิหนึ่ง กำหนดให้ค่า $RT=10$ L·atm/mol·K หากค่า $K_c=2$ ค่า $K_p$ จะมีค่าเท่าใด`,
+        choices: [
+          { key: "A", text: "$0.2$" },
+          { key: "B", text: "$10$" },
+          { key: "C", text: "$200$" },
+          { key: "D", text: "$20$" }
+        ],
+        answer: "D",
+        explanation: `$\\Delta n=2-1=1$ จากสูตร $K_p=K_c(RT)^{\\Delta n} \\Rightarrow K_p=2(10)^1=20$ จึงตอบ D`
+      },
+      {
+        id: "q24",
+        prompt: `สำหรับปฏิกิริยา $2A(g)+B(g) \\rightleftharpoons C(g)$ กำหนดให้ค่า $RT=5$ หากค่า $K_p=4$ ค่า $K_c$ จะมีค่าเท่าใด`,
+        choices: [
+          { key: "A", text: "$4/25$" },
+          { key: "B", text: "$100$" },
+          { key: "C", text: "$1/100$" },
+          { key: "D", text: "$20$" }
+        ],
+        answer: "B",
+        explanation: `$\\Delta n=1-(2+1)=-2$ จาก $K_p=K_c(RT)^{\\Delta n} \\Rightarrow 4=K_c(5)^{-2}=K_c(1/25) \\Rightarrow K_c=4 \\times 25=100$ จึงตอบ B`
+      },
+      {
+        id: "q25",
+        prompt: `ปฏิกิริยา $C(s)+CO_2(g) \\rightleftharpoons 2CO(g)$ มีค่า $K_c=5$ ที่อุณหภูมิหนึ่งซึ่งมีค่า $RT=4$ ค่า $K_p$ จะเป็นเท่าใด`,
+        choices: [
+          { key: "A", text: "$0.3125$" },
+          { key: "B", text: "$1.25$" },
+          { key: "C", text: "$80$" },
+          { key: "D", text: "$20$" }
+        ],
+        answer: "D",
+        explanation: `$\\Delta n$ คิดเฉพาะสถานะก๊าซ: $\\Delta n=2-1=1$ ดังนั้น $K_p=K_c(RT)^1=5(4)^1=20$ จึงตอบ D`
+      },
+      {
+        id: "q26",
+        prompt: `ปฏิกิริยาการแยกน้ำ $2H_2O(l) \\rightleftharpoons 2H_2(g)+O_2(g)$ มีค่า $K_c=2$ กำหนดให้ $RT=2$ ค่า $K_p$ จะเป็นเท่าใด`,
+        choices: [
+          { key: "A", text: "$8$" },
+          { key: "B", text: "$4$" },
+          { key: "C", text: "$16$" },
+          { key: "D", text: "$32$" }
+        ],
+        answer: "C",
+        explanation: `$\\Delta n$ คิดเฉพาะก๊าซ (น้ำเป็นของเหลวไม่นับ): $\\Delta n=(2+1)-0=3$ ดังนั้น $K_p=K_c(RT)^3=2(2)^3=2 \\times 8=16$ จึงตอบ C`
+      },
+      {
+        id: "q27",
+        prompt: `สำหรับปฏิกิริยา $A(g) \\rightleftharpoons 3B(g)$ อัตราส่วนของ $K_c/K_p$ มีค่าตรงกับข้อใด`,
+        choices: [
+          { key: "A", text: "$(RT)^{-2}$" },
+          { key: "B", text: "$(RT)^2$" },
+          { key: "C", text: "$RT$" },
+          { key: "D", text: "$(RT)^{-1}$" }
+        ],
+        answer: "A",
+        explanation: `$\\Delta n=3-1=2$ ดังนั้น $K_p=K_c(RT)^2 \\Rightarrow K_c/K_p = 1/(RT)^2 = (RT)^{-2}$ จึงตอบ A`
+      },
+      {
+        id: "q28",
+        prompt: `ในภาชนะปิดมีก๊าซ $NO_2$ และ $N_2O_4$ อยู่ในสมดุล $2NO_2(g) \\rightleftharpoons N_2O_4(g)$ หากความดันย่อยของ $NO_2$ เป็น 2 atm และ $N_2O_4$ เป็น 8 atm ค่า $K_p$ มีค่าเท่าใด`,
+        choices: [
+          { key: "A", text: "$4$" },
+          { key: "B", text: "$2$" },
+          { key: "C", text: "$16$" },
+          { key: "D", text: "$0.5$" }
+        ],
+        answer: "B",
+        explanation: `$K_p$ คิดจากความดันย่อยของก๊าซ: $K_p=\\dfrac{P_{N_2O_4}}{(P_{NO_2})^2}=\\dfrac{8}{2^2}=\\dfrac{8}{4}=2$ จึงตอบ B`
+      },
+      {
+        id: "q29",
+        prompt: `กระบวนการฮาเบอร์ $N_2(g)+3H_2(g) \\rightleftharpoons 2NH_3(g)$ มีค่า $K_p=100$ ปฏิกิริยา $NH_3(g) \\rightleftharpoons \\frac{1}{2}N_2(g)+\\frac{3}{2}H_2(g)$ จะมีค่า $K_p$ เท่าใด`,
+        choices: [
+          { key: "A", text: "$0.01$" },
+          { key: "B", text: "$10$" },
+          { key: "C", text: "$0.1$" },
+          { key: "D", text: "$0.001$" }
+        ],
+        answer: "C",
+        explanation: `ปฏิกิริยาเป้าหมายคือการกลับสมการเดิมแล้วคูณด้วย $1/2$: กลับสมการ $K=1/100$ คูณ $1/2$: $K_{new}=\\sqrt{1/100}=1/10=0.1$ จึงตอบ C`
+      },
+      {
+        id: "q30",
+        prompt: `ปฏิกิริยา $X(g)+2Y(g) \\rightleftharpoons 4Z(g)$ มีค่า $K_c=10$ ที่อุณหภูมิ 250 K กำหนดให้ค่าคงที่ของก๊าซ $R=0.08$ L·atm/mol·K ค่า $K_p$ ของปฏิกิริยานี้คือข้อใด`,
+        choices: [
+          { key: "A", text: "$200$" },
+          { key: "B", text: "$4{,}000$" },
+          { key: "C", text: "$0.5$" },
+          { key: "D", text: "$80$" }
+        ],
+        answer: "A",
+        explanation: `คำนวณ $RT=(0.08)(250)=20$ และ $\\Delta n=4-(1+2)=1$ ดังนั้น $K_p=K_c(RT)^1=10(20)=200$ จึงตอบ A`
+      }
+    ]
   }
 };
