@@ -32,6 +32,11 @@
           <span class="mode-title">สล็อตสูตรสารประกอบ</span>
           <span class="mode-desc">สุ่มสูตรเคมี เช่น H<sub>2</sub>O, SF<sub>4</sub>, PCl<sub>5</sub></span>
         </button>
+        <button class="mode-card" data-mode="imf">
+          <span class="mode-badge">Mode 3</span>
+          <span class="mode-title">สล็อตแรงยึดเหนี่ยวระหว่างโมเลกุล</span>
+          <span class="mode-desc">ทายแรงหลักของสาร เช่น CH<sub>3</sub>OH, CO<sub>2</sub>, NH<sub>3</sub></span>
+        </button>
       </div>
 
       <label class="sound-toggle">
@@ -69,13 +74,17 @@
 
       <!-- Answer panel -->
       <div id="answerPanel" class="answer-panel is-hidden">
-        <div class="q-block">
+        <div class="q-block" id="shapeBlock">
           <p class="q-label">1. ชื่อรูปร่างโมเลกุล</p>
           <div id="shapeGrid" class="opt-grid"></div>
         </div>
-        <div class="q-block">
+        <div class="q-block" id="angleBlock">
           <p class="q-label">2. มุมพันธะ (องศา)</p>
           <div id="angleGrid" class="opt-grid opt-grid-angle"></div>
+        </div>
+        <div class="q-block is-hidden" id="imfBlock">
+          <p class="q-label">แรงยึดเหนี่ยวระหว่างโมเลกุลที่แข็งแรงที่สุดคือ?</p>
+          <div id="imfGrid" class="opt-grid"></div>
         </div>
 
         <button id="submitBtn" class="btn-submit" disabled>ยืนยันคำตอบ</button>

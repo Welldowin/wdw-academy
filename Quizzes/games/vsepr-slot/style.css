@@ -285,6 +285,7 @@ body {
 .answer-panel.is-hidden { display: none; }
 
 .q-block { margin-bottom: 18px; }
+.q-block.is-hidden { display: none; }
 .q-label { font-weight: 700; margin-bottom: 10px; color: var(--ink); }
 
 .opt-grid {

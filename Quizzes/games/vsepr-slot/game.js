@@ -1,6 +1,8 @@
 /* =====================================================================
-   VSEPR Slot : ทายรูปร่างโมเลกุล
-   - 2 โหมด : สุ่มสัญลักษณ์ AXE / สุ่มสูตรสารประกอบ
+   VSEPR Slot : ทายรูปร่างโมเลกุล & แรงยึดเหนี่ยว
+   - โหมด 1 : สุ่มสัญลักษณ์ AXE  -> ตอบ รูปร่าง + มุมพันธะ
+   - โหมด 2 : สุ่มสูตรสารประกอบ  -> ตอบ รูปร่าง + มุมพันธะ
+   - โหมด 3 : สุ่มสาร (IMF)      -> ตอบ แรงยึดเหนี่ยวระหว่างโมเลกุล
    - ระบบสุ่มแบบ Shuffle Bag (ถังสุ่ม) ไม่ซ้ำจนกว่าจะหมดกอง
    ===================================================================== */
 
@@ -29,14 +31,37 @@ const SHAPE_OPTIONS = [
 
 const ANGLE_OPTIONS = ["180", "120", "< 120", "109.5", "< 109.5", "<< 109.5", "90", "< 90"];
 
+/* ---------- ฐานข้อมูลแรงยึดเหนี่ยวระหว่างโมเลกุล (Mode 3 : 15 สาร) ---------- */
+const IMF = [
+  { formula: "CH4",     name: "มีเทน",              type: "ไฮโดรคาร์บอน (แอลเคน)",      imf: "แรงลอนดอน" },
+  { formula: "C6H6",     name: "เบนซีน",             type: "ไฮโดรคาร์บอน (อะโรมาติก)",   imf: "แรงลอนดอน" },
+  { formula: "C8H18",    name: "ออกเทน",             type: "ไฮโดรคาร์บอน (แอลเคน)",      imf: "แรงลอนดอน" },
+  { formula: "CO2",      name: "คาร์บอนไดออกไซด์",   type: "อนินทรีย์ (ไม่มีขั้ว)",       imf: "แรงลอนดอน" },
+  { formula: "I2",       name: "ไอโอดีน",            type: "อนินทรีย์ (ไม่มีขั้ว)",       imf: "แรงลอนดอน" },
+  { formula: "CH3CHO",   name: "เอทานาล",            type: "แอลดีไฮด์ (มีขั้ว)",          imf: "แรงระหว่างขั้ว" },
+  { formula: "HCHO",     name: "เมทานาล",            type: "แอลดีไฮด์ (มีขั้ว)",          imf: "แรงระหว่างขั้ว" },
+  { formula: "HCl",      name: "ไฮโดรเจนคลอไรด์",    type: "อนินทรีย์ (มีขั้ว)",          imf: "แรงระหว่างขั้ว" },
+  { formula: "H2S",      name: "ไฮโดรเจนซัลไฟด์",    type: "อนินทรีย์ (มีขั้ว)",          imf: "แรงระหว่างขั้ว" },
+  { formula: "CH3OH",    name: "เมทานอล",            type: "แอลกอฮอล์ (มี H–O)",          imf: "พันธะไฮโดรเจน" },
+  { formula: "C2H5OH",   name: "เอทานอล",            type: "แอลกอฮอล์ (มี H–O)",          imf: "พันธะไฮโดรเจน" },
+  { formula: "CH3COOH",  name: "กรดอะซิติก",         type: "กรดคาร์บอกซิลิก (มี H–O)",    imf: "พันธะไฮโดรเจน" },
+  { formula: "HCOOH",    name: "กรดฟอร์มิก",         type: "กรดคาร์บอกซิลิก (มี H–O)",    imf: "พันธะไฮโดรเจน" },
+  { formula: "H2O",      name: "น้ำ",                type: "อนินทรีย์ (มี H–O)",          imf: "พันธะไฮโดรเจน" },
+  { formula: "NH3",      name: "แอมโมเนีย",          type: "อนินทรีย์ (มี H–N)",          imf: "พันธะไฮโดรเจน" },
+];
+
+const IMF_OPTIONS = ["แรงลอนดอน", "แรงระหว่างขั้ว", "พันธะไฮโดรเจน"];
+
 /* ---------- สถานะเกม ---------- */
 const state = {
-  mode: null,          // "axe" | "compound"
-  bag: [],             // ดัชนีของ VSEPR ที่ยังไม่ถูกสุ่มในรอบนี้
+  mode: null,          // "axe" | "compound" | "imf"
+  dataset: VSEPR,      // ฐานข้อมูลของโหมดปัจจุบัน (VSEPR หรือ IMF)
+  bag: [],             // ดัชนีที่ยังไม่ถูกสุ่มในรอบนี้
   current: null,       // entry ปัจจุบัน
   currentCompound: "", // สูตรที่โชว์ (โหมด 2)
   pickShape: null,
   pickAngle: null,
+  pickImf: null,
   score: 0,
   streak: 0,
   spinning: false,
@@ -54,6 +79,10 @@ const spinBtn = $("spinBtn");
 const answerPanel = $("answerPanel");
 const shapeGrid = $("shapeGrid");
 const angleGrid = $("angleGrid");
+const imfGrid = $("imfGrid");
+const shapeBlock = $("shapeBlock");
+const angleBlock = $("angleBlock");
+const imfBlock = $("imfBlock");
 const submitBtn = $("submitBtn");
 const feedback = $("feedback");
 const nextBtn = $("nextBtn");
@@ -101,7 +130,7 @@ function shuffle(arr) {
   return arr;
 }
 function refillBag() {
-  state.bag = shuffle(VSEPR.map((_, i) => i));
+  state.bag = shuffle(state.dataset.map((_, i) => i));
 }
 function drawFromBag() {
   if (state.bag.length === 0) refillBag();
@@ -114,16 +143,29 @@ function updateBagPill() {
 /* =====================================================================
    นำทางหน้าจอ
    ===================================================================== */
+const MODE_LABEL = {
+  axe: "MODE 1 · สุ่มสัญลักษณ์ VSEPR",
+  compound: "MODE 2 · สุ่มสูตรสารประกอบ",
+  imf: "MODE 3 · สุ่มแรงยึดเหนี่ยวระหว่างโมเลกุล",
+};
+
 function startMode(mode) {
   state.mode = mode;
+  state.dataset = mode === "imf" ? IMF : VSEPR;
   state.score = 0;
   state.streak = 0;
   refillBag();
   $("score").textContent = "0";
   $("streak").textContent = "0";
   updateBagPill();
-  $("modeLabel").textContent =
-    mode === "axe" ? "MODE 1 · สุ่มสัญลักษณ์ VSEPR" : "MODE 2 · สุ่มสูตรสารประกอบ";
+  $("modeLabel").textContent = MODE_LABEL[mode];
+
+  // สลับชุดคำถามให้ตรงกับโหมด
+  const isImf = mode === "imf";
+  shapeBlock.classList.toggle("is-hidden", isImf);
+  angleBlock.classList.toggle("is-hidden", isImf);
+  imfBlock.classList.toggle("is-hidden", !isImf);
+
   reel.innerHTML = "<span>?</span>";
   answerPanel.classList.add("is-hidden");
   spinBtn.disabled = false;
@@ -153,23 +195,22 @@ function spin() {
 
   const idx = drawFromBag();
   updateBagPill();
-  state.current = VSEPR[idx];
+  state.current = state.dataset[idx];
 
-  // ค่าที่จะโชว์บนวงล้อ
-  let target;
+  // ค่าที่จะโชว์บนวงล้อ + แหล่งข้อความ "หลอกตา" ระหว่างหมุน
+  let target, pool;
   if (state.mode === "axe") {
     target = state.current.axe;
-  } else {
+    pool = VSEPR.map((v) => v.axe);
+  } else if (state.mode === "compound") {
     const list = state.current.compounds;
     state.currentCompound = list[Math.floor(Math.random() * list.length)];
     target = state.currentCompound;
+    pool = VSEPR.flatMap((v) => v.compounds);
+  } else {
+    target = state.current.formula;
+    pool = IMF.map((v) => v.formula);
   }
-
-  // แหล่งข้อความสำหรับ "หลอกตา" ระหว่างหมุน
-  const pool =
-    state.mode === "axe"
-      ? VSEPR.map((v) => v.axe)
-      : VSEPR.flatMap((v) => v.compounds);
 
   reel.classList.add("is-spinning");
   const totalMs = 1500;
@@ -212,16 +253,27 @@ function formatFormula(s) {
 function openAnswerPanel() {
   state.pickShape = null;
   state.pickAngle = null;
+  state.pickImf = null;
   submitBtn.disabled = true;
   submitBtn.textContent = "ยืนยันคำตอบ";
   feedback.classList.add("is-hidden");
   nextBtn.classList.add("is-hidden");
 
-  buildGrid(shapeGrid, SHAPE_OPTIONS, "shape");
-  buildGrid(angleGrid, ANGLE_OPTIONS, "angle");
+  if (state.mode === "imf") {
+    buildGrid(imfGrid, IMF_OPTIONS, "imf");
+  } else {
+    buildGrid(shapeGrid, SHAPE_OPTIONS, "shape");
+    buildGrid(angleGrid, ANGLE_OPTIONS, "angle");
+  }
 
   answerPanel.classList.remove("is-hidden");
   answerPanel.scrollIntoView({ behavior: "smooth", block: "center" });
+}
+
+function canSubmit() {
+  return state.mode === "imf"
+    ? !!state.pickImf
+    : !!(state.pickShape && state.pickAngle);
 }
 
 function buildGrid(container, options, kind) {
@@ -238,8 +290,9 @@ function buildGrid(container, options, kind) {
       [...container.children].forEach((c) => c.classList.remove("selected"));
       b.classList.add("selected");
       if (kind === "shape") state.pickShape = opt;
-      else state.pickAngle = opt;
-      submitBtn.disabled = !(state.pickShape && state.pickAngle);
+      else if (kind === "angle") state.pickAngle = opt;
+      else state.pickImf = opt;
+      submitBtn.disabled = !canSubmit();
     });
     container.appendChild(b);
   });
@@ -249,26 +302,36 @@ function buildGrid(container, options, kind) {
    ตรวจคำตอบ
    ===================================================================== */
 function submitAnswer() {
-  if (state.answered || !state.pickShape || !state.pickAngle) return;
+  if (state.answered || !canSubmit()) return;
   state.answered = true;
   submitBtn.disabled = true;
 
   const cur = state.current;
-  const shapeOK = state.pickShape === cur.shape;
-  const angleOK = cur.angles.includes(state.pickAngle);
-  const allOK = shapeOK && angleOK;
+  let allOK, answerLine, wrongParts = [];
 
-  lockAndMark(shapeGrid, cur.shape, state.pickShape);
-  lockAndMark(angleGrid, cur.angles, state.pickAngle);
-
-  const prompt =
-    state.mode === "axe"
-      ? `สัญลักษณ์ <code>${formatFormula(cur.axe)}</code>`
-      : `สาร <code>${formatFormula(state.currentCompound)}</code> (${formatFormula(cur.axe)})`;
-
-  const answerLine =
-    `เฉลย : ${prompt} → รูปร่าง <b>${cur.shape}</b> ` +
-    `(${cur.shapeEn}) · มุมพันธะ <b>${cur.angles.join(" , ")}</b>°`;
+  if (state.mode === "imf") {
+    allOK = state.pickImf === cur.imf;
+    lockAndMark(imfGrid, cur.imf, state.pickImf);
+    if (!allOK) wrongParts.push("แรงยึดเหนี่ยว");
+    answerLine =
+      `เฉลย : <code>${formatFormula(cur.formula)}</code> (${cur.name}) — ${cur.type} ` +
+      `→ แรงยึดเหนี่ยวหลัก <b>${cur.imf}</b>`;
+  } else {
+    const shapeOK = state.pickShape === cur.shape;
+    const angleOK = cur.angles.includes(state.pickAngle);
+    allOK = shapeOK && angleOK;
+    lockAndMark(shapeGrid, cur.shape, state.pickShape);
+    lockAndMark(angleGrid, cur.angles, state.pickAngle);
+    if (!shapeOK) wrongParts.push("ชื่อรูปร่าง");
+    if (!angleOK) wrongParts.push("มุมพันธะ");
+    const prompt =
+      state.mode === "axe"
+        ? `สัญลักษณ์ <code>${formatFormula(cur.axe)}</code>`
+        : `สาร <code>${formatFormula(state.currentCompound)}</code> (${formatFormula(cur.axe)})`;
+    answerLine =
+      `เฉลย : ${prompt} → รูปร่าง <b>${cur.shape}</b> ` +
+      `(${cur.shapeEn}) · มุมพันธะ <b>${cur.angles.join(" , ")}</b>°`;
+  }
 
   if (allOK) {
     const gain = 10 + state.streak * 2;
@@ -283,9 +346,6 @@ function submitAnswer() {
   } else {
     state.streak = 0;
     feedback.className = "feedback no";
-    const wrongParts = [];
-    if (!shapeOK) wrongParts.push("ชื่อรูปร่าง");
-    if (!angleOK) wrongParts.push("มุมพันธะ");
     feedback.innerHTML =
       `<div class="fb-head">❌ ยังไม่ถูก (ผิดที่ ${wrongParts.join(" และ ")})</div>${answerLine}`;
     slotWindow.classList.add("lose");
