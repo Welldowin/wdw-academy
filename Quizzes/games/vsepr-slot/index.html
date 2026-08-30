@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VSEPR Slot : ทายรูปร่างโมเลกุล</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <div class="lab-bg"></div>
+
+  <main class="app">
+
+    <!-- ================= MAIN MENU ================= -->
+    <section id="screenMenu" class="screen is-active">
+      <div class="logo">
+        <span class="logo-atom">⚛</span>
+        <h1>VSEPR&nbsp;Slot</h1>
+        <p class="logo-sub">ทายรูปร่างโมเลกุล &amp; มุมพันธะ</p>
+      </div>
+
+      <p class="menu-hint">เลือกโหมดการเล่น</p>
+
+      <div class="mode-cards">
+        <button class="mode-card" data-mode="axe">
+          <span class="mode-badge">Mode 1</span>
+          <span class="mode-title">สล็อตสัญลักษณ์ VSEPR</span>
+          <span class="mode-desc">สุ่มสัญลักษณ์ AX<sub>2</sub>–AX<sub>6</sub> (รวมคู่โดดเดี่ยว)</span>
+        </button>
+        <button class="mode-card" data-mode="compound">
+          <span class="mode-badge">Mode 2</span>
+          <span class="mode-title">สล็อตสูตรสารประกอบ</span>
+          <span class="mode-desc">สุ่มสูตรเคมี เช่น H<sub>2</sub>O, SF<sub>4</sub>, PCl<sub>5</sub></span>
+        </button>
+      </div>
+
+      <label class="sound-toggle">
+        <input type="checkbox" id="soundToggle" checked />
+        <span>เปิดเสียงเอฟเฟกต์</span>
+      </label>
+    </section>
+
+    <!-- ================= GAME ================= -->
+    <section id="screenGame" class="screen">
+      <header class="game-top">
+        <button id="backBtn" class="btn-back">← กลับหน้าเมนู</button>
+        <div class="score-pills">
+          <span class="pill pill-score">คะแนน <b id="score">0</b></span>
+          <span class="pill pill-streak">ต่อเนื่อง <b id="streak">0</b></span>
+          <span class="pill pill-bag">เหลือในกอง <b id="bagLeft">0</b></span>
+        </div>
+      </header>
+
+      <p id="modeLabel" class="mode-label"></p>
+
+      <!-- Slot machine -->
+      <div class="slot">
+        <div class="slot-frame">
+          <div class="slot-window">
+            <div id="reel" class="reel"><span>?</span></div>
+          </div>
+          <div class="slot-lever" id="lever" title="โยกคันโยกเพื่อหมุน">
+            <div class="lever-stick"></div>
+            <div class="lever-ball"></div>
+          </div>
+        </div>
+        <button id="spinBtn" class="btn-spin">SPIN&nbsp;หมุน</button>
+      </div>
+
+      <!-- Answer panel -->
+      <div id="answerPanel" class="answer-panel is-hidden">
+        <div class="q-block">
+          <p class="q-label">1. ชื่อรูปร่างโมเลกุล</p>
+          <div id="shapeGrid" class="opt-grid"></div>
+        </div>
+        <div class="q-block">
+          <p class="q-label">2. มุมพันธะ (องศา)</p>
+          <div id="angleGrid" class="opt-grid opt-grid-angle"></div>
+        </div>
+
+        <button id="submitBtn" class="btn-submit" disabled>ยืนยันคำตอบ</button>
+
+        <div id="feedback" class="feedback is-hidden"></div>
+        <button id="nextBtn" class="btn-next is-hidden">หมุนข้อต่อไป →</button>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="./game.js"></script>
+</body>
+</html>
