@@ -8,19 +8,32 @@
 
 /* ---------- ฐานข้อมูล VSEPR (13 รูปแบบ) ---------- */
 const VSEPR = [
-  { axe: "AX2",   compounds: ["CO2", "BeCl2", "HCN"],   shape: "เส้นตรง",                  shapeEn: "Linear",              angles: ["180"] },
-  { axe: "AX3",   compounds: ["BF3", "BCl3", "SO3"],    shape: "สามเหลี่ยมแบนราบ",         shapeEn: "Trigonal planar",     angles: ["120"] },
-  { axe: "AX2E",  compounds: ["SO2", "O3", "SnCl2"],    shape: "มุมงอ",                    shapeEn: "Bent / V-Shape",      angles: ["< 120"] },
-  { axe: "AX4",   compounds: ["CH4", "CCl4", "SiH4"],   shape: "ทรงสี่หน้า",               shapeEn: "Tetrahedral",         angles: ["109.5"] },
-  { axe: "AX3E",  compounds: ["NH3", "PCl3", "NF3"],    shape: "พีระมิดฐานสามเหลี่ยม",     shapeEn: "Trigonal pyramidal",  angles: ["< 109.5"] },
-  { axe: "AX2E2", compounds: ["H2O", "H2S", "OF2"],     shape: "มุมงอ",                    shapeEn: "Bent / V-Shape",      angles: ["<< 109.5"] },
-  { axe: "AX5",   compounds: ["PCl5", "PF5", "AsF5"],   shape: "พีระมิดคู่ฐานสามเหลี่ยม",  shapeEn: "Trigonal bipyramidal", angles: ["90", "120"] },
-  { axe: "AX4E",  compounds: ["SF4", "SeF4"],           shape: "ทรงกระดานหก",              shapeEn: "Seesaw",              angles: ["< 90", "< 120"] },
-  { axe: "AX3E2", compounds: ["ClF3", "BrF3"],          shape: "รูปตัวที",                 shapeEn: "T-shaped",            angles: ["90"] },
-  { axe: "AX2E3", compounds: ["XeF2", "I3-"],           shape: "เส้นตรง",                  shapeEn: "Linear",              angles: ["180"] },
-  { axe: "AX6",   compounds: ["SF6", "SeF6"],           shape: "ทรงแปดหน้า",               shapeEn: "Octahedral",          angles: ["90"] },
-  { axe: "AX5E",  compounds: ["BrF5", "IF5"],           shape: "พีระมิดฐานสี่เหลี่ยม",     shapeEn: "Square pyramidal",    angles: ["90"] },
-  { axe: "AX4E2", compounds: ["XeF4", "ICl4-"],         shape: "สี่เหลี่ยมแบนราบ",         shapeEn: "Square planar",       angles: ["90"] },
+  { axe: "AX2",   compounds: ["CO2", "CS2", "BeCl2", "BeF2", "BeH2", "HCN", "N2O"],
+    shape: "เส้นตรง",                  shapeEn: "Linear",               angles: ["180"] },
+  { axe: "AX3",   compounds: ["BF3", "BCl3", "BBr3", "SO3", "NO3⁻", "CO3²⁻", "AlCl3"],
+    shape: "สามเหลี่ยมแบนราบ",         shapeEn: "Trigonal planar",      angles: ["120"] },
+  { axe: "AX2E",  compounds: ["SO2", "O3", "NO2", "SnCl2", "PbCl2"],
+    shape: "มุมงอ",                    shapeEn: "Bent / V-Shape",       angles: ["< 120"] },
+  { axe: "AX4",   compounds: ["CH4", "CCl4", "CF4", "SiH4", "SiF4", "SO4²⁻", "PO4³⁻", "NH4⁺", "ClO4⁻"],
+    shape: "ทรงสี่หน้า",               shapeEn: "Tetrahedral",          angles: ["109.5"] },
+  { axe: "AX3E",  compounds: ["NH3", "NF3", "PH3", "PCl3", "PF3", "PBr3", "AsH3", "H3O⁺", "ClO3⁻"],
+    shape: "พีระมิดฐานสามเหลี่ยม",     shapeEn: "Trigonal pyramidal",   angles: ["< 109.5"] },
+  { axe: "AX2E2", compounds: ["H2O", "H2S", "H2Se", "OF2", "OCl2", "SCl2"],
+    shape: "มุมงอ",                    shapeEn: "Bent / V-Shape",       angles: ["<< 109.5"] },
+  { axe: "AX5",   compounds: ["PCl5", "PF5", "AsF5", "SbCl5"],
+    shape: "พีระมิดคู่ฐานสามเหลี่ยม",  shapeEn: "Trigonal bipyramidal", angles: ["90", "120"] },
+  { axe: "AX4E",  compounds: ["SF4", "SeF4", "TeCl4"],
+    shape: "ทรงกระดานหก",              shapeEn: "Seesaw",               angles: ["< 90", "< 120"] },
+  { axe: "AX3E2", compounds: ["ClF3", "BrF3", "IF3", "ICl3"],
+    shape: "รูปตัวที",                 shapeEn: "T-shaped",             angles: ["90"] },
+  { axe: "AX2E3", compounds: ["XeF2", "I3⁻", "ICl2⁻", "IF2⁻"],
+    shape: "เส้นตรง",                  shapeEn: "Linear",               angles: ["180"] },
+  { axe: "AX6",   compounds: ["SF6", "SeF6", "TeF6", "PF6⁻", "SiF6²⁻"],
+    shape: "ทรงแปดหน้า",               shapeEn: "Octahedral",           angles: ["90"] },
+  { axe: "AX5E",  compounds: ["BrF5", "IF5", "ClF5"],
+    shape: "พีระมิดฐานสี่เหลี่ยม",     shapeEn: "Square pyramidal",     angles: ["90"] },
+  { axe: "AX4E2", compounds: ["XeF4", "ICl4⁻", "BrF4⁻"],
+    shape: "สี่เหลี่ยมแบนราบ",         shapeEn: "Square planar",        angles: ["90"] },
 ];
 
 const SHAPE_OPTIONS = [
@@ -31,23 +44,75 @@ const SHAPE_OPTIONS = [
 
 const ANGLE_OPTIONS = ["180", "120", "< 120", "109.5", "< 109.5", "<< 109.5", "90", "< 90"];
 
-/* ---------- ฐานข้อมูลแรงยึดเหนี่ยวระหว่างโมเลกุล (Mode 3 : 15 สาร) ---------- */
+/* ---------- ฐานข้อมูลแรงยึดเหนี่ยวระหว่างโมเลกุล (Mode 3) ----------
+   จัดสมดุลสารอินทรีย์ / อนินทรีย์ สำหรับติวสอบในห้องเรียน
+   - แรงลอนดอน     : โมเลกุลไม่มีขั้ว
+   - แรงระหว่างขั้ว : โมเลกุลมีขั้ว ที่ไม่มี H ต่อกับ F/O/N โดยตรง
+   - พันธะไฮโดรเจน  : มีพันธะ H–F, H–O หรือ H–N
+   -------------------------------------------------------------------- */
 const IMF = [
-  { formula: "CH4",     name: "มีเทน",              type: "ไฮโดรคาร์บอน (แอลเคน)",      imf: "แรงลอนดอน" },
-  { formula: "C6H6",     name: "เบนซีน",             type: "ไฮโดรคาร์บอน (อะโรมาติก)",   imf: "แรงลอนดอน" },
-  { formula: "C8H18",    name: "ออกเทน",             type: "ไฮโดรคาร์บอน (แอลเคน)",      imf: "แรงลอนดอน" },
-  { formula: "CO2",      name: "คาร์บอนไดออกไซด์",   type: "อนินทรีย์ (ไม่มีขั้ว)",       imf: "แรงลอนดอน" },
-  { formula: "I2",       name: "ไอโอดีน",            type: "อนินทรีย์ (ไม่มีขั้ว)",       imf: "แรงลอนดอน" },
-  { formula: "CH3CHO",   name: "เอทานาล",            type: "แอลดีไฮด์ (มีขั้ว)",          imf: "แรงระหว่างขั้ว" },
-  { formula: "HCHO",     name: "เมทานาล",            type: "แอลดีไฮด์ (มีขั้ว)",          imf: "แรงระหว่างขั้ว" },
-  { formula: "HCl",      name: "ไฮโดรเจนคลอไรด์",    type: "อนินทรีย์ (มีขั้ว)",          imf: "แรงระหว่างขั้ว" },
-  { formula: "H2S",      name: "ไฮโดรเจนซัลไฟด์",    type: "อนินทรีย์ (มีขั้ว)",          imf: "แรงระหว่างขั้ว" },
-  { formula: "CH3OH",    name: "เมทานอล",            type: "แอลกอฮอล์ (มี H–O)",          imf: "พันธะไฮโดรเจน" },
-  { formula: "C2H5OH",   name: "เอทานอล",            type: "แอลกอฮอล์ (มี H–O)",          imf: "พันธะไฮโดรเจน" },
-  { formula: "CH3COOH",  name: "กรดอะซิติก",         type: "กรดคาร์บอกซิลิก (มี H–O)",    imf: "พันธะไฮโดรเจน" },
-  { formula: "HCOOH",    name: "กรดฟอร์มิก",         type: "กรดคาร์บอกซิลิก (มี H–O)",    imf: "พันธะไฮโดรเจน" },
-  { formula: "H2O",      name: "น้ำ",                type: "อนินทรีย์ (มี H–O)",          imf: "พันธะไฮโดรเจน" },
-  { formula: "NH3",      name: "แอมโมเนีย",          type: "อนินทรีย์ (มี H–N)",          imf: "พันธะไฮโดรเจน" },
+  /* ===== แรงลอนดอน — อินทรีย์ ===== */
+  { formula: "CH4",       name: "มีเทน",             type: "ไฮโดรคาร์บอน (แอลเคน)",        imf: "แรงลอนดอน" },
+  { formula: "C2H6",      name: "อีเทน",             type: "ไฮโดรคาร์บอน (แอลเคน)",        imf: "แรงลอนดอน" },
+  { formula: "C3H8",      name: "โพรเพน",            type: "ไฮโดรคาร์บอน (แอลเคน)",        imf: "แรงลอนดอน" },
+  { formula: "C4H10",     name: "บิวเทน",            type: "ไฮโดรคาร์บอน (แอลเคน)",        imf: "แรงลอนดอน" },
+  { formula: "C8H18",     name: "ออกเทน",            type: "ไฮโดรคาร์บอน (แอลเคน)",        imf: "แรงลอนดอน" },
+  { formula: "C2H4",      name: "อีทีน (เอทิลีน)",   type: "ไฮโดรคาร์บอน (แอลคีน)",        imf: "แรงลอนดอน" },
+  { formula: "C2H2",      name: "อีไทน์ (อะเซทิลีน)", type: "ไฮโดรคาร์บอน (แอลไคน์)",      imf: "แรงลอนดอน" },
+  { formula: "C6H6",      name: "เบนซีน",            type: "ไฮโดรคาร์บอน (อะโรมาติก)",     imf: "แรงลอนดอน" },
+  { formula: "CCl4",      name: "เตตระคลอโรมีเทน",   type: "เฮโลแอลเคน (สมมาตร ไม่มีขั้ว)", imf: "แรงลอนดอน" },
+  /* ===== แรงลอนดอน — อนินทรีย์ / ธาตุ ===== */
+  { formula: "CO2",       name: "คาร์บอนไดออกไซด์",  type: "อนินทรีย์ (เส้นตรง ไม่มีขั้ว)", imf: "แรงลอนดอน" },
+  { formula: "CS2",       name: "คาร์บอนไดซัลไฟด์",  type: "อนินทรีย์ (เส้นตรง ไม่มีขั้ว)", imf: "แรงลอนดอน" },
+  { formula: "N2",        name: "ไนโตรเจน",          type: "ธาตุโมเลกุล (ไม่มีขั้ว)",       imf: "แรงลอนดอน" },
+  { formula: "O2",        name: "ออกซิเจน",          type: "ธาตุโมเลกุล (ไม่มีขั้ว)",       imf: "แรงลอนดอน" },
+  { formula: "Cl2",       name: "คลอรีน",            type: "ธาตุโมเลกุล (ไม่มีขั้ว)",       imf: "แรงลอนดอน" },
+  { formula: "Br2",       name: "โบรมีน",            type: "ธาตุโมเลกุล (ไม่มีขั้ว)",       imf: "แรงลอนดอน" },
+  { formula: "I2",        name: "ไอโอดีน",           type: "ธาตุโมเลกุล (ไม่มีขั้ว)",       imf: "แรงลอนดอน" },
+  { formula: "BF3",       name: "โบรอนไตรฟลูออไรด์", type: "อนินทรีย์ (สมมาตร ไม่มีขั้ว)",  imf: "แรงลอนดอน" },
+  { formula: "SF6",       name: "ซัลเฟอร์เฮกซะฟลูออไรด์", type: "อนินทรีย์ (สมมาตร ไม่มีขั้ว)", imf: "แรงลอนดอน" },
+
+  /* ===== แรงระหว่างขั้ว — อินทรีย์ ===== */
+  { formula: "HCHO",      name: "เมทานาล",           type: "แอลดีไฮด์ (มีขั้ว)",           imf: "แรงระหว่างขั้ว" },
+  { formula: "CH3CHO",    name: "เอทานาล",           type: "แอลดีไฮด์ (มีขั้ว)",           imf: "แรงระหว่างขั้ว" },
+  { formula: "C2H5CHO",   name: "โพรพานาล",          type: "แอลดีไฮด์ (มีขั้ว)",           imf: "แรงระหว่างขั้ว" },
+  { formula: "CH3COCH3",  name: "โพรพาโนน (แอซีโตน)", type: "คีโตน (มีขั้ว)",              imf: "แรงระหว่างขั้ว" },
+  { formula: "CH3OCH3",   name: "เมทอกซีมีเทน",      type: "อีเทอร์ (มีขั้ว ไม่มี O–H)",   imf: "แรงระหว่างขั้ว" },
+  { formula: "CH3Cl",     name: "คลอโรมีเทน",        type: "เฮโลแอลเคน (มีขั้ว)",          imf: "แรงระหว่างขั้ว" },
+  { formula: "CH2Cl2",    name: "ไดคลอโรมีเทน",      type: "เฮโลแอลเคน (มีขั้ว)",          imf: "แรงระหว่างขั้ว" },
+  { formula: "CHCl3",     name: "ไตรคลอโรมีเทน",     type: "เฮโลแอลเคน (มีขั้ว)",          imf: "แรงระหว่างขั้ว" },
+  { formula: "CH3Br",     name: "โบรโมมีเทน",        type: "เฮโลแอลเคน (มีขั้ว)",          imf: "แรงระหว่างขั้ว" },
+  { formula: "CH3CN",     name: "เอทานไนไตรล์",      type: "ไนไตรล์ (มีขั้ว)",             imf: "แรงระหว่างขั้ว" },
+  /* ===== แรงระหว่างขั้ว — อนินทรีย์ ===== */
+  { formula: "HCl",       name: "ไฮโดรเจนคลอไรด์",   type: "อนินทรีย์ (มีขั้ว)",           imf: "แรงระหว่างขั้ว" },
+  { formula: "HBr",       name: "ไฮโดรเจนโบรไมด์",   type: "อนินทรีย์ (มีขั้ว)",           imf: "แรงระหว่างขั้ว" },
+  { formula: "HI",        name: "ไฮโดรเจนไอโอไดด์",  type: "อนินทรีย์ (มีขั้ว)",           imf: "แรงระหว่างขั้ว" },
+  { formula: "H2S",       name: "ไฮโดรเจนซัลไฟด์",   type: "อนินทรีย์ (มีขั้ว, S–H ไม่ใช่พันธะ H)", imf: "แรงระหว่างขั้ว" },
+  { formula: "H2Se",      name: "ไฮโดรเจนเซเลไนด์",  type: "อนินทรีย์ (มีขั้ว)",           imf: "แรงระหว่างขั้ว" },
+  { formula: "SO2",       name: "ซัลเฟอร์ไดออกไซด์", type: "อนินทรีย์ (มุมงอ มีขั้ว)",     imf: "แรงระหว่างขั้ว" },
+  { formula: "PH3",       name: "ฟอสฟีน",            type: "อนินทรีย์ (มีขั้ว, P–H ไม่ใช่พันธะ H)", imf: "แรงระหว่างขั้ว" },
+  { formula: "PCl3",      name: "ฟอสฟอรัสไตรคลอไรด์", type: "อนินทรีย์ (มีขั้ว)",          imf: "แรงระหว่างขั้ว" },
+  { formula: "NO",        name: "ไนตริกออกไซด์",     type: "อนินทรีย์ (มีขั้ว)",           imf: "แรงระหว่างขั้ว" },
+
+  /* ===== พันธะไฮโดรเจน — อินทรีย์ ===== */
+  { formula: "CH3OH",     name: "เมทานอล",           type: "แอลกอฮอล์ (มี H–O)",           imf: "พันธะไฮโดรเจน" },
+  { formula: "C2H5OH",    name: "เอทานอล",           type: "แอลกอฮอล์ (มี H–O)",           imf: "พันธะไฮโดรเจน" },
+  { formula: "C3H7OH",    name: "โพรพาน-1-ออล",      type: "แอลกอฮอล์ (มี H–O)",           imf: "พันธะไฮโดรเจน" },
+  { formula: "C4H9OH",    name: "บิวทานอล",          type: "แอลกอฮอล์ (มี H–O)",           imf: "พันธะไฮโดรเจน" },
+  { formula: "HOCH2CH2OH", name: "เอเทน-1,2-ไดออล",  type: "แอลกอฮอล์ไดออล (มี H–O)",      imf: "พันธะไฮโดรเจน" },
+  { formula: "HCOOH",     name: "กรดเมทาโนอิก",      type: "กรดคาร์บอกซิลิก (มี H–O)",     imf: "พันธะไฮโดรเจน" },
+  { formula: "CH3COOH",   name: "กรดเอทาโนอิก",      type: "กรดคาร์บอกซิลิก (มี H–O)",     imf: "พันธะไฮโดรเจน" },
+  { formula: "C2H5COOH",  name: "กรดโพรพาโนอิก",     type: "กรดคาร์บอกซิลิก (มี H–O)",     imf: "พันธะไฮโดรเจน" },
+  { formula: "C6H5OH",    name: "ฟีนอล",             type: "ฟีนอล (มี H–O)",               imf: "พันธะไฮโดรเจน" },
+  { formula: "CH3NH2",    name: "เมทานามีน",         type: "เอมีน (มี H–N)",               imf: "พันธะไฮโดรเจน" },
+  { formula: "C2H5NH2",   name: "เอทานามีน",         type: "เอมีน (มี H–N)",               imf: "พันธะไฮโดรเจน" },
+  { formula: "CH3CONH2",  name: "เอทานาไมด์",        type: "เอไมด์ (มี H–N)",              imf: "พันธะไฮโดรเจน" },
+  /* ===== พันธะไฮโดรเจน — อนินทรีย์ ===== */
+  { formula: "H2O",       name: "น้ำ",               type: "อนินทรีย์ (มี H–O)",           imf: "พันธะไฮโดรเจน" },
+  { formula: "NH3",       name: "แอมโมเนีย",         type: "อนินทรีย์ (มี H–N)",           imf: "พันธะไฮโดรเจน" },
+  { formula: "HF",        name: "ไฮโดรเจนฟลูออไรด์", type: "อนินทรีย์ (มี H–F)",           imf: "พันธะไฮโดรเจน" },
+  { formula: "N2H4",      name: "ไฮดราซีน",          type: "อนินทรีย์ (มี H–N)",           imf: "พันธะไฮโดรเจน" },
+  { formula: "H2O2",      name: "ไฮโดรเจนเปอร์ออกไซด์", type: "อนินทรีย์ (มี H–O)",        imf: "พันธะไฮโดรเจน" },
 ];
 
 const IMF_OPTIONS = ["แรงลอนดอน", "แรงระหว่างขั้ว", "พันธะไฮโดรเจน"];
@@ -221,7 +286,7 @@ function spin() {
     if (t >= 1) {
       // หยุด
       reel.classList.remove("is-spinning");
-      reel.innerHTML = `<span>${formatFormula(target)}</span>`;
+      renderReel(target);
       sndStop();
       state.spinning = false;
       openAnswerPanel();
@@ -231,8 +296,7 @@ function spin() {
     const gap = 40 + t * t * 260;
     if (!frame.last || now - frame.last > gap) {
       frame.last = now;
-      const txt = pool[Math.floor(Math.random() * pool.length)];
-      reel.innerHTML = `<span>${formatFormula(txt)}</span>`;
+      renderReel(pool[Math.floor(Math.random() * pool.length)]);
       sndTick();
     }
     requestAnimationFrame(frame);
@@ -241,7 +305,15 @@ function spin() {
   requestAnimationFrame(frame);
 }
 
-// เปลี่ยนตัวเลขในสูตร/สัญลักษณ์ให้เป็นตัวห้อย
+// แสดงข้อความบนวงล้อ + ย่อฟอนต์อัตโนมัติเมื่อสูตรยาว
+function renderReel(raw) {
+  const n = String(raw).length;
+  const size = n >= 12 ? "20px" : n >= 9 ? "26px" : n >= 6 ? "32px" : "";
+  reel.innerHTML =
+    `<span${size ? ` style="font-size:${size}"` : ""}>${formatFormula(raw)}</span>`;
+}
+
+// เปลี่ยนตัวเลขในสูตร/สัญลักษณ์ให้เป็นตัวห้อย (ประจุแบบ ⁻ ²⁻ ผ่านได้เลย)
 function formatFormula(s) {
   return String(s).replace(/([A-Za-z\)\]])(\d+)/g, "$1<sub>$2</sub>")
                   .replace(/(\d)-$/, "$1<sup>−</sup>");
