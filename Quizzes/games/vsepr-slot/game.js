@@ -14,10 +14,10 @@ const VSEPR = [
   { axe: "AX2E2", compounds: ["H2O", "H2S", "OF2"],     shape: "มุมงอ",                    shapeEn: "Bent / V-Shape",      angles: ["<< 109.5"] },
   { axe: "AX5",   compounds: ["PCl5", "PF5", "AsF5"],   shape: "พีระมิดคู่ฐานสามเหลี่ยม",  shapeEn: "Trigonal bipyramidal", angles: ["90", "120"] },
   { axe: "AX4E",  compounds: ["SF4", "SeF4"],           shape: "ทรงกระดานหก",              shapeEn: "Seesaw",              angles: ["< 90", "< 120"] },
-  { axe: "AX3E2", compounds: ["ClF3", "BrF3"],          shape: "รูปตัวที",                 shapeEn: "T-shaped",            angles: ["< 90"] },
+  { axe: "AX3E2", compounds: ["ClF3", "BrF3"],          shape: "รูปตัวที",                 shapeEn: "T-shaped",            angles: ["90"] },
   { axe: "AX2E3", compounds: ["XeF2", "I3-"],           shape: "เส้นตรง",                  shapeEn: "Linear",              angles: ["180"] },
   { axe: "AX6",   compounds: ["SF6", "SeF6"],           shape: "ทรงแปดหน้า",               shapeEn: "Octahedral",          angles: ["90"] },
-  { axe: "AX5E",  compounds: ["BrF5", "IF5"],           shape: "พีระมิดฐานสี่เหลี่ยม",     shapeEn: "Square pyramidal",    angles: ["< 90"] },
+  { axe: "AX5E",  compounds: ["BrF5", "IF5"],           shape: "พีระมิดฐานสี่เหลี่ยม",     shapeEn: "Square pyramidal",    angles: ["90"] },
   { axe: "AX4E2", compounds: ["XeF4", "ICl4-"],         shape: "สี่เหลี่ยมแบนราบ",         shapeEn: "Square planar",       angles: ["90"] },
 ];
 
