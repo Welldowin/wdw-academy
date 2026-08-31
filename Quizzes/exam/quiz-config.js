@@ -75,6 +75,14 @@ window.QUIZ_CONFIG = {
       timeLimitSec: 5400,
     },
 
+    "m3-term1-math__testleeah": {
+      courseId: "m3-term1-math",
+      testKey:  "testleeah",
+      title:    "ข้อสอบซ่อมคณิตศาสตร์ ชุดที่ 2 (40 ข้อ · 60 นาที)",
+      prerequisiteQuizzes: [],
+      timeLimitSec: 3600,
+    },
+
     "m5-term1-math__test01": {
       courseId: "m5-term1-math",
       testKey:  "test01",
