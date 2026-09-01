@@ -1,0 +1,23 @@
+# Files NOT uploaded to Cloudflare (gitignore-style patterns)
+.git/
+.gitignore
+.assetsignore
+wrangler.toml
+package.json
+package-lock.json
+node_modules/
+.firebase/
+.firebaserc
+firebase.json
+functions/
+Microsoft VS Code/
+AppscriptURL.txt
+*.bundle
+.claude/
+Quizzes/.claude/
+images/BoardTournament/
+Dockerfile
+.dockerignore
+render.yaml
+# เกม DavinciCode ต้องรันเป็น Node server แยก (Socket.io) ไม่ใช่ไฟล์ static — ไม่ต้องอัปขึ้น Cloudflare
+Games/DavinciCode/
