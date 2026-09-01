@@ -1,0 +1,11 @@
+# Render Blueprint — ใช้เมื่อโค้ดนี้ถูก push เป็น "repo แยก" (ตัวเกมอยู่ที่ราก repo)
+# Render: New + -> Blueprint (ถ้าเชื่อม Git ได้) หรือ New + -> Web Service -> Public Git Repository
+services:
+  - type: web
+    name: davinci-code
+    runtime: node
+    region: singapore
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /
