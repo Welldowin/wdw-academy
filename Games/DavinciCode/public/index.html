@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>เกมไขรหัสลับตัวเลขปริศนา</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- ================= หน้าเข้าเกม ================= -->
+  <section id="landing" class="landing">
+    <div class="landing-card">
+      <h1>เกมไขรหัสลับ<br /><span>ตัวเลขปริศนา</span></h1>
+      <p class="subtitle">เดาแผ่นป้ายตัวเลขของคู่แข่งให้หมดก่อนโดนเดา!</p>
+      <form id="join-form">
+        <input id="nickname" type="text" maxlength="16" placeholder="ใส่ชื่อเล่นของคุณ" autocomplete="off" required />
+        <button type="submit">เข้าห้อง</button>
+      </form>
+      <p class="hint">ไม่ต้องสมัครสมาชิก • เล่นได้สูงสุด 4 คน • ที่เหลือเป็นผู้ชม</p>
+      <div class="conn"><span id="conn-dot" class="dot"></span> <span id="conn-text">กำลังเชื่อมต่อ...</span></div>
+    </div>
+  </section>
+
+  <!-- ================= หน้าเกม ================= -->
+  <section id="game" class="game hidden">
+    <header class="topbar">
+      <div class="brand">ไขรหัสลับตัวเลขปริศนา</div>
+      <div id="status-line" class="status-line"></div>
+      <button id="mute-btn" class="icon-btn" title="เปิด/ปิดเสียง">🔊</button>
+    </header>
+
+    <div id="table" class="table"><!-- render.js เติมเนื้อหา --></div>
+
+    <aside class="sidepanel">
+      <div id="control-panel" class="control-panel"><!-- render.js --></div>
+      <div class="chat">
+        <div id="chat-log" class="chat-log"></div>
+        <form id="chat-form">
+          <input id="chat-input" type="text" maxlength="200" placeholder="พิมพ์ข้อความ..." autocomplete="off" />
+          <button type="submit">ส่ง</button>
+        </form>
+      </div>
+    </aside>
+
+    <!-- modal แผงเลือกตัวเลขตอนทาย -->
+    <div id="guess-modal" class="modal hidden">
+      <div class="modal-card">
+        <h3>ทายว่าไพ่ใบนี้คือเลขอะไร?</h3>
+        <div class="numpad">
+          <button data-action="guess-pick" data-value="0">0</button>
+          <button data-action="guess-pick" data-value="1">1</button>
+          <button data-action="guess-pick" data-value="2">2</button>
+          <button data-action="guess-pick" data-value="3">3</button>
+          <button data-action="guess-pick" data-value="4">4</button>
+          <button data-action="guess-pick" data-value="5">5</button>
+          <button data-action="guess-pick" data-value="6">6</button>
+          <button data-action="guess-pick" data-value="7">7</button>
+          <button data-action="guess-pick" data-value="8">8</button>
+          <button data-action="guess-pick" data-value="9">9</button>
+          <button data-action="guess-pick" data-value="10">10</button>
+          <button data-action="guess-pick" data-value="11">11</button>
+          <button class="joker" data-action="guess-pick" data-value="joker">– (โจ๊กเกอร์)</button>
+        </div>
+        <button class="ghost" data-action="guess-cancel">ยกเลิก</button>
+      </div>
+    </div>
+
+    <!-- overlay จบเกม -->
+    <div id="end-overlay" class="overlay hidden">
+      <canvas id="confetti"></canvas>
+      <div class="winner-card">
+        <div class="crown">👑</div>
+        <h2>ผู้ชนะ</h2>
+        <div id="winner-name" class="winner-name"></div>
+        <ol id="leaderboard" class="leaderboard"></ol>
+        <button id="restart-btn" class="hidden" data-action="restart">เล่นอีกครั้ง</button>
+        <p id="wait-host" class="hidden">รอเจ้าของห้องเริ่มเกมใหม่...</p>
+      </div>
+    </div>
+
+    <div id="toast" class="toast hidden"></div>
+  </section>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/render.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
