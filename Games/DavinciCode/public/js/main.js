@@ -2,19 +2,33 @@
 (() => {
   const socket = io();
   let prevResultTs = 0;
+  let lastState = null;
 
   const landing = document.getElementById('landing');
   const gameEl = document.getElementById('game');
   const nickInput = document.getElementById('nickname');
   try { nickInput.value = localStorage.getItem('dv_nick') || ''; } catch (_) {}
 
-  // ---- เข้าห้อง ----
+  window.__pickSeat = undefined; // ตัวละครที่เลือกในหน้า landing
+  window.__setSeat = undefined;  // ตัวละครที่เลือกใน modal ตั้งค่า
+
+  // ---- หน้า landing: เลือกตัวละคร + เข้าเล่น / เข้าดู ----
+  function joinMsg(text) { document.getElementById('join-msg').textContent = text || ''; }
+
   document.getElementById('join-form').addEventListener('submit', (e) => {
     e.preventDefault();
     const nick = nickInput.value.trim();
     if (!nick) return;
+    if (!window.__pickSeat) { joinMsg('เลือกตัวละคร (สี) ก่อนนะ'); return; }
     try { localStorage.setItem('dv_nick', nick); } catch (_) {}
-    window.AudioManager.startBgm(); // ปลดล็อกเสียงด้วย gesture แรกของผู้ใช้
+    window.AudioManager.startBgm();
+    socket.emit('lobby:join', { nickname: nick, seat: window.__pickSeat });
+  });
+
+  document.getElementById('join-spectate').addEventListener('click', () => {
+    const nick = nickInput.value.trim() || 'ผู้ชม';
+    try { localStorage.setItem('dv_nick', nick); } catch (_) {}
+    window.AudioManager.startBgm();
     socket.emit('lobby:join', { nickname: nick });
   });
 
@@ -28,9 +42,11 @@
 
   // ---- รับ state หลักของห้อง ----
   socket.on('room:state', (s) => {
+    lastState = s;
     if (s.inLobby) {
       landing.classList.remove('hidden');
       gameEl.classList.add('hidden');
+      window.GameUI.renderLanding(s);
       return;
     }
     landing.classList.add('hidden');
@@ -47,7 +63,10 @@
   });
 
   socket.on('sfx', ({ name }) => window.AudioManager.play(name));
-  socket.on('error:msg', ({ text }) => window.GameUI.showToast(text, 'bad'));
+  socket.on('error:msg', ({ text }) => {
+    window.GameUI.showToast(text, 'bad');
+    if (!lastState || lastState.inLobby) joinMsg(text);
+  });
 
   socket.on('chat:msg', ({ from, text }) => {
     const log = document.getElementById('chat-log');
@@ -57,7 +76,6 @@
     log.scrollTop = log.scrollHeight;
   });
 
-  // ---- แชท ----
   document.getElementById('chat-form').addEventListener('submit', (e) => {
     e.preventDefault();
     const inp = document.getElementById('chat-input');
@@ -67,16 +85,48 @@
     inp.value = '';
   });
 
-  // ---- ปุ่มเปิด/ปิดเสียง ----
   document.getElementById('mute-btn').addEventListener('click', (e) => {
     e.currentTarget.textContent = window.AudioManager.toggleMute() ? '🔇' : '🔊';
   });
 
-  // ---- คลิกทั้งหมดในหน้าเกม (event delegation) ----
-  gameEl.addEventListener('click', (e) => {
+  // ---- modal ตั้งค่า (เปลี่ยนชื่อ / ตัวละคร) ----
+  const setModal = document.getElementById('settings-modal');
+  document.getElementById('settings-btn').addEventListener('click', () => {
+    if (!lastState) return;
+    document.getElementById('set-nick').value = lastState.myNickname || '';
+    window.__setSeat = lastState.mySeat || undefined;
+    window.GameUI.renderSettings(lastState);
+    setModal.classList.remove('hidden');
+  });
+
+  // ---- คลิกทั้งหมดในหน้าเกม + landing (event delegation) ----
+  document.body.addEventListener('click', (e) => {
     const el = e.target.closest('[data-action]');
     if (!el) return;
     const a = el.dataset.action;
+
+    if (a === 'landing-pick') {
+      window.__pickSeat = el.dataset.seat;
+      joinMsg('');
+      if (lastState) window.GameUI.renderLanding(lastState);
+      return;
+    }
+    if (a === 'settings-pick') {
+      window.__setSeat = el.dataset.seat;
+      if (lastState) window.GameUI.renderSettings(lastState);
+      return;
+    }
+    if (a === 'settings-save') {
+      const nickname = document.getElementById('set-nick').value.trim();
+      const payload = {};
+      if (nickname) payload.nickname = nickname;
+      if (lastState && lastState.phase === 'lobby') payload.seat = window.__setSeat || null;
+      socket.emit('player:update', payload);
+      setModal.classList.add('hidden');
+      return;
+    }
+    if (a === 'settings-close') { setModal.classList.add('hidden'); return; }
+    if (a === 'back-lobby') return socket.emit('lobby:return');
 
     if (a === 'take-seat') return socket.emit('seat:take', { seat: el.dataset.seat });
     if (a === 'leave-seat') return socket.emit('seat:leave');

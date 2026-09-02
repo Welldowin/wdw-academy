@@ -16,6 +16,14 @@ const PHYS_CW = ['N', 'E', 'S', 'W'];
 // ช่องบนจอเรียงตามเข็มนาฬิกา โดยเริ่มจากล่าง (ตัวผู้เล่นเองอยู่ 'S' เสมอ)
 const SCREEN_CW = ['S', 'E', 'N', 'W'];
 
+// ธีมที่นั่ง 4 แบบ (สี + สัญลักษณ์) แทน "ทิศทั้งสี่" — ผู้เล่นเลือกเอง สีห้ามซ้ำ
+const SEAT_THEMES = {
+  N: { key: 'N', name: 'มังกร', emblem: '🐉', color: '#e5484d' },
+  E: { key: 'E', name: 'กริฟฟิน', emblem: '🦅', color: '#4c9be8' },
+  S: { key: 'S', name: 'สิงโต', emblem: '🦁', color: '#f2a900' },
+  W: { key: 'W', name: 'หมาป่า', emblem: '🐺', color: '#3fae6b' },
+};
+
 // ---------------------------------------------------------------- helpers ----
 
 function makeDeck() {
@@ -169,6 +177,38 @@ class Room {
     }
   }
 
+  /** เปลี่ยนชื่อ / เปลี่ยนตัวละคร (สี+สัญลักษณ์) จากปุ่มตั้งค่า */
+  updatePlayer(socketId, { nickname, seat } = {}) {
+    const p = this.players.get(socketId);
+    if (!p || p.isBot) throw new Error('ไม่พบผู้เล่น');
+
+    if (typeof nickname === 'string') {
+      const clean = nickname.trim().slice(0, 16);
+      if (clean) p.nickname = clean;
+    }
+
+    if (seat !== undefined) {
+      if (this.phase !== 'lobby') throw new Error('เปลี่ยนตัวละครได้เฉพาะตอนอยู่ในล็อบบี้');
+      if (seat === null || seat === '') {
+        if (p.seat) { this.seats[p.seat] = null; p.seat = null; }
+      } else {
+        if (!Object.prototype.hasOwnProperty.call(this.seats, seat)) throw new Error('ตัวละครไม่ถูกต้อง');
+        if (this.seats[seat] && this.seats[seat] !== socketId) throw new Error('ตัวละคร/สีนี้ถูกเลือกแล้ว');
+        if (p.seat && p.seat !== seat) this.seats[p.seat] = null;
+        this.seats[seat] = socketId;
+        p.seat = seat;
+      }
+    }
+  }
+
+  /** หลังจบเกม กดกลับมาที่โต๊ะ (ล็อบบี้) โดยคงผู้เล่น/ที่นั่งเดิมไว้ */
+  returnToLobby(socketId) {
+    if (this.phase !== 'over') throw new Error('ยังจบเกมไม่ได้');
+    this.phase = 'lobby';
+    this.game = null;
+    this.lastResult = null;
+  }
+
   seatedSeats() {
     return PHYS_CW.filter((s) => this.seats[s]);
   }
@@ -260,6 +300,15 @@ class Room {
     t.justDrawn = true;
     g.lastDrawn[g.activeSeat] = t.id;
     g.drewThisTurn = true;
+
+    // โจ๊กเกอร์ที่จั่วได้ระหว่างเกม -> สุ่มลง "ช่วงกลางมือ" เท่านั้น (ไม่ลงปลายทั้งสองฝั่ง กันเดาง่าย)
+    if (t.value === 'joker') {
+      const n = g.hands[g.activeSeat].length + 1; // ขนาดมือหลังหยิบใบนี้
+      const lo = 1;
+      const hi = n - 2;
+      t.jokerIndex = hi >= lo ? lo + Math.floor(Math.random() * (hi - lo + 1)) : Math.floor(n / 2);
+    }
+
     g.hands[g.activeSeat] = sortHand(g.hands[g.activeSeat].concat([t]));
     this.phase = 'guess';
     return t;
@@ -471,9 +520,16 @@ class Room {
       isSpectator: !!me && !mySeat,
       seats,
       players: [...this.players.values()].map((p) => ({ nickname: p.nickname, seat: p.seat })),
+      spectators: [...this.players.values()]
+        .filter((p) => !p.seat && !p.isBot)
+        .map((p) => ({ nickname: p.nickname, isYou: p.id === socketId })),
+      seatThemes: SEAT_THEMES,
+      myNickname: me ? me.nickname : '',
       playerCount: this.players.size,
       seatedCount: this.seatedSeats().length,
       deckCount: g ? g.deck.length : 0,
+      deckBlack: g ? g.deck.filter((t) => t.color === 'black').length : 0,
+      deckWhite: g ? g.deck.filter((t) => t.color === 'white').length : 0,
       removedCount: g ? g.removed.length : 0,
       activeSeat: g ? g.activeSeat : null,
       activeNick: g ? this._nick(g.activeSeat) : null,
@@ -487,4 +543,4 @@ class Room {
   }
 }
 
-module.exports = { Room, relativePos, sortHand, makeDeck, shuffle, PHYS_CW, SCREEN_CW };
+module.exports = { Room, relativePos, sortHand, makeDeck, shuffle, PHYS_CW, SCREEN_CW, SEAT_THEMES };

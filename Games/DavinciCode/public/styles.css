@@ -88,8 +88,8 @@ button:disabled { opacity: 0.5; cursor: not-allowed; filter: grayscale(0.3); }
   min-height: 100vh;
   display: grid;
   grid-template-columns: 1fr 320px;
-  grid-template-rows: auto 1fr;
-  grid-template-areas: 'top top' 'table side';
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas: 'top top' 'table side' 'spec spec';
   gap: 16px;
   padding: 16px;
 }
@@ -139,6 +139,7 @@ button:disabled { opacity: 0.5; cursor: not-allowed; filter: grayscale(0.3); }
 .slot-center { grid-area: center; display: grid; place-items: center; }
 
 .seat {
+  --seat-color: var(--sky);
   background: var(--card);
   border-radius: var(--radius);
   box-shadow: var(--shadow-sm);
@@ -147,14 +148,15 @@ button:disabled { opacity: 0.5; cursor: not-allowed; filter: grayscale(0.3); }
   flex-direction: column;
   align-items: center;
   gap: 8px;
-  border: 3px solid transparent;
+  border: 3px solid color-mix(in srgb, var(--seat-color) 45%, #fff);
   transition: border-color 0.2s, box-shadow 0.2s;
   min-width: 150px;
 }
-.seat.empty { background: rgba(255, 255, 255, 0.55); border-style: dashed; border-color: var(--mint-deep); color: var(--ink-soft); }
-.seat.active { border-color: var(--yellow); box-shadow: 0 0 0 4px rgba(255, 224, 138, 0.5), var(--shadow); }
+.seat.empty { background: rgba(255, 255, 255, 0.55); border-style: dashed; border-color: color-mix(in srgb, var(--seat-color) 40%, #fff); color: var(--ink-soft); }
+.seat.active { border-color: var(--seat-color); box-shadow: 0 0 0 4px color-mix(in srgb, var(--seat-color) 35%, transparent), var(--shadow); }
 .seat.you .seat-name::after { content: ' (คุณ)'; color: var(--sky-deep); font-size: 0.8em; }
-.seat-name { font-weight: 600; display: flex; align-items: center; gap: 6px; }
+.seat-name { font-weight: 600; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; justify-content: center; }
+.seat-emblem { font-size: 1.15rem; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.2)); }
 .badge { font-size: 0.7rem; background: var(--yellow); color: #6b5300; padding: 2px 8px; border-radius: 999px; }
 .badge.spec { background: var(--sky); color: #0c3b4c; }
 .badge.ready { background: #bdead0; color: #1f6b45; }
@@ -186,11 +188,42 @@ button:disabled { opacity: 0.5; cursor: not-allowed; filter: grayscale(0.3); }
 .tile.black { background: var(--black-tile); color: #f5efe0; }
 .tile.white { background: var(--white-tile); color: var(--ink); border: 1px solid #e7e2d4; }
 .tile.hidden-face::after { content: '?'; opacity: 0.55; font-weight: 700; }
-.tile.revealed { outline: 2px solid var(--sky); }
 .tile.just-drawn { box-shadow: 0 0 0 3px var(--yellow); }
 .tile.targetable { cursor: pointer; }
 .tile.targetable:hover { transform: translateY(-8px); box-shadow: 0 10px 18px rgba(0, 0, 0, 0.22); }
 .tile.joker-mark::before { content: '–'; }
+
+/* ---- ไพ่ที่ถูกเปิดเผยแล้ว: มีสัญลักษณ์กุญแจ + กรอบเด่น กันสับสน ---- */
+.tile.revealed {
+  outline: 3px solid #d9645f;
+  outline-offset: 1px;
+  opacity: 0.92;
+  filter: saturate(0.85);
+}
+.tile.revealed .tile-lock {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  font-size: 0.8rem;
+  background: #d9645f;
+  color: #fff;
+  border-radius: 999px;
+  width: 18px;
+  height: 18px;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+.tile.mine-revealed {
+  outline-color: #b5462f;
+  box-shadow: 0 0 0 3px rgba(217, 100, 95, 0.35);
+}
+.tile.newly-revealed { animation: reveal-pop 0.55s ease; }
+@keyframes reveal-pop {
+  0% { transform: rotateY(90deg) scale(1.15); }
+  55% { transform: rotateY(0deg) scale(1.15); }
+  100% { transform: none; }
+}
 
 .center-pile { text-align: center; color: var(--ink-soft); }
 .center-pile .deck {
@@ -286,7 +319,59 @@ button:disabled { opacity: 0.5; cursor: not-allowed; filter: grayscale(0.3); }
 .toast.good { background: #2f9e6b; }
 .toast.bad { background: #d9645f; }
 
+/* ---------------- Emblem / character picker ---------------- */
+.emblem-label { margin: 14px 0 8px; font-size: 0.9rem; font-weight: 600; color: var(--ink-soft); }
+.emblem-pick { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+.emblem {
+  --seat-color: var(--sky);
+  border: 2px solid color-mix(in srgb, var(--seat-color) 40%, #fff) !important;
+  background: color-mix(in srgb, var(--seat-color) 10%, #fff) !important;
+  color: var(--ink) !important;
+  box-shadow: none !important;
+  border-radius: 14px !important;
+  padding: 10px 12px !important;
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  min-width: 78px;
+  cursor: pointer;
+}
+.emblem .emblem-icon { font-size: 1.5rem; }
+.emblem .emblem-name { font-size: 0.78rem; font-weight: 600; }
+.emblem.on {
+  border-color: var(--seat-color) !important;
+  background: color-mix(in srgb, var(--seat-color) 22%, #fff) !important;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--seat-color) 30%, transparent) !important;
+}
+.landing-actions { display: flex; gap: 10px; margin-top: 16px; }
+.landing-actions button { flex: 1; }
+#join-form input { width: 100%; }
+#join-form { flex-direction: column; }
+.join-msg { margin-top: 10px; font-size: 0.85rem; color: #d9645f; min-height: 1em; }
+#set-nick {
+  width: 100%; padding: 12px 14px; border: 2px solid var(--mint-deep);
+  border-radius: 12px; font: inherit; outline: none; margin-bottom: 4px;
+}
+#set-nick:focus { border-color: var(--sky); }
+.modal-card .row { display: flex; gap: 8px; margin-top: 14px; }
+.modal-card .row button { flex: 1; }
+
+/* ---------------- Spectator bar ---------------- */
+.spectator-bar {
+  grid-area: spec;
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  padding: 10px 16px;
+  font-size: 0.85rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+.spec-title { font-weight: 700; color: var(--sky-deep); }
+.spec-chip { background: var(--mint); padding: 3px 10px; border-radius: 999px; }
+.spec-chip.you { background: var(--yellow); color: #6b5300; font-weight: 600; }
+
 @media (max-width: 900px) {
-  .game { grid-template-columns: 1fr; grid-template-areas: 'top' 'table' 'side'; }
+  .game { grid-template-columns: 1fr; grid-template-areas: 'top' 'table' 'side' 'spec'; }
   .table { min-height: 460px; }
 }

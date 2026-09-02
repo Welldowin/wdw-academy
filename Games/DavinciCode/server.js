@@ -136,9 +136,18 @@ function botStep(botId) {
 io.on('connection', (socket) => {
   socket.emit('room:state', room.view(socket.id));
 
-  socket.on('lobby:join', ({ nickname } = {}) =>
+  socket.on('lobby:join', ({ nickname, seat } = {}) =>
     safe(socket, () => {
       room.addPlayer(socket.id, nickname);
+      if (seat) {
+        // เลือกตัวละคร (สี) มาด้วย — ถ้าโดนคนอื่นแย่งไปแล้วก็เข้าเป็นผู้ชมไปก่อน
+        try {
+          room.takeSeat(socket.id, seat);
+          sfx('slide');
+        } catch (e) {
+          socket.emit('error:msg', { text: e.message });
+        }
+      }
       sync();
     })
   );
@@ -154,6 +163,21 @@ io.on('connection', (socket) => {
   socket.on('seat:leave', () =>
     safe(socket, () => {
       room.leaveSeat(socket.id);
+      sync();
+    })
+  );
+
+  socket.on('player:update', (data = {}) =>
+    safe(socket, () => {
+      room.updatePlayer(socket.id, data);
+      sync();
+    })
+  );
+
+  socket.on('lobby:return', () =>
+    safe(socket, () => {
+      room.returnToLobby(socket.id);
+      sfx('slide');
       sync();
     })
   );

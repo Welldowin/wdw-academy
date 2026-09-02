@@ -17,9 +17,15 @@
       <p class="subtitle">เดาแผ่นป้ายตัวเลขของคู่แข่งให้หมดก่อนโดนเดา!</p>
       <form id="join-form">
         <input id="nickname" type="text" maxlength="16" placeholder="ใส่ชื่อเล่นของคุณ" autocomplete="off" required />
-        <button type="submit">เข้าห้อง</button>
+        <div class="emblem-label">เลือกตัวละคร (สีของคุณ — ห้ามซ้ำกับคนอื่น)</div>
+        <div id="emblem-pick" class="emblem-pick"><!-- main.js เติม --></div>
+        <div class="landing-actions">
+          <button type="submit" id="join-play">เข้าเล่น</button>
+          <button type="button" id="join-spectate" class="ghost">👁 เข้าดูเป็นผู้ชม</button>
+        </div>
+        <p id="join-msg" class="join-msg"></p>
       </form>
-      <p class="hint">ไม่ต้องสมัครสมาชิก • เล่นได้สูงสุด 4 คน • ที่เหลือเป็นผู้ชม</p>
+      <p class="hint">เล่นได้สูงสุด 4 คน • ที่เหลือดูเป็นผู้ชมได้ไม่จำกัด</p>
       <div class="conn"><span id="conn-dot" class="dot"></span> <span id="conn-text">กำลังเชื่อมต่อ...</span></div>
     </div>
   </section>
@@ -29,6 +35,7 @@
     <header class="topbar">
       <div class="brand">ไขรหัสลับตัวเลขปริศนา</div>
       <div id="status-line" class="status-line"></div>
+      <button id="settings-btn" class="icon-btn" title="ตั้งค่า (เปลี่ยนชื่อ / ตัวละคร)">⚙️</button>
       <button id="mute-btn" class="icon-btn" title="เปิด/ปิดเสียง">🔊</button>
     </header>
 
@@ -44,6 +51,8 @@
         </form>
       </div>
     </aside>
+
+    <div id="spectator-bar" class="spectator-bar hidden"><!-- render.js --></div>
 
     <!-- modal แผงเลือกตัวเลขตอนทาย -->
     <div id="guess-modal" class="modal hidden">
@@ -68,6 +77,21 @@
       </div>
     </div>
 
+    <!-- modal ตั้งค่าผู้เล่น -->
+    <div id="settings-modal" class="modal hidden">
+      <div class="modal-card">
+        <h3>ตั้งค่าผู้เล่น</h3>
+        <input id="set-nick" type="text" maxlength="16" placeholder="ชื่อเล่น" autocomplete="off" />
+        <div class="emblem-label">ตัวละคร (สี)</div>
+        <div id="set-emblem" class="emblem-pick"></div>
+        <p id="set-msg" class="join-msg"></p>
+        <div class="row">
+          <button data-action="settings-save">บันทึก</button>
+          <button class="ghost" data-action="settings-close">ปิด</button>
+        </div>
+      </div>
+    </div>
+
     <!-- overlay จบเกม -->
     <div id="end-overlay" class="overlay hidden">
       <canvas id="confetti"></canvas>
@@ -76,8 +100,11 @@
         <h2>ผู้ชนะ</h2>
         <div id="winner-name" class="winner-name"></div>
         <ol id="leaderboard" class="leaderboard"></ol>
-        <button id="restart-btn" class="hidden" data-action="restart">เล่นอีกครั้ง</button>
-        <p id="wait-host" class="hidden">รอเจ้าของห้องเริ่มเกมใหม่...</p>
+        <div class="row">
+          <button id="back-lobby-btn" data-action="back-lobby">⟵ กลับไปที่โต๊ะ</button>
+          <button id="restart-btn" class="hidden" data-action="restart">เล่นอีกครั้งเลย</button>
+        </div>
+        <p id="wait-host" class="hidden">รอเจ้าของห้องเริ่มเกมใหม่ หรือกด “กลับไปที่โต๊ะ”</p>
       </div>
     </div>
 
