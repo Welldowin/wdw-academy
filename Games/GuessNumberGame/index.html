@@ -1,0 +1,560 @@
+<!doctype html>
+<html lang="th" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600;700;800;900&family=Sarabun:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+</head>
+
+<body class="h-full overflow-auto" style="background: linear-gradient(160deg, #1a1a3e 0%, #0d0d2d 30%, #1a0d2e 60%, #2d1b1b 100%); font-family: 'Prompt', sans-serif;">
+
+  <!-- Audio -->
+  <audio id="bgm" loop preload="auto">
+    <source src="bgm.mp3" type="audio/mpeg">
+  </audio>
+
+  <audio id="winSfx" preload="auto">
+    <source src="win.mp3" type="audio/mpeg">
+  </audio>
+
+  <audio id="loseSfx" preload="auto">
+    <source src="lose.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Decorative elements -->
+  <div style="position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#FFB347,#FFD700,#FFA500,#FFD700,#FFB347);z-index:50;"></div>
+
+  <!-- Angel background left -->
+  <div class="angel-side angel-left" aria-hidden="true"></div>
+
+  <!-- Angel background right -->
+  <div class="angel-side angel-right" aria-hidden="true"></div>
+
+  <!-- Scrolling stars background -->
+  <div style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:hidden;">
+    <div style="position:absolute;width:200%;height:100%;animation:scrollStars 20s linear infinite;">
+      <div style="position:absolute;top:10%;left:5%;font-size:48px;animation:twinkleStar 3s ease-in-out infinite;">✨</div>
+      <div style="position:absolute;top:20%;left:15%;font-size:40px;animation:twinkleStar 2.5s ease-in-out infinite 0.5s;">⭐</div>
+      <div style="position:absolute;top:35%;left:25%;font-size:44px;animation:twinkleStar 3.5s ease-in-out infinite 1s;">✨</div>
+      <div style="position:absolute;top:15%;left:35%;font-size:36px;animation:twinkleStar 2s ease-in-out infinite 1.5s;">⭐</div>
+      <div style="position:absolute;top:45%;left:45%;font-size:48px;animation:twinkleStar 3s ease-in-out infinite 2s;">✨</div>
+      <div style="position:absolute;top:25%;left:55%;font-size:40px;animation:twinkleStar 2.8s ease-in-out infinite 2.5s;">⭐</div>
+      <div style="position:absolute;top:55%;left:65%;font-size:44px;animation:twinkleStar 3.2s ease-in-out infinite 3s;">✨</div>
+      <div style="position:absolute;top:30%;left:75%;font-size:36px;animation:twinkleStar 2.2s ease-in-out infinite 3.5s;">⭐</div>
+      <div style="position:absolute;top:60%;left:85%;font-size:48px;animation:twinkleStar 3.3s ease-in-out infinite 4s;">✨</div>
+      <div style="position:absolute;top:40%;left:95%;font-size:40px;animation:twinkleStar 2.6s ease-in-out infinite 4.5s;">⭐</div>
+
+      <div style="position:absolute;top:10%;left:105%;font-size:48px;animation:twinkleStar 3s ease-in-out infinite;">✨</div>
+      <div style="position:absolute;top:20%;left:115%;font-size:40px;animation:twinkleStar 2.5s ease-in-out infinite 0.5s;">⭐</div>
+      <div style="position:absolute;top:35%;left:125%;font-size:44px;animation:twinkleStar 3.5s ease-in-out infinite 1s;">✨</div>
+    </div>
+  </div>
+
+  <div class="lotus-bg">
+    <svg viewBox="0 0 200 100" fill="none">
+      <path d="M100 10 C80 30, 40 50, 100 90 C160 50, 120 30, 100 10Z" fill="#FFD700" />
+      <path d="M100 20 C70 40, 20 60, 100 95 C180 60, 130 40, 100 20Z" fill="#DAA520" opacity="0.5" />
+    </svg>
+  </div>
+
+  <!-- Restart button (top-right) -->
+  <button id="restartBtn" onclick="resetGame()" title="เริ่มเล่นใหม่"
+    style="position:fixed;top:14px;right:14px;z-index:60;display:flex;align-items:center;gap:6px;padding:8px 14px;border:none;border-radius:999px;cursor:pointer;font-family:'Prompt',sans-serif;font-weight:700;font-size:14px;color:#8B4513;background:linear-gradient(135deg,#FFB347,#FFD700);box-shadow:0 4px 14px rgba(0,0,0,0.35);">
+    🔄 เริ่มใหม่
+  </button>
+
+  <div id="app" class="w-full h-full flex flex-col items-center px-4 py-6 relative" style="z-index:1;">
+    <!-- Header -->
+    <header class="text-center mb-4">
+      <div class="float-anim text-5xl mb-2">🙏</div>
+      <h1 id="titleEl" class="text-3xl font-extrabold tracking-wide shimmer-text" style="line-height:1.4;">เกมเดาเลขเทวดา</h1>
+      <p class="text-orange-600 text-sm mt-1 opacity-70" style="font-family:'Sarabun',sans-serif;">~ เดาเลข 6 หลัก ภายใน 7 รอบ ~</p>
+    </header>
+
+    <!-- Round indicator -->
+    <div id="roundIndicator" class="flex gap-2 mb-3 flex-wrap justify-center"></div>
+
+    <!-- Legend -->
+    <div class="flex gap-3 mb-3 text-xs flex-wrap justify-center" style="font-family:'Sarabun',sans-serif;">
+      <span class="flex items-center gap-1"><span class="legend-dot" style="background:#4ade80;"></span><span class="text-green-300">ถูกตัว + ถูกหลัก</span></span>
+      <span class="flex items-center gap-1"><span class="legend-dot" style="background:#fbbf24;"></span><span class="text-yellow-200">ถูกตัว ผิดหลัก</span></span>
+      <span class="flex items-center gap-1"><span class="legend-dot" style="border:2px solid #ef4444;background:transparent;"></span><span class="text-red-300">เลขที่ไม่มีในคำตอบ</span></span>
+    </div>
+
+    <!-- Thevada message area -->
+    <div id="thevadaArea" class="w-full max-w-md text-center mb-4" style="min-height:60px;">
+      <div class="thevada-msg">
+        <p class="text-amber-800 text-sm" style="font-family:'Sarabun',sans-serif;">🪷 ท่านเทวดากำลังรอท่านเดาเลข 6 หลัก...</p>
+      </div>
+    </div>
+
+    <!-- Input area -->
+    <div id="inputArea" class="flex flex-col items-center gap-3 mb-5">
+      <div class="flex gap-2" id="inputBoxes">
+        <input class="input-digit" type="text" maxlength="1" inputmode="numeric" pattern="[0-9]" aria-label="หลักที่ 1">
+        <input class="input-digit" type="text" maxlength="1" inputmode="numeric" pattern="[0-9]" aria-label="หลักที่ 2">
+        <input class="input-digit" type="text" maxlength="1" inputmode="numeric" pattern="[0-9]" aria-label="หลักที่ 3">
+        <input class="input-digit" type="text" maxlength="1" inputmode="numeric" pattern="[0-9]" aria-label="หลักที่ 4">
+        <input class="input-digit" type="text" maxlength="1" inputmode="numeric" pattern="[0-9]" aria-label="หลักที่ 5">
+        <input class="input-digit" type="text" maxlength="1" inputmode="numeric" pattern="[0-9]" aria-label="หลักที่ 6">
+      </div>
+      <button id="guessBtn" class="btn-guess" onclick="submitGuess()">🎯 เดาเลย!</button>
+    </div>
+
+    <!-- History -->
+    <div id="historyArea" class="w-full max-w-md flex flex-col gap-2 pb-8"></div>
+
+    <!-- Game over overlay -->
+    <div id="gameOverOverlay" class="hidden fixed inset-0 flex items-center justify-center p-4" style="z-index:100; background:rgba(0,0,0,0.75); backdrop-filter:blur(6px);">
+      <div id="gameOverCard" class="text-center p-6 rounded-2xl w-full max-w-md mx-auto" style="background:linear-gradient(145deg,#fff8dc,#fffacd); border:2px solid #FFB347; max-height:90vh; overflow-y:auto;">
+        <button onclick="resetGame()" title="เริ่มเล่นใหม่"
+          style="position:absolute;top:10px;right:10px;padding:6px 12px;border:none;border-radius:999px;cursor:pointer;font-family:'Prompt',sans-serif;font-weight:700;font-size:13px;color:#8B4513;background:linear-gradient(135deg,#FFB347,#FFD700);box-shadow:0 3px 10px rgba(0,0,0,0.25);">
+          🔄 เริ่มใหม่
+        </button>
+        <div id="gameOverEmoji" class="text-6xl mb-3 mt-4"></div>
+        <h2 id="gameOverTitle" class="text-2xl font-bold text-orange-700 mb-2"></h2>
+        <p id="gameOverMsg" class="text-amber-700 text-sm mb-2" style="font-family:'Sarabun',sans-serif;"></p>
+
+        <p class="text-amber-800 text-xs font-bold mt-4 mb-1" style="font-family:'Sarabun',sans-serif;">🔢 เลขที่ถูกต้องคือ</p>
+        <div id="gameOverAnswer" class="flex gap-2 justify-center my-2"></div>
+
+        <p class="text-amber-800 text-xs font-bold mt-5 mb-2" style="font-family:'Sarabun',sans-serif;">📜 ย้อนดูการเดาทั้ง 7 รอบ</p>
+        <div id="recapArea" class="flex flex-col gap-1.5 items-stretch"></div>
+
+        <button class="btn-guess mt-5" onclick="resetGame()">🔄 เล่นอีกครั้ง</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ===== Game state =====
+    let secretNumber = [];
+    let currentRound = 0;
+    const maxRounds = 7;
+    let gameOver = false;
+    let history = [];        // { round, guess:[], statuses:[], badDigit, conjured:[] }
+    let bgmStarted = false;
+
+    const bgm = document.getElementById('bgm');
+    const winSfx = document.getElementById('winSfx');
+    const loseSfx = document.getElementById('loseSfx');
+
+    if (bgm) bgm.volume = 0.35;
+    if (winSfx) winSfx.volume = 0.9;
+    if (loseSfx) loseSfx.volume = 0.9;
+
+    function startBgm() {
+      if (bgmStarted || !bgm) return;
+      bgm.play().then(() => { bgmStarted = true; }).catch(() => {});
+    }
+    function playWinSfx() { if (winSfx) { winSfx.currentTime = 0; winSfx.play().catch(() => {}); } }
+    function playLoseSfx() { if (loseSfx) { loseSfx.currentTime = 0; loseSfx.play().catch(() => {}); } }
+    function setupAudioUnlock() {
+      const unlock = () => startBgm();
+      ['click', 'touchstart', 'keydown'].forEach(evt => document.addEventListener(evt, unlock, { once: true }));
+    }
+
+    // ===== Core logic =====
+    function generateSecret() {
+      const arr = [];
+      for (let i = 0; i < 6; i++) arr.push(Math.floor(Math.random() * 10));
+      return arr;
+    }
+
+    // Wordle-style status resolution (handles duplicate digits correctly)
+    function getDigitStatuses(secret, guess) {
+      const statuses = Array(6).fill('wrong');
+      const pool = [...secret];
+      for (let i = 0; i < 6; i++) {
+        if (guess[i] === secret[i]) { statuses[i] = 'correct'; pool[i] = null; }
+      }
+      for (let i = 0; i < 6; i++) {
+        if (statuses[i] === 'correct') continue;
+        const idx = pool.indexOf(guess[i]);
+        if (idx !== -1) { statuses[i] = 'present'; pool[idx] = null; }
+      }
+      return statuses;
+    }
+    const countStatus = (statuses, target) => statuses.filter(s => s === target).length;
+
+    // Pick one digit 0-9 that is NOT in the secret (for round 6 hint)
+    function pickAbsentDigit() {
+      const candidates = [];
+      for (let d = 0; d <= 9; d++) if (!secretNumber.includes(d)) candidates.push(d);
+      if (!candidates.length) return null; // secret uses all 10 digits -> impossible with 6 digits, but guard anyway
+      return candidates[Math.floor(Math.random() * candidates.length)];
+    }
+
+    // ===== Setup / reset =====
+    function initGame() {
+      secretNumber = generateSecret();
+      currentRound = 0;
+      gameOver = false;
+      history = [];
+      document.getElementById('historyArea').innerHTML = '';
+      document.getElementById('gameOverOverlay').classList.add('hidden');
+      clearInputs();
+      updateRoundIndicator();
+      updateThevadaMessage(null);
+      document.getElementById('inputArea').classList.remove('hidden');
+    }
+
+    function clearInputs() {
+      const inputs = document.querySelectorAll('.input-digit');
+      inputs.forEach(inp => { inp.value = ''; inp.disabled = false; });
+      inputs[0].focus();
+      document.getElementById('guessBtn').disabled = false;
+    }
+
+    function updateRoundIndicator() {
+      const el = document.getElementById('roundIndicator');
+      const labels = ['①', '②', '③', '④', '⑤', '⑥', '⑦'];
+      let html = '';
+      for (let i = 0; i < maxRounds; i++) {
+        let cls = 'w-10 h-10 rounded-full flex items-center justify-center text-sm font-black transition-all duration-300 ';
+        if (i < currentRound) cls += 'bg-yellow-600 text-yellow-100 opacity-60 shadow-md';
+        else if (i === currentRound && !gameOver) cls += 'bg-gradient-to-br from-yellow-300 to-yellow-500 text-yellow-900 shadow-xl scale-125 animate-pulse';
+        else cls += 'border-2 border-yellow-500 text-yellow-400 opacity-80 bg-yellow-900 bg-opacity-30';
+        html += `<div class="${cls}">${labels[i]}</div>`;
+      }
+      el.innerHTML = html;
+    }
+
+    function updateThevadaMessage(msg) {
+      const el = document.getElementById('thevadaArea');
+      if (!msg) {
+        const roundHints = [
+          '🪷 รอบ 1–2: เทวดาให้กำลังใจก่อน (เลขถูกตัว-ถูกหลัก จะเป็นสีเขียว)',
+          '🪷 รอบ 1–2: เทวดาให้กำลังใจก่อน (เลขถูกตัว-ถูกหลัก จะเป็นสีเขียว)',
+          '💛 รอบ 3–5: เทวดาจะแต้มสีเหลืองให้เลขที่ถูกตัวแต่ผิดหลัก',
+          '💛 รอบ 3–5: เทวดาจะแต้มสีเหลืองให้เลขที่ถูกตัวแต่ผิดหลัก',
+          '💛 รอบ 3–5: เทวดาจะแต้มสีเหลืองให้เลขที่ถูกตัวแต่ผิดหลัก',
+          '❌ รอบ 6: เทวดาจะแอบบอกเลข 1 ตัวที่ไม่มีในคำตอบ (กรอบแดง)',
+          '✨ รอบ 7 (รอบสุดท้าย): เทวดาจะเสกเลขที่ถูกไว้ในหลักที่ยังทายไม่ถูก'
+        ];
+        const hint = currentRound < maxRounds ? roundHints[currentRound] : '';
+        el.innerHTML = `<div class="thevada-msg"><p class="text-yellow-300 text-sm" style="font-family:'Sarabun',sans-serif;">${hint}</p></div>`;
+      } else {
+        el.innerHTML = `<div class="thevada-msg" style="animation:slideUp 0.4s ease-out;"><p class="text-yellow-200 text-sm" style="font-family:'Sarabun',sans-serif;">${msg}</p></div>`;
+      }
+    }
+
+    function getGuessDigits() {
+      const inputs = document.querySelectorAll('.input-digit');
+      const digits = [];
+      for (const inp of inputs) {
+        const v = inp.value.trim();
+        if (v === '' || isNaN(v)) return null;
+        digits.push(parseInt(v, 10));
+      }
+      return digits;
+    }
+
+    const pick = arr => arr[Math.floor(Math.random() * arr.length)];
+
+    // ===== Submit a guess =====
+    function submitGuess() {
+      startBgm();
+      if (gameOver) return;
+
+      const guess = getGuessDigits();
+      if (!guess || guess.length !== 6) {
+        updateThevadaMessage('⚠️ กรุณากรอกตัวเลข 6 หลักให้ครบก่อนนะ');
+        return;
+      }
+
+      currentRound++;
+      const round = currentRound;
+
+      const truth = getDigitStatuses(secretNumber, guess); // full truth
+      const positionCount = countStatus(truth, 'correct');
+      const playerWon = positionCount === 6;
+
+      // What the board actually shows this round depends on the angel's buff
+      let shown = Array(6).fill('wrong');
+      let badDigit = null;      // round 6 red hint
+      let conjured = Array(6).fill(false); // round 7 angel-filled positions
+      let displayDigits = [...guess];
+      let thevadaMsg = '';
+
+      // Green (correct value + correct position) is always revealed
+      for (let i = 0; i < 6; i++) if (truth[i] === 'correct') shown[i] = 'correct';
+
+      if (playerWon) {
+        shown = Array(6).fill('correct');
+        thevadaMsg = '🎉✨ สาธุ! ท่านเดาถูกครบทั้ง 6 หลักด้วยตัวเอง! ท่านเทวดาอวยพรให้ร่ำรวย! ✨🎉';
+      } else if (round <= 2) {
+        // Angel only encourages — no extra hints
+        thevadaMsg = pick([
+          '🙏 ท่านเทวดากล่าว: "ใจเย็น ๆ ลูก ค่อย ๆ คิด เดี๋ยวรอบหน้าเราจะเริ่มช่วย"',
+          '🙏 ท่านเทวดายิ้ม: "สู้ ๆ นะลูก ยังมีอีกหลายรอบ"',
+          '🙏 ท่านเทวดาปลอบ: "ไม่ต้องรีบ ตั้งสมาธิแล้วลองใหม่"'
+        ]);
+      } else if (round <= 5) {
+        // Angel marks "right digit, wrong place" yellow
+        for (let i = 0; i < 6; i++) if (truth[i] === 'present') shown[i] = 'present';
+        const y = countStatus(shown, 'present');
+        thevadaMsg = y > 0
+          ? `💛 ท่านเทวดาแต้มสีเหลืองให้ ${y} ตัว — เลขพวกนี้ "ถูกตัวแต่ผิดหลัก" ลองสลับที่ดูสิ`
+          : '💛 ท่านเทวดาเพ่งดู... แต่รอบนี้ยังไม่มีเลขที่ถูกตัวเลย ลองเปลี่ยนเลขใหม่นะ';
+      } else if (round === 6) {
+        // Keep yellow help, plus secretly reveal one absent digit
+        for (let i = 0; i < 6; i++) if (truth[i] === 'present') shown[i] = 'present';
+        badDigit = pickAbsentDigit();
+        thevadaMsg = badDigit !== null
+          ? `❌ ท่านเทวดากระซิบ: "เลข <strong class="text-red-600 text-lg">${badDigit}</strong> ไม่มีอยู่ในคำตอบนี้แน่นอน" (ดูกรอบแดงข้าง ๆ)`
+          : '❌ ท่านเทวดาส่ายหน้า: "คำตอบนี้ใช้เลขหลากหลายมาก ไม่มีตัวไหนให้ตัดทิ้งได้เลย"';
+      } else if (round === 7) {
+        // Last guess — angel conjures correct digits into not-yet-green positions,
+        // but must NOT reuse a digit value the player already placed correctly (green).
+        for (let i = 0; i < 6; i++) if (truth[i] === 'present') shown[i] = 'present';
+        const playerGreenValues = [];
+        for (let i = 0; i < 6; i++) if (truth[i] === 'correct') playerGreenValues.push(secretNumber[i]);
+
+        for (let i = 0; i < 6; i++) {
+          if (truth[i] === 'correct') continue;           // player already nailed it
+          if (playerGreenValues.includes(secretNumber[i])) continue; // duplicate rule -> angel can't help here
+          shown[i] = 'correct';
+          conjured[i] = true;
+          displayDigits[i] = secretNumber[i];
+          playerGreenValues.push(secretNumber[i]);        // don't conjure the same value twice either
+        }
+
+        const conjuredCount = conjured.filter(Boolean).length;
+        const allGreen = shown.every(s => s === 'correct');
+        if (allGreen) {
+          thevadaMsg = `✨🪄 ท่านเทวดาเสกเลขที่เหลือ ${conjuredCount} หลักให้ครบ! "รับบุญไปเลยลูก!" ✨`;
+        } else {
+          const blocked = shown.filter(s => s !== 'correct').length;
+          thevadaMsg = `🪄 ท่านเทวดาเสกช่วย ${conjuredCount} หลัก แต่มีอีก ${blocked} หลักที่เสกไม่ได้ (เลขไปซ้ำกับหลักที่ท่านทายถูกแล้ว) 🙏`;
+        }
+      }
+
+      const conjuredWin = round === 7 && shown.every(s => s === 'correct');
+      const isWin = playerWon || conjuredWin;
+
+      history.push({ round, guess: [...guess], displayDigits, statuses: shown, badDigit, conjured });
+      addHistoryRow(round, displayDigits, shown, badDigit, conjured);
+      updateThevadaMessage(thevadaMsg);
+      updateRoundIndicator();
+
+      if (isWin) {
+        gameOver = true;
+        document.getElementById('inputArea').classList.add('hidden');
+        playWinSfx();
+        setTimeout(() => showGameOver(true, round, playerWon), 800);
+      } else if (round >= maxRounds) {
+        gameOver = true;
+        document.getElementById('inputArea').classList.add('hidden');
+        playLoseSfx();
+        setTimeout(() => showGameOver(false, round, false), 800);
+      } else {
+        clearInputs();
+      }
+    }
+
+    // ===== History rendering =====
+    function makeDigitBox(d, status, opts = {}) {
+      const box = document.createElement('div');
+      box.className = `digit-box ${status || 'wrong'}`;
+      box.style.width = opts.w || '40px';
+      box.style.height = opts.h || '48px';
+      box.style.fontSize = opts.fs || '20px';
+      if (opts.conjured) box.classList.add('conjured');
+      if (opts.delay != null) box.style.animation = `popIn 0.4s ease-out ${opts.delay}ms both`;
+      box.textContent = d;
+      return box;
+    }
+
+    function addHistoryRow(round, digits, statuses, badDigit, conjured) {
+      const container = document.getElementById('historyArea');
+      const row = document.createElement('div');
+      row.className = 'history-row flex items-center gap-3 p-2 rounded-lg';
+      row.style.background = 'rgba(255,215,0,0.04)';
+      row.style.border = '1px solid rgba(255,215,0,0.1)';
+
+      const roundLabel = document.createElement('div');
+      roundLabel.className = 'text-yellow-700 text-xs font-bold flex-shrink-0';
+      roundLabel.style.width = '28px';
+      roundLabel.textContent = `#${round}`;
+
+      const digitsWrap = document.createElement('div');
+      digitsWrap.className = 'flex gap-1.5';
+      digits.forEach((d, i) => {
+        digitsWrap.appendChild(makeDigitBox(d, statuses[i], { delay: i * 80, conjured: conjured && conjured[i] }));
+      });
+
+      row.appendChild(roundLabel);
+      row.appendChild(digitsWrap);
+
+      if (badDigit !== null && badDigit !== undefined) {
+        const bad = document.createElement('div');
+        bad.className = 'bad-digit flex-shrink-0';
+        bad.title = 'เลขนี้ไม่มีในคำตอบ';
+        bad.textContent = badDigit;
+        row.appendChild(bad);
+      }
+
+      container.prepend(row);
+    }
+
+    // ===== Game over / recap screen =====
+    function showGameOver(won, rounds, playerWon) {
+      const overlay = document.getElementById('gameOverOverlay');
+      overlay.classList.remove('hidden');
+
+      document.getElementById('gameOverEmoji').textContent = won ? '🎊' : '😢';
+      document.getElementById('gameOverTitle').textContent = won
+        ? (playerWon ? `ถูกรางวัล! (รอบที่ ${rounds})` : 'เทวดาเสกช่วยจนครบ! 🪄')
+        : 'หมดโอกาสแล้ว...';
+
+      const msgs = won
+        ? (playerWon
+            ? ['สุดยอด! ท่านเทวดาชื่นชม!', 'เฮงมาก! เดาเองล้วน ๆ!', 'บุญเก่าหนุนนำ!']
+            : ['รอบสุดท้ายเทวดาเสกเลขที่เหลือให้ครบพอดี!', 'เฉียดฉิว แต่เทวดาช่วยไว้ทัน!'])
+        : ['ไม่เป็นไร งวดหน้ายังมี...', 'ดวงยังไม่ถึง ลองอีกครั้งนะ', 'ท่านเทวดาบอกว่า...พรุ่งนี้ลองใหม่'];
+      document.getElementById('gameOverMsg').textContent = pick(msgs);
+
+      const answerWrap = document.getElementById('gameOverAnswer');
+      answerWrap.innerHTML = '';
+      secretNumber.forEach((d, i) => {
+        answerWrap.appendChild(makeDigitBox(d, 'correct', { delay: i * 90, w: '38px', h: '46px', fs: '19px' }));
+      });
+
+      // Recap of every round
+      const recap = document.getElementById('recapArea');
+      recap.innerHTML = '';
+      history.forEach(h => {
+        const r = document.createElement('div');
+        r.className = 'flex items-center gap-2 justify-center';
+        const lbl = document.createElement('div');
+        lbl.className = 'text-amber-700 text-xs font-bold';
+        lbl.style.width = '26px';
+        lbl.textContent = `#${h.round}`;
+        r.appendChild(lbl);
+        const w = document.createElement('div');
+        w.className = 'flex gap-1';
+        h.displayDigits.forEach((d, i) => {
+          w.appendChild(makeDigitBox(d, h.statuses[i], { w: '30px', h: '36px', fs: '16px', conjured: h.conjured && h.conjured[i] }));
+        });
+        r.appendChild(w);
+        if (h.badDigit !== null && h.badDigit !== undefined) {
+          const bad = document.createElement('div');
+          bad.className = 'bad-digit';
+          bad.style.width = '30px';
+          bad.style.height = '36px';
+          bad.style.fontSize = '15px';
+          bad.textContent = h.badDigit;
+          r.appendChild(bad);
+        }
+        recap.appendChild(r);
+      });
+
+      if (won) {
+        document.getElementById('gameOverCard').style.animation = 'winCelebrate 1s ease-in-out';
+      }
+    }
+
+    function resetGame() {
+      initGame();
+      startBgm();
+    }
+
+    // ===== Inputs =====
+    function setupInputs() {
+      const inputs = document.querySelectorAll('.input-digit');
+      inputs.forEach((inp, i) => {
+        inp.addEventListener('input', (e) => {
+          const val = e.target.value.replace(/[^0-9]/g, '');
+          e.target.value = val.slice(-1);
+          if (val && i < 5) inputs[i + 1].focus();
+        });
+        inp.addEventListener('keydown', (e) => {
+          if (e.key === 'Backspace' && !e.target.value && i > 0) inputs[i - 1].focus();
+          if (e.key === 'Enter') submitGuess();
+        });
+      });
+    }
+
+    // ===== Element SDK config (unchanged behaviour) =====
+    const defaultConfig = {
+      game_title: 'เกมเดาเลขเทวดา',
+      background_color: '#f0f4ff',
+      surface_color: '#e8f0ff',
+      text_color: '#8B7355',
+      primary_action_color: '#FFD700',
+      secondary_action_color: '#FFB347',
+      font_family: 'Prompt',
+      font_size: 16
+    };
+
+    function applyConfig(config) {
+      const title = config.game_title || defaultConfig.game_title;
+      const el = document.getElementById('titleEl');
+      if (el) el.textContent = title;
+
+      const text = config.text_color || defaultConfig.text_color;
+      const primary = config.primary_action_color || defaultConfig.primary_action_color;
+      const secondary = config.secondary_action_color || defaultConfig.secondary_action_color;
+      const font = config.font_family || defaultConfig.font_family;
+      const size = config.font_size || defaultConfig.font_size;
+
+      document.body.style.background = `linear-gradient(160deg, #1a1a3e 0%, #0d0d2d 30%, #1a0d2e 60%, #2d1b1b 100%)`;
+      document.body.style.fontFamily = `${font}, Prompt, sans-serif`;
+
+      document.querySelectorAll('.btn-guess').forEach(btn => {
+        btn.style.background = `linear-gradient(135deg, ${secondary}, ${primary}, ${text})`;
+        btn.style.fontSize = `${size * 1.1}px`;
+      });
+      document.querySelectorAll('.thevada-msg p').forEach(p => { p.style.fontSize = `${size * 0.85}px`; });
+
+      if (el) { el.style.fontSize = `${size * 1.9}px`; el.style.color = text; }
+    }
+
+    function makeRecolorable(key) {
+      return {
+        get: () => (window.elementSdk?.config?.[key]) || defaultConfig[key],
+        set: (v) => { window.elementSdk?.setConfig({ [key]: v }); }
+      };
+    }
+
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange: async (config) => applyConfig(config),
+        mapToCapabilities: (config) => ({
+          recolorables: [
+            makeRecolorable('background_color'),
+            makeRecolorable('surface_color'),
+            makeRecolorable('text_color'),
+            makeRecolorable('primary_action_color'),
+            makeRecolorable('secondary_action_color')
+          ],
+          borderables: [],
+          fontEditable: {
+            get: () => config.font_family || defaultConfig.font_family,
+            set: (v) => window.elementSdk.setConfig({ font_family: v })
+          },
+          fontSizeable: {
+            get: () => config.font_size || defaultConfig.font_size,
+            set: (v) => window.elementSdk.setConfig({ font_size: v })
+          }
+        }),
+        mapToEditPanelValues: (config) => new Map([
+          ['game_title', config.game_title || defaultConfig.game_title]
+        ])
+      });
+    }
+
+    setupAudioUnlock();
+    setupInputs();
+    initGame();
+    lucide.createIcons();
+  </script>
+</body>
+</html>

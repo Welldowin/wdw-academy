@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>เกมทบทวนบทเรียน | Well-Do-Win Academy</title>
+  <meta name="description" content="รวมเกมทบทวนบทเรียน เคมี ฟิสิกส์ ชีววิทยา คณิตศาสตร์ ของโรงเรียนกวดวิชาเวลดูวิน" />
+  <script>
+    // ต้องล็อกอินก่อนเข้าหน้าเกม — เด้งไป login แล้วกลับมาที่หน้านี้หลังล็อกอิน
+    if (!localStorage.getItem('userId')) {
+      try { localStorage.setItem('postLoginRedirect', location.href); } catch (e) {}
+      location.replace('../login.html');
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy: #162e6d;
+      --navy-soft: #1E3D8F;
+      --cream: #fffdf5;
+      --card: #ffffff;
+      --yellow: #ffce3d;
+      --ink: #2c2c2c;
+      --ink-soft: #6b6b6b;
+      --chem: #10b981;
+      --phys: #3b82f6;
+      --bio: #ec4899;
+      --math: #8b5cf6;
+      --misc: #f59e0b;
+      --radius: 18px;
+      --shadow: 0 14px 32px rgba(22, 46, 109, 0.13);
+      --shadow-sm: 0 6px 16px rgba(22, 46, 109, 0.10);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Kanit', system-ui, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(1200px 500px at 15% -10%, #fff6d6 0%, transparent 60%),
+        radial-gradient(1000px 450px at 100% 0%, #e5f0ff 0%, transparent 55%),
+        var(--cream);
+      min-height: 100vh;
+      padding-bottom: 64px;
+    }
+
+    /* ---------- header ---------- */
+    header {
+      background: linear-gradient(120deg, var(--navy) 0%, var(--navy-soft) 100%);
+      color: #fff;
+      padding: 18px 20px 46px;
+      border-radius: 0 0 34px 34px;
+      position: relative;
+      overflow: hidden;
+    }
+    header::after {
+      content: "";
+      position: absolute;
+      inset: auto -40px -60px -40px;
+      height: 130px;
+      background: radial-gradient(closest-side, rgba(255,206,61,0.28), transparent);
+    }
+    .bar {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .brand img { height: 46px; width: auto; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.25)); }
+    .brand b { font-weight: 600; font-size: 1rem; line-height: 1.2; }
+    .home-link {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.92rem;
+      background: rgba(255,255,255,0.14);
+      border: 1px solid rgba(255,255,255,0.35);
+      padding: 9px 16px;
+      border-radius: 999px;
+      white-space: nowrap;
+      transition: background .18s;
+    }
+    .home-link:hover { background: rgba(255,255,255,0.28); }
+
+    .hero {
+      max-width: 1120px;
+      margin: 22px auto 0;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    .hero h1 { font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 700; }
+    .hero h1 .em { display: inline-block; transform: translateY(2px); }
+    .hero p { margin-top: 8px; color: #dfe7ff; font-weight: 300; font-size: 1rem; }
+
+    /* ---------- controls ---------- */
+    .controls {
+      max-width: 1120px;
+      margin: -26px auto 0;
+      padding: 16px;
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+    .search {
+      flex: 1 1 220px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #f4f6fb;
+      border: 2px solid transparent;
+      border-radius: 12px;
+      padding: 10px 14px;
+    }
+    .search:focus-within { border-color: var(--navy-soft); background: #fff; }
+    .search input { border: none; outline: none; background: transparent; font: inherit; width: 100%; }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chip {
+      border: 1.5px solid rgba(22,46,109,0.18);
+      background: #fff;
+      color: var(--navy-soft);
+      font: inherit;
+      font-size: 0.9rem;
+      padding: 8px 14px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all .15s;
+      white-space: nowrap;
+    }
+    .chip:hover { border-color: var(--navy-soft); }
+    .chip.active { background: var(--navy-soft); color: #fff; border-color: var(--navy-soft); }
+
+    /* ---------- grid ---------- */
+    .grid {
+      max-width: 1120px;
+      margin: 22px auto 0;
+      padding: 0 16px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 18px;
+    }
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+      padding: 20px;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      border: 1px solid rgba(22,46,109,0.06);
+      position: relative;
+      overflow: hidden;
+      transition: transform .16s ease, box-shadow .16s ease;
+      opacity: 0;
+      transform: translateY(14px);
+      animation: rise .45s ease forwards;
+    }
+    @keyframes rise { to { opacity: 1; transform: none; } }
+    .card:hover { transform: translateY(-6px); box-shadow: var(--shadow); }
+    .card::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 5px;
+      background: var(--accent, var(--misc));
+    }
+    .icon {
+      width: 58px;
+      height: 58px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      font-size: 1.8rem;
+      background: color-mix(in srgb, var(--accent, var(--misc)) 16%, #fff);
+    }
+    .card h3 { font-size: 1.12rem; font-weight: 600; line-height: 1.3; }
+    .card p { font-size: 0.9rem; color: var(--ink-soft); font-weight: 300; flex: 1; }
+    .row { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+    .row .play { margin-left: auto; }
+    .tag {
+      font-size: 0.78rem;
+      font-weight: 500;
+      padding: 4px 10px;
+      border-radius: 999px;
+      color: var(--accent, var(--misc));
+      background: color-mix(in srgb, var(--accent, var(--misc)) 14%, #fff);
+    }
+    .play {
+      font-size: 0.86rem;
+      font-weight: 600;
+      color: var(--navy-soft);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .card:hover .play { gap: 8px; }
+
+    .empty {
+      max-width: 1120px;
+      margin: 40px auto;
+      text-align: center;
+      color: var(--ink-soft);
+    }
+    footer {
+      max-width: 1120px;
+      margin: 40px auto 0;
+      padding: 0 16px;
+      text-align: center;
+      color: var(--ink-soft);
+      font-size: 0.85rem;
+      font-weight: 300;
+    }
+
+    @media (max-width: 560px) {
+      .controls { margin-top: -18px; }
+      .chips { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="bar">
+      <a class="brand" href="../index.html" style="text-decoration:none;color:#fff;">
+        <img src="../logo.png" alt="โลโก้ Well-Do-Win" />
+        <b>Well-Do-Win<br />Academy</b>
+      </a>
+      <a class="home-link" href="../index.html">← กลับหน้าหลัก</a>
+    </div>
+    <div class="hero">
+      <h1><span class="em">🎮</span> เกมทบทวนบทเรียน</h1>
+      <p>เล่นสนุก จำแม่น — เลือกเกมจากวิชาที่อยากฝึกได้เลย</p>
+    </div>
+  </header>
+
+  <div class="controls">
+    <label class="search">
+      <span>🔎</span>
+      <input id="q" type="search" placeholder="ค้นหาชื่อเกม..." autocomplete="off" />
+    </label>
+    <div class="chips" id="chips"></div>
+  </div>
+
+  <main class="grid" id="grid"></main>
+  <p class="empty" id="empty" hidden>ไม่พบเกมที่ตรงกับที่ค้นหา</p>
+
+  <footer>
+    เกมทั้งหมดเป็นสื่อประกอบการเรียนของโรงเรียนกวดวิชาเวลดูวิน (ชุมแพ ขอนแก่น)
+  </footer>
+
+  <script>
+    // ---- ข้อมูลเกม: p = ส่วนของ path ใต้โฟลเดอร์ /Games/ (encode อัตโนมัติ) ----
+    const GAMES = [
+      { e: '🕵️', t: 'ไขรหัสลับตัวเลขปริศนา', d: 'บอร์ดเกมเดาแผ่นป้ายตัวเลข เล่นออนไลน์กับเพื่อน 2–4 คน (มีบอท)', s: 'อื่นๆ', url: 'https://davinci-code-5uu4.onrender.com/', mp: true },
+      { e: '🎰', t: 'VSEPR Slot', d: 'ทายรูปร่างโมเลกุลและมุมพันธะ ตามทฤษฎี VSEPR', s: 'เคมี', p: ['vsepr-slot'] },
+      { e: '⚗️', t: 'ท่องจำหมู่ฟังก์ชัน', d: 'จับคู่หมู่ฟังก์ชันเคมีอินทรีย์ให้ครบ', s: 'เคมี', p: ['OrganicChemหมู่ฟังก์ชัน'] },
+      { e: '🧪', t: 'Organic Chem Battle', d: 'ต่อสู้ตอบคำถามเคมีอินทรีย์', s: 'เคมี', p: ['OrganicChem'] },
+      { e: '🔬', t: 'Organic Chem Guesser', d: 'ทายสารอินทรีย์ แนวข้อสอบ NETSAT', s: 'เคมี', p: ['OrganicGame'] },
+      { e: '⚛️', t: 'Atomic Size Racing', d: 'แข่งรถเรียงลำดับขนาดอะตอมและไอออน', s: 'เคมี', p: ['ขนาดอะตอม'] },
+      { e: '🔋', t: 'Electron Config Game', d: 'จัดเรียงอิเล็กตรอนสไตล์นีลส์ โบร์', s: 'เคมี', p: ['จัดเรียงอิเล็กตรอน'] },
+      { e: '📏', t: 'ควิซคำอุปสรรคฟิสิกส์', d: 'ฝึกคำอุปสรรคหน่วย SI (nano, kilo, mega ...)', s: 'ฟิสิกส์', p: ['คำอุปสรรค'] },
+      { e: '🚀', t: 'Space Prefix Match', d: 'เกมอวกาศจับคู่คำอุปสรรคให้ทันเวลา', s: 'ฟิสิกส์', p: ['คำอุปสรรค', 'prefixes.html'] },
+      { e: '📊', t: 'อ่านค่าเครื่องมือวัดละเอียด', d: 'ฝึกอ่านเวอร์เนียคาลิเปอร์และไมโครมิเตอร์', s: 'ฟิสิกส์', p: ['เวอร์เนีย+ไมโครมิเตอร์'] },
+      { e: '🧬', t: 'นักสืบพันธุกรรม', d: 'ไขคดีการถ่ายทอดลักษณะทางพันธุกรรม', s: 'ชีววิทยา', p: ['นักสืบพันธุกรรม'] },
+      { e: '🩺', t: 'จับคู่โรคพันธุกรรม', d: 'จับคู่โรคกับสาเหตุทางพันธุกรรม', s: 'ชีววิทยา', p: ['นักสืบพันธุกรรม2'] },
+      { e: '✖️', t: 'Multiplication Quest', d: 'ผจญภัยฝึกสูตรคูณ 3 ระดับความยาก', s: 'คณิต', p: ['easy normal hard', 'multiple.html'] },
+      { e: '📐', t: 'Trigono Quest', d: 'ผจญภัยฝึกตรีโกณมิติ', s: 'คณิต', p: ['easy normal hard', 'ตรีโกณมิติ.html'] },
+      { e: '🔢', t: 'เกมเดาเลขเทวดา', d: 'เดาเลข 6 หลักใน 7 รอบ มีเทวดาคอยให้บัพ', s: 'คณิต', p: ['GuessNumberGame'] },
+      { e: '🃏', t: 'Realm of Cards', d: 'เกมไพ่ยุคกลาง จั่วการ์ด ตอบคำถามฟิสิกส์–เคมี–คณิต เล่น 1–4 คน (มีบอท)', s: 'อื่นๆ', p: ['MedievalGameCard'], mp: true },
+      { e: '🎲', t: 'บันไดงูวิชาการ', d: 'ทอยลูกเต๋า ตอบคำถามฟิสิกส์–เคมี–คณิต', s: 'อื่นๆ', p: ['Snake game - hard', 'index.html'] },
+      { e: '⚔️', t: 'Battle of Fortune', d: 'ดวลบอสราชาก็อบลิน เลือกอาชีพ ลุ้นการ์ด', s: 'อื่นๆ', p: ['Duel game', 'index.html'] },
+    ];
+
+    const SUBJECTS = ['ทั้งหมด', 'เคมี', 'ฟิสิกส์', 'ชีววิทยา', 'คณิต', 'อื่นๆ'];
+    const ACCENT = { 'เคมี': 'var(--chem)', 'ฟิสิกส์': 'var(--phys)', 'ชีววิทยา': 'var(--bio)', 'คณิต': 'var(--math)', 'อื่นๆ': 'var(--misc)' };
+
+    let activeSubject = 'ทั้งหมด';
+    let query = '';
+
+    function hrefFor(p) {
+      const enc = p.map(encodeURIComponent);
+      // ถ้าเป็นโฟลเดอร์ (ไม่มีนามสกุลไฟล์) ให้เติม / ท้าย
+      if (enc.length === 1 && !/\.\w+$/.test(p[0])) return enc[0] + '/';
+      return enc.join('/');
+    }
+
+    const chipsEl = document.getElementById('chips');
+    SUBJECTS.forEach((s) => {
+      const b = document.createElement('button');
+      b.className = 'chip' + (s === activeSubject ? ' active' : '');
+      b.textContent = s;
+      b.onclick = () => {
+        activeSubject = s;
+        [...chipsEl.children].forEach((c) => c.classList.toggle('active', c.textContent === s));
+        render();
+      };
+      chipsEl.appendChild(b);
+    });
+
+    document.getElementById('q').addEventListener('input', (e) => {
+      query = e.target.value.trim().toLowerCase();
+      render();
+    });
+
+    function render() {
+      const grid = document.getElementById('grid');
+      const list = GAMES.filter((g) => {
+        const okSub = activeSubject === 'ทั้งหมด' || g.s === activeSubject;
+        const okQ = !query || (g.t + ' ' + g.d).toLowerCase().includes(query);
+        return okSub && okQ;
+      });
+      document.getElementById('empty').hidden = list.length > 0;
+      grid.innerHTML = list
+        .map((g, i) => {
+          const accent = ACCENT[g.s] || 'var(--misc)';
+          const href = g.url || hrefFor(g.p);
+          const ext = g.url ? ' target="_blank" rel="noopener"' : '';
+          const mpTag = g.mp ? ' <span class="tag" style="--accent:var(--phys)">👥 หลายคน</span>' : '';
+          return `<a class="card" href="${href}"${ext} style="--accent:${accent};animation-delay:${i * 45}ms">
+            <div class="icon">${g.e}</div>
+            <h3>${g.t}</h3>
+            <p>${g.d}</p>
+            <div class="row">
+              <span class="tag">${g.s}</span>${mpTag}
+              <span class="play">เล่นเลย →</span>
+            </div>
+          </a>`;
+        })
+        .join('');
+    }
+
+    render();
+  </script>
+</body>
+</html>
