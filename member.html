@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ระบบสมาชิก - Well-Do-Win Academy</title>
   <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/user-badge.css">
+  <script src="assets/user-badge.js" defer></script>
   <style>
     /* --- แอนิเมชัน HOT! --- */
     @keyframes blink-hot {
@@ -727,21 +729,16 @@
           </div>
 
           <div class="ann-item">
-            <div><strong>อัพเดท!! รายชื่อ quiz คอร์ส เทอม 1 </strong></div>
-            <div class="ann-date">ประกาศเมื่อ: 23 มิ.ย. 2569</div>
-           
-          </div>
-
-          <div class="ann-item">
-            <div><strong>เปิดคอร์ส เทอม 1 ใหม่!!</strong></div>
-            <div class="ann-date">ประกาศเมื่อ: 1 พ.ค. 2569</div>
-            <div>เปิดคอร์สวันที่ 22 พ.ค. - 13 ก.ย. 69 (15+15 ชั่วโมง)</div>
-        
+            <div><strong>เปิดคอร์ส ซัมเมอร์ ใหม่!!</strong></div>
+            <div class="ann-date">ประกาศเมื่อ: 1 มี.ค. 2569</div>
+            <div>เปิดคอร์สวันที่ 10 มี.ค. - 8 พ.ค. 69 (48 ชั่วโมง)</div>
+            <div>ศิษย์เก่ากรอกโค้ด "SUMMERDERM400" ลดทันที 400 บาท</div>
+            <div>นักเรียนใหม่กรอกโค้ด "SUMMERNEW200" ลดทันที 200 บาท</div>
           </div>
           <div class="ann-item">
-            <div><strong>วันหยุดประจำคอร์สเทอม 1</strong></div>
-            <div class="ann-date">ประกาศเมื่อ: 1 พ.ค. 2569</div>
-            <div>หยุดสงกรานต์ตั้งแต่วันที่ 31 ก.ค. ถึง 1 ส.ค. 69</div>
+            <div><strong>วันหยุดประจำคอร์สซัมเมอร์</strong></div>
+            <div class="ann-date">ประกาศเมื่อ: 1 มี.ค. 2569</div>
+            <div>หยุดสงกรานต์ตั้งแต่วันที่ 13 ถึง 17 เม.ย.69</div>
           </div>
           <div class="ann-item">
             <div><strong>ทดลองใช้ระบบสมาชิกเวอร์ชันใหม่</strong></div>
@@ -856,6 +853,12 @@
       name: 'คอร์สออนไลน์ – NETSAT ฟิสิกส์/เคมี',
       schedule: 'ออนไลน์ยืดหยุ่น 18 ชม. ขึ้นไป จนถึงสอบ 7 ก.พ. 69',
       weeklyHomework: 1,
+      weeklyVideos: 1
+    },
+    'm2-science': {
+      name: 'คอร์ส ม.2 – วิทยาศาสตร์',
+      schedule: 'ดูวิดีโอย้อนหลังได้ที่หน้าแดชบอร์ด',
+      weeklyHomework: 0,
       weeklyVideos: 1
     }
   };
@@ -989,13 +992,8 @@
     if (welcomeLevel)       welcomeLevel.textContent       = data.level || '';
 
     if (userNameDisplay) {
-      if (nickname) {
-        userNameDisplay.textContent = nickname;
-      } else if (fullName) {
-        userNameDisplay.textContent = fullName;
-      } else if (userEmail) {
-        userNameDisplay.textContent = userEmail;
-      }
+      // แสดงชื่อจริง-นามสกุลก่อนเสมอ (ให้ตรงกับหน้าอื่น)
+      userNameDisplay.textContent = fullName || nickname || userEmail || userNameDisplay.textContent;
     }
   }
 
@@ -1350,11 +1348,7 @@
       if (welcomeLevel)                   welcomeLevel.textContent       = p.level || '';
       
       if (userNameDisplay) {
-        if (p.nickname) {
-          userNameDisplay.textContent = p.nickname;
-        } else if (fullName) {
-          userNameDisplay.textContent = fullName;
-        }
+        userNameDisplay.textContent = fullName || p.nickname || userNameDisplay.textContent;
       }
 
       if (paymentStatusText) {
