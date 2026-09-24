@@ -24,6 +24,7 @@ window.PROGRESS_TOTAL_QUIZZES = 12;
 window.PROGRESS_COURSES = [
   // หมายเหตุ: active = จำนวน quiz ที่ "ตั้งใจเปิด" (ระบบจะแสดงไม่เกินจำนวนที่มีจริงใน data.js อยู่แล้ว)
   //           ค่าด้านล่างเผื่ออีก 2 quiz ที่กำลังจะเพิ่ม (quiz ใหม่จะโผล่อัตโนมัติเมื่อมีใน data.js)
+  { courseId: "m2-science",       label: "ม.2 — วิทยาศาสตร์" },
   { courseId: "m3-term1-math",    label: "ม.3 เทอม 1 — คณิตศาสตร์", active: 7 },
   { courseId: "m3-term1-science", label: "ม.3 เทอม 1 — วิทยาศาสตร์", active: 8  },
   { courseId: "m4-term1-math",    label: "ม.4 เทอม 1 — คณิตศาสตร์", active: 9 },
