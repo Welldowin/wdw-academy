@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin : ผลสอบที่ถูกถือไว้</title>
+<style>
+  body { font-family: 'Kanit', 'Tahoma', sans-serif; background: #fffdf5; color: #1f2937; margin: 0; padding: 16px; }
+  .wrap { max-width: 1000px; margin: 0 auto; }
+  h1 { color: #1E3D8F; font-size: 1.4rem; margin: 0 0 12px; }
+  .card { background: #fff; border: 1px solid #dbe3f0; border-radius: 12px; padding: 14px 16px; margin: 12px 0; box-shadow: 0 4px 14px rgba(30,61,143,.06); }
+  .row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+  input, select, button { font: inherit; padding: 7px 12px; border-radius: 8px; border: 1px solid #cbd5e1; }
+  button { cursor: pointer; background: #1E3D8F; color: #fff; border: none; }
+  button.ok { background: #16a34a; } button.no { background: #dc2626; } button.ghost { background: #e2e8f0; color: #1f2937; }
+  .badge { display: inline-block; padding: 2px 10px; border-radius: 999px; font-weight: 600; font-size: .85rem; }
+  .r-hold { background: #fee2e2; color: #b91c1c; } .r-flag { background: #fef3c7; color: #92400e; } .r-ok { background: #dcfce7; color: #166534; }
+  .sig { font-size: .9rem; color: #475569; margin: 6px 0; line-height: 1.8; }
+  .sig b { color: #1f2937; }
+  .muted { color: #64748b; font-size: .9rem; }
+  .msg { padding: 8px 12px; border-radius: 8px; background: #e0e7ff; margin: 10px 0; display: none; }
+  table.t { border-collapse: collapse; width: 100%; font-size: .85rem; margin-top: 6px; }
+  table.t td, table.t th { border: 1px solid #e5e7eb; padding: 3px 8px; text-align: left; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>🛡️ ผลสอบที่ถูกถือไว้ (Anti-cheat)</h1>
+
+  <div class="card">
+    <div class="row">
+      <input type="password" id="pw" placeholder="รหัสผ่านแอดมิน" autocomplete="off">
+      <input id="course" placeholder="courseId (เว้นว่าง = ทั้งหมด)">
+      <select id="status">
+        <option value="held">รอตรวจสอบ</option>
+        <option value="released">อนุมัติแล้ว</option>
+        <option value="rejected">ไม่อนุมัติ</option>
+        <option value="all">ทั้งหมด</option>
+      </select>
+      <button id="load">โหลดรายการ</button>
+    </div>
+    <div class="msg" id="msg"></div>
+  </div>
+
+  <div id="list"></div>
+</div>
+
+<script src="quiz-config.js"></script>
+<script>
+  const API = (window.QUIZ_CONFIG && window.QUIZ_CONFIG.examApiUrl) || "";
+  const $ = id => document.getElementById(id);
+  const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const fmtDate = ts => { const d = new Date(ts); return isNaN(d) ? esc(ts) : d.toLocaleString("th-TH"); };
+  let rows = [];
+
+  function msg(t) { const m = $("msg"); m.textContent = t; m.style.display = t ? "block" : "none"; }
+
+  async function call(payload) {
+    const res = await fetch(API, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(payload) });
+    return res.json();
+  }
+
+  async function load() {
+    msg("กำลังโหลด...");
+    try {
+      const res = await call({ action: "getHeld", adminPassword: $("pw").value, courseId: $("course").value.trim(), status: $("status").value });
+      if (!res.ok) { msg("ผิดพลาด: " + (res.message || "unknown")); $("list").innerHTML = ""; return; }
+      rows = res.rows; msg(rows.length ? "" : "ไม่มีรายการ"); render();
+    } catch (e) { msg("เชื่อมต่อไม่สำเร็จ: " + e); }
+  }
+
+  function render() {
+    $("list").innerHTML = rows.map((r, i) => {
+      const lvl = r.riskScore >= 60 ? "hold" : (r.riskScore >= 30 ? "flag" : "ok");
+      const sg = (r.ac && r.ac.signals) || {};
+      const ts = r.timeSpent || {};
+      const tkeys = Object.keys(ts).sort((a, b) => (parseInt(a.slice(1)) || 0) - (parseInt(b.slice(1)) || 0));
+      return `
+      <div class="card">
+        <div class="row" style="justify-content:space-between">
+          <div><b>${esc(r.displayName)}</b> <span class="muted">(${esc(r.userId)})</span><br>
+            <span class="muted">${esc(r.courseId)} / ${esc(r.testKey)} · ส่งเมื่อ ${fmtDate(r.timestamp)}</span></div>
+          <div style="text-align:right">คะแนน <b>${esc(r.totalScore)} / ${esc(r.totalQuestions)}</b> (${esc(r.rank)})<br>
+            <span class="badge r-${lvl}">ความเสี่ยง ${esc(r.riskScore)}</span></div>
+        </div>
+        <div class="sig">
+          สลับหน้าจอ <b>${sg.switches || 0}</b> ครั้ง (หายไปรวม <b>${sg.awaySec || 0}</b> วินาที) ·
+          ตอบเร็วเกินไป <b>${sg.fastAnswers || 0}</b> ข้อ ·
+          คัดลอก/คลิกขวา <b>${sg.clip || 0}</b> ครั้ง ·
+          ตอบทันทีหลังกลับเข้าหน้า <b>${sg.quick || 0}</b> ครั้ง<br>
+          เวลาต่อข้อสม่ำเสมอผิดปกติ: <b>${sg.uniform ? "ใช่" : "ไม่"}</b> ·
+          คะแนนสูงแต่ใช้เวลาน้อย: <b>${sg.fastHigh ? "ใช่" : "ไม่"}</b> ·
+          เปิดหลายแท็บ: <b>${sg.multiTab ? "ใช่" : "ไม่"}</b>
+        </div>
+        <details><summary class="muted">เวลาแต่ละข้อ (วินาที)</summary>
+          <table class="t"><tr>${tkeys.map(k => `<th>${esc(k.replace("q", "ข้อ "))}</th>`).join("")}</tr>
+          <tr>${tkeys.map(k => `<td>${esc(ts[k])}</td>`).join("")}</tr></table></details>
+        <div class="row" style="margin-top:10px">
+          ${r.status === "held"
+            ? `<button class="ok" onclick="decide(${i}, 'approve')">✅ อนุมัติ ปล่อยผล</button>
+               <button class="no" onclick="decide(${i}, 'reject')">⛔ ไม่อนุมัติ</button>`
+            : `<span class="badge ${r.status === "released" ? "r-ok" : "r-hold"}">${r.status === "released" ? "อนุมัติแล้ว" : "ไม่อนุมัติ"}</span> <span class="muted">${r.decidedAt ? fmtDate(r.decidedAt) : ""}</span>`}
+        </div>
+      </div>`;
+    }).join("");
+  }
+
+  async function decide(i, decision) {
+    const r = rows[i];
+    const txt = decision === "approve" ? `อนุมัติปล่อยผลของ ${r.displayName}?` : `ไม่อนุมัติผลของ ${r.displayName}? (นักเรียนจะไม่เห็นผล)`;
+    if (!confirm(txt)) return;
+    msg("กำลังบันทึก...");
+    try {
+      const res = await call({ action: "decideHeld", adminPassword: $("pw").value, holdId: r.holdId, decision });
+      if (!res.ok) { msg("ผิดพลาด: " + (res.message || "unknown")); return; }
+      msg("บันทึกแล้ว"); load();
+    } catch (e) { msg("เชื่อมต่อไม่สำเร็จ: " + e); }
+  }
+
+  $("load").addEventListener("click", load);
+</script>
+</body>
+</html>

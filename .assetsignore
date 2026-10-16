@@ -21,3 +21,6 @@ Dockerfile
 render.yaml
 # เกม DavinciCode ต้องรันเป็น Node server แยก (Socket.io) ไม่ใช่ไฟล์ static — ไม่ต้องอัปขึ้น Cloudflare
 Games/DavinciCode/
+
+# หน้าตรวจข้อสอบสำหรับครู (แสดงเฉลย) ไม่ต้องขึ้นเว็บจริง
+Quizzes/m2-science/ch3-final/review.html
