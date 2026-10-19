@@ -1,10 +1,22 @@
-# Render Blueprint — deploy เกม DavinciCode (Node + Socket.io) เป็นเซิร์ฟเวอร์แยก
+# Render Blueprint — deploy เกม Node + Socket.io เป็นเซิร์ฟเวอร์แยก (เกมละ service)
 # วิธีใช้: Render Dashboard -> New + -> Blueprint -> เลือก repo Welldowin/wdw-academy -> Apply
 services:
   - type: web
     name: davinci-code
     runtime: node
     rootDir: Games/DavinciCode
+    region: singapore
+    plan: free
+    branch: main
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /
+    autoDeploy: true
+
+  - type: web
+    name: werewolf-th
+    runtime: node
+    rootDir: Games/Werewolf
     region: singapore
     plan: free
     branch: main

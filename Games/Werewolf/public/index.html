@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+<title>มนุษย์หมาป่า | Werewolf</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div id="toast"></div>
+
+<!-- ===== หน้าแรก: ใส่ชื่อเล่น ===== -->
+<section id="screen-landing" class="screen active">
+  <div class="moon-glow"></div>
+  <div class="landing-card">
+    <h1 class="title">🐺 มนุษย์หมาป่า</h1>
+    <p class="subtitle">One Night Werewolf — เวอร์ชันไทย</p>
+    <input id="input-nickname" type="text" placeholder="ชื่อเล่นของคุณ" maxlength="16" autocomplete="off" />
+    <button id="btn-create-room" class="btn btn-primary">สร้างห้องใหม่</button>
+    <div class="divider"><span>หรือ</span></div>
+    <input id="input-roomcode" type="text" placeholder="รหัสห้อง เช่น A1B2" maxlength="4" autocomplete="off" style="text-transform:uppercase" />
+    <button id="btn-join-room" class="btn btn-secondary">เข้าร่วมห้อง</button>
+  </div>
+</section>
+
+<!-- ===== ล็อบบี้ ===== -->
+<section id="screen-lobby" class="screen">
+  <header class="topbar">
+    <div class="room-code">ห้อง: <span id="lobby-code">----</span> <button id="btn-mute" class="icon-btn" title="เปิด/ปิดเสียง">🔊</button></div>
+  </header>
+
+  <div class="lobby-grid">
+    <div class="player-list" id="lobby-players"></div>
+
+    <div id="host-settings" class="host-settings hidden">
+      <h3>ตั้งค่าห้อง (เจ้าของห้อง)</h3>
+      <label>เวลาใช้ความสามารถตอนกลางคืน
+        <select id="set-night-seconds">
+          <option value="10">10 วินาที</option>
+          <option value="20" selected>20 วินาที</option>
+          <option value="30">30 วินาที</option>
+          <option value="60">60 วินาที</option>
+        </select>
+      </label>
+      <label>เวลาคุยตอนกลางวัน
+        <select id="set-day-seconds">
+          <option value="120">2 นาที</option>
+          <option value="300" selected>5 นาที</option>
+          <option value="600">10 นาที</option>
+          <option value="0">ไม่จำกัดเวลา</option>
+        </select>
+      </label>
+
+      <div class="role-picker" id="role-picker"></div>
+      <div class="role-picker-hint">
+        เลือกบทบาท: ต้องมี = ผู้เล่น + 3 ใบ | ตอนนี้เลือกแล้ว <span id="role-count">0</span>/<span id="role-need">0</span>
+      </div>
+      <div class="expansion-toggles">
+        <label class="toggle-disabled"><input type="checkbox" disabled /> ภูติจำแลง (Doppelgänger) — เร็ว ๆ นี้</label>
+        <label class="toggle-disabled"><input type="checkbox" disabled /> หมาป่าหลับใหล (Dream Wolf) — เร็ว ๆ นี้</label>
+      </div>
+
+      <button id="btn-start-game" class="btn btn-primary">เริ่มเกม</button>
+    </div>
+  </div>
+</section>
+
+<!-- ===== แจกไพ่ / ดูบทบาท ===== -->
+<section id="screen-setup" class="screen">
+  <div class="setup-wrap">
+    <div id="role-card" class="role-card">
+      <div class="role-card-inner">
+        <div class="role-card-face role-card-back"></div>
+        <div class="role-card-face role-card-front">
+          <img id="role-card-img" src="" alt="" />
+          <div class="role-card-label">
+            <div id="role-card-name" class="role-card-name"></div>
+            <div id="role-card-desc" class="role-card-desc"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button id="btn-setup-ready" class="btn btn-primary">รับทราบ พร้อมเริ่ม</button>
+    <p id="setup-ready-count" class="muted"></p>
+  </div>
+</section>
+
+<!-- ===== กลางคืน ===== -->
+<section id="screen-night" class="screen night-theme">
+  <div class="stars"></div>
+  <div class="moon"></div>
+  <div class="night-wrap">
+    <div id="night-fog" class="night-fog">
+      <p class="fog-text">🌙 ทุกคนหลับตา...</p>
+      <p id="night-fog-sub" class="fog-sub"></p>
+    </div>
+    <div id="night-active" class="night-active hidden">
+      <p id="night-role-banner" class="night-role-banner"></p>
+      <div id="night-action-area" class="night-action-area"></div>
+    </div>
+    <div class="night-timer"><div id="night-timer-bar" class="night-timer-bar"></div></div>
+  </div>
+</section>
+
+<!-- ===== กลางวัน ===== -->
+<section id="screen-day" class="screen day-theme">
+  <header class="topbar">
+    <div class="day-timer" id="day-timer">⏳ --:--</div>
+    <div class="ready-counter">พร้อมโหวต <span id="day-ready-count">0</span>/<span id="day-ready-total">0</span></div>
+  </header>
+  <div class="table-wrap">
+    <div id="day-seats" class="seats-ring"></div>
+    <div class="center-pile" id="center-pile"></div>
+  </div>
+  <div class="day-bottom">
+    <div class="chat-box">
+      <div id="chat-log" class="chat-log"></div>
+      <form id="chat-form" class="chat-form">
+        <input id="chat-input" type="text" placeholder="คุยกับทุกคน..." maxlength="200" autocomplete="off" />
+        <button type="submit">ส่ง</button>
+      </form>
+    </div>
+    <button id="btn-day-ready" class="btn btn-vote">เริ่มโหวต</button>
+  </div>
+</section>
+
+<!-- ===== โหวต ===== -->
+<section id="screen-vote" class="screen vote-theme">
+  <h2 class="vote-title">โหวตว่าใครคือมนุษย์หมาป่า</h2>
+  <p class="muted">โหวตแล้ว <span id="vote-count">0</span>/<span id="vote-total">0</span></p>
+  <div id="vote-grid" class="vote-grid"></div>
+  <button id="vote-none" class="btn btn-secondary">ไม่มีหมาป่า (ไม่มีใครตาย)</button>
+  <div id="vote-skip-panel" class="vote-skip-panel hidden"></div>
+</section>
+
+<!-- ===== สรุปผล ===== -->
+<section id="screen-reveal" class="screen reveal-theme">
+  <div id="reveal-banner" class="reveal-banner"></div>
+  <div id="reveal-grid" class="reveal-grid"></div>
+  <div id="reveal-timeline" class="reveal-timeline"></div>
+  <button id="btn-restart" class="btn btn-primary hidden">เล่นอีกรอบ</button>
+</section>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/stickers.js"></script>
+<script src="js/render.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
