@@ -179,6 +179,18 @@ window.QUIZ_CONFIG = {
       timeLimitSec: 5400,
     },
 
+    // Final Test ฟิสิกส์ ม.2 บทที่ 4 การเคลื่อนที่แนวตรงและกราฟ (หน้าสอบอยู่ที่ Quizzes/m2-science/ch4-motion-final/)
+    "m2-science__physics-ch4-final": {
+      courseId: "m2-science",
+      testKey:  "physics-ch4-final",
+      title:    "Final Test : ฟิสิกส์ ม.2 บทที่ 4 การเคลื่อนที่แนวตรงและกราฟการเคลื่อนที่ (30 ข้อ)",
+      prerequisiteQuizzes: [],
+      timeLimitSec: 5400,
+      questionFile: "../m2-science/ch4-motion-final/questions.js",
+      personaRules: "v16",
+      hardChapter: "Graph",
+    },
+
     // ── ตัวอย่างการเพิ่มชุดสอบในอนาคต ───────────────────────────
     // "m4-term1-math__test01": {
     //   courseId: "m4-term1-math",
