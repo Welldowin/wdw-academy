@@ -393,6 +393,11 @@ function loadDataScript(user) {
       window.location.href = `./leaderboard.html?course=${courseId}&quiz=${quizKey}`;
       return;
     }
+    // ใบงาน (worksheet) ใช้หน้าแสดงผลของตัวเอง
+    if (currentQuizData.meta && currentQuizData.meta.type === "worksheet") {
+      window.location.replace(`./worksheet.html${window.location.search}`);
+      return;
+    }
     initQuizSystem(user, currentQuizData);
   };
   

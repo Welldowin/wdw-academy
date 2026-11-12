@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WDW Worksheet</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600;700&family=Noto+Sans+Thai:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./worksheet.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="hero">
+      <div class="hero-left">
+        <img src="./assets/logo-wdw.png" alt="WDW Logo" class="brand-logo" />
+        <div>
+          <p class="eyebrow" id="courseTitle">Well-Do-Win Academy</p>
+          <h1 id="quizTitle">กำลังโหลดใบงาน...</h1>
+          <p class="subtext" id="quizSubtitle">ส่งได้เพียง 1 ครั้งต่อ 1 บัญชี</p>
+        </div>
+      </div>
+      <div class="timer hidden" id="timerBox">⏱️ <span id="timerText">00:00</span></div>
+    </header>
+
+    <div class="preview-banner hidden" id="previewBanner">
+      🧪 โหมดตัวอย่างบนเครื่องนี้ (localhost) — ไม่ได้ส่งข้อมูลไปยังระบบจริง ข้อมูลที่ทำจะเก็บในเบราว์เซอร์นี้เท่านั้น
+      · <a href="#" id="resetPreview" style="color:inherit;text-decoration:underline;">ล้างแล้วเริ่มใหม่</a>
+    </div>
+
+    <section class="status-card">
+      <p id="studentInfo">กำลังตรวจสอบข้อมูลผู้ใช้...</p>
+      <p id="modeInfo" class="mode-info"></p>
+      <div class="display-name-box" id="displayNameBox">
+        <label for="displayNameInput">ชื่อที่แสดงในตารางผลของคอร์ส</label>
+        <input type="text" id="displayNameInput" class="answer-input" placeholder="ชื่อเล่นหรือชื่อที่อยากให้แสดง" maxlength="30" />
+      </div>
+    </section>
+
+    <div id="wsRoot" class="hidden">
+      <nav class="stepper" id="stepper"></nav>
+      <div class="progress-wrap">
+        <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+        <div class="progress-text" id="progressText"></div>
+      </div>
+
+      <div id="pages"></div>
+
+      <div class="nav-bar" id="navBar">
+        <button type="button" class="btn ghost" id="prevBtn">← ย้อนกลับ</button>
+        <button type="button" class="btn primary" id="nextBtn">หน้าถัดไป →</button>
+        <button type="button" class="btn go hidden" id="submitBtn">🚀 ส่งใบงาน</button>
+      </div>
+    </div>
+
+    <section id="resultInline" class="result-inline hidden"></section>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+  <script src="./progress-config.js"></script>
+  <script type="module" src="./firebase-config.js"></script>
+  <script type="module" src="./worksheet.js"></script>
+</body>
+</html>
