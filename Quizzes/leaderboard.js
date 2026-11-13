@@ -89,7 +89,7 @@ script.onload = () => {
   const quizData = window.COURSE_DATA ? window.COURSE_DATA[quizKey] : null;
   if (quizData) {
     document.getElementById("lbTitle").textContent = `🏆 ${quizData.meta.title}`;
-    renderMySummary(quizData.data.length); // แสดงคะแนนเต็มตามจำนวนข้อ
+    renderMySummary((quizData.meta && quizData.meta.maxScore) || quizData.data.length); // คะแนนเต็ม (ใบงานใช้ meta.maxScore)
   } else {
     renderMySummary(30);
   }
@@ -109,4 +109,4 @@ window.firebaseOnAuthStateChanged(window.firebaseAuth, async (user) => {
     console.error(error);
     document.getElementById("leaderboardBody").innerHTML = `<tr><td colspan="5">โหลดข้อมูลไม่สำเร็จ</td></tr>`;
   }
-});
+});

@@ -33,6 +33,7 @@ window.PROGRESS_COURSES = [
   { courseId: "m5-term1-math",    label: "ม.5 เทอม 1 — คณิตศาสตร์", active: 9 },
   { courseId: "m5-term1-physics", label: "ม.5 เทอม 1 — ฟิสิกส์",    active: 9 },
   { courseId: "m5-term1-chem",    label: "ม.5 เทอม 1 — เคมี",       active: 9 },
+  { courseId: "m3-entrance",      label: "ม.3 ตะลุยโจทย์สอบเข้า ม.4 — วิทยาศาสตร์" },
   { courseId: "m5-term2-nebula",  label: "ม.5 เทอม 2 — เนบิวลา (ฟิสิกส์/เคมี)" },
   { courseId: "m6-term1-math",    label: "ม.6 เทอม 1 — คณิตศาสตร์" },
   { courseId: "m6-term1-physics", label: "ม.6 เทอม 1 — ฟิสิกส์" },

@@ -283,7 +283,10 @@ function figPith(f) {
 }
 function figure(f) {
   if (!f) return "";
-  const map = { line: figLine, right: figRight, square: figSquare, float: figFloat, hang: figHang, electroscope: figElectroscope, pith: figPith };
+  const map = {
+    line: figLine, right: figRight, square: figSquare, float: figFloat, hang: figHang, electroscope: figElectroscope, pith: figPith,
+    electro: figElectro, balance: figBalance, water: figWater, fsgraph: figFsGraph, track: figTrack, perp: figPerp
+  };
   return `<div class="fig-wrap">${map[f.kind](f)}</div>`;
 }
 
@@ -292,22 +295,55 @@ const Q_CHIPS = [1, 2, 3, 4, 5, 6];
 const R_CHIPS = [{ n: 1, d: 2, label: "×½" }, { n: 1, d: 1, label: "×1" }, { n: 2, d: 1, label: "×2" }, { n: 3, d: 1, label: "×3" }];
 const rLabel = (n, d) => (d === 2 ? "½" : String(n));
 
+// ภารกิจแต่ละแบบ (item.sim) ลงทะเบียนใน SIMS : defaults / ok / act / panel
+const SIMS = {};
+const simOf = (item) => SIMS[item.sim || "charge"];
 function missionState(item) {
-  const lk = item.lock || {};
-  const st = answers[item.id] || {};
-  const base = {
-    s1: "+", q1: lk.q1 || 1, s2: "+", q2: lk.q2 || 1,
-    rn: lk.r ? lk.r.num : 1, rd: lk.r ? lk.r.den : 1, done: false, ok: null
-  };
-  return Object.assign(base, st);
+  return Object.assign(simOf(item).defaults(item), answers[item.id] || {});
 }
-function missionOk(item, st) {
-  const sameSign = st.s1 === st.s2;
-  if (item.goal.kind === "repel" && !sameSign) return false;
-  if (item.goal.kind === "attract" && sameSign) return false;
-  // F = q1·q2·rd² / rn²  เทียบกับ num/den แบบเศษส่วน (ไม่ใช้ทศนิยม)
-  return st.q1 * st.q2 * st.rd * st.rd * item.goal.den === item.goal.num * st.rn * st.rn;
-}
+function missionOk(item, st) { return simOf(item).ok(item, st); }
+
+SIMS.charge = {
+  defaults(item) {
+    const lk = item.lock || {};
+    return { s1: "+", q1: lk.q1 || 1, s2: "+", q2: lk.q2 || 1, rn: lk.r ? lk.r.num : 1, rd: lk.r ? lk.r.den : 1, done: false, ok: null };
+  },
+  ok(item, st) {
+    const sameSign = st.s1 === st.s2;
+    if (item.goal.kind === "repel" && !sameSign) return false;
+    if (item.goal.kind === "attract" && sameSign) return false;
+    // F = q1·q2·rd² / rn²  เทียบกับ num/den แบบเศษส่วน (ไม่ใช้ทศนิยม)
+    return st.q1 * st.q2 * st.rd * st.rd * item.goal.den === item.goal.num * st.rn * st.rn;
+  },
+  failText: "ค่าที่เลือกยังไม่ให้แรงตามเป้าหมาย",
+  submitNote: "ส่งแล้วแก้ไม่ได้ · ระบบจะไม่บอกจำนวนเท่าก่อนส่ง",
+  act(st, btn) {
+    const act = btn.dataset.act;
+    if (act === "sign") st["s" + btn.dataset.which] = btn.dataset.val;
+    if (act === "q") st["q" + btn.dataset.which] = Number(btn.dataset.val);
+    if (act === "r") { const [n, d] = btn.dataset.val.split("/").map(Number); st.rn = n; st.rd = d; }
+  },
+  panel(item, st, ro) {
+    const lk = item.lock || {};
+    const kindCls = item.goal.kind === "repel" ? "repel" : "attract";
+    const kindTxt = item.goal.kind === "repel" ? "แรงผลัก" : "แรงดูด";
+    return `
+    <div class="mission-goal">
+      <span class="goal-chip ${kindCls}">${kindTxt}</span>
+      <span class="goal-text">ทำให้เกิด${kindTxt} <b>${item.goal.label}</b> ของแรงเดิม</span>
+    </div>
+    <p class="mission-hint">${esc(item.hint)}</p>
+    <div class="sim-box">${simSvg(st)}</div>
+    <div class="ctrl-grid">
+      <div class="ctrl"><h4>ประจุ 1 ${lk.q1 ? '<span class="lock">🔒 ล็อกขนาด</span>' : ""}</h4>
+        ${signRow("1", st.s1, ro)}${chipRow("q", "1", Q_CHIPS, st.q1, ro || !!lk.q1)}</div>
+      <div class="ctrl"><h4>ระยะห่าง ${lk.r ? '<span class="lock">🔒 ล็อก</span>' : ""}</h4>
+        ${chipRow("r", "r", R_CHIPS, `${st.rn}/${st.rd}`, ro || !!lk.r)}</div>
+      <div class="ctrl"><h4>ประจุ 2 ${lk.q2 ? '<span class="lock">🔒 ล็อกขนาด</span>' : ""}</h4>
+        ${signRow("2", st.s2, ro)}${chipRow("q", "2", Q_CHIPS, st.q2, ro || !!lk.q2)}</div>
+    </div>`;
+  }
+};
 function simSvg(st) {
   const d = (150 * st.rn) / st.rd, x1 = 280 - d / 2, x2 = 280 + d / 2, cy = 104;
   const rho = (q) => 12 + 4 * q, r1 = rho(st.q1), r2 = rho(st.q2);
@@ -334,39 +370,385 @@ function signRow(which, sel, locked) {
   return `<div class="sign-row"><button type="button" class="sign-btn p ${sel === "+" ? "sel" : ""}" data-act="sign" data-which="${which}" data-val="+" ${locked ? "disabled" : ""}>+</button><button type="button" class="sign-btn n ${sel === "-" ? "sel" : ""}" data-act="sign" data-which="${which}" data-val="-" ${locked ? "disabled" : ""}>−</button></div>`;
 }
 function missionBody(item, ctx) {
-  const st = missionState(item), lk = item.lock || {}, ro = ctx.readOnly || st.done;
-  const kindCls = item.goal.kind === "repel" ? "repel" : "attract";
-  const kindTxt = item.goal.kind === "repel" ? "แรงผลัก" : "แรงดูด";
+  const sim = simOf(item), st = missionState(item), ro = ctx.readOnly || st.done;
   let result = "";
   if (st.done) {
-    const ok = ctx.readOnly && ctx.detail ? !!ctx.detail[item.id] : missionOk(item, st);
-    const extra = ctx.readOnly && ctx.reveal && !ok ? `<small>เฉลย: ${esc(item.solution)}</small>` : "";
+    const ok = ctx.readOnly && ctx.detail ? isFull(ctx.detail[item.id]) : missionOk(item, st);
+    const extra = ctx.readOnly && ctx.reveal && !ok && item.solution ? `<small>เฉลย: ${esc(item.solution)}</small>` : "";
     result = ok
-      ? `<div class="mission-result ok">✅ ภารกิจสำเร็จ!<small>ปรับค่าถูกต้อง ได้ 1 คะแนน</small></div>`
-      : `<div class="mission-result fail">❌ ภารกิจล้มเหลว<small>ค่าที่เลือกยังไม่ให้แรงตามเป้าหมาย${ctx.readOnly ? "" : " (ภารกิจนี้ถูกส่งแล้ว แก้ไม่ได้)"}</small>${extra}</div>`;
+      ? `<div class="mission-result ok">✅ ภารกิจสำเร็จ!<small>ทำถูกต้อง ได้ ${ptsOf(item)} คะแนน</small></div>`
+      : `<div class="mission-result fail">❌ ภารกิจล้มเหลว<small>${sim.failText}${ctx.readOnly ? "" : " (ภารกิจนี้ถูกส่งแล้ว แก้ไม่ได้)"}</small>${extra}</div>`;
   }
-  return `
-    <div class="mission-goal">
-      <span class="goal-chip ${kindCls}">${kindTxt}</span>
-      <span class="goal-text">ทำให้เกิด${kindTxt} <b>${item.goal.label}</b> ของแรงเดิม</span>
-    </div>
-    <p class="mission-hint">${esc(item.hint)}</p>
-    <div class="sim-box">${simSvg(st)}</div>
-    <div class="ctrl-grid">
-      <div class="ctrl"><h4>ประจุ 1 ${lk.q1 ? '<span class="lock">🔒 ล็อกขนาด</span>' : ""}</h4>
-        ${signRow("1", st.s1, ro)}${chipRow("q", "1", Q_CHIPS, st.q1, ro || !!lk.q1)}</div>
-      <div class="ctrl"><h4>ระยะห่าง ${lk.r ? '<span class="lock">🔒 ล็อก</span>' : ""}</h4>
-        ${chipRow("r", "r", R_CHIPS, `${st.rn}/${st.rd}`, ro || !!lk.r)}</div>
-      <div class="ctrl"><h4>ประจุ 2 ${lk.q2 ? '<span class="lock">🔒 ล็อกขนาด</span>' : ""}</h4>
-        ${signRow("2", st.s2, ro)}${chipRow("q", "2", Q_CHIPS, st.q2, ro || !!lk.q2)}</div>
-    </div>
-    ${ro ? "" : `<div class="mission-actions"><button type="button" class="btn mission" data-act="msubmit">📡 ส่งภารกิจนี้</button><span class="small-note" style="margin:0">ส่งแล้วแก้ไม่ได้ · ระบบจะไม่บอกจำนวนเท่าก่อนส่ง</span></div>`}
+  return `${sim.panel(item, st, ro)}
+    ${ro ? "" : `<div class="mission-actions"><button type="button" class="btn mission" data-act="msubmit">📡 ส่งภารกิจนี้</button><span class="small-note" style="margin:0">${sim.submitNote || "ส่งแล้วแก้ไม่ได้ · ระบบจะไม่บอกว่าถูกก่อนส่ง"}</span></div>`}
     ${result}`;
+}
+
+/* ============================== ชนิดข้อเพิ่มเติม : จับคู่ · เรียงลำดับ · แตะกราฟ ============================== */
+const TYPES = {};
+const isFull = (v) => v === true || v === 1;
+const ratioOf = (v) => (v === true ? 1 : typeof v === "number" ? v : 0);
+const ptsOf = (it) => (typeof it.points === "number" ? it.points : 1);
+const MATCH_COLORS = ["#6c5ce7", "#ff5f9e", "#00a8b8", "#ff8a1f", "#12b886", "#2f80ff"];
+
+TYPES.match = {
+  answered: (it, a) => !!(a && a.map) && it.left.every((_, i) => a.map[i] !== undefined),
+  grade: (it, a) => it.left.filter((_, i) => a && a.map && a.map[i] === it.pairs[i]).length / it.left.length,
+  render(it, ctx) {
+    const a = answers[it.id] || {}, map = a.map || {}, sel = a.sel;
+    const used = {};
+    Object.keys(map).forEach((l) => { used[map[l]] = Number(l); });
+    const ro = ctx.readOnly, rev = ro && ctx.reveal;
+    const L = it.left.map((t, i) => {
+      const paired = map[i] !== undefined, col = MATCH_COLORS[i % MATCH_COLORS.length];
+      let mark = "";
+      if (rev && paired) mark = map[i] === it.pairs[i] ? ' <span class="reveal-tag">✔</span>' : ' <span class="reveal-tag wrong">✗</span>';
+      return `<button type="button" class="m-item left ${sel === i ? "picked" : ""} ${paired ? "paired" : ""}" style="--c:${col}" data-act="mleft" data-i="${i}" ${ro ? "disabled" : ""}><span class="m-dot">${i + 1}</span><span>${esc(t)}${mark}</span></button>`;
+    }).join("");
+    const R = it.right.map((t, j) => {
+      const owner = used[j];
+      const col = owner !== undefined ? MATCH_COLORS[owner % MATCH_COLORS.length] : "#cfc9ee";
+      return `<button type="button" class="m-item right ${owner !== undefined ? "paired" : ""}" style="--c:${col}" data-act="mright" data-j="${j}" ${ro ? "disabled" : ""}><span class="m-dot">${owner !== undefined ? owner + 1 : ""}</span><span>${esc(t)}</span></button>`;
+    }).join("");
+    const key = rev && ctx.detail && !isFull(ctx.detail[it.id])
+      ? `<p class="small-note" style="margin:10px 0 0">เฉลย: ${it.left.map((t, i) => `${i + 1} → ${esc(it.right[it.pairs[i]])}`).join(" · ")}</p>` : "";
+    return `<p class="q-text">${esc(it.prompt)}</p>
+      ${ro ? "" : '<p class="mission-hint">แตะรายการ <b>ซ้าย</b> ก่อน แล้วแตะรายการ <b>ขวา</b> ที่เข้าคู่กัน · แตะข้อขวาที่จับคู่แล้วอีกครั้งเพื่อยกเลิก</p>'}
+      <div class="match-grid"><div class="m-col">${L}</div><div class="m-col">${R}</div></div>${key}`;
+  },
+  click(it, btn) {
+    const a = Object.assign({ map: {}, sel: null }, answers[it.id] || {});
+    a.map = Object.assign({}, a.map);
+    if (btn.dataset.act === "mleft") {
+      const i = Number(btn.dataset.i);
+      a.sel = a.sel === i ? null : i;
+    } else if (btn.dataset.act === "mright") {
+      const j = Number(btn.dataset.j);
+      const owner = Object.keys(a.map).find((l) => a.map[l] === j);
+      if (a.sel !== null && a.sel !== undefined) {
+        if (owner !== undefined) delete a.map[owner];
+        a.map[a.sel] = j; a.sel = null;
+      } else if (owner !== undefined) delete a.map[owner];
+      else return false;
+    } else return false;
+    answers[it.id] = a;
+    return true;
+  }
+};
+
+TYPES.order = {
+  answered: (it, a) => !!(a && a.touched),
+  grade: (it, a) => (a && a.ord && a.ord.every((v, i) => v === i) ? 1 : 0),
+  render(it, ctx) {
+    const a = answers[it.id], ord = a && a.ord ? a.ord : it.start, ro = ctx.readOnly;
+    const rows = ord.map((si, pos) => `<div class="o-row"><span class="o-num">${pos + 1}</span><span class="o-text">${esc(it.steps[si])}</span>
+      <span class="o-btns"><button type="button" class="o-btn" data-act="oup" data-pos="${pos}" ${ro || pos === 0 ? "disabled" : ""}>↑</button><button type="button" class="o-btn" data-act="odown" data-pos="${pos}" ${ro || pos === ord.length - 1 ? "disabled" : ""}>↓</button></span></div>`).join("");
+    const key = ro && ctx.reveal && ctx.detail && !isFull(ctx.detail[it.id])
+      ? `<p class="small-note" style="margin:10px 0 0">ลำดับที่ถูก: ${it.steps.map((s, i) => `${i + 1}) ${esc(s)}`).join(" → ")}</p>` : "";
+    return `<p class="q-text">${esc(it.prompt)}</p>${ro ? "" : '<p class="mission-hint">กดปุ่ม ↑ ↓ เพื่อสลับลำดับ จากขั้นแรกไปขั้นสุดท้าย</p>'}<div class="o-list">${rows}</div>${key}`;
+  },
+  click(it, btn) {
+    const a = answers[it.id] || { ord: it.start.slice(), touched: false };
+    const ord = a.ord.slice(), p = Number(btn.dataset.pos);
+    const q = btn.dataset.act === "oup" ? p - 1 : btn.dataset.act === "odown" ? p + 1 : -1;
+    if (q < 0 || q >= ord.length) return false;
+    [ord[p], ord[q]] = [ord[q], ord[p]];
+    answers[it.id] = { ord, touched: true };
+    return true;
+  }
+};
+
+TYPES.hotspot = {
+  answered: (it, a) => !!a,
+  grade: (it, a) => (a === it.answer ? 1 : 0),
+  render(it, ctx) {
+    const a = answers[it.id], ro = ctx.readOnly, rev = ro && ctx.reveal;
+    const z = it.figure.zones.find((x) => x.id === a);
+    return `<p class="q-text">${esc(it.prompt)}</p>${ro ? "" : '<p class="mission-hint">แตะบนกราฟในช่วงที่ต้องการ</p>'}
+      <div class="fig-wrap">${figHeat(it.figure, a, ro, rev ? it.answer : null)}</div>
+      ${z ? `<p class="small-note" style="margin:0">ช่วงที่เลือก: <b>${esc(z.label)}</b></p>` : ""}`;
+  },
+  click(it, btn) {
+    if (btn.dataset.act !== "zone") return false;
+    answers[it.id] = btn.dataset.zone;
+    return true;
+  }
+};
+
+/* ---------- กราฟให้ความร้อน (แตะเลือกช่วงได้) ---------- */
+function figHeat(f, sel, ro, correct) {
+  const P = [[70, 235], [160, 185], [250, 185], [340, 120], [430, 120], [510, 60]];
+  let s = `<line class="solid" x1="70" y1="30" x2="70" y2="250"/><line class="solid" x1="70" y1="250" x2="530" y2="250"/>`;
+  s += `<text x="14" y="140" font-size="13" transform="rotate(-90 14 140)" text-anchor="middle">อุณหภูมิ (°C)</text><text x="300" y="292" text-anchor="middle" font-size="13">เวลา</text>`;
+  f.zones.forEach((z) => {
+    const cls = `zone ${sel === z.id ? "sel" : ""} ${correct === z.id ? "right" : ""}`;
+    s += `<g class="${cls}" data-act="zone" data-zone="${z.id}" style="${ro ? "pointer-events:none" : ""}"><rect class="zr" x="${z.x1}" y="30" width="${z.x2 - z.x1}" height="220"/></g>`;
+    s += `<text x="${(z.x1 + z.x2) / 2}" y="270" text-anchor="middle" font-size="15" font-weight="600" style="pointer-events:none">${esc(z.tag)}</text>`;
+  });
+  s += `<polyline points="${P.map((p) => p.join(",")).join(" ")}" fill="none" stroke="#ff5f9e" stroke-width="4" stroke-linejoin="round" stroke-linecap="round" style="pointer-events:none"/>`;
+  P.forEach((p) => { s += `<circle cx="${p[0]}" cy="${p[1]}" r="4.5" fill="#ff5f9e" style="pointer-events:none"/>`; });
+  s += `<text x="300" y="22" text-anchor="middle" font-size="14" style="fill:#6f68b0;pointer-events:none">${esc(f.title || "")}</text>`;
+  return `<svg class="fig" viewBox="0 0 560 300" role="img">${s}</svg>`;
+}
+
+/* ============================== เครื่องจำลองภารกิจ (เคมี/ฟิสิกส์) ============================== */
+function stepCtl(act, key, label, val, ro, unit) {
+  return `<div class="ctrl"><h4>${label}</h4><div class="stepper-box">
+    <button type="button" class="chip" data-act="${act}" data-k="${key}" data-d="-1" ${ro ? "disabled" : ""}>−</button>
+    <span class="step-val">${val}${unit || ""}</span>
+    <button type="button" class="chip" data-act="${act}" data-k="${key}" data-d="1" ${ro ? "disabled" : ""}>+</button></div></div>`;
+}
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+
+/* ---------- สร้างอะตอม (1.1) ---------- */
+function atomSvg(st) {
+  const cx = 280, cy = 160, N = st.p + st.n;
+  let s = "";
+  const caps = [2, 8, 8, 18], radii = [64, 90, 116, 144];
+  let left = st.e, shells = 1;
+  const counts = caps.map((c) => { const n = Math.min(c, left); left -= n; return n; });
+  counts.forEach((n, i) => { if (n > 0) shells = i + 1; });
+  for (let i = 0; i < shells; i++) s += `<circle cx="${cx}" cy="${cy}" r="${radii[i]}" fill="none" stroke="#b9b2e6" stroke-width="1.4" stroke-dasharray="4 5"/>`;
+  counts.forEach((n, i) => {
+    for (let k = 0; k < n; k++) {
+      const ang = (k * 2 * Math.PI) / n - Math.PI / 2 + i * 0.5;
+      s += `<circle cx="${cx + radii[i] * Math.cos(ang)}" cy="${cy + radii[i] * Math.sin(ang)}" r="5.5" fill="#4da3ff" stroke="#fff" stroke-width="1"/>`;
+    }
+  });
+  s += `<circle cx="${cx}" cy="${cy}" r="${6 * Math.sqrt(Math.max(N, 1)) + 10}" fill="#fff4d6" stroke="#ffd38a"/>`;
+  for (let i = 0; i < N; i++) {
+    const ang = i * 2.39996323, rad = 6 * Math.sqrt(i);
+    const isP = Math.floor(((i + 1) * st.p) / N) > Math.floor((i * st.p) / N);
+    s += `<circle cx="${cx + rad * Math.cos(ang)}" cy="${cy + rad * Math.sin(ang)}" r="6.4" fill="${isP ? "#ff5d73" : "#9aa3c7"}" stroke="#fff" stroke-width="1"/>`;
+  }
+  s += `<circle cx="30" cy="26" r="6" fill="#ff5d73"/><text x="42" y="31" font-size="13">โปรตอน ${st.p}</text>`;
+  s += `<circle cx="30" cy="50" r="6" fill="#9aa3c7"/><text x="42" y="55" font-size="13">นิวตรอน ${st.n}</text>`;
+  s += `<circle cx="30" cy="74" r="6" fill="#4da3ff"/><text x="42" y="79" font-size="13">อิเล็กตรอน ${st.e}</text>`;
+  return `<svg class="fig" viewBox="0 0 560 320" role="img">${s}</svg>`;
+}
+SIMS.atom = {
+  defaults: () => ({ p: 1, n: 0, e: 1, done: false, ok: null }),
+  ok: (it, st) => st.p === it.target.p && st.n === it.target.n && st.e === it.target.e,
+  failText: "จำนวนอนุภาคที่เลือกยังไม่ตรงกับเป้าหมาย",
+  submitNote: "ส่งแล้วแก้ไม่ได้ · ระบบจะไม่บอกว่าถูกก่อนส่ง",
+  act(st, btn) {
+    if (btn.dataset.act !== "step") return;
+    const k = btn.dataset.k, lim = { p: [1, 30], n: [0, 40], e: [0, 30] }[k];
+    st[k] = clamp(st[k] + Number(btn.dataset.d), lim[0], lim[1]);
+  },
+  panel(it, st, ro) {
+    return `<div class="mission-goal"><span class="goal-chip atom">⚛️ สร้างอะตอม</span><span class="goal-text">${esc(it.goalText)}</span></div>
+      <p class="mission-hint">${esc(it.hint)}</p>
+      <div class="sim-box">${atomSvg(st)}</div>
+      <div class="ctrl-grid">${stepCtl("step", "p", "โปรตอน (p⁺)", st.p, ro)}${stepCtl("step", "n", "นิวตรอน (n⁰)", st.n, ro)}${stepCtl("step", "e", "อิเล็กตรอน (e⁻)", st.e, ro)}</div>`;
+  }
+};
+
+/* ---------- ดุลสมการ (1.5) ---------- */
+SIMS.balance = {
+  defaults: (it) => ({ coef: it.species.map(() => 1), done: false, ok: null }),
+  ok: (it, st) => st.coef.every((c, i) => c === it.answer[i]),
+  failText: "สัมประสิทธิ์ยังไม่ถูกต้อง (ต้องทำให้สมดุลและใช้จำนวนเต็มที่น้อยที่สุด)",
+  act(st, btn) {
+    if (btn.dataset.act !== "coef") return;
+    const i = Number(btn.dataset.i);
+    st.coef = st.coef.slice();
+    st.coef[i] = clamp(st.coef[i] + Number(btn.dataset.d), 1, 12);
+  },
+  panel(it, st, ro) {
+    const term = (sp, i) => `<span class="eq-term"><span class="eq-ctl"><button type="button" class="chip" data-act="coef" data-i="${i}" data-d="-1" ${ro ? "disabled" : ""}>−</button><b class="eq-c">${st.coef[i]}</b><button type="button" class="chip" data-act="coef" data-i="${i}" data-d="1" ${ro ? "disabled" : ""}>+</button></span><span class="eq-f">${sp.f}</span></span>`;
+    const side = (sd) => it.species.map((sp, i) => ({ sp, i })).filter((x) => x.sp.side === sd).map((x) => term(x.sp, x.i)).join('<span class="eq-op">+</span>');
+    const els = [...new Set(it.species.flatMap((sp) => Object.keys(sp.atoms)))];
+    const tally = (sd, el) => it.species.reduce((t, sp, i) => t + (sp.side === sd ? st.coef[i] * (sp.atoms[el] || 0) : 0), 0);
+    const rows = els.map((el) => {
+      const l = tally("L", el), r = tally("R", el);
+      return `<tr class="${l === r ? "eq-ok" : ""}"><td>${el}</td><td>${l}</td><td>${r}</td><td>${l === r ? "✓" : "✗"}</td></tr>`;
+    }).join("");
+    return `<div class="mission-goal"><span class="goal-chip atom">⚖️ ดุลสมการ</span><span class="goal-text">${esc(it.goalText)}</span></div>
+      <p class="mission-hint">${esc(it.hint)}</p>
+      <div class="eq-box">${side("L")}<span class="eq-arrow">→</span>${side("R")}</div>
+      <table class="atom-table"><thead><tr><th>ธาตุ</th><th>อะตอมซ้าย</th><th>อะตอมขวา</th><th></th></tr></thead><tbody>${rows}</tbody></table>`;
+  }
+};
+
+/* ---------- ค่า Rf โครมาโทกราฟี (1.3) ---------- */
+function rfSvg(it, st) {
+  const dc = it.mode === "spot" ? st.v : it.dc, ds = it.mode === "spot" ? it.ds : st.v;
+  const y0 = 314, sc = 19, yc = y0 - dc * sc, yf = y0 - ds * sc;
+  let s = `<rect x="200" y="${yf}" width="160" height="${334 - yf}" fill="#cfe6ff" fill-opacity=".7"/><rect x="200" y="20" width="160" height="314" fill="none" stroke="#5b52a8" stroke-width="2"/>`;
+  s += `<line x1="200" y1="${y0}" x2="360" y2="${y0}" stroke="#5b52a8" stroke-width="2"/><text x="368" y="${y0 + 5}" font-size="13">เส้นเริ่มต้น</text>`;
+  s += `<line x1="200" y1="${yf}" x2="360" y2="${yf}" stroke="#2f80ff" stroke-width="2.5" stroke-dasharray="6 4"/><text x="368" y="${yf + 5}" font-size="13" style="fill:#1b5bd1">แนวหน้าตัวทำละลาย</text>`;
+  s += `<ellipse cx="280" cy="${yc}" rx="15" ry="9" fill="#ffcf33" stroke="#e08600" stroke-width="2"/>`;
+  s += `<line class="dim" x1="162" y1="${y0}" x2="162" y2="${y0 - 15 * sc}"/>`;
+  for (let c = 0; c <= 15; c++) {
+    const y = y0 - c * sc;
+    s += `<line class="dim" x1="${c % 5 === 0 ? 150 : 156}" y1="${y}" x2="162" y2="${y}"/>`;
+    if (c % 2 === 0) s += `<text x="144" y="${y + 4}" text-anchor="end" font-size="11">${c}</text>`;
+  }
+  s += `<text x="150" y="14" text-anchor="end" font-size="12" style="fill:#6f68b0">cm</text>`;
+  s += `<line class="dim" x1="470" y1="${y0}" x2="470" y2="${yc}"/><text x="478" y="${(y0 + yc) / 2 + 5}" font-size="14" font-weight="600" style="fill:#e08600">d<tspan font-size="10" dy="3">c</tspan></text>`;
+  s += `<line class="dim" x1="520" y1="${y0}" x2="520" y2="${yf}"/><text x="528" y="${(y0 + yf) / 2 + 5}" font-size="14" font-weight="600" style="fill:#1b5bd1">d<tspan font-size="10" dy="3">s</tspan></text>`;
+  return `<svg class="fig" viewBox="0 0 560 340" role="img">${s}</svg>`;
+}
+SIMS.rf = {
+  defaults: (it) => ({ v: it.mode === "spot" ? 2 : 12, done: false, ok: null }),
+  ok(it, st) {
+    const dc = it.mode === "spot" ? st.v : it.dc, ds = it.mode === "spot" ? it.ds : st.v;
+    return Math.round(dc * 2) * it.rf.den === it.rf.num * Math.round(ds * 2);
+  },
+  failText: "ค่า Rf ที่ได้ยังไม่ตรงกับเป้าหมาย",
+  act(st, btn, it) {
+    if (btn.dataset.act !== "rfstep") return;
+    const lo = it.mode === "spot" ? 0 : it.dc, hi = it.mode === "spot" ? it.ds : 15;
+    st.v = clamp(Math.round((st.v + Number(btn.dataset.d)) * 2) / 2, lo, hi);
+  },
+  panel(it, st, ro) {
+    const dc = it.mode === "spot" ? st.v : it.dc, ds = it.mode === "spot" ? it.ds : st.v;
+    const b = (d, lab) => `<button type="button" class="chip" data-act="rfstep" data-d="${d}" ${ro ? "disabled" : ""}>${lab}</button>`;
+    return `<div class="mission-goal"><span class="goal-chip atom">🧪 โครมาโทกราฟี</span><span class="goal-text">${esc(it.goalText)}</span></div>
+      <p class="mission-hint">${esc(it.hint)}</p>
+      <div class="sim-box">${rfSvg(it, st)}</div>
+      <div class="ctrl-grid" style="grid-template-columns:1fr 2fr 1fr">
+        <div class="ctrl"><h4><span>d<sub>c</sub> (cm)</span></h4><div class="step-val">${dc.toFixed(1)}</div></div>
+        <div class="ctrl"><h4><span>${it.mode === "spot" ? "เลื่อนจุดสาร (d<sub>c</sub>)" : "เลื่อนแนวหน้าตัวทำละลาย (d<sub>s</sub>)"}</span></h4><div class="stepper-box">${b(-1, "−1")}${b(-0.5, "−0.5")}${b(0.5, "+0.5")}${b(1, "+1")}</div></div>
+        <div class="ctrl"><h4><span>d<sub>s</sub> (cm)</span></h4><div class="step-val">${ds.toFixed(1)}</div></div>
+      </div>`;
+  }
+};
+
+/* ---------- ผสมน้ำ สมดุลความร้อน (2.3) ---------- */
+function beakerSvg(x, w, level, fill, t1, t2) {
+  return `<rect x="${x + 3}" y="${170 - level}" width="${w - 6}" height="${level}" fill="${fill}"/>
+    <path d="M${x} 60 L${x + 4} 170 L${x + w - 4} 170 L${x + w} 60" fill="none" stroke="#5b52a8" stroke-width="2.4" stroke-linejoin="round"/>
+    <text x="${x + w / 2}" y="46" text-anchor="middle" font-size="14" font-weight="600">${t1}</text>
+    <text x="${x + w / 2}" y="194" text-anchor="middle" font-size="13">${t2}</text>`;
+}
+function mixSvg(it, st) {
+  const lv = (m) => Math.max(8, Math.round((m / 500) * 100));
+  let s = beakerSvg(30, 120, lv(st.m1), "#ffb3b3", `น้ำร้อน ${it.hot} °C`, `m₁ = ${st.m1} g`);
+  s += beakerSvg(190, 120, lv(st.m2), "#b9dcff", `น้ำเย็น ${it.cold} °C`, `m₂ = ${st.m2} g`);
+  s += `<text x="340" y="120" font-size="30" style="fill:#6f68b0">→</text>`;
+  s += beakerSvg(390, 140, Math.min(112, Math.round(((st.m1 + st.m2) / 1000) * 112) + 8), "#e0cdff", "ผสมกัน", `รวม ${st.m1 + st.m2} g`);
+  s += `<text x="460" y="128" text-anchor="middle" font-size="18" font-weight="700" style="fill:#4f3fd0">T = ? °C</text>`;
+  return `<svg class="fig" viewBox="0 0 560 215" role="img">${s}</svg>`;
+}
+SIMS.mix = {
+  defaults: (it) => ({ m1: (it.lock && it.lock.m1) || 100, m2: (it.lock && it.lock.m2) || 100, done: false, ok: null }),
+  ok: (it, st) => st.m1 * (it.hot - it.tf) === st.m2 * (it.tf - it.cold) && (!it.total || st.m1 + st.m2 === it.total),
+  failText: "มวลที่เลือกยังไม่ทำให้ได้อุณหภูมิสมดุลตามเป้าหมาย",
+  act(st, btn) { if (btn.dataset.act === "mass") st["m" + btn.dataset.which] = Number(btn.dataset.val); },
+  panel(it, st, ro) {
+    const lk = it.lock || {}, opts = it.options || [100, 150, 200, 250, 300, 350, 400, 450, 500];
+    const g = (v) => `${v} g`;
+    return `<div class="mission-goal"><span class="goal-chip atom">🌡️ สมดุลความร้อน</span><span class="goal-text">${esc(it.goalText)}</span></div>
+      <p class="mission-hint">${esc(it.hint)}</p>
+      <div class="sim-box">${mixSvg(it, st)}</div>
+      <div class="ctrl-grid" style="grid-template-columns:1fr 1fr">
+        <div class="ctrl"><h4>มวลน้ำร้อน (m₁) ${lk.m1 ? '<span class="lock">🔒 ล็อก</span>' : ""}</h4>${chipRow("mass", "1", opts, st.m1, ro || !!lk.m1, g)}</div>
+        <div class="ctrl"><h4>มวลน้ำเย็น (m₂) ${lk.m2 ? '<span class="lock">🔒 ล็อก</span>' : ""}</h4>${chipRow("mass", "2", opts, st.m2, ro || !!lk.m2, g)}</div>
+      </div>`;
+  }
+};
+
+/* ---------- สร้างกราฟ F–s ให้ได้งานตามเป้า (2.8) ---------- */
+function fsSvg(st) {
+  const x0 = 80, y0 = 240, sx = 36, sy = 5.2, X = (s) => x0 + s * sx, Y = (f) => y0 - f * sy;
+  let s = `<line class="solid" x1="${x0}" y1="${y0}" x2="${x0 + 12 * sx + 10}" y2="${y0}"/><line class="solid" x1="${x0}" y1="${y0}" x2="${x0}" y2="${Y(40) - 10}"/>`;
+  for (let m = 0; m <= 12; m += 2) s += `<line class="dim" x1="${X(m)}" y1="${y0}" x2="${X(m)}" y2="${y0 + 5}"/><text x="${X(m)}" y="${y0 + 20}" text-anchor="middle" font-size="12">${m}</text>`;
+  for (let f = 10; f <= 40; f += 10) s += `<line class="dim" x1="${x0 - 5}" y1="${Y(f)}" x2="${x0}" y2="${Y(f)}"/><text x="${x0 - 9}" y="${Y(f) + 4}" text-anchor="end" font-size="12">${f}</text>`;
+  s += `<text x="${x0 + 6 * sx}" y="${y0 + 40}" text-anchor="middle" font-size="13">ระยะ s (m)</text><text x="18" y="130" transform="rotate(-90 18 130)" text-anchor="middle" font-size="13">แรง F (N)</text>`;
+  if (st.s2 > st.s1) {
+    s += `<polygon points="${X(0)},${Y(0)} ${X(0)},${Y(st.F)} ${X(st.s1)},${Y(st.F)} ${X(st.s2)},${Y(0)}" fill="rgba(108,92,231,.22)" stroke="#6c5ce7" stroke-width="3" stroke-linejoin="round"/>`;
+  } else {
+    s += `<polyline points="${X(0)},${Y(st.F)} ${X(st.s1)},${Y(st.F)}" fill="none" stroke="#ff8a1f" stroke-width="3"/><text x="${x0 + 120}" y="${Y(st.F) - 10}" font-size="13" style="fill:#e0425e">s₂ ต้องมากกว่า s₁</text>`;
+  }
+  return `<svg class="fig" viewBox="0 0 560 280" role="img">${s}</svg>`;
+}
+SIMS.fs = {
+  defaults: () => ({ F: 20, s1: 2, s2: 6, done: false, ok: null }),
+  ok: (it, st) => st.s2 > st.s1 && st.F * (st.s1 + st.s2) === 2 * it.targetW,
+  failText: "กราฟที่สร้างยังให้งานไม่ตรงกับเป้าหมาย",
+  act(st, btn) { if (btn.dataset.act === "fs") st[btn.dataset.which] = Number(btn.dataset.val); },
+  panel(it, st, ro) {
+    return `<div class="mission-goal"><span class="goal-chip atom">📈 กราฟ F–s</span><span class="goal-text">${esc(it.goalText)}</span></div>
+      <p class="mission-hint">${esc(it.hint)}</p>
+      <div class="sim-box">${fsSvg(st)}</div>
+      <div class="ctrl-grid">
+        <div class="ctrl"><h4>แรงคงที่ F</h4>${chipRow("fs", "F", [10, 20, 30, 40], st.F, ro, (v) => `${v} N`)}</div>
+        <div class="ctrl"><h4>แรงคงที่ถึงระยะ s₁</h4>${chipRow("fs", "s1", [2, 3, 4, 5, 6], st.s1, ro, (v) => `${v} m`)}</div>
+        <div class="ctrl"><h4>แรงลดเป็น 0 ที่ s₂</h4>${chipRow("fs", "s2", [6, 8, 10, 12], st.s2, ro, (v) => `${v} m`)}</div>
+      </div>`;
+  }
+};
+
+/* ---------- รูปประกอบเพิ่มเติม ---------- */
+function figElectro(f) {
+  let s = `<rect x="150" y="150" width="220" height="125" rx="12" fill="#dff1ff" stroke="#5b52a8" stroke-width="2.4"/>`;
+  [[200, f.v1, "หลอด 1", "ต่อขั้วลบ (−)"], [290, f.v2, "หลอด 2", "ต่อขั้วบวก (+)"]].forEach(([x, v, name, term]) => {
+    const gas = v * 4;
+    s += `<rect x="${x}" y="62" width="44" height="170" fill="#dff1ff" stroke="#5b52a8" stroke-width="2.2"/>`;
+    s += `<rect x="${x + 1.5}" y="63" width="41" height="${gas}" fill="#ffffff"/>`;
+    s += `<line x1="${x + 6}" y1="${62 + gas}" x2="${x + 38}" y2="${62 + gas}" stroke="#2f80ff" stroke-width="2"/>`;
+    s += `<text x="${x + 22}" y="48" text-anchor="middle" font-size="14" font-weight="600">${name}</text>`;
+    s += `<text x="${x + 22}" y="${62 + gas / 2 + 5}" text-anchor="middle" font-size="13" font-weight="600">${v} mL</text>`;
+    s += `<line x1="${x + 22}" y1="232" x2="${x + 22}" y2="262" stroke="#5b52a8" stroke-width="3"/>`;
+    s += `<text x="${x + 22}" y="296" text-anchor="middle" font-size="13">${term}</text>`;
+  });
+  s += `<path d="M222 262 V282 H312 V262" fill="none" stroke="#5b52a8" stroke-width="2.4"/><rect x="258" y="274" width="14" height="16" fill="#ffd166" stroke="#5b52a8"/>`;
+  return `<svg class="fig" viewBox="0 0 520 310" role="img">${s}</svg>`;
+}
+function figBalance(f) {
+  const panel = (x, label, val, open) => {
+    let s = `<rect x="${x}" y="30" width="170" height="44" rx="8" fill="#26214d"/><text x="${x + 85}" y="60" text-anchor="middle" font-size="22" font-weight="700" style="fill:#7dffb2">${val} g</text>`;
+    s += `<rect x="${x - 6}" y="176" width="182" height="14" rx="5" fill="#8d86c9"/>`;
+    s += `<path d="M${x + 30} 96 L${x + 36} 176 L${x + 134} 176 L${x + 140} 96" fill="none" stroke="#5b52a8" stroke-width="2.4"/>`;
+    s += `<rect x="${x + 33}" y="130" width="104" height="46" fill="#ffe9a8"/><circle cx="${x + 62}" cy="164" r="8" fill="#e8e2d0" stroke="#a79f86"/><circle cx="${x + 90}" cy="168" r="7" fill="#e8e2d0" stroke="#a79f86"/>`;
+    if (open) s += `<circle cx="${x + 60}" cy="118" r="4" fill="none" stroke="#6f68b0"/><circle cx="${x + 84}" cy="108" r="5" fill="none" stroke="#6f68b0"/><circle cx="${x + 108}" cy="116" r="4" fill="none" stroke="#6f68b0"/><text x="${x + 85}" y="92" text-anchor="middle" font-size="12" style="fill:#e0425e">CO₂ ลอยออก ↑</text>`;
+    s += `<text x="${x + 85}" y="212" text-anchor="middle" font-size="14" font-weight="600">${label}</text>`;
+    return s;
+  };
+  return `<svg class="fig" viewBox="0 0 560 226" role="img">${panel(40, "ก่อนทำปฏิกิริยา", f.before, false)}${panel(350, "หลังฟองแก๊สหมด (ระบบเปิด)", f.after, true)}<text x="290" y="130" text-anchor="middle" font-size="26" style="fill:#6f68b0">→</text></svg>`;
+}
+function figWater() {
+  const X = (t) => 80 + t * 48, Y = (t) => 210 - (60 + 3 * (t - 4) * (t - 4));
+  const pts = [];
+  for (let t = 0; t <= 8.001; t += 0.25) pts.push(`${X(t)},${Y(t)}`);
+  let s = `<line class="solid" x1="80" y1="30" x2="80" y2="215"/><line class="solid" x1="80" y1="215" x2="490" y2="215"/>`;
+  [0, 2, 4, 6, 8].forEach((t) => { s += `<line class="dim" x1="${X(t)}" y1="215" x2="${X(t)}" y2="221"/><text x="${X(t)}" y="238" text-anchor="middle" font-size="13">${t}</text>`; });
+  s += `<text x="285" y="258" text-anchor="middle" font-size="13">อุณหภูมิของน้ำ (°C)</text><text x="28" y="125" transform="rotate(-90 28 125)" text-anchor="middle" font-size="13">ปริมาตรน้ำ (มวลคงที่)</text>`;
+  s += `<line class="thin" x1="${X(4)}" y1="${Y(4)}" x2="${X(4)}" y2="215"/><circle cx="${X(4)}" cy="${Y(4)}" r="5" fill="#ff5f9e"/><text x="${X(4)}" y="${Y(4) - 12}" text-anchor="middle" font-size="13" style="fill:#e0425e">ปริมาตรน้อยที่สุดที่ 4 °C</text>`;
+  s += `<polyline points="${pts.join(" ")}" fill="none" stroke="#6c5ce7" stroke-width="3.5" stroke-linecap="round"/>`;
+  return `<svg class="fig" viewBox="0 0 520 264" role="img">${s}</svg>`;
+}
+function figFsGraph(f) {
+  const X = (s) => 80 + s * 40, Y = (v) => 220 - v * 12;
+  let s = `<line class="solid" x1="80" y1="220" x2="500" y2="220"/><line class="solid" x1="80" y1="220" x2="80" y2="30"/>`;
+  s += `<polygon points="${X(0)},${Y(0)} ${X(0)},${Y(f.F)} ${X(f.s1)},${Y(f.F)} ${X(f.s2)},${Y(0)}" fill="rgba(108,92,231,.2)" stroke="#6c5ce7" stroke-width="3.2" stroke-linejoin="round"/>`;
+  s += `<line class="thin" x1="80" y1="${Y(f.F)}" x2="${X(f.s1)}" y2="${Y(f.F)}"/><line class="thin" x1="${X(f.s1)}" y1="${Y(f.F)}" x2="${X(f.s1)}" y2="220"/>`;
+  s += `<text x="72" y="${Y(f.F) + 4}" text-anchor="end" font-size="13">${f.F}</text><text x="${X(f.s1)}" y="240" text-anchor="middle" font-size="13">${f.s1}</text><text x="${X(f.s2)}" y="240" text-anchor="middle" font-size="13">${f.s2}</text><text x="72" y="224" text-anchor="end" font-size="13">0</text>`;
+  s += `<text x="${X(5)}" y="262" text-anchor="middle" font-size="13">ระยะ s (m)</text><text x="22" y="125" transform="rotate(-90 22 125)" text-anchor="middle" font-size="13">แรง F (N)</text>`;
+  return `<svg class="fig" viewBox="0 0 520 270" role="img">${s}</svg>`;
+}
+function figTrack(f) {
+  let s = `<rect x="40" y="224" width="440" height="12" fill="#8d86c9"/>`;
+  s += `<path d="M90 60 Q130 200 270 224" fill="none" stroke="#5b52a8" stroke-width="4"/><line x1="270" y1="224" x2="470" y2="224" stroke="#5b52a8" stroke-width="4"/>`;
+  s += `<circle cx="90" cy="48" r="12" fill="#ff5f9e" stroke="#fff" stroke-width="2"/><text x="108" y="44" font-size="13">ปล่อยจากหยุดนิ่ง</text>`;
+  s += `<line class="dim" x1="72" y1="48" x2="72" y2="224"/><line class="dim" x1="66" y1="48" x2="78" y2="48"/><line class="dim" x1="66" y1="224" x2="78" y2="224"/><text x="62" y="140" text-anchor="end" font-size="14" style="fill:#e08600">h = ${esc(f.h)}</text>`;
+  s += `<text x="300" y="120" font-size="14" style="fill:#6f68b0">รางเกลี้ยง ไม่มีแรงเสียดทาน</text>${arrowLine(330, 204, 440, 204)}<text x="440" y="190" text-anchor="end" font-size="14" font-weight="600">v = ? ที่พื้นราบ</text>`;
+  return `<svg class="fig" viewBox="0 0 520 250" role="img">${s}</svg>`;
+}
+function figPerp() {
+  let s = `<line x1="40" y1="170" x2="440" y2="170" stroke="#8d86c9" stroke-width="3"/>`;
+  s += `<circle cx="130" cy="52" r="17" fill="#ffd9b0" stroke="#5b52a8" stroke-width="2"/><line x1="130" y1="70" x2="130" y2="122" stroke="#5b52a8" stroke-width="4"/><line x1="130" y1="122" x2="112" y2="170" stroke="#5b52a8" stroke-width="4"/><line x1="130" y1="122" x2="150" y2="170" stroke="#5b52a8" stroke-width="4"/><line x1="130" y1="86" x2="188" y2="112" stroke="#5b52a8" stroke-width="4"/>`;
+  s += `<rect x="172" y="112" width="40" height="32" rx="5" fill="#ff8a1f" stroke="#a55f00" stroke-width="2"/>${arrowLine(192, 108, 192, 58)}<text x="204" y="72" font-size="13" style="fill:#e08600">แรงของมือ (แนวดิ่ง)</text>`;
+  s += `${arrowLine(230, 196, 380, 196)}<text x="305" y="216" text-anchor="middle" font-size="13">เดินไปข้างหน้า ความเร็วคงที่</text>`;
+  return `<svg class="fig" viewBox="0 0 480 230" role="img">${s}</svg>`;
 }
 
 /* ============================== เรนเดอร์ข้อสอบ ============================== */
 const isAnswered = (item) => {
   const a = answers[item.id];
+  if (TYPES[item.type]) return TYPES[item.type].answered(item, a);
   if (item.type === "tf") return typeof a === "boolean";
   if (item.type === "fill") return Array.isArray(a) && a.length === item.blanks.length && a.every(Boolean);
   if (item.type === "mission") return !!(a && a.done);
@@ -374,16 +756,18 @@ const isAnswered = (item) => {
 };
 
 function qHead(item, no) {
-  return `<div class="q-num">${item.type === "mission" ? esc(item.title) : `ข้อ ${no}`}<span class="pt">1 คะแนน</span></div>`;
+  return `<div class="q-num">${item.type === "mission" ? esc(item.title) : `ข้อ ${no}`}<span class="pt">${ptsOf(item)} คะแนน</span></div>`;
 }
 function explainBox(item, ctx) {
-  if (!(ctx.reveal && ctx.detail && !ctx.detail[item.id])) return "";
+  if (!(ctx.reveal && ctx.detail && !isFull(ctx.detail[item.id]))) return "";
   return `<div class="explanation-box"><strong>วิธีคิด / เฉลย</strong><div class="explanation-text">${esc(item.explanation)}</div></div>`;
 }
 function reviewBadge(item, ctx) {
   if (!ctx.readOnly || !ctx.detail) return "";
-  const ok = !!ctx.detail[item.id];
-  return `<div class="review-badge ${ok ? "correct" : "incorrect"}">${ok ? "✅ ถูกต้อง" : "❌ ยังไม่ถูกต้อง"}</div>`;
+  const r = ratioOf(ctx.detail[item.id]);
+  if (r === 1) return `<div class="review-badge correct">✅ ถูกต้อง</div>`;
+  if (r > 0) return `<div class="review-badge partial">◐ ได้บางส่วน ${Math.round(r * ptsOf(item) * 100) / 100}/${ptsOf(item)} คะแนน</div>`;
+  return `<div class="review-badge incorrect">❌ ยังไม่ถูกต้อง</div>`;
 }
 
 function buildItem(item, no, ctx) {
@@ -407,7 +791,7 @@ function buildItem(item, no, ctx) {
       const opts = [`<option value="">— เลือก —</option>`].concat(b.options.map((o) => `<option value="${esc(o)}" ${vals[i] === o ? "selected" : ""}>${esc(o)}</option>`)).join("");
       return `<select class="fill-sel ${cls}" data-i="${i}" ${ctx.readOnly ? "disabled" : ""}>${opts}</select>`;
     });
-    const key = ctx.readOnly && ctx.reveal && ctx.detail && !ctx.detail[item.id]
+    const key = ctx.readOnly && ctx.reveal && ctx.detail && !isFull(ctx.detail[item.id])
       ? `<p class="small-note" style="margin:8px 0 0">คำตอบที่ถูก: ${item.blanks.map((b) => esc(b.answer)).join(" · ")}</p>` : "";
     body = `<p class="q-text fill-text">${html}</p>${key}`;
   } else if (item.type === "choice") {
@@ -421,6 +805,8 @@ function buildItem(item, no, ctx) {
     body = `${figure(item.figure)}<p class="q-text">${esc(item.prompt)}</p><div class="options-grid">${opts}</div>`;
   } else if (item.type === "mission") {
     return `<div class="q-card" data-id="${item.id}"><div data-mission="${item.id}">${qHead(item, no)}${missionBody(item, ctx)}</div>${ctx.readOnly ? explainBox(item, ctx) : ""}</div>`;
+  } else if (TYPES[item.type]) {
+    return `<div class="q-card" data-id="${item.id}"><div data-body>${qHead(item, no)}${TYPES[item.type].render(item, ctx)}</div>${reviewBadge(item, ctx)}${explainBox(item, ctx)}</div>`;
   }
   return `<div class="q-card" data-id="${item.id}">${qHead(item, no)}${body}${reviewBadge(item, ctx)}${explainBox(item, ctx)}</div>`;
 }
@@ -492,15 +878,23 @@ function handlePagesClick(e) {
     onAnswerChange();
   } else if (item.type === "mission") {
     const st = missionState(item);
-    if (act === "sign") st["s" + btn.dataset.which] = btn.dataset.val;
-    if (act === "q") st["q" + btn.dataset.which] = Number(btn.dataset.val);
-    if (act === "r") { const [n, d] = btn.dataset.val.split("/").map(Number); st.rn = n; st.rd = d; }
     if (act === "msubmit") { st.done = true; st.ok = missionOk(item, st); }
+    else simOf(item).act(st, btn, item);
     answers[item.id] = st;
     refreshMission(item.id);
     card.classList.remove("missing");
     onAnswerChange();
+  } else if (TYPES[item.type]) {
+    if (TYPES[item.type].click(item, btn)) {
+      refreshCard(item);
+      card.classList.remove("missing");
+      onAnswerChange();
+    }
   }
+}
+function refreshCard(item) {
+  const host = document.querySelector(`.q-card[data-id="${item.id}"] [data-body]`);
+  host.innerHTML = qHead(item, ITEMS.indexOf(item) + 1) + TYPES[item.type].render(item, { readOnly: false });
 }
 function handlePagesChange(e) {
   if (reviewMode) return;
@@ -524,15 +918,16 @@ function gradeAll() {
   const detail = {};
   ITEMS.forEach((it) => {
     const a = answers[it.id];
-    let ok = false;
-    if (it.type === "tf") ok = a === it.answer;
-    else if (it.type === "fill") ok = Array.isArray(a) && it.blanks.every((b, i) => a[i] === b.answer);
-    else if (it.type === "choice") ok = a === it.answer;
-    else if (it.type === "mission") ok = !!(a && a.done && missionOk(it, missionState(it)));
-    detail[it.id] = ok;
-    if (ok) score += 1;
+    let r = 0; // สัดส่วนที่ได้ 0..1 (จับคู่ให้บางส่วนได้)
+    if (it.type === "tf") r = a === it.answer ? 1 : 0;
+    else if (it.type === "fill") r = Array.isArray(a) && it.blanks.every((b, i) => a[i] === b.answer) ? 1 : 0;
+    else if (it.type === "choice") r = a === it.answer ? 1 : 0;
+    else if (it.type === "mission") r = a && a.done && missionOk(it, missionState(it)) ? 1 : 0;
+    else if (TYPES[it.type]) r = TYPES[it.type].grade(it, a);
+    detail[it.id] = r === 1 ? true : r === 0 ? false : r;
+    score += r * ptsOf(it);
   });
-  return { score, detail };
+  return { score: Math.round(score * 100) / 100, detail };
 }
 
 /* ============================== ส่งใบงาน ============================== */
@@ -676,6 +1071,7 @@ function startStopwatch() {
 async function initWorksheet(user, data) {
   WS = data;
   ITEMS = WS.pages.reduce((all, p) => all.concat(p.items), []);
+  WS.meta.maxScore = Math.round(ITEMS.reduce((s, it) => s + ptsOf(it), 0) * 100) / 100; // คะแนนเต็ม = ผลรวมคะแนนทุกข้อ
   $("courseTitle").textContent = `Course : ${courseId.toUpperCase()}`;
   $("quizTitle").textContent = WS.meta.title;
   $("quizSubtitle").textContent = `${WS.meta.subtitle || ""} · คะแนนเต็ม ${WS.meta.maxScore} · ส่งได้ 1 ครั้งต่อ 1 บัญชี`;
