@@ -16,6 +16,7 @@
 <section id="screen-landing" class="screen active">
   <div class="moon-glow"></div>
   <div class="landing-card">
+    <img class="landing-hero" src="assets/cards/card-back.webp" alt="One Night Werewolf" />
     <h1 class="title">🐺 มนุษย์หมาป่า</h1>
     <p class="subtitle">One Night Werewolf — เวอร์ชันไทย</p>
     <input id="input-nickname" type="text" placeholder="ชื่อเล่นของคุณ" maxlength="16" autocomplete="off" />
@@ -58,9 +59,12 @@
       <div class="role-picker-hint">
         เลือกบทบาท: ต้องมี = ผู้เล่น + 3 ใบ | ตอนนี้เลือกแล้ว <span id="role-count">0</span>/<span id="role-need">0</span>
       </div>
+      <button id="btn-auto-roles" class="btn btn-secondary btn-small" type="button">จัดชุดบทบาทแนะนำอัตโนมัติ</button>
       <div class="expansion-toggles">
-        <label class="toggle-disabled"><input type="checkbox" disabled /> ภูติจำแลง (Doppelgänger) — เร็ว ๆ นี้</label>
-        <label class="toggle-disabled"><input type="checkbox" disabled /> หมาป่าหลับใหล (Dream Wolf) — เร็ว ๆ นี้</label>
+        <div class="expansion-title">ตัวแปรเสริม</div>
+        <label><input id="set-mason" type="checkbox" /> สมาชิกเมสัน (Mason) — 2 ใบ</label>
+        <label><input id="set-doppel" type="checkbox" /> ภูติจำแลง (Doppelgänger)</label>
+        <label><input id="set-dreamwolf" type="checkbox" /> หมาป่าหลับใหล (Dream Wolf)</label>
       </div>
 
       <button id="btn-start-game" class="btn btn-primary">เริ่มเกม</button>
@@ -76,6 +80,7 @@
         <div class="role-card-face role-card-back"></div>
         <div class="role-card-face role-card-front">
           <img id="role-card-img" src="" alt="" />
+          <div id="role-card-icon" class="role-card-icon hidden"></div>
           <div class="role-card-label">
             <div id="role-card-name" class="role-card-name"></div>
             <div id="role-card-desc" class="role-card-desc"></div>
@@ -132,6 +137,7 @@
   <h2 class="vote-title">โหวตว่าใครคือมนุษย์หมาป่า</h2>
   <p class="muted">โหวตแล้ว <span id="vote-count">0</span>/<span id="vote-total">0</span></p>
   <div id="vote-grid" class="vote-grid"></div>
+  <p id="vote-waiting" class="muted"></p>
   <button id="vote-none" class="btn btn-secondary">ไม่มีหมาป่า (ไม่มีใครตาย)</button>
   <div id="vote-skip-panel" class="vote-skip-panel hidden"></div>
 </section>
@@ -140,6 +146,8 @@
 <section id="screen-reveal" class="screen reveal-theme">
   <div id="reveal-banner" class="reveal-banner"></div>
   <div id="reveal-grid" class="reveal-grid"></div>
+  <div class="reveal-section-title">ไพ่กลาง</div>
+  <div id="reveal-center" class="reveal-grid"></div>
   <div id="reveal-timeline" class="reveal-timeline"></div>
   <button id="btn-restart" class="btn btn-primary hidden">เล่นอีกรอบ</button>
 </section>

@@ -102,6 +102,10 @@
     if (s.phase === 'reveal') renderReveal(s);
   });
 
+  function expansionOn(s, key) {
+    return { mason: s.settings.useMason, doppelganger: s.settings.useDoppelganger, dreamwolf: s.settings.useDreamWolf }[key];
+  }
+
   function roleById(catalog, id) {
     return catalog.find((r) => r && r.id === id) || null;
   }
@@ -142,9 +146,9 @@
     addRow.style.flexWrap = 'wrap';
     addRow.style.gap = '6px';
     addRow.style.marginBottom = '8px';
-    s.roleCatalog.filter(Boolean).forEach((r) => {
+    s.roleCatalog.filter((r) => r && (!r.expansion || expansionOn(s, r.expansion))).forEach((r) => {
       const btn = document.createElement('button');
-      btn.className = 'pick-btn';
+      btn.className = 'pick-btn' + (r.expansion ? ' expansion' : '');
       btn.textContent = `+ ${r.nameTh}`;
       btn.title = r.desc;
       btn.onclick = () => {
@@ -180,10 +184,18 @@
     });
     picker.appendChild(chipRow);
 
+    $('#set-mason').checked = !!s.settings.useMason;
+    $('#set-doppel').checked = !!s.settings.useDoppelganger;
+    $('#set-dreamwolf').checked = !!s.settings.useDreamWolf;
+    $('#set-mason').onchange = (e) => { pendingRoleSet = null; socket.emit('host:settings', { useMason: e.target.checked }); };
+    $('#set-doppel').onchange = (e) => { pendingRoleSet = null; socket.emit('host:settings', { useDoppelganger: e.target.checked }); };
+    $('#set-dreamwolf').onchange = (e) => { pendingRoleSet = null; socket.emit('host:settings', { useDreamWolf: e.target.checked }); };
+    $('#btn-auto-roles').onclick = () => { pendingRoleSet = null; socket.emit('host:settings', { autoRoleSet: true }); };
+
     $('#set-night-seconds').onchange = (e) => socket.emit('host:settings', { nightSeconds: Number(e.target.value) });
     $('#set-day-seconds').onchange = (e) => socket.emit('host:settings', { daySeconds: Number(e.target.value) });
 
-    const hasWerewolf = roleSet.includes('werewolf');
+    const hasWerewolf = roleSet.includes('werewolf') || roleSet.includes('dreamwolf');
     const canStart = roleSet.length === need && hasWerewolf && s.players.length >= 3;
     $('#btn-start-game').disabled = !canStart;
     $('#btn-start-game').onclick = () => socket.emit('game:start');
@@ -198,8 +210,13 @@
 
   function renderSetup(s) {
     const meta = s.setup.myRole;
-    $('#role-card-img').src = meta ? `assets/cards/${meta.id}.webp` : '';
-    $('#role-card-img').onerror = () => { $('#role-card-img').style.visibility = 'hidden'; };
+    const img = $('#role-card-img');
+    const iconEl = $('#role-card-icon');
+    img.style.display = '';
+    iconEl.classList.add('hidden');
+    // ยังไม่มีภาพการ์ด (เช่น บทบาทเสริม) => โชว์ไอคอนแทน
+    img.onerror = () => { img.style.display = 'none'; iconEl.textContent = meta ? meta.icon : ''; iconEl.classList.remove('hidden'); };
+    img.src = meta ? `assets/cards/${meta.id}.webp` : '';
     $('#role-card-name').textContent = meta ? meta.nameTh : '';
     $('#role-card-desc').textContent = meta ? meta.desc : '';
 
@@ -244,14 +261,41 @@
 
     if (!n.isMyTurn) return;
 
-    $('#night-role-banner').textContent = `คุณคือ ${n.roleName} — ${n.roleId === 'werewolf' ? 'ลืมตา' : 'ตาคุณ'}`;
+    $('#night-role-banner').textContent = n.asDoppel
+      ? `คุณคือภูติจำแลง ที่กลายเป็น ${n.roleName} — ตาคุณ`
+      : `คุณคือ ${n.roleName} — ${n.roleId === 'werewolf' ? 'ลืมตา' : 'ตาคุณ'}`;
     const area = $('#night-action-area');
     area.innerHTML = '';
 
     const roleId = n.roleId;
     const myInfo = n.myInfo;
 
-    if (roleId === 'werewolf') {
+    if (roleId === 'doppelganger') {
+      if (myInfo) {
+        const copied = roleNameLocal(s, myInfo.role);
+        area.innerHTML = `<p>ไพ่ของ ${seatName(s, myInfo.targetSeat)} คือ <b>${copied}</b> — คุณกลายเป็น <b>${copied}</b> แล้ว${nightFollowUp(myInfo.role)}</p>`;
+        addAckButton(area);
+      } else {
+        area.innerHTML = '<p>เลือกดูไพ่ผู้เล่นอื่น 1 คน แล้วคุณจะกลายเป็นบทบาทนั้น</p>';
+        const row = document.createElement('div');
+        row.className = 'pick-grid';
+        otherSeats(s).forEach((seat) => {
+          const b = document.createElement('button');
+          b.className = 'pick-btn';
+          b.textContent = seatName(s, seat);
+          b.onclick = () => socket.emit('night:action', { targetSeat: seat });
+          row.appendChild(b);
+        });
+        area.appendChild(row);
+        addAckButton(area, 'ไม่ดู ข้ามไปเลย');
+      }
+    } else if (roleId === 'mason') {
+      const others = myInfo && myInfo.otherSeats || [];
+      area.innerHTML = others.length
+        ? `<p>เมสันอีกคนคือ: <b>${others.map((seat) => seatName(s, seat)).join(', ')}</b></p>`
+        : '<p>ไม่มีเมสันคนอื่นในหมู่ผู้เล่น (อีกใบอยู่ไพ่กลาง หรือไม่ได้ใช้)</p>';
+      addAckButton(area);
+    } else if (roleId === 'werewolf') {
       if (n.otherSeatsThisStep.length > 0) {
         area.innerHTML = `<p>เพื่อนหมาป่าของคุณคือ: ${n.otherSeatsThisStep.map((seat) => seatName(s, seat)).join(', ')}</p>`;
         addAckButton(area);
@@ -275,7 +319,7 @@
     } else if (roleId === 'minion') {
       const wolves = myInfo && myInfo.wolfSeats || [];
       area.innerHTML = wolves.length
-        ? `<p>มนุษย์หมาป่าคือ: ${wolves.map((seat) => seatName(s, seat)).join(', ')}</p>`
+        ? `<p>มนุษย์หมาป่าคือ: <b>${wolves.map((seat) => seatName(s, seat)).join(', ')}</b></p>`
         : '<p>ไม่มีมนุษย์หมาป่าอยู่ในมือผู้เล่นเลย (อยู่ไพ่กลางทั้งหมด)</p>';
       addAckButton(area);
     } else if (roleId === 'insomniac') {
@@ -298,12 +342,26 @@
           b.onclick = () => socket.emit('night:action', { mode: 'player', targetSeat: seat });
           row.appendChild(b);
         });
-        const centerBtn = document.createElement('button');
-        centerBtn.className = 'pick-btn';
-        centerBtn.textContent = 'ไพ่กลาง 2 ใบ (#1, #2)';
-        centerBtn.onclick = () => socket.emit('night:action', { mode: 'center', indices: [0, 1] });
-        row.appendChild(centerBtn);
         area.appendChild(row);
+        const hint = document.createElement('p');
+        hint.className = 'muted';
+        hint.textContent = 'หรือเลือกไพ่กลาง 2 ใบ:';
+        area.appendChild(hint);
+        const centerRow = document.createElement('div');
+        centerRow.className = 'pick-grid';
+        let pickedCenter = [];
+        [0, 1, 2].forEach((i) => {
+          const b = document.createElement('button');
+          b.className = 'pick-btn';
+          b.textContent = `ไพ่กลาง #${i + 1}`;
+          b.onclick = () => {
+            if (pickedCenter.includes(i)) { pickedCenter = pickedCenter.filter((x) => x !== i); b.classList.remove('selected'); }
+            else if (pickedCenter.length < 2) { pickedCenter.push(i); b.classList.add('selected'); }
+            if (pickedCenter.length === 2) socket.emit('night:action', { mode: 'center', indices: pickedCenter });
+          };
+          centerRow.appendChild(b);
+        });
+        area.appendChild(centerRow);
       }
     } else if (roleId === 'robber') {
       if (myInfo) {
@@ -354,6 +412,12 @@
       });
       area.appendChild(row);
     }
+  }
+
+  // ข้อความบอกว่าภูติจำแลงจะต้องทำอะไรต่อ ตามบทบาทที่กลายเป็น
+  function nightFollowUp(roleId) {
+    const later = ['werewolf', 'minion', 'mason', 'seer', 'robber', 'troublemaker', 'drunk', 'insomniac'];
+    return later.includes(roleId) ? ' — คุณจะตื่นอีกครั้งตอนถึงตาของบทบาทนี้' : '';
   }
 
   function addAckButton(area, label) {
@@ -478,13 +542,16 @@
       grid.appendChild(b);
     });
 
+    const waiting = (s.vote.waitingFor || []).map((seat) => seatName(s, seat));
+    $('#vote-waiting').textContent = s.vote.iVoted && waiting.length ? `รอ: ${waiting.join(', ')}` : '';
+
     $('#vote-none').disabled = s.vote.iVoted;
     $('#vote-none').onclick = () => socket.emit('vote:cast', { target: 'none' });
 
     const skipPanel = $('#vote-skip-panel');
     if (s.youAreHost && s.vote.canSkip.length > 0) {
       skipPanel.classList.remove('hidden');
-      skipPanel.innerHTML = '<p class="muted">มีผู้เล่นหลุดการเชื่อมต่อ กดเพื่อข้าม (งดออกเสียง) ถ้ารอนานเกินไป:</p>';
+      skipPanel.innerHTML = '<p class="muted">มีผู้เล่นหลุดการเชื่อมต่อเกิน 2 นาที กดเพื่อข้าม (งดออกเสียง):</p>';
       s.vote.canSkip.forEach((seat) => {
         const b = document.createElement('button');
         b.textContent = `ข้ามผู้เล่น: ${seatName(s, seat)}`;
@@ -499,11 +566,12 @@
   // ======================================================================
   // สรุปผล
   // ======================================================================
-  const WINNER_LABEL = { village: 'ชาวบ้านชนะ 🏡', werewolf: 'มนุษย์หมาป่าชนะ 🐺', tanner: 'ยาจกชนะ 💰' };
+  const WINNER_LABEL = { village: 'ชาวบ้านชนะ 🏡', werewolf: 'ทีมมนุษย์หมาป่า (รวมสมุนรับใช้) ชนะ 🐺', tanner: 'ยาจกชนะ 💰' };
 
   function renderReveal(s) {
     const r = s.reveal;
-    $('#reveal-banner').textContent = r.winners.map((w) => WINNER_LABEL[w] || w).join(' + ');
+    // สมุนรับใช้ชนะพร้อมทีมหมาป่าเสมอ — โชว์เป็นทีมเดียวกัน
+    $('#reveal-banner').textContent = r.winners.filter((w) => w !== 'minion').map((w) => WINNER_LABEL[w] || w).join(' + ');
 
     const grid = $('#reveal-grid');
     grid.innerHTML = '';
@@ -515,12 +583,20 @@
       card.className = 'reveal-card' + (isDead ? ' dead' : '');
       card.innerHTML = `
         <div>${escapeHtml(p.nickname)}</div>
-        <img src="assets/cards/${end.id}.webp" onerror="this.style.display='none'" />
+        <img src="assets/cards/${end.id}.webp" onerror="this.outerHTML='<div class=&quot;reveal-icon&quot;>${end.icon}</div>'" />
         <div>${end.nameTh}</div>
         ${start.id !== end.id ? `<div class="arrow">เริ่มจาก: ${start.nameTh}</div>` : ''}
         ${isDead ? '<div class="arrow">☠️ ตาย</div>' : ''}`;
       grid.appendChild(card);
     });
+
+    const centerEl = $('#reveal-center');
+    centerEl.innerHTML = r.center.map((m, i) => `
+      <div class="reveal-card">
+        <div>ไพ่กลาง #${i + 1}</div>
+        <img src="assets/cards/${m.id}.webp" onerror="this.outerHTML='<div class=&quot;reveal-icon&quot;>${m.icon}</div>'" />
+        <div>${m.nameTh}</div>
+      </div>`).join('');
 
     const timeline = $('#reveal-timeline');
     const labelMap = {
@@ -528,6 +604,7 @@
       'seer-center': (h) => `ผู้หยั่งรู้ (${seatName(s, h.seat)}) ดูไพ่กลาง ${h.indices.map((i) => `#${i + 1}`).join(', ')}`,
       robber: (h) => `โจร (${seatName(s, h.seat)}) สลับไพ่กับ ${seatName(s, h.targetSeat)}`,
       troublemaker: (h) => `ผู้ก่อกวน (${seatName(s, h.seat)}) สลับไพ่ของ ${seatName(s, h.seatA)} กับ ${seatName(s, h.seatB)}`,
+      doppelganger: (h) => `ภูติจำแลง (${seatName(s, h.seat)}) ดูไพ่ของ ${seatName(s, h.targetSeat)} แล้วกลายเป็น ${roleNameLocal(s, h.role)}`,
       drunk: (h) => `ขี้เมา (${seatName(s, h.seat)}) สลับไพ่กับไพ่กลาง #${h.centerIndex + 1}`,
     };
     timeline.innerHTML = '<b>ไทม์ไลน์ตอนกลางคืน:</b><ul>' +

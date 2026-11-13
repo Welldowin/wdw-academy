@@ -28,7 +28,7 @@ function makeRoomCode() {
 
 function roleMeta(id) {
   const r = roleInfo(id);
-  return r ? { id: r.id, nameTh: r.nameTh, team: r.team, desc: r.desc } : null;
+  return r ? { id: r.id, nameTh: r.nameTh, team: r.team, desc: r.desc, expansion: r.expansion || null, icon: r.icon || '🃏' } : null;
 }
 
 function publicRosterFor(room) {
@@ -41,7 +41,6 @@ function publicRosterFor(room) {
       : room.phase === 'day' ? room.dayReady.has(p.seat)
       : room.phase === 'vote' ? Object.prototype.hasOwnProperty.call(room.votes, p.seat)
       : false,
-    disconnectedTooLong: !p.connected, // client ใช้ตัดสินใจโชว์ปุ่ม "ข้ามผู้เล่น" ร่วมกับเวลา
   }));
 }
 
@@ -55,6 +54,7 @@ function serializeRoom(room, seat) {
     players: publicRosterFor(room),
     settings: room.settings,
     roleCatalog: Object.values(ROLES).map((r) => roleMeta(r.id)),
+    roleSetCustom: room.roleSetCustom,
   };
 
   if (room.phase === 'setup') {
@@ -73,7 +73,8 @@ function serializeRoom(room, seat) {
       roleId,
       roleName: roleId ? roleMeta(roleId).nameTh : null,
       isMyTurn,
-      needsDecision: isMyTurn && room.isNightStepDecisionRole(),
+      asDoppel: isMyTurn && room.nightStartHands[seat] === 'doppelganger' && roleId !== 'doppelganger',
+      needsDecision: isMyTurn && room.isNightStepDecisionRole() && !room.nightActed.has(seat),
       deadlineAt: room.nightDeadlineAt,
       myInfo: isMyTurn || room.nightPeekResult[seat] ? (room.nightPeekResult[seat] || null) : null,
       otherSeatsThisStep: isMyTurn ? room.nightSeatsForStep.filter((s) => s !== seat) : [],
@@ -93,9 +94,10 @@ function serializeRoom(room, seat) {
   if (room.phase === 'vote') {
     base.vote = {
       castCount: Object.keys(room.votes).length,
-      total: room.connectedPlayers.length,
+      waitingFor: room.players.filter((p) => !Object.prototype.hasOwnProperty.call(room.votes, p.seat)).map((p) => p.seat),
+      total: room.players.length,
       iVoted: Object.prototype.hasOwnProperty.call(room.votes, seat),
-      canSkip: room.players.filter((p) => !p.connected).map((p) => p.seat),
+      canSkip: room.skippableSeats(),
     };
   }
 
@@ -106,6 +108,7 @@ function serializeRoom(room, seat) {
       votes: room.result.votes,
       history: room.result.history,
       center: room.result.center.map((id) => roleMeta(id)),
+      doppelRole: room.result.doppelRole ? roleMeta(room.result.doppelRole) : null,
       originalHands: Object.fromEntries(
         Object.entries(room.result.originalHands).map(([s, id]) => [s, roleMeta(id)]),
       ),
@@ -129,6 +132,11 @@ function sfx(room, name) {
   room.players.forEach((p) => {
     if (p.connected) io.to(p.socketId).emit('sfx', { name });
   });
+}
+
+function announceResult(room) {
+  const w = room.result.winners;
+  sfx(room, w.includes('village') ? 'win-village' : w.includes('tanner') ? 'win-tanner' : 'win-werewolf');
 }
 
 function errorTo(socket, text) {
@@ -233,10 +241,11 @@ io.on('connection', (socket) => {
   socket.on('vote:cast', ({ target } = {}) => {
     withRoom((room, player) => {
       if (room.phase !== 'vote') return;
-      room.castVote(player.seat, target);
+      const res = room.castVote(player.seat, target);
+      if (!res.ok) return;
       if (room.allVotesCast()) {
         room.resolveVotes();
-        sfx(room, room.result.winners.includes('village') ? 'win-village' : room.result.winners.includes('tanner') ? 'win-tanner' : 'win-werewolf');
+        announceResult(room);
       }
       broadcast(room);
     });
@@ -245,9 +254,10 @@ io.on('connection', (socket) => {
   socket.on('host:skipVote', ({ seat } = {}) => {
     withRoom((room, player) => {
       if (!player.isHost || room.phase !== 'vote') return;
-      room.skipPlayerVote(seat);
+      if (!room.skipPlayerVote(seat)) return errorTo(socket, 'ข้ามได้เฉพาะผู้เล่นที่หลุดเกิน 2 นาที');
       if (room.allVotesCast()) {
         room.resolveVotes();
+        announceResult(room);
       }
       broadcast(room);
     });
@@ -264,6 +274,12 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => {
     withRoom((room) => {
       room.removeSocket(socket.id);
+      // ทุกคนที่ยังออนไลน์กดพร้อมโหวตแล้ว แต่มีคนหลุดไปตอนนี้ => ไปโหวตต่อ
+      if (room.phase === 'day' && room.connectedPlayers.length > 0
+        && room.connectedPlayers.every((p) => room.dayReady.has(p.seat))) {
+        room.beginVote();
+        sfx(room, 'vote-start');
+      }
       broadcast(room);
       if (room.isEmpty()) {
         setTimeout(() => {
@@ -283,7 +299,13 @@ setInterval(() => {
     }
     if (room.phase === 'day' && room.dayTimeExpired()) {
       room.beginVote();
+      sfx(room, 'vote-start');
       changed = true;
+    }
+    if (room.phase === 'vote') {
+      // ปุ่ม "ข้ามผู้เล่น" โผล่เมื่อผู้เล่นหลุดครบ 2 นาที — ส่ง state ใหม่เมื่อรายชื่อที่ข้ามได้เปลี่ยน
+      const key = room.skippableSeats().join(',');
+      if (key !== room._skipKey) { room._skipKey = key; changed = true; }
     }
     if (changed) broadcast(room);
   });

@@ -9,6 +9,11 @@
  * - action: ชนิดแอคชันที่ทำได้ตอนกลางคืน (ใช้โดย engine.js), null = ไม่มี
  */
 const ROLES = {
+  doppelganger: {
+    id: 'doppelganger', nameTh: 'ภูติจำแลง', team: 'village', expansion: 'doppelganger', icon: '🎭',
+    night: true, order: 5, action: 'doppelganger',
+    desc: 'คืนแรกสุด ดูไพ่ผู้เล่นอื่น 1 คน แล้วกลายเป็นบทบาทนั้น (ทำความสามารถของบทบาทนั้นต่อในคืนเดียวกัน)',
+  },
   werewolf: {
     id: 'werewolf', nameTh: 'มนุษย์หมาป่า', team: 'werewolf',
     night: true, order: 10, action: 'werewolf',
@@ -18,6 +23,11 @@ const ROLES = {
     id: 'minion', nameTh: 'สมุนรับใช้', team: 'werewolf',
     night: true, order: 20, action: 'minion',
     desc: 'เห็นว่าใครเป็นมนุษย์หมาป่า แต่หมาป่าไม่รู้จักคุณ',
+  },
+  mason: {
+    id: 'mason', nameTh: 'สมาชิกเมสัน', team: 'village', expansion: 'mason', icon: '🤝',
+    night: true, order: 25, action: 'mason',
+    desc: 'ตื่นมาเห็นว่าใครคือเมสันอีกคน (ถ้ามี) — ใช้ 2 ใบต่อเกม',
   },
   seer: {
     id: 'seer', nameTh: 'ผู้หยั่งรู้', team: 'village',
@@ -45,7 +55,7 @@ const ROLES = {
     desc: 'ตื่นเป็นคนสุดท้าย ดูไพ่ตัวเองว่าเปลี่ยนไปหรือไม่',
   },
   hunter: {
-    id: 'hunter', nameTh: 'นายพราน', team: 'village',
+    id: 'hunter', nameTh: 'นักล่า', team: 'village',
     night: false, order: null, action: null,
     desc: 'ถ้าคุณถูกโหวตตาย คนที่คุณชี้ไว้จะตายตามไปด้วย',
   },
@@ -53,6 +63,11 @@ const ROLES = {
     id: 'tanner', nameTh: 'ยาจก', team: 'tanner',
     night: false, order: null, action: null,
     desc: 'ชนะคนเดียวถ้าคุณถูกโหวตตาย',
+  },
+  dreamwolf: {
+    id: 'dreamwolf', nameTh: 'หมาป่าหลับใหล', team: 'werewolf', expansion: 'dreamwolf', icon: '🐺',
+    night: false, order: null, action: null,
+    desc: 'เป็นหมาป่า แต่หลับตลอดคืน ไม่เห็นใครเลย (หมาป่าตัวอื่นไม่เห็นคุณ แต่สมุนรับใช้เห็น)',
   },
   villager: {
     id: 'villager', nameTh: 'ชาวบ้าน', team: 'village',
@@ -67,8 +82,11 @@ const NIGHT_ORDER = Object.values(ROLES)
   .sort((a, b) => a.order - b.order)
   .map((r) => r.id);
 
+// บทบาทที่นับเป็น "หมาป่า" ตอนโหวต/ตัดสินผู้ชนะ
+const WOLF_ROLES = ['werewolf', 'dreamwolf'];
+
 function roleInfo(id) {
   return ROLES[id] || null;
 }
 
-module.exports = { ROLES, NIGHT_ORDER, roleInfo };
+module.exports = { ROLES, NIGHT_ORDER, WOLF_ROLES, roleInfo };
