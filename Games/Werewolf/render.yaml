@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: werewolf-th
+    name: one-night-werewolf-th
     env: node
     plan: free
     buildCommand: npm install

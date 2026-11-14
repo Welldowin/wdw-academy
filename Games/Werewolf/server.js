@@ -312,5 +312,5 @@ setInterval(() => {
 }, 1000);
 
 server.listen(PORT, () => {
-  console.log(`มนุษย์หมาป่า (Werewolf) server running on http://localhost:${PORT}`);
+  console.log(`คืนเดียว-มนุษย์หมาป่า (One Night Werewolf) server running on http://localhost:${PORT}`);
 });

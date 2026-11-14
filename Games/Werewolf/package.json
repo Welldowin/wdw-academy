@@ -1,5 +1,5 @@
 {
-  "name": "werewolf-th",
+  "name": "one-night-werewolf-th",
   "version": "1.0.0",
   "description": "มนุษย์หมาป่า (One Night Werewolf) - เกมกระดานออนไลน์แบบเรียลไทม์ ภาษาไทย",
   "main": "server.js",

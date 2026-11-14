@@ -14,7 +14,7 @@ services:
     autoDeploy: true
 
   - type: web
-    name: werewolf-th
+    name: one-night-werewolf-th
     runtime: node
     rootDir: Games/Werewolf
     region: singapore
