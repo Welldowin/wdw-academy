@@ -342,12 +342,303 @@
   // สร้าง data แบบแบน (ให้ leaderboard.js / ระบบเดิมใช้นับจำนวนข้อได้)
   WS1.data = WS1.pages.reduce((all, p) => all.concat(p.items), []);
 
-  // ── วิธีเพิ่มใบงานที่ 2 ──────────────────────────────────────────────
-  // 1) คัดลอกโครงของ WS1 เป็น WS2 (meta.quizKey = "quiz2", title = "ใบงานที่ 2 : ...") แล้วแก้ pages/items
+  // ── วิธีเพิ่มใบงานถัดไป (ตอนนี้มี quiz1 = ฟิสิกส์ ใบงานที่ 1, quiz2 = เคมี ใบงานที่ 1 → ใบถัดไปใช้ quiz3) ──
+  // 1) คัดลอกโครงของ WS1 (meta.quizKey = "quiz3", title = "ใบงานที่ 2 : ...") แล้วแก้ pages/items
   //    ชนิดข้อที่ใช้ได้: tf · fill · mission · choice (ข้อละ 1 คะแนน ปรับ meta.maxScore ให้ตรงจำนวนข้อ)
   //    รูปประกอบเพิ่มได้ที่ฟังก์ชัน figure*() ใน worksheet.js
   // 2) ต่อท้ายด้านล่างเป็น { quiz1: WS1, quiz2: WS2 }  (หน้า Progress จะเห็น Q2 เองอัตโนมัติ)
   // 3) Google Sheet (Sheet1) ต้องมีคอลัมน์ quiz2, quiz2Submitted, quiz2Answers, quiz2TimeSec
   // 4) ลิงก์ให้นักเรียน: quiz.html?course=m5-term2-nebula&quiz=quiz2 (เด้งไป worksheet.html เอง)
-  window.COURSE_DATA = { quiz1: WS1 };
+  /* ════════════════════════════════════════════════════════════════════
+     ใบงานที่ 1 (เคมี) — quiz2 ของคอร์สนี้  (ฟิสิกส์ใบงานที่ 1 คือ quiz1)
+     ชนิดข้อ: oxsum (ผลรวมเลขออกซิเดชัน) · redoxid (เติมสมการ+ระบุรีดอกซ์) · balance (ดุลสมการทีละขั้น)
+     สูตรเคมีพิมพ์แบบ ASCII ได้เลย:  Cr2O7^2-  →  Cr₂O₇²⁻   ( -> = ลูกศร )
+     ════════════════════════════════════════════════════════════════════ */
+  const WS2 = {
+    meta: {
+      courseId: "m5-term2-nebula",
+      quizKey: "quiz2",
+      type: "worksheet",
+      title: "ใบงานที่ 1 (เคมี) : การหาเลขออกซิเดชัน ปฏิกิริยารีดอกซ์และการดุลสมการ (พาร์ท 1)",
+      subtitle: "ไฟฟ้าเคมี · เคมี ม.5 เทอม 2",
+      maxScore: 30,
+      enableTimer: false
+    },
+    pages: [
+      /* ───────── หน้า 1 : เลขออกซิเดชัน (8 ข้อ) ───────── */
+      {
+        id: "c1",
+        icon: "🔢",
+        title: "ภารกิจที่ 1 · สืบเลขออกซิเดชัน",
+        intro: "ธาตุเดียวกันใน 3 สารประกอบ — หาเลขออกซิเดชันทีละตัว แล้วรวมกัน (ข้อละ 1 คะแนน · ผลรวมผิด = ไม่ได้คะแนนทั้งข้อ) · กดปุ่ม ✅ ส่งภารกิจ ท้ายแต่ละข้อเพื่อตรวจและดูเฉลยทันที (ส่งแล้วแก้ไม่ได้)",
+        items: [
+          {
+            id: "a1", type: "oxsum", el: "Cr",
+            cmps: [{ f: "K2Cr2O7", ox: 6 }, { f: "(CH3COO)3Cr", ox: 3 }, { f: "Ca2[Cr(CN)6]", ox: 2 }], sum: 11,
+            explanation: "K₂Cr₂O₇: 2(+1) + 2x + 7(−2) = 0 → Cr = +6 · (CH₃COO)₃Cr: อะซิเตตประจุ 1− สามตัว → Cr = +3 · Ca₂[Cr(CN)₆]: Ca²⁺ สองตัว = +4 ไอออนเชิงซ้อนจึงเป็น 4− → x + 6(−1) = −4 → Cr = +2 · ผลรวม = 6 + 3 + 2 = 11"
+          },
+          {
+            id: "a2", type: "oxsum", el: "Mn",
+            cmps: [{ f: "K2MnO4", ox: 6 }, { f: "Mn2O7", ox: 7 }, { f: "[Mn(NH3)6]Cl2", ox: 2 }], sum: 15,
+            explanation: "K₂MnO₄: 2(+1) + x + 4(−2) = 0 → Mn = +6 · Mn₂O₇: 2x + 7(−2) = 0 → Mn = +7 · [Mn(NH₃)₆]Cl₂: Cl⁻ สองตัว ไอออนเชิงซ้อนจึงเป็น 2+ และ NH₃ เป็นกลาง → Mn = +2 · ผลรวม = 6 + 7 + 2 = 15"
+          },
+          {
+            id: "a3", type: "oxsum", el: "C",
+            cmps: [{ f: "CH4", ox: -4 }, { f: "HCHO", ox: 0 }, { f: "Na2C2O4", ox: 3 }], sum: -1,
+            explanation: "CH₄: x + 4(+1) = 0 → C = −4 · HCHO: 2(+1) + x + (−2) = 0 → C = 0 · Na₂C₂O₄: 2(+1) + 2x + 4(−2) = 0 → C = +3 (ค่าเฉลี่ยต่อคาร์บอน 1 อะตอม) · ผลรวม = −4 + 0 + 3 = −1"
+          },
+          {
+            id: "a4", type: "oxsum", el: "N",
+            cmps: [{ f: "N2H4", ox: -2 }, { f: "KNO2", ox: 3 }, { f: "Mg(NO3)2", ox: 5 }], sum: 6,
+            explanation: "N₂H₄: 2x + 4(+1) = 0 → N = −2 · KNO₂: (+1) + x + 2(−2) = 0 → N = +3 · Mg(NO₃)₂: (+2) + 2x + 6(−2) = 0 → N = +5 · ผลรวม = −2 + 3 + 5 = 6"
+          },
+          {
+            id: "a5", type: "oxsum", el: "Cl",
+            cmps: [{ f: "Cl2O7", ox: 7 }, { f: "Ca(ClO)2", ox: 1 }, { f: "AlCl3", ox: -1 }], sum: 7,
+            explanation: "Cl₂O₇: 2x + 7(−2) = 0 → Cl = +7 · Ca(ClO)₂: (+2) + 2x + 2(−2) = 0 → Cl = +1 · AlCl₃: (+3) + 3x = 0 → Cl = −1 · ผลรวม = 7 + 1 − 1 = 7"
+          },
+          {
+            id: "a6", type: "oxsum", el: "I",
+            cmps: [{ f: "KIO4", ox: 7 }, { f: "K[ICl4]", ox: 3 }, { f: "CaI2", ox: -1 }], sum: 9,
+            explanation: "KIO₄: (+1) + x + 4(−2) = 0 → I = +7 · K[ICl₄]: K⁺ หนึ่งตัว ไอออนเชิงซ้อนจึงเป็น 1− → x + 4(−1) = −1 → I = +3 · CaI₂: (+2) + 2x = 0 → I = −1 · ผลรวม = 7 + 3 − 1 = 9"
+          },
+          {
+            id: "a7", type: "oxsum", el: "Co",
+            cmps: [{ f: "CoCl2", ox: 2 }, { f: "K3[Co(CN)6]", ox: 3 }, { f: "Co2(CO)8", ox: 0 }], sum: 5,
+            explanation: "CoCl₂: x + 2(−1) = 0 → Co = +2 · K₃[Co(CN)₆]: 3(+1) + x + 6(−1) = 0 → Co = +3 · Co₂(CO)₈: CO เป็นกลาง สารทั้งก้อนเป็นกลาง → Co = 0 · ผลรวม = 2 + 3 + 0 = 5"
+          },
+          {
+            id: "a8", type: "oxsum", el: "Fe",
+            cmps: [{ f: "K2FeO4", ox: 6 }, { f: "Fe(NO3)2", ox: 2 }, { f: "Fe(CO)5", ox: 0 }], sum: 8,
+            explanation: "K₂FeO₄: 2(+1) + x + 4(−2) = 0 → Fe = +6 · Fe(NO₃)₂: ไนเทรตประจุ 1− สองตัว → Fe = +2 · Fe(CO)₅: CO เป็นกลาง → Fe = 0 · ผลรวม = 6 + 2 + 0 = 8"
+          }
+        ]
+      },
+
+      /* ───────── หน้า 2 : ระบุรีดอกซ์ (8 ข้อ) ───────── */
+      {
+        id: "c2",
+        icon: "🔄",
+        title: "ภารกิจที่ 2 · รีดอกซ์ ใครให้ ใครรับ?",
+        intro: "เติมสารในครึ่งปฏิกิริยา oxidation และ reduction (ดู e⁻ ที่จ่าย/รับ) แล้วตอบคำถามศัพท์รีดอกซ์ 2 คำ — แต่ละข้อถามคำไม่เหมือนกัน ระวัง “ถูก…” กับ “ตัว…” (ข้อละ 1 คะแนน แบ่งเป็น 4 ส่วน ส่วนละ 0.25) · ขั้นแรก: เลือกครึ่งปฏิกิริยา → กดส่งภารกิจขั้นแรก (ถ้าผิดจะแสดงที่ถูกให้ + ปฏิกิริยารวม) → ขั้นสอง: ตอบศัพท์ 2 คำ แล้วกดส่งอีกครั้ง",
+        items: [
+          {
+            id: "b1", type: "redoxid",
+            ox: { eq: "Fe -> [?] + 2e^-", options: ["Fe^2+", "Fe^3+", "Fe^+", "Fe^2-"], answer: "Fe^2+" },
+            red: { eq: "Cu^2+ + 2e^- -> [?]", options: ["Cu", "Cu^+", "CuO", "Cu^2-"], answer: "Cu" },
+            redox: "Fe + CuSO4 -> FeSO4 + Cu", note: "e⁻ ที่จ่าย 2 ตัว = e⁻ ที่รับ 2 ตัว รวมสมการได้เลย (SO₄²⁻ ไม่เปลี่ยน)",
+            ask: ["o", "oa"],
+            opts: ["Fe", "Cu^2+", "CuSO4", "FeSO4", "SO4^2-", "Cu"],
+            ans: { o: "Fe", oa: "CuSO4" },
+            explanation: "Fe → Fe²⁺ + 2e⁻ (ออกซิเดชัน: Fe 0 → +2 จ่าย e⁻ จึง ถูกออกซิไดซ์) · Cu²⁺ + 2e⁻ → Cu (รีดักชัน: +2 → 0) · Cu²⁺ มาจาก CuSO₄ ซึ่งดึง e⁻ ไปจึงเป็นตัวออกซิไดซ์ · รวม: Fe + CuSO₄ → FeSO₄ + Cu"
+          },
+          {
+            id: "b2", type: "redoxid",
+            ox: { eq: "2I^- -> [?] + 2e^-", options: ["I2", "I^-", "IO3^-", "I^+"], answer: "I2" },
+            red: { eq: "Cl2 + 2e^- -> [?]", options: ["2Cl^-", "Cl^-", "2Cl", "2Cl^+"], answer: "2Cl^-" },
+            redox: "Cl2 + 2KI -> 2KCl + I2", note: "e⁻ ที่จ่าย 2 ตัว = e⁻ ที่รับ 2 ตัว (K⁺ ไม่เปลี่ยน)",
+            ask: ["ra", "r"],
+            opts: ["Cl2", "KI", "I^-", "Cl", "KCl", "K^+"],
+            ans: { ra: "KI", r: "Cl" },
+            explanation: "2I⁻ → I₂ + 2e⁻ (ออกซิเดชัน: I −1 → 0) · Cl₂ + 2e⁻ → 2Cl⁻ (รีดักชัน: Cl 0 → −1 จึง Cl ถูกรีดิวซ์) · KI ให้ e⁻ แก่ Cl₂ จึงเป็นตัวรีดิวซ์ · รวม: Cl₂ + 2KI → 2KCl + I₂"
+          },
+          {
+            id: "b3", type: "redoxid",
+            ox: { eq: "Al -> [?] + 3e^-", options: ["Al^3+", "Al^2+", "Al^+", "Al^3-"], answer: "Al^3+" },
+            red: { eq: "Fe^3+ + 3e^- -> [?]", options: ["Fe", "Fe^2+", "Fe^3-", "FeO"], answer: "Fe" },
+            redox: "2Al + Fe2O3 -> Al2O3 + 2Fe", note: "ออกซิเดชัน × 2 และ รีดักชัน × 2 → e⁻ 6 ตัวเท่ากัน (O²⁻ ไม่เปลี่ยน)",
+            ask: ["o", "r"],
+            opts: ["Al", "Fe2O3", "Fe^3+", "O^2-", "Al2O3", "Fe"],
+            ans: { o: "Al", r: "Fe^3+" },
+            explanation: "Al → Al³⁺ + 3e⁻ (ออกซิเดชัน: 0 → +3 Al ถูกออกซิไดซ์) · Fe³⁺ + 3e⁻ → Fe (รีดักชัน: +3 → 0 Fe³⁺ ถูกรีดิวซ์) · รวม: 2Al + Fe₂O₃ → Al₂O₃ + 2Fe (Al เป็นตัวรีดิวซ์ · Fe₂O₃ เป็นตัวออกซิไดซ์)"
+          },
+          {
+            id: "b4", type: "redoxid",
+            ox: { eq: "C + 2O^2- -> [?] + 4e^-", options: ["CO2", "CO", "CO3^2-", "C2O4^2-"], answer: "CO2" },
+            red: { eq: "Pb^2+ + 2e^- -> [?]", options: ["Pb", "Pb^+", "Pb^4+", "PbO"], answer: "Pb" },
+            redox: "C + 2PbO -> 2Pb + CO2", note: "รีดักชัน × 2 → e⁻ 4 ตัวเท่ากับออกซิเดชัน (2Pb²⁺ + 4e⁻ → 2Pb)",
+            ask: ["ra", "oa"],
+            opts: ["C", "PbO", "Pb^2+", "O^2-", "CO2", "Pb"],
+            ans: { ra: "C", oa: "PbO" },
+            explanation: "C + 2O²⁻ → CO₂ + 4e⁻ (ออกซิเดชัน: C 0 → +4) · Pb²⁺ + 2e⁻ → Pb (รีดักชัน: +2 → 0) · ต้องคูณรีดักชัน × 2 ให้ e⁻ เท่ากัน 4 ตัว · C ให้ e⁻ จึงเป็นตัวรีดิวซ์ · PbO ดึง e⁻ จึงเป็นตัวออกซิไดซ์ · รวม: C + 2PbO → 2Pb + CO₂"
+          },
+          {
+            id: "b5", type: "redoxid",
+            ox: { eq: "S^2- -> [?] + 2e^-", options: ["S", "S^+", "SO2", "S^2+"], answer: "S" },
+            red: { eq: "Br2 + 2e^- -> [?]", options: ["2Br^-", "Br^-", "2Br", "Br2^+"], answer: "2Br^-" },
+            redox: "H2S + Br2 -> 2HBr + S", note: "e⁻ ที่จ่าย 2 ตัว = e⁻ ที่รับ 2 ตัว (H คงที่ +1)",
+            ask: ["r", "ra"],
+            opts: ["H2S", "Br2", "S", "Br", "HBr", "S^2-"],
+            ans: { r: "Br", ra: "H2S" },
+            explanation: "S²⁻ → S + 2e⁻ (ออกซิเดชัน: S −2 → 0) · Br₂ + 2e⁻ → 2Br⁻ (รีดักชัน: Br 0 → −1 Br ถูกรีดิวซ์) · H₂S ให้ e⁻ จึงเป็นตัวรีดิวซ์ · รวม: H₂S + Br₂ → 2HBr + S"
+          },
+          {
+            id: "b6", type: "redoxid",
+            ox: { eq: "Zn -> [?] + 2e^-", options: ["Zn^2+", "Zn^+", "Zn^2-", "Zn^4+"], answer: "Zn^2+" },
+            red: { eq: "Cr^3+ + e^- -> [?]", options: ["Cr^2+", "Cr", "Cr^4+", "Cr^+"], answer: "Cr^2+" },
+            redox: "Zn + 2Cr^3+ -> Zn^2+ + 2Cr^2+", note: "รีดักชัน × 2 → e⁻ 2 ตัวเท่ากับออกซิเดชัน",
+            ask: ["oa", "o"],
+            opts: ["Zn", "Cr^3+", "Zn^2+", "Cr^2+", "Cr"],
+            ans: { oa: "Cr^3+", o: "Zn" },
+            explanation: "Zn → Zn²⁺ + 2e⁻ (ออกซิเดชัน: 0 → +2 Zn ถูกออกซิไดซ์) · Cr³⁺ + e⁻ → Cr²⁺ (รีดักชัน: +3 → +2 ไม่ใช่ Cr โลหะ) · คูณรีดักชัน × 2 ให้ e⁻ เท่ากัน · Cr³⁺ ดึง e⁻ จึงเป็นตัวออกซิไดซ์ · รวม: Zn + 2Cr³⁺ → Zn²⁺ + 2Cr²⁺"
+          },
+          {
+            id: "b7", type: "redoxid",
+            ox: { eq: "Mg -> [?] + 2e^-", options: ["Mg^2+", "Mg^+", "Mg^2-", "Mg^4+"], answer: "Mg^2+" },
+            red: { eq: "2H^+ + 2e^- -> [?]", options: ["H2", "H", "H2^2-", "2H^-"], answer: "H2" },
+            redox: "Mg + 2HCl -> MgCl2 + H2", note: "e⁻ ที่จ่าย 2 ตัว = e⁻ ที่รับ 2 ตัว (Cl⁻ ไม่เปลี่ยน)",
+            ask: ["r", "oa"],
+            opts: ["Mg", "HCl", "MgCl2", "H^+", "Cl^-", "H2"],
+            ans: { r: "H^+", oa: "HCl" },
+            explanation: "Mg → Mg²⁺ + 2e⁻ (ออกซิเดชัน: 0 → +2) · 2H⁺ + 2e⁻ → H₂ (รีดักชัน: H +1 → 0 จึง H⁺ ถูกรีดิวซ์) · HCl ให้ H⁺ มารับ e⁻ จึงเป็นตัวออกซิไดซ์ · รวม: Mg + 2HCl → MgCl₂ + H₂"
+          },
+          {
+            id: "b8", type: "redoxid",
+            ox: { eq: "Cu^+ -> [?] + e^-", options: ["Cu^2+", "Cu", "Cu^3+", "Cu^2-"], answer: "Cu^2+" },
+            red: { eq: "Cu^+ + e^- -> [?]", options: ["Cu", "Cu^2+", "Cu^-", "CuO"], answer: "Cu" },
+            redox: "2Cu^+ -> Cu^2+ + Cu", note: "ตัวเดียวกันเป็นทั้งผู้ให้และผู้รับ e⁻ → ออโต้รีดอกซ์ (2Cu⁺ รวมกัน)",
+            ask: ["ra", "o"],
+            opts: ["Cu^+", "Cu^2+", "Cu", "CuO", "Cu2O"],
+            ans: { ra: "Cu^+", o: "Cu^+" },
+            explanation: "Cu⁺ → Cu²⁺ + e⁻ (ออกซิเดชัน: +1 → +2) · Cu⁺ + e⁻ → Cu (รีดักชัน: +1 → 0) · Cu⁺ เป็นทั้งตัวรีดิวซ์และถูกออกซิไดซ์ ในขณะเดียวกันก็เป็นตัวออกซิไดซ์และถูกรีดิวซ์ (ออโต้รีดอกซ์) · รวม: 2Cu⁺ → Cu²⁺ + Cu"
+          }
+        ]
+      },
+
+      /* ───────── หน้า 3 : ดุลสมการ แบบธรรมดา (6 ข้อ) ───────── */
+      {
+        id: "c3",
+        icon: "⚖️",
+        title: "ภารกิจที่ 3 · ดุลสมการ (1) แบบธรรมดา",
+        intro: "ดุลสมการทีละขั้น 5 ขั้น แต่ละขั้นใช้ช่องคนละสี (ข้อละ 1 คะแนน = ขั้นละ 0.2) — ทุกข้อมีสารที่ต้องดุลมากกว่า 4 ตัว · กดปุ่ม ✅ ส่งภารกิจ ท้ายแต่ละข้อเพื่อตรวจและดูเฉลยทันที (ส่งแล้วแก้ไม่ได้)",
+        example: {
+          id: "ex_c3", type: "balance", kind: "normal",
+          eq: "H2S + KMnO4 + H2SO4 -> S + MnSO4 + K2SO4 + H2O", coef: [5, 2, 3, 5, 2, 1, 8],
+          track: [{ i: 0, el: "S", ox: -2, n: 1 }, { i: 1, el: "Mn", ox: 7, n: 1 }, { i: 3, el: "S", ox: 0, n: 1 }, { i: 4, el: "Mn", ox: 2, n: 1 }],
+          links: [[0, 3], [1, 4]],
+          explanation: "① หาเลขออกซิเดชัน (มีทั้ง − / 0 / +): S ใน H₂S = −2 → S = 0 · Mn ใน KMnO₄ = +7 → MnSO₄ = +2 · ② S จ่าย 2e⁻ (−2 → 0), Mn รับ 5e⁻ (+7 → +2) · ③ จำนวน e⁻ ที่ถ่ายโอน (ค.ร.น.) = 10 · ④ H₂S × 5 (จ่าย 10e⁻), KMnO₄ × 2 (รับ 10e⁻) → S 5, MnSO₄ 2 · ⑤ ดุล K: K₂SO₄ 1 · ดุล S: ขวา 5 + 2 + 1 = 8, ซ้ายจาก H₂S 5 → H₂SO₄ 3 · ดุล H: 10 + 6 = 16 → H₂O 8 (ตรวจ O: 8 + 12 = 20 = 8 + 4 + 8 ✓) · ตอบ 5H₂S + 2KMnO₄ + 3H₂SO₄ → 5S + 2MnSO₄ + K₂SO₄ + 8H₂O"
+        },
+        items: [
+          {
+            id: "r1", type: "balance", kind: "normal",
+            eq: "H2S + HNO3 -> S + NO + H2O", coef: [3, 2, 3, 2, 4],
+            track: [{ i: 0, el: "S", ox: -2, n: 1 }, { i: 1, el: "N", ox: 5, n: 1 }, { i: 2, el: "S", ox: 0, n: 1 }, { i: 3, el: "N", ox: 2, n: 1 }],
+            links: [[0, 2], [1, 3]],
+            explanation: "S: −2 → 0 จ่าย 2e⁻ · N: +5 → +2 รับ 3e⁻ · ค.ร.น. = 6 → H₂S × 3, HNO₃ × 2 → S 3, NO 2 · ดุล H: 6 + 2 = 8 → H₂O 4 (ตรวจ O: 6 = 2 + 4 ✓) · ตอบ 3H₂S + 2HNO₃ → 3S + 2NO + 4H₂O"
+          },
+          {
+            id: "r2", type: "balance", kind: "normal",
+            eq: "Cr(OH)3 + NaOH + NaClO -> Na2CrO4 + NaCl + H2O", coef: [2, 4, 3, 2, 3, 5],
+            track: [{ i: 0, el: "Cr", ox: 3, n: 1 }, { i: 2, el: "Cl", ox: 1, n: 1 }, { i: 3, el: "Cr", ox: 6, n: 1 }, { i: 4, el: "Cl", ox: -1, n: 1 }],
+            links: [[0, 3], [2, 4]],
+            explanation: "Cr: +3 → +6 จ่าย 3e⁻ · Cl: +1 → −1 รับ 2e⁻ · ค.ร.น. = 6 → Cr(OH)₃ × 2, NaClO × 3 → Na₂CrO₄ 2, NaCl 3 · ดุล Na: 4 + 3 = 7 → NaOH 4 · ดุล H: 6 + 4 = 10 → H₂O 5 (ตรวจ O: 6 + 4 + 3 = 13 = 8 + 5 ✓)"
+          },
+          {
+            id: "r3", type: "balance", kind: "normal",
+            eq: "Na2SO3 + KMnO4 + H2O -> Na2SO4 + MnO2 + KOH", coef: [3, 2, 1, 3, 2, 2],
+            track: [{ i: 0, el: "S", ox: 4, n: 1 }, { i: 1, el: "Mn", ox: 7, n: 1 }, { i: 3, el: "S", ox: 6, n: 1 }, { i: 4, el: "Mn", ox: 4, n: 1 }],
+            links: [[0, 3], [1, 4]],
+            explanation: "S: +4 → +6 จ่าย 2e⁻ · Mn: +7 → +4 รับ 3e⁻ · ค.ร.น. = 6 → Na₂SO₃ × 3, KMnO₄ × 2 → Na₂SO₄ 3, MnO₂ 2 · ดุล K: KOH 2 · ดุล H: 2 → H₂O 1 (ตรวจ O: 9 + 8 + 1 = 18 = 12 + 4 + 2 ✓)"
+          },
+          {
+            id: "r4", type: "balance", kind: "normal",
+            eq: "Zn + NaNO3 + NaOH -> Na2ZnO2 + NH3 + H2O", coef: [4, 1, 7, 4, 1, 2],
+            track: [{ i: 0, el: "Zn", ox: 0, n: 1 }, { i: 1, el: "N", ox: 5, n: 1 }, { i: 3, el: "Zn", ox: 2, n: 1 }, { i: 4, el: "N", ox: -3, n: 1 }],
+            links: [[0, 3], [1, 4]],
+            explanation: "Zn: 0 → +2 จ่าย 2e⁻ · N: +5 → −3 รับ 8e⁻ · ค.ร.น. = 8 → Zn × 4, NaNO₃ × 1 → Na₂ZnO₂ 4, NH₃ 1 · ดุล Na: 1 + x = 8 → NaOH 7 · ดุล H: 7 = 3 + 2y → H₂O 2 (ตรวจ O: 3 + 7 = 10 = 8 + 2 ✓)"
+          },
+          {
+            id: "r5", type: "balance", kind: "normal",
+            eq: "KMnO4 + SnCl2 + HCl -> KCl + MnCl2 + SnCl4 + H2O", coef: [2, 5, 16, 2, 2, 5, 8],
+            track: [{ i: 0, el: "Mn", ox: 7, n: 1 }, { i: 1, el: "Sn", ox: 2, n: 1 }, { i: 4, el: "Mn", ox: 2, n: 1 }, { i: 5, el: "Sn", ox: 4, n: 1 }],
+            links: [[0, 4], [1, 5]],
+            explanation: "Mn: +7 → +2 รับ 5e⁻ · Sn: +2 → +4 จ่าย 2e⁻ · ค.ร.น. = 10 → KMnO₄ × 2, SnCl₂ × 5 → MnCl₂ 2, SnCl₄ 5 · ดุล K: KCl 2 · ดุล Cl: ขวา 2 + 4 + 20 = 26, ซ้ายจาก SnCl₂ 10 → HCl 16 · ดุล H: H₂O 8 (ตรวจ O: 8 ✓)"
+          },
+          {
+            id: "r6", type: "balance", kind: "normal",
+            eq: "KNO2 + KMnO4 + H2SO4 -> KNO3 + MnSO4 + K2SO4 + H2O", coef: [5, 2, 3, 5, 2, 1, 3],
+            track: [{ i: 0, el: "N", ox: 3, n: 1 }, { i: 1, el: "Mn", ox: 7, n: 1 }, { i: 3, el: "N", ox: 5, n: 1 }, { i: 4, el: "Mn", ox: 2, n: 1 }],
+            links: [[0, 3], [1, 4]],
+            explanation: "N: +3 → +5 จ่าย 2e⁻ · Mn: +7 → +2 รับ 5e⁻ · ค.ร.น. = 10 → KNO₂ × 5, KMnO₄ × 2 → KNO₃ 5, MnSO₄ 2 · ดุล K: ซ้าย 7 → ขวา 5 + 2z → K₂SO₄ 1 · ดุล S: 2 + 1 = 3 → H₂SO₄ 3 · ดุล H: H₂O 3 (ตรวจ O: 30 ✓)"
+          }
+        ]
+      },
+
+      /* ───────── หน้า 4 : ดุลสมการ ตามฝั่งซ้าย / ปรับเปลี่ยน / ผสม / ออโต้รีดอกซ์ (8 ข้อ) ───────── */
+      {
+        id: "c4",
+        icon: "🏆",
+        title: "ภารกิจที่ 3 · ดุลสมการ (2) ตามฝั่งซ้าย · ปรับเปลี่ยน · ออโต้รีดอกซ์",
+        intro: "รูปแบบพิเศษ 8 ข้อ — อ่านป้ายสีม่วงที่หัวข้อแต่ละข้อว่าเป็นรูปแบบไหน (ข้อละ 1 คะแนน = ขั้นละ 0.2) · กดปุ่ม ✅ ส่งภารกิจ ท้ายแต่ละข้อเพื่อตรวจและดูเฉลยทันที (ส่งแล้วแก้ไม่ได้)",
+        example: {
+          id: "ex_c4", type: "balance", kind: "adjust",
+          eq: "Zn + H2SO4 -> ZnSO4 + H2S + H2O", coef: [4, 5, 4, 1, 4],
+          track: [{ i: 0, el: "Zn", ox: 0, n: 1 }, { i: 1, el: "S", ox: 6, n: 1 }, { i: 2, el: "Zn", ox: 2, n: 1 }, { i: 3, el: "S", ox: -2, n: 1 }],
+          links: [[0, 2], [1, 3]],
+          explanation: "ตัวอย่างแบบ “ปรับเปลี่ยน” · ① เลขออกซิเดชัน: Zn 0 → +2, S +6 → −2 (มี 0 / + / −) · ② Zn จ่าย 2e⁻, S รับ 8e⁻ · ③ จำนวน e⁻ ที่ถ่ายโอน (ค.ร.น.) = 8 · ④ Zn × 4, H₂SO₄ × 1 → ZnSO₄ 4, H₂S 1 · ปรับเปลี่ยน: S ฝั่งขวามี 2 ที่ (ZnSO₄ 4 + H₂S 1 = 5) จึงแก้ H₂SO₄ จาก 1 เป็น 5 (ช่องเขียว → ชมพู) · ⑤ ดุล H: 10 = 2 + 2 × 4 → H₂O 4 (ตรวจ O: 20 = 16 + 4 ✓) · แบบ “ตามฝั่งซ้าย” ให้คูณจำนวนอะตอมในสูตรด้านซ้ายเข้า e⁻ ด้วย · แบบ “ออโต้รีดอกซ์” ให้โยงเส้นจากสารเดียวไปหาผลิตภัณฑ์ 2 ตัว"
+        },
+        items: [
+          {
+            id: "r7", type: "balance", kind: "left",
+            eq: "Cr2O3 + KClO3 + KOH -> K2CrO4 + KCl + H2O", coef: [1, 1, 4, 2, 1, 2],
+            track: [{ i: 0, el: "Cr", ox: 3, n: 2 }, { i: 1, el: "Cl", ox: 5, n: 1 }, { i: 3, el: "Cr", ox: 6, n: 1 }, { i: 4, el: "Cl", ox: -1, n: 1 }],
+            links: [[0, 3], [1, 4]],
+            explanation: "Cr₂O₃: Cr 2 อะตอม +3 → +6 จ่าย 2 × 3 = 6e⁻ · Cl: +5 → −1 รับ 6e⁻ · ค.ร.น. = 6 → Cr₂O₃ × 1, KClO₃ × 1 → K₂CrO₄ 2 (Cr 2 อะตอม), KCl 1 · ดุล K: 2×2 + 1 = 5 → KOH 4 · ดุล H: H₂O 2 (ตรวจ O: 3 + 3 + 4 = 10 = 8 + 2 ✓)"
+          },
+          {
+            id: "r8", type: "balance", kind: "left",
+            eq: "Bi2O3 + NaOH + NaClO -> NaBiO3 + NaCl + H2O", coef: [1, 2, 2, 2, 2, 1],
+            track: [{ i: 0, el: "Bi", ox: 3, n: 2 }, { i: 2, el: "Cl", ox: 1, n: 1 }, { i: 3, el: "Bi", ox: 5, n: 1 }, { i: 4, el: "Cl", ox: -1, n: 1 }],
+            links: [[0, 3], [2, 4]],
+            explanation: "Bi₂O₃: Bi 2 อะตอม +3 → +5 จ่าย 2 × 2 = 4e⁻ · Cl: +1 → −1 รับ 2e⁻ · ค.ร.น. = 4 → Bi₂O₃ × 1, NaClO × 2 → NaBiO₃ 2, NaCl 2 · ดุล Na: ขวา 4 → NaOH 2 · ดุล H: H₂O 1 (ตรวจ O: 3 + 2 + 2 = 7 = 6 + 1 ✓)"
+          },
+          {
+            id: "r9", type: "balance", kind: "left",
+            eq: "K2Cr2O7 + FeCl2 + HCl -> KCl + CrCl3 + FeCl3 + H2O", coef: [1, 6, 14, 2, 2, 6, 7],
+            track: [{ i: 0, el: "Cr", ox: 6, n: 2 }, { i: 1, el: "Fe", ox: 2, n: 1 }, { i: 4, el: "Cr", ox: 3, n: 1 }, { i: 5, el: "Fe", ox: 3, n: 1 }],
+            links: [[0, 4], [1, 5]],
+            explanation: "K₂Cr₂O₇: Cr 2 อะตอม +6 → +3 รับ 2 × 3 = 6e⁻ · Fe: +2 → +3 จ่าย 1e⁻ · ค.ร.น. = 6 → K₂Cr₂O₇ × 1, FeCl₂ × 6 → CrCl₃ 2, FeCl₃ 6 · ดุล K: KCl 2 · ดุล Cl: ขวา 2 + 6 + 18 = 26, ซ้ายจาก FeCl₂ 12 → HCl 14 · ดุล H: H₂O 7 (ตรวจ O: 7 ✓)"
+          },
+          {
+            id: "r10", type: "balance", kind: "adjust",
+            eq: "Ag + HNO3 -> AgNO3 + NO + H2O", coef: [3, 4, 3, 1, 2],
+            track: [{ i: 0, el: "Ag", ox: 0, n: 1 }, { i: 1, el: "N", ox: 5, n: 1 }, { i: 2, el: "Ag", ox: 1, n: 1 }, { i: 3, el: "N", ox: 2, n: 1 }],
+            links: [[0, 2], [1, 3]],
+            explanation: "Ag: 0 → +1 จ่าย 1e⁻ · N: +5 → +2 รับ 3e⁻ · ค.ร.น. = 3 → Ag × 3, HNO₃ × 1 → AgNO₃ 3, NO 1 · ปรับเปลี่ยน: N ฝั่งขวามี 2 ที่ (AgNO₃ 3 + NO 1 = 4) → แก้ HNO₃ เป็น 4 · ดุล H: H₂O 2 (ตรวจ O: 12 = 9 + 1 + 2 ✓)"
+          },
+          {
+            id: "r11", type: "balance", kind: "adjust",
+            eq: "Cu + H2SO4 -> CuSO4 + SO2 + H2O", coef: [1, 2, 1, 1, 2],
+            track: [{ i: 0, el: "Cu", ox: 0, n: 1 }, { i: 1, el: "S", ox: 6, n: 1 }, { i: 2, el: "Cu", ox: 2, n: 1 }, { i: 3, el: "S", ox: 4, n: 1 }],
+            links: [[0, 2], [1, 3]],
+            explanation: "Cu: 0 → +2 จ่าย 2e⁻ · S: +6 → +4 รับ 2e⁻ · ค.ร.น. = 2 → Cu × 1, H₂SO₄ × 1 → CuSO₄ 1, SO₂ 1 · ปรับเปลี่ยน: S ฝั่งขวามี 2 ที่ (CuSO₄ 1 + SO₂ 1 = 2) → แก้ H₂SO₄ เป็น 2 · ดุล H: H₂O 2 (ตรวจ O: 8 = 4 + 2 + 2 ✓)"
+          },
+          {
+            id: "r12", type: "balance", kind: "leftadjust",
+            eq: "K2Cr2O7 + HCl -> KCl + CrCl3 + Cl2 + H2O", coef: [1, 14, 2, 2, 3, 7],
+            track: [{ i: 0, el: "Cr", ox: 6, n: 2 }, { i: 1, el: "Cl", ox: -1, n: 1 }, { i: 3, el: "Cr", ox: 3, n: 1 }, { i: 4, el: "Cl", ox: 0, n: 2 }],
+            links: [[0, 3], [1, 4]],
+            explanation: "K₂Cr₂O₇: Cr 2 อะตอม +6 → +3 รับ 2 × 3 = 6e⁻ · Cl: −1 → 0 จ่าย 1e⁻ · ค.ร.น. = 6 → K₂Cr₂O₇ × 1, HCl × 6 → CrCl₃ 2 และ Cl₂ 3 (Cl 6 อะตอม) · ปรับเปลี่ยน: Cl ฝั่งขวามี 3 ที่ (KCl 2 + CrCl₃ 6 + Cl₂ 6 = 14) → แก้ HCl เป็น 14 · ดุล K: KCl 2 · ดุล H: H₂O 7 (ตรวจ O: 7 ✓)"
+          },
+          {
+            id: "r13", type: "balance", kind: "auto",
+            eq: "Br2 + KOH -> KBr + KBrO3 + H2O", coef: [3, 6, 5, 1, 3],
+            track: [{ i: 0, el: "Br", ox: 0, n: 2 }, { i: 2, el: "Br", ox: -1, n: 1 }, { i: 3, el: "Br", ox: 5, n: 1 }],
+            links: [[0, 2], [0, 3]],
+            explanation: "Br₂ เป็นทั้งตัวให้และตัวรับ: Br 0 → −1 รับ 1e⁻ (KBr) · Br 0 → +5 จ่าย 5e⁻ (KBrO₃) · ค.ร.น. = 5 → KBr × 5, KBrO₃ × 1 → Br ฝั่งขวา 6 อะตอม → Br₂ 3 · ดุล K: 5 + 1 = 6 → KOH 6 · ดุล H: H₂O 3 (ตรวจ O: 6 = 3 + 3 ✓)"
+          },
+          {
+            id: "r14", type: "balance", kind: "auto",
+            eq: "S + KOH -> K2S + K2SO3 + H2O", coef: [3, 6, 2, 1, 3],
+            track: [{ i: 0, el: "S", ox: 0, n: 1 }, { i: 2, el: "S", ox: -2, n: 1 }, { i: 3, el: "S", ox: 4, n: 1 }],
+            links: [[0, 2], [0, 3]],
+            explanation: "S เป็นทั้งตัวให้และตัวรับ: S 0 → −2 รับ 2e⁻ (K₂S) · S 0 → +4 จ่าย 4e⁻ (K₂SO₃) · ค.ร.น. = 4 → K₂S × 2, K₂SO₃ × 1 → S ฝั่งขวา 3 อะตอม → S 3 · ดุล K: 4 + 2 = 6 → KOH 6 · ดุล H: H₂O 3 (ตรวจ O: 6 = 3 + 3 ✓)"
+          }
+        ]
+      }
+    ]
+  };
+  WS2.data = WS2.pages.reduce((all, p) => all.concat(p.items), []);
+
+  window.COURSE_DATA = { quiz1: WS1, quiz2: WS2 };
 })();

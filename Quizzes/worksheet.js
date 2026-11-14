@@ -475,6 +475,242 @@ TYPES.hotspot = {
   }
 };
 
+/* ============================== เคมี : เลขออกซิเดชัน · ระบุรีดอกซ์ · ดุลสมการทีละขั้น ============================== */
+const SUBD = "₀₁₂₃₄₅₆₇₈₉", SUPD = "⁰¹²³⁴⁵⁶⁷⁸⁹";
+// แปลงสูตรแบบพิมพ์ง่าย "Cr2O7^2-" → "Cr₂O₇²⁻"  ( -> เป็นลูกศร )
+function chemU(s) {
+  s = String(s).replace(/->/g, "→");
+  let out = "", i = 0;
+  while (i < s.length) {
+    const ch = s[i];
+    if (ch === "^") {
+      i++;
+      while (i < s.length && /[0-9]/.test(s[i])) { out += SUPD[+s[i]]; i++; }
+      if (s[i] === "+") { out += "⁺"; i++; } else if (s[i] === "-") { out += "⁻"; i++; }
+      continue;
+    }
+    if (/[0-9]/.test(ch) && /[A-Za-z)\]₀-₉]$/.test(out)) out += SUBD[+ch];
+    else out += ch;
+    i++;
+  }
+  return out;
+}
+const cu = (s) => esc(chemU(s));
+
+// อ่านตัวเลขที่นักเรียนพิมพ์ (รองรับ +6  −2  5/2) → [เศษ, ส่วน] หรือ null
+function parseNum(s) {
+  s = String(s == null ? "" : s).trim().replace(/[−–—]/g, "-").replace(/\s+/g, "").replace(/^\+/, "");
+  const m = /^(-?\d+)(?:\/(\d+))?$/.exec(s);
+  if (!m) return null;
+  const n = Number(m[1]), d = m[2] ? Number(m[2]) : 1;
+  return d ? [n, d] : null;
+}
+function numEq(s, v) {
+  const a = parseNum(s), b = parseNum(String(v));
+  return !!a && !!b && a[0] * b[1] === b[0] * a[1];
+}
+const getPath = (a, p) => p.split(".").reduce((o, k) => (o == null ? undefined : o[k]), a);
+function setPath(id, path, val) {
+  const ks = path.split(".");
+  let o = (answers[id] = answers[id] || {});
+  ks.slice(0, -1).forEach((k) => { o = o[k] = o[k] || {}; });
+  o[ks[ks.length - 1]] = val;
+}
+const rxChange = (it, el) => {
+  if (!el.matches("input.rx-in, select.rx-sel") || !el.dataset.f) return false;
+  setPath(it.id, el.dataset.f, el.value);
+  return true;
+};
+const fmtOx = (v) => { const n = Number(v); return Number.isFinite(n) ? (n > 0 ? "+" : n < 0 ? "−" : "") + Math.abs(n) : String(v); };
+function rxInput(cls, path, val, ro, state, fix) {
+  return `<input type="text" class="rx-in ${cls} ${state || ""}" data-f="${path}" value="${esc(val == null ? "" : val)}" autocomplete="off" inputmode="text" ${ro ? "disabled" : ""}/>` +
+    (state === "bad" && fix !== undefined ? `<span class="rx-fix"><i>✘</i> ✔ ${esc(fmtOx(fix))}</span>` : "");
+}
+function rxSelect(path, val, options, key, ro, rev, cls) {
+  const opts = options.map((o) => {
+    const v = Array.isArray(o) ? o[0] : o, t = Array.isArray(o) ? o[1] : chemU(o);
+    return `<option value="${esc(v)}" ${val === v ? "selected" : ""}>${esc(t)}</option>`;
+  }).join("");
+  return `<select class="rx-sel ${cls || ""} ${rev ? (val === key ? "ok" : "bad") : ""}" data-f="${path}" ${ro ? "disabled" : ""}><option value="">— เลือก —</option>${opts}</select>` +
+    (rev && !cls && val !== key ? `<span class="rx-fix"><i>✘</i> ✔ ${esc(chemU(key))}</span>` : "");
+}
+
+/* ---------- (ก) ผลรวมเลขออกซิเดชันของธาตุเดียวกันใน 3 สารประกอบ ---------- */
+TYPES.oxsum = {
+  change: rxChange,
+  answered: (it, a) => !!a && it.cmps.every((_, i) => parseNum(a["c" + i])) && !!parseNum(a.sum),
+  grade: (it, a) => (a && it.cmps.every((c, i) => numEq(a["c" + i], c.ox)) && numEq(a.sum, it.sum) ? 1 : 0),
+  render(it, ctx) {
+    const a = answers[it.id] || {}, chk = (a._chk || 0) >= 1, ro = ctx.readOnly || chk, rev = (ctx.readOnly && ctx.reveal) || chk;
+    const st = (v, key) => (rev ? (numEq(v, key) ? "ok" : "bad") : "");
+    const rows = it.cmps.map((c, i) => `<div class="ox-row"><span class="ox-no">${i + 1}</span><span class="ox-f">${cu(c.f)}</span>
+      <span class="ox-lab">${esc(it.el)} =</span>${rxInput("", "c" + i, a["c" + i], ro, st(a["c" + i], c.ox), c.ox)}</div>`).join("");
+    return `<p class="q-text">จงหาเลขออกซิเดชันของ <b>${esc(it.el)}</b> ในสารประกอบแต่ละตัว (ตอบแยกทีละตัว) แล้วหา <b>ผลรวม</b> ของทั้ง 3 ตัว</p>
+      ${ro ? "" : '<p class="mission-hint">กรอกเป็นตัวเลข เช่น 6 · −2 · 0 · หรือเศษส่วน 5/2 &nbsp;|&nbsp; ⚠ ถ้าผลรวมผิด ข้อนี้ไม่ได้คะแนน</p>'}
+      <div class="ox-box">${rows}<div class="ox-row sum"><span class="ox-f">ผลรวมเลขออกซิเดชันของ ${esc(it.el)}</span><span class="ox-lab">=</span>${rxInput("", "sum", a.sum, ro, st(a.sum, it.sum), it.sum)}</div></div>`;
+  }
+};
+
+/* ---------- (ข) ครึ่งปฏิกิริยา oxidation / reduction (เห็น e⁻ จ่าย/รับ) + ระบุคำศัพท์รีดอกซ์ 2 คำที่สุ่มถาม ---------- */
+const RD_LAB = { o: "สารที่ถูกออกซิไดซ์", r: "สารที่ถูกรีดิวซ์", ra: "ตัวรีดิวซ์", oa: "ตัวออกซิไดซ์" };
+const rdParts = (it) => 2 + it.ask.length;
+const rdHalfOk = (it, a) => !!a && a.xb === it.ox.answer && a.rb === it.red.answer;
+TYPES.redoxid = {
+  change: rxChange,
+  answered: (it, a) => !!a && !!a.xb && !!a.rb && it.ask.every((k) => a[k]),
+  grade(it, a) {
+    if (!a) return 0;
+    let ok = 0;
+    if (a.xb === it.ox.answer) ok++;
+    if (a.rb === it.red.answer) ok++;
+    it.ask.forEach((k) => { if (a[k] === it.ans[k]) ok++; });
+    return ok / rdParts(it);
+  },
+  render(it, ctx) {
+    const a = answers[it.id] || {}, st = a._chk || 0, ro = ctx.readOnly;
+    const hLock = ro || st >= 1, hRev = (ro && ctx.reveal) || st >= 1;
+    const tShow = st >= 1 || ro, tLock = ro || st >= 2, tRev = (ro && ctx.reveal) || st >= 2;
+    const eh = (s) => esc(chemU(s)).replace(/(\d*)e⁻/g, '<b class="rd-e">$1e⁻</b>');
+    const half = (h, key, tag, cls) => {
+      const p = h.eq.split("[?]"), wrong = hRev && a[key] !== h.answer;
+      return `<div class="rd-half ${cls}"><span class="rd-tag">${tag}</span><div class="rd-eq">${eh(p[0])}${rxSelect(key, a[key], h.options, h.answer, hLock, hRev, "blank")}${eh(p[1])}</div>
+        ${wrong ? `<div class="rd-fix">✔ สมการที่ถูก: ${eh(p[0] + h.answer + p[1])}</div>` : ""}</div>`;
+    };
+    const grid = it.ask.map((k) => `<label class="rd-cell"><span>${RD_LAB[k]}</span>${rxSelect(k, a[k], it.opts, it.ans[k], tLock, tRev)}</label>`).join("");
+    const half2 = (a.xb === it.ox.answer ? 1 : 0) + (a.rb === it.red.answer ? 1 : 0);
+    let total = "";
+    if (st >= 1 || (ro && rdHalfOk(it, a))) {
+      total = `<p class="rd-note rd-stage">ขั้นแรก (ครึ่งปฏิกิริยา): ได้ ${half2 * 0.25}/0.5 คะแนน</p>
+        <div class="rd-redox"><span class="rd-tag">⚡ ปฏิกิริยารีดอกซ์รวม</span><div class="rd-eq">${cu(it.redox)}</div>${it.note ? `<p class="rd-note">${esc(it.note)}</p>` : ""}</div>`;
+    } else if (ro) {
+      total = '<p class="rd-redox-lock">🔒 ตอบครึ่งปฏิกิริยา oxidation และ reduction ให้ถูกทั้งคู่ จึงจะเห็นปฏิกิริยารีดอกซ์รวม</p>';
+    }
+    const lead = st === 0 && !ro
+      ? '<p class="q-text">เลือกสารที่หายไปในครึ่งปฏิกิริยา (สังเกต e⁻ ที่ <b>จ่าย</b> / <b>รับ</b>) แล้วกด <b>ส่งภารกิจขั้นแรก</b> — จะเห็นเฉลยและปฏิกิริยารีดอกซ์รวม แล้วจึงตอบคำถามศัพท์รีดอกซ์</p>'
+      : '<p class="q-text">ครึ่งปฏิกิริยา oxidation / reduction</p>';
+    const q2 = tShow ? `<p class="q-text rd-q2">ตอบศัพท์รีดอกซ์ 2 คำ จากปฏิกิริยารวมด้านบน</p>
+      ${tLock ? "" : '<p class="mission-hint">ระวัง: “ถูกออกซิไดซ์ / ถูกรีดิวซ์” ตอบเป็นอะตอมหรือไอออนที่เลขออกซิเดชันเปลี่ยน · “ตัวรีดิวซ์ / ตัวออกซิไดซ์” ตอบเป็นสารที่ทำให้อีกตัวเปลี่ยน (สารทั้งสูตร) — คนละคำกัน!</p>'}
+      <div class="rd-grid">${grid}</div>` : "";
+    return `${lead}${half(it.ox, "xb", "🔶 ออกซิเดชัน · จ่าย e⁻", "ox")}${half(it.red, "rb", "🔷 รีดักชัน · รับ e⁻", "red")}${total}${q2}`;
+  }
+};
+
+/* ---------- (ค) ดุลสมการรีดอกซ์ทีละขั้น (5 ขั้น แต่ละขั้นคนละสี) ---------- */
+const lcm2 = (x, y) => { const g = (p, q) => (q ? g(q, p % q) : p); return (x / g(x, y)) * y; };
+const RX_KIND = { normal: "แบบธรรมดา", left: "แบบตามฝั่งซ้าย", adjust: "แบบปรับเปลี่ยน", leftadjust: "แบบตามฝั่งซ้าย + ปรับเปลี่ยน", auto: "แบบออโต้รีดอกซ์" };
+const RX_COL = ["#2f80ff", "#0aa5b5", "#ff8a1f"];
+const rxCache = {};
+function rxModel(it) {
+  if (rxCache[it.id]) return rxCache[it.id];
+  const sides = it.eq.split("->").map((s) => s.split(" + ").map((x) => x.trim()));
+  const sp = sides[0].concat(sides[1]), nL = sides[0].length;
+  const tr = {};
+  it.track.forEach((t) => { tr[t.i] = t; });
+  const links = it.links.map(([a, b]) => {
+    const dir = tr[b].ox > tr[a].ox ? "give" : "take";
+    const scale = it.kind === "auto" ? b : a, other = scale === a ? b : a;
+    return { a, b, dir, scale, other, ns: tr[scale].n, no: tr[other].n, e: Math.abs(tr[b].ox - tr[a].ox) * tr[scale].n, el: tr[a].el };
+  });
+  const L = links.map((l) => l.e).reduce(lcm2);
+  const cnt = {};
+  links.forEach((l) => { cnt[l.a] = (cnt[l.a] || 0) + 1; cnt[l.b] = (cnt[l.b] || 0) + 1; });
+  const temp = {};
+  links.forEach((l) => {
+    l.m = L / l.e;
+    temp[l.scale] = l.m;
+    if (cnt[l.other] === 1) temp[l.other] = (l.m * l.ns) / l.no;
+  });
+  const s5 = sp.map((_, i) => i).filter((i) => temp[i] === undefined || temp[i] !== it.coef[i]);
+  return (rxCache[it.id] = { sp, nL, tr, links, L, temp, s5 });
+}
+
+TYPES.balance = {
+  change: rxChange,
+  answered(it, a) {
+    if (!a) return false;
+    const M = rxModel(it), g = (p) => getPath(a, p);
+    return it.track.every((t) => parseNum(g("ox." + t.i))) &&
+      M.links.every((l, k) => g(`e.${k}.d`) && parseNum(g(`e.${k}.n`)) && parseNum(g("m." + k))) &&
+      !!parseNum(g("lcm")) &&
+      Object.keys(M.temp).every((i) => parseNum(g("c4." + i))) &&
+      M.s5.every((i) => parseNum(g("c5." + i)));
+  },
+  grade(it, a) {
+    if (!a) return 0;
+    const M = rxModel(it), g = (p) => getPath(a, p);
+    let ok = 0;
+    if (it.track.every((t) => numEq(g("ox." + t.i), t.ox))) ok++;
+    if (M.links.every((l, k) => g(`e.${k}.d`) === l.dir && numEq(g(`e.${k}.n`), l.e))) ok++;
+    if (numEq(g("lcm"), M.L)) ok++;
+    if (M.links.every((l, k) => numEq(g("m." + k), l.m)) && Object.keys(M.temp).every((i) => numEq(g("c4." + i), M.temp[i]))) ok++;
+    if (M.s5.every((i) => numEq(g("c5." + i), it.coef[i]))) ok++;
+    return ok / 5;
+  },
+  render(it, ctx) {
+    const M = rxModel(it), a = answers[it.id] || {}, chk = (a._chk || 0) >= 1, ro = ctx.readOnly || chk, rev = (ctx.readOnly && ctx.reveal) || chk;
+    const mk = (cls, path, key) => { const v = getPath(a, path); const bad = rev && !numEq(v, key); const h = rxInput(cls, path, v, ro, rev ? (bad ? "bad" : "ok") : ""); return bad ? `<span class="rx-fixw">${h}<span class="rx-fix2"><i>✘</i> ✔ ${esc(cls === "s1" ? fmtOx(key) : String(key))}</span></span>` : h; };
+    let eq = "";
+    M.sp.forEach((f, i) => {
+      if (i === M.nL) eq += '<span class="rx-op">→</span>';
+      else if (i > 0) eq += '<span class="rx-op">+</span>';
+      const t = M.tr[i];
+      const ox = t ? `<span class="rx-ox"><em>${esc(t.el)}</em>${mk("s1", "ox." + i, t.ox)}</span>` : "";
+      let co = "";
+      if (M.temp[i] !== undefined) co += mk("s4", "c4." + i, M.temp[i]);
+      if (M.s5.includes(i)) co += (M.temp[i] !== undefined ? '<span class="rx-then">→</span>' : "") + mk("s5", "c5." + i, it.coef[i]);
+      eq += `<span class="rx-sp" data-sp="${i}">${ox}<span class="rx-chip">${co}<span class="rx-f">${cu(f)}</span></span></span>`;
+    });
+    const lbls = M.links.map((l, k) => `<div class="rx-lbl" data-link="${k}" style="--lc:${RX_COL[k % RX_COL.length]}">
+      <span class="rx-fixw">${rxSelect(`e.${k}.d`, getPath(a, `e.${k}.d`), [["give", "จ่าย"], ["take", "รับ"]], l.dir, ro, rev, "s2")}${rev && getPath(a, `e.${k}.d`) !== l.dir ? `<span class="rx-fix2"><i>✘</i> ✔ ${l.dir === "give" ? "จ่าย" : "รับ"}</span>` : ""}</span>
+      ${mk("s2", `e.${k}.n`, l.e)}<span>e⁻</span><span class="rx-x">×</span>${mk("s4", "m." + k, l.m)}</div>`).join("");
+    const pairs = JSON.stringify(M.links.map((l) => [l.a, l.b]));
+    const unit = it.kind === "auto" ? "ต่อ 1 สูตรของผลิตภัณฑ์ที่โยงเส้น" : (it.kind === "left" || it.kind === "leftadjust") ? "ต่อ 1 สูตรของสารตั้งต้น (ถ้ามีเลขห้อย ให้คูณเลขห้อย)" : "ต่อ 1 สูตรของสารตั้งต้น";
+    const adj = M.s5.some((i) => M.temp[i] !== undefined) ? " · สารที่ต้องแก้เลขภายหลังจะมีช่องชมพูต่อท้ายลูกศร →" : "";
+    const first = ITEMS.find((x) => x.type === "balance") === it;
+    const steps = ro ? "" : `<details class="rx-steps" ${first ? "open" : ""}><summary>📋 ขั้นตอนทั้ง 5 ขั้น (แตะเพื่อ${first ? "ซ่อน" : "ดู"})</summary><ol class="rx-ol">
+      <li><b class="s1">①</b> ใส่ <b>เลขออกซิเดชัน</b> ของธาตุที่แลกเปลี่ยน e⁻ (ช่องส้มเหนือสาร) — ใส่เครื่องหมายได้ เช่น +5 · −2 · 0</li>
+      <li><b class="s2">②</b> <b>โยงเส้นคู่กัน</b> — เลือก จ่าย / รับ และจำนวน e⁻ ${unit} (ช่องฟ้าบนเส้น)</li>
+      <li><b class="s3">③</b> หา <b>จำนวน e⁻ ที่ถ่ายโอนในปฏิกิริยานี้ (ค.ร.น.)</b> ของจำนวน e⁻ ทั้งสองเส้น</li>
+      <li><b class="s4">④</b> หาตัวเลขที่ <b>คูณ</b> e⁻ ให้เท่า ค.ร.น. (ช่องเขียวบนเส้น) แล้วนำไปใส่เป็นเลขดุลของสารที่โยงเส้น (ช่องเขียวหน้าสาร)</li>
+      <li><b class="s5">⑤</b> ดุล <b>สารที่เหลือ</b> ให้อะตอมเท่ากัน (ช่องชมพู)${adj}</li></ol></details>`;
+    return `<p class="q-text"><span class="rx-kind">ดุลสมการ · ${RX_KIND[it.kind]}</span> ดุลสมการรีดอกซ์ต่อไปนี้ทีละขั้น (เลข 1 ก็ต้องใส่)</p>${steps}
+      <div class="rx-scroll"><div class="rx-eq ${rev ? "chk" : ""}" style="--nl:${M.links.length}" data-pairs='${pairs}'>${eq}<svg class="rx-svg"></svg>${lbls}</div></div>
+      <div class="rx-lcm"><b class="s3">③</b> จำนวน e⁻ ที่ถ่ายโอนในปฏิกิริยานี้ (ค.ร.น.) = ${mk("s3", "lcm", M.L)}</div>`;
+  }
+};
+
+// วาดเส้นโยง + วางป้าย จ่าย/รับ ตามตำแหน่งจริงของสาร (ต้องเรียกเมื่อหน้านั้นแสดงอยู่)
+function layoutRx() {
+  document.querySelectorAll(".ws-page.active .rx-eq").forEach((eq) => {
+    const R = eq.getBoundingClientRect();
+    if (!R.width) return;
+    const pos = {};
+    eq.querySelectorAll(".rx-sp").forEach((s) => {
+      const c = s.querySelector(".rx-chip").getBoundingClientRect();
+      pos[s.dataset.sp] = { x: c.left - R.left + c.width / 2, y: c.bottom - R.top };
+    });
+    const pairs = JSON.parse(eq.dataset.pairs), base = Math.max(...Object.values(pos).map((p) => p.y));
+    const svg = eq.querySelector(".rx-svg");
+    svg.setAttribute("viewBox", `0 0 ${R.width} ${R.height}`);
+    let body = "";
+    pairs.forEach(([a, b], k) => {
+      const pa = pos[a], pb = pos[b], y = base + 24 + k * 64, col = RX_COL[k % RX_COL.length];
+      body += `<path d="M${pa.x},${pa.y + 3} V${y} H${pb.x} V${pb.y + 8}" fill="none" stroke="${col}" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>`;
+      body += `<path d="M${pb.x - 6},${pb.y + 9} L${pb.x},${pb.y + 2} L${pb.x + 6},${pb.y + 9}" fill="none" stroke="${col}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>`;
+      const lb = eq.querySelector(`.rx-lbl[data-link="${k}"]`), w = lb.offsetWidth;
+      const span = Math.abs(pb.x - pa.x);
+      if (span >= w + 24) { // เส้นยาวพอ → วางป้ายกลางเส้น
+        lb.style.top = y + "px";
+        lb.style.left = Math.max(0, Math.min(R.width - w, (pa.x + pb.x) / 2 - w / 2)) + "px";
+      } else { // เส้นสั้น → วางป้ายใต้เส้น ไม่ให้บังหัวลูกศร
+        lb.style.top = y + 22 + "px";
+        lb.style.left = Math.max(0, Math.min(R.width - w, Math.min(pa.x, pb.x) + 10)) + "px";
+      }
+    });
+    svg.innerHTML = body;
+  });
+}
+
 /* ---------- กราฟให้ความร้อน (แตะเลือกช่วงได้) ---------- */
 function figHeat(f, sel, ro, correct) {
   const P = [[70, 235], [160, 185], [250, 185], [340, 120], [430, 120], [510, 60]];
@@ -770,6 +1006,35 @@ function reviewBadge(item, ctx) {
   return `<div class="review-badge incorrect">❌ ยังไม่ถูกต้อง</div>`;
 }
 
+/* ---- ตรวจรายข้อ (เคมี): oxsum/balance 1 ขั้น · redoxid 2 ขั้น ---- */
+const CHEM = { oxsum: 1, balance: 1, redoxid: 2 };
+const stageOf = (item) => (answers[item.id] && answers[item.id]._chk) || 0;
+function balancedEq(it) {
+  const sides = it.eq.split("->").map((x) => x.split(" + ").map((f) => f.trim()));
+  let i = 0;
+  const side = (arr) => arr.map((f) => { const c = it.coef[i++]; return (c === 1 ? "" : c) + f; }).join(" + ");
+  const L = side(sides[0]), R = side(sides[1]);
+  return chemU(L + " -> " + R);
+}
+function chemFooter(item, ctx) {
+  const fin = CHEM[item.type];
+  if (!fin) return "";
+  const st = stageOf(item);
+  if (st >= fin) {
+    const r = TYPES[item.type].grade(item, answers[item.id]), pt = ptsOf(item);
+    const badge = r === 1 ? '<div class="review-badge correct">✅ ถูกต้อง</div>'
+      : r > 0 ? `<div class="review-badge partial">◐ ได้บางส่วน ${Math.round(r * pt * 100) / 100}/${pt} คะแนน</div>`
+      : '<div class="review-badge incorrect">❌ ยังไม่ถูกต้อง</div>';
+    const eq = item.type === "balance" && r < 1 ? `<p class="rx-ans">สมการที่ดุลแล้ว: <b>${esc(balancedEq(item))}</b></p>` : "";
+    const ex = r < 1 ? `<div class="explanation-box"><strong>วิธีคิด / เฉลย</strong>${eq}<div class="explanation-text">${esc(item.explanation)}</div></div>` : "";
+    return badge + ex;
+  }
+  if (ctx.readOnly) return "";
+  const label = item.type === "redoxid" ? (st === 0 ? "✅ ส่งภารกิจขั้นแรก (ครึ่งปฏิกิริยา)" : "✅ ส่งภารกิจขั้นที่สอง (ศัพท์รีดอกซ์)") : "✅ ส่งภารกิจข้อนี้ (ตรวจ + ดูเฉลย)";
+  return `<div class="rx-chk-row"><button type="button" class="btn go rx-chk" data-act="chk">${label}</button><span class="rx-chk-hint">ส่งแล้วแก้ไม่ได้</span></div>`;
+}
+const chemBody = (item, no, ctx) => qHead(item, no) + TYPES[item.type].render(item, ctx) + chemFooter(item, ctx);
+
 function buildItem(item, no, ctx) {
   const a = answers[item.id];
   let body = "";
@@ -806,9 +1071,27 @@ function buildItem(item, no, ctx) {
   } else if (item.type === "mission") {
     return `<div class="q-card" data-id="${item.id}"><div data-mission="${item.id}">${qHead(item, no)}${missionBody(item, ctx)}</div>${ctx.readOnly ? explainBox(item, ctx) : ""}</div>`;
   } else if (TYPES[item.type]) {
-    return `<div class="q-card" data-id="${item.id}"><div data-body>${qHead(item, no)}${TYPES[item.type].render(item, ctx)}</div>${reviewBadge(item, ctx)}${explainBox(item, ctx)}</div>`;
+    const done = CHEM[item.type] && stageOf(item) >= CHEM[item.type];
+    return `<div class="q-card" data-id="${item.id}"><div data-body>${chemBody(item, no, ctx)}</div>${done ? "" : reviewBadge(item, ctx) + explainBox(item, ctx)}</div>`;
   }
   return `<div class="q-card" data-id="${item.id}">${qHead(item, no)}${body}${reviewBadge(item, ctx)}${explainBox(item, ctx)}</div>`;
+}
+
+// ตัวอย่างที่เฉลยครบทุกขั้น แสดงบนหัวหน้า (ไม่นับคะแนน ไม่เก็บคำตอบ)
+function exampleHtml(p) {
+  const ex = p.example;
+  if (!ex) return "";
+  const M = rxModel(ex);
+  const a = { ox: {}, e: {}, m: {}, c4: {}, c5: {}, lcm: String(M.L) };
+  ex.track.forEach((t) => { a.ox[t.i] = fmtOx(t.ox); });
+  M.links.forEach((l, k) => { a.e[k] = { d: l.dir, n: String(l.e) }; a.m[k] = String(l.m); });
+  Object.keys(M.temp).forEach((i) => { a.c4[i] = String(M.temp[i]); });
+  M.s5.forEach((i) => { a.c5[i] = String(ex.coef[i]); });
+  const saved = answers[ex.id];
+  answers[ex.id] = a;
+  const h = TYPES.balance.render(ex, { readOnly: true, reveal: false });
+  if (saved === undefined) delete answers[ex.id]; else answers[ex.id] = saved;
+  return `<div class="rx-example"><div class="rx-ex-tag">👀 ตัวอย่างให้ดูก่อนทำ · ไม่นับคะแนน</div>${h}<p class="rx-ex-note">${esc(ex.explanation)}</p></div>`;
 }
 
 function renderAll(ctx) {
@@ -816,11 +1099,13 @@ function renderAll(ctx) {
   $("pages").innerHTML = WS.pages.map((p, pi) => `
     <section class="ws-page ${pi === currentPage ? "active" : ""}" data-page="${pi}">
       <div class="page-head"><h2>${p.icon} ${esc(p.title)}</h2><p>${esc(p.intro)}</p></div>
+      ${exampleHtml(p)}
       <div class="q-list">${p.items.map((it) => buildItem(it, ++no, ctx)).join("")}</div>
     </section>`).join("");
   renderStepper();
   updateProgress();
   updateNav();
+  layoutRx();
 }
 
 function renderStepper() {
@@ -848,6 +1133,7 @@ function goPage(i) {
   document.querySelectorAll(".ws-page").forEach((el) => el.classList.toggle("active", Number(el.dataset.page) === currentPage));
   renderStepper();
   updateNav();
+  layoutRx();
   saveDraft();
   window.scrollTo({ top: $("stepper").offsetTop - 12, behavior: "smooth" });
 }
@@ -884,6 +1170,14 @@ function handlePagesClick(e) {
     refreshMission(item.id);
     card.classList.remove("missing");
     onAnswerChange();
+  } else if (act === "chk" && CHEM[item.type]) {
+    const a = answers[item.id] || {}, st = stageOf(item);
+    const ready = item.type === "redoxid" ? (st === 0 ? !!(a.xb && a.rb) : item.ask.every((k) => a[k])) : TYPES[item.type].answered(item, a);
+    if (!ready) { card.classList.add("missing"); alert("ยังตอบไม่ครบ กรอก/เลือกให้ครบทุกช่องก่อนส่งภารกิจนะ"); return; }
+    setPath(item.id, "_chk", st + 1);
+    card.classList.remove("missing");
+    refreshCard(item);
+    onAnswerChange();
   } else if (TYPES[item.type]) {
     if (TYPES[item.type].click(item, btn)) {
       refreshCard(item);
@@ -894,7 +1188,8 @@ function handlePagesClick(e) {
 }
 function refreshCard(item) {
   const host = document.querySelector(`.q-card[data-id="${item.id}"] [data-body]`);
-  host.innerHTML = qHead(item, ITEMS.indexOf(item) + 1) + TYPES[item.type].render(item, { readOnly: false });
+  host.innerHTML = chemBody(item, ITEMS.indexOf(item) + 1, { readOnly: false });
+  layoutRx();
 }
 function handlePagesChange(e) {
   if (reviewMode) return;
@@ -908,6 +1203,8 @@ function handlePagesChange(e) {
   } else if (e.target.matches('input[type="radio"]')) {
     answers[item.id] = e.target.value;
     card.querySelectorAll(".option-label").forEach((l) => l.classList.toggle("sel", l.contains(e.target)));
+  } else if (TYPES[item.type] && TYPES[item.type].change) {
+    if (!TYPES[item.type].change(item, e.target)) return;
   } else return;
   card.classList.remove("missing");
   onAnswerChange();
@@ -1127,6 +1424,9 @@ function loadDataScript(user) {
 /* ---------- events ---------- */
 $("pages").addEventListener("click", handlePagesClick);
 $("pages").addEventListener("change", handlePagesChange);
+$("pages").addEventListener("input", (e) => { if (e.target.matches("input.rx-in")) handlePagesChange(e); });
+window.addEventListener("resize", layoutRx);
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(layoutRx);
 $("stepper").addEventListener("click", (e) => { const b = e.target.closest("[data-go]"); if (b) goPage(Number(b.dataset.go)); });
 $("prevBtn").addEventListener("click", () => goPage(currentPage - 1));
 $("nextBtn").addEventListener("click", () => goPage(currentPage + 1));
