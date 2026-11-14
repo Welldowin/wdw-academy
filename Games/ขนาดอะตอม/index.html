@@ -1,0 +1,864 @@
+<!doctype html>
+<html lang="th" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Atomic Size Racing</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600;700;800&amp;display=swap" rel="stylesheet">
+  <style>
+* { font-family: 'Prompt', sans-serif; }
+.card-flip { perspective: 1000px; }
+.card-inner { transition: transform 0.6s; transform-style: preserve-3d; }
+.card-inner.flipped { transform: rotateY(180deg); }
+.card-front, .card-back { backface-visibility: hidden; position: absolute; inset: 0; }
+.card-back { transform: rotateY(180deg); }
+.dragging { opacity: 0.5; transform: scale(1.05); }
+.drop-zone { transition: all 0.2s; }
+.drop-zone.drag-over { transform: scale(1.05); box-shadow: 0 0 20px rgba(255,255,255,0.5); }
+@keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-5px)} 75%{transform:translateX(5px)} }
+@keyframes pulse-glow { 0%,100%{box-shadow:0 0 5px currentColor} 50%{box-shadow:0 0 20px currentColor} }
+@keyframes coin-flip { 0%{transform:rotateY(0)} 100%{transform:rotateY(1800deg)} }
+.shake { animation: shake 0.5s ease-in-out; }
+.pulse-glow { animation: pulse-glow 1s infinite; }
+.coin-flip { animation: coin-flip 2s ease-out; }
+.correct-card { background: linear-gradient(135deg, #10b981, #059669) !important; }
+.wrong-card { background: linear-gradient(135deg, #ef4444, #dc2626) !important; animation: shake 0.5s; }
+.hidden-element { filter: blur(8px) brightness(0.3); }
+  </style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full bg-gray-900 text-white overflow-auto">
+  <div id="app" class="h-full w-full">
+   <!-- Menu Screen -->
+   <div id="screen-menu" class="h-full w-full flex flex-col items-center justify-center gap-8 p-4" style="background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);">
+    <div class="text-center">
+     <h1 id="game-title" class="text-4xl md:text-6xl font-extrabold bg-gradient-to-r from-red-500 via-yellow-400 to-blue-500 bg-clip-text text-transparent mb-4">⚛️ Atomic Size Racing</h1>
+     <p class="text-gray-300 text-lg">แข่งเรียงขนาดอะตอม Z=1-36</p>
+    </div>
+    <div class="flex flex-col gap-4 w-full max-w-sm">
+     <button onclick="startGame('bot')" class="w-full py-4 px-8 bg-gradient-to-r from-red-600 to-blue-600 rounded-xl text-xl font-bold hover:scale-105 transition-transform shadow-lg"> <i data-lucide="bot" class="inline w-6 h-6 mr-2"></i>ผู้เล่น vs บอท </button> <button onclick="startGame('pvp')" class="w-full py-4 px-8 bg-gradient-to-r from-red-600 to-blue-600 rounded-xl text-xl font-bold hover:scale-105 transition-transform shadow-lg"> <i data-lucide="users" class="inline w-6 h-6 mr-2"></i>ผู้เล่น vs ผู้เล่น </button>
+    </div>
+   </div><!-- Reference Chart Screen -->
+   <div id="screen-reference" class="h-full w-full flex-col items-center justify-center gap-4 p-4 overflow-auto hidden" style="background: linear-gradient(135deg, #1a1a2e, #16213e);">
+    <h2 class="text-2xl font-bold text-center mt-4">📊 ค่าขนาดอะตอมและไอออน</h2>
+    <div id="reference-chart" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 max-w-6xl text-sm"></div><button onclick="proceedFromReference()" class="mt-4 py-3 px-8 bg-green-600 rounded-xl font-bold text-lg hover:bg-green-500 transition">เข้าใจแล้ว</button>
+   </div><!-- Obstacle Card Selection Screen -->
+   <div id="screen-obstacle-select" class="h-full w-full flex-col items-center justify-center gap-6 p-4 hidden" style="background: linear-gradient(135deg, #1a1a2e, #16213e);">
+    <h2 id="obstacle-title" class="text-2xl font-bold text-center mt-4"></h2>
+    <p class="text-gray-300 text-center">เลือกการ์ดอุปสรรค 3 ใบ (คลิกเพื่อพลิก)</p>
+    <div id="obstacle-cards" class="flex flex-wrap justify-center gap-4 mt-4"></div><button id="btn-confirm-obstacle" class="mt-6 py-3 px-8 bg-green-600 rounded-xl font-bold text-lg hover:bg-green-500 transition disabled:opacity-50 disabled:cursor-not-allowed" disabled onclick="confirmObstacleSelection()">ยืนยัน (0/3)</button>
+   </div><!-- Coin Flip Screen -->
+   <div id="screen-coin" class="h-full w-full flex-col items-center justify-center gap-6 p-4 hidden" style="background: linear-gradient(135deg, #1a1a2e, #16213e);">
+    <h2 class="text-2xl font-bold">โยนเหรียญเลือกทีมเริ่มก่อน</h2>
+    <div id="coin" class="w-32 h-32 rounded-full bg-yellow-400 flex items-center justify-center text-4xl font-bold text-gray-900 shadow-xl" style="perspective:1000px">
+     🪙
+    </div><button id="btn-flip" class="py-3 px-8 bg-yellow-500 text-gray-900 rounded-xl font-bold text-lg hover:bg-yellow-400 transition" onclick="flipCoin()">โยนเหรียญ</button>
+    <p id="coin-result" class="text-xl font-bold hidden"></p>
+   </div><!-- Turn Order Selection -->
+   <div id="screen-turn-order" class="h-full w-full flex-col items-center justify-center gap-6 p-4 hidden" style="background: linear-gradient(135deg, #1a1a2e, #16213e);">
+    <h2 id="turn-order-title" class="text-2xl font-bold text-center"></h2>
+    <div class="flex gap-4">
+     <button onclick="chooseTurnOrder('first')" class="py-3 px-8 bg-green-600 rounded-xl font-bold text-lg hover:bg-green-500 transition">เล่นก่อน</button> <button onclick="chooseTurnOrder('second')" class="py-3 px-8 bg-purple-600 rounded-xl font-bold text-lg hover:bg-purple-500 transition">เล่นทีหลัง</button>
+    </div>
+   </div><!-- Battle Screen -->
+   <div id="screen-battle" class="h-full w-full flex-col p-4 hidden" style="background: linear-gradient(135deg, #1a1a2e, #16213e);">
+    <!-- Scoreboard -->
+    <div class="flex justify-between items-center mb-4">
+     <div id="score-red" class="bg-red-600/30 border-2 border-red-500 rounded-xl px-4 py-2 text-center">
+      <span class="text-sm">ทีมแดง</span><br><span class="text-2xl font-bold">0</span>/10
+     </div>
+     <div id="turn-indicator" class="text-xl font-bold"></div>
+     <div id="score-blue" class="bg-blue-600/30 border-2 border-blue-500 rounded-xl px-4 py-2 text-center">
+      <span class="text-sm">ทีมน้ำเงิน</span><br><span class="text-2xl font-bold">0</span>/10
+     </div>
+    </div><!-- Obstacle Use Phase -->
+    <div id="obstacle-use-phase" class="hidden mb-4">
+     <h3 id="obstacle-use-title" class="text-lg font-bold text-center mb-2"></h3>
+     <div id="obstacle-use-cards" class="flex flex-wrap justify-center gap-3"></div>
+     <p id="obstacle-use-count" class="text-center text-sm text-gray-400 mt-2"></p><button id="btn-confirm-use" class="block mx-auto mt-3 py-2 px-6 bg-green-600 rounded-lg font-bold hover:bg-green-500 transition" onclick="confirmObstacleUse()">ยืนยัน</button>
+    </div><!-- Active Obstacles Display -->
+    <div id="active-obstacles" class="hidden mb-3">
+     <div class="flex flex-wrap justify-center gap-2" id="active-obstacle-list"></div>
+    </div><!-- Element Cards to Sort -->
+    <div id="sort-area" class="hidden">
+     <p class="text-center text-gray-300 mb-2">เรียงจากขนาดเล็กไปใหญ่ (ลากเพื่อสลับ)</p>
+     <div id="element-slots" class="flex flex-wrap justify-center gap-3 mb-4"></div><button id="btn-submit" class="block mx-auto py-3 px-8 bg-green-600 rounded-xl font-bold text-lg hover:bg-green-500 transition" onclick="submitAnswer()">เสร็จสิ้น</button>
+    </div><!-- Results -->
+    <div id="results-area" class="hidden text-center mt-4">
+     <div id="results-display" class="flex flex-wrap justify-center gap-3 mb-4"></div>
+     <p id="results-text" class="text-xl font-bold mb-4"></p><button id="btn-next-turn" class="py-3 px-8 bg-purple-600 rounded-xl font-bold text-lg hover:bg-purple-500 transition" onclick="nextTurn()">ต่อไป</button>
+    </div><!-- Extra Obstacle Pick -->
+    <div id="extra-obstacle-phase" class="hidden text-center mt-4">
+     <h3 id="extra-obstacle-title" class="text-lg font-bold mb-2"></h3>
+     <div id="extra-obstacle-cards" class="flex flex-wrap justify-center gap-3"></div>
+    </div>
+   </div><!-- Win Screen -->
+   <div id="screen-win" class="h-full w-full flex-col items-center justify-center gap-6 p-4 hidden" style="background: linear-gradient(135deg, #1a1a2e, #16213e);">
+    <div class="text-center">
+     <h1 id="win-text" class="text-5xl font-extrabold mb-4"></h1>
+     <p class="text-2xl">🎉 ยินดีด้วย! 🎉</p>
+    </div><button onclick="location.reload()" class="py-4 px-8 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-xl text-xl font-bold hover:scale-105 transition-transform">เล่นอีกครั้ง</button>
+   </div>
+  </div>
+  <script>
+// Element Data
+const ELEMENTS = [
+  {z:1,sym:"H",name:"Hydrogen",atomR:53,ionR:null,ion:null},
+  {z:2,sym:"He",name:"Helium",atomR:31,ionR:null,ion:null},
+  {z:3,sym:"Li",name:"Lithium",atomR:167,ionR:76,ion:"Li⁺"},
+  {z:4,sym:"Be",name:"Beryllium",atomR:112,ionR:45,ion:"Be²⁺"},
+  {z:5,sym:"B",name:"Boron",atomR:87,ionR:27,ion:"B³⁺"},
+  {z:6,sym:"C",name:"Carbon",atomR:67,ionR:16,ion:"C⁴⁺"},
+  {z:7,sym:"N",name:"Nitrogen",atomR:56,ionR:146,ion:"N³⁻"},
+  {z:8,sym:"O",name:"Oxygen",atomR:48,ionR:140,ion:"O²⁻"},
+  {z:9,sym:"F",name:"Fluorine",atomR:42,ionR:133,ion:"F⁻"},
+  {z:10,sym:"Ne",name:"Neon",atomR:38,ionR:null,ion:null},
+  {z:11,sym:"Na",name:"Sodium",atomR:190,ionR:102,ion:"Na⁺"},
+  {z:12,sym:"Mg",name:"Magnesium",atomR:145,ionR:72,ion:"Mg²⁺"},
+  {z:13,sym:"Al",name:"Aluminium",atomR:118,ionR:53.5,ion:"Al³⁺"},
+  {z:14,sym:"Si",name:"Silicon",atomR:111,ionR:40,ion:"Si⁴⁺"},
+  {z:15,sym:"P",name:"Phosphorus",atomR:98,ionR:212,ion:"P³⁻"},
+  {z:16,sym:"S",name:"Sulfur",atomR:88,ionR:184,ion:"S²⁻"},
+  {z:17,sym:"Cl",name:"Chlorine",atomR:79,ionR:181,ion:"Cl⁻"},
+  {z:18,sym:"Ar",name:"Argon",atomR:71,ionR:null,ion:null},
+  {z:19,sym:"K",name:"Potassium",atomR:243,ionR:138,ion:"K⁺"},
+  {z:20,sym:"Ca",name:"Calcium",atomR:194,ionR:100,ion:"Ca²⁺"},
+  {z:21,sym:"Sc",name:"Scandium",atomR:184,ionR:74.5,ion:"Sc³⁺"},
+  {z:22,sym:"Ti",name:"Titanium",atomR:176,ionR:60.5,ion:"Ti⁴⁺"},
+  {z:23,sym:"V",name:"Vanadium",atomR:171,ionR:79,ion:"V³⁺"},
+  {z:24,sym:"Cr",name:"Chromium",atomR:166,ionR:61.5,ion:"Cr³⁺"},
+  {z:25,sym:"Mn",name:"Manganese",atomR:161,ionR:83,ion:"Mn²⁺"},
+  {z:26,sym:"Fe",name:"Iron",atomR:156,ionR:78,ion:"Fe²⁺"},
+  {z:27,sym:"Co",name:"Cobalt",atomR:152,ionR:74.5,ion:"Co²⁺"},
+  {z:28,sym:"Ni",name:"Nickel",atomR:149,ionR:69,ion:"Ni²⁺"},
+  {z:29,sym:"Cu",name:"Copper",atomR:145,ionR:73,ion:"Cu²⁺"},
+  {z:30,sym:"Zn",name:"Zinc",atomR:142,ionR:74,ion:"Zn²⁺"},
+  {z:31,sym:"Ga",name:"Gallium",atomR:136,ionR:62,ion:"Ga³⁺"},
+  {z:32,sym:"Ge",name:"Germanium",atomR:125,ionR:53,ion:"Ge⁴⁺"},
+  {z:33,sym:"As",name:"Arsenic",atomR:114,ionR:222,ion:"As³⁻"},
+  {z:34,sym:"Se",name:"Selenium",atomR:103,ionR:198,ion:"Se²⁻"},
+  {z:35,sym:"Br",name:"Bromine",atomR:94,ionR:196,ion:"Br⁻"},
+  {z:36,sym:"Kr",name:"Krypton",atomR:88,ionR:null,ion:null}
+];
+
+const OBSTACLE_TYPES = [
+  {id:'ion',name:'การ์ดไอออน',desc:'เปลี่ยนธาตุ 1 ตัวเป็นไอออน',icon:'⚡',color:'from-yellow-600 to-amber-700'},
+  {id:'hide',name:'การ์ดปิดบัง',desc:'ซ่อนธาตุ 1 ตัว',icon:'👁️‍🗨️',color:'from-purple-600 to-indigo-700'},
+  {id:'halve',name:'การ์ดลดคะแนน',desc:'คะแนนรอบนี้หาร 2',icon:'➗',color:'from-pink-600 to-rose-700'}
+];
+
+// Game State
+let gameMode = 'bot';
+let scores = {red:0, blue:0};
+let obstacles = {red:[], blue:[]};
+let currentTeam = 'red';
+let firstTeam = 'red';
+let turnPhase = '';
+let currentElements = [];
+let playerOrder = [];
+let activeObstacles = [];
+let obstacleSelectionTeam = '';
+let obstacleSelected = [];
+let obstacleUseSelected = [];
+let coinWinner = '';
+let extraObstacleTeam = '';
+let isPerfectRound = false;
+
+// Audio
+const AudioCtx = window.AudioContext || window.webkitAudioContext;
+let audioCtx;
+function getAudioCtx() { if(!audioCtx) audioCtx = new AudioCtx(); return audioCtx; }
+
+function playSound(type) {
+  const ctx = getAudioCtx();
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.connect(gain); gain.connect(ctx.destination);
+  gain.gain.value = 0.3;
+  
+  if(type === 'correct') { osc.frequency.value = 523; osc.type='sine'; gain.gain.setValueAtTime(0.3,ctx.currentTime); gain.gain.exponentialRampToValueAtTime(0.01,ctx.currentTime+0.3); osc.start(); osc.stop(ctx.currentTime+0.3); }
+  else if(type === 'wrong') { osc.frequency.value = 200; osc.type='sawtooth'; gain.gain.setValueAtTime(0.2,ctx.currentTime); gain.gain.exponentialRampToValueAtTime(0.01,ctx.currentTime+0.4); osc.start(); osc.stop(ctx.currentTime+0.4); }
+  else if(type === 'obstacle') { osc.frequency.value = 880; osc.type='square'; gain.gain.setValueAtTime(0.15,ctx.currentTime); osc.frequency.exponentialRampToValueAtTime(220,ctx.currentTime+0.5); gain.gain.exponentialRampToValueAtTime(0.01,ctx.currentTime+0.5); osc.start(); osc.stop(ctx.currentTime+0.5); }
+  else if(type === 'win') { osc.frequency.value = 440; osc.type='sine'; gain.gain.setValueAtTime(0.3,ctx.currentTime); osc.frequency.setValueAtTime(554,ctx.currentTime+0.2); osc.frequency.setValueAtTime(659,ctx.currentTime+0.4); osc.frequency.setValueAtTime(880,ctx.currentTime+0.6); gain.gain.exponentialRampToValueAtTime(0.01,ctx.currentTime+1); osc.start(); osc.stop(ctx.currentTime+1); }
+}
+
+function showScreen(id) {
+  document.querySelectorAll('#app > div').forEach(d => { d.classList.add('hidden'); d.classList.remove('flex'); });
+  const el = document.getElementById(id);
+  el.classList.remove('hidden'); el.classList.add('flex');
+}
+
+function startGame(mode) {
+  gameMode = mode;
+  scores = {red:0, blue:0};
+  obstacles = {red:[], blue:[]};
+  obstacleSelectionTeam = 'red';
+  obstacleSelected = [];
+  showReferenceChart();
+}
+
+function getColorBySize(atomR) {
+  if(atomR <= 50) return { bg: 'from-cyan-600 to-cyan-800', border: 'border-cyan-300', label: '0-50pm' };
+  if(atomR <= 100) return { bg: 'from-lime-600 to-lime-800', border: 'border-lime-300', label: '51-100pm' };
+  if(atomR <= 150) return { bg: 'from-amber-600 to-amber-800', border: 'border-amber-300', label: '101-150pm' };
+  return { bg: 'from-rose-700 to-rose-900', border: 'border-rose-300', label: '150pm+' };
+}
+
+function showReferenceChart() {
+  const chart = document.getElementById('reference-chart');
+  chart.innerHTML = '';
+  
+  const table = [
+    { row: [1,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,2], period: 'Period 1' },
+    { row: [3,4,null,null,null,null,null,null,null,null,null,null,5,6,7,8,9,10], period: 'Period 2' },
+    { row: [11,12,null,null,null,null,null,null,null,null,null,null,13,14,15,16,17,18], period: 'Period 3' },
+    { row: [19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36], period: 'Period 4' }
+  ];
+  
+  chart.style.display = 'grid';
+  chart.style.gridTemplateColumns = 'repeat(18, 1fr)';
+  chart.style.gap = '6px';
+  chart.style.maxWidth = '1200px';
+  chart.style.padding = '20px';
+  
+  table.forEach((tableRow) => {
+    tableRow.row.forEach((z, groupIdx) => {
+      const cell = document.createElement('div');
+      if(z === null) {
+        cell.style.visibility = 'hidden';
+      } else {
+        const el = ELEMENTS[z-1];
+        const sizeColor = getColorBySize(el.atomR);
+        
+        cell.className = `bg-gradient-to-br ${sizeColor.bg} rounded-lg p-2 text-center ${sizeColor.border} border-2 shadow-lg hover:scale-105 transition cursor-help`;
+        
+        let content = `<div class="font-bold text-lg leading-tight">${el.sym}</div>`;
+        content += `<div class="text-xs text-gray-100 leading-tight">Z=${el.z}</div>`;
+        content += `<div class="text-xs text-gray-200 leading-tight font-bold">${el.atomR}pm</div>`;
+        if(el.ionR !== null) {
+          content += `<div class="text-xs text-yellow-300 font-semibold leading-tight mt-0.5">⚡${el.ion}</div>`;
+          content += `<div class="text-xs text-yellow-200 leading-tight">${el.ionR}pm</div>`;
+        }
+        cell.innerHTML = content;
+      }
+      chart.appendChild(cell);
+    });
+  });
+  
+  const legend = document.createElement('div');
+  legend.className = 'mt-6 text-xs text-gray-300 text-center space-y-1';
+  legend.innerHTML = `
+    <div class="font-bold text-sm mb-2">📊 ขนาดอะตอม (Atomic Radius):</div>
+    <p><span class="inline-block w-4 h-4 bg-gradient-to-br from-cyan-600 to-cyan-800 border border-cyan-300 mr-2 rounded"></span>0-50pm (เล็กมาก) - He, Ne, F</p>
+    <p><span class="inline-block w-4 h-4 bg-gradient-to-br from-lime-600 to-lime-800 border border-lime-300 mr-2 rounded"></span>51-100pm (ปานกลาง) - C, N, O, S, Cl</p>
+    <p><span class="inline-block w-4 h-4 bg-gradient-to-br from-amber-600 to-amber-800 border border-amber-300 mr-2 rounded"></span>101-150pm (ใหญ่) - Li, Na, Mg, Al, Si, P, Transition metals</p>
+    <p><span class="inline-block w-4 h-4 bg-gradient-to-br from-rose-700 to-rose-900 border border-rose-300 mr-2 rounded"></span>150pm+ (ใหญ่มาก) - K, Ca</p>
+    <p class="text-gray-400 mt-3 text-xs">⚡ = ไอออน (Ion) และขนาดไอออน (pm)</p>
+  `;
+  chart.parentElement.appendChild(legend);
+  
+  showScreen('screen-reference');
+}
+
+function proceedFromReference() {
+  showObstacleSelection('red');
+}
+
+function showObstacleSelection(team) {
+  obstacleSelectionTeam = team;
+  obstacleSelected = [];
+  const title = document.getElementById('obstacle-title');
+  title.textContent = `ทีม${team==='red'?'แดง 🔴':'น้ำเงิน 🔵'} เลือกการ์ดอุปสรรค 3 ใบ`;
+  title.className = `text-2xl font-bold text-center mt-4 ${team==='red'?'text-red-400':'text-blue-400'}`;
+  
+  const pool = [];
+  for(let i=0;i<9;i++) pool.push(OBSTACLE_TYPES[Math.floor(Math.random()*3)]);
+  
+  const container = document.getElementById('obstacle-cards');
+  container.innerHTML = '';
+  pool.forEach((obs, idx) => {
+    const card = document.createElement('div');
+    card.className = 'card-flip w-24 h-36 cursor-pointer';
+    card.innerHTML = `
+      <div class="card-inner w-full h-full relative" id="obs-card-${idx}">
+        <div class="card-front w-full h-full bg-gradient-to-br from-gray-700 to-gray-800 rounded-xl border-2 border-gray-600 flex items-center justify-center">
+          <span class="text-3xl">❓</span>
+        </div>
+        <div class="card-back w-full h-full bg-gradient-to-br ${obs.color} rounded-xl border-2 border-white/30 flex flex-col items-center justify-center p-2 text-center">
+          <span class="text-2xl">${obs.icon}</span>
+          <span class="text-xs font-bold mt-1">${obs.name}</span>
+        </div>
+      </div>`;
+    card.onclick = () => toggleObstacleCard(idx, obs);
+    container.appendChild(card);
+  });
+  
+  document.getElementById('btn-confirm-obstacle').disabled = true;
+  document.getElementById('btn-confirm-obstacle').textContent = 'ยืนยัน (0/3)';
+  showScreen('screen-obstacle-select');
+}
+
+function toggleObstacleCard(idx, obs) {
+  const inner = document.getElementById(`obs-card-${idx}`);
+  if(inner.classList.contains('flipped')) {
+    inner.classList.remove('flipped');
+    inner.parentElement.classList.remove('ring-2','ring-green-400');
+    obstacleSelected = obstacleSelected.filter(o => o.idx !== idx);
+  } else {
+    if(obstacleSelected.length >= 3) return;
+    inner.classList.add('flipped');
+    inner.parentElement.classList.add('ring-2','ring-green-400');
+    obstacleSelected.push({idx, obs});
+  }
+  const btn = document.getElementById('btn-confirm-obstacle');
+  btn.textContent = `ยืนยัน (${obstacleSelected.length}/3)`;
+  btn.disabled = obstacleSelected.length !== 3;
+}
+
+function confirmObstacleSelection() {
+  obstacles[obstacleSelectionTeam] = obstacleSelected.map(o => ({...o.obs}));
+  if(obstacleSelectionTeam === 'red') {
+    if(gameMode === 'bot') {
+      obstacles.blue = [0,1,2].map(() => ({...OBSTACLE_TYPES[Math.floor(Math.random()*3)]}));
+      showScreen('screen-coin');
+    } else {
+      showObstacleSelection('blue');
+    }
+  } else {
+    showScreen('screen-coin');
+  }
+}
+
+function flipCoin() {
+  const coin = document.getElementById('coin');
+  const btn = document.getElementById('btn-flip');
+  btn.disabled = true;
+  coin.style.animation = 'coin-flip 2s ease-out';
+  
+  setTimeout(() => {
+    coinWinner = Math.random() < 0.5 ? 'red' : 'blue';
+    coin.style.animation = '';
+    coin.textContent = coinWinner === 'red' ? '🔴' : '🔵';
+    const result = document.getElementById('coin-result');
+    result.classList.remove('hidden');
+    result.textContent = `ทีม${coinWinner==='red'?'แดง':'น้ำเงิน'}ชนะการโยนเหรียญ!`;
+    result.className = `text-xl font-bold ${coinWinner==='red'?'text-red-400':'text-blue-400'}`;
+    
+    setTimeout(() => {
+      if(gameMode === 'bot' && coinWinner === 'blue') {
+        firstTeam = Math.random() < 0.5 ? 'blue' : 'red';
+        currentTeam = firstTeam;
+        startBattle();
+      } else {
+        showTurnOrderScreen();
+      }
+    }, 1500);
+  }, 2000);
+}
+
+function showTurnOrderScreen() {
+  document.getElementById('turn-order-title').textContent = `ทีม${coinWinner==='red'?'แดง':'น้ำเงิน'} เลือก: เล่นก่อนหรือทีหลัง?`;
+  document.getElementById('turn-order-title').className = `text-2xl font-bold text-center ${coinWinner==='red'?'text-red-400':'text-blue-400'}`;
+  showScreen('screen-turn-order');
+}
+
+function chooseTurnOrder(choice) {
+  firstTeam = choice === 'first' ? coinWinner : (coinWinner==='red'?'blue':'red');
+  currentTeam = firstTeam;
+  startBattle();
+}
+
+function startBattle() {
+  updateScoreboard();
+  showScreen('screen-battle');
+  startObstacleUsePhase();
+}
+
+function updateScoreboard() {
+  document.getElementById('score-red').innerHTML = `<span class="text-sm">ทีมแดง 🔴</span><br><span class="text-2xl font-bold">${scores.red}</span>/10`;
+  document.getElementById('score-blue').innerHTML = `<span class="text-sm">ทีมน้ำเงิน 🔵</span><br><span class="text-2xl font-bold">${scores.blue}</span>/10`;
+  document.getElementById('turn-indicator').textContent = `ตาของทีม${currentTeam==='red'?'แดง 🔴':'น้ำเงิน 🔵'}`;
+  document.getElementById('turn-indicator').className = `text-xl font-bold ${currentTeam==='red'?'text-red-400':'text-blue-400'}`;
+}
+
+function startObstacleUsePhase() {
+  const opponent = currentTeam === 'red' ? 'blue' : 'red';
+  const opponentCards = obstacles[opponent];
+  
+  document.getElementById('obstacle-use-phase').classList.remove('hidden');
+  document.getElementById('sort-area').classList.add('hidden');
+  document.getElementById('results-area').classList.add('hidden');
+  document.getElementById('active-obstacles').classList.add('hidden');
+  document.getElementById('extra-obstacle-phase').classList.add('hidden');
+  
+  if(opponentCards.length === 0) {
+    document.getElementById('obstacle-use-phase').classList.add('hidden');
+    activeObstacles = [];
+    startSorting();
+    return;
+  }
+  
+  obstacleUseSelected = [];
+  const title = document.getElementById('obstacle-use-title');
+  title.textContent = `ทีม${opponent==='red'?'แดง':'น้ำเงิน'} เลือกการ์ดอุปสรรค (สูงสุด 2 ใบ)`;
+  title.className = `text-lg font-bold text-center mb-2 ${opponent==='red'?'text-red-400':'text-blue-400'}`;
+  
+  if(gameMode === 'bot' && opponent === 'blue') {
+    const picks = Math.min(2, opponentCards.length);
+    const botPicked = [];
+    const indices = [...Array(opponentCards.length).keys()];
+    for(let i=0;i<picks;i++) {
+      const ri = Math.floor(Math.random()*indices.length);
+      botPicked.push(indices.splice(ri,1)[0]);
+    }
+    activeObstacles = botPicked.map(i => opponentCards[i]);
+    obstacles[opponent] = opponentCards.filter((_,i) => !botPicked.includes(i));
+    document.getElementById('obstacle-use-phase').classList.add('hidden');
+    showActiveObstacles();
+    setTimeout(() => startSorting(), 1000);
+    return;
+  }
+  
+  const container = document.getElementById('obstacle-use-cards');
+  container.innerHTML = '';
+  opponentCards.forEach((obs, idx) => {
+    const btn = document.createElement('button');
+    btn.className = `p-3 rounded-xl bg-gradient-to-br ${obs.color} border-2 border-transparent transition hover:scale-105`;
+    btn.id = `use-obs-${idx}`;
+    btn.innerHTML = `<span class="text-2xl">${obs.icon}</span><br><span class="text-xs">${obs.name}</span>`;
+    btn.onclick = () => toggleUseObstacle(idx, obs, btn);
+    container.appendChild(btn);
+  });
+  document.getElementById('obstacle-use-count').textContent = `เลือกแล้ว 0/2 ใบ`;
+}
+
+function toggleUseObstacle(idx, obs, btn) {
+  if(obstacleUseSelected.includes(idx)) {
+    obstacleUseSelected = obstacleUseSelected.filter(i => i !== idx);
+    btn.classList.remove('ring-2','ring-white');
+  } else {
+    if(obstacleUseSelected.length >= 2) return;
+    obstacleUseSelected.push(idx);
+    btn.classList.add('ring-2','ring-white');
+  }
+  document.getElementById('obstacle-use-count').textContent = `เลือกแล้ว ${obstacleUseSelected.length}/2 ใบ`;
+}
+
+function confirmObstacleUse() {
+  const opponent = currentTeam === 'red' ? 'blue' : 'red';
+  activeObstacles = obstacleUseSelected.map(i => obstacles[opponent][i]);
+  obstacles[opponent] = obstacles[opponent].filter((_,i) => !obstacleUseSelected.includes(i));
+  
+  document.getElementById('obstacle-use-phase').classList.add('hidden');
+  if(activeObstacles.length > 0) {
+    playSound('obstacle');
+    showActiveObstacles();
+  }
+  setTimeout(() => startSorting(), activeObstacles.length > 0 ? 800 : 0);
+}
+
+function showActiveObstacles() {
+  document.getElementById('active-obstacles').classList.remove('hidden');
+  const list = document.getElementById('active-obstacle-list');
+  list.innerHTML = '';
+  activeObstacles.forEach(obs => {
+    const tag = document.createElement('span');
+    tag.className = `px-3 py-1 rounded-full bg-gradient-to-r ${obs.color} text-sm font-bold pulse-glow`;
+    tag.style.color = 'white';
+    tag.textContent = `${obs.icon} ${obs.name}`;
+    list.appendChild(tag);
+  });
+}
+
+function generateUniqueSizes() {
+  let selectedIndices = [];
+  let sizes = new Set();
+  
+  while(selectedIndices.length < 5) {
+    const idx = Math.floor(Math.random() * 36);
+    if(!selectedIndices.includes(idx)) {
+      const size = ELEMENTS[idx].atomR;
+      if(!sizes.has(size)) {
+        selectedIndices.push(idx);
+        sizes.add(size);
+      }
+    }
+  }
+  
+  return selectedIndices;
+}
+
+function startSorting() {
+  const indices = generateUniqueSizes();
+  
+  currentElements = indices.map(i => {
+    const el = {...ELEMENTS[i]};
+    el.useIon = false;
+    return el;
+  });
+  
+  let ionCount = 0;
+  activeObstacles.forEach(obs => {
+    if(obs.id === 'ion') ionCount++;
+  });
+  
+  for(let i = 0; i < ionCount; i++) {
+    const ionizable = currentElements.filter(e => e.ionR !== null && !e.useIon);
+    if(ionizable.length > 0) {
+      const pick = ionizable[Math.floor(Math.random()*ionizable.length)];
+      pick.useIon = true;
+    }
+  }
+  
+  currentElements.forEach(el => {
+    el.size = el.useIon ? el.ionR : el.atomR;
+    el.displayName = el.useIon ? el.ion : el.sym;
+  });
+  
+  let hideCount = 0;
+  activeObstacles.forEach(obs => {
+    if(obs.id === 'hide') hideCount++;
+  });
+  
+  for(let i = 0; i < hideCount; i++) {
+    const unhidden = currentElements.filter(e => !e.hidden);
+    if(unhidden.length > 0) {
+      const pick = unhidden[Math.floor(Math.random()*unhidden.length)];
+      pick.hidden = true;
+    }
+  }
+  
+  playerOrder = [...currentElements].sort(() => Math.random()-0.5);
+  
+  document.getElementById('sort-area').classList.remove('hidden');
+  renderSortCards();
+}
+
+// ---------------- Mobile Drag and Drop Logic ----------------
+let draggedCard = null;
+let touchStartX = 0;
+let touchStartY = 0;
+let touchDragIdx = null;
+
+function handleCardTouchStart(e) {
+  draggedCard = e.currentTarget;
+  touchDragIdx = parseInt(draggedCard.dataset.idx);
+  const touch = e.touches[0];
+  touchStartX = touch.clientX;
+  touchStartY = touch.clientY;
+  
+  draggedCard.classList.add('dragging');
+  draggedCard.style.zIndex = '1000';
+}
+
+function handleCardTouchMove(e) {
+  if (!draggedCard) return;
+  e.preventDefault(); // ป้องกันหน้าจอเลื่อนขณะลาก
+  const touch = e.touches[0];
+  const dx = touch.clientX - touchStartX;
+  const dy = touch.clientY - touchStartY;
+  draggedCard.style.transform = `translate(${dx}px, ${dy}px) scale(1.05)`;
+}
+
+function handleCardTouchEnd(e) {
+  if (!draggedCard) return;
+  const touch = e.changedTouches[0];
+  
+  // ซ่อนการ์ดที่กำลังลากชั่วคราว เพื่อหาตำแหน่งเป้าหมายที่อยู่ข้างใต้
+  draggedCard.style.visibility = 'hidden';
+  const el = document.elementFromPoint(touch.clientX, touch.clientY);
+  draggedCard.style.visibility = 'visible';
+  
+  // คืนค่ารูปแบบกลับ
+  draggedCard.classList.remove('dragging');
+  draggedCard.style.transform = '';
+  draggedCard.style.zIndex = '';
+  
+  const target = el?.closest('.drop-zone');
+  if(target && touchDragIdx !== null) {
+    const toIdx = parseInt(target.dataset.slotIdx);
+    if(!isNaN(toIdx) && touchDragIdx !== toIdx) {
+      // ทำการสลับข้อมูลในอาเรย์
+      [playerOrder[touchDragIdx], playerOrder[toIdx]] = [playerOrder[toIdx], playerOrder[touchDragIdx]];
+      renderSortCards();
+    }
+  }
+  
+  draggedCard = null;
+  touchDragIdx = null;
+}
+// -----------------------------------------------------------
+
+function renderSortCards() {
+  const container = document.getElementById('element-slots');
+  container.innerHTML = '';
+  
+  const slots = [];
+  for(let i = 0; i < 5; i++) {
+    const slot = document.createElement('div');
+    slot.className = 'drop-zone relative w-28 h-40 rounded-xl border-4 border-dashed flex flex-col items-center justify-center transition cursor-pointer select-none shadow-lg';
+    slot.style.borderColor = currentTeam === 'red' ? '#ef4444' : '#3b82f6';
+    slot.style.backgroundColor = currentTeam === 'red' ? 'rgba(239, 68, 68, 0.15)' : 'rgba(59, 130, 246, 0.15)';
+    slot.dataset.slotIdx = i; // บันทึก index ของช่องไว้
+    
+    const posNum = document.createElement('div');
+    posNum.className = 'absolute top-2 left-2 w-6 h-6 rounded-full flex items-center justify-center font-bold text-xs';
+    posNum.style.backgroundColor = currentTeam === 'red' ? '#dc2626' : '#2563eb';
+    posNum.style.color = 'white';
+    posNum.textContent = i + 1;
+    slot.appendChild(posNum);
+    
+    if(i < playerOrder.length) {
+      const el = playerOrder[i];
+      const card = document.createElement('div');
+      card.className = `w-24 h-32 rounded-lg border-3 flex flex-col items-center justify-center font-bold transition cursor-grab active:cursor-grabbing ${el.hidden?'hidden-element':''}`;
+      card.style.backgroundColor = currentTeam === 'red' ? 'rgba(220, 38, 38, 0.4)' : 'rgba(37, 99, 235, 0.4)';
+      card.style.borderColor = currentTeam === 'red' ? '#fca5a5' : '#93c5fd';
+      card.style.borderStyle = 'solid';
+      card.draggable = true;
+      card.dataset.idx = i;
+      card.innerHTML = `
+        <span class="text-4xl font-bold">${el.hidden?'?':el.displayName}</span>
+        ${el.useIon?'<span class="text-xl mt-1">⚡</span>':''}
+      `;
+      
+      // สำหรับ Desktop Browser (เมาส์ลาก)
+      card.addEventListener('dragstart', e => { e.dataTransfer.effectAllowed = 'move'; e.dataTransfer.setData('text/plain', i); card.style.opacity = '0.5'; });
+      card.addEventListener('dragend', () => { card.style.opacity = '1'; });
+      
+      // สำหรับ Mobile Browser (ระบบสัมผัส)
+      card.addEventListener('touchstart', handleCardTouchStart, {passive: false});
+      card.addEventListener('touchmove', handleCardTouchMove, {passive: false});
+      card.addEventListener('touchend', handleCardTouchEnd);
+      
+      slot.appendChild(card);
+    }
+    
+    slot.addEventListener('dragover', e => { e.preventDefault(); e.dataTransfer.dropEffect = 'move'; slot.style.transform = 'scale(1.08)'; slot.style.boxShadow = `0 0 25px ${currentTeam === 'red' ? 'rgba(239, 68, 68, 0.8)' : 'rgba(59, 130, 246, 0.8)'}`; slot.style.borderWidth = '4px'; });
+    slot.addEventListener('dragleave', () => { slot.style.transform = 'scale(1)'; slot.style.boxShadow = 'none'; slot.style.borderWidth = '4px'; });
+    slot.addEventListener('drop', e => {
+      e.preventDefault();
+      slot.style.transform = 'scale(1)';
+      slot.style.boxShadow = 'none';
+      const fromIdx = parseInt(e.dataTransfer.getData('text/plain'));
+      const toIdx = i;
+      if(fromIdx !== toIdx) {
+        [playerOrder[fromIdx], playerOrder[toIdx]] = [playerOrder[toIdx], playerOrder[fromIdx]];
+        renderSortCards();
+      }
+    });
+    
+    slots.push(slot);
+    container.appendChild(slot);
+  }
+}
+
+function submitAnswer() {
+  document.getElementById('sort-area').classList.add('hidden');
+  document.getElementById('results-area').classList.remove('hidden');
+  
+  const correctOrder = [...currentElements].sort((a,b) => a.size - b.size);
+  let correctCount = 0;
+  isPerfectRound = true;
+  
+  const display = document.getElementById('results-display');
+  display.innerHTML = '';
+  
+  playerOrder.forEach((el, idx) => {
+    const isCorrect = el.z === correctOrder[idx].z && el.useIon === correctOrder[idx].useIon;
+    if(isCorrect) correctCount++;
+    else isPerfectRound = false;
+    
+    const card = document.createElement('div');
+    card.className = `w-20 h-28 md:w-24 md:h-32 rounded-xl border-2 flex flex-col items-center justify-center ${isCorrect?'correct-card border-green-400':'wrong-card border-red-400'}`;
+    card.innerHTML = `
+      <span class="text-2xl font-bold">${el.displayName}</span>
+      <span class="text-xs mt-1">${el.useIon?el.ionR:el.atomR} pm</span>
+      <span class="text-lg mt-1">${isCorrect?'✓':'✗'}</span>
+    `;
+    display.appendChild(card);
+    
+    setTimeout(() => playSound(isCorrect?'correct':'wrong'), idx*200);
+  });
+  
+  setTimeout(() => {
+    const correctDiv = document.createElement('div');
+    correctDiv.className = 'w-full mt-3 text-center text-sm text-gray-300';
+    correctDiv.innerHTML = '<p class="font-bold mb-1">ลำดับที่ถูกต้อง:</p>' + correctOrder.map(e => `${e.displayName}(${e.useIon?e.ionR:e.atomR}pm)`).join(' < ');
+    display.appendChild(correctDiv);
+  }, 1200);
+  
+  let points = correctCount;
+  const halveCount = activeObstacles.filter(o => o.id === 'halve').length;
+  if(halveCount === 1) points = points / 2;
+  else if(halveCount >= 2) points = points / 4;
+  
+  let bonusMsg = '';
+  if(isPerfectRound) {
+    bonusMsg = ' 🎯 โบนัสเพิ่มการ์ด!';
+  }
+  
+  scores[currentTeam] += points;
+  updateScoreboard();
+  
+  const resultText = document.getElementById('results-text');
+  let halveMsg = '';
+  if(halveCount === 1) halveMsg = ' (ถูกหาร 2)';
+  else if(halveCount >= 2) halveMsg = ' (ถูกหาร 4)';
+  resultText.textContent = `ได้ ${points} คะแนน${halveMsg}${bonusMsg} | รวม: ${scores[currentTeam]}/10`;
+  
+  if(scores[currentTeam] >= 10) {
+    setTimeout(() => showWinScreen(currentTeam), 2000);
+  }
+}
+
+function nextTurn() {
+  if(scores[currentTeam] >= 10) { showWinScreen(currentTeam); return; }
+  
+  showExtraObstaclePick();
+}
+
+function showExtraObstaclePick() {
+  extraObstacleTeam = currentTeam;
+  document.getElementById('results-area').classList.add('hidden');
+  document.getElementById('extra-obstacle-phase').classList.remove('hidden');
+  
+  const title = document.getElementById('extra-obstacle-title');
+  const bonusCount = isPerfectRound ? 2 : 1;
+  title.textContent = `ทีม${currentTeam==='red'?'แดง':'น้ำเงิน'} เลือกการ์ดอุปสรรคเพิ่ม ${bonusCount} ใบ`;
+  
+  if(gameMode === 'bot' && currentTeam === 'blue') {
+    for(let i = 0; i < bonusCount; i++) {
+      const pick = OBSTACLE_TYPES[Math.floor(Math.random()*3)];
+      obstacles.blue.push({...pick});
+    }
+    setTimeout(() => {
+      document.getElementById('extra-obstacle-phase').classList.add('hidden');
+      switchTurn();
+    }, 500);
+    return;
+  }
+  
+  const bonusCount2 = isPerfectRound ? 2 : 1;
+  let selected = 0;
+  const pool = [];
+  for(let i = 0; i < 6; i++) pool.push(OBSTACLE_TYPES[Math.floor(Math.random()*3)]);
+  
+  const container = document.getElementById('extra-obstacle-cards');
+  container.innerHTML = '';
+  pool.forEach((obs, idx) => {
+    const card = document.createElement('div');
+    card.className = 'card-flip w-24 h-36 cursor-pointer';
+    card.innerHTML = `
+      <div class="card-inner w-full h-full relative" id="extra-obs-${idx}">
+        <div class="card-front w-full h-full bg-gradient-to-br from-gray-700 to-gray-800 rounded-xl border-2 border-gray-600 flex items-center justify-center">
+          <span class="text-3xl">❓</span>
+        </div>
+        <div class="card-back w-full h-full bg-gradient-to-br ${obs.color} rounded-xl border-2 border-white/30 flex flex-col items-center justify-center p-2">
+          <span class="text-2xl">${obs.icon}</span>
+          <span class="text-xs font-bold mt-1">${obs.name}</span>
+        </div>
+      </div>`;
+    card.onclick = () => {
+      if(selected >= bonusCount2) return;
+      document.getElementById(`extra-obs-${idx}`).classList.add('flipped');
+      obstacles[extraObstacleTeam].push({...obs});
+      selected++;
+      if(selected >= bonusCount2) {
+        container.querySelectorAll('.card-flip').forEach(c => c.style.pointerEvents='none');
+        setTimeout(() => {
+          document.getElementById('extra-obstacle-phase').classList.add('hidden');
+          switchTurn();
+        }, 1000);
+      }
+    };
+    container.appendChild(card);
+  });
+}
+
+function switchTurn() {
+  currentTeam = currentTeam === 'red' ? 'blue' : 'red';
+  activeObstacles = [];
+  updateScoreboard();
+  
+  if(gameMode === 'bot' && currentTeam === 'blue') {
+    startObstacleUsePhase();
+    return;
+  }
+  startObstacleUsePhase();
+}
+
+function showWinScreen(team) {
+  playSound('win');
+  document.getElementById('win-text').textContent = `ทีม${team==='red'?'แดง 🔴':'น้ำเงิน 🔵'} ชนะ!`;
+  document.getElementById('win-text').className = `text-5xl font-extrabold mb-4 ${team==='red'?'text-red-400':'text-blue-400'}`;
+  showScreen('screen-win');
+}
+
+function botSort() {
+  const sorted = [...playerOrder].sort((a,b) => a.size - b.size);
+  if(Math.random() < 0.4) {
+    const i = Math.floor(Math.random()*4);
+    [sorted[i], sorted[i+1]] = [sorted[i+1], sorted[i]];
+  }
+  playerOrder = sorted;
+  setTimeout(() => submitAnswer(), 1500);
+}
+
+const origStartSorting = startSorting;
+startSorting = function() {
+  origStartSorting();
+  if(gameMode === 'bot' && currentTeam === 'blue') {
+    document.getElementById('btn-submit').classList.add('hidden');
+    document.getElementById('element-slots').style.pointerEvents = 'none';
+    setTimeout(() => botSort(), 1000);
+  } else {
+    document.getElementById('btn-submit').classList.remove('hidden');
+    document.getElementById('element-slots').style.pointerEvents = 'auto';
+  }
+};
+
+// Element SDK
+const defaultConfig = {
+  game_title: '⚛️ Atomic Size Racing',
+  background_color: '#1a1a2e',
+  surface_color: '#16213e',
+  text_color: '#ffffff',
+  primary_action_color: '#10b981',
+  secondary_action_color: '#8b5cf6',
+  font_family: 'Prompt',
+  font_size: 16
+};
+
+window.elementSdk.init({
+  defaultConfig,
+  onConfigChange: async (config) => {
+    const title = document.getElementById('game-title');
+    if(title) title.textContent = config.game_title || defaultConfig.game_title;
+    document.body.style.fontFamily = `${config.font_family || defaultConfig.font_family}, sans-serif`;
+  },
+  mapToCapabilities: (config) => ({
+    recolorables: [
+      { get: () => config.background_color || defaultConfig.background_color, set: v => { config.background_color = v; window.elementSdk.setConfig({background_color:v}); }},
+      { get: () => config.surface_color || defaultConfig.surface_color, set: v => { config.surface_color = v; window.elementSdk.setConfig({surface_color:v}); }},
+      { get: () => config.text_color || defaultConfig.text_color, set: v => { config.text_color = v; window.elementSdk.setConfig({text_color:v}); }},
+      { get: () => config.primary_action_color || defaultConfig.primary_action_color, set: v => { config.primary_action_color = v; window.elementSdk.setConfig({primary_action_color:v}); }},
+      { get: () => config.secondary_action_color || defaultConfig.secondary_action_color, set: v => { config.secondary_action_color = v; window.elementSdk.setConfig({secondary_action_color:v}); }}
+    ],
+    borderables: [],
+    fontEditable: { get: () => config.font_family || defaultConfig.font_family, set: v => { config.font_family = v; window.elementSdk.setConfig({font_family:v}); }},
+    fontSizeable: { get: () => config.font_size || defaultConfig.font_size, set: v => { config.font_size = v; window.elementSdk.setConfig({font_size:v}); }}
+  }),
+  mapToEditPanelValues: (config) => new Map([
+    ["game_title", config.game_title || defaultConfig.game_title]
+  ])
+});
+
+lucide.createIcons();
+  </script>
+ </body>
+</html>

@@ -105,7 +105,7 @@ async function loadResults(full) {
   $("detail-view").classList.add("hidden");
   $("list-view").classList.remove("hidden");
   $("list-title").textContent = "รายชื่อผู้สอบ — " + (t.title || full);
-  $("list-body").innerHTML = `<tr><td class="state" colspan="6">⏳ กำลังโหลด...</td></tr>`;
+  $("list-body").innerHTML = `<tr><td class="state" colspan="7">⏳ กำลังโหลด...</td></tr>`;
 
   try {
     const r = await callApi({
@@ -117,7 +117,7 @@ async function loadResults(full) {
     listRows = r.rows || [];
     renderList();
   } catch (e) {
-    $("list-body").innerHTML = `<tr><td class="state" colspan="6">❌ ${escapeHtml(e.message)}</td></tr>`;
+    $("list-body").innerHTML = `<tr><td class="state" colspan="7">❌ ${escapeHtml(e.message)}</td></tr>`;
   }
 }
 
@@ -127,7 +127,7 @@ function renderList() {
     !kw || `${r.displayName} ${r.userId}`.toLowerCase().includes(kw));
 
   if (!rows.length) {
-    $("list-body").innerHTML = `<tr><td class="state" colspan="6">ไม่พบผู้สอบ</td></tr>`;
+    $("list-body").innerHTML = `<tr><td class="state" colspan="7">ไม่พบผู้สอบ</td></tr>`;
     return;
   }
 
@@ -139,6 +139,7 @@ function renderList() {
         <td class="left">${escapeHtml(r.displayName || r.userId)}</td>
         <td class="score-pill">${r.totalScore} / ${total}</td>
         <td><span class="rank-badge" style="background:${rObj.color}">${escapeHtml(r.rank || rObj.rank)}</span></td>
+        <td>${riskBadge(r.riskScore)}</td>
         <td>${fmtTime(r.timeTotal)}</td>
         <td>${fmtDate(r.timestamp)}</td>
         <td><button class="row-link" onclick="openDetail('${encodeURIComponent(r.userId)}')">ดูรายละเอียด</button></td>
@@ -151,8 +152,10 @@ async function getQuestions(full) {
   if (questionCache[full]) return questionCache[full];
   const t = CFG.tests[full];
   window.TEST_DATA = null;
-  await loadScript(CFG.getQuestionFile(t.courseId, t.testKey));
-  questionCache[full] = window.TEST_DATA || [];
+  window.QUIZ_DATA = null;
+  // ชุดแบบ final-test ประกาศคำถามเป็น QUIZ_DATA (ระบุ questionFile ไว้ใน config) / ชุดเดิมใช้ TEST_DATA
+  await loadScript(t.questionFile || CFG.getQuestionFile(t.courseId, t.testKey));
+  questionCache[full] = (t.questionFile ? window.QUIZ_DATA : window.TEST_DATA) || [];
   return questionCache[full];
 }
 
@@ -194,7 +197,7 @@ function renderDetail(detail, questions) {
       <div class="sum-value">${detail.totalScore} / ${detail.totalQuestions || "?"}</div>
     </div>
     <div class="sum-box">
-      <div class="sum-label">Rank</div>
+      <div class="sum-label">Rank รวม</div>
       <div class="sum-value" style="color:${rObj.color}">${escapeHtml(detail.rank || rObj.rank)}</div>
     </div>
     <div class="sum-box">
@@ -205,6 +208,9 @@ function renderDetail(detail, questions) {
       <div class="sum-label">วันที่สอบ</div>
       <div class="sum-value" style="font-size:1rem;">${fmtDate(detail.timestamp)}</div>
     </div>`;
+
+  renderEvaluation(detail, questions, totalTime);
+  renderRisk(detail.risk);
 
   $("detail-body").innerHTML = questions.map((q, i) => {
     const stuKey = answers[q.id];
@@ -237,6 +243,216 @@ function renderDetail(detail, questions) {
 
   typesetMath();
 }
+
+// ============ ผลการประเมิน: สัตว์ / คะแนน+Rank รายหัวข้อ / Radar ============
+let adminChart = null;
+
+// เลือกสัตว์ให้เหมือนที่นักเรียนเห็นในหน้าสอบ
+//  - personaRules "v16": กติกาครบ 16 ตัว (final-test ชุดใหม่)
+//  - อื่น ๆ: กติกาเดิมของระบบ exam (เลือกได้ 9 ตัว)
+function pickPersona(t, radar, chapterKeys, totalPercent, timeAvg, answered, totalQ) {
+  const P = id => CFG.personas.find(a => a.id === id);
+  const theory = radar.theory || 0, calc = radar.calc || 0, apply = radar.apply || 0;
+
+  if (t.personaRules === "v16") {
+    const ch = chapterKeys.map(k => radar[k] || 0);
+    const best = Math.max(...ch), worst = Math.min(...ch), gap = best - worst;
+    const hard = radar[t.hardChapter] || 0;
+    if (totalPercent >= 85) return P("eagle");
+    if (hard >= 80 && calc >= 80 && totalPercent >= 75) return P("dragon");
+    if (theory >= 80 && calc < 60) return P("owl");
+    if (timeAvg > 0 && timeAvg < 40 && totalPercent >= 60) return P("cheetah");
+    if (calc >= 80 && theory < 60) return P("monkey");
+    if (calc >= 70 && calc >= theory + 20) return P("shark");
+    if (apply >= 80) return P("dolphin");
+    if (theory >= 70 && apply < 50) return P("parrot");
+    if (timeAvg > 100 && totalPercent >= 70) return P("elephant");
+    if (timeAvg > 100 && totalPercent >= 40) return P("tortoise");
+    if (gap >= 50 && best >= 75 && totalPercent < 60) return P("cat");
+    if (gap >= 40 && totalPercent >= 60) return P("fox");
+    if (gap <= 20 && totalPercent >= 50) return P("spider");
+    if (answered >= totalQ && totalPercent >= 40 && totalPercent < 60) return P("bee");
+    if (totalPercent < 40) return P("ant");
+    return P("bear");
+  }
+
+  if (totalPercent >= 85) return P("eagle");
+  if (calc >= 80 && apply >= 80 && totalPercent >= 75) return P("dragon");
+  if (theory >= 80 && calc < 60) return P("owl");
+  if (timeAvg > 0 && timeAvg < 40 && totalPercent >= 60) return P("cheetah");
+  if (calc >= 80 && theory < 60) return P("monkey");
+  if (apply >= 80) return P("dolphin");
+  if (timeAvg > 100 && totalPercent >= 70) return P("elephant");
+  if (totalPercent < 40) return P("ant");
+  return P("bear");
+}
+
+function renderEvaluation(detail, questions, totalTime) {
+  const box = $("detail-eval");
+  if (adminChart) { adminChart.destroy(); adminChart = null; }
+
+  const sk = detail.skills || {};
+  const details = sk.details || {};
+  const keys = Object.keys(details);
+  if (!keys.length) {
+    box.innerHTML = `<div class="eval-note">ไม่มีข้อมูลการประเมินรายหัวข้อของผู้สอบคนนี้ (บันทึกก่อนมีระบบประเมิน)</div>`;
+    return;
+  }
+
+  const t = CFG.tests[currentTestKeyFull] || {};
+  const totalQ = detail.totalQuestions || questions.length || 1;
+  const totalPercent = (Number(detail.totalScore) / totalQ) * 100;
+  const timeAvg = totalTime > 0 ? totalTime / totalQ : 0;
+  const answers = detail.answers || {};
+  const answered = Object.keys(answers).filter(k => answers[k] != null && answers[k] !== "").length;
+  const chapterKeys = keys.filter(k => !CFG.skills[k]);
+
+  // 1) สัตว์ + จุดแข็ง/จุดอ่อน
+  const persona = pickPersona(t, sk, chapterKeys, totalPercent, timeAvg, answered, totalQ);
+  const personaHtml = persona ? `
+    <div class="eval-persona">
+      <img src="${escapeHtml(persona.img)}" alt="${escapeHtml(persona.name)}">
+      <div>
+        <div class="p-label">ประเภทการทำข้อสอบที่ได้รับการประเมิน</div>
+        <h2>${escapeHtml(persona.name)}</h2>
+        <div class="p-desc">${escapeHtml(persona.desc)}</div>
+        <div class="trait">🟢 <strong>จุดแข็ง:</strong> ${escapeHtml(persona.strength)}</div>
+        <div class="trait">🔴 <strong>จุดที่ควรพัฒนา:</strong> ${escapeHtml(persona.weakness)}</div>
+      </div>
+    </div>` : "";
+
+  // 2) คะแนน + Rank รายหัวข้อ (ทักษะก่อน แล้วตามด้วยหัวข้อหลัก)
+  const order = [...keys.filter(k => CFG.skills[k]), ...chapterKeys];
+  const topicsHtml = order.map(k => {
+    const d = details[k] || {};
+    const pct = Number(sk[k]) || 0;
+    const r = CFG.calcRank(pct);
+    const name = d.name || skillLabel(k);
+    let subs = "";
+    if (d.subtopics && Object.keys(d.subtopics).length) {
+      subs = `<div class="t-sub">` + Object.keys(d.subtopics).map(s => {
+        const c = d.subtopics[s].c, tt = d.subtopics[s].t;
+        const col = c === tt ? "#16a34a" : (c > 0 ? "#ca8a04" : "#dc2626");
+        return `<div><span>- ${escapeHtml(s)}</span><strong style="color:${col}">${c}/${tt}</strong></div>`;
+      }).join("") + `</div>`;
+    }
+    return `
+      <div class="topic-card">
+        <div class="t-title">${escapeHtml(name)}</div>
+        <div class="t-bar"><div class="t-fill" style="width:${pct}%;background:${r.color}"></div></div>
+        <div class="t-row">
+          <span>${pct}%${(d.t != null) ? ` <span style="color:#64748b">(${d.c}/${d.t} ข้อ)</span>` : ""}</span>
+          <span class="t-rank" style="background:${r.color}22;color:${r.color}">${escapeHtml(r.rank)}</span>
+        </div>
+        ${subs}
+      </div>`;
+  }).join("");
+
+  // 3) Radar
+  box.innerHTML = personaHtml + `
+    <div class="eval-grid">
+      <div>
+        <h3 style="margin:0 0 10px;">คะแนนและ Rank รายหัวข้อ</h3>
+        <div class="eval-topics">${topicsHtml}</div>
+      </div>
+      <div class="eval-chart">
+        <h3 style="margin:0 0 6px;text-align:center;">กราฟความสมดุล (Radar)</h3>
+        <canvas id="adminRadar"></canvas>
+      </div>
+    </div>`;
+
+  const canvas = $("adminRadar");
+  if (canvas && window.Chart) {
+    adminChart = new Chart(canvas.getContext("2d"), {
+      type: "radar",
+      data: {
+        labels: order.map(k => (details[k] && details[k].name) || skillLabel(k)),
+        datasets: [{
+          label: "ความสามารถ (%)",
+          data: order.map(k => Number(sk[k]) || 0),
+          backgroundColor: "rgba(30, 61, 143, 0.2)",
+          borderColor: "rgba(30, 61, 143, 1)",
+          pointBackgroundColor: "rgba(217, 76, 76, 1)",
+          borderWidth: 2,
+        }],
+      },
+      options: { scales: { r: { suggestedMin: 0, suggestedMax: 100 } }, plugins: { legend: { display: false } } },
+    });
+  }
+}
+
+
+// ============ ความเสี่ยงทุจริต (Anti-cheat) ============
+//  ระดับ: < 30 = ปกติ, 30–59 = ติดธง, >= 60 = ถูกถือผล (ต้องตรงกับ RISK ใน anti-cheat.js / gateway)
+function riskLevelOf(score) { return score >= 60 ? "hold" : (score >= 30 ? "flag" : "ok"); }
+
+function riskBadge(score) {
+  if (score === "" || score == null || isNaN(Number(score))) return `<span class="risk-badge risk-none" title="ไม่มีข้อมูล (ส่งก่อนมีระบบ anti-cheat)">—</span>`;
+  const n = Number(score), lv = riskLevelOf(n);
+  const icon = lv === "hold" ? "🔴" : (lv === "flag" ? "🟡" : "🟢");
+  return `<span class="risk-badge risk-${lv}">${icon} ${n}</span>`;
+}
+
+function fmtClock(ts) {
+  const d = new Date(ts);
+  return isNaN(d) ? "-" : d.toLocaleTimeString("th-TH", { hour: "2-digit", minute: "2-digit", second: "2-digit" });
+}
+
+function eventLabel(e) {
+  switch (e.type) {
+    case "leave":     return "🚪 ออกจากหน้าสอบ" + (e.reason ? ` (${escapeHtml(e.reason)})` : "");
+    case "return":    return `↩️ กลับเข้าหน้าสอบ (หายไป ${e.sec || 0} วินาที)`;
+    case "copy":      return "📋 คัดลอกโจทย์";
+    case "cut":       return "✂️ ตัดข้อความ";
+    case "paste":     return "📥 วางข้อความ";
+    case "contextmenu": return "🖱️ คลิกขวา";
+    case "dragstart": return "🖱️ ลากข้อความ";
+    case "quick":     return `⚡ ตอบทันทีหลังกลับเข้าหน้า${e.q ? ` (${escapeHtml(e.q)})` : ""}`;
+    case "multitab":  return "🗂️ ตรวจพบการเปิดข้อสอบหลายแท็บ";
+    default:          return escapeHtml(e.type);
+  }
+}
+
+function renderRisk(risk) {
+  const box = $("detail-risk");
+  const hasScore = risk && risk.score !== "" && risk.score != null && !isNaN(Number(risk.score));
+  if (!hasScore) {
+    box.innerHTML = `<div class="risk-panel"><h3>🛡️ พฤติกรรมระหว่างสอบ</h3><div class="risk-sig">ไม่มีข้อมูล (ผลสอบนี้ส่งก่อนเปิดใช้ระบบ anti-cheat หรือผ่านหน้าสอบรุ่นเก่า)</div></div>`;
+    return;
+  }
+  const score = Number(risk.score), lv = riskLevelOf(score);
+  const lvText = { ok: "ปกติ", flag: "ติดธง (ควรตรวจสอบ)", hold: "เสี่ยงสูง (ถูกถือผลไว้)" }[lv];
+  const ac = risk.ac || {};
+  const sg = ac.signals;
+
+  let sigHtml = "";
+  if (sg) {
+    sigHtml = `<div class="risk-sig">
+      สลับหน้าจอ/แอป <b>${sg.switches || 0}</b> ครั้ง (หายไปรวม <b>${sg.awaySec || 0}</b> วินาที) ·
+      โจทย์คำนวณ/ประยุกต์ที่ตอบเร็วกว่า 10 วินาที <b>${sg.fastAnswers || 0}</b> ข้อ ·
+      คัดลอก/คลิกขวา/วาง <b>${sg.clip || 0}</b> ครั้ง ·
+      ตอบทันทีหลังกลับเข้าหน้า <b>${sg.quick || 0}</b> ครั้ง<br>
+      เวลาต่อข้อสม่ำเสมอผิดธรรมชาติ: <b>${sg.uniform ? "ใช่" : "ไม่"}</b> ·
+      คะแนนสูงมากแต่ใช้เวลาน้อย: <b>${sg.fastHigh ? "ใช่" : "ไม่"}</b> ·
+      เปิดหลายแท็บ: <b>${sg.multiTab ? "ใช่" : "ไม่"}</b>
+    </div>`;
+  } else {
+    sigHtml = `<div class="risk-sig">ไม่มีรายละเอียดสัญญาณ (เก็บเฉพาะคะแนนความเสี่ยง)</div>`;
+  }
+
+  const events = Array.isArray(ac.events) ? ac.events : [];
+  const evHtml = events.length ? `
+    <details style="margin-top:8px;"><summary style="cursor:pointer;color:#1E3D8F;">ลำดับเหตุการณ์ (${events.length} รายการ)</summary>
+      <div class="risk-events"><table>${events.map(e => `<tr><td>${fmtClock(e.t)}</td><td>${eventLabel(e)}</td></tr>`).join("")}</table></div>
+    </details>` : "";
+
+  box.innerHTML = `
+    <div class="risk-panel">
+      <h3>🛡️ พฤติกรรมระหว่างสอบ &nbsp;<span class="risk-badge risk-${lv}">${riskBadge(score).replace(/<[^>]+>/g, "")} · ${lvText}</span></h3>
+      ${sigHtml}${evHtml}
+    </div>`;
+}
+
 
 // expose สำหรับ onclick ใน HTML
 window.openDetail = openDetail;

@@ -107,11 +107,27 @@ window.QUIZ_CONFIG = {
       timeLimitSec: 5400,
     },
 
+    "m4-term1-physics__test02": {
+      courseId: "m4-term1-physics",
+      testKey:  "test02",
+      title:    "Final Test 2 : ฟิสิกส์ ม.4 (แรง มวล และกฎการเคลื่อนที่ของนิวตัน) (30 ข้อ)",
+      prerequisiteQuizzes: ["quiz5", "quiz6", "quiz7", "quiz8", "quiz9"],
+      timeLimitSec: 5400,
+    },
+
     "m5-term1-physics__test01": {
       courseId: "m5-term1-physics",
       testKey:  "test01",
       title:    "Final Test : ฟิสิกส์ ม.5 (การเคลื่อนที่แบบฮาร์มอนิกอย่างง่าย)",
       prerequisiteQuizzes: ["quiz1", "quiz2", "quiz3", "quiz4"],
+      timeLimitSec: 5400,
+    },
+
+    "m5-term1-physics__test02": {
+      courseId: "m5-term1-physics",
+      testKey:  "test02",
+      title:    "Final Test 2 : ฟิสิกส์ ม.5 (การเลี้ยวเบน แทรกสอด กระจก เลนส์ และความลึกจริง-ปรากฏ) (30 ข้อ)",
+      prerequisiteQuizzes: ["quiz5", "quiz6", "quiz7", "quiz8", "quiz9"],
       timeLimitSec: 5400,
     },
 
@@ -123,6 +139,14 @@ window.QUIZ_CONFIG = {
       timeLimitSec: 3600,
     },
 
+    "m3-term1-science__test02": {
+      courseId: "m3-term1-science",
+      testKey:  "test02",
+      title:    "Final Test 2 : วิทยาศาสตร์ ม.3 เทอม 1 (ชีวะ ฟิสิกส์ เคมี) (30 ข้อ)",
+      prerequisiteQuizzes: ["quiz5", "quiz6", "quiz7"],
+      timeLimitSec: 5400,
+    },
+
     "m4-term1-chem__test01": {
       courseId: "m4-term1-chem",
       testKey:  "test01",
@@ -131,12 +155,28 @@ window.QUIZ_CONFIG = {
       timeLimitSec: 3600,
     },
 
+    "m4-term1-chem__test02": {
+      courseId: "m4-term1-chem",
+      testKey:  "test02",
+      title:    "Final Test 2 : เคมี ม.4 (พันธะเคมี) (30 ข้อ)",
+      prerequisiteQuizzes: ["quiz5", "quiz6", "quiz7", "quiz8", "quiz9"],
+      timeLimitSec: 5400,
+    },
+
     "m5-term1-chem__test01": {
       courseId: "m5-term1-chem",
       testKey:  "test01",
       title:    "ข้อสอบ : เคมี ม.5 เทอม 1 — แก๊สและสมบัติของแก๊ส (30 ข้อ)",
       prerequisiteQuizzes: ["quiz1", "quiz2", "quiz3", "quiz4"],
       timeLimitSec: 3600,
+    },
+
+    "m5-term1-chem__test02": {
+      courseId: "m5-term1-chem",
+      testKey:  "test02",
+      title:    "Final Test 2 : เคมี ม.5 (อัตราการเกิดปฏิกิริยาเคมี และสมดุลเคมี) (30 ข้อ)",
+      prerequisiteQuizzes: ["quiz5", "quiz6", "quiz7", "quiz8", "quiz9"],
+      timeLimitSec: 5400,
     },
 
     "m5-summer__test01": {
@@ -177,6 +217,20 @@ window.QUIZ_CONFIG = {
       title:    "ข้อสอบ NETSAT วิชาเคมี ชุดที่ 2 (25 ข้อ)",
       prerequisiteQuizzes: [],
       timeLimitSec: 5400,
+    },
+
+    // Final Test รูปแบบสัตว์ 16 ตัว (หน้าสอบอยู่ที่ Quizzes/m2-science/ch3-final/)
+    //  questionFile = ไฟล์คำถามแบบ final-test (ประกาศเป็น QUIZ_DATA) ให้หน้า admin โหลดไปแสดงรายข้อ
+    //  personaRules "v16" = กติกาเลือกสัตว์ครบ 16 ตัว (เหมือนในหน้าสอบ), hardChapter = บทที่ยากสุด (ใช้กับ dragon)
+    "m2-science__physics-ch3-final": {
+      courseId: "m2-science",
+      testKey:  "physics-ch3-final",
+      title:    "Final Test : ฟิสิกส์ ม.2 บทที่ 3 แรง มวล และกฎการเคลื่อนที่ (30 ข้อ)",
+      prerequisiteQuizzes: [],
+      timeLimitSec: 5400,
+      questionFile: "../m2-science/ch3-final/questions.js",
+      personaRules: "v16",
+      hardChapter: "Incline",
     },
 
     // Final Test ฟิสิกส์ ม.2 บทที่ 4 การเคลื่อนที่แนวตรงและกราฟ (หน้าสอบอยู่ที่ Quizzes/m2-science/ch4-motion-final/)

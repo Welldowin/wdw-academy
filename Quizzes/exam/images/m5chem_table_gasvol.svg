@@ -1,0 +1,49 @@
+<svg viewBox="0 0 560 230" xmlns="http://www.w3.org/2000/svg" font-family="'Sarabun','Tahoma',sans-serif">
+  <rect width="560" height="230" fill="#ffffff"/>
+  <text x="280" y="26" text-anchor="middle" font-size="15" fill="#111827" font-weight="bold">ปริมาตรแก๊ส CO₂ ที่เกิดขึ้นเทียบกับเวลา</text>
+
+  <g stroke="#374151" stroke-width="1">
+    <line x1="30" y1="42" x2="530" y2="42"/>
+    <line x1="30" y1="75" x2="530" y2="75"/>
+    <line x1="30" y1="42" x2="30" y2="75"/>
+    <line x1="112" y1="42" x2="112" y2="75"/>
+    <line x1="194" y1="42" x2="194" y2="75"/>
+    <line x1="276" y1="42" x2="276" y2="75"/>
+    <line x1="358" y1="42" x2="358" y2="75"/>
+    <line x1="440" y1="42" x2="440" y2="75"/>
+    <line x1="530" y1="42" x2="530" y2="75"/>
+  </g>
+  <g font-size="13" fill="#111827" text-anchor="middle" font-weight="bold">
+    <text x="71" y="63">เวลา (s)</text>
+    <text x="153" y="63">0</text>
+    <text x="235" y="63">10</text>
+    <text x="317" y="63">20</text>
+    <text x="399" y="63">30</text>
+    <text x="481" y="63">40</text>
+    <text x="530" y="63" text-anchor="end">50</text>
+  </g>
+
+  <g stroke="#374151" stroke-width="1">
+    <line x1="30" y1="75" x2="530" y2="75"/>
+    <line x1="30" y1="108" x2="530" y2="108"/>
+    <line x1="30" y1="75" x2="30" y2="108"/>
+    <line x1="112" y1="75" x2="112" y2="108"/>
+    <line x1="194" y1="75" x2="194" y2="108"/>
+    <line x1="276" y1="75" x2="276" y2="108"/>
+    <line x1="358" y1="75" x2="358" y2="108"/>
+    <line x1="440" y1="75" x2="440" y2="108"/>
+    <line x1="530" y1="75" x2="530" y2="108"/>
+  </g>
+  <g font-size="13" fill="#1f2937" text-anchor="middle" font-weight="bold">
+    <text x="71" y="96">ปริมาตร CO₂ (cm³)</text>
+    <text x="153" y="96">0</text>
+    <text x="235" y="96">20</text>
+    <text x="317" y="96">35</text>
+    <text x="399" y="96">45</text>
+    <text x="481" y="96">50</text>
+    <text x="530" y="96" text-anchor="end">50</text>
+  </g>
+
+  <text x="280" y="135" text-anchor="middle" font-size="13" fill="#374151">สมการ: CaCO₃(s) + 2HCl(aq) → CaCl₂(aq) + H₂O(l) + CO₂(g)</text>
+  <text x="280" y="165" text-anchor="middle" font-size="12" fill="#6b7280">(สังเกต: ปริมาตรแก๊สคงที่ตั้งแต่วินาทีที่ 40 เป็นต้นไป — ปฏิกิริยาสิ้นสุดแล้ว)</text>
+</svg>

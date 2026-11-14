@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>จับคู่โรคพันธุกรรม</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Sarabun', sans-serif;
+      background: #f5f5f0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 2rem 1rem;
+      color: #1a1a1a;
+    }
+    .wrap { width: 100%; max-width: 780px; }
+
+    /* Header */
+    .header { display: flex; align-items: center; gap: 12px; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .game-title { font-size: 20px; font-weight: 700; color: #1a1a1a; }
+    .subtitle { font-size: 13px; color: #888780; margin-top: 2px; }
+    .stats { display: flex; gap: 8px; margin-left: auto; }
+    .stat-badge {
+      border-radius: 8px; padding: 6px 14px;
+      font-size: 13px; font-weight: 600;
+    }
+    .stat-score { background: #e6f1fb; color: #185fa5; }
+    .stat-time  { background: #faeeda; color: #854f0b; }
+    .stat-left  { background: #eaf3de; color: #3b6d11; }
+
+    /* Instruction */
+    .instruction {
+      background: #fff;
+      border: 1px solid #e0dfd8;
+      border-radius: 10px;
+      padding: 10px 16px;
+      font-size: 13px;
+      color: #5f5e5a;
+      margin-bottom: 1.25rem;
+      line-height: 1.6;
+    }
+
+    /* Game grid */
+    .game-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+
+    .col-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: #888780;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 8px;
+      padding-left: 4px;
+    }
+
+    /* Cards */
+    .card-list { display: flex; flex-direction: column; gap: 8px; }
+
+    .card {
+      background: #fff;
+      border: 2px solid #e0dfd8;
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #1a1a1a;
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s, transform 0.1s;
+      line-height: 1.4;
+      user-select: none;
+      min-height: 52px;
+      display: flex;
+      align-items: center;
+    }
+    .card:hover { border-color: #888780; background: #f5f5f0; }
+
+    .card.selected-disease {
+      border-color: #185fa5;
+      background: #e6f1fb;
+      color: #0c447c;
+      transform: scale(1.02);
+    }
+    .card.selected-cause {
+      border-color: #854f0b;
+      background: #faeeda;
+      color: #412402;
+      transform: scale(1.02);
+    }
+    .card.matched {
+      border-color: #639922;
+      background: #eaf3de;
+      color: #27500a;
+      cursor: default;
+      opacity: 0.75;
+    }
+    .card.wrong {
+      border-color: #e24b4a;
+      background: #fcebeb;
+      color: #791f1f;
+      animation: shake 0.3s ease;
+    }
+    .card.matched::after {
+      content: " ✓";
+      font-weight: 700;
+      color: #3b6d11;
+    }
+
+    @keyframes shake {
+      0%,100% { transform: translateX(0); }
+      25% { transform: translateX(-6px); }
+      75% { transform: translateX(6px); }
+    }
+
+    /* Progress bar */
+    .progress-wrap { margin: 1.25rem 0 0; }
+    .progress-label { font-size: 12px; color: #888780; margin-bottom: 6px; }
+    .progress-bar { background: #e0dfd8; border-radius: 99px; height: 8px; overflow: hidden; }
+    .progress-fill { background: #639922; height: 100%; border-radius: 99px; transition: width 0.4s ease; }
+
+    /* Result overlay */
+    .result-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.35);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 100;
+    }
+    .result-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      max-width: 380px;
+      width: 90%;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+    }
+    .result-trophy { font-size: 56px; margin-bottom: 8px; }
+    .result-title { font-size: 22px; font-weight: 700; margin-bottom: 4px; }
+    .result-sub { font-size: 14px; color: #888780; margin-bottom: 1.5rem; }
+    .result-stats { display: flex; gap: 12px; justify-content: center; margin-bottom: 1.5rem; }
+    .result-stat {
+      background: #f5f5f0; border-radius: 10px;
+      padding: 12px 20px; text-align: center;
+    }
+    .result-stat-val { font-size: 24px; font-weight: 700; color: #1a1a1a; }
+    .result-stat-lbl { font-size: 12px; color: #888780; margin-top: 2px; }
+    .btn-restart {
+      background: #185fa5; border: none; border-radius: 10px;
+      padding: 12px 32px; font-size: 15px;
+      font-family: 'Sarabun', sans-serif;
+      color: #fff; cursor: pointer; font-weight: 700;
+      transition: background 0.15s; width: 100%;
+    }
+    .btn-restart:hover { background: #0c447c; }
+
+    /* Responsive */
+    @media (max-width: 540px) {
+      .game-grid { grid-template-columns: 1fr; }
+      .stats { margin-left: 0; }
+    }
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <div class="header">
+    <div>
+      <div class="game-title">🧬 จับคู่โรคพันธุกรรม</div>
+      <div class="subtitle">จับคู่โรคกับสาเหตุ/โครโมโซมที่ผิดปกติ</div>
+    </div>
+    <div class="stats">
+      <div class="stat-badge stat-score" id="statScore">คะแนน: 0</div>
+      <div class="stat-badge stat-time"  id="statTime">⏱ 0:00</div>
+      <div class="stat-badge stat-left"  id="statLeft">เหลือ: 0</div>
+    </div>
+  </div>
+
+  <div class="instruction">
+    👆 คลิกชื่อโรค (ซ้าย) แล้วคลิกสาเหตุ (ขวา) เพื่อจับคู่ — จับคู่ถูกได้ +10 คะแนน ผิดหัก -3 คะแนน
+  </div>
+
+  <div class="game-grid">
+    <div>
+      <div class="col-label">🦠 ชื่อโรค / กลุ่มอาการ</div>
+      <div class="card-list" id="diseaseCol"></div>
+    </div>
+    <div>
+      <div class="col-label">🔬 สาเหตุ / โครโมโซมที่ผิดปกติ</div>
+      <div class="card-list" id="causeCol"></div>
+    </div>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-label" id="progressLabel">จับคู่แล้ว 0 / 0 คู่</div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+  </div>
+</div>
+
+<script>
+const ALL_PAIRS = [
+  { disease: "กลุ่มอาการดาวน์",              cause: "โครโมโซมคู่ที่ 21 เกินมา 1 แท่ง" },
+  { disease: "กลุ่มอาการพาทัว",              cause: "โครโมโซมคู่ที่ 13 เกินมา 1 แท่ง" },
+  { disease: "กลุ่มอาการเอ็ดเวิร์ด",         cause: "โครโมโซมคู่ที่ 18 เกินมา 1 แท่ง" },
+  { disease: "กลุ่มอาการแมวคราง",            cause: "โครโมโซมคู่ที่ 5 ขาดหายบางส่วน" },
+  { disease: "กลุ่มอาการเทิร์นเนอร์",        cause: "โครโมโซม X ขาดหายไป 1 แท่ง (XO)" },
+  { disease: "กลุ่มอาการไคลน์เฟลเตอร์",     cause: "โครโมโซม X เกินมา 1 แท่งในเพศชาย (XXY)" },
+  { disease: "กลุ่มอาการซูเปอร์ฟีเมล",      cause: "โครโมโซม X เกินมา 1 แท่งในเพศหญิง (XXX)" },
+  { disease: "กลุ่มอาการซูเปอร์แมน",        cause: "โครโมโซม Y เกินมา 1 แท่ง (XYY)" },
+  { disease: "โรคผิวเผือก",                  cause: "ยีนด้อยบนออโตโซม — ผิดปกติการสร้างเมลานิน" },
+  { disease: "โรคธาลัสซีเมีย",               cause: "ยีนด้อยบนออโตโซม — ผิดปกติการสร้างฮีโมโกลบิน" },
+  { disease: "โรคฮีโมฟีเลีย",               cause: "ยีนด้อยบนโครโมโซม X — เลือดแข็งตัวผิดปกติ" },
+  { disease: "โรคตาบอดสี",                  cause: "ยีนด้อยบนโครโมโซม X — เซลล์รูปกรวยผิดปกติ" },
+  { disease: "โรค G6PD",                    cause: "ยีนด้อยบนโครโมโซม X — เม็ดเลือดแดงแตกง่าย" },
+  { disease: "ภาวะนิ้วเกิน",                 cause: "ยีนเด่นบนออโตโซม — นิ้วมือ/เท้าเกินปกติ" },
+  { disease: "โรคเม็ดเลือดแดงรูปเคียว",      cause: "โครโมโซมคู่ที่ 11 ผิดปกติ — เม็ดเลือดแดงรูปเคียว" },
+];
+
+const ROUND_SIZE = 6;
+const POINTS_CORRECT = 10;
+const POINTS_WRONG = -3;
+
+let score = 0;
+let selectedDisease = null;
+let selectedCause = null;
+let matched = 0;
+let total = 0;
+let wrong = 0;
+let timerInterval = null;
+let seconds = 0;
+let currentPairs = [];
+
+function shuffle(arr) {
+  let a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    let j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function startGame() {
+  score = 0; matched = 0; wrong = 0; seconds = 0;
+  selectedDisease = null; selectedCause = null;
+  currentPairs = shuffle(ALL_PAIRS).slice(0, ROUND_SIZE);
+  total = currentPairs.length;
+
+  updateStats();
+  renderCards();
+  clearInterval(timerInterval);
+  timerInterval = setInterval(() => {
+    seconds++;
+    const m = Math.floor(seconds / 60);
+    const s = seconds % 60;
+    document.getElementById("statTime").textContent = `⏱ ${m}:${s.toString().padStart(2,"0")}`;
+  }, 1000);
+}
+
+function renderCards() {
+  const diseases = shuffle(currentPairs.map(p => p.disease));
+  const causes   = shuffle(currentPairs.map(p => p.cause));
+
+  const dc = document.getElementById("diseaseCol");
+  const cc = document.getElementById("causeCol");
+  dc.innerHTML = "";
+  cc.innerHTML = "";
+
+  diseases.forEach(d => {
+    const el = document.createElement("div");
+    el.className = "card";
+    el.textContent = d;
+    el.dataset.id = d;
+    el.dataset.type = "disease";
+    el.onclick = () => selectCard(el, "disease");
+    dc.appendChild(el);
+  });
+
+  causes.forEach(c => {
+    const el = document.createElement("div");
+    el.className = "card";
+    el.textContent = c;
+    el.dataset.id = c;
+    el.dataset.type = "cause";
+    el.onclick = () => selectCard(el, "cause");
+    cc.appendChild(el);
+  });
+
+  updateProgress();
+}
+
+function selectCard(el, type) {
+  if (el.classList.contains("matched")) return;
+
+  if (type === "disease") {
+    // deselect previous disease
+    document.querySelectorAll(".card.selected-disease").forEach(c => c.classList.remove("selected-disease"));
+    el.classList.add("selected-disease");
+    selectedDisease = el;
+  } else {
+    // deselect previous cause
+    document.querySelectorAll(".card.selected-cause").forEach(c => c.classList.remove("selected-cause"));
+    el.classList.add("selected-cause");
+    selectedCause = el;
+  }
+
+  if (selectedDisease && selectedCause) checkMatch();
+}
+
+function checkMatch() {
+  const d = selectedDisease.dataset.id;
+  const c = selectedCause.dataset.id;
+  const pair = currentPairs.find(p => p.disease === d);
+  const isCorrect = pair && pair.cause === c;
+
+  if (isCorrect) {
+    selectedDisease.classList.remove("selected-disease");
+    selectedCause.classList.remove("selected-cause");
+    selectedDisease.classList.add("matched");
+    selectedCause.classList.add("matched");
+    selectedDisease.onclick = null;
+    selectedCause.onclick = null;
+    score += POINTS_CORRECT;
+    matched++;
+    updateStats();
+    updateProgress();
+    if (matched === total) {
+      clearInterval(timerInterval);
+      setTimeout(showResult, 600);
+    }
+  } else {
+    wrong++;
+    score = Math.max(0, score + POINTS_WRONG);
+    const dEl = selectedDisease;
+    const cEl = selectedCause;
+    dEl.classList.add("wrong"); cEl.classList.add("wrong");
+    dEl.classList.remove("selected-disease"); cEl.classList.remove("selected-cause");
+    setTimeout(() => {
+      dEl.classList.remove("wrong"); cEl.classList.remove("wrong");
+    }, 600);
+    updateStats();
+  }
+  selectedDisease = null;
+  selectedCause = null;
+}
+
+function updateStats() {
+  document.getElementById("statScore").textContent = `คะแนน: ${score}`;
+  document.getElementById("statLeft").textContent = `เหลือ: ${total - matched}`;
+}
+
+function updateProgress() {
+  const pct = total > 0 ? Math.round((matched / total) * 100) : 0;
+  document.getElementById("progressFill").style.width = pct + "%";
+  document.getElementById("progressLabel").textContent = `จับคู่แล้ว ${matched} / ${total} คู่`;
+}
+
+function showResult() {
+  const m = Math.floor(seconds / 60);
+  const s = seconds % 60;
+  const timeStr = `${m}:${s.toString().padStart(2,"0")}`;
+  let trophy, title, color;
+  const acc = Math.round((matched / (matched + wrong)) * 100) || 100;
+  if (wrong === 0)       { trophy = "🏆"; title = "ไม่มีผิดเลย! สุดยอด!";    color = "#3b6d11"; }
+  else if (wrong <= 2)   { trophy = "🥈"; title = "เก่งมาก! เกือบสมบูรณ์";   color = "#185fa5"; }
+  else if (wrong <= 4)   { trophy = "🥉"; title = "ดี! ทบทวนอีกนิดนะ";       color = "#854f0b"; }
+  else                   { trophy = "📚"; title = "ยังต้องฝึกอีก — ลองใหม่"; color = "#791f1f"; }
+
+  const overlay = document.createElement("div");
+  overlay.className = "result-overlay";
+  overlay.innerHTML = `
+    <div class="result-card">
+      <div class="result-trophy">${trophy}</div>
+      <div class="result-title" style="color:${color}">${title}</div>
+      <div class="result-sub">จบเกมใน ${timeStr} นาที</div>
+      <div class="result-stats">
+        <div class="result-stat">
+          <div class="result-stat-val" style="color:#185fa5">${score}</div>
+          <div class="result-stat-lbl">คะแนน</div>
+        </div>
+        <div class="result-stat">
+          <div class="result-stat-val" style="color:#3b6d11">${matched}</div>
+          <div class="result-stat-lbl">ถูก</div>
+        </div>
+        <div class="result-stat">
+          <div class="result-stat-val" style="color:#e24b4a">${wrong}</div>
+          <div class="result-stat-lbl">ผิด</div>
+        </div>
+        <div class="result-stat">
+          <div class="result-stat-val" style="color:#854f0b">${acc}%</div>
+          <div class="result-stat-lbl">แม่นยำ</div>
+        </div>
+      </div>
+      <button class="btn-restart" onclick="document.body.removeChild(document.querySelector('.result-overlay')); startGame();">
+        🔄 เล่นใหม่ (สุ่มคำถามใหม่)
+      </button>
+    </div>`;
+  document.body.appendChild(overlay);
+}
+
+startGame();
+</script>
+</body>
+</html>

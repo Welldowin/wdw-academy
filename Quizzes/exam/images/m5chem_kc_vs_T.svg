@@ -1,0 +1,19 @@
+<svg viewBox="0 0 500 350" xmlns="http://www.w3.org/2000/svg" font-family="'Sarabun','Tahoma',sans-serif">
+  <rect width="500" height="350" fill="#ffffff"/>
+  <text x="250" y="26" text-anchor="middle" font-size="13" fill="#111827" font-weight="bold">ความชันเป็นลบ: T เพิ่ม → Kc ลดลง (ปฏิกิริยาคายความร้อน)</text>
+
+  <line x1="60" y1="300" x2="470" y2="300" stroke="#374151" stroke-width="1.5" marker-end="url(#axK)"/>
+  <line x1="60" y1="300" x2="60" y2="60" stroke="#374151" stroke-width="1.5" marker-end="url(#axK)"/>
+  <text x="270" y="330" text-anchor="middle" font-size="14" fill="#374151">อุณหภูมิ (T)</text>
+  <text x="25" y="180" text-anchor="middle" font-size="14" fill="#374151" transform="rotate(-90 25 180)">ค่าคงที่สมดุล (Kc)</text>
+
+  <path d="M75,80 C 150,90 200,140 260,190 C 330,250 400,280 460,290"
+        fill="none" stroke="#dc2626" stroke-width="3"/>
+
+  <text x="100" y="75" font-size="12" fill="#374151">Kc สูง (T ต่ำ)</text>
+  <text x="330" y="310" font-size="12" fill="#374151">Kc ต่ำ (T สูง)</text>
+
+  <defs>
+    <marker id="axK" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#374151"/></marker>
+  </defs>
+</svg>

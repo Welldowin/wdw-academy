@@ -79,6 +79,7 @@ function saveScore(data) {
     data.totalQuestions || "",                    // L TotalQuestions
     data.ac ? risk.score : "",                    // M RiskScore (ว่าง = หน้าสอบเก่าที่ไม่มี anti-cheat)
     data.ac ? risk.level : "",                    // N RiskLevel: ok | flag
+    data.ac ? JSON.stringify({ signals: data.ac.signals, events: data.ac.events }) : "",   // O RiskDetail (ให้แอดมินดูย้อนหลัง)
   ]);
   return json({ ok: true, status: "success", risk: risk.level });
 }
@@ -202,7 +203,7 @@ function decideHeld(data) {
     SpreadsheetApp.getActiveSpreadsheet().getSheetByName(CONFIG.SHEET_NAME).appendRow([
       new Date(), found.userId, found.displayName, found.courseId, found.testKey,
       found.totalScore, found.rank, found.skillsRaw, found.chapterRaw, found.timeSpentRaw,
-      found.answersRaw, found.totalQuestions, found.riskScore, "approved",
+      found.answersRaw, found.totalQuestions, found.riskScore, "approved", found.riskRaw,
     ]);
     sh.getRange(found.row, 15, 1, 2).setValues([["released", new Date()]]);
   } else if (data.decision === "reject") {
@@ -264,6 +265,8 @@ function getResults(data) {
       rank:        r.rank,
       timeTotal:   timeTotal,
       timestamp:   r.timestamp,
+      riskScore:   r.riskScore,
+      riskLevel:   r.riskLevel,
     };
   });
   return json({ ok: true, rows: out });
@@ -296,6 +299,7 @@ function getStudentDetail(data) {
       skills:      safeParse(latest.skillsRaw),
       timeSpent:   safeParse(latest.timeSpentRaw),
       answers:     safeParse(latest.answersRaw),
+      risk:        { score: latest.riskScore, level: latest.riskLevel, ac: safeParse(latest.riskRaw) },
     },
   });
 }
@@ -323,6 +327,9 @@ function readScoreRows(courseId, testKey) {
       timeSpentRaw:   v[9],
       answersRaw:     v[10],
       totalQuestions: v[11],
+      riskScore:      v[12],
+      riskLevel:      v[13],
+      riskRaw:        v[14],
     });
   }
   return out;

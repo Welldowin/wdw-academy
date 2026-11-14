@@ -1,7 +1,7 @@
 window.QUIZ_META = {
   courseId: "m4-summer",
   quizKey: "quiz2",
-  title: "Quiz 2 : โครงสร้างอะตอม (ท้ายบท)",
+  title: "Quiz : โครงสร้างอะตอม (ระดับวิเคราะห์)",
   enableTimer: false,
   timeLimitSec: 3600
 };

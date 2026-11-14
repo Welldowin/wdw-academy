@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Organic Chem Battle V.1</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <div class="boss-zone">
+            <h2>🧪 Organic Boss</h2>
+            <div class="health-bar-container">
+                <div id="boss-hp" class="health-bar" style="width: 100%;"></div>
+            </div>
+            <p>HP: <span id="hp-text">100</span>/100</p>
+            
+            <div class="shield-container">
+                <p>เกราะปัจจุบัน:</p>
+                <div id="current-shield" class="shield active-shield">เกราะ Cl₂</div>
+            </div>
+
+            <div class="timer-container">
+                <p>บอสจะโจมตีใน: <span id="timer-text" class="timer">5</span> วินาที</p>
+                <div class="progress-bar">
+                    <div id="timer-bar" class="timer-fill"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="combat-log" class="combat-log">
+            เกมเริ่มแล้ว! ทำลายเกราะ Cl₂ ของบอสให้ได้
+        </div>
+
+        <div class="player-zone">
+            <div class="controls">
+                <div class="control-group">
+                    <label>🔫 เลือกกระสุน (Substrate)</label>
+                    <select id="bullet-select">
+                        <option value="none">-- เลือกกระสุน --</option>
+                        <option value="alkane">Alkane</option>
+                        <option value="alkene">Alkene</option>
+                        <option value="alkyne">Alkyne</option>
+                    </select>
+                </div>
+                
+                <div class="control-group">
+                    <label>🔥 เลือกปัจจัย (Condition)</label>
+                    <select id="factor-select">
+                        <option value="none">ไม่มี (Room Temp)</option>
+                        <option value="uv">ระเบิดไฟ (UV / Heat)</option>
+                        <option value="acid">กรดเข้มข้น (H+)</option>
+                    </select>
+                </div>
+            </div>
+            
+            <button id="fire-btn" class="fire-btn" onclick="fireWeapon()">โจมตี!</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

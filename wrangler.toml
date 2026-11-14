@@ -1,0 +1,10 @@
+# Cloudflare Workers static-asset deploy for welldowinacademy.com
+# Deploy:  npx wrangler deploy
+name = "solitary-leaf-ef99"
+compatibility_date = "2025-09-01"
+
+[assets]
+directory = "."
+# SPA/404 behaviour: serve the requested .html, fall back to a plain 404
+not_found_handling = "none"
+html_handling = "auto-trailing-slash"

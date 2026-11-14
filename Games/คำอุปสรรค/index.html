@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Physics Prefix Quiz</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600;700;900&family=Share+Tech+Mono&display=swap');
+
+  :root {
+    --bg: #0a0e1a;
+    --surface: #111827;
+    --surface2: #1a2236;
+    --accent: #00d4ff;
+    --accent2: #7c3aed;
+    --green: #00ff88;
+    --red: #ff3366;
+    --yellow: #ffd600;
+    --text: #e2e8f0;
+    --muted: #64748b;
+    --border: #1e2d47;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Kanit', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 20% 50%, rgba(0,212,255,0.05) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 20%, rgba(124,58,237,0.07) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .wrap {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 680px;
+    padding: 1.5rem;
+  }
+
+  /* ========== SCREENS ========== */
+  .screen { display: none; animation: fadeIn 0.35s ease; }
+  .screen.active { display: block; }
+
+  @keyframes fadeIn { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+
+  /* ========== SETUP SCREEN ========== */
+  .brand {
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+  .brand-icon {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 3rem;
+    color: var(--accent);
+    letter-spacing: -2px;
+    line-height: 1;
+    margin-bottom: 0.4rem;
+  }
+  .brand-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--text);
+  }
+  .brand-sub {
+    font-size: 0.85rem;
+    color: var(--muted);
+    letter-spacing: 1px;
+    margin-top: 0.25rem;
+  }
+
+  .config-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.75rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .config-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .time-btns {
+    display: flex;
+    gap: 12px;
+  }
+
+  .time-btn {
+    flex: 1;
+    padding: 0.9rem 0;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--text);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1.4rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+  }
+  .time-btn span {
+    display: block;
+    font-family: 'Kanit', sans-serif;
+    font-size: 0.7rem;
+    color: var(--muted);
+    letter-spacing: 1px;
+    margin-top: 2px;
+  }
+  .time-btn:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+  .time-btn.selected {
+    background: rgba(0,212,255,0.1);
+    border-color: var(--accent);
+    color: var(--accent);
+    box-shadow: 0 0 20px rgba(0,212,255,0.2);
+  }
+
+  .q-control {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    justify-content: center;
+  }
+
+  .q-btn {
+    width: 44px; height: 44px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-size: 1.4rem;
+    cursor: pointer;
+    transition: all 0.15s;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .q-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  .q-num {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 2.5rem;
+    color: var(--accent);
+    min-width: 80px;
+    text-align: center;
+    line-height: 1;
+  }
+
+  .start-btn {
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    border: none;
+    border-radius: 12px;
+    color: white;
+    font-family: 'Kanit', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-transform: uppercase;
+    margin-top: 0.5rem;
+  }
+  .start-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,212,255,0.3); }
+  .start-btn:active { transform: translateY(0); }
+
+  /* ========== GAME SCREEN ========== */
+  .game-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+  }
+
+  .progress-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .q-counter {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.95rem;
+    color: var(--muted);
+  }
+  .q-counter b { color: var(--accent); font-size: 1.1rem; }
+
+  .score-badge {
+    display: flex;
+    gap: 12px;
+  }
+  .score-item {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.85rem;
+    padding: 4px 12px;
+    border-radius: 20px;
+    border: 1px solid;
+  }
+  .score-item.correct { color: var(--green); border-color: rgba(0,255,136,0.3); background: rgba(0,255,136,0.05); }
+  .score-item.wrong { color: var(--red); border-color: rgba(255,51,102,0.3); background: rgba(255,51,102,0.05); }
+
+  .progress-bar-wrap {
+    height: 3px;
+    background: var(--border);
+    border-radius: 3px;
+    margin-bottom: 2rem;
+    overflow: hidden;
+  }
+  .progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    border-radius: 3px;
+    transition: width 0.4s ease;
+  }
+
+  .game-area {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    cursor: pointer;
+    user-select: none;
+    min-height: 320px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .game-area.flash-green {
+    border-color: var(--green) !important;
+    box-shadow: 0 0 40px rgba(0,255,136,0.35), inset 0 0 80px rgba(0,255,136,0.08) !important;
+    animation: flashGreen 0.5s ease;
+  }
+  .game-area.flash-red {
+    border-color: var(--red) !important;
+    box-shadow: 0 0 40px rgba(255,51,102,0.35), inset 0 0 80px rgba(255,51,102,0.08) !important;
+    animation: flashRed 0.5s ease;
+  }
+
+  @keyframes flashGreen {
+    0% { background: rgba(0,255,136,0.15); }
+    100% { background: var(--surface); }
+  }
+  @keyframes flashRed {
+    0% { background: rgba(255,51,102,0.15); }
+    100% { background: var(--surface); }
+  }
+
+  /* timer ring */
+  .timer-ring-wrap {
+    position: absolute;
+    top: 1.25rem; right: 1.25rem;
+  }
+  .timer-ring-wrap svg { display: block; }
+  .timer-arc {
+    fill: none;
+    stroke: var(--border);
+    stroke-width: 3;
+  }
+  .timer-arc-fg {
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 3;
+    stroke-linecap: round;
+    transform: rotate(-90deg);
+    transform-origin: 24px 24px;
+    transition: stroke-dashoffset 0.1s linear, stroke 0.3s;
+  }
+  .timer-text {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--accent);
+  }
+
+  .question-type-tag {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1rem;
+  }
+
+  .question-display {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 4rem;
+    color: var(--accent);
+    text-align: center;
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
+    transition: transform 0.2s;
+  }
+  .question-display sup { font-size: 2rem; }
+  .question-display.symbol { font-size: 4.5rem; color: var(--yellow); }
+
+  .question-hint {
+    font-size: 0.85rem;
+    color: var(--muted);
+    text-align: center;
+    margin-top: 0.25rem;
+    letter-spacing: 1px;
+  }
+
+  .click-hint {
+    position: absolute;
+    bottom: 1.25rem;
+    font-size: 0.75rem;
+    color: var(--muted);
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:0.5;} 50%{opacity:1;} }
+
+  /* answer reveal */
+  .answer-reveal {
+    background: var(--surface2);
+    border-radius: 0 0 20px 20px;
+    padding: 1.25rem 1.75rem;
+    border-top: 1px solid var(--border);
+    width: 100%;
+    display: none;
+    animation: slideUp 0.3s ease;
+  }
+  .answer-reveal.show { display: block; }
+
+  @keyframes slideUp { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+
+  .answer-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .answer-full {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .answer-label { font-size: 0.7rem; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; }
+  .answer-value {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1.1rem;
+    color: var(--green);
+  }
+
+  .result-tag {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    padding: 6px 16px;
+    border-radius: 20px;
+    text-transform: uppercase;
+  }
+  .result-tag.correct { background: rgba(0,255,136,0.15); color: var(--green); border: 1px solid rgba(0,255,136,0.3); }
+  .result-tag.wrong { background: rgba(255,51,102,0.12); color: var(--red); border: 1px solid rgba(255,51,102,0.3); }
+
+  /* ========== END SCREEN ========== */
+  .end-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 2.5rem 2rem;
+    text-align: center;
+  }
+
+  .end-icon {
+    font-size: 3.5rem;
+    margin-bottom: 0.75rem;
+    line-height: 1;
+  }
+
+  .end-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+  }
+
+  .end-subtitle { font-size: 0.9rem; color: var(--muted); margin-bottom: 2rem; }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 2rem;
+  }
+
+  .stat-box {
+    background: var(--surface2);
+    border-radius: 12px;
+    padding: 1rem 0.75rem;
+    border: 1px solid var(--border);
+  }
+  .stat-num {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 2rem;
+    font-weight: 400;
+    line-height: 1;
+    margin-bottom: 0.25rem;
+  }
+  .stat-num.green { color: var(--green); }
+  .stat-num.red { color: var(--red); }
+  .stat-num.yellow { color: var(--yellow); }
+  .stat-label { font-size: 0.75rem; color: var(--muted); letter-spacing: 1px; }
+
+  .rating-bar {
+    background: var(--surface2);
+    border-radius: 100px;
+    height: 8px;
+    margin: 0 auto 0.5rem;
+    overflow: hidden;
+    max-width: 300px;
+  }
+  .rating-fill {
+    height: 100%;
+    border-radius: 100px;
+    background: linear-gradient(90deg, var(--accent), var(--green));
+    transition: width 1s ease;
+  }
+  .rating-text { font-size: 0.85rem; color: var(--muted); margin-bottom: 1.5rem; }
+
+  .restart-btn {
+    width: 100%;
+    padding: 0.9rem;
+    background: transparent;
+    border: 1px solid var(--accent);
+    border-radius: 12px;
+    color: var(--accent);
+    font-family: 'Kanit', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-transform: uppercase;
+  }
+  .restart-btn:hover { background: rgba(0,212,255,0.1); transform: translateY(-2px); }
+
+  /* ========== PREFIX TABLE PREVIEW ========== */
+  .ref-toggle {
+    text-align: center;
+    margin-top: 1.5rem;
+  }
+  .ref-toggle button {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 6px 18px;
+    border-radius: 20px;
+    font-family: 'Kanit', sans-serif;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 1px;
+  }
+  .ref-toggle button:hover { border-color: var(--muted); color: var(--text); }
+
+  .ref-table {
+    display: none;
+    margin-top: 1rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    animation: fadeIn 0.25s ease;
+  }
+  .ref-table.show { display: block; }
+  .ref-table table { width: 100%; border-collapse: collapse; }
+  .ref-table th {
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-transform: uppercase;
+    padding: 10px 14px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  .ref-table td {
+    font-size: 0.85rem;
+    padding: 8px 14px;
+    border-bottom: 1px solid rgba(30,45,71,0.5);
+  }
+  .ref-table tr:last-child td { border-bottom: none; }
+  .ref-table .mono { font-family: 'Share Tech Mono', monospace; color: var(--accent); }
+  .ref-table .sym { font-family: 'Share Tech Mono', monospace; color: var(--yellow); font-size: 1rem; }
+
+  /* sfx visual */
+  .ripple {
+    position: fixed;
+    border-radius: 50%;
+    width: 10px; height: 10px;
+    pointer-events: none;
+    animation: rippleAnim 0.5s ease-out forwards;
+    z-index: 100;
+  }
+  @keyframes rippleAnim {
+    0% { transform:translate(-50%,-50%) scale(0); opacity:0.8; }
+    100% { transform:translate(-50%,-50%) scale(25); opacity:0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- ===== SETUP SCREEN ===== -->
+  <div class="screen active" id="screen-setup">
+    <div class="brand">
+      <div class="brand-icon">10<sup style="font-size:1.5rem">±n</sup></div>
+      <div class="brand-title">PREFIX QUIZ</div>
+      <div class="brand-sub">คำอุปสรรคฟิสิกส์ · SI Prefix Challenge</div>
+    </div>
+
+    <div class="config-card">
+      <div class="config-label">⏱ เวลาต่อข้อ</div>
+      <div class="time-btns">
+        <button class="time-btn" data-sec="3">3<span>วินาที</span></button>
+        <button class="time-btn selected" data-sec="5">5<span>วินาที</span></button>
+        <button class="time-btn" data-sec="7">7<span>วินาที</span></button>
+      </div>
+    </div>
+
+    <div class="config-card">
+      <div class="config-label">📋 จำนวนข้อ</div>
+      <div class="q-control">
+        <button class="q-btn" id="q-minus">−</button>
+        <div class="q-num" id="q-display">10</div>
+        <button class="q-btn" id="q-plus">+</button>
+      </div>
+    </div>
+
+    <button class="start-btn" id="btn-start">▶ เริ่มเกม</button>
+
+    <div class="ref-toggle"><button id="btn-ref-toggle">ดูตารางคำอุปสรรค ▾</button></div>
+    <div class="ref-table" id="ref-table">
+      <table>
+        <tr><th>อุปสรรค (Prefix)</th><th>สัญลักษณ์</th><th>กำลัง</th><th>ค่า</th></tr>
+        <tr><td>เอกซะ (Exa)</td><td class="sym">E</td><td class="mono">10¹⁸</td><td>1,000,000,000,000,000,000</td></tr>
+        <tr><td>เพตะ (Peta)</td><td class="sym">P</td><td class="mono">10¹⁵</td><td>1,000,000,000,000,000</td></tr>
+        <tr><td>เทระ (Tera)</td><td class="sym">T</td><td class="mono">10¹²</td><td>1,000,000,000,000</td></tr>
+        <tr><td>จิกะ (Giga)</td><td class="sym">G</td><td class="mono">10⁹</td><td>1,000,000,000</td></tr>
+        <tr><td>เมกะ (Mega)</td><td class="sym">M</td><td class="mono">10⁶</td><td>1,000,000</td></tr>
+        <tr><td>กิโล (Kilo)</td><td class="sym">k</td><td class="mono">10³</td><td>1,000</td></tr>
+        <tr><td>เฮกโต (Hecto)</td><td class="sym">h</td><td class="mono">10²</td><td>100</td></tr>
+        <tr><td>เดกา (Deca)</td><td class="sym">da</td><td class="mono">10¹</td><td>10</td></tr>
+        <tr><td>— (ไม่มี)</td><td class="sym">—</td><td class="mono">10⁰</td><td>1</td></tr>
+        <tr><td>เดซิ (Deci)</td><td class="sym">d</td><td class="mono">10⁻¹</td><td>0.1</td></tr>
+        <tr><td>เซนติ (Centi)</td><td class="sym">c</td><td class="mono">10⁻²</td><td>0.01</td></tr>
+        <tr><td>มิลลิ (Milli)</td><td class="sym">m</td><td class="mono">10⁻³</td><td>0.001</td></tr>
+        <tr><td>ไมโคร (Micro)</td><td class="sym">μ</td><td class="mono">10⁻⁶</td><td>0.000001</td></tr>
+        <tr><td>นาโน (Nano)</td><td class="sym">n</td><td class="mono">10⁻⁹</td><td>0.000000001</td></tr>
+        <tr><td>พิโค (Pico)</td><td class="sym">p</td><td class="mono">10⁻¹²</td><td>0.000000000001</td></tr>
+        <tr><td>เฟมโต (Femto)</td><td class="sym">f</td><td class="mono">10⁻¹⁵</td><td>—</td></tr>
+        <tr><td>อัตโต (Atto)</td><td class="sym">a</td><td class="mono">10⁻¹⁸</td><td>—</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- ===== GAME SCREEN ===== -->
+  <div class="screen" id="screen-game">
+
+    <div class="game-header">
+      <div class="progress-info">
+        <div class="q-counter">ข้อ <b id="cur-q">1</b> / <span id="tot-q">10</span></div>
+      </div>
+      <div class="score-badge">
+        <div class="score-item correct">✓ <span id="sc-correct">0</span></div>
+        <div class="score-item wrong">✗ <span id="sc-wrong">0</span></div>
+      </div>
+    </div>
+
+    <div class="progress-bar-wrap">
+      <div class="progress-bar" id="progress-bar" style="width:0%"></div>
+    </div>
+
+    <div class="game-area" id="game-area" tabindex="0">
+
+      <!-- Timer ring -->
+      <div class="timer-ring-wrap">
+        <svg width="48" height="48" viewBox="0 0 48 48">
+          <circle class="timer-arc" cx="24" cy="24" r="20"/>
+          <circle class="timer-arc-fg" id="timer-arc-fg" cx="24" cy="24" r="20"
+            stroke-dasharray="125.66"
+            stroke-dashoffset="0"/>
+        </svg>
+        <div class="timer-text" id="timer-text">5</div>
+      </div>
+
+      <!-- Question -->
+      <div style="text-align:center; padding: 2rem 3rem 1rem;">
+        <div class="question-type-tag" id="q-type-tag">โจทย์ : เลขยกกำลัง → ชื่ออุปสรรค</div>
+        <div class="question-display" id="q-display-text">10³</div>
+        <div class="question-hint" id="q-hint">คลิกเมาส์ถ้าคุณรู้คำตอบ!</div>
+      </div>
+
+      <!-- Answer reveal -->
+      <div class="answer-reveal" id="answer-reveal">
+        <div class="answer-row">
+          <div class="answer-full">
+            <div class="answer-label">คำตอบที่ถูกต้อง</div>
+            <div class="answer-value" id="answer-text">กิโล (k) = 10³</div>
+          </div>
+          <div class="result-tag" id="result-tag">ถูก</div>
+        </div>
+      </div>
+
+      <div class="click-hint" id="click-hint">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 11V4l16 9-16 9V11l8-1z"/></svg>
+        คลิกเพื่อตอบ
+      </div>
+
+    </div><!-- game-area -->
+
+  </div><!-- screen-game -->
+
+  <!-- ===== END SCREEN ===== -->
+  <div class="screen" id="screen-end">
+    <div class="end-card">
+      <div class="end-icon" id="end-icon">🎯</div>
+      <div class="end-title" id="end-title">จบการทดสอบ!</div>
+      <div class="end-subtitle" id="end-subtitle">ผลลัพธ์ของคุณ</div>
+
+      <div class="stats-grid">
+        <div class="stat-box">
+          <div class="stat-num green" id="end-correct">0</div>
+          <div class="stat-label">ตอบถูก</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num red" id="end-wrong">0</div>
+          <div class="stat-label">ตอบผิด</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num yellow" id="end-pct">0%</div>
+          <div class="stat-label">คะแนน</div>
+        </div>
+      </div>
+
+      <div class="rating-bar"><div class="rating-fill" id="rating-fill" style="width:0%"></div></div>
+      <div class="rating-text" id="rating-text">—</div>
+
+      <button class="restart-btn" id="btn-restart">↺ เริ่มใหม่</button>
+    </div>
+  </div>
+
+</div><!-- wrap -->
+
+<script>
+// ===== DATA =====
+const PREFIXES = [
+  { exp: 18,  name: 'เอกซะ',   nameEn: 'Exa',   sym: 'E'  },
+  { exp: 15,  name: 'เพตะ',    nameEn: 'Peta',  sym: 'P'  },
+  { exp: 12,  name: 'เทระ',    nameEn: 'Tera',  sym: 'T'  },
+  { exp: 9,   name: 'จิกะ',    nameEn: 'Giga',  sym: 'G'  },
+  { exp: 6,   name: 'เมกะ',    nameEn: 'Mega',  sym: 'M'  },
+  { exp: 3,   name: 'กิโล',    nameEn: 'Kilo',  sym: 'k'  },
+  { exp: 2,   name: 'เฮกโต',   nameEn: 'Hecto', sym: 'h'  },
+  { exp: 1,   name: 'เดกา',    nameEn: 'Deca',  sym: 'da' },
+  { exp: -1,  name: 'เดซิ',    nameEn: 'Deci',  sym: 'd'  },
+  { exp: -2,  name: 'เซนติ',   nameEn: 'Centi', sym: 'c'  },
+  { exp: -3,  name: 'มิลลิ',   nameEn: 'Milli', sym: 'm'  },
+  { exp: -6,  name: 'ไมโคร',   nameEn: 'Micro', sym: 'μ'  },
+  { exp: -9,  name: 'นาโน',    nameEn: 'Nano',  sym: 'n'  },
+  { exp: -12, name: 'พิโค',    nameEn: 'Pico',  sym: 'p'  },
+  { exp: -15, name: 'เฟมโต',   nameEn: 'Femto', sym: 'f'  },
+  { exp: -18, name: 'อัตโต',   nameEn: 'Atto',  sym: 'a'  },
+];
+
+// Question types: 'exp2name', 'sym2name', 'name2exp', 'name2sym'
+const Q_TYPES = ['exp2name', 'sym2name', 'name2exp', 'name2sym'];
+
+// ===== STATE =====
+let cfg = { time: 5, total: 10 };
+let state = {
+  queue: [],
+  idx: 0,
+  correct: 0,
+  wrong: 0,
+  timerID: null,
+  tickID: null,
+  remaining: 5,
+  answered: false,
+  waiting: false,
+};
+
+// ===== AUDIO =====
+const AudioCtx = window.AudioContext || window.webkitAudioContext;
+let ac;
+function getAC() { if (!ac) ac = new AudioCtx(); return ac; }
+
+function playTone(freq, type, duration, vol=0.3, delay=0) {
+  try {
+    const ctx = getAC();
+    const o = ctx.createOscillator();
+    const g = ctx.createGain();
+    o.connect(g); g.connect(ctx.destination);
+    o.type = type;
+    o.frequency.setValueAtTime(freq, ctx.currentTime + delay);
+    g.gain.setValueAtTime(0, ctx.currentTime + delay);
+    g.gain.linearRampToValueAtTime(vol, ctx.currentTime + delay + 0.01);
+    g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + delay + duration);
+    o.start(ctx.currentTime + delay);
+    o.stop(ctx.currentTime + delay + duration + 0.05);
+  } catch(e) {}
+}
+
+function sfxCorrect() {
+  playTone(523, 'sine', 0.12, 0.25);
+  playTone(659, 'sine', 0.12, 0.25, 0.1);
+  playTone(784, 'sine', 0.18, 0.25, 0.2);
+}
+
+function sfxWrong() {
+  playTone(220, 'sawtooth', 0.1, 0.2);
+  playTone(180, 'sawtooth', 0.15, 0.2, 0.1);
+}
+
+function sfxTick() {
+  playTone(880, 'sine', 0.04, 0.08);
+}
+
+// ===== HELPERS =====
+function expToSupStr(exp) {
+  const map = {'0':'⁰','1':'¹','2':'²','3':'³','4':'⁴','5':'⁵','6':'⁶','7':'⁷','8':'⁸','9':'⁹','-':'⁻'};
+  return String(exp).split('').map(c => map[c]||c).join('');
+}
+
+function expToHTML(exp) {
+  return `10<sup>${exp}</sup>`;
+}
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length-1; i > 0; i--) {
+    const j = Math.floor(Math.random()*( i+1));
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+
+function makeQueue(total) {
+  const pool = [];
+  let prefixes = shuffle(PREFIXES);
+  const types = shuffle(Q_TYPES);
+  // fill queue cycling through types
+  for (let i = 0; i < total; i++) {
+    const p = prefixes[i % prefixes.length];
+    const t = types[i % types.length];
+    pool.push({ prefix: p, type: t });
+  }
+  return pool;
+}
+
+function buildQuestion(item) {
+  const { prefix: p, type: t } = item;
+  let display = '', displayClass = '', hint = '', answer = '', tag = '';
+  if (t === 'exp2name') {
+    display = expToHTML(p.exp);
+    displayClass = '';
+    hint = 'ชื่อคำอุปสรรคนี้คืออะไร?';
+    answer = `${p.name} (${p.nameEn}) — ${p.sym} = 10${expToSupStr(p.exp)}`;
+    tag = 'เลขยกกำลัง → ชื่ออุปสรรค';
+  } else if (t === 'sym2name') {
+    display = p.sym;
+    displayClass = 'symbol';
+    hint = 'สัญลักษณ์นี้คืออุปสรรคอะไร?';
+    answer = `${p.sym} = ${p.name} (${p.nameEn}) = 10${expToSupStr(p.exp)}`;
+    tag = 'สัญลักษณ์ → ชื่ออุปสรรค';
+  } else if (t === 'name2exp') {
+    display = p.name;
+    displayClass = 'symbol';
+    hint = `(${p.nameEn}) — มีค่าเป็น 10 ยกกำลังเท่าไหร่?`;
+    answer = `${p.name} = 10${expToSupStr(p.exp)} (${p.sym})`;
+    tag = 'ชื่ออุปสรรค → เลขยกกำลัง';
+  } else { // name2sym
+    display = p.name;
+    displayClass = 'symbol';
+    hint = `(${p.nameEn}) — สัญลักษณ์คืออะไร?`;
+    answer = `${p.name} → ${p.sym} = 10${expToSupStr(p.exp)}`;
+    tag = 'ชื่ออุปสรรค → สัญลักษณ์';
+  }
+  return { display, displayClass, hint, answer, tag };
+}
+
+// ===== TIMER =====
+const ARC_LEN = 125.66;
+
+function startTimer() {
+  const arc = document.getElementById('timer-arc-fg');
+  const timerTxt = document.getElementById('timer-text');
+  state.remaining = cfg.time;
+  arc.style.stroke = 'var(--accent)';
+  arc.style.strokeDashoffset = '0';
+  timerTxt.textContent = cfg.time;
+
+  let ms = cfg.time * 1000;
+  const start = performance.now();
+
+  state.tickID = setInterval(() => {
+    const elapsed = performance.now() - start;
+    const pct = Math.max(0, 1 - elapsed / ms);
+    arc.style.strokeDashoffset = ((1 - pct) * ARC_LEN).toFixed(2);
+    const secs = Math.ceil(pct * cfg.time);
+    timerTxt.textContent = secs;
+    if (secs <= 2) arc.style.stroke = 'var(--red)';
+    else if (secs <= 3) arc.style.stroke = 'var(--yellow)';
+    else arc.style.stroke = 'var(--accent)';
+  }, 50);
+
+  state.timerID = setTimeout(() => {
+    clearInterval(state.tickID);
+    if (!state.answered) {
+      handleAnswer(false);
+    }
+  }, ms);
+}
+
+function stopTimer() {
+  clearTimeout(state.timerID);
+  clearInterval(state.tickID);
+}
+
+// ===== GAME LOGIC =====
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function loadQuestion() {
+  const item = state.queue[state.idx];
+  const q = buildQuestion(item);
+  state.answered = false;
+  state.waiting = false;
+
+  const area = document.getElementById('game-area');
+  area.className = 'game-area';
+  area.onclick = null;
+  area.style.cursor = 'pointer';
+
+  document.getElementById('answer-reveal').classList.remove('show');
+  document.getElementById('click-hint').style.display = 'flex';
+
+  document.getElementById('q-type-tag').textContent = `โจทย์ : ${q.tag}`;
+  const qd = document.getElementById('q-display-text');
+  qd.innerHTML = q.display;
+  qd.className = 'question-display' + (q.displayClass ? ' ' + q.displayClass : '');
+  document.getElementById('q-hint').textContent = q.hint;
+  document.getElementById('answer-text').textContent = q.answer;
+
+  // progress
+  const pct = (state.idx / cfg.total) * 100;
+  document.getElementById('progress-bar').style.width = pct + '%';
+  document.getElementById('cur-q').textContent = state.idx + 1;
+  document.getElementById('tot-q').textContent = cfg.total;
+  document.getElementById('sc-correct').textContent = state.correct;
+  document.getElementById('sc-wrong').textContent = state.wrong;
+
+  startTimer();
+
+  area.onclick = (e) => {
+    if (!state.answered && !state.waiting) {
+      spawnRipple(e.clientX, e.clientY, 'rgba(0,255,136,0.35)');
+      handleAnswer(true);
+    }
+  };
+}
+
+function handleAnswer(isCorrect) {
+  if (state.answered) return;
+  state.answered = true;
+  state.waiting = true;
+  stopTimer();
+
+  const area = document.getElementById('game-area');
+  const reveal = document.getElementById('answer-reveal');
+  const resultTag = document.getElementById('result-tag');
+
+  document.getElementById('click-hint').style.display = 'none';
+
+  if (isCorrect) {
+    state.correct++;
+    area.classList.add('flash-green');
+    resultTag.className = 'result-tag correct';
+    resultTag.textContent = '✓ ถูกต้อง!';
+    sfxCorrect();
+  } else {
+    state.wrong++;
+    area.classList.add('flash-red');
+    resultTag.className = 'result-tag wrong';
+    resultTag.textContent = '✗ หมดเวลา';
+    sfxWrong();
+  }
+
+  reveal.classList.add('show');
+  document.getElementById('sc-correct').textContent = state.correct;
+  document.getElementById('sc-wrong').textContent = state.wrong;
+
+  // Auto next after 1.8s
+  setTimeout(() => {
+    state.idx++;
+    if (state.idx >= cfg.total) {
+      endGame();
+    } else {
+      loadQuestion();
+    }
+  }, 1800);
+}
+
+function endGame() {
+  showScreen('screen-end');
+  const pct = Math.round((state.correct / cfg.total) * 100);
+  document.getElementById('end-correct').textContent = state.correct;
+  document.getElementById('end-wrong').textContent = state.wrong;
+  document.getElementById('end-pct').textContent = pct + '%';
+  setTimeout(() => {
+    document.getElementById('rating-fill').style.width = pct + '%';
+  }, 100);
+
+  let icon, title, rating;
+  if (pct === 100) { icon='🏆'; title='สมบูรณ์แบบ!'; rating='เยี่ยมมาก! จำได้ทุกตัวเลย'; }
+  else if (pct >= 80) { icon='🎯'; title='ยอดเยี่ยม!'; rating='จำได้ดีมาก ฝึกอีกนิดก็สมบูรณ์แบบ'; }
+  else if (pct >= 60) { icon='👍'; title='ดีทีเดียว!'; rating='ทำได้ดี แต่ยังมีจุดที่ต้องทบทวน'; }
+  else if (pct >= 40) { icon='📚'; title='พอใช้ได้'; rating='ต้องฝึกเพิ่มอีกสักหน่อย'; }
+  else { icon='💪'; title='สู้ต่อไป!'; rating='ลองทบทวนตารางคำอุปสรรคก่อนนะ'; }
+
+  document.getElementById('end-icon').textContent = icon;
+  document.getElementById('end-title').textContent = title;
+  document.getElementById('rating-text').textContent = rating;
+}
+
+function spawnRipple(x, y, color) {
+  const d = document.createElement('div');
+  d.className = 'ripple';
+  d.style.left = x + 'px';
+  d.style.top = y + 'px';
+  d.style.background = color;
+  document.body.appendChild(d);
+  setTimeout(() => d.remove(), 500);
+}
+
+// ===== SETUP EVENTS =====
+document.querySelectorAll('.time-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.time-btn').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    cfg.time = parseInt(btn.dataset.sec);
+    playTone(440, 'sine', 0.08, 0.15);
+  });
+});
+
+let qCount = 10;
+function updateQ() { document.getElementById('q-display').textContent = qCount; cfg.total = qCount; }
+
+document.getElementById('q-minus').addEventListener('click', () => {
+  if (qCount > 5) { qCount -= 5; updateQ(); playTone(330, 'sine', 0.07, 0.12); }
+});
+document.getElementById('q-plus').addEventListener('click', () => {
+  if (qCount < 50) { qCount += 5; updateQ(); playTone(440, 'sine', 0.07, 0.12); }
+});
+
+document.getElementById('btn-start').addEventListener('click', () => {
+  state = { queue: makeQueue(cfg.total), idx: 0, correct: 0, wrong: 0,
+            timerID: null, tickID: null, remaining: cfg.time, answered: false, waiting: false };
+  showScreen('screen-game');
+  loadQuestion();
+});
+
+document.getElementById('btn-restart').addEventListener('click', () => {
+  stopTimer();
+  showScreen('screen-setup');
+});
+
+document.getElementById('btn-ref-toggle').addEventListener('click', () => {
+  const t = document.getElementById('ref-table');
+  const b = document.getElementById('btn-ref-toggle');
+  t.classList.toggle('show');
+  b.textContent = t.classList.contains('show') ? 'ซ่อนตาราง ▴' : 'ดูตารางคำอุปสรรค ▾';
+});
+
+// keyboard shortcut
+document.addEventListener('keydown', e => {
+  if (e.code === 'Space' && document.getElementById('screen-game').classList.contains('active')) {
+    e.preventDefault();
+    const area = document.getElementById('game-area');
+    if (!state.answered && !state.waiting) {
+      spawnRipple(window.innerWidth/2, window.innerHeight/2, 'rgba(0,255,136,0.35)');
+      handleAnswer(true);
+    }
+  }
+});
+</script>
+</body>
+</html>

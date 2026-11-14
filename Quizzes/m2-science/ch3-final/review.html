@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ตรวจข้อสอบ : Final Test ฟิสิกส์ ม.2 บทที่ 4</title>
+<title>ตรวจข้อสอบ : Final Test ฟิสิกส์ ม.2 บทที่ 3</title>
 <script>
   window.MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] }, svg: { fontCache: 'global' } };
 </script>
@@ -38,10 +38,10 @@
     <label>กรอง:
       <select id="filter">
         <option value="">ทุกข้อ</option>
-        <option value="Disp">ระยะทาง/การกระจัด</option>
-        <option value="Speed">อัตราเร็ว/ความเร็ว</option>
-        <option value="Accel">ความเร่งและสมการ</option>
-        <option value="Graph">กราฟการเคลื่อนที่</option>
+        <option value="Vector">เวกเตอร์</option>
+        <option value="Mass">ระบบมวลราบและดิ่ง</option>
+        <option value="Friction">แรงเสียดทาน</option>
+        <option value="Incline">พื้นเอียง</option>
         <option value="img">เฉพาะข้อที่มีรูป</option>
       </select>
     </label>
@@ -53,7 +53,7 @@
 <script src="questions.js"></script>
 <script>
   const SKILL = { theory: 'ทฤษฎี', calc: 'คำนวณ', apply: 'ประยุกต์' };
-  const CHAP = { Disp: 'ระยะทาง/การกระจัด', Speed: 'อัตราเร็ว/ความเร็ว', Accel: 'ความเร่งและสมการ', Graph: 'กราฟการเคลื่อนที่' };
+  const CHAP = { Vector: 'เวกเตอร์', Mass: 'ระบบมวลราบและดิ่ง', Friction: 'แรงเสียดทาน', Incline: 'พื้นเอียง' };
   document.getElementById('title').textContent = 'ตรวจข้อสอบ: ' + QUIZ_META.title;
 
   function render() {

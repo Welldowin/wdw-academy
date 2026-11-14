@@ -140,7 +140,7 @@
     <div class="card" id="courseDetail"></div>
 
     <div class="card">
-      <h3>โค้ดส่วนลด Early Bird</h3>
+      <h3>โค้ดส่วนลดศิษย์เก่า / Early Bird</h3>
       <input id="coupon" type="text" placeholder="กรอกโค้ดส่วนลด (ถ้ามี)">
       <div id="couponMsg" class="coupon-message"></div>
     </div>
@@ -227,6 +227,32 @@
       title: "คอร์สเทอม 1/2569 – ม.6 (คณิต/ฟิสิกส์/เคมี)",
       price: 2000,
       schedule: courseTemplate("ม.6", "คอร์สเทอม 1/2569 – ม.6", "- 10:00-11:00 น. | คณิต<br>- 12:30-13:30 น. | ฟิสิกส์<br>- 14:30-15:30 น. | เคมี", "6.png")
+    },
+    "m3-entrance": {
+      title: "คอร์สตะลุยโจทย์ ม.3 สอบเข้า ม.4 (วิทยาศาสตร์)",
+      price: 1600,
+      schedule: `
+        <h3>ตารางเวลาเรียน</h3>
+        <ul>
+          <li>วิทยาศาสตร์ (เคมี / ฟิสิกส์ / ชีวะ)</li>
+          <li>เรียนทุกวันอาทิตย์ 10.00–12.00 น.</li>
+          <li>ค่าคอร์ส 1,600 บาท/เดือน</li>
+        </ul>
+      `
+    },
+    "m5-term2-nebula": {
+      title: "คอร์สเทอม 2 – ม.5 ฟิสิกส์/เคมี (กลุ่มเนบูล่า)",
+      price: 3500,
+      schedule: `
+        <h3>ตารางเวลาเรียน</h3>
+        <ul>
+          <li>วันพุธ 19.00–21.00 น. – ฟิสิกส์ (ออนไลน์)</li>
+          <li>วันเสาร์ 11.00–13.00 น. – เคมี (ออนไลน์ หรือมาเรียนออนไซต์ที่ร้านเฉิดฉาย หลังโรงเรียนขอนแก่นวิทยายน)</li>
+          <li>เรียน 12 สัปดาห์ รวม 48 ชั่วโมง</li>
+          <li>มีวิดีโอบันทึกทุกรอบการสอน ดูย้อนหลังได้ตลอดเวลา</li>
+          <li>มี Weekly micro quiz (การบ้านทุกสัปดาห์)</li>
+        </ul>
+      `
     },
     "online-tgat-tpat-alevel": {
       title: "คอร์สออนไลน์ – TGAT / TPAT3 / A-Level",
@@ -338,8 +364,8 @@
 
     const coupons = {
       'EARLYBIRD200':  { type: 'fixed',   value: 200 },
-      'EARLYANDFRIEND':   { type: 'fixed',   value: 400 },
-      'SECRETLATE30':   { type: 'percent', value: 30 }
+      'LASTSTAND21':   { type: 'fixed',   value: 290 },
+      'SUMMERSPD10':   { type: 'percent', value: 10 }
     };
 
     if (coupons[code]) {

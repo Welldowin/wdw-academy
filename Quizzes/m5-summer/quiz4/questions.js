@@ -3,7 +3,7 @@ window.QUIZ_META = {
   quizKey: "quiz4",
   title: "Final test : Gas",
   enableTimer: true,
-  timeLimitSec: 1800
+  timeLimitSec: 900
 };
 
 window.QUIZ_DATA = [

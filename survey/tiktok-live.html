@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ลงทะเบียนไลฟ์สดขายสินค้า TikTok - Well-Do-Win Academy</title>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;500;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: 'Kanit', sans-serif;
+    background-color: #fffdf5;
+    color: #333;
+  }
+  header {
+    background-color: #1E3D8F;
+    color: white;
+    text-align: center;
+    padding: 1.6rem 1rem 1.2rem;
+  }
+  header h1 { margin: 0 0 0.4rem; font-size: 1.25rem; }
+  header p { margin: 0; font-size: 0.9rem; opacity: 0.9; }
+
+  main {
+    max-width: 640px;
+    margin: 1.2rem auto 3rem;
+    padding: 0 1rem;
+  }
+
+  .intro {
+    background: #fdf7e8;
+    border-radius: 14px;
+    padding: 1.2rem 1.3rem;
+    margin-bottom: 1.2rem;
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .card {
+    background: white;
+    border: 1px solid #eee;
+    border-radius: 14px;
+    padding: 1.3rem 1.2rem;
+    margin-bottom: 1.1rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+
+  .q-title {
+    font-weight: 700;
+    color: #1E3D8F;
+    margin: 0 0 0.9rem;
+    font-size: 1.02rem;
+    line-height: 1.5;
+  }
+  .q-title .req { color: #D94C4C; }
+
+  input[type="text"], input[type="tel"] {
+    width: 100%;
+    padding: 0.65rem 0.7rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-family: inherit;
+    font-size: 0.95rem;
+  }
+
+  .radio-list { display: flex; flex-direction: column; gap: 0.55rem; }
+  .radio-item {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    background: #fafafa;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    padding: 0.6rem 0.7rem;
+    cursor: pointer;
+  }
+  .radio-item span { font-size: 0.95rem; }
+
+  .upload-field { margin-bottom: 1.2rem; }
+  .upload-field:last-child { margin-bottom: 0; }
+  .upload-caption { font-size: 0.92rem; color: #444; font-weight: 500; margin-bottom: 0.55rem; }
+  .upload-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: #1E3D8F;
+    color: white;
+    padding: 0.7rem 1.3rem;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+  }
+  .upload-btn:hover { opacity: 0.9; }
+  .upload-btn:active { opacity: 0.8; }
+  input[type="file"] { display: none; }
+  .upload-filename { margin-top: 0.5rem; font-size: 0.83rem; color: #555; }
+  .file-preview { margin-top: 0.7rem; }
+  .file-preview img { max-width: 100%; max-height: 220px; border-radius: 10px; display: block; }
+
+  .submit-btn {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    border-radius: 12px;
+    border: none;
+    background-color: #D94C4C;
+    color: white;
+    font-size: 1.05rem;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+  .submit-btn:hover:not(:disabled) { opacity: 0.92; }
+
+  .err-msg { color: #D94C4C; font-size: 0.85rem; margin-top: 0.5rem; display: none; }
+
+  .thanks { text-align: center; padding: 3rem 1rem; }
+  .thanks h2 { color: #1E3D8F; }
+  .thanks p { line-height: 1.7; }
+
+  footer {
+    background-color: #1E3D8F;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.85rem;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>📲 ลงทะเบียนไลฟ์สดขายสินค้าผ่าน TikTok</h1>
+  <p>สำหรับผู้ประกอบการที่ต้องการไลฟ์สดขายสินค้า</p>
+</header>
+
+<main>
+  <div class="intro" id="intro-block">
+    กรุณากรอกข้อมูลและแนบรูปภาพให้ครบถ้วน เพื่อความรวดเร็วในการตรวจสอบสินค้าและจัดส่งพัสดุ
+  </div>
+
+  <form id="survey-form">
+
+    <div class="card">
+      <p class="q-title">1) ชื่อ-นามสกุล <span class="req">*</span></p>
+      <input type="text" id="name" required>
+    </div>
+
+    <div class="card">
+      <p class="q-title">2) เบอร์โทรศัพท์ <span class="req">*</span></p>
+      <input type="tel" id="phone" placeholder="เช่น 0812345678" required>
+    </div>
+
+    <div class="card">
+      <p class="q-title">3) ประเภทสินค้าของท่าน <span class="req">*</span></p>
+      <div class="radio-list">
+        <label class="radio-item"><input type="radio" name="productType" value="อุปโภค"><span>อุปโภค</span></label>
+        <label class="radio-item"><input type="radio" name="productType" value="บริโภค"><span>บริโภค</span></label>
+      </div>
+    </div>
+
+    <div class="card" id="image-upload-card" style="display:none;">
+      <p class="q-title">4) แนบรูปภาพสินค้า <span class="req">*</span></p>
+
+      <div class="upload-field">
+        <div class="upload-caption" id="label-image-caption">รูปฉลากสินค้า</div>
+        <label class="upload-btn" for="label-image">📷 เลือกรูปภาพ</label>
+        <input type="file" id="label-image" accept="image/*" capture="environment">
+        <div class="upload-filename" id="label-image-filename"></div>
+        <div class="file-preview" id="label-image-preview"></div>
+      </div>
+
+      <div class="upload-field">
+        <div class="upload-caption">รูปแหล่งผลิตสินค้า</div>
+        <label class="upload-btn" for="source-image">📷 เลือกรูปภาพ</label>
+        <input type="file" id="source-image" accept="image/*" capture="environment">
+        <div class="upload-filename" id="source-image-filename"></div>
+        <div class="file-preview" id="source-image-preview"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <p class="q-title">5) บริษัทขนส่งที่ท่านสะดวกให้ไปรับสินค้า <span class="req">*</span></p>
+      <div class="radio-list">
+        <label class="radio-item"><input type="radio" name="shipping" value="Flash"><span>Flash Express</span></label>
+        <label class="radio-item"><input type="radio" name="shipping" value="J&T"><span>J&T Express</span></label>
+      </div>
+    </div>
+
+    <p class="err-msg" id="err-msg">กรุณากรอกข้อมูลและแนบรูปภาพให้ครบทุกข้อก่อนส่งแบบฟอร์ม</p>
+    <button type="submit" class="submit-btn" id="submit-btn">ส่งแบบฟอร์ม</button>
+  </form>
+
+  <div class="thanks" id="thanks-block" style="display:none;">
+    <h2>ลงทะเบียนสำเร็จ 🎉</h2>
+    <p>ขอบคุณที่ลงทะเบียนไลฟ์สดขายสินค้าผ่าน TikTok กับเรา<br>ทีมงานจะติดต่อกลับตามเบอร์โทรศัพท์ที่ท่านให้ไว้</p>
+  </div>
+</main>
+
+<footer>© 2026 โรงเรียนกวดวิชาเวลดูวิน Well-Do-Win Academy</footer>
+
+<script>
+  // Google Apps Script Web App exec URL (same backend/spreadsheet as the
+  // business survey — this form writes to a separate sheet tab).
+  const SUBMIT_URL = 'https://script.google.com/macros/s/AKfycbxONmFwRxp-EDwR3Jk9K-p7TO6Z1QxtgFreqB530FrsEyos-3klDBuF2EywLdr9ZzOG/exec';
+
+  // Reveal the upload card once a product type is chosen, and switch the
+  // label-image caption between "อุปโภค" (general goods) / "บริโภค" (food,
+  // needs the อย. mark) accordingly.
+  const imageUploadCard = document.getElementById('image-upload-card');
+  const labelImageCaption = document.getElementById('label-image-caption');
+  document.querySelectorAll('input[name="productType"]').forEach(r => {
+    r.addEventListener('change', () => {
+      if (!r.checked) return;
+      imageUploadCard.style.display = 'block';
+      labelImageCaption.textContent = r.value === 'บริโภค' ? 'รูปฉลากสินค้า อย.' : 'รูปฉลากสินค้า';
+    });
+  });
+
+  function setupPreview(inputId, previewId, filenameId) {
+    const input = document.getElementById(inputId);
+    const preview = document.getElementById(previewId);
+    const filenameEl = document.getElementById(filenameId);
+    input.addEventListener('change', () => {
+      preview.innerHTML = '';
+      filenameEl.textContent = '';
+      const file = input.files[0];
+      if (!file) return;
+      filenameEl.textContent = '✅ ' + file.name;
+      const img = document.createElement('img');
+      img.src = URL.createObjectURL(file);
+      preview.appendChild(img);
+    });
+  }
+  setupPreview('label-image', 'label-image-preview', 'label-image-filename');
+  setupPreview('source-image', 'source-image-preview', 'source-image-filename');
+
+  function fileToCompressedImage(file, maxDim, quality) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onerror = () => reject(new Error('อ่านไฟล์ไม่สำเร็จ'));
+      reader.onload = (e) => {
+        const img = new Image();
+        img.onerror = () => reject(new Error('โหลดรูปภาพไม่สำเร็จ'));
+        img.onload = () => {
+          let width = img.width, height = img.height;
+          if (width > maxDim || height > maxDim) {
+            const ratio = Math.min(maxDim / width, maxDim / height);
+            width = Math.round(width * ratio);
+            height = Math.round(height * ratio);
+          }
+          const canvas = document.createElement('canvas');
+          canvas.width = width;
+          canvas.height = height;
+          canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+          const dataUrl = canvas.toDataURL('image/jpeg', quality);
+          resolve({
+            filename: (file.name || 'image').replace(/\.[^.]+$/, '') + '.jpg',
+            mimeType: 'image/jpeg',
+            base64: dataUrl.split(',')[1]
+          });
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  const form = document.getElementById('survey-form');
+  const errMsg = document.getElementById('err-msg');
+  const submitBtn = document.getElementById('submit-btn');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    errMsg.style.display = 'none';
+
+    const name = document.getElementById('name').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const productTypeEl = document.querySelector('input[name="productType"]:checked');
+    const shippingEl = document.querySelector('input[name="shipping"]:checked');
+    const labelFile = document.getElementById('label-image').files[0];
+    const sourceFile = document.getElementById('source-image').files[0];
+
+    const valid = name && phone && productTypeEl && shippingEl && labelFile && sourceFile;
+    if (!valid) {
+      errMsg.style.display = 'block';
+      window.scrollTo({ top: errMsg.offsetTop - 20, behavior: 'smooth' });
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'กำลังอัปโหลดรูปภาพและส่งข้อมูล...';
+
+    try {
+      const [labelImage, sourceImage] = await Promise.all([
+        fileToCompressedImage(labelFile, 1600, 0.75),
+        fileToCompressedImage(sourceFile, 1600, 0.75)
+      ]);
+
+      const res = await fetch(SUBMIT_URL, {
+        method: 'POST',
+        headers: {'Content-Type': 'text/plain;charset=utf-8'},
+        body: JSON.stringify({
+          formType: 'tiktok_live',
+          name,
+          phone,
+          productType: productTypeEl.value,
+          shipping: shippingEl.value,
+          labelImage,
+          sourceImage
+        })
+      });
+      const result = await res.json();
+      if (!result.ok) throw new Error(result.error || 'ไม่ทราบสาเหตุ');
+
+      document.getElementById('intro-block').style.display = 'none';
+      form.style.display = 'none';
+      document.getElementById('thanks-block').style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } catch (err) {
+      console.error(err);
+      alert('ส่งข้อมูลไม่สำเร็จ กรุณาลองใหม่อีกครั้ง: ' + err.message);
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'ส่งแบบฟอร์ม';
+    }
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>เครื่องมือวัดละเอียด — ฝึกอ่านค่า</title>
+<style>
+  :root{
+    --steel-0:#0d1014; --steel-1:#161b22; --steel-2:#1f2730;
+    --steel-edge:#2c3742; --ink:#e8edf2; --ink-dim:#8a98a6;
+    --amber:#ffb83d; --amber-soft:rgba(255,184,61,.16);
+    --green:#39d98a; --red:#ff5c6c; --line:#4a5763;
+    --jaw:#c9d3dc;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:'Segoe UI',system-ui,-apple-system,sans-serif;
+    background:
+      radial-gradient(1200px 600px at 50% -10%, #1c2530, var(--steel-0)) fixed;
+    color:var(--ink); min-height:100vh; padding:24px 16px 60px;
+  }
+  .wrap{max-width:1080px;margin:0 auto}
+  header{text-align:center;margin-bottom:22px}
+  h1{font-size:clamp(22px,3.2vw,34px);font-weight:800;letter-spacing:-.5px}
+  h1 .accent{color:var(--amber)}
+  .sub{color:var(--ink-dim);font-size:14px;margin-top:6px}
+  .tabs{display:flex;gap:8px;justify-content:center;margin:20px 0}
+  .tab{
+    background:var(--steel-1);border:1px solid var(--steel-edge);
+    color:var(--ink-dim);padding:10px 22px;border-radius:10px;
+    font-size:15px;font-weight:600;cursor:pointer;transition:.18s;
+  }
+  .tab:hover{color:var(--ink)}
+  .tab.on{background:var(--amber);color:#1a1206;border-color:var(--amber)}
+  .panel{display:none}
+  .panel.on{display:block}
+  .card{
+    background:linear-gradient(180deg,var(--steel-1),var(--steel-2));
+    border:1px solid var(--steel-edge);border-radius:18px;
+    padding:20px;box-shadow:0 18px 50px rgba(0,0,0,.45);
+  }
+  .instrument{margin-bottom:18px;overflow:hidden;border-radius:12px;
+    background:#0a0d11;border:1px solid #222b34}
+  svg{display:block;width:100%;height:auto;touch-action:none;cursor:grab}
+  svg.drag{cursor:grabbing}
+  .chooser{display:flex;gap:8px;justify-content:center;align-items:center;flex-wrap:wrap;margin:14px 0 4px}
+  .chooser .lbl{color:var(--ink-dim);font-size:13px;font-weight:600;margin-right:4px}
+  .seg{display:inline-flex;background:#0b0f13;border:1px solid var(--steel-edge);border-radius:10px;padding:4px;gap:4px}
+  .seg button{background:transparent;border:none;color:var(--ink-dim);font-size:14px;font-weight:700;
+    padding:8px 16px;border-radius:7px;cursor:pointer;transition:.15s;font-family:inherit}
+  .seg button:hover{color:var(--ink)}
+  .seg button.on{background:var(--amber);color:#1a1206}
+  .seg button .r{display:block;font-size:11px;font-weight:500;opacity:.8}
+  .hint{color:var(--ink-dim);font-size:13px;text-align:center;margin:10px 2px 0}
+  .hint b{color:var(--amber)}
+  .qgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}
+  @media(max-width:720px){.qgrid{grid-template-columns:1fr}}
+  .q{background:var(--steel-1);border:1px solid var(--steel-edge);
+    border-radius:12px;padding:14px}
+  .q label{display:block;font-size:13px;color:var(--ink-dim);margin-bottom:8px;font-weight:600}
+  .q .unit{color:var(--ink-dim);font-size:12px;font-weight:400}
+  .q input{
+    width:100%;background:#0b0f13;border:1.5px solid var(--steel-edge);
+    color:var(--ink);font-size:18px;font-weight:700;padding:11px 12px;
+    border-radius:9px;outline:none;transition:.15s;font-variant-numeric:tabular-nums;
+  }
+  .q input:focus{border-color:var(--amber)}
+  .q input.ok{border-color:var(--green);background:rgba(57,217,138,.08)}
+  .q input.bad{border-color:var(--red);background:rgba(255,92,108,.08)}
+  .actions{display:flex;gap:12px;margin-top:18px;flex-wrap:wrap}
+  button.act{
+    flex:1;min-width:140px;border:none;border-radius:11px;padding:14px;
+    font-size:16px;font-weight:700;cursor:pointer;transition:.15s;
+  }
+  .check{background:var(--amber);color:#1a1206}
+  .check:hover{filter:brightness(1.08)}
+  .new{background:var(--steel-2);color:var(--ink);border:1px solid var(--steel-edge)}
+  .new:hover{border-color:var(--line)}
+  .feedback{margin-top:14px;text-align:center;font-size:16px;font-weight:700;
+    min-height:24px;transition:.2s}
+  .feedback.ok{color:var(--green)}
+  .feedback.bad{color:var(--red)}
+  .reveal{margin-top:10px;background:#0b0f13;border:1px solid var(--steel-edge);
+    border-radius:10px;padding:12px 14px;font-size:14px;color:var(--ink-dim);
+    display:none;line-height:1.7}
+  .reveal.show{display:block}
+  .reveal b{color:var(--amber)}
+  .reveal .calc{color:var(--ink)}
+  .scoreline{text-align:center;color:var(--ink-dim);font-size:13px;margin-top:14px}
+  .scoreline b{color:var(--amber)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>เครื่องมือวัด<span class="accent">ละเอียด</span></h1>
+    <div class="sub">ฝึกอ่านค่าเวอร์เนียคาลิปเปอร์ และไมโครมิเตอร์ — ลากสเกลเพื่อสุ่มค่าใหม่ได้</div>
+  </header>
+
+  <div class="tabs">
+    <button class="tab on" data-tab="v">เวอร์เนียคาลิปเปอร์</button>
+    <button class="tab" data-tab="m">ไมโครมิเตอร์</button>
+  </div>
+
+  <!-- ================= VERNIER ================= -->
+  <section class="panel on" id="panel-v">
+    <div class="card">
+      <div class="instrument">
+        <svg id="vsvg" viewBox="0 0 1000 320" preserveAspectRatio="xMidYMid meet"></svg>
+      </div>
+      <div class="chooser">
+        <span class="lbl">จำนวนขีดเวอร์เนีย:</span>
+        <div class="seg" id="v-divseg">
+          <button data-n="10" data-res="0.1">10 ขีด<span class="r">0.1 mm</span></button>
+          <button data-n="20" data-res="0.05" class="on">20 ขีด<span class="r">0.05 mm</span></button>
+          <button data-n="50" data-res="0.02">50 ขีด<span class="r">0.02 mm</span></button>
+        </div>
+      </div>
+      <div class="hint">ลากสเกลล่าง (เวอร์เนีย) เพื่อสุ่มค่าใหม่ • <b style="color:#39d98a">เขียว</b> = ขีด mm ก่อนเลข 0 เวอร์เนีย (ค่าจำนวนเต็ม) • <b>เหลือง</b> = ขีดเวอร์เนียที่ตรงกัน</div>
+
+      <div class="qgrid">
+        <div class="q">
+          <label>1. ความละเอียดของเวอร์เนีย <span class="unit">(mm)</span></label>
+          <input id="v-res" inputmode="decimal" placeholder="เช่น 0.05">
+        </div>
+        <div class="q">
+          <label>2. ขีดเวอร์เนียที่ตรงกับสเกลบน <span class="unit">(ขีดที่)</span></label>
+          <input id="v-match" inputmode="numeric" placeholder="เช่น 7">
+        </div>
+        <div class="q">
+          <label>3. ค่าที่อ่านได้สุทธิ <span class="unit">(mm)</span></label>
+          <input id="v-net" inputmode="decimal" placeholder="เช่น 12.35">
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="act check" id="v-check">เช็คคำตอบ</button>
+        <button class="act new" id="v-new">สุ่มค่าใหม่</button>
+      </div>
+      <div class="feedback" id="v-fb"></div>
+      <div class="reveal" id="v-reveal"></div>
+      <div class="scoreline">คะแนน: <b id="v-score">0</b> ถูก / <span id="v-total">0</span> ครั้ง</div>
+    </div>
+  </section>
+
+  <!-- ================= MICROMETER ================= -->
+  <section class="panel" id="panel-m">
+    <div class="card">
+      <div class="instrument">
+        <svg id="msvg" viewBox="0 0 1000 360" preserveAspectRatio="xMidYMid meet"></svg>
+      </div>
+      <div class="hint">หมุนปลอก thimble โดย<b>ลากขึ้น–ลง</b> • <b style="color:#39d98a">เขียว</b> = ขีด sleeve สุดท้ายที่ขอบปลอกผ่าน • สังเกตช่องว่างจากขีดเขียวถึงขอบปลอกเพื่อแยกค่า • <b>เหลือง</b> = ขีดปลอกที่ตรงเส้นแดง</div>
+
+      <div class="qgrid">
+        <div class="q">
+          <label>1. ความละเอียดของไมโครมิเตอร์ <span class="unit">(mm)</span></label>
+          <input id="m-res" inputmode="decimal" placeholder="เช่น 0.01">
+        </div>
+        <div class="q">
+          <label>2. ขีดปลอกหมุนที่ตรงแกนกลาง <span class="unit">(ขีดที่)</span></label>
+          <input id="m-match" inputmode="numeric" placeholder="เช่น 23">
+        </div>
+        <div class="q">
+          <label>3. ค่าที่อ่านได้สุทธิ <span class="unit">(mm)</span></label>
+          <input id="m-net" inputmode="decimal" placeholder="เช่น 7.23">
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="act check" id="m-check">เช็คคำตอบ</button>
+        <button class="act new" id="m-new">สุ่มค่าใหม่</button>
+      </div>
+      <div class="feedback" id="m-fb"></div>
+      <div class="reveal" id="m-reveal"></div>
+      <div class="scoreline">คะแนน: <b id="m-score">0</b> ถูก / <span id="m-total">0</span> ครั้ง</div>
+    </div>
+  </section>
+</div>
+
+<script>
+/* ---------------- AUDIO (WebAudio SFX) ---------------- */
+const AC = window.AudioContext || window.webkitAudioContext;
+let actx = null;
+function ensureAudio(){ if(!actx) actx = new AC(); if(actx.state==='suspended') actx.resume(); }
+function tone(freq, t0, dur, type='sine', gain=0.25){
+  const o=actx.createOscillator(), g=actx.createGain();
+  o.type=type; o.frequency.value=freq;
+  o.connect(g); g.connect(actx.destination);
+  g.gain.setValueAtTime(0, t0);
+  g.gain.linearRampToValueAtTime(gain, t0+0.012);
+  g.gain.exponentialRampToValueAtTime(0.0001, t0+dur);
+  o.start(t0); o.stop(t0+dur+0.02);
+}
+function sfxCorrect(){ ensureAudio(); const t=actx.currentTime;
+  tone(659,t,0.14,'triangle',0.3); tone(880,t+0.10,0.18,'triangle',0.3); tone(1175,t+0.22,0.25,'triangle',0.25);
+}
+function sfxWrong(){ ensureAudio(); const t=actx.currentTime;
+  tone(196,t,0.22,'sawtooth',0.22); tone(146,t+0.12,0.30,'sawtooth',0.2);
+}
+function sfxTick(){ ensureAudio(); const t=actx.currentTime; tone(520,t,0.04,'square',0.08); }
+
+/* ---------------- helpers ---------------- */
+const NS='http://www.w3.org/2000/svg';
+function el(tag,attrs){const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);return e;}
+function clear(svg){while(svg.firstChild)svg.removeChild(svg.firstChild);}
+const round2=x=>Math.round(x*100)/100;
+const approx=(a,b,eps=0.001)=>Math.abs(a-b)<=eps;
+
+/* ===================================================================
+   VERNIER CALIPER
+   main scale: 1 mm per division. vernier: 10 div over 9 mm => 0.1 mm,
+   or 20 div over 19mm => 0.05mm. We'll use selectable resolution.
+=================================================================== */
+const V = {
+  res:0.05, mainStart:0, vernierLen:0, matchIdx:0, mainBefore:0, net:0,
+  nDiv:20, locked:false, score:0, total:0
+};
+const vsvg=document.getElementById('vsvg');
+
+// geometry
+const VX0=60, VX1=940;          // drawing x-range
+const MM_PX=22;                  // pixels per mm on main scale (BIG & readable)
+const MAIN_Y=120, VERN_Y=200;    // baselines
+
+function vGenerate(){
+  // resolution determined by chosen division count (V.nDiv / V.res set by selector)
+  // whole mm part (main reading before fraction): 0..30
+  V.mainBefore = Math.floor(Math.random()*28)+2;          // e.g. 12 mm
+  // which vernier line coincides -> fraction
+  V.matchIdx = Math.floor(Math.random()*V.nDiv);          // 0..n-1
+  const frac = round2(V.matchIdx*V.res);
+  V.net = round2(V.mainBefore + frac);
+  V.locked=false;
+  vDraw();
+}
+
+function vDraw(){
+  clear(vsvg);
+  // adaptive pixels-per-mm: more divisions => tighter, but keep readable
+  const mmpx = V.nDiv>=50 ? 14 : (V.nDiv>=20 ? 22 : 30);
+  // background plate
+  vsvg.appendChild(el('rect',{x:0,y:0,width:1000,height:320,fill:'#0a0d11'}));
+  vsvg.appendChild(el('rect',{x:20,y:70,width:960,height:62,rx:6,fill:'#11161c',stroke:'#222b34'}));
+  vsvg.appendChild(el('rect',{x:20,y:160,width:960,height:62,rx:6,fill:'#141b22',stroke:'#2a343d'}));
+
+  const N=V.nDiv;
+  const vspacingMM = 1 - 1/N;
+  const vspacing = vspacingMM*mmpx;
+
+  // center the view so the matched vernier line sits near the middle
+  const matchX_unshifted = V.net*mmpx + V.matchIdx*vspacing;
+  const shift = 500 - matchX_unshifted;          // px shift to center matched line ~x=500
+  const VX0s = 60 + shift;
+  const zeroX = VX0s + V.net*mmpx;
+
+  // ----- MAIN SCALE (fixed) -----
+  // draw mm marks across the whole plate, anchored so vernier-0 sits at zeroX
+  // the integer-mm reading is V.mainBefore : the last main line BEFORE vernier-0
+  for(let m=-6;m<=70;m++){
+    const x = zeroX + (m - V.net)*mmpx;
+    if(x<30||x>970) continue;
+    if(m<0) continue;
+    const big = m%10===0, mid=m%5===0;
+    const isRead = (m===V.mainBefore);     // integer mm we must read
+    const h = isRead?44:(big?34:(mid?24:16));
+    const col = isRead ? '#39d98a' : '#cdd7e0';
+    const lw = isRead ? 3.4 : (big?2.4:1.4);
+    const ln=el('line',{x1:x,y1:MAIN_Y,x2:x,y2:MAIN_Y-h,stroke:col,'stroke-width':lw});
+    if(isRead) ln.setAttribute('filter','url(#vglowg)');
+    vsvg.appendChild(ln);
+    if(big || isRead){
+      const t=el('text',{x:x,y:MAIN_Y-h-8,fill:isRead?'#39d98a':'#9fb0bd','font-size':isRead?19:18,'text-anchor':'middle','font-family':'monospace','font-weight':'bold'});
+      t.textContent=isRead?(V.mainBefore+' mm'):(m/10);
+      vsvg.appendChild(t);
+    }
+  }
+  // main scale label
+  const ml=el('text',{x:30,y:90,fill:'#6f7d8a','font-size':14,'font-family':'monospace'}); ml.textContent='MAIN (mm)'; vsvg.appendChild(ml);
+
+  // ----- VERNIER ZERO INDICATOR -----
+  // vernier "0" sits at zeroX and must fall BETWEEN two mm marks (unless frac=0)
+  // green dashed drop-line + small triangle pointer marking the integer reading region
+  vsvg.appendChild(el('line',{x1:zeroX,y1:MAIN_Y-58,x2:zeroX,y2:VERN_Y+34,stroke:'#39d98a','stroke-width':1.6,'stroke-dasharray':'5 4',opacity:.85}));
+  const tri=el('path',{d:`M ${zeroX-7} ${VERN_Y-12} L ${zeroX+7} ${VERN_Y-12} L ${zeroX} ${VERN_Y-2} Z`,fill:'#39d98a'});
+  vsvg.appendChild(tri);
+  const z0=el('text',{x:zeroX,y:MAIN_Y-64,fill:'#39d98a','font-size':12,'text-anchor':'middle','font-family':'monospace','font-weight':'bold'});
+  z0.textContent='เวอร์เนีย 0'; vsvg.appendChild(z0);
+
+  // ----- VERNIER SCALE (movable) -----
+  // label every 5th for <=20 div, every 10th for 50 div (keep readable)
+  const labelStep = N>=50 ? 10 : 5;
+  for(let k=0;k<=N;k++){
+    const x = zeroX + k*vspacing;
+    if(x<30||x>970) continue;
+    const big = k%labelStep===0 || k===0 || k===N;
+    const matched = (k===V.matchIdx);
+    const h = big?30:20;
+    const col = matched ? '#ffb83d' : '#c9d3dc';
+    const w = matched ? 3.2 : (big?2.2:1.3);
+    const ln=el('line',{x1:x,y1:VERN_Y,x2:x,y2:VERN_Y+h,stroke:col,'stroke-width':w});
+    if(matched) ln.setAttribute('filter','url(#vglow)');
+    vsvg.appendChild(ln);
+    if(big){
+      const t=el('text',{x:x,y:VERN_Y+h+18,fill:matched?'#ffb83d':'#9fb0bd','font-size':14,'text-anchor':'middle','font-family':'monospace','font-weight':'bold'});
+      t.textContent=k; vsvg.appendChild(t);
+    }
+    // vertical guide for matched line
+    if(matched){
+      vsvg.appendChild(el('line',{x1:x,y1:MAIN_Y-50,x2:x,y2:VERN_Y+h,stroke:'#ffb83d','stroke-width':1,'stroke-dasharray':'4 4',opacity:.55}));
+    }
+  }
+  const vl=el('text',{x:30,y:250,fill:'#6f7d8a','font-size':14,'font-family':'monospace'}); vl.textContent='VERNIER · '+V.nDiv+' ขีด · '+V.res+' mm'; vsvg.appendChild(vl);
+
+  // glow filters
+  const defs=el('defs',{});
+  const f=el('filter',{id:'vglow',x:'-50%',y:'-50%',width:'200%',height:'200%'});
+  const fe=el('feGaussianBlur',{stdDeviation:'2.5',result:'b'}); f.appendChild(fe);
+  const fm=el('feMerge',{}); fm.appendChild(el('feMergeNode',{in:'b'})); fm.appendChild(el('feMergeNode',{in:'SourceGraphic'})); f.appendChild(fm);
+  defs.appendChild(f);
+  const fg=el('filter',{id:'vglowg',x:'-50%',y:'-50%',width:'200%',height:'200%'});
+  fg.appendChild(el('feGaussianBlur',{stdDeviation:'2.5',result:'b'}));
+  const fmg=el('feMerge',{}); fmg.appendChild(el('feMergeNode',{in:'b'})); fmg.appendChild(el('feMergeNode',{in:'SourceGraphic'})); fg.appendChild(fmg);
+  defs.appendChild(fg);
+  vsvg.appendChild(defs);
+
+  // amber highlight band over matched main line
+  const mx = zeroX + V.matchIdx*vspacing;
+  vsvg.appendChild(el('rect',{x:mx-9,y:MAIN_Y-50,width:18,height:300,fill:'url(#none)',opacity:0}));
+}
+
+/* drag to randomize. axis 'x' (default) tracks horizontal, 'y' tracks vertical */
+function attachDrag(svg, onMove, axis){
+  axis = axis||'x';
+  let dragging=false,last=0;
+  const pos=e=> axis==='y' ? (e.touches?e.touches[0].clientY:e.clientY)
+                           : (e.touches?e.touches[0].clientX:e.clientX);
+  const down=e=>{ensureAudio();dragging=true;svg.classList.add('drag');last=pos(e);};
+  const move=e=>{ if(!dragging)return; e.preventDefault();
+    const c=pos(e);
+    if(Math.abs(c-last)>14){
+      // y-axis: dragging DOWN increases reading (drum rotates forward)
+      const dir = axis==='y' ? (c>last?1:-1) : (c>last?1:-1);
+      onMove(dir); last=c;
+    } };
+  const up=()=>{dragging=false;svg.classList.remove('drag');};
+  svg.addEventListener('mousedown',down); window.addEventListener('mousemove',move); window.addEventListener('mouseup',up);
+  svg.addEventListener('touchstart',down,{passive:false}); window.addEventListener('touchmove',move,{passive:false}); window.addEventListener('touchend',up);
+}
+
+attachDrag(vsvg,(dir)=>{
+  // nudge match index / whole part to create a new random-ish reading
+  V.matchIdx += dir;
+  if(V.matchIdx>=V.nDiv){V.matchIdx=0;V.mainBefore++;}
+  if(V.matchIdx<0){V.matchIdx=V.nDiv-1;V.mainBefore--;}
+  if(V.mainBefore<2)V.mainBefore=2;
+  if(V.mainBefore>40)V.mainBefore=40;
+  V.net=round2(V.mainBefore+V.matchIdx*V.res);
+  sfxTick(); vDraw();
+});
+
+/* check vernier */
+document.getElementById('v-check').onclick=()=>{
+  ensureAudio();
+  const res=parseFloat(document.getElementById('v-res').value);
+  const match=parseInt(document.getElementById('v-match').value,10);
+  const net=parseFloat(document.getElementById('v-net').value);
+  const iRes=document.getElementById('v-res'), iMatch=document.getElementById('v-match'), iNet=document.getElementById('v-net');
+  const okRes=approx(res,V.res), okMatch=(match===V.matchIdx), okNet=approx(net,V.net,0.005);
+  [[iRes,okRes],[iMatch,okMatch],[iNet,okNet]].forEach(([inp,ok])=>{
+    inp.classList.remove('ok','bad'); inp.classList.add(ok?'ok':'bad');
+  });
+  const fb=document.getElementById('v-fb'), rv=document.getElementById('v-reveal');
+  V.total++;
+  if(okRes&&okMatch&&okNet){
+    fb.textContent='✓ ถูกต้องทั้งหมด! เยี่ยมมากพี่แม็ก'; fb.className='feedback ok';
+    V.score++; sfxCorrect();
+  }else{
+    fb.textContent='✗ ยังไม่ถูก ลองดูเฉลยด้านล่าง'; fb.className='feedback bad';
+    sfxWrong();
+  }
+  rv.className='reveal show';
+  rv.innerHTML=`<b>เฉลย:</b> <span class="calc">
+    ความละเอียด = <b>${V.res} mm</b> &nbsp;·&nbsp;
+    ขีดที่ตรงกัน = ขีดที่ <b>${V.matchIdx}</b> &nbsp;·&nbsp;
+    ค่าสุทธิ = ${V.mainBefore} (สเกลหลัก) + ${V.matchIdx}×${V.res} = <b>${V.net.toFixed(2)} mm</b></span>`;
+  document.getElementById('v-score').textContent=V.score;
+  document.getElementById('v-total').textContent=V.total;
+};
+document.getElementById('v-new').onclick=()=>{
+  ['v-res','v-match','v-net'].forEach(id=>{const e=document.getElementById(id);e.value='';e.classList.remove('ok','bad');});
+  document.getElementById('v-fb').textContent='';
+  document.getElementById('v-reveal').className='reveal';
+  vGenerate();
+};
+
+/* vernier division selector */
+document.getElementById('v-divseg').addEventListener('click',e=>{
+  const b=e.target.closest('button'); if(!b)return;
+  ensureAudio(); sfxTick();
+  document.querySelectorAll('#v-divseg button').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on');
+  V.nDiv=parseInt(b.dataset.n,10);
+  V.res=parseFloat(b.dataset.res);
+  ['v-res','v-match','v-net'].forEach(id=>{const el2=document.getElementById(id);el2.value='';el2.classList.remove('ok','bad');});
+  document.getElementById('v-fb').textContent='';
+  document.getElementById('v-reveal').className='reveal';
+  vGenerate();
+});
+
+/* ===================================================================
+   MICROMETER  (0.01 mm)
+   sleeve: 0.5 mm marks; thimble: 50 div over 0.5 mm => 0.01 mm
+=================================================================== */
+const M = { res:0.01, sleeveMM:0, thIdx:0, net:0, score:0, total:0, halfMark:false };
+const msvg=document.getElementById('msvg');
+
+function mGenerate(){
+  M.res=0.01;
+  // sleeve whole+half: keep within view (edgeX = 70 + mm*70 must stay <~580)
+  const steps=Math.floor(Math.random()*13)+1;     // 0.5 .. 7.0 in 0.5 steps
+  M.sleeveMM = steps*0.5;
+  M.halfMark = (steps%2===1);                      // odd => .5 visible
+  M.thIdx = Math.floor(Math.random()*50);          // 0..49 thimble line
+  M.net = round2(M.sleeveMM + M.thIdx*0.01);
+  mDraw();
+}
+
+function mDraw(){
+  clear(msvg);
+  msvg.appendChild(el('rect',{x:0,y:0,width:1000,height:360,fill:'#0a0d11'}));
+
+  // ---- LAYOUT ----
+  // One horizontal DATUM LINE through the centre. Sleeve graduations sit on it.
+  // The thimble is a drum whose LEFT EDGE lands at the reading position on the sleeve,
+  // and the thimble's circumferential lines are read against this SAME datum line.
+  const datumY = 180;                 // central reference line (the "อ้างอิง")
+  const sx0 = 70;                     // x of sleeve "0"
+  const MMpx = 70;                    // px per 1 mm on sleeve (big & readable)
+  const HALF = MMpx/2;                // px per 0.5 mm
+
+  // body plate
+  msvg.appendChild(el('rect',{x:30,y:120,width:940,height:120,rx:10,fill:'#11161c',stroke:'#222b34'}));
+
+  // thimble drum edge sits at the TRUE reading position (net), so it falls
+  // BETWEEN sleeve graduations exactly like a real micrometer.
+  const edgeX = sx0 + M.net*MMpx;
+  // x of the last sleeve graduation actually passed (the value we read off sleeve)
+  const sleeveReadX = sx0 + M.sleeveMM*MMpx;
+
+  // ---------- SLEEVE (fixed) ----------
+  // datum line drawn across the EXPOSED sleeve (left of thimble edge)
+  msvg.appendChild(el('line',{x1:sx0-10,y1:datumY,x2:edgeX,y2:datumY,stroke:'#5a6b78','stroke-width':2}));
+  // whole-mm ticks ABOVE datum, half-mm ticks BELOW datum
+  for(let i=0;i<=44;i++){
+    const mm = i*0.5;
+    const x = sx0 + mm*MMpx;
+    if(x>edgeX+1) break;             // hidden under the thimble drum
+    if(x<40) continue;
+    const whole = (i%2===0);
+    if(whole){
+      msvg.appendChild(el('line',{x1:x,y1:datumY,x2:x,y2:datumY-30,stroke:'#cdd7e0','stroke-width':2.6}));
+      const t=el('text',{x:x,y:datumY-36,fill:'#9fb0bd','font-size':18,'text-anchor':'middle','font-family':'monospace','font-weight':'bold'});
+      t.textContent=(i/2); msvg.appendChild(t);
+    }else{
+      msvg.appendChild(el('line',{x1:x,y1:datumY,x2:x,y2:datumY+22,stroke:'#8d9aa6','stroke-width':2.2}));
+    }
+  }
+  const sl=el('text',{x:40,y:150,fill:'#6f7d8a','font-size':13,'font-family':'monospace'}); sl.textContent='SLEEVE'; msvg.appendChild(sl);
+
+  // GREEN highlight = the last sleeve graduation the thimble edge has PASSED.
+  // It sits behind (left of) the edge, and the visible GAP between this line and
+  // the edge is what distinguishes e.g. 4.43 from 3.93.
+  const isHalf = (Math.round(M.sleeveMM/0.5)%2===1);
+  msvg.appendChild(el('line',{x1:sleeveReadX,y1:datumY,x2:sleeveReadX,y2:isHalf?datumY+22:datumY-30,
+    stroke:'#39d98a','stroke-width':3.6,filter:'url(#mglowg)'}));
+  // small green caption above the passed graduation
+  const gcap=el('text',{x:sleeveReadX,y:isHalf?datumY+40:datumY-50,fill:'#39d98a',
+    'font-size':12,'text-anchor':'middle','font-family':'monospace','font-weight':'bold'});
+  gcap.textContent=M.sleeveMM.toFixed(2); msvg.appendChild(gcap);
+
+  // ---------- THIMBLE DRUM (vertical cylinder; rotates up/down) ----------
+  // The drum's LEFT (bevel) edge lands at edgeX on the sleeve.
+  // Graduations are HORIZONTAL lines stacked vertically; rotating the thimble
+  // scrolls them up/down. The line aligned with the datum is the reading.
+  const drumX = edgeX;               // bevel edge at the sleeve reading point
+  const drumW = 300;                 // width of the visible drum face
+  const drumTop = 60, drumBot = 300; // vertical extent of the drum
+  // drum body with curved-cylinder shading
+  msvg.appendChild(el('rect',{x:drumX,y:drumTop,width:drumW,height:drumBot-drumTop,rx:8,
+    fill:'url(#mdrum)',stroke:'#3a4651','stroke-width':1.5}));
+  // bevelled reading edge (left) — this is what reads on the sleeve
+  msvg.appendChild(el('rect',{x:drumX,y:drumTop,width:10,height:drumBot-drumTop,fill:'#0c1015',opacity:.6}));
+  msvg.appendChild(el('line',{x1:drumX,y1:drumTop,x2:drumX,y2:drumBot,stroke:'#ffb83d','stroke-width':2.2,opacity:.9}));
+  const el0=el('text',{x:drumX+8,y:drumTop+16,fill:'#ffb83d','font-size':12,'font-family':'monospace'}); el0.textContent='ขอบ thimble'; msvg.appendChild(el0);
+
+  // clip graduations to the drum face so scrolling lines don't spill out
+  const clip=el('clipPath',{id:'mdrumclip'});
+  clip.appendChild(el('rect',{x:drumX+10,y:drumTop,width:drumW-10,height:drumBot-drumTop}));
+  const gWrap=el('g',{'clip-path':'url(#mdrumclip)'});
+
+  // horizontal graduation lines: line for index k sits at y where (k - thIdx) maps
+  // to vertical offset. matched (k=thIdx) sits ON the datum (datumY).
+  const TPX = 22;                    // px per thimble division (vertical, BIG)
+  const gradX0 = drumX + 22;         // left start of graduation marks
+  for(let d=-7; d<=7; d++){
+    const idx = M.thIdx + d;
+    const labelIdx = ((idx%50)+50)%50;
+    const y = datumY + d*TPX;        // rotating up: higher idx downward
+    if(y<drumTop+6 || y>drumBot-6) continue;
+    const big = labelIdx%5===0;
+    const matched = (d===0);
+    const len = big?70:42;           // horizontal length of the tick
+    const col = matched?'#ffb83d':'#dfe7ee';
+    const ln=el('line',{x1:gradX0,y1:y,x2:gradX0+len,y2:y,
+      stroke:col,'stroke-width':matched?3.4:(big?2.4:1.4)});
+    if(matched) ln.setAttribute('filter','url(#mglow)');
+    gWrap.appendChild(ln);
+    if(big){
+      const t=el('text',{x:gradX0+len+12,y:y+6,fill:matched?'#ffb83d':'#aab8c4',
+        'font-size':18,'font-family':'monospace','font-weight':'bold'});
+      t.textContent=labelIdx; gWrap.appendChild(t);
+    }
+  }
+  msvg.appendChild(gWrap);
+  const tl=el('text',{x:drumX+drumW-12,y:drumTop+16,fill:'#7d8b97','font-size':13,'text-anchor':'end','font-family':'monospace'});
+  tl.textContent='THIMBLE · 0.01 mm'; msvg.appendChild(tl);
+
+  // ---------- DATUM REFERENCE (red reading line across the drum) ----------
+  msvg.appendChild(el('line',{x1:drumX,y1:datumY,x2:drumX+drumW,y2:datumY,
+    stroke:'#ff5c6c','stroke-width':2,opacity:.92}));
+  const dl=el('text',{x:drumX+drumW-12,y:datumY-8,fill:'#ff8c97','font-size':12,
+    'text-anchor':'end','font-family':'monospace'}); dl.textContent='เส้นอ้างอิง (datum)'; msvg.appendChild(dl);
+
+  // ---------- defs ----------
+  const defs=el('defs',{});
+  const f=el('filter',{id:'mglow',x:'-50%',y:'-50%',width:'200%',height:'200%'});
+  f.appendChild(el('feGaussianBlur',{stdDeviation:'2.5',result:'b'}));
+  const fm=el('feMerge',{}); fm.appendChild(el('feMergeNode',{in:'b'})); fm.appendChild(el('feMergeNode',{in:'SourceGraphic'})); f.appendChild(fm);
+  defs.appendChild(f);
+  const fg=el('filter',{id:'mglowg',x:'-50%',y:'-50%',width:'200%',height:'200%'});
+  fg.appendChild(el('feGaussianBlur',{stdDeviation:'2.2',result:'b'}));
+  const fmg=el('feMerge',{}); fmg.appendChild(el('feMergeNode',{in:'b'})); fmg.appendChild(el('feMergeNode',{in:'SourceGraphic'})); fg.appendChild(fmg);
+  defs.appendChild(fg);
+  const lg=el('linearGradient',{id:'mdrum',x1:'0',y1:'0',x2:'0',y2:'1'});
+  lg.appendChild(el('stop',{offset:'0',"stop-color":'#0d1218'}));
+  lg.appendChild(el('stop',{offset:'0.18',"stop-color":'#222b34'}));
+  lg.appendChild(el('stop',{offset:'0.5',"stop-color":'#2f3a45'}));
+  lg.appendChild(el('stop',{offset:'0.82',"stop-color":'#222b34'}));
+  lg.appendChild(el('stop',{offset:'1',"stop-color":'#0d1218'}));
+  defs.appendChild(lg);
+  msvg.appendChild(defs);
+}
+
+attachDrag(msvg,(dir)=>{
+  M.thIdx += dir;
+  if(M.thIdx>=50){M.thIdx=0;M.sleeveMM=round2(M.sleeveMM+0.5);}
+  if(M.thIdx<0){M.thIdx=49;M.sleeveMM=round2(M.sleeveMM-0.5);}
+  if(M.sleeveMM<0.5)M.sleeveMM=0.5;
+  if(M.sleeveMM>7)M.sleeveMM=7;
+  M.halfMark=((Math.round(M.sleeveMM/0.5))%2===1);
+  M.net=round2(M.sleeveMM+M.thIdx*0.01);
+  sfxTick(); mDraw();
+}, 'y');
+
+document.getElementById('m-check').onclick=()=>{
+  ensureAudio();
+  const res=parseFloat(document.getElementById('m-res').value);
+  const match=parseInt(document.getElementById('m-match').value,10);
+  const net=parseFloat(document.getElementById('m-net').value);
+  const iRes=document.getElementById('m-res'),iMatch=document.getElementById('m-match'),iNet=document.getElementById('m-net');
+  const okRes=approx(res,M.res), okMatch=(match===M.thIdx), okNet=approx(net,M.net,0.005);
+  [[iRes,okRes],[iMatch,okMatch],[iNet,okNet]].forEach(([inp,ok])=>{inp.classList.remove('ok','bad');inp.classList.add(ok?'ok':'bad');});
+  const fb=document.getElementById('m-fb'),rv=document.getElementById('m-reveal');
+  M.total++;
+  if(okRes&&okMatch&&okNet){
+    fb.textContent='✓ ถูกต้องทั้งหมด! แม่นมากพี่แม็ก'; fb.className='feedback ok'; M.score++; sfxCorrect();
+  }else{
+    fb.textContent='✗ ยังไม่ถูก ลองดูเฉลยด้านล่าง'; fb.className='feedback bad'; sfxWrong();
+  }
+  rv.className='reveal show';
+  rv.innerHTML=`<b>เฉลย:</b> <span class="calc">
+    ความละเอียด = <b>0.01 mm</b> &nbsp;·&nbsp;
+    ขีดปลอกที่ตรงแกน = ขีดที่ <b>${M.thIdx}</b> &nbsp;·&nbsp;
+    ค่าสุทธิ = ${M.sleeveMM.toFixed(2)} (สเกลปลอก) + ${M.thIdx}×0.01 = <b>${M.net.toFixed(2)} mm</b></span>`;
+  document.getElementById('m-score').textContent=M.score;
+  document.getElementById('m-total').textContent=M.total;
+};
+document.getElementById('m-new').onclick=()=>{
+  ['m-res','m-match','m-net'].forEach(id=>{const e=document.getElementById(id);e.value='';e.classList.remove('ok','bad');});
+  document.getElementById('m-fb').textContent='';
+  document.getElementById('m-reveal').className='reveal';
+  mGenerate();
+};
+
+/* ---------------- tabs ---------------- */
+document.querySelectorAll('.tab').forEach(t=>{
+  t.onclick=()=>{
+    document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));
+    document.querySelectorAll('.panel').forEach(x=>x.classList.remove('on'));
+    t.classList.add('on');
+    document.getElementById('panel-'+t.dataset.tab).classList.add('on');
+  };
+});
+
+/* init */
+vGenerate();
+mGenerate();
+</script>
+</body>
+</html>

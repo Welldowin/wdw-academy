@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Isomer Builder - เกมต่อโครงสร้างไอโซเมอร์</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+
+  <header class="topbar">
+    <h1>🧪 Isomer Builder</h1>
+    <div class="stats">
+      <div class="stat">เลเวล <span id="levelNum">1</span>/7</div>
+      <div class="stat">คะแนน <span id="scoreNum">0</span></div>
+    </div>
+  </header>
+
+  <section id="targetCard" class="target-card">
+    <h2>🎯 โจทย์: หาไอโซเมอร์ให้ครบ</h2>
+    <div id="targetInfo" class="target-info"></div>
+  </section>
+
+  <main class="build-area-wrap">
+    <div id="buildArea" class="build-area"></div>
+    <div class="build-controls">
+      <button id="addCBtn" class="ctrl-btn primary">⚛️ + คาร์บอน</button>
+      <button id="ringBondBtn" class="ctrl-btn">🔗 เชื่อมเป็นวง</button>
+      <button id="undoBtn" class="ctrl-btn">↩️ ลบอะตอมล่าสุด</button>
+      <button id="resetBtn" class="ctrl-btn">🗑️ เริ่มโครงสร้างนี้ใหม่</button>
+    </div>
+    <p class="legend">คลิกอะตอมเพื่อ "เลือก" (จุดต่อกิ่ง) แล้วกด +คาร์บอน เพื่อแตกกิ่ง • คลิกพันธะเพื่อสลับเดี่ยว/คู่/สาม • คลิกหมู่ฟังก์ชันแล้วคลิกอะตอม/พันธะเพื่อติด • คลิกป้าย cis/trans เพื่อสลับเรขาคณิต</p>
+  </main>
+
+  <section class="palette-wrap">
+    <div class="palette-group">
+      <h3>หมู่ฟังก์ชัน (คลิกเลือก แล้วคลิกอะตอม/พันธะที่ต้องการติด)</h3>
+      <div class="palette badges">
+        <button class="badge-btn" data-badge="OH" style="--c:#ff5c8a">-OH<br><small>แอลกอฮอล์</small></button>
+        <button class="badge-btn" data-badge="NH2" style="--c:#5c8aff">-NH₂<br><small>เอมีน</small></button>
+        <button class="badge-btn" data-badge="CHO" style="--c:#ff9d5c">-CHO<br><small>แอลดีไฮด์</small></button>
+        <button class="badge-btn" data-badge="CO" style="--c:#b45cff">C=O<br><small>คีโตน</small></button>
+        <button class="badge-btn" data-badge="COOH" style="--c:#ff5c5c">-COOH<br><small>คาร์บอกซิลิก</small></button>
+        <button class="badge-btn" data-badge="CONH2" style="--c:#5cc9c2">-CONH₂<br><small>เอไมด์</small></button>
+        <button class="badge-btn" data-badge="ETHER" style="--c:#e0c85c">-O-<br><small>อีเทอร์ (ติดบนพันธะ)</small></button>
+        <button class="badge-btn" data-badge="ESTER" style="--c:#e05cae">-COO-<br><small>เอสเทอร์ (ติดบนพันธะ)</small></button>
+      </div>
+    </div>
+  </section>
+
+  <div class="submit-wrap">
+    <button id="doneStructBtn" class="submit-btn secondary">📌 โครงสร้างนี้เสร็จแล้ว (เก็บเข้าคำตอบ)</button>
+    <button id="submitBtn" class="submit-btn">✅ ส่งคำตอบทั้งหมด</button>
+  </div>
+
+  <section id="submissionsTray" class="submissions-tray"></section>
+
+  <section id="resultPanel" class="result-panel" hidden>
+    <div id="resultHeadline"></div>
+    <div id="resultList"></div>
+    <div id="missingList"></div>
+    <button id="nextBtn" class="ctrl-btn" hidden>ถัดไป ▶</button>
+  </section>
+
+</div>
+
+<div id="winOverlay" class="overlay" hidden>
+  <div class="overlay-card">
+    <h2>🏆 ผ่านครบ 7 เลเวลแล้ว!</h2>
+    <p id="finalScore"></p>
+    <button id="playAgainBtn" class="ctrl-btn">เล่นใหม่</button>
+  </div>
+</div>
+
+<div id="toast" class="toast" hidden></div>
+
+<script src="game.js"></script>
+</body>
+</html>

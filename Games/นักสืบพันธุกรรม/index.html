@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>นักสืบพันธุกรรม</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Sarabun', sans-serif;
+      background: #f5f5f0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 2rem 1rem;
+      color: #1a1a1a;
+    }
+    .game-wrap { width: 100%; max-width: 680px; }
+    .header { display: flex; align-items: center; gap: 12px; margin-bottom: 1.25rem; }
+    .game-title { font-size: 18px; font-weight: 600; color: #1a1a1a; }
+    .score-badge {
+      background: #e6f1fb; color: #185fa5;
+      border-radius: 8px; padding: 6px 14px;
+      font-size: 13px; font-weight: 600; margin-left: auto;
+    }
+    .step-indicator { display: flex; gap: 5px; }
+    .step-dot { width: 9px; height: 9px; border-radius: 50%; background: #d3d1c7; }
+    .step-dot.done { background: #185fa5; }
+    .step-dot.active { background: #ef9f27; }
+    .case-card {
+      background: #fff; border: 1px solid #e0dfd8;
+      border-radius: 12px; padding: 1.25rem;
+      margin-bottom: 1rem; box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    }
+    .case-title { font-size: 12px; color: #888780; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 10px; }
+    .patient-info { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 1rem; }
+    .info-item { background: #f5f5f0; border-radius: 8px; padding: 8px 12px; }
+    .info-label { font-size: 11px; color: #888780; margin-bottom: 2px; }
+    .info-value { font-size: 14px; color: #1a1a1a; font-weight: 600; }
+    .symptoms { background: #faeeda; border-radius: 8px; padding: 12px; margin-bottom: 1rem; }
+    .symptoms-label { font-size: 12px; color: #854f0b; margin-bottom: 8px; font-weight: 600; }
+    .symptom-list { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; }
+    .symptom-tag { background: #ef9f27; color: #412402; border-radius: 8px; padding: 4px 12px; font-size: 13px; font-weight: 500; }
+    .question-label { font-size: 15px; color: #1a1a1a; font-weight: 600; margin-bottom: 12px; }
+    .choices { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 1rem; }
+    .choice-btn {
+      background: #fff; border: 1px solid #d3d1c7; border-radius: 8px;
+      padding: 10px 14px; font-size: 14px; font-family: 'Sarabun', sans-serif;
+      color: #1a1a1a; cursor: pointer; text-align: left;
+      transition: background 0.15s, border-color 0.15s; line-height: 1.4;
+    }
+    .choice-btn:hover:not(:disabled) { background: #f5f5f0; border-color: #888780; }
+    .choice-btn.correct { background: #eaf3de; border-color: #639922; color: #27500a; font-weight: 600; }
+    .choice-btn.wrong { background: #fcebeb; border-color: #e24b4a; color: #791f1f; }
+    .choice-btn:disabled { cursor: default; }
+    .feedback-box { border-radius: 8px; padding: 12px 14px; font-size: 14px; line-height: 1.7; margin-bottom: 1rem; display: none; }
+    .feedback-box.success { background: #eaf3de; color: #27500a; border: 1px solid #97c459; display: block; }
+    .feedback-box.error { background: #fcebeb; color: #791f1f; border: 1px solid #f09595; display: block; }
+    .action-row { display: flex; gap: 8px; align-items: center; }
+    .next-btn {
+      margin-left: auto; background: #185fa5; border: none; border-radius: 8px;
+      padding: 9px 20px; font-size: 14px; font-family: 'Sarabun', sans-serif;
+      color: #fff; cursor: pointer; font-weight: 600; transition: background 0.15s;
+    }
+    .next-btn:hover { background: #0c447c; }
+    .result-card {
+      background: #fff; border: 1px solid #e0dfd8; border-radius: 12px;
+      padding: 2.5rem; text-align: center; box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    }
+    .result-trophy { font-size: 52px; margin-bottom: 8px; }
+    .result-label { font-size: 14px; color: #888780; }
+    .result-score { font-size: 48px; font-weight: 700; color: #1a1a1a; margin: 6px 0; }
+    .result-grade { font-size: 17px; font-weight: 600; margin: 6px 0 1.5rem; }
+    .result-actions { display: flex; gap: 10px; justify-content: center; }
+    .btn-primary {
+      background: #185fa5; border: none; border-radius: 8px; padding: 10px 22px;
+      font-size: 14px; font-family: 'Sarabun', sans-serif; color: #fff;
+      cursor: pointer; font-weight: 600; transition: background 0.15s;
+    }
+    .btn-primary:hover { background: #0c447c; }
+  </style>
+</head>
+<body>
+<div class="game-wrap">
+  <div class="header">
+    <div class="game-title">🔬 นักสืบพันธุกรรม</div>
+    <div class="step-indicator" id="stepDots"></div>
+    <div class="score-badge" id="scoreBadge">คะแนน: 0</div>
+  </div>
+  <div id="gameArea"></div>
+</div>
+
+<script>
+const QUESTIONS = [
+  {
+    patient: { age: "แรกเกิด", sex: "ชาย" },
+    symptoms: ["ตาเล็ก", "ปากแหว่งเพดานโหว่", "สมองพิการ", "หัวใจและไตผิดปกติ", "มักเสียชีวิตหลังคลอดไม่กี่เดือน"],
+    question: "จากอาการข้างต้น คุณวินิจฉัยว่าเป็นโรคใด",
+    choices: ["กลุ่มอาการพาทัว", "กลุ่มอาการดาวน์", "กลุ่มอาการเอ็ดเวิร์ด", "กลุ่มอาการแมวคราง"],
+    answer: "กลุ่มอาการพาทัว",
+    explanation: "กลุ่มอาการพาทัว (Patau Syndrome) เกิดจากโครโมโซมคู่ที่ 13 เกินมา 1 แท่ง (trisomy 13) ทำให้เกิดความพิการรุนแรงหลายระบบ เด็กมักเสียชีวิตภายในไม่กี่เดือนหลังคลอด"
+  },
+  {
+    patient: { age: "เด็ก 3 ขวบ", sex: "หญิง" },
+    symptoms: ["หน้าแบน ตาเฉียง", "ลิ้นโตคับปาก", "คอสั้น ท้ายทอยแบน", "นิ้วมือสั้น", "ปัญญาอ่อน"],
+    question: "จากอาการข้างต้น คุณวินิจฉัยว่าเป็นโรคใด",
+    choices: ["กลุ่มอาการดาวน์", "กลุ่มอาการพาทัว", "กลุ่มอาการเทิร์นเนอร์", "โรคผิวเผือก"],
+    answer: "กลุ่มอาการดาวน์",
+    explanation: "กลุ่มอาการดาวน์ (Down Syndrome) เกิดจากโครโมโซมคู่ที่ 21 เกินมา 1 แท่ง (trisomy 21) เป็นกลุ่มอาการโครโมโซมผิดปกติที่พบบ่อยที่สุด"
+  },
+  {
+    patient: { age: "แรกเกิด", sex: "หญิง" },
+    symptoms: ["ศีรษะเล็ก", "คางเล็ก", "มือกำแน่น นิ้วเกยกัน", "หัวใจและปอดพิการ", "ท้ายทอยโหนก"],
+    question: "จากอาการข้างต้น คุณวินิจฉัยว่าเป็นโรคใด",
+    choices: ["กลุ่มอาการเอ็ดเวิร์ด", "กลุ่มอาการดาวน์", "กลุ่มอาการพาทัว", "กลุ่มอาการไคลน์เฟลเตอร์"],
+    answer: "กลุ่มอาการเอ็ดเวิร์ด",
+    explanation: "กลุ่มอาการเอ็ดเวิร์ด (Edwards Syndrome) เกิดจากโครโมโซมคู่ที่ 18 เกินมา 1 แท่ง (trisomy 18) ส่วนใหญ่เกิดกับทารกเพศหญิง มักเสียชีวิตก่อนอายุครบ 1 ปี"
+  },
+  {
+    patient: { age: "เด็ก 5 ขวบ", sex: "หญิง" },
+    symptoms: ["ร้องไห้เสียงแหลมคล้ายแมว", "ศีรษะเล็กกว่าปกติ", "ใบหน้ากลม", "ตาห่าง", "ปัญญาอ่อน"],
+    question: "จากอาการข้างต้น คุณวินิจฉัยว่าเป็นโรคใด",
+    choices: ["กลุ่มอาการแมวคราง", "กลุ่มอาการดาวน์", "กลุ่มอาการเอ็ดเวิร์ด", "กลุ่มอาการพาทัว"],
+    answer: "กลุ่มอาการแมวคราง",
+    explanation: "กลุ่มอาการแมวคราง (Cri-du-chat Syndrome) เกิดจากแขนข้างสั้นของโครโมโซมคู่ที่ 5 ขาดหายไป เสียงร้องคล้ายแมวเป็นอาการเด่นที่สุดในวัยทารก"
+  },
+  {
+    patient: { age: "15 ปี", sex: "หญิง" },
+    symptoms: ["รูปร่างเตี้ย", "คอสั้น มีพังผืดที่คอ", "ไม่มีประจำเดือน", "รังไข่ไม่เจริญ", "เป็นหมัน"],
+    question: "จากอาการข้างต้น คุณวินิจฉัยว่าเป็นโรคใด",
+    choices: ["กลุ่มอาการเทิร์นเนอร์", "กลุ่มอาการซูเปอร์ฟีเมล", "กลุ่มอาการไคลน์เฟลเตอร์", "กลุ่มอาการดาวน์"],
+    answer: "กลุ่มอาการเทิร์นเนอร์",
+    explanation: "กลุ่มอาการเทิร์นเนอร์ (Turner Syndrome) เกิดจากโครโมโซม X ขาดหายไป 1 แท่ง (45,XO) พบในเพศหญิง ทำให้รังไข่ไม่เจริญและเป็นหมัน"
+  },
+  {
+    patient: { age: "20 ปี", sex: "ชาย" },
+    symptoms: ["หน้าอกโต", "สะโพกผาย", "อัณฑะขนาดเล็กผิดปกติ", "เป็นหมัน", "ปัญญาอ่อนเล็กน้อย"],
+    question: "จากอาการข้างต้น คุณวินิจฉัยว่าเป็นโรคใด",
+    choices: ["กลุ่มอาการไคลน์เฟลเตอร์", "กลุ่มอาการซูเปอร์แมน", "กลุ่มอาการเทิร์นเนอร์", "กลุ่มอาการดาวน์"],
+    answer: "กลุ่มอาการไคลน์เฟลเตอร์",
+    explanation: "กลุ่มอาการไคลน์เฟลเตอร์ (Klinefelter Syndrome) เกิดจากโครโมโซม X เกินมา 1 แท่งในเพศชาย จีโนไทป์ XXY ทำให้มีลักษณะบางอย่างคล้ายเพศหญิงและเป็นหมัน"
+  },
+  {
+    patient: { age: "18 ปี", sex: "หญิง" },
+    symptoms: ["รูปร่างภายนอกเหมือนผู้หญิงทั่วไป", "ไม่เป็นหมัน", "กระดูกหน้าอกโค้งเล็กน้อย", "เท้าแบน", "ปัญญาอ่อนเล็กน้อย"],
+    question: "จากอาการข้างต้น คุณวินิจฉัยว่าเป็นโรคใด",
+    choices: ["กลุ่มอาการซูเปอร์ฟีเมล (Triple X)", "กลุ่มอาการเทิร์นเนอร์", "กลุ่มอาการไคลน์เฟลเตอร์", "โรคตาบอดสี"],
+    answer: "กลุ่มอาการซูเปอร์ฟีเมล (Triple X)",
+    explanation: "กลุ่มอาการซูเปอร์ฟีเมล (Triple X) เกิดจากโครโมโซม X เกินมา 1 แท่งในเพศหญิง จีโนไทป์ XXX อาการมักไม่รุนแรง ไม่เป็นหมัน"
+  },
+  {
+    patient: { age: "22 ปี", sex: "ชาย" },
+    symptoms: ["รูปร่างสูงกว่าปกติมาก", "อารมณ์ร้าย โมโหง่าย", "ไม่เป็นหมัน", "มีแนวโน้มก้าวร้าว"],
+    question: "จากอาการข้างต้น คุณวินิจฉัยว่าเป็นโรคใด",
+    choices: ["กลุ่มอาการซูเปอร์แมน (Double Y)", "กลุ่มอาการไคลน์เฟลเตอร์", "กลุ่มอาการดาวน์", "กลุ่มอาการเทิร์นเนอร์"],
+    answer: "กลุ่มอาการซูเปอร์แมน (Double Y)",
+    explanation: "กลุ่มอาการซูเปอร์แมน (Double Y) เกิดจากโครโมโซม Y เกินมา 1 แท่ง จีโนไทป์ XYY ผู้ป่วยรูปร่างสูง ไม่เป็นหมัน มีแนวโน้มอารมณ์ร้าย"
+  },
+  {
+    patient: { age: "10 ปี", sex: "หญิง" },
+    symptoms: ["ผิวสีขาวซีดผิดปกติ", "ผมสีขาว", "ตาสีขาว ม่านตาสีเทา", "รูม่านตาสะท้อนแสงสีแดง", "ร่างกายอ่อนแอ ติดเชื้อง่าย"],
+    question: "จากอาการข้างต้น คุณวินิจฉัยว่าเป็นโรคใด",
+    choices: ["โรคผิวเผือก (Albinism)", "โรคธาลัสซีเมีย", "โรค G6PD", "กลุ่มอาการเทิร์นเนอร์"],
+    answer: "โรคผิวเผือก (Albinism)",
+    explanation: "โรคผิวเผือก (Albinism) เกิดจากแอลลีลด้อยบนออโตโซม ยีนผิดปกติทำให้ร่างกายไม่สามารถสร้างเม็ดสีเมลานินได้"
+  },
+  {
+    patient: { age: "8 ปี", sex: "ชาย" },
+    symptoms: ["ซีดเหลือง", "อ่อนเพลียมาก", "ม้ามโต", "เซลล์เม็ดเลือดแดงรูปร่างผิดปกติ", "ภาวะโลหิตจาง"],
+    question: "จากอาการข้างต้น คุณวินิจฉัยว่าเป็นโรคใด",
+    choices: ["โรคธาลัสซีเมีย", "โรคฮีโมฟีเลีย", "โรค G6PD", "โรคผิวเผือก"],
+    answer: "โรคธาลัสซีเมีย",
+    explanation: "โรคธาลัสซีเมีย (Thalassemia) เกิดจากแอลลีลด้อยของยีนที่ควบคุมการสร้างโปรตีนฮีโมโกลบิน ทำให้เกิดภาวะโลหิตจางเรื้อรัง"
+  },
+  {
+    patient: { age: "12 ปี", sex: "ชาย" },
+    symptoms: ["เมื่อเกิดบาดแผลเลือดหยุดช้ามาก", "ข้อบวมจากเลือดออกในข้อ", "มีรอยฟกช้ำง่าย", "ขาดโปรตีนช่วยการแข็งตัวของเลือด"],
+    question: "จากอาการข้างต้น คุณวินิจฉัยว่าเป็นโรคใด",
+    choices: ["โรคฮีโมฟีเลีย", "โรคธาลัสซีเมีย", "โรค G6PD", "โรคเม็ดเลือดแดงรูปเคียว"],
+    answer: "โรคฮีโมฟีเลีย",
+    explanation: "โรคฮีโมฟีเลีย (Hemophilia) เกิดจากแอลลีลด้อยของยีนบนโครโมโซม X ทำให้การสร้างโปรตีนที่เกี่ยวข้องกับการแข็งตัวของเลือดผิดปกติ พบในเพศชายมากกว่า"
+  },
+  {
+    patient: { age: "16 ปี", sex: "ชาย" },
+    symptoms: ["มองเห็นสีแดงและสีเขียวผิดปกติ", "สับสนสีบางคู่", "ทดสอบด้วยแผ่น Ishihara ผิดปกติ"],
+    question: "จากอาการข้างต้น คุณวินิจฉัยว่าเป็นโรคใด",
+    choices: ["โรคตาบอดสี", "โรคฮีโมฟีเลีย", "โรค G6PD", "โรคผิวเผือก"],
+    answer: "โรคตาบอดสี",
+    explanation: "โรคตาบอดสี (Colour Blindness) เกิดจากแอลลีลด้อยของยีนบนโครโมโซม X ทำให้เซลล์รูปกรวยในม่านตาทำงานผิดปกติ พบในเพศชายมากกว่าเพศหญิง"
+  },
+  {
+    patient: { age: "7 ปี", sex: "ชาย" },
+    symptoms: ["หลังกินถั่วปากอ้าเกิดอาการซีดเหลืองทันที", "ปัสสาวะสีน้ำตาลเข้มคล้ายน้ำอัดลม", "เม็ดเลือดแดงแตกเฉียบพลัน", "ภาวะดีซ่าน"],
+    question: "จากอาการข้างต้น คุณวินิจฉัยว่าเป็นโรคใด",
+    choices: ["โรค G6PD", "โรคธาลัสซีเมีย", "โรคฮีโมฟีเลีย", "โรคเม็ดเลือดแดงรูปเคียว"],
+    answer: "โรค G6PD",
+    explanation: "โรค G6PD เกิดจากความผิดปกติของยีน G6PD บนโครโมโซมเพศ ทำให้เม็ดเลือดแดงแตกเมื่อสัมผัสสารบางชนิด เช่น ถั่วปากอ้า"
+  },
+  {
+    patient: { age: "5 ปี", sex: "ชาย" },
+    symptoms: ["มือและเท้ามีนิ้วมากกว่า 5 นิ้ว", "นิ้วที่เกินมักไม่มีกระดูก", "ผิดปกติตั้งแต่กำเนิด"],
+    question: "จากอาการข้างต้น คุณวินิจฉัยว่าเป็นโรคใด",
+    choices: ["ภาวะนิ้วเกิน (Polydactyly)", "โรคผิวเผือก", "กลุ่มอาการดาวน์", "โรคธาลัสซีเมีย"],
+    answer: "ภาวะนิ้วเกิน (Polydactyly)",
+    explanation: "ภาวะนิ้วเกิน (Polydactyly) เกิดจากแอลลีลเด่นบนออโตโซม ทำให้มีนิ้วเกินปกติตั้งแต่กำเนิด"
+  },
+  {
+    patient: { age: "25 ปี", sex: "ชาย" },
+    symptoms: ["เซลล์เม็ดเลือดแดงรูปเคียว", "ภาวะโลหิตจางเรื้อรัง", "เม็ดเลือดแดงอุดตันหลอดเลือด", "อ่อนเพลีย หายใจหอบ"],
+    question: "จากอาการข้างต้น คุณวินิจฉัยว่าเป็นโรคใด",
+    choices: ["โรคเม็ดเลือดแดงรูปเคียว (SCD)", "โรคธาลัสซีเมีย", "โรค G6PD", "โรคฮีโมฟีเลีย"],
+    answer: "โรคเม็ดเลือดแดงรูปเคียว (SCD)",
+    explanation: "โรคเม็ดเลือดแดงรูปเคียว (SCD) เกิดจากความผิดปกติของโครโมโซมคู่ที่ 11 ทำให้เม็ดเลือดแดงมีรูปร่างเป็นเคียว อุดตันหลอดเลือดและมีชีวิตสั้นกว่าปกติ"
+  },
+  {
+    patient: { age: "14 ปี", sex: "หญิง" },
+    symptoms: ["ไม่มีประจำเดือนเลย", "รูปร่างเตี้ย", "ต้นคอกว้างมีพังผืด", "รังไข่ฝ่อ"],
+    question: "จากอาการข้างต้น คุณวินิจฉัยว่าเป็นโรคใด",
+    choices: ["กลุ่มอาการเทิร์นเนอร์", "กลุ่มอาการซูเปอร์ฟีเมล", "กลุ่มอาการไคลน์เฟลเตอร์", "กลุ่มอาการดาวน์"],
+    answer: "กลุ่มอาการเทิร์นเนอร์",
+    explanation: "กลุ่มอาการเทิร์นเนอร์ จีโนไทป์ 45,XO โครโมโซม X มีเพียง 1 แท่ง รังไข่ไม่เจริญทำให้ไม่มีประจำเดือนและเป็นหมัน"
+  },
+  {
+    patient: { age: "30 ปี", sex: "ชาย" },
+    symptoms: ["หน้าอกโตคล้ายผู้หญิง", "เป็นหมัน", "อัณฑะขนาดเล็ก", "ระดับฮอร์โมนเพศชายต่ำ"],
+    question: "จากอาการข้างต้น คุณวินิจฉัยว่าเป็นโรคใด",
+    choices: ["กลุ่มอาการไคลน์เฟลเตอร์", "กลุ่มอาการซูเปอร์แมน", "กลุ่มอาการเทิร์นเนอร์", "กลุ่มอาการซูเปอร์ฟีเมล"],
+    answer: "กลุ่มอาการไคลน์เฟลเตอร์",
+    explanation: "กลุ่มอาการไคลน์เฟลเตอร์ จีโนไทป์ XXY มีโครโมโซม X เกินมา 1 แท่งในเพศชาย ฮอร์โมนเพศชายต่ำและมีลักษณะบางอย่างคล้ายเพศหญิง"
+  },
+  {
+    patient: { age: "9 ปี", sex: "ชาย" },
+    symptoms: ["ผิวขาวซีดมากตั้งแต่เกิด", "ตาสีแดง", "แพ้แสงแดดรุนแรง", "ผมสีขาว", "สายตาไม่ดี"],
+    question: "จากอาการข้างต้น คุณวินิจฉัยว่าเป็นโรคใด",
+    choices: ["โรคผิวเผือก (Albinism)", "โรคธาลัสซีเมีย", "กลุ่มอาการดาวน์", "โรคตาบอดสี"],
+    answer: "โรคผิวเผือก (Albinism)",
+    explanation: "โรคผิวเผือก เกิดจากแอลลีลด้อยบนออโตโซม ยีนผิดปกติทำให้ไม่สร้างเอนไซม์ไทโรซิเนส ส่งผลให้ไม่มีเม็ดสีในผิวหนัง ผม และตา"
+  },
+  {
+    patient: { age: "11 ปี", sex: "ชาย" },
+    symptoms: ["หน้าแบน ตาเฉียงขึ้น", "ปัญญาอ่อนระดับปานกลาง", "ลิ้นโต", "กล้ามเนื้ออ่อนแรง"],
+    question: "จากอาการข้างต้น คุณวินิจฉัยว่าเป็นโรคใด",
+    choices: ["กลุ่มอาการดาวน์", "กลุ่มอาการพาทัว", "กลุ่มอาการแมวคราง", "โรคผิวเผือก"],
+    answer: "กลุ่มอาการดาวน์",
+    explanation: "กลุ่มอาการดาวน์ เกิดจากโครโมโซมคู่ที่ 21 เกินมา 1 แท่ง ใบหน้าแบน ตาเฉียง และลิ้นโตเป็นลักษณะเด่น พบบ่อยที่สุดในกลุ่มโรคโครโมโซมผิดปกติ"
+  },
+  {
+    patient: { age: "17 ปี", sex: "ชาย" },
+    symptoms: ["รูปร่างสูงผิดปกติมาก", "จีโนไทป์ XYY", "ไม่เป็นหมัน", "มีพฤติกรรมหุนหันพลันแล่น"],
+    question: "จากอาการข้างต้น คุณวินิจฉัยว่าเป็นโรคใด",
+    choices: ["กลุ่มอาการซูเปอร์แมน (Double Y)", "กลุ่มอาการไคลน์เฟลเตอร์", "กลุ่มอาการเทิร์นเนอร์", "กลุ่มอาการดาวน์"],
+    answer: "กลุ่มอาการซูเปอร์แมน (Double Y)",
+    explanation: "กลุ่มอาการซูเปอร์แมน จีโนไทป์ XYY เกิดจากโครโมโซม Y เกินมา 1 แท่ง ผู้ป่วยสูงกว่าปกติ ไม่เป็นหมัน แต่อาจมีอารมณ์หุนหันพลันแล่น"
+  }
+];
+
+const TOTAL = 5;
+let round = 0, score = 0, answered = false, usedIndexes = [];
+
+function shuffle(arr) {
+  let a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    let j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function pickQuestion() {
+  const avail = QUESTIONS.map((_, i) => i).filter(i => !usedIndexes.includes(i));
+  const idx = avail[Math.floor(Math.random() * avail.length)];
+  usedIndexes.push(idx);
+  return QUESTIONS[idx];
+}
+
+function updateDots() {
+  const el = document.getElementById("stepDots");
+  el.innerHTML = "";
+  for (let i = 0; i < TOTAL; i++) {
+    const d = document.createElement("div");
+    d.className = "step-dot" + (i < round ? " done" : i === round ? " active" : "");
+    el.appendChild(d);
+  }
+}
+
+function renderCase(c) {
+  answered = false;
+  const shuffled = shuffle(c.choices);
+  document.getElementById("gameArea").innerHTML = `
+    <div class="case-card">
+      <div class="case-title">📋 ประวัติคนไข้ — เคสที่ ${round + 1} จาก ${TOTAL}</div>
+      <div class="patient-info">
+        <div class="info-item"><div class="info-label">อายุ</div><div class="info-value">${c.patient.age}</div></div>
+        <div class="info-item"><div class="info-label">เพศ</div><div class="info-value">${c.patient.sex}</div></div>
+      </div>
+      <div class="symptoms">
+        <div class="symptoms-label">⚠️ อาการที่พบ</div>
+        <ul class="symptom-list">${c.symptoms.map(s => `<li class="symptom-tag">${s}</li>`).join("")}</ul>
+      </div>
+      <div class="question-label">${c.question}</div>
+      <div class="choices">
+        ${shuffled.map(ch => `<button class="choice-btn" onclick="checkAnswer(this)">${ch}</button>`).join("")}
+      </div>
+      <div class="feedback-box" id="feedback"></div>
+      <div class="action-row" id="actionRow" style="display:none;">
+        <button class="next-btn" onclick="nextRound()">${round + 1 < TOTAL ? "เคสถัดไป →" : "ดูผลคะแนน →"}</button>
+      </div>
+    </div>`;
+  document.getElementById("gameArea")._case = c;
+}
+
+function checkAnswer(btn) {
+  if (answered) return;
+  answered = true;
+  const c = document.getElementById("gameArea")._case;
+  const chosen = btn.textContent.trim();
+  document.querySelectorAll(".choice-btn").forEach(b => {
+    b.disabled = true;
+    if (b.textContent.trim() === c.answer) b.className = "choice-btn correct";
+  });
+  const fb = document.getElementById("feedback");
+  if (chosen === c.answer) {
+    score++;
+    document.getElementById("scoreBadge").textContent = "คะแนน: " + score;
+    btn.className = "choice-btn correct";
+    fb.className = "feedback-box success";
+    fb.innerHTML = "<strong>✅ ถูกต้อง!</strong> " + c.explanation;
+  } else {
+    btn.className = "choice-btn wrong";
+    fb.className = "feedback-box error";
+    fb.innerHTML = "<strong>❌ ไม่ถูกต้อง</strong> คำตอบที่ถูกคือ <strong>" + c.answer + "</strong><br>" + c.explanation;
+  }
+  document.getElementById("actionRow").style.display = "flex";
+}
+
+function nextRound() {
+  round++;
+  updateDots();
+  if (round >= TOTAL) { showResult(); return; }
+  renderCase(pickQuestion());
+}
+
+function showResult() {
+  const pct = Math.round((score / TOTAL) * 100);
+  let grade, gradeColor;
+  if (pct >= 80) { grade = "🏆 ยอดเยี่ยม! นักสืบพันธุกรรมตัวจริง"; gradeColor = "#3b6d11"; }
+  else if (pct >= 60) { grade = "👍 ดี! ทบทวนอีกนิดจะเก่งมาก"; gradeColor = "#854f0b"; }
+  else { grade = "📚 ยังต้องฝึกอีก — ลองใหม่ได้เลย"; gradeColor = "#791f1f"; }
+  document.getElementById("gameArea").innerHTML = `
+    <div class="result-card">
+      <div class="result-trophy">🧬</div>
+      <div class="result-label">ผลคะแนนรวม</div>
+      <div class="result-score">${score} / ${TOTAL}</div>
+      <div class="result-grade" style="color:${gradeColor}">${grade}</div>
+      <div class="result-actions">
+        <button class="btn-primary" onclick="restartGame()">เล่นใหม่</button>
+      </div>
+    </div>`;
+}
+
+function restartGame() {
+  round = 0; score = 0; answered = false; usedIndexes = [];
+  document.getElementById("scoreBadge").textContent = "คะแนน: 0";
+  updateDots();
+  renderCase(pickQuestion());
+}
+
+updateDots();
+renderCase(pickQuestion());
+</script>
+</body>
+</html>

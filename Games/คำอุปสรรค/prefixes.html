@@ -1,0 +1,900 @@
+<!doctype html>
+<html lang="th" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prefix Match Space Game</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&amp;family=Exo+2:wght@300;400;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+html, body { height: 100%; margin: 0; overflow: hidden; }
+
+/* Stars */
+.stars-layer {
+  position: fixed; inset: 0; pointer-events: none; z-index: 0;
+}
+.star {
+  position: absolute; border-radius: 50%; background: white;
+  animation: twinkle var(--dur) ease-in-out infinite alternate;
+}
+@keyframes twinkle {
+  0% { opacity: 0.2; transform: scale(0.8); }
+  100% { opacity: 1; transform: scale(1.2); }
+}
+
+/* Floating objects */
+.floater {
+  position: fixed; pointer-events: none; z-index: 1;
+  animation: floatAround var(--fdur) ease-in-out infinite alternate;
+}
+@keyframes floatAround {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(var(--fx1), var(--fy1)) rotate(var(--fr1)); }
+  50% { transform: translate(var(--fx2), var(--fy2)) rotate(var(--fr2)); }
+  75% { transform: translate(var(--fx3), var(--fy3)) rotate(var(--fr3)); }
+  100% { transform: translate(var(--fx4), var(--fy4)) rotate(var(--fr4)); }
+}
+
+/* Cards */
+.card-container { perspective: 800px; }
+.card-inner {
+  position: relative; width: 100%; height: 100%;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+}
+.card-inner.flipped { transform: rotateY(180deg); }
+.card-front, .card-back {
+  position: absolute; inset: 0; backface-visibility: hidden;
+  border-radius: 12px; display: flex; align-items: center; justify-content: center;
+  flex-direction: column; padding: 6px;
+}
+.card-front { transform: rotateY(180deg); }
+.card-back {
+  background: linear-gradient(135deg, #1a1a3e, #2d1b69);
+  border: 2px solid rgba(139, 92, 246, 0.5);
+  box-shadow: 0 0 15px rgba(139, 92, 246, 0.3), inset 0 0 20px rgba(139, 92, 246, 0.1);
+  cursor: pointer;
+}
+.card-back:hover {
+  border-color: rgba(236, 72, 153, 0.8);
+  box-shadow: 0 0 25px rgba(236, 72, 153, 0.4);
+}
+.card-front.prefix-card {
+  background: linear-gradient(135deg, #0f172a, #1e3a5f);
+  border: 2px solid #38bdf8;
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.4);
+}
+.card-front.value-card {
+  background: linear-gradient(135deg, #1a0a2e, #3b1261);
+  border: 2px solid #c084fc;
+  box-shadow: 0 0 12px rgba(192, 132, 252, 0.4);
+}
+.card-matched {
+  animation: matchPop 0.6s ease-out;
+}
+.card-matched .card-front {
+  border-color: #4ade80 !important;
+  box-shadow: 0 0 20px rgba(74, 222, 128, 0.6) !important;
+}
+@keyframes matchPop {
+  0% { transform: rotateY(180deg) scale(1); }
+  50% { transform: rotateY(180deg) scale(1.1); }
+  100% { transform: rotateY(180deg) scale(1); }
+}
+.card-wrong .card-inner {
+  animation: shake 0.4s ease-in-out;
+}
+@keyframes shake {
+  0%, 100% { transform: rotateY(180deg) translateX(0); }
+  25% { transform: rotateY(180deg) translateX(-6px); }
+  75% { transform: rotateY(180deg) translateX(6px); }
+}
+
+/* Nebula glow */
+.nebula {
+  position: fixed; border-radius: 50%; filter: blur(80px); opacity: 0.15;
+  pointer-events: none; z-index: 0;
+  animation: nebulaPulse 8s ease-in-out infinite alternate;
+}
+@keyframes nebulaPulse {
+  0% { opacity: 0.1; transform: scale(1); }
+  100% { opacity: 0.2; transform: scale(1.15); }
+}
+
+/* Victory */
+.victory-overlay {
+  position: fixed; inset: 0; z-index: 50;
+  background: radial-gradient(ellipse at center, rgba(0,0,0,0.6), rgba(0,0,0,0.9));
+  display: flex; align-items: center; justify-content: center;
+  animation: fadeIn 0.5s ease-out;
+}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.victory-text {
+  animation: victoryPulse 1.5s ease-in-out infinite alternate;
+}
+@keyframes victoryPulse {
+  0% { text-shadow: 0 0 20px #fbbf24, 0 0 40px #f59e0b; transform: scale(1); }
+  100% { text-shadow: 0 0 40px #fbbf24, 0 0 80px #f59e0b, 0 0 120px #f59e0b; transform: scale(1.05); }
+}
+
+/* Shooting star */
+.shooting-star {
+  position: fixed; width: 3px; height: 3px; background: white;
+  border-radius: 50%; z-index: 1; pointer-events: none; opacity: 0;
+  box-shadow: 0 0 6px 2px rgba(255,255,255,0.6);
+}
+.shooting-star::after {
+  content: ''; position: absolute; top: 0; left: 0;
+  width: 60px; height: 2px; background: linear-gradient(to left, white, transparent);
+  transform-origin: right center;
+}
+@keyframes shoot {
+  0% { opacity: 1; transform: translate(0,0) rotate(var(--angle)); }
+  100% { opacity: 0; transform: translate(var(--sx), var(--sy)) rotate(var(--angle)); }
+}
+
+.game-grid {
+  display: grid; gap: 8px;
+}
+
+.level-btn {
+  transition: all 0.2s;
+}
+.level-btn:hover { transform: scale(1.05); }
+.level-btn.active {
+  box-shadow: 0 0 15px rgba(251, 191, 36, 0.6);
+}
+
+/* Joker animation */
+.joker-container {
+  position: relative;
+  z-index: 20;
+}
+.joker-character {
+  position: fixed;
+  width: 80px;
+  height: 80px;
+  z-index: 100;
+  pointer-events: none;
+}
+@keyframes jokerJump {
+  0% {
+    transform: translate(var(--startX), var(--startY)) scale(1);
+    opacity: 1;
+  }
+  15% {
+    transform: translate(var(--midX), var(--midY)) scale(1.4) rotateZ(-20deg);
+  }
+  40% {
+    transform: translate(var(--midX), var(--midY)) scale(1.3) rotateZ(-15deg);
+  }
+  60% {
+    transform: translate(var(--midX), calc(var(--midY) + 50px)) scale(1.15) rotateZ(-10deg);
+  }
+  85% {
+    transform: translate(var(--endX), var(--endY)) scale(0.5);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate(var(--endX), var(--endY)) scale(0.3);
+    opacity: 0;
+  }
+}
+.joker-jumping {
+  animation: jokerJump 2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* Joker peek animation when found */
+@keyframes jokerPeek {
+  0% { transform: scaleX(-1) rotateY(180deg); opacity: 0; }
+  50% { transform: scaleX(-1) rotateY(90deg); opacity: 1; }
+  100% { transform: scaleX(-1) rotateY(0deg); opacity: 1; }
+}
+.joker-peek {
+  animation: jokerPeek 0.6s ease-out forwards;
+}
+
+@keyframes shuffle {
+  0%, 100% { transform: translateX(0) rotateZ(0deg); }
+  25% { transform: translateX(-20px) rotateZ(-8deg); }
+  50% { transform: translateX(20px) rotateZ(8deg); }
+  75% { transform: translateX(-10px) rotateZ(-4deg); }
+}
+.card-shuffle {
+  animation: shuffle 0.8s ease-in-out;
+}
+</style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full" style="background: linear-gradient(135deg, #020617, #0a0e27, #0f0326); font-family: 'Exo 2', sans-serif; color: white;">
+  <div id="app" class="h-full w-full relative overflow-auto"><!-- Stars -->
+   <div class="stars-layer" id="stars"></div><!-- Nebulae -->
+   <div class="nebula" style="width:400px;height:400px;background:radial-gradient(circle,#7c3aed,transparent);top:-100px;left:-50px;"></div>
+   <div class="nebula" style="width:350px;height:350px;background:radial-gradient(circle,#ec4899,transparent);bottom:-80px;right:-60px;animation-delay:3s;"></div>
+   <div class="nebula" style="width:300px;height:300px;background:radial-gradient(circle,#06b6d4,transparent);top:40%;left:60%;animation-delay:5s;"></div><!-- Floating objects container -->
+   <div id="floaters"></div><!-- Shooting stars container -->
+   <div id="shootingStars"></div><!-- Joker container -->
+   <div id="jokerContainer" class="joker-container"></div><!-- Main UI -->
+   <div class="relative z-10 flex flex-col items-center h-full p-3" style="min-height:100%;"><!-- Header -->
+    <div class="text-center mb-2 mt-1">
+     <h1 id="gameTitle" class="text-2xl md:text-4xl font-black tracking-wider" style="font-family:'Orbitron',sans-serif; background: linear-gradient(90deg, #38bdf8, #c084fc, #fb923c); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">🚀 SPACE PREFIX MATCH 🌌</h1>
+     <p class="text-xs md:text-sm text-purple-300/70 mt-1">จับคู่คำอุปสรรคกับค่าของมัน!</p>
+    </div><!-- Level selection -->
+    <div class="flex gap-2 mb-2 flex-wrap justify-center"><button onclick="setLevel('easy')" id="btn-easy" class="level-btn px-3 py-1 rounded-full text-xs font-bold bg-emerald-600/40 border border-emerald-400/50 hover:bg-emerald-600/60">🌟 ง่าย (6 คู่)</button> <button onclick="setLevel('medium')" id="btn-medium" class="level-btn px-3 py-1 rounded-full text-xs font-bold bg-amber-600/40 border border-amber-400/50 hover:bg-amber-600/60">⭐ ปานกลาง (9 คู่)</button> <button onclick="setLevel('hard')" id="btn-hard" class="level-btn px-3 py-1 rounded-full text-xs font-bold bg-rose-600/40 border border-rose-400/50 hover:bg-rose-600/60">💫 ยาก (12 คู่)</button>
+    </div><!-- Stats -->
+    <div class="flex gap-4 mb-2 text-xs md:text-sm">
+     <div class="flex items-center gap-1 bg-white/5 px-3 py-1 rounded-full border border-white/10"><span>🎯</span> <span>คู่ที่จับได้:</span> <span id="matchCount" class="font-bold text-green-400">0</span>/<span id="totalPairs">6</span>
+     </div>
+     <div class="flex items-center gap-1 bg-white/5 px-3 py-1 rounded-full border border-white/10"><span>👆</span> <span>ครั้งที่เปิด:</span> <span id="moveCount" class="font-bold text-amber-400">0</span>
+     </div><button onclick="resetGame()" class="px-3 py-1 rounded-full text-xs font-bold bg-violet-600/40 border border-violet-400/50 hover:bg-violet-600/60 transition-all hover:scale-105">🔄 เริ่มใหม่</button>
+    </div><!-- Card Grid - Two sided layout -->
+    <div class="w-full max-w-5xl flex-1 flex gap-4 pb-3">
+     <!-- Left side: Prefixes -->
+     <div class="flex-1 flex flex-col">
+      <div class="text-center mb-2 text-sm font-bold text-sky-300/70 tracking-wide" style="font-family:'Orbitron',sans-serif;">
+       🔤 PREFIXES
+      </div>
+      <div id="gameGridLeft" class="game-grid flex-1"></div>
+     </div><!-- Right side: Values -->
+     <div class="flex-1 flex flex-col">
+      <div class="text-center mb-2 text-sm font-bold text-purple-300/70 tracking-wide" style="font-family:'Orbitron',sans-serif;">
+       🔢 VALUES
+      </div>
+      <div id="gameGridRight" class="game-grid flex-1"></div>
+     </div>
+    </div>
+   </div><!-- Victory overlay -->
+   <div id="victoryOverlay" class="victory-overlay hidden">
+    <div class="text-center">
+     <div class="victory-text text-5xl md:text-7xl font-black mb-4" style="font-family:'Orbitron',sans-serif; color: #fbbf24;">
+      🎉 ยอดเยี่ยม! 🎉
+     </div>
+     <p class="text-xl text-purple-200 mb-2">จับคู่สำเร็จทั้งหมด!</p>
+     <p class="text-lg text-amber-300 mb-6">เปิดทั้งหมด <span id="finalMoves" class="font-bold"></span> ครั้ง</p><button onclick="resetGame()" class="px-8 py-3 rounded-full text-lg font-bold bg-gradient-to-r from-violet-600 to-pink-600 hover:from-violet-500 hover:to-pink-500 transition-all hover:scale-105 shadow-lg shadow-purple-500/30"> 🚀 เล่นอีกครั้ง </button>
+    </div>
+   </div>
+  </div>
+  <script>
+// All SI prefix pairs from atto to exa
+const ALL_PAIRS = [
+  { prefix: 'atto (a)', value: '10⁻¹⁸', id: 'atto' },
+  { prefix: 'femto (f)', value: '10⁻¹⁵', id: 'femto' },
+  { prefix: 'pico (p)', value: '10⁻¹²', id: 'pico' },
+  { prefix: 'nano (n)', value: '10⁻⁹', id: 'nano' },
+  { prefix: 'micro (μ)', value: '10⁻⁶', id: 'micro' },
+  { prefix: 'milli (m)', value: '10⁻³', id: 'milli' },
+  { prefix: 'centi (c)', value: '10⁻²', id: 'centi' },
+  { prefix: 'deci (d)', value: '10⁻¹', id: 'deci' },
+  { prefix: 'deca (da)', value: '10¹', id: 'deca' },
+  { prefix: 'hecto (h)', value: '10²', id: 'hecto' },
+  { prefix: 'kilo (k)', value: '10³', id: 'kilo' },
+  { prefix: 'mega (M)', value: '10⁶', id: 'mega' },
+  { prefix: 'giga (G)', value: '10⁹', id: 'giga' },
+  { prefix: 'tera (T)', value: '10¹²', id: 'tera' },
+  { prefix: 'peta (P)', value: '10¹⁵', id: 'peta' },
+  { prefix: 'exa (E)', value: '10¹⁸', id: 'exa' },
+];
+
+const LEVELS = {
+  easy: { count: 6, cols: 4, rows: 3 },
+  medium: { count: 9, cols: 6, rows: 3 },
+  hard: { count: 12, cols: 6, rows: 4 },
+};
+
+let currentLevel = 'easy';
+let cards = [];
+let flippedCards = [];
+let matchedPairs = 0;
+let moves = 0;
+let locked = false;
+let gamePairs = [];
+let jokerIndex = -1;
+let jokerActive = false;
+
+// Generate stars
+function generateStars() {
+  const c = document.getElementById('stars');
+  c.innerHTML = '';
+  for (let i = 0; i < 120; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    const size = Math.random() * 3 + 1;
+    s.style.cssText = `width:${size}px;height:${size}px;top:${Math.random()*100}%;left:${Math.random()*100}%;--dur:${Math.random()*3+1}s;animation-delay:${Math.random()*3}s;`;
+    c.appendChild(s);
+  }
+}
+
+// Floating space objects (SVG astronaut, rocket, planet, satellite)
+function generateFloaters() {
+  const c = document.getElementById('floaters');
+  c.innerHTML = '';
+  const objects = [
+    // Astronaut
+    `<svg width="50" height="50" viewBox="0 0 100 100" fill="none"><ellipse cx="50" cy="35" rx="18" ry="20" fill="#e0e7ff" stroke="#818cf8" stroke-width="3"/><rect x="25" y="52" width="50" height="35" rx="12" fill="#c7d2fe" stroke="#818cf8" stroke-width="3"/><circle cx="50" cy="32" rx="12" fill="#1e1b4b" opacity="0.7"/><rect x="30" y="87" width="12" height="13" rx="4" fill="#a5b4fc"/><rect x="58" y="87" width="12" height="13" rx="4" fill="#a5b4fc"/><rect x="15" y="58" width="12" height="6" rx="3" fill="#a5b4fc"/><rect x="73" y="58" width="12" height="6" rx="3" fill="#a5b4fc"/></svg>`,
+    // Rocket
+    `<svg width="45" height="55" viewBox="0 0 80 110" fill="none"><path d="M40 5 C40 5 60 30 60 65 L55 80 H25 L20 65 C20 30 40 5 40 5Z" fill="#f87171" stroke="#fca5a5" stroke-width="2"/><rect x="32" y="45" width="16" height="16" rx="8" fill="#bfdbfe"/><polygon points="20,80 10,105 25,85" fill="#fb923c"/><polygon points="60,80 70,105 55,85" fill="#fb923c"/><rect x="35" y="80" width="10" height="15" rx="3" fill="#fbbf24"/></svg>`,
+    // Planet
+    `<svg width="55" height="55" viewBox="0 0 100 100" fill="none"><circle cx="50" cy="50" r="30" fill="#7c3aed"/><ellipse cx="50" cy="50" rx="48" ry="12" stroke="#c4b5fd" stroke-width="3" fill="none" transform="rotate(-20 50 50)"/><circle cx="38" cy="40" r="5" fill="#a78bfa" opacity="0.5"/><circle cx="58" cy="55" r="7" fill="#6d28d9" opacity="0.4"/></svg>`,
+    // Satellite
+    `<svg width="50" height="40" viewBox="0 0 100 60" fill="none"><rect x="30" y="15" width="40" height="30" rx="5" fill="#64748b" stroke="#94a3b8" stroke-width="2"/><rect x="5" y="20" width="25" height="20" rx="2" fill="#3b82f6" opacity="0.6"/><rect x="70" y="20" width="25" height="20" rx="2" fill="#3b82f6" opacity="0.6"/><circle cx="50" cy="30" r="6" fill="#f59e0b"/><line x1="50" y1="0" x2="50" y2="15" stroke="#94a3b8" stroke-width="2"/></svg>`,
+    // UFO
+    `<svg width="55" height="40" viewBox="0 0 110 70" fill="none"><ellipse cx="55" cy="45" rx="50" ry="14" fill="#6366f1" opacity="0.7"/><ellipse cx="55" cy="38" rx="30" ry="22" fill="#a5b4fc"/><ellipse cx="55" cy="45" rx="45" ry="10" fill="#818cf8"/><circle cx="35" cy="52" r="4" fill="#fbbf24" opacity="0.8"/><circle cx="55" cy="55" r="4" fill="#fbbf24" opacity="0.8"/><circle cx="75" cy="52" r="4" fill="#fbbf24" opacity="0.8"/></svg>`,
+  ];
+
+  const positions = [
+    { top: '8%', left: '3%' }, { top: '70%', left: '2%' },
+    { top: '15%', right: '3%' }, { top: '75%', right: '4%' },
+    { top: '45%', left: '1%' },
+  ];
+
+  objects.forEach((svg, i) => {
+    const d = document.createElement('div');
+    d.className = 'floater';
+    d.innerHTML = svg;
+    const p = positions[i];
+    Object.assign(d.style, p);
+    const r = () => (Math.random() * 30 - 15) + 'px';
+    const rd = () => (Math.random() * 20 - 10) + 'deg';
+    d.style.setProperty('--fdur', (12 + Math.random() * 10) + 's');
+    d.style.setProperty('--fx1', r()); d.style.setProperty('--fy1', r()); d.style.setProperty('--fr1', rd());
+    d.style.setProperty('--fx2', r()); d.style.setProperty('--fy2', r()); d.style.setProperty('--fr2', rd());
+    d.style.setProperty('--fx3', r()); d.style.setProperty('--fy3', r()); d.style.setProperty('--fr3', rd());
+    d.style.setProperty('--fx4', r()); d.style.setProperty('--fy4', r()); d.style.setProperty('--fr4', rd());
+    d.style.animationDelay = (i * 1.5) + 's';
+    d.style.opacity = '0.5';
+    c.appendChild(d);
+  });
+}
+
+// Shooting stars
+function launchShootingStar() {
+  const c = document.getElementById('shootingStars');
+  const s = document.createElement('div');
+  s.className = 'shooting-star';
+  const startX = Math.random() * 80 + 10;
+  s.style.top = (Math.random() * 40) + '%';
+  s.style.left = startX + '%';
+  const angle = Math.random() * 30 + 15;
+  s.style.setProperty('--angle', angle + 'deg');
+  s.style.setProperty('--sx', (200 + Math.random() * 200) + 'px');
+  s.style.setProperty('--sy', (100 + Math.random() * 150) + 'px');
+  s.style.animation = `shoot ${0.6 + Math.random() * 0.6}s linear forwards`;
+  c.appendChild(s);
+  setTimeout(() => s.remove(), 1500);
+}
+setInterval(launchShootingStar, 3000 + Math.random() * 4000);
+
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+function setLevel(level) {
+  currentLevel = level;
+  document.querySelectorAll('.level-btn').forEach(b => b.classList.remove('active', 'ring-2', 'ring-amber-400'));
+  const btn = document.getElementById('btn-' + level);
+  btn.classList.add('active', 'ring-2', 'ring-amber-400');
+  resetGame();
+}
+
+function resetGame() {
+  const lv = LEVELS[currentLevel];
+  gamePairs = shuffle([...ALL_PAIRS]).slice(0, lv.count);
+
+  // Create two separate arrays: prefixes on left, values on right (shuffled)
+  const prefixes = gamePairs.map(p => ({ type: 'prefix', text: p.prefix, pairId: p.id, uid: p.id + '_p' }));
+  const values = gamePairs.map(p => ({ type: 'value', text: p.value, pairId: p.id, uid: p.id + '_v' }));
+  
+  shuffle(values); // Shuffle values so they're not in same order as prefixes
+
+  // Store both for game logic
+  cards = prefixes.concat(values);
+
+  flippedCards = [];
+  matchedPairs = 0;
+  moves = 0;
+  locked = false;
+
+  document.getElementById('matchCount').textContent = '0';
+  document.getElementById('totalPairs').textContent = lv.count;
+  document.getElementById('moveCount').textContent = '0';
+  document.getElementById('victoryOverlay').classList.add('hidden');
+
+  renderGrid(lv, prefixes, values);
+}
+
+function renderGrid(lv, prefixes, values) {
+  const gridLeft = document.getElementById('gameGridLeft');
+  const gridRight = document.getElementById('gameGridRight');
+  gridLeft.innerHTML = '';
+  gridRight.innerHTML = '';
+  
+  // Calculate rows for 2 columns
+  const rows = Math.ceil(lv.count / 2);
+  gridLeft.style.gridTemplateColumns = '1fr 1fr';
+  gridLeft.style.gridTemplateRows = `repeat(${rows}, 1fr)`;
+  gridRight.style.gridTemplateColumns = '1fr 1fr';
+  gridRight.style.gridTemplateRows = `repeat(${rows}, 1fr)`;
+
+  // Render prefixes on left
+  prefixes.forEach((card, i) => {
+    const container = createCardElement(card, i, 'left', i + 1); // Numbers 1-12
+    gridLeft.appendChild(container);
+  });
+
+  // Render values on right
+  values.forEach((card, i) => {
+    const idx = prefixes.length + i; // Adjust index for right side
+    const letter = String.fromCharCode(65 + i); // A-L
+    const container = createCardElement(card, idx, 'right', letter);
+    gridRight.appendChild(container);
+  });
+}
+
+function createCardElement(card, index, side, label) {
+  const container = document.createElement('div');
+  container.className = 'card-container';
+  container.dataset.index = index;
+  container.dataset.side = side;
+  container.style.animationDelay = (index * 0.04) + 's';
+
+  const inner = document.createElement('div');
+  inner.className = 'card-inner';
+
+  // Front (hidden initially, shown when flipped)
+  const front = document.createElement('div');
+  front.className = `card-front ${card.type === 'prefix' ? 'prefix-card' : 'value-card'}`;
+
+  const emoji = card.type === 'prefix' ? '🔤' : '🔢';
+  const labelText = card.type === 'prefix' ? 'PREFIX' : 'VALUE';
+  const labelColor = card.type === 'prefix' ? 'text-sky-400' : 'text-purple-400';
+
+  front.innerHTML = `
+    <span class="text-lg mb-1">${emoji}</span>
+    <span class="text-xs ${labelColor} font-bold tracking-widest" style="font-family:'Orbitron',sans-serif;">${labelText}</span>
+    <span class="text-sm md:text-base font-bold text-white text-center leading-tight mt-1" style="font-family:'Exo 2',sans-serif;">${card.text}</span>
+  `;
+
+  // Back (label only - number or letter)
+  const back = document.createElement('div');
+  back.className = 'card-back';
+  back.innerHTML = `
+    <span class="text-3xl md:text-4xl font-black text-white" style="font-family:'Orbitron',sans-serif;">${label}</span>
+  `;
+
+  inner.appendChild(front);
+  inner.appendChild(back);
+  container.appendChild(inner);
+  container.addEventListener('click', () => flipCard(index));
+  
+  return container;
+}
+
+function flipCard(index) {
+  if (locked) return;
+  playFlipSound(); // Play flip sound
+  const card = cards[index];
+  const container = document.querySelectorAll('.card-container')[index];
+  const inner = container.querySelector('.card-inner');
+
+  // Don't flip if already flipped or matched
+  if (inner.classList.contains('flipped') || container.dataset.matched === 'true') return;
+
+  inner.classList.add('flipped');
+  flippedCards.push({ index, card, container });
+
+  if (flippedCards.length === 2) {
+    moves++;
+    document.getElementById('moveCount').textContent = moves;
+    locked = true;
+
+    const [a, b] = flippedCards;
+    
+    // Check if it's a joker
+    const isJoker = a.card.isJoker || b.card.isJoker;
+    
+    if (isJoker) {
+      // Found joker - shuffle and reset
+      playJokerLaughSound(); // Play laugh when found
+      setTimeout(() => {
+        // First flip both cards back to closed
+        a.container.querySelector('.card-inner').classList.remove('flipped');
+        b.container.querySelector('.card-inner').classList.remove('flipped');
+        
+        // Remove joker peek display and mark cards as no longer joker
+        if (a.card.isJoker) {
+          const front = a.container.querySelector('.card-front');
+          const peek = front.querySelector('.joker-peek');
+          if (peek) peek.remove();
+          a.card.isJoker = false;
+        }
+        if (b.card.isJoker) {
+          const front = b.container.querySelector('.card-front');
+          const peek = front.querySelector('.joker-peek');
+          if (peek) peek.remove();
+          b.card.isJoker = false;
+        }
+        
+        // Now shuffle the unmatched cards
+        setTimeout(() => {
+          shuffleUnmatchedCards();
+          
+          setTimeout(() => {
+            flippedCards = [];
+            locked = false;
+          }, 800);
+        }, 300);
+      }, 600);
+    } else if (a.card.pairId === b.card.pairId && a.card.type !== b.card.type) {
+      // Normal match
+      playMatchSound(); // Play success sound
+      matchedPairs++;
+      document.getElementById('matchCount').textContent = matchedPairs;
+
+      const ca = a.container;
+      const cb = b.container;
+      ca.dataset.matched = 'true';
+      cb.dataset.matched = 'true';
+
+      setTimeout(() => {
+        ca.querySelector('.card-inner').classList.add('card-matched');
+        cb.querySelector('.card-inner').classList.add('card-matched');
+      }, 100);
+
+      flippedCards = [];
+      locked = false;
+
+      if (matchedPairs === gamePairs.length) {
+        setTimeout(showVictory, 600);
+      } else if (matchedPairs % 2 === 0 && matchedPairs > 0 && gamePairs.length > 1) {
+        // Add joker every 2 matched pairs (if not last pair)
+        setTimeout(() => {
+          removeJokerFromGame();
+          spawnJoker();
+        }, 600);
+      }
+    } else {
+      // No match
+      playMismatchSound(); // Play fail sound
+      const ca = a.container;
+      const cb = b.container;
+      ca.classList.add('card-wrong');
+      cb.classList.add('card-wrong');
+
+      setTimeout(() => {
+        ca.querySelector('.card-inner').classList.remove('flipped');
+        cb.querySelector('.card-inner').classList.remove('flipped');
+        ca.classList.remove('card-wrong');
+        cb.classList.remove('card-wrong');
+        flippedCards = [];
+        locked = false;
+      }, 800);
+    }
+  }
+}
+
+function showVictory() {
+  playVictorySound(); // Play victory sound
+  document.getElementById('finalMoves').textContent = moves;
+  document.getElementById('victoryOverlay').classList.remove('hidden');
+  // Launch extra shooting stars
+  for (let i = 0; i < 5; i++) setTimeout(launchShootingStar, i * 300);
+}
+
+// Joker emoji
+function createJokerEmoji() {
+  return '🤡';
+}
+
+function spawnJoker() {
+  if (jokerActive) return; // Only one joker at a time
+  jokerActive = true;
+  playJokerSpawnSound(); // Play spawn sound
+  
+  // Get all unmatched cards
+  const unmatchedContainers = document.querySelectorAll('.card-container:not([data-matched="true"])');
+  if (unmatchedContainers.length === 0) return;
+  
+  // Pick random card
+  const randomCard = unmatchedContainers[Math.floor(Math.random() * unmatchedContainers.length)];
+  const randomIdx = Array.from(document.querySelectorAll('.card-container')).indexOf(randomCard);
+  
+  // Update card data
+  const card = cards[randomIdx];
+  card.isJoker = true;
+  
+  // Animate joker jumping to the card
+  const jokerEl = document.createElement('div');
+  jokerEl.className = 'joker-character';
+  jokerEl.id = 'jokerChar';
+  jokerEl.style.fontSize = '80px';
+  jokerEl.style.lineHeight = '1';
+  jokerEl.style.display = 'flex';
+  jokerEl.style.alignItems = 'center';
+  jokerEl.style.justifyContent = 'center';
+  jokerEl.textContent = createJokerEmoji();
+  document.getElementById('jokerContainer').appendChild(jokerEl);
+  
+  // Get card position
+  const rect = randomCard.getBoundingClientRect();
+  const startX = window.innerWidth / 2;
+  const startY = 50;
+  const endX = rect.left + rect.width / 2;
+  const endY = rect.top + rect.height / 2;
+  const midX = (startX + endX) / 2 + (Math.random() - 0.5) * 200;
+  const midY = (startY + endY) / 2 - 150;
+  
+  jokerEl.style.setProperty('--startX', startX + 'px');
+  jokerEl.style.setProperty('--startY', startY + 'px');
+  jokerEl.style.setProperty('--midX', midX + 'px');
+  jokerEl.style.setProperty('--midY', midY + 'px');
+  jokerEl.style.setProperty('--endX', endX + 'px');
+  jokerEl.style.setProperty('--endY', endY + 'px');
+  
+  jokerEl.classList.add('joker-jumping');
+  
+  // Show joker peeking from card
+  setTimeout(() => {
+    const front = randomCard.querySelector('.card-front');
+    const jokerPeek = document.createElement('div');
+    jokerPeek.className = 'joker-peek';
+    jokerPeek.style.cssText = `
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      z-index: 5;
+      font-size: 60px;
+      line-height: 1;
+    `;
+    jokerPeek.textContent = createJokerEmoji();
+    front.appendChild(jokerPeek);
+    jokerEl.remove();
+  }, 1200);
+}
+
+function shuffleUnmatchedCards() {
+  // Get all unmatched cards (excluding matched and joker cards)
+  const unmatchedLeft = [];
+  const unmatchedRight = [];
+  
+  document.querySelectorAll('.card-container').forEach((container, idx) => {
+    if (container.dataset.matched !== 'true' && cards[idx] && !cards[idx].isJoker) {
+      if (container.dataset.side === 'left') {
+        unmatchedLeft.push({ container, idx, card: cards[idx] });
+      } else {
+        unmatchedRight.push({ container, idx, card: cards[idx] });
+      }
+    }
+  });
+  
+  // Shuffle each side independently
+  const shuffledLeft = shuffle([...unmatchedLeft]);
+  const shuffledRight = shuffle([...unmatchedRight]);
+  
+  // Swap card data within left side only
+  shuffledLeft.forEach((item, i) => {
+    const newCard = unmatchedLeft[i].card;
+    cards[item.idx] = newCard;
+    
+    item.container.classList.add('card-shuffle');
+    
+    // Update card front display
+    const front = item.container.querySelector('.card-front');
+    const emoji = newCard.type === 'prefix' ? '🔤' : '🔢';
+    const labelText = newCard.type === 'prefix' ? 'PREFIX' : 'VALUE';
+    const labelColor = newCard.type === 'prefix' ? 'text-sky-400' : 'text-purple-400';
+    front.innerHTML = `
+      <span class="text-lg mb-1">${emoji}</span>
+      <span class="text-xs ${labelColor} font-bold tracking-widest" style="font-family:'Orbitron',sans-serif;">${labelText}</span>
+      <span class="text-sm md:text-base font-bold text-white text-center leading-tight mt-1" style="font-family:'Exo 2',sans-serif;">${newCard.text}</span>
+    `;
+    
+    setTimeout(() => {
+      item.container.classList.remove('card-shuffle');
+    }, 800);
+  });
+  
+  // Swap card data within right side only
+  shuffledRight.forEach((item, i) => {
+    const newCard = unmatchedRight[i].card;
+    cards[item.idx] = newCard;
+    
+    item.container.classList.add('card-shuffle');
+    
+    // Update card front display
+    const front = item.container.querySelector('.card-front');
+    const emoji = newCard.type === 'prefix' ? '🔤' : '🔢';
+    const labelText = newCard.type === 'prefix' ? 'PREFIX' : 'VALUE';
+    const labelColor = newCard.type === 'prefix' ? 'text-sky-400' : 'text-purple-400';
+    front.innerHTML = `
+      <span class="text-lg mb-1">${emoji}</span>
+      <span class="text-xs ${labelColor} font-bold tracking-widest" style="font-family:'Orbitron',sans-serif;">${labelText}</span>
+      <span class="text-sm md:text-base font-bold text-white text-center leading-tight mt-1" style="font-family:'Exo 2',sans-serif;">${newCard.text}</span>
+    `;
+    
+    setTimeout(() => {
+      item.container.classList.remove('card-shuffle');
+    }, 800);
+  });
+}
+
+function removeJokerFromGame() {
+  jokerActive = false;
+}
+
+// Web Audio API - Sound effects and BGM
+const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+let isMuted = false;
+
+function playTone(frequency, duration, type = 'sine', volume = 0.3, delay = 0) {
+  if (isMuted) return;
+  const osc = audioContext.createOscillator();
+  const gain = audioContext.createGain();
+  osc.type = type;
+  osc.frequency.value = frequency;
+  gain.gain.setValueAtTime(volume, audioContext.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration);
+  osc.connect(gain);
+  gain.connect(audioContext.destination);
+  osc.start(audioContext.currentTime + delay);
+  osc.stop(audioContext.currentTime + delay + duration);
+}
+
+function playFlipSound() {
+  playTone(600, 0.1, 'sine', 0.2, 0);
+  playTone(800, 0.08, 'sine', 0.15, 0.05);
+}
+
+function playMatchSound() {
+  playTone(659, 0.1, 'sine', 0.3, 0);
+  playTone(784, 0.1, 'sine', 0.3, 0.1);
+  playTone(987, 0.2, 'sine', 0.35, 0.2);
+}
+
+function playMismatchSound() {
+  playTone(300, 0.15, 'sine', 0.2, 0);
+  playTone(200, 0.15, 'sine', 0.2, 0.1);
+  playTone(150, 0.15, 'sine', 0.2, 0.2);
+}
+
+function playJokerSpawnSound() {
+  for (let i = 0; i < 4; i++) {
+    const freq = 400 + i * 150;
+    playTone(freq, 0.1, 'sine', 0.2, i * 0.08);
+  }
+}
+
+function playJokerLaughSound() {
+  // Ha ha ha! laugh effect
+  const laughFreqs = [523, 659, 587, 659, 523, 659, 587, 659];
+  laughFreqs.forEach((freq, i) => {
+    playTone(freq, 0.12, 'triangle', 0.25, i * 0.1);
+  });
+}
+
+function playVictorySound() {
+  const victoryNotes = [
+    { freq: 523, duration: 0.2 },
+    { freq: 659, duration: 0.2 },
+    { freq: 784, duration: 0.2 },
+    { freq: 1047, duration: 0.4 },
+  ];
+  victoryNotes.forEach((note, i) => {
+    const delay = victoryNotes.slice(0, i).reduce((sum, n) => sum + n.duration, 0);
+    playTone(note.freq, note.duration, 'sine', 0.35, delay);
+  });
+}
+
+function playBackgroundMusic() {
+  if (isMuted) return;
+  // Simple ambient background music loop
+  const bassPattern = () => {
+    playTone(55, 0.3, 'sine', 0.15, 0);
+    playTone(82, 0.3, 'sine', 0.12, 0.35);
+    playTone(110, 0.3, 'sine', 0.15, 0.7);
+  };
+  
+  const melodySynth = () => {
+    playTone(329, 0.2, 'sine', 0.1, 0.2);
+    playTone(392, 0.2, 'sine', 0.1, 0.45);
+    playTone(440, 0.2, 'sine', 0.1, 0.7);
+  };
+  
+  bassPattern();
+  melodySynth();
+}
+
+// Play BGM loop
+let bgmInterval = setInterval(playBackgroundMusic, 2500);
+
+// Element SDK
+const defaultConfig = {
+  game_title: '🚀 SPACE PREFIX MATCH 🌌',
+  background_color: '#020617',
+  surface_color: '#1a1a3e',
+  text_color: '#ffffff',
+  primary_action_color: '#7c3aed',
+  secondary_action_color: '#38bdf8',
+  font_family: 'Orbitron',
+  font_size: 16,
+};
+
+function applyConfig(config) {
+  const title = document.getElementById('gameTitle');
+  if (title) title.textContent = config.game_title || defaultConfig.game_title;
+
+  const bg = config.background_color || defaultConfig.background_color;
+  document.body.style.background = `linear-gradient(135deg, ${bg}, ${adjustColor(bg, 20)}, ${adjustColor(bg, 10)})`;
+
+  document.body.style.color = config.text_color || defaultConfig.text_color;
+
+  const font = config.font_family || defaultConfig.font_family;
+  const baseSize = config.font_size || defaultConfig.font_size;
+  if (title) {
+    title.style.fontFamily = `${font}, 'Exo 2', sans-serif`;
+    title.style.fontSize = `${baseSize * 2}px`;
+  }
+
+  document.querySelectorAll('.card-back').forEach(el => {
+    el.style.background = `linear-gradient(135deg, ${config.surface_color || defaultConfig.surface_color}, ${adjustColor(config.surface_color || defaultConfig.surface_color, 30)})`;
+    el.style.borderColor = hexToRgba(config.primary_action_color || defaultConfig.primary_action_color, 0.5);
+  });
+}
+
+function adjustColor(hex, amount) {
+  hex = hex.replace('#', '');
+  let r = Math.min(255, parseInt(hex.substr(0,2),16) + amount);
+  let g = Math.min(255, parseInt(hex.substr(2,2),16) + amount);
+  let b = Math.min(255, parseInt(hex.substr(4,2),16) + amount);
+  return `#${r.toString(16).padStart(2,'0')}${g.toString(16).padStart(2,'0')}${b.toString(16).padStart(2,'0')}`;
+}
+
+function hexToRgba(hex, a) {
+  hex = hex.replace('#','');
+  const r = parseInt(hex.substr(0,2),16), g = parseInt(hex.substr(2,2),16), b = parseInt(hex.substr(4,2),16);
+  return `rgba(${r},${g},${b},${a})`;
+}
+
+window.elementSdk.init({
+  defaultConfig,
+  onConfigChange: async (config) => applyConfig(config),
+  mapToCapabilities: (config) => ({
+    recolorables: [
+      { get: () => config.background_color || defaultConfig.background_color, set: v => { config.background_color = v; window.elementSdk.setConfig({ background_color: v }); }},
+      { get: () => config.surface_color || defaultConfig.surface_color, set: v => { config.surface_color = v; window.elementSdk.setConfig({ surface_color: v }); }},
+      { get: () => config.text_color || defaultConfig.text_color, set: v => { config.text_color = v; window.elementSdk.setConfig({ text_color: v }); }},
+      { get: () => config.primary_action_color || defaultConfig.primary_action_color, set: v => { config.primary_action_color = v; window.elementSdk.setConfig({ primary_action_color: v }); }},
+      { get: () => config.secondary_action_color || defaultConfig.secondary_action_color, set: v => { config.secondary_action_color = v; window.elementSdk.setConfig({ secondary_action_color: v }); }},
+    ],
+    borderables: [],
+    fontEditable: {
+      get: () => config.font_family || defaultConfig.font_family,
+      set: v => { config.font_family = v; window.elementSdk.setConfig({ font_family: v }); }
+    },
+    fontSizeable: {
+      get: () => config.font_size || defaultConfig.font_size,
+      set: v => { config.font_size = v; window.elementSdk.setConfig({ font_size: v }); }
+    },
+  }),
+  mapToEditPanelValues: (config) => new Map([
+    ['game_title', config.game_title || defaultConfig.game_title],
+  ]),
+});
+
+// Init
+generateStars();
+generateFloaters();
+setLevel('easy');
+lucide.createIcons();
+</script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a013f6c24d673883',t:'MTc3OTcwNjA2Ng=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

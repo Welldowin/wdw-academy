@@ -1,0 +1,725 @@
+<!doctype html>
+<html class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trigonometry Quest</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <script src="/_sdk/data_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet">
+  
+  <!-- MathJax Configuration for LaTeX support -->
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [['\\(', '\\)']] },
+      startup: { typeset: false } // We will trigger typesetting manually to avoid blocking
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <style>
+    * { font-family: 'Nunito', sans-serif; }
+    
+    @keyframes bounce-in {
+      0% { transform: scale(0); opacity: 0; }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    @keyframes combo-pop {
+      0% { transform: scale(0) rotate(-10deg); opacity: 0; }
+      50% { transform: scale(1.4) rotate(5deg); }
+      100% { transform: scale(1) rotate(0deg); opacity: 1; }
+    }
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-8px); }
+      75% { transform: translateX(8px); }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    @keyframes sparkle {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.5); }
+    }
+    @keyframes slide-up {
+      from { transform: translateY(30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    @keyframes confetti-fall {
+      0% { transform: translateY(-100%) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(500%) rotate(720deg); opacity: 0; }
+    }
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 0 5px rgba(255,200,0,0.5); }
+      50% { box-shadow: 0 0 25px rgba(255,200,0,0.9); }
+    }
+    @keyframes time-bonus {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      100% { transform: translateY(-40px) scale(1.5); opacity: 0; }
+    }
+    .animate-bounce-in { animation: bounce-in 0.5s ease-out; }
+    .animate-combo { animation: combo-pop 0.6s ease-out; }
+    .animate-shake { animation: shake 0.4s ease-out; }
+    .animate-float { animation: float 3s ease-in-out infinite; }
+    .animate-sparkle { animation: sparkle 1.5s ease-in-out infinite; }
+    .animate-slide-up { animation: slide-up 0.4s ease-out; }
+    .animate-pulse-glow { animation: pulse-glow 1.5s ease-in-out infinite; }
+    .animate-time-bonus { animation: time-bonus 1s ease-out forwards; }
+    
+    .chibi-character {
+      font-size: 3rem;
+      display: inline-block;
+    }
+    
+    .star-bg {
+      background: radial-gradient(circle at 20% 30%, #fff4e0, #ffe0f0 40%, #e0f0ff 70%, #f0ffe0);
+    }
+    
+    .game-card {
+      background: rgba(255,255,255,0.9);
+      backdrop-filter: blur(10px);
+      border: 3px solid #ffd700;
+      border-radius: 20px;
+    }
+    
+    .btn-cute {
+      border-radius: 20px;
+      font-weight: 800;
+      transition: all 0.2s;
+      box-shadow: 0 4px 0 rgba(0,0,0,0.15);
+    }
+    .btn-cute:active:not(:disabled) {
+      transform: translateY(2px);
+      box-shadow: 0 2px 0 rgba(0,0,0,0.15);
+    }
+    .btn-cute:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      box-shadow: none;
+      transform: translateY(2px);
+    }
+    
+    .confetti-piece {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      animation: confetti-fall 2s linear forwards;
+    }
+
+    /* MathJax Specific tweaks to make choices look good */
+    mjx-container {
+      margin: 0 !important;
+    }
+  </style>
+  <style>body { box-sizing: border-box; }</style>
+ </head>
+ <body class="h-full">
+  <div id="app" class="h-full w-full star-bg overflow-auto relative">
+   <!-- Floating decorations -->
+   <div class="absolute top-4 left-4 animate-float text-4xl">⭐</div>
+   <div class="absolute top-8 right-8 animate-float text-3xl" style="animation-delay:1s">🌸</div>
+   <div class="absolute bottom-8 left-8 animate-float text-3xl" style="animation-delay:0.5s">🌟</div>
+   <div class="absolute bottom-4 right-4 animate-float text-4xl" style="animation-delay:1.5s">🎀</div>
+   
+   <!-- Screen: Name Entry -->
+   <div id="screen-name" class="flex items-center justify-center h-full p-4">
+    <div class="game-card p-8 max-w-md w-full text-center animate-bounce-in">
+     <div class="chibi-character animate-float mb-4">🧙‍♂️</div>
+     <h1 id="title-display" class="text-3xl font-black text-purple-600 mb-2">✨ Trigono Quest ✨</h1>
+     <p class="text-gray-600 mb-6 font-semibold">ผจญภัยในโลกแห่งตรีโกณมิติ!</p>
+     <div class="mb-4">
+      <label for="player-name" class="block text-left text-sm font-bold text-pink-500 mb-1">ชื่อผู้เล่น</label> <input id="player-name" type="text" placeholder="กรอกชื่อของคุณ..." class="w-full px-4 py-3 rounded-full border-2 border-pink-300 focus:border-purple-500 focus:outline-none text-center font-bold text-lg">
+     </div><button id="btn-start" class="btn-cute bg-gradient-to-r from-pink-400 to-purple-500 text-white px-8 py-3 text-lg w-full rounded-full">เริ่มผจญภัย! 🚀</button>
+     <div id="name-error" class="text-red-400 text-sm mt-2 hidden font-bold">
+      กรุณากรอกชื่อก่อนนะ!
+     </div>
+     <!-- Leaderboard -->
+     <div class="mt-6 text-left">
+      <h3 class="text-lg font-black text-yellow-600 mb-2">🏆 อันดับคะแนน</h3>
+      <div id="leaderboard-easy" class="space-y-1 text-xs"></div>
+     </div>
+    </div>
+   </div>
+   
+   <!-- Screen: Difficulty Select -->
+   <div id="screen-difficulty" class="hidden flex items-center justify-center h-full p-4">
+    <div class="game-card p-8 max-w-md w-full text-center animate-bounce-in">
+     <div class="chibi-character animate-float mb-4">🐱</div>
+     <h2 class="text-2xl font-black text-purple-600 mb-6">เลือกระดับความยาก</h2>
+     <div class="space-y-3">
+      <button data-diff="easy" class="btn-cute rounded-full bg-gradient-to-r from-green-400 to-emerald-500 text-white px-6 py-4 text-lg w-full diff-btn">🌱 Easy<br><span class="text-xs opacity-80">sin cos tan มุมพื้นฐาน</span></button> 
+      <button data-diff="normal" class="btn-cute rounded-full bg-gradient-to-r from-yellow-400 to-orange-500 text-white px-6 py-4 text-lg w-full diff-btn">⚡ Normal<br><span class="text-xs opacity-80">sin cos tan มุม 0-360°</span></button> 
+      <button data-diff="hard" class="btn-cute rounded-full bg-gradient-to-r from-red-400 to-pink-600 text-white px-6 py-4 text-lg w-full diff-btn">🔥 Hard<br><span class="text-xs opacity-80">ทั้ง 6 ฟังก์ชัน มุม 0-360°</span></button>
+     </div>
+    </div>
+   </div>
+   
+   <!-- Screen: Game -->
+   <div id="screen-game" class="hidden flex items-center justify-center h-full p-4">
+    <div class="game-card p-6 max-w-lg w-full text-center relative overflow-hidden">
+     <!-- Top bar -->
+     <div class="flex justify-between items-center mb-4">
+      <div class="text-left">
+       <span class="text-xs font-bold text-gray-500">ด่าน</span>
+       <div id="stage-display" class="text-lg font-black text-purple-600">1/5</div>
+      </div>
+      <div class="text-center">
+       <span class="text-xs font-bold text-gray-500">คะแนน</span>
+       <div id="score-display" class="text-lg font-black text-yellow-600">0</div>
+      </div>
+      <div class="text-right relative">
+       <span class="text-xs font-bold text-gray-500">เวลา</span>
+       <div id="time-display" class="text-lg font-black text-red-500">120</div>
+       <div id="time-bonus-anim" class="absolute -top-2 right-0 text-green-500 font-black text-sm hidden animate-time-bonus">+5s</div>
+      </div>
+     </div>
+     
+     <!-- Progress -->
+     <div class="w-full bg-gray-200 rounded-full h-3 mb-4">
+      <div id="progress-bar" class="bg-gradient-to-r from-pink-400 to-purple-500 h-3 rounded-full transition-all duration-300" style="width:0%"></div>
+     </div>
+     
+     <!-- Combo -->
+     <div id="combo-display" class="hidden mb-2">
+      <span class="inline-block bg-gradient-to-r from-yellow-400 to-orange-500 text-white px-4 py-1 rounded-full font-black text-sm animate-combo">🔥 COMBO x<span id="combo-count">0</span></span>
+     </div>
+     
+     <!-- Chibi -->
+     <div id="chibi-game" class="chibi-character mb-2 transition-all">😺</div>
+     
+     <!-- Question -->
+     <div id="question" class="text-4xl font-black text-gray-800 mb-6 animate-slide-up min-h-[60px] flex items-center justify-center">
+      <!-- Latex Rendered Here -->
+     </div>
+     
+     <!-- Multiple Choice Answers -->
+     <div id="choices-container" class="grid grid-cols-2 gap-3 mb-4">
+      <button class="choice-btn btn-cute bg-gradient-to-r from-purple-500 to-pink-500 text-white px-2 py-4 text-xl w-full flex items-center justify-center min-h-[70px]"></button>
+      <button class="choice-btn btn-cute bg-gradient-to-r from-purple-500 to-pink-500 text-white px-2 py-4 text-xl w-full flex items-center justify-center min-h-[70px]"></button>
+      <button class="choice-btn btn-cute bg-gradient-to-r from-purple-500 to-pink-500 text-white px-2 py-4 text-xl w-full flex items-center justify-center min-h-[70px]"></button>
+      <button class="choice-btn btn-cute bg-gradient-to-r from-purple-500 to-pink-500 text-white px-2 py-4 text-xl w-full flex items-center justify-center min-h-[70px]"></button>
+     </div>
+     
+     <!-- Feedback -->
+     <div id="feedback" class="text-lg font-black h-8 flex justify-center items-center"></div>
+     
+     <!-- Correct count -->
+     <div class="text-sm text-gray-500 font-bold mt-2">
+      ตอบถูก: <span id="correct-count">0</span>/10
+     </div>
+    </div>
+   </div>
+   
+   <!-- Modal overlay -->
+   <div id="modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+    <div id="modal-content" class="game-card p-8 max-w-sm w-full text-center animate-bounce-in">
+     <div id="modal-icon" class="text-6xl mb-4">🎉</div>
+     <h2 id="modal-title" class="text-2xl font-black text-purple-600 mb-2"></h2>
+     <p id="modal-text" class="text-gray-600 font-semibold mb-4"></p>
+     <div id="modal-score" class="text-yellow-600 font-black text-xl mb-4"></div>
+     <div id="modal-buttons" class="space-y-2"></div>
+    </div>
+   </div>
+   
+   <!-- Confetti container -->
+   <div id="confetti-container" class="fixed inset-0 pointer-events-none z-40 overflow-hidden"></div>
+  </div>
+
+  <script>
+// ===== Audio System (Web Audio API) =====
+const AudioCtx = window.AudioContext || window.webkitAudioContext;
+let audioCtx;
+function getAudioCtx() {
+  if (!audioCtx) audioCtx = new AudioCtx();
+  return audioCtx;
+}
+
+function playTone(freq, duration, type='sine', volume=0.3) {
+  const ctx = getAudioCtx();
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = type;
+  osc.frequency.value = freq;
+  gain.gain.value = volume;
+  gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + duration);
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  osc.start();
+  osc.stop(ctx.currentTime + duration);
+}
+
+function sfxCorrect() {
+  playTone(523, 0.1); setTimeout(() => playTone(659, 0.1), 100); setTimeout(() => playTone(784, 0.15), 200);
+}
+function sfxWrong() {
+  playTone(200, 0.3, 'sawtooth', 0.2);
+}
+function sfxCombo1() {
+  playTone(600, 0.08); setTimeout(() => playTone(800, 0.08), 80); setTimeout(() => playTone(1000, 0.12), 160);
+}
+function sfxCombo2() {
+  playTone(700, 0.08); setTimeout(() => playTone(900, 0.08), 70); setTimeout(() => playTone(1100, 0.08), 140); setTimeout(() => playTone(1300, 0.15), 210);
+}
+function sfxCombo3() {
+  for(let i=0;i<5;i++) setTimeout(() => playTone(600+i*150, 0.08, 'square', 0.15), i*60);
+}
+function sfxWin() {
+  const notes = [523,659,784,1047];
+  notes.forEach((n,i) => setTimeout(() => playTone(n, 0.2, 'sine', 0.25), i*150));
+}
+function sfxLose() {
+  playTone(400, 0.2, 'sawtooth', 0.2); setTimeout(() => playTone(300, 0.2, 'sawtooth', 0.2), 200); setTimeout(() => playTone(200, 0.4, 'sawtooth', 0.2), 400);
+}
+
+// ===== Game State =====
+let playerName = '';
+let difficulty = '';
+let stage = 1;
+let score = 0;
+let combo = 0;
+let correctCount = 0;
+let timeLeft = 0;
+let timer = null;
+let currentAnswer = '';
+let leaderboardData = [];
+let questionStartTime = 0;
+
+const stageTimes = [90, 75, 60, 45, 30];
+const chibis = ['😺','🐶','🐰','🦊','🐼'];
+const winChibis = ['🥳','🎊','💃','🕺','👑'];
+
+// ===== Safe MathJax Renderer =====
+let mathJaxPromise = Promise.resolve();
+function renderMath() {
+    if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
+        mathJaxPromise = mathJaxPromise.then(() => MathJax.typesetPromise())
+                         .catch(err => console.error('MathJax Error:', err));
+    } else {
+        setTimeout(renderMath, 100);
+    }
+}
+
+// ===== Math / Trigonometry Data =====
+const baseAnglesList = [0, 30, 37, 45, 53, 60, 90];
+const normalAnglesList = [0, 30, 37, 45, 53, 60, 90, 120, 127, 135, 143, 150, 180, 210, 217, 225, 233, 240, 270, 300, 307, 315, 323, 330, 360];
+
+const refAngles = {
+    0: { sin: "0", cos: "1", tan: "0", csc: "\\text{หาค่าไม่ได้}", sec: "1", cot: "\\text{หาค่าไม่ได้}" },
+    30: { sin: "\\frac{1}{2}", cos: "\\frac{\\sqrt{3}}{2}", tan: "\\frac{\\sqrt{3}}{3}", csc: "2", sec: "\\frac{2\\sqrt{3}}{3}", cot: "\\sqrt{3}" },
+    37: { sin: "\\frac{3}{5}", cos: "\\frac{4}{5}", tan: "\\frac{3}{4}", csc: "\\frac{5}{3}", sec: "\\frac{5}{4}", cot: "\\frac{4}{3}" },
+    45: { sin: "\\frac{\\sqrt{2}}{2}", cos: "\\frac{\\sqrt{2}}{2}", tan: "1", csc: "\\sqrt{2}", sec: "\\sqrt{2}", cot: "1" },
+    53: { sin: "\\frac{4}{5}", cos: "\\frac{3}{5}", tan: "\\frac{4}{3}", csc: "\\frac{5}{4}", sec: "\\frac{5}{3}", cot: "\\frac{3}{4}" },
+    60: { sin: "\\frac{\\sqrt{3}}{2}", cos: "\\frac{1}{2}", tan: "\\sqrt{3}", csc: "\\frac{2\\sqrt{3}}{3}", sec: "2", cot: "\\frac{\\sqrt{3}}{3}" },
+    90: { sin: "1", cos: "0", tan: "\\text{หาค่าไม่ได้}", csc: "1", sec: "\\text{หาค่าไม่ได้}", cot: "0" }
+};
+
+function applySign(str, sign) {
+    if (str === "0" || str === "\\text{หาค่าไม่ได้}") return str;
+    if (sign < 0) {
+        if (str.startsWith("-")) return str.substring(1); // prevent --
+        return "-" + str;
+    }
+    return str;
+}
+
+function getFullTrig(func, angle) {
+    angle = angle % 360;
+    if (angle < 0) angle += 360;
+    
+    let quad = 1, ref = 0;
+    if (angle >= 0 && angle <= 90) { quad = 1; ref = angle; }
+    else if (angle > 90 && angle <= 180) { quad = 2; ref = 180 - angle; }
+    else if (angle > 180 && angle <= 270) { quad = 3; ref = angle - 180; }
+    else { quad = 4; ref = 360 - angle; }
+    
+    // Boundary exceptions override
+    if (angle === 90) { quad = 1; ref = 90; }
+    if (angle === 180) { quad = 2; ref = 0; }
+    if (angle === 270) { quad = 3; ref = 90; }
+    
+    let sign = 1;
+    if (quad === 2) {
+        if (func !== 'sin' && func !== 'csc') sign = -1;
+    } else if (quad === 3) {
+        if (func !== 'tan' && func !== 'cot') sign = -1;
+    } else if (quad === 4) {
+        if (func !== 'cos' && func !== 'sec') sign = -1;
+    }
+    
+    return applySign(refAngles[ref][func], sign);
+}
+
+// ===== Elements =====
+const $ = id => document.getElementById(id);
+
+// ===== Screens =====
+function showScreen(name) {
+  ['screen-name','screen-difficulty','screen-game'].forEach(s => {
+    $(s).classList.add('hidden');
+    $(s).classList.remove('flex');
+  });
+  $(name).classList.remove('hidden');
+  $(name).classList.add('flex');
+}
+
+function setButtonsState(disabled) {
+    document.querySelectorAll('.choice-btn').forEach(btn => {
+        btn.disabled = disabled;
+    });
+}
+
+// ===== Name Screen =====
+$('btn-start').onclick = () => {
+  const name = $('player-name').value.trim();
+  if (!name) { $('name-error').classList.remove('hidden'); return; }
+  $('name-error').classList.add('hidden');
+  playerName = name;
+  showScreen('screen-difficulty');
+};
+$('player-name').addEventListener('keydown', e => { if(e.key==='Enter') $('btn-start').click(); });
+
+// ===== Difficulty =====
+document.querySelectorAll('.diff-btn').forEach(btn => {
+  btn.onclick = () => {
+    difficulty = btn.dataset.diff;
+    stage = 1; score = 0;
+    startStage();
+  };
+});
+
+// ===== Generate Question =====
+function generateQuestion() {
+  let allowedFuncs, allowedAngles;
+  if (difficulty === 'easy') {
+      allowedFuncs = ['sin', 'cos', 'tan'];
+      allowedAngles = baseAnglesList;
+  } else if (difficulty === 'normal') {
+      allowedFuncs = ['sin', 'cos', 'tan'];
+      allowedAngles = normalAnglesList;
+  } else {
+      allowedFuncs = ['sin', 'cos', 'tan', 'csc', 'sec', 'cot'];
+      allowedAngles = normalAnglesList;
+  }
+  
+  const qFunc = allowedFuncs[Math.floor(Math.random() * allowedFuncs.length)];
+  const qAngle = allowedAngles[Math.floor(Math.random() * allowedAngles.length)];
+  
+  currentAnswer = getFullTrig(qFunc, qAngle);
+  
+  // Create unique options
+  let options = [currentAnswer];
+  let maxAttempts = 100;
+  while (options.length < 4 && maxAttempts > 0) {
+      let rf = allowedFuncs[Math.floor(Math.random() * allowedFuncs.length)];
+      let ra = allowedAngles[Math.floor(Math.random() * allowedAngles.length)];
+      let wrongStr = getFullTrig(rf, ra);
+      if (!options.includes(wrongStr)) {
+          options.push(wrongStr);
+      }
+      maxAttempts--;
+  }
+  
+  // Shuffle options
+  options.sort(() => Math.random() - 0.5);
+  
+  // Format operator for latex (e.g., \sin)
+  let latexFunc = `\\${qFunc}`; 
+  $('question').innerHTML = `\\(${latexFunc}(${qAngle}^\\circ) = ?\\)`;
+  $('question').className = 'text-4xl font-black text-gray-800 mb-6 animate-slide-up flex items-center justify-center min-h-[60px]';
+  
+  const btns = document.querySelectorAll('.choice-btn');
+  btns.forEach((btn, idx) => {
+      btn.dataset.val = options[idx];
+      btn.innerHTML = `\\(${options[idx]}\\)`;
+  });
+  
+  renderMath();
+  questionStartTime = Date.now();
+  setButtonsState(false);
+}
+
+// ===== Start Stage =====
+function startStage() {
+  showScreen('screen-game');
+  correctCount = 0;
+  combo = 0;
+  timeLeft = stageTimes[stage-1];
+  $('stage-display').textContent = `${stage}/5`;
+  $('score-display').textContent = score;
+  $('time-display').textContent = timeLeft;
+  $('correct-count').textContent = '0';
+  $('progress-bar').style.width = '0%';
+  $('combo-display').classList.add('hidden');
+  $('chibi-game').textContent = chibis[stage-1];
+  $('feedback').innerHTML = '';
+  
+  generateQuestion();
+  
+  clearInterval(timer);
+  timer = setInterval(() => {
+    timeLeft--;
+    $('time-display').textContent = timeLeft;
+    if (timeLeft <= 10) $('time-display').classList.add('text-red-600','animate-pulse-glow');
+    else $('time-display').classList.remove('animate-pulse-glow');
+    if (timeLeft <= 0) {
+      clearInterval(timer);
+      sfxLose();
+      showModal('lose');
+    }
+  }, 1000);
+}
+
+// ===== Answer Handling =====
+document.querySelectorAll('.choice-btn').forEach(btn => {
+    btn.onclick = (e) => {
+        submitAnswer(e.currentTarget.dataset.val);
+    };
+});
+
+function submitAnswer(val) {
+  setButtonsState(true);
+  const elapsed = (Date.now() - questionStartTime) / 1000;
+  
+  if (val === currentAnswer) {
+    // Correct
+    correctCount++;
+    combo++;
+    
+    // Score: speed bonus + combo bonus
+    const speedBonus = Math.max(10, Math.round(50 - elapsed * 2));
+    const comboBonus = combo >= 2 ? combo * 5 : 0;
+    score += speedBonus + comboBonus;
+    
+    sfxCorrect();
+    if (combo >= 5) sfxCombo3();
+    else if (combo >= 3) sfxCombo2();
+    else if (combo >= 2) sfxCombo1();
+    
+    // Time bonus at combo >= 3
+    if (combo >= 3) {
+      timeLeft += 5;
+      $('time-display').textContent = timeLeft;
+      const tb = $('time-bonus-anim');
+      tb.classList.remove('hidden');
+      tb.style.animation = 'none';
+      tb.offsetHeight;
+      tb.style.animation = '';
+      setTimeout(() => tb.classList.add('hidden'), 1000);
+    }
+    
+    // UI
+    $('chibi-game').textContent = '😸';
+    $('feedback').innerHTML = '✅ ถูกต้อง!';
+    $('feedback').className = 'text-lg font-black h-8 text-green-500 animate-bounce-in flex justify-center items-center';
+    
+    if (combo >= 2) {
+      $('combo-display').classList.remove('hidden');
+      $('combo-count').textContent = combo;
+      $('combo-display').firstElementChild.className = 'inline-block bg-gradient-to-r from-yellow-400 to-orange-500 text-white px-4 py-1 rounded-full font-black text-sm animate-combo';
+    }
+    
+    $('score-display').textContent = score;
+    $('correct-count').textContent = correctCount;
+    $('progress-bar').style.width = `${correctCount*10}%`;
+    
+    if (correctCount >= 10) {
+      clearInterval(timer);
+      score += timeLeft * 2; // Bonus for remaining time
+      $('score-display').textContent = score;
+      sfxWin();
+      if (stage >= 5) {
+        showModal('winner');
+        saveScore();
+      } else {
+        showModal('stage-clear');
+      }
+      return;
+    }
+    
+    setTimeout(() => { $('chibi-game').textContent = chibis[stage-1]; }, 500);
+    setTimeout(() => { generateQuestion(); }, 800);
+    
+  } else {
+    // Wrong
+    combo = 0;
+    score = Math.max(0, score - 10);
+    $('combo-display').classList.add('hidden');
+    sfxWrong();
+    $('chibi-game').textContent = '🙀';
+    
+    // Display correct answer using MathJax
+    $('feedback').innerHTML = `❌ คำตอบคือ \\(${currentAnswer}\\)`;
+    $('feedback').className = 'text-lg font-black h-8 text-red-500 animate-shake flex justify-center items-center';
+    renderMath(); // Render the correct answer feedback
+    
+    $('score-display').textContent = score;
+    setTimeout(() => { 
+        $('chibi-game').textContent = chibis[stage-1]; 
+        generateQuestion(); 
+    }, 1500); // Give user time to read the correct math answer
+  }
+}
+
+// ===== Modal =====
+function showModal(type) {
+  $('modal').classList.remove('hidden');
+  const btns = $('modal-buttons');
+  btns.innerHTML = '';
+  
+  if (type === 'lose') {
+    $('modal-icon').textContent = '😢';
+    $('modal-title').textContent = 'LOSE!!';
+    $('modal-text').textContent = 'พยายามใหม่อีกครั้ง';
+    $('modal-score').textContent = `คะแนน: ${score}`;
+    btns.innerHTML = `<button class="btn-cute bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-full px-6 py-3 w-full" onclick="restartGame()">เริ่มเกมใหม่ 🔄</button>`;
+  } else if (type === 'stage-clear') {
+    $('modal-icon').textContent = winChibis[stage-1];
+    $('modal-title').textContent = `ด่าน ${stage} ผ่าน!`;
+    $('modal-text').textContent = 'เก่งมาก! ไปด่านถัดไปกันเลย!';
+    $('modal-score').textContent = `คะแนนรวม: ${score}`;
+    spawnConfetti();
+    btns.innerHTML = `
+      <button class="btn-cute bg-gradient-to-r from-green-400 to-emerald-500 text-white rounded-full px-6 py-3 w-full" onclick="nextStage()">เข้าสู่ด่านถัดไป ➡️</button>
+      <button class="btn-cute bg-gray-300 text-gray-700 rounded-full px-6 py-3 w-full" onclick="restartGame()">เริ่มเกมใหม่ 🔄</button>`;
+  } else if (type === 'winner') {
+    $('modal-icon').textContent = '👑';
+    $('modal-title').textContent = 'WINNER!!';
+    $('modal-text').textContent = 'ยินดีด้วย คุณชนะแล้ว!';
+    $('modal-score').textContent = `คะแนนรวม: ${score}`;
+    spawnConfetti();
+    btns.innerHTML = `<button class="btn-cute bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full text-white px-6 py-3 w-full" onclick="restartGame()">เริ่มเกมใหม่ 🎮</button>`;
+  }
+}
+
+function nextStage() {
+  $('modal').classList.add('hidden');
+  stage++;
+  startStage();
+}
+
+function restartGame() {
+  $('modal').classList.add('hidden');
+  clearInterval(timer);
+  showScreen('screen-name');
+}
+
+// ===== Confetti =====
+function spawnConfetti() {
+  const container = $('confetti-container');
+  container.innerHTML = '';
+  const colors = ['#ff6b9d','#ffd93d','#6bcb77','#4d96ff','#ff6b6b','#a855f7'];
+  for (let i = 0; i < 40; i++) {
+    const piece = document.createElement('div');
+    piece.className = 'confetti-piece';
+    piece.style.left = Math.random()*100 + '%';
+    piece.style.backgroundColor = colors[Math.floor(Math.random()*colors.length)];
+    piece.style.animationDelay = Math.random()*0.5 + 's';
+    piece.style.borderRadius = Math.random()>0.5 ? '50%' : '0';
+    container.appendChild(piece);
+  }
+  setTimeout(() => container.innerHTML = '', 3000);
+}
+
+// ===== Data SDK =====
+async function saveScore() {
+  if (leaderboardData.length >= 999) return;
+  if(window.dataSdk){
+      const result = await window.dataSdk.create({
+        player_name: playerName,
+        score: score,
+        difficulty: difficulty,
+        completed_at: new Date().toISOString()
+      });
+  }
+}
+
+const dataHandler = {
+  onDataChanged(data) {
+    leaderboardData = data;
+    renderLeaderboard(data);
+  }
+};
+
+function renderLeaderboard(data) {
+  const difficulties = ['easy', 'normal', 'hard'];
+  
+  difficulties.forEach(diff => {
+    const filtered = [...data].filter(r => r.difficulty === diff).sort((a,b) => (b.score||0) - (a.score||0)).slice(0, 3);
+    const container = $('leaderboard-' + diff);
+    
+    if (!filtered.length) {
+      container.innerHTML = '<p class="text-gray-400 text-xs">ยังไม่มีคะแนน</p>';
+      return;
+    }
+    
+    container.innerHTML = filtered.map((r,i) => {
+      const medal = i===0?'🥇':i===1?'🥈':i===2?'🥉':'  ';
+      return `<div class="flex justify-between items-center py-0.5 px-1 rounded bg-yellow-50"><span class="truncate">${medal} ${r.player_name}</span><span class="font-bold text-yellow-600 ml-1">${r.score}pts</span></div>`;
+    }).join('');
+  });
+}
+
+// ===== Element SDK =====
+const defaultConfig = {
+  game_title: '✨ Trigono Quest ✨',
+  background_color: '#fff4e0',
+  surface_color: '#ffffff',
+  text_color: '#6b21a8',
+  primary_action_color: '#a855f7',
+  secondary_action_color: '#ec4899',
+  font_family: 'Nunito',
+  font_size: 16
+};
+
+if(window.elementSdk){
+    window.elementSdk.init({
+      defaultConfig,
+      onConfigChange: async (config) => {
+        const title = config.game_title || defaultConfig.game_title;
+        $('title-display').textContent = title;
+        
+        const bg = config.background_color || defaultConfig.background_color;
+        document.querySelector('.star-bg').style.background = `radial-gradient(circle at 20% 30%, ${bg}, #ffe0f0 40%, #e0f0ff 70%, #f0ffe0)`;
+        
+        const txt = config.text_color || defaultConfig.text_color;
+        document.querySelectorAll('h1,h2').forEach(el => el.style.color = txt);
+        
+        const font = config.font_family || defaultConfig.font_family;
+        document.body.style.fontFamily = `${font}, Nunito, sans-serif`;
+        
+        const size = config.font_size || defaultConfig.font_size;
+        document.body.style.fontSize = size + 'px';
+      },
+      mapToCapabilities: (config) => ({
+        recolorables: [
+          { get: () => config.background_color || defaultConfig.background_color, set: v => { config.background_color = v; window.elementSdk.setConfig({background_color:v}); }},
+          { get: () => config.surface_color || defaultConfig.surface_color, set: v => { config.surface_color = v; window.elementSdk.setConfig({surface_color:v}); }},
+          { get: () => config.text_color || defaultConfig.text_color, set: v => { config.text_color = v; window.elementSdk.setConfig({text_color:v}); }},
+          { get: () => config.primary_action_color || defaultConfig.primary_action_color, set: v => { config.primary_action_color = v; window.elementSdk.setConfig({primary_action_color:v}); }},
+          { get: () => config.secondary_action_color || defaultConfig.secondary_action_color, set: v => { config.secondary_action_color = v; window.elementSdk.setConfig({secondary_action_color:v}); }},
+        ],
+        borderables: [],
+        fontEditable: { get: () => config.font_family || defaultConfig.font_family, set: v => { config.font_family = v; window.elementSdk.setConfig({font_family:v}); }},
+        fontSizeable: { get: () => config.font_size || defaultConfig.font_size, set: v => { config.font_size = v; window.elementSdk.setConfig({font_size:v}); }}
+      }),
+      mapToEditPanelValues: (config) => new Map([
+        ['game_title', config.game_title || defaultConfig.game_title]
+      ])
+    });
+}
+
+// Init Data SDK
+(async () => {
+  if(window.dataSdk){
+      await window.dataSdk.init(dataHandler);
+  }
+})();
+
+if(window.lucide){ lucide.createIcons(); }
+  </script>
+ </body>
+</html>

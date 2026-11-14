@@ -1,0 +1,323 @@
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+* {
+  font-family: 'Prompt', 'Baloo 2', sans-serif;
+  box-sizing: border-box;
+}
+
+.app-bg {
+  background: linear-gradient(135deg, #fef3c7 0%, #fce7f3 50%, #ddd6fe 100%);
+}
+
+.title-main {
+  color: #7c3aed;
+  text-shadow: 2px 2px 0 #fbbf24;
+}
+
+.subtitle-main {
+  color: #6b21a8;
+}
+
+.turn-indicator {
+  color: #db2777;
+}
+
+.player-count-btn {
+  padding: 1rem 1.5rem;
+  border-radius: 1rem;
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.player-count-btn:hover {
+  transform: translateY(-2px) scale(1.03);
+}
+
+.btn-blue {
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  box-shadow: 0 6px 20px rgba(59,130,246,0.3);
+}
+
+.btn-orange {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  box-shadow: 0 6px 20px rgba(245,158,11,0.3);
+}
+
+.btn-green {
+  background: linear-gradient(135deg, #10b981, #059669);
+  box-shadow: 0 6px 20px rgba(16,185,129,0.3);
+}
+
+.board-wrap {
+  background: rgba(255,255,255,0.6);
+  backdrop-filter: blur(8px);
+}
+
+/* ===== BOARD ===== */
+.board-cell {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: clamp(10px, 2.2vw, 18px);
+  transition: transform 0.2s;
+  border: 2px solid rgba(255,255,255,0.4);
+  box-shadow: inset 0 -2px 4px rgba(0,0,0,0.1);
+}
+
+.board-cell:hover {
+  transform: scale(1.05);
+}
+
+.cell-number {
+  opacity: 0.7;
+  font-size: 0.65em;
+  position: absolute;
+  top: 1px;
+  left: 3px;
+}
+
+.cell-ladder {
+  background: linear-gradient(135deg, #4ade80, #22c55e) !important;
+}
+
+.cell-snake {
+  background: linear-gradient(135deg, #f87171, #ef4444) !important;
+}
+
+.cell-math {
+  background: linear-gradient(135deg, #facc15, #eab308) !important;
+}
+
+.cell-special {
+  background: linear-gradient(135deg, #c084fc, #a855f7) !important;
+}
+
+/* ===== PLAYER CARDS ===== */
+.player-card {
+  min-width: 78px;
+  transition: all 0.2s;
+}
+
+.red-card {
+  background: rgba(239,68,68,0.15);
+  border: 3px solid #ef4444;
+}
+
+.blue-card {
+  background: rgba(59,130,246,0.15);
+  border: 3px solid #3b82f6;
+}
+
+.yellow-card {
+  background: rgba(234,179,8,0.15);
+  border: 3px solid #eab308;
+}
+
+.green-card {
+  background: rgba(16,185,129,0.15);
+  border: 3px solid #10b981;
+}
+
+.red-text { color: #dc2626; }
+.red-subtext { color: #991b1b; }
+
+.blue-text { color: #2563eb; }
+.blue-subtext { color: #1e40af; }
+
+.yellow-text { color: #ca8a04; }
+.yellow-subtext { color: #854d0e; }
+
+.green-text { color: #059669; }
+.green-subtext { color: #065f46; }
+
+/* ===== DICE ===== */
+.dice-face {
+  width: clamp(60px, 12vw, 100px);
+  height: clamp(60px, 12vw, 100px);
+  background: white;
+  border-radius: 16px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  padding: 12%;
+  gap: 4%;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.2),
+              inset 0 2px 4px rgba(255,255,255,0.8);
+  cursor: pointer;
+  transition: transform 0.15s;
+}
+
+.dice-face:hover {
+  transform: scale(1.08);
+}
+
+.dice-face:active {
+  transform: scale(0.95);
+}
+
+.dice-dot {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: #1e293b;
+}
+
+.dice-dot.hidden {
+  visibility: hidden;
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes diceRoll {
+  0% { transform: rotate(0deg) scale(1); }
+  25% { transform: rotate(90deg) scale(0.8); }
+  50% { transform: rotate(180deg) scale(1.1); }
+  75% { transform: rotate(270deg) scale(0.9); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
+.dice-rolling {
+  animation: diceRoll 0.5s ease-out;
+}
+
+@keyframes bounceIn {
+  0% { transform: scale(0); opacity: 0; }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.bounce-in {
+  animation: bounceIn 0.4s ease-out;
+}
+
+@keyframes confetti {
+  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(-200px) rotate(720deg); opacity: 0; }
+}
+
+.confetti-piece {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  animation: confetti 1.5s ease-out forwards;
+}
+
+/* ===== PLAYER TOKEN ===== */
+.player-token {
+  position: absolute;
+  width: clamp(14px, 2.5vw, 22px);
+  height: clamp(14px, 2.5vw, 22px);
+  border-radius: 50%;
+  border: 2px solid white;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  z-index: 10;
+}
+
+@keyframes walkHop {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-8px) scale(1.1); }
+}
+
+.player-token.walking {
+  animation: walkHop 0.3s ease-in-out infinite;
+}
+
+/* ===== MODAL ===== */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+}
+
+.modal-box {
+  background: white;
+  border-radius: 24px;
+  padding: 28px;
+  max-width: 340px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+
+/* ===== ICON ===== */
+.snake-icon::before { content: '🐍'; }
+.ladder-icon::before { content: '🪜'; }
+.math-icon::before { content: '🧮'; }
+.star-icon::before { content: '⭐'; }
+
+/* ===== ANSWER BUTTON ===== */
+.answer-btn {
+  padding: 10px 20px;
+  border-radius: 14px;
+  font-size: 1.3rem;
+  font-weight: 700;
+  cursor: pointer;
+  border: 3px solid transparent;
+  transition: all 0.15s;
+  min-width: 60px;
+}
+
+.answer-btn:hover {
+  transform: scale(1.1);
+}
+
+.answer-btn:active {
+  transform: scale(0.95);
+}
+
+/* ===== LEGEND + BUTTON ===== */
+.legend-box {
+  background: rgba(255,255,255,0.7);
+}
+
+.ladder-text { color: #16a34a; }
+.snake-text { color: #dc2626; }
+.math-text { color: #ca8a04; }
+.special-text { color: #9333ea; }
+
+.reset-btn {
+  background: linear-gradient(135deg, #f472b6, #ec4899);
+  box-shadow: 0 4px 12px rgba(236,72,153,0.3);
+  border: none;
+  cursor: pointer;
+}
+
+.play-again-btn {
+  background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+  border: none;
+  cursor: pointer;
+}
+
+/* ===== TOAST ===== */
+.toast-msg {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 12px 24px;
+  border-radius: 16px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  z-index: 60;
+  color: white;
+  animation: bounceIn 0.4s ease-out;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+}

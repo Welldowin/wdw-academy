@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ระบบแอดมิน - แบบสำรวจธุรกิจจังหวัดเลย</title>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: 'Kanit', sans-serif;
+    background: #f4f1e8;
+    color: #2b2b2b;
+  }
+  header {
+    background: linear-gradient(120deg, #1E3D8F, #2b52b8);
+    color: white;
+    padding: 1.2rem 1.4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+  }
+  header h1 { margin: 0; font-size: 1.15rem; }
+  header .user-info { font-size: 0.85rem; opacity: 0.9; }
+  header button {
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.5);
+    color: white;
+    padding: 0.4rem 0.8rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: inherit;
+  }
+
+  main { max-width: 1080px; margin: 0 auto; padding: 1.2rem 1rem 3rem; }
+
+  /* login gate */
+  #login-gate {
+    max-width: 380px;
+    margin: 3rem auto;
+    background: white;
+    border-radius: 16px;
+    padding: 2.2rem 1.7rem;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+  }
+  #login-gate h2 { color: #1E3D8F; text-align: center; margin-top: 0; }
+  #login-gate input {
+    width: 100%; padding: 0.65rem 0.7rem; margin-bottom: 0.8rem;
+    border-radius: 8px; border: 1px solid #ccc; font-family: inherit; font-size: 0.95rem;
+  }
+  #login-gate button {
+    width: 100%; padding: 0.75rem; border: none; border-radius: 10px;
+    background: #D94C4C; color: white; font-weight: 700; cursor: pointer; font-family: inherit; font-size: 1rem;
+  }
+  #login-err { color: #D94C4C; font-size: 0.85rem; margin-top: 0.5rem; display: none; text-align: center; }
+  .login-hint { font-size: 0.78rem; color: #999; text-align: center; margin-top: 0.9rem; }
+
+  .card {
+    background: white;
+    border: 1px solid #eee;
+    border-radius: 16px;
+    padding: 1.4rem 1.3rem;
+    margin-bottom: 1.2rem;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+  }
+  .card h2 { color: #1E3D8F; margin-top: 0; font-size: 1.15rem; }
+  .card .sub { font-size: 0.82rem; color: #888; margin: -0.6rem 0 1.1rem; }
+
+  .stats-row { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.2rem; }
+  .stat-box {
+    flex: 1; min-width: 150px;
+    background: linear-gradient(160deg, #fdf7e8, #fbeecb); border-radius: 14px; padding: 1.1rem; text-align: center;
+    border: 1px solid #f3e3ba;
+  }
+  .stat-box .num { font-size: 1.9rem; font-weight: 700; color: #1E3D8F; line-height: 1.2; }
+  .stat-box .label { font-size: 0.82rem; color: #777; margin-top: 0.2rem; }
+
+  #qr-section { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; }
+  #qr-canvas-wrap { background: white; padding: 0.8rem; border-radius: 10px; border: 1px solid #eee; }
+  #qr-link-box { flex: 1; min-width: 220px; }
+  #qr-link-box input {
+    width: 100%; padding: 0.5rem 0.6rem; border-radius: 8px; border: 1px solid #ccc; font-family: inherit; margin-bottom: 0.6rem;
+  }
+  .small-btn {
+    padding: 0.5rem 0.9rem; border-radius: 8px; border: none; background: #1E3D8F;
+    color: white; cursor: pointer; font-family: inherit; font-size: 0.85rem; margin-right: 0.4rem;
+  }
+  .small-btn.ghost { background: transparent; color: #1E3D8F; border: 1px solid #1E3D8F; }
+
+  /* ranked results */
+  .rank-hero {
+    display: flex; align-items: center; gap: 1.1rem;
+    background: linear-gradient(120deg, #1E3D8F, #3f63c9);
+    color: white; border-radius: 16px; padding: 1.3rem 1.4rem; margin-bottom: 0.9rem;
+    box-shadow: 0 6px 16px rgba(30,61,143,0.28);
+  }
+  .rank-hero .medal { font-size: 2.6rem; line-height: 1; }
+  .rank-hero .info { flex: 1; min-width: 0; }
+  .rank-hero .pct { font-size: 2.3rem; font-weight: 700; line-height: 1.1; }
+  .rank-hero .name { font-size: 1.05rem; font-weight: 600; margin-top: 0.15rem; }
+  .rank-hero .count { font-size: 0.8rem; opacity: 0.85; margin-top: 0.2rem; }
+
+  .rank-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin-bottom: 0.8rem; }
+  .rank-card {
+    border-radius: 14px; padding: 1rem 1.1rem;
+    border: 1px solid #e3e8f7; background: #f4f7ff;
+  }
+  .rank-card.tier2 .pct { font-size: 1.55rem; }
+  .rank-card.tier3 .pct { font-size: 1.25rem; }
+  .rank-card .medal { font-size: 1.3rem; }
+  .rank-card .pct { font-weight: 700; color: #1E3D8F; line-height: 1.15; }
+  .rank-card .name { font-size: 0.86rem; color: #333; margin-top: 0.25rem; line-height: 1.35; }
+  .rank-card .count { font-size: 0.72rem; color: #999; margin-top: 0.15rem; }
+
+  .rank-list { border-top: 1px dashed #ddd; margin-top: 0.4rem; padding-top: 0.6rem; }
+  .rank-list-item {
+    display: grid; grid-template-columns: 28px 1fr auto; gap: 0.6rem; align-items: center;
+    padding: 0.4rem 0.2rem; font-size: 0.85rem;
+  }
+  .rank-list-item .idx { color: #aaa; font-weight: 600; text-align: center; }
+  .rank-list-item .track { background: #f1f1f1; border-radius: 6px; height: 8px; overflow: hidden; margin-top: 0.25rem; }
+  .rank-list-item .fill { background: #9db2e8; height: 100%; }
+  .rank-list-item .pct { color: #666; font-variant-numeric: tabular-nums; }
+
+  .other-list { font-size: 0.85rem; color: #555; margin-top: 0.9rem; background: #fafafa; border-radius: 10px; padding: 0.7rem 0.9rem; }
+  .other-list ul { padding-left: 1.2rem; margin: 0.4rem 0; }
+
+  .reco-box {
+    background: #eef3ff; border-left: 4px solid #1E3D8F; border-radius: 8px;
+    padding: 0.8rem 1rem; margin-top: 0.9rem; font-size: 0.9rem; line-height: 1.6;
+  }
+
+  /* platform insight panels */
+  .platform-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 0.9rem; margin-top: 0.9rem; }
+  .platform-card {
+    border-radius: 14px; padding: 1rem 1.1rem; background: #fbfbfd; border: 1px solid #ececf5;
+  }
+  .platform-card .p-head { display: flex; align-items: center; gap: 0.5rem; font-weight: 700; color: #1E3D8F; margin-bottom: 0.5rem; }
+  .platform-card .p-reach { font-size: 0.78rem; color: #888; margin-bottom: 0.6rem; }
+  .platform-card .p-age-row { display: flex; justify-content: space-between; font-size: 0.82rem; padding: 0.15rem 0; }
+  .platform-card .p-age-row b { color: #1E3D8F; }
+  .platform-card .p-insight { font-size: 0.78rem; color: #666; margin-top: 0.55rem; line-height: 1.5; border-top: 1px dashed #e2e2e2; padding-top: 0.5rem; }
+  .ref-note { font-size: 0.72rem; color: #aaa; margin-top: 0.8rem; }
+
+  .overall-highlight { font-size: 1.02rem; line-height: 1.9; }
+  .overall-highlight b { color: #1E3D8F; }
+
+  #loading, #empty-state { text-align: center; padding: 2.5rem; color: #777; }
+</style>
+</head>
+<body>
+
+<div id="login-gate">
+  <h2>เข้าสู่ระบบแอดมิน</h2>
+  <input type="text" id="admin-user" placeholder="ชื่อผู้ใช้">
+  <input type="password" id="admin-password" placeholder="รหัสผ่าน">
+  <button id="admin-login-btn">เข้าสู่ระบบ</button>
+  <p id="login-err">ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง</p>
+  <p class="login-hint">สำหรับผู้ดูแลระบบเท่านั้น</p>
+</div>
+
+<div id="dashboard" style="display:none;">
+  <header>
+    <h1>📊 ระบบแบบสำรวจธุรกิจจังหวัดเลย</h1>
+    <div style="display:flex; align-items:center; gap:0.8rem;">
+      <span class="user-info" id="user-info"></span>
+      <button id="logout-btn">ออกจากระบบ</button>
+    </div>
+  </header>
+
+  <main>
+    <div class="card">
+      <h2>🔗 QR Code รับข้อมูล — แบบสำรวจธุรกิจ (ชุดที่ 1)</h2>
+      <div id="qr-section">
+        <div id="qr-canvas-wrap"><canvas id="qr-canvas"></canvas></div>
+        <div id="qr-link-box">
+          <label style="font-size:0.85rem;color:#666;">ลิงก์แบบสำรวจ</label>
+          <input type="text" id="survey-link" readonly>
+          <button class="small-btn" id="copy-link-btn">คัดลอกลิงก์</button>
+          <button class="small-btn" id="download-qr-btn">ดาวน์โหลด QR</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>📲 QR Code รับข้อมูล — ลงทะเบียนไลฟ์สด TikTok (ชุดที่ 2)</h2>
+      <div id="qr-section-2">
+        <div id="qr-canvas-wrap-2"><canvas id="qr-canvas-2"></canvas></div>
+        <div id="qr-link-box">
+          <label style="font-size:0.85rem;color:#666;">ลิงก์แบบฟอร์ม</label>
+          <input type="text" id="tiktok-link" readonly>
+          <button class="small-btn" id="copy-link-btn-2">คัดลอกลิงก์</button>
+          <button class="small-btn" id="download-qr-btn-2">ดาวน์โหลด QR</button>
+        </div>
+      </div>
+      <p class="sub" style="margin-top:1rem;">ข้อมูลชุดนี้ไม่แสดงสรุปในหน้านี้ — ดาวน์โหลดเป็นรายงาน Word (พร้อมรูปภาพที่แนบและสรุปผลย่อ) แทน</p>
+      <button class="small-btn" id="download-tiktok-docx-btn">📄 ดาวน์โหลดรายงาน .docx (ข้อมูล + รูปภาพ + สรุปผล)</button>
+      <p class="login-hint" id="tiktok-docx-status" style="text-align:left;"></p>
+    </div>
+
+    <div id="loading">กำลังโหลดข้อมูล...</div>
+    <div id="empty-state" style="display:none;">ยังไม่มีข้อมูลผู้ตอบแบบสำรวจ</div>
+
+    <div id="report-content" style="display:none;">
+      <div class="stats-row">
+        <div class="stat-box"><div class="num" id="total-count">0</div><div class="label">ผู้ตอบแบบสอบถามทั้งหมด</div></div>
+        <div class="stat-box"><div class="num" id="top-business">-</div><div class="label">หมวดธุรกิจยอดนิยม</div></div>
+        <div class="stat-box"><div class="num" id="top-customer">-</div><div class="label">กลุ่มลูกค้าหลัก</div></div>
+        <div class="stat-box"><div class="num" id="top-tool">-</div><div class="label">เครื่องมือออนไลน์ยอดนิยม</div></div>
+      </div>
+
+      <div class="card">
+        <h2>📝 บทสรุปโดยย่อและข้อเสนอแนะภาพรวม</h2>
+        <p class="overall-highlight" id="overall-summary"></p>
+      </div>
+
+      <div class="card">
+        <h2>1) ธุรกิจของคุณคืออะไร / ธุรกิจที่อยากทำในอนาคต</h2>
+        <p class="sub">สัดส่วน % คำนวณจากผู้ตอบแบบสำรวจทั้งหมด</p>
+        <div id="rank-q1"></div>
+        <div class="other-list" id="other-q1"></div>
+        <div class="reco-box" id="reco-q1"></div>
+      </div>
+
+      <div class="card">
+        <h2>2) กลุ่มลูกค้าเป้าหมาย</h2>
+        <p class="sub">เลือกได้มากกว่า 1 ข้อ % จึงคำนวณจากผู้ตอบทั้งหมด (รวมกันได้เกิน 100%)</p>
+        <div id="rank-q2"></div>
+        <div class="other-list" id="other-q2"></div>
+        <div class="reco-box" id="reco-q2"></div>
+      </div>
+
+      <div class="card">
+        <h2>3.1) เครื่องมือออนไลน์ที่ใช้หรือวางแผนจะใช้</h2>
+        <p class="sub">เลือกได้มากกว่า 1 ข้อ % จึงคำนวณจากผู้ตอบทั้งหมด (รวมกันได้เกิน 100%)</p>
+        <div id="rank-q3a"></div>
+        <div class="other-list" id="other-q3a"></div>
+        <div class="reco-box" id="reco-q3a"></div>
+      </div>
+
+      <div class="card">
+        <h2>3.2) เหตุผลหลักในการเลือกใช้เครื่องมือออนไลน์</h2>
+        <p class="sub">เลือกได้มากกว่า 1 ข้อ % จึงคำนวณจากผู้ตอบทั้งหมด (รวมกันได้เกิน 100%)</p>
+        <div id="rank-q3b"></div>
+        <div class="other-list" id="other-q3b"></div>
+        <div class="reco-box" id="reco-q3b"></div>
+      </div>
+
+      <div class="card">
+        <h2>🌐 ข้อมูลอ้างอิง: ประชากรผู้ใช้งานแพลตฟอร์มโซเชียลมีเดียในไทย</h2>
+        <p class="sub">ใช้ประกอบการตัดสินใจว่าควรโปรโมทผ่านช่องทางใด ให้ตรงกลุ่มเป้าหมายของผู้ประกอบการมากที่สุด</p>
+        <div class="platform-grid" id="platform-reference"></div>
+        <p class="ref-note">ข้อมูลสังเคราะห์จาก DataReportal, GWI, Statista และ ETDA (Thailand Internet User Behavior) ปี 2568-2569 — ใช้เป็นค่าประมาณระดับประเทศเพื่อการวางแผนเชิงกลยุทธ์ ไม่ใช่ข้อมูลเฉพาะของจังหวัดเลย</p>
+      </div>
+
+      <button class="small-btn ghost" id="export-csv-btn">⬇ ดาวน์โหลดข้อมูลดิบ (CSV)</button>
+      <button class="small-btn ghost" id="export-prompt-btn">📑 ดาวน์โหลด Prompt สำหรับสร้างสไลด์ (NotebookLM)</button>
+    </div>
+  </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+<script>
+  // Login here is just a UI gate. The actual username/password check happens
+  // server-side in the Google Apps Script Web App (see apps-script-code.gs)
+  // deployed on the response Google Sheet, so the credentials below are
+  // meaningful (not merely cosmetic) — the sheet itself is never exposed.
+  const REPORT_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxONmFwRxp-EDwR3Jk9K-p7TO6Z1QxtgFreqB530FrsEyos-3klDBuF2EywLdr9ZzOG/exec';
+  let adminCreds = null;
+
+  const loginGate = document.getElementById('login-gate');
+  const dashboard = document.getElementById('dashboard');
+  const loginErr = document.getElementById('login-err');
+
+  function showDashboard() {
+    loginGate.style.display = 'none';
+    dashboard.style.display = 'block';
+    document.getElementById('user-info').textContent = adminCreds.username;
+  }
+
+  const savedCreds = sessionStorage.getItem('surveyAdminCreds');
+  if (savedCreds) {
+    adminCreds = JSON.parse(savedCreds);
+    showDashboard();
+    loadReport();
+  }
+
+  const loginBtn = document.getElementById('admin-login-btn');
+  document.getElementById('admin-login-btn').addEventListener('click', async () => {
+    const username = document.getElementById('admin-user').value.trim();
+    const password = document.getElementById('admin-password').value;
+    loginErr.style.display = 'none';
+    loginBtn.disabled = true;
+    loginBtn.textContent = 'กำลังตรวจสอบ...';
+    try {
+      const res = await fetchReport(username, password);
+      adminCreds = {username, password};
+      sessionStorage.setItem('surveyAdminCreds', JSON.stringify(adminCreds));
+      showDashboard();
+      renderReport(res.responses);
+    } catch (err) {
+      loginErr.textContent = err.message === 'unauthorized'
+        ? 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง'
+        : 'เชื่อมต่อระบบไม่สำเร็จ: ' + err.message;
+      loginErr.style.display = 'block';
+    } finally {
+      loginBtn.disabled = false;
+      loginBtn.textContent = 'เข้าสู่ระบบ';
+    }
+  });
+
+  document.getElementById('logout-btn').addEventListener('click', () => {
+    sessionStorage.removeItem('surveyAdminCreds');
+    adminCreds = null;
+    dashboard.style.display = 'none';
+    loginGate.style.display = 'block';
+  });
+
+  async function fetchReport(username, password) {
+    const url = REPORT_ENDPOINT + '?action=report'
+      + '&username=' + encodeURIComponent(username)
+      + '&password=' + encodeURIComponent(password);
+    const res = await fetch(url);
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+    if (data.error === 'unauthorized') throw new Error('unauthorized');
+    if (data.error) throw new Error(data.error);
+    return data;
+  }
+
+  // --- QR code ---
+  const surveyUrl = new URL('index.html', window.location.href).href;
+  document.getElementById('survey-link').value = surveyUrl;
+  new QRCode(document.getElementById('qr-canvas-wrap'), {
+    text: surveyUrl,
+    width: 180,
+    height: 180,
+    colorDark: '#1E3D8F',
+    colorLight: '#ffffff'
+  });
+
+  document.getElementById('copy-link-btn').addEventListener('click', () => {
+    navigator.clipboard.writeText(surveyUrl).then(() => alert('คัดลอกลิงก์แล้ว'));
+  });
+
+  document.getElementById('download-qr-btn').addEventListener('click', () => {
+    const canvas = document.querySelector('#qr-canvas-wrap canvas');
+    if (!canvas) return;
+    const link = document.createElement('a');
+    link.download = 'survey-qrcode.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+  });
+
+  // --- QR code (form 2: TikTok live-selling registration) ---
+  const tiktokUrl = new URL('tiktok-live.html', window.location.href).href;
+  document.getElementById('tiktok-link').value = tiktokUrl;
+  new QRCode(document.getElementById('qr-canvas-wrap-2'), {
+    text: tiktokUrl,
+    width: 180,
+    height: 180,
+    colorDark: '#1E3D8F',
+    colorLight: '#ffffff'
+  });
+
+  document.getElementById('copy-link-btn-2').addEventListener('click', () => {
+    navigator.clipboard.writeText(tiktokUrl).then(() => alert('คัดลอกลิงก์แล้ว'));
+  });
+
+  document.getElementById('download-qr-btn-2').addEventListener('click', () => {
+    const canvas = document.querySelector('#qr-canvas-wrap-2 canvas');
+    if (!canvas) return;
+    const link = document.createElement('a');
+    link.download = 'tiktok-live-qrcode.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+  });
+
+  document.getElementById('download-tiktok-docx-btn').addEventListener('click', async () => {
+    const btn = document.getElementById('download-tiktok-docx-btn');
+    const status = document.getElementById('tiktok-docx-status');
+    btn.disabled = true;
+    status.textContent = 'กำลังสร้างรายงาน (อาจใช้เวลาสักครู่ถ้ามีรูปภาพจำนวนมาก)...';
+    try {
+      const url = REPORT_ENDPOINT + '?action=tiktokReport'
+        + '&username=' + encodeURIComponent(adminCreds.username)
+        + '&password=' + encodeURIComponent(adminCreds.password);
+      const res = await fetch(url);
+      const data = await res.json();
+      if (data.error) throw new Error(data.error);
+      status.textContent = '';
+      window.open(data.docxUrl, '_blank');
+    } catch (err) {
+      status.textContent = 'สร้างรายงานไม่สำเร็จ: ' + err.message;
+    } finally {
+      btn.disabled = false;
+    }
+  });
+
+  // --- platform reference data (condensed from Thailand social media demographics report) ---
+  const PLATFORM_REFERENCE = [
+    {
+      name: 'Facebook',
+      icon: '📘',
+      reach: 'ผู้ใช้งานในไทย ~49-51 ล้านคน (~82% ของประชากร) • หญิง 50.8% / ชาย 49.2%',
+      top: [
+        ['25-34 ปี (Gen Y)', '31.1%'],
+        ['35-44 ปี', '18.7%'],
+        ['18-24 ปี (Gen Z)', '17.8%'],
+        ['45-54 ปี', '13.2%']
+      ],
+      insight: 'ฐานผู้ใช้กว้างและเป็นผู้ใหญ่ที่สุด เหมาะกับการเข้าถึงลูกค้าวงกว้างและกลุ่มวัยทำงานที่มีกำลังซื้อสูง'
+    },
+    {
+      name: 'TikTok',
+      icon: '🎵',
+      reach: 'เข้าถึงผู้ใหญ่ 18+ ได้ ~44-57 ล้านคน • หญิง 53-55% / ชาย 45-47%',
+      top: [
+        ['25-34 ปี (Gen Y)', '33-42%'],
+        ['18-24 ปี (Gen Z)', '~30%'],
+        ['35-44 ปี', '17-18%'],
+        ['45-54 ปี', '~10%']
+      ],
+      insight: 'อัตรา Conversion สูงถึง 4-7% (สูงกว่าอีคอมเมิร์ซทั่วไป) เหมาะกับคลิปสั้น ไลฟ์ขายของ และกระตุ้นยอดขายฉับพลัน'
+    },
+    {
+      name: 'Instagram',
+      icon: '📸',
+      reach: 'ผู้ใช้งานในไทย ~18.5-20.6 ล้านคน (~26-29%) • หญิง 58-61% / ชาย 39-42%',
+      top: [
+        ['25-34 ปี (Gen Y)', 'กลุ่มใหญ่ที่สุด'],
+        ['18-24 ปี (Gen Z)', 'กลุ่มรองลงมา'],
+        ['35-44 ปี', 'กำลังซื้อสูง']
+      ],
+      insight: 'เหมาะกับสินค้าไลฟ์สไตล์ ท่องเที่ยว ความงาม ใช้ Micro/Nano Influencer ได้ผลดีกว่าคนดัง (Engagement 1.7-5%)'
+    },
+    {
+      name: 'LINE OA',
+      icon: '💬',
+      reach: 'ผู้ใช้งานกระตือรือร้น ~54-56 ล้านคน (~78% ของประชากร) • ชาย 54% / หญิง 46%',
+      top: [
+        ['ทุกช่วงอายุ', 'ครอบคลุมกว้างที่สุด'],
+        ['25-54 ปี', 'เจ้าของธุรกิจ/CRM'],
+        ['55 ปีขึ้นไป', 'ช่องทางหลักของผู้สูงอายุ']
+      ],
+      insight: 'เหมาะเป็นช่องทาง CRM หลัก แจ้งโปรโมชัน ปิดการขาย และดูแลลูกค้าเก่าให้กลับมาซื้อซ้ำ'
+    }
+  ];
+
+  function renderPlatformReference() {
+    const el = document.getElementById('platform-reference');
+    el.innerHTML = PLATFORM_REFERENCE.map(p => `
+      <div class="platform-card">
+        <div class="p-head"><span>${p.icon}</span><span>${p.name}</span></div>
+        <div class="p-reach">${p.reach}</div>
+        ${p.top.map(([label, val]) => `<div class="p-age-row"><span>${label}</span><b>${val}</b></div>`).join('')}
+        <div class="p-insight">💡 ${p.insight}</div>
+      </div>
+    `).join('');
+  }
+  renderPlatformReference();
+
+  // --- report ---
+  let rawDocs = [];
+  let lastReport = null;
+
+  function countValues(docs, field) {
+    const counts = {};
+    docs.forEach(d => {
+      const v = d[field];
+      if (Array.isArray(v)) {
+        v.forEach(item => { counts[item] = (counts[item] || 0) + 1; });
+      } else if (v) {
+        counts[v] = (counts[v] || 0) + 1;
+      }
+    });
+    return counts;
+  }
+
+  function pct(count, total) { return total ? Math.round((count / total) * 100) : 0; }
+
+  const MEDALS = ['🥇', '🥈', '🥉', '4️⃣', '5️⃣'];
+
+  function renderRanked(containerId, counts, total) {
+    const el = document.getElementById(containerId);
+    const entries = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+
+    if (!entries.length) { el.innerHTML = '<p style="color:#999;font-size:0.85rem;">ยังไม่มีข้อมูล</p>'; return entries; }
+
+    const top5 = entries.slice(0, 5);
+    const rest = entries.slice(5);
+    let html = '';
+
+    // rank 1 - hero
+    if (top5[0]) {
+      const [label, count] = top5[0];
+      html += `
+        <div class="rank-hero">
+          <div class="medal">${MEDALS[0]}</div>
+          <div class="info">
+            <div class="pct">${pct(count, total)}%</div>
+            <div class="name">${label}</div>
+            <div class="count">${count} คำตอบ จากทั้งหมด ${total} คน</div>
+          </div>
+        </div>`;
+    }
+
+    // rank 2-3
+    if (top5[1] || top5[2]) {
+      html += '<div class="rank-grid-2">';
+      [top5[1], top5[2]].forEach((entry, i) => {
+        if (!entry) return;
+        const [label, count] = entry;
+        html += `
+          <div class="rank-card tier2">
+            <div class="medal">${MEDALS[i + 1]}</div>
+            <div class="pct">${pct(count, total)}%</div>
+            <div class="name">${label}</div>
+            <div class="count">${count} คำตอบ</div>
+          </div>`;
+      });
+      html += '</div>';
+    }
+
+    // rank 4-5
+    if (top5[3] || top5[4]) {
+      html += '<div class="rank-grid-2">';
+      [top5[3], top5[4]].forEach((entry, i) => {
+        if (!entry) return;
+        const [label, count] = entry;
+        html += `
+          <div class="rank-card tier3">
+            <div class="medal">${MEDALS[i + 3]}</div>
+            <div class="pct">${pct(count, total)}%</div>
+            <div class="name">${label}</div>
+            <div class="count">${count} คำตอบ</div>
+          </div>`;
+      });
+      html += '</div>';
+    }
+
+    // rest as compact list
+    if (rest.length) {
+      html += '<div class="rank-list">';
+      rest.forEach(([label, count], i) => {
+        const p = pct(count, total);
+        html += `
+          <div class="rank-list-item">
+            <div class="idx">${i + 6}</div>
+            <div>
+              <div>${label}</div>
+              <div class="track"><div class="fill" style="width:${p}%"></div></div>
+            </div>
+            <div class="pct">${p}% (${count})</div>
+          </div>`;
+      });
+      html += '</div>';
+    }
+
+    el.innerHTML = html;
+    return entries;
+  }
+
+  function renderOtherList(containerId, docs, field) {
+    const el = document.getElementById(containerId);
+    const others = docs.map(d => d[field]).filter(v => v && v.trim());
+    if (!others.length) { el.innerHTML = ''; return; }
+    el.innerHTML = `<strong>คำตอบ "อื่นๆ" ที่ระบุเพิ่มเติม (${others.length}):</strong><ul>${others.map(o => `<li>${escapeHtml(o)}</li>`).join('')}</ul>`;
+  }
+
+  function escapeHtml(str) {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  function buildSummarySentence(entries, total, noun) {
+    if (!entries.length) return `ยังไม่มีข้อมูลเพียงพอสำหรับสรุป${noun}`;
+    const [first, second, third] = entries;
+    let s = `${noun}ที่พบมากที่สุดคือ "${first[0]}" (${pct(first[1], total)}%)`;
+    if (second) s += ` รองลงมาคือ "${second[0]}" (${pct(second[1], total)}%)`;
+    if (third) s += ` และ "${third[0]}" (${pct(third[1], total)}%)`;
+    return s;
+  }
+
+  async function loadReport() {
+    document.getElementById('loading').style.display = 'block';
+    document.getElementById('report-content').style.display = 'none';
+    document.getElementById('empty-state').style.display = 'none';
+
+    let responses;
+    try {
+      const res = await fetchReport(adminCreds.username, adminCreds.password);
+      responses = res.responses;
+    } catch (err) {
+      if (err.message === 'unauthorized') {
+        // saved credentials no longer valid (e.g. password changed) — force re-login
+        sessionStorage.removeItem('surveyAdminCreds');
+        adminCreds = null;
+        dashboard.style.display = 'none';
+        loginGate.style.display = 'block';
+        return;
+      }
+      document.getElementById('loading').textContent = 'โหลดข้อมูลไม่สำเร็จ: ' + err.message;
+      return;
+    }
+
+    document.getElementById('loading').style.display = 'none';
+    renderReport(responses);
+  }
+
+  function renderReport(responses) {
+    rawDocs = responses;
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('empty-state').style.display = 'none';
+
+    if (!rawDocs.length) {
+      document.getElementById('empty-state').style.display = 'block';
+      return;
+    }
+
+    document.getElementById('report-content').style.display = 'block';
+    const total = rawDocs.length;
+    document.getElementById('total-count').textContent = total;
+
+    // Q1
+    const q1Counts = countValues(rawDocs, 'businessType');
+    const q1Entries = renderRanked('rank-q1', q1Counts, total);
+    renderOtherList('other-q1', rawDocs, 'businessTypeOther');
+    document.getElementById('top-business').textContent = q1Entries[0] ? q1Entries[0][0].split(' ')[0] : '-';
+    document.getElementById('reco-q1').textContent = q1Entries[0]
+      ? `💡 ควรพิจารณาจัดกิจกรรมอบรม/สนับสนุนที่เกี่ยวข้องกับ "${q1Entries[0][0]}" เป็นลำดับแรก เนื่องจากเป็นกลุ่มธุรกิจที่มีผู้ประกอบการมากที่สุดในพื้นที่`
+      : '';
+
+    // Q2
+    const q2Counts = countValues(rawDocs, 'customerGroups');
+    const q2Entries = renderRanked('rank-q2', q2Counts, total);
+    renderOtherList('other-q2', rawDocs, 'customerGroupsOther');
+    document.getElementById('top-customer').textContent = q2Entries[0] ? q2Entries[0][0].split(' ')[0] : '-';
+    document.getElementById('reco-q2').textContent = q2Entries[0]
+      ? `💡 กลุ่มลูกค้าหลักคือ "${q2Entries[0][0]}" ควรออกแบบสื่อประชาสัมพันธ์และโปรโมชั่นให้ตรงกับความสนใจของกลุ่มนี้เป็นหลัก`
+      : '';
+
+    // Q3.1
+    const q3aCounts = countValues(rawDocs, 'onlineTools');
+    const q3aEntries = renderRanked('rank-q3a', q3aCounts, total);
+    renderOtherList('other-q3a', rawDocs, 'onlineToolsOther');
+    document.getElementById('top-tool').textContent = q3aEntries[0] ? q3aEntries[0][0].split(' ')[0] : '-';
+    document.getElementById('reco-q3a').textContent = q3aEntries[0]
+      ? `💡 เครื่องมือที่ผู้ประกอบการนิยมใช้มากที่สุดคือ "${q3aEntries[0][0]}" หน่วยงานที่เกี่ยวข้องควรจัดอบรมเชิงลึกเกี่ยวกับการใช้เครื่องมือนี้อย่างมีประสิทธิภาพ`
+      : '';
+
+    // Q3.2
+    const q3bCounts = countValues(rawDocs, 'toolReasons');
+    const q3bEntries = renderRanked('rank-q3b', q3bCounts, total);
+    renderOtherList('other-q3b', rawDocs, 'toolReasonsOther');
+    document.getElementById('reco-q3b').textContent = q3bEntries[0]
+      ? `💡 เหตุผลหลักคือ "${q3bEntries[0][0]}" ควรออกแบบเนื้อหาการอบรมด้านการตลาดออนไลน์ให้ตอบโจทย์วัตถุประสงค์นี้เป็นอันดับแรก`
+      : '';
+
+    // overall summary
+    const overall = document.getElementById('overall-summary');
+    overall.innerHTML = `
+      จากผู้ตอบแบบสำรวจทั้งหมด <b>${total}</b> ราย ธุรกิจส่วนใหญ่อยู่ในกลุ่ม <b>"${q1Entries[0] ? q1Entries[0][0] : '-'}"</b> (${q1Entries[0] ? pct(q1Entries[0][1], total) : 0}%)
+      โดยมีกลุ่มลูกค้าเป้าหมายหลักคือ <b>"${q2Entries[0] ? q2Entries[0][0] : '-'}"</b> (${q2Entries[0] ? pct(q2Entries[0][1], total) : 0}%)
+      ด้านการตลาดออนไลน์ นิยมใช้ <b>"${q3aEntries[0] ? q3aEntries[0][0] : '-'}"</b> มากที่สุด (${q3aEntries[0] ? pct(q3aEntries[0][1], total) : 0}%)
+      โดยมีวัตถุประสงค์หลักเพื่อ <b>"${q3bEntries[0] ? q3bEntries[0][0] : '-'}"</b> (${q3bEntries[0] ? pct(q3bEntries[0][1], total) : 0}%)<br><br>
+      <b>ข้อเสนอแนะ:</b> ควรจัดอบรมการตลาดออนไลน์ที่เจาะจงกับเครื่องมือและกลุ่มลูกค้าเป้าหมายข้างต้น พร้อมส่งเสริมการรวมกลุ่มผู้ประกอบการในหมวดธุรกิจยอดนิยมเพื่อสร้างเครือข่ายและต่อยอดผลิตภัณฑ์ร่วมกัน
+    `;
+
+    lastReport = {total, q1Entries, q2Entries, q3aEntries, q3bEntries};
+  }
+
+  document.getElementById('export-csv-btn').addEventListener('click', () => {
+    if (!rawDocs.length) return;
+    const headers = ['businessType','businessTypeOther','customerGroups','customerGroupsOther','onlineTools','onlineToolsOther','toolReasons','toolReasonsOther'];
+    const rows = rawDocs.map(d => headers.map(h => {
+      const v = d[h];
+      const s = Array.isArray(v) ? v.join('; ') : (v || '');
+      return '"' + String(s).replace(/"/g, '""') + '"';
+    }).join(','));
+    const csv = [headers.join(','), ...rows].join('\n');
+    const blob = new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'business-survey-responses.csv';
+    link.click();
+  });
+
+  function formatEntries(entries, total) {
+    if (!entries.length) return '- (ยังไม่มีข้อมูล)';
+    return entries.map(([label, count], i) => `${i + 1}. ${label} — ${pct(count, total)}% (${count} คำตอบ)`).join('\n');
+  }
+
+  function formatOthers(docs, field) {
+    const others = docs.map(d => d[field]).filter(v => v && v.trim());
+    if (!others.length) return '- (ไม่มี)';
+    return others.map(o => `- ${o}`).join('\n');
+  }
+
+  function buildSlidePrompt() {
+    if (!lastReport) return '';
+    const {total, q1Entries, q2Entries, q3aEntries, q3bEntries} = lastReport;
+
+    const platformBlock = PLATFORM_REFERENCE.map(p => {
+      const ageLines = p.top.map(([label, val]) => `  - ${label}: ${val}`).join('\n');
+      return `${p.icon} ${p.name}\n${p.reach}\n${ageLines}\nข้อคิดเชิงกลยุทธ์: ${p.insight}`;
+    }).join('\n\n');
+
+    return `คุณคือนักวิเคราะห์ธุรกิจและนักออกแบบพรีเซนเทชัน ช่วยสร้างสไลด์นำเสนอ (deck) จากผลสำรวจธุรกิจต่อไปนี้ โดยใช้ข้อมูลจริงทั้งหมดที่ให้มา ห้ามแต่งตัวเลขเพิ่มเอง
+
+หัวข้อสไลด์: "ผลสำรวจข้อมูลและทิศทางการทำธุรกิจของผู้ประกอบการในจังหวัดเลย"
+จำนวนผู้ตอบแบบสำรวจทั้งหมด: ${total} ราย
+
+โครงสร้างสไลด์ที่ต้องการ (ปรับเพิ่ม/ลดได้ตามความเหมาะสม แต่ต้องครอบคลุมประเด็นทั้งหมดนี้):
+1. สไลด์ปก
+2. ภาพรวมและวัตถุประสงค์ของการสำรวจ
+3. สรุปตัวเลขสำคัญ (Key Stats): จำนวนผู้ตอบทั้งหมด, ประเภทธุรกิจยอดนิยม, กลุ่มลูกค้าหลัก, เครื่องมือออนไลน์ยอดนิยม
+4. อันดับประเภทธุรกิจ (แสดงเป็นกราฟแท่งหรือ % จากข้อมูลด้านล่าง)
+5. อันดับกลุ่มลูกค้าเป้าหมาย
+6. อันดับเครื่องมือออนไลน์ที่ใช้/วางแผนจะใช้
+7. เหตุผลหลักในการเลือกใช้เครื่องมือออนไลน์
+8. ข้อมูลอ้างอิงประชากรผู้ใช้งานแพลตฟอร์มโซเชียลมีเดียในไทย เทียบกับเครื่องมือที่ผู้ประกอบการเลือกใช้ (เพื่อชี้ว่าช่องทางที่เลือกใช้เข้าถึงกลุ่มเป้าหมายได้ตรงหรือไม่)
+9. ข้อเสนอแนะเชิงกลยุทธ์สำหรับหน่วยงาน/ผู้ประกอบการ
+10. สไลด์สรุปปิดท้าย / Call to action
+
+=== ข้อมูลดิบสำหรับใช้สร้างสไลด์ ===
+
+[1) ประเภทธุรกิจ — อันดับทั้งหมด]
+${formatEntries(q1Entries, total)}
+
+คำตอบ "อื่นๆ" ที่ระบุเพิ่มเติม:
+${formatOthers(rawDocs, 'businessTypeOther')}
+
+[2) กลุ่มลูกค้าเป้าหมาย — อันดับทั้งหมด (เลือกได้หลายข้อ % จึงรวมกันเกิน 100% ได้)]
+${formatEntries(q2Entries, total)}
+
+คำตอบ "อื่นๆ" ที่ระบุเพิ่มเติม:
+${formatOthers(rawDocs, 'customerGroupsOther')}
+
+[3.1) เครื่องมือออนไลน์ที่ใช้/วางแผนจะใช้ — อันดับทั้งหมด]
+${formatEntries(q3aEntries, total)}
+
+คำตอบ "อื่นๆ" ที่ระบุเพิ่มเติม:
+${formatOthers(rawDocs, 'onlineToolsOther')}
+
+[3.2) เหตุผลหลักในการเลือกใช้เครื่องมือออนไลน์ — อันดับทั้งหมด]
+${formatEntries(q3bEntries, total)}
+
+คำตอบ "อื่นๆ" ที่ระบุเพิ่มเติม:
+${formatOthers(rawDocs, 'toolReasonsOther')}
+
+[ข้อมูลอ้างอิง: ประชากรผู้ใช้งานแพลตฟอร์มโซเชียลมีเดียในไทย]
+${platformBlock}
+
+หมายเหตุ: ข้อมูลอ้างอิงแพลตฟอร์มเป็นค่าประมาณระดับประเทศ (จาก DataReportal, GWI, Statista, ETDA) ใช้เพื่อการวางแผนเชิงกลยุทธ์ ไม่ใช่ข้อมูลเฉพาะจังหวัดเลย
+
+โปรดออกแบบสไลด์ให้กระชับ อ่านง่าย เน้นตัวเลขและอันดับ Top 5 ของแต่ละหัวข้อเป็นหลัก และใส่ข้อเสนอแนะเชิงปฏิบัติที่นำไปใช้ได้จริงในแต่ละสไลด์ที่เกี่ยวข้อง`;
+  }
+
+  document.getElementById('export-prompt-btn').addEventListener('click', () => {
+    const prompt = buildSlidePrompt();
+    if (!prompt) return;
+    const blob = new Blob([prompt], {type: 'text/plain;charset=utf-8;'});
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'notebooklm-slide-prompt.txt';
+    link.click();
+  });
+</script>
+</body>
+</html>

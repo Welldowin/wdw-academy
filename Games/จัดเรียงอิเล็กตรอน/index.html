@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Electron Config Game — Neil Bohr</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<audio id="bgm" loop preload="auto">
+  <source src="bgm.mp4" type="audio/mp4"/>
+</audio>
+
+<div class="bgm-bar">
+  <button class="bgm-btn" id="bgmToggle" title="เปิด/ปิดเพลง">🔇</button>
+  <span class="bgm-label">BGM</span>
+  <input class="bgm-vol" type="range" id="bgmVol" min="0" max="1" step="0.05" value="0.3"/>
+</div>
+
+<div id="app">
+
+  <!-- ═══ MENU ═══ -->
+  <section class="screen active" id="screen-menu">
+    <div class="logo-wrap">
+      <div class="atom-icon">
+        <div class="nucleus"></div>
+        <div class="orbit"><span class="electron"></span></div>
+        <div class="orbit"><span class="electron-2"></span></div>
+      </div>
+      <h1 class="game-title">ELECTRON<br>CONFIG</h1>
+      <p class="game-subtitle">NEIL BOHR MODEL · QUIZ GAME</p>
+    </div>
+
+    <div class="info-grid">
+      <div class="info-cell"><div class="ic-val">3</div><div class="ic-label">STAGES</div></div>
+      <div class="info-cell"><div class="ic-val">5</div><div class="ic-label">ถูก/ด่าน</div></div>
+      <div class="info-cell"><div class="ic-val">80″</div><div class="ic-label">ด่านแรก</div></div>
+    </div>
+
+    <div class="difficulty-section">
+      <p class="section-label">— เลือกระดับความยาก —</p>
+      <div class="diff-cards">
+        <div class="diff-card easy" data-diff="easy">
+          <div class="diff-icon">⚗️</div>
+          <div class="diff-name">EASY</div>
+          <div class="diff-desc">ธาตุหมู่หลัก 8 หมู่ (Period 1–4)<br/>+ ไอออนของพวกมัน</div>
+        </div>
+        <div class="diff-card medium" data-diff="medium">
+          <div class="diff-icon">🔬</div>
+          <div class="diff-name">MEDIUM</div>
+          <div class="diff-desc">เพิ่มโลหะทรานซิชัน<br/>Period 4 (Z = 21–30) + ไอออน</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="width:100%;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;margin-bottom:24px;">
+      <p class="section-label" style="margin-bottom:10px;">— เงื่อนไขแต่ละด่าน —</p>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center;">
+        <div style="background:rgba(0,229,255,0.05);border-radius:8px;padding:10px 6px;">
+          <span style="font-family:var(--font-head);font-size:0.75rem;color:var(--primary);">STAGE 1</span>
+          <div style="font-family:var(--font-mono);font-size:1.15rem;color:var(--text);margin-top:4px;">80 วิ</div>
+        </div>
+        <div style="background:rgba(255,107,53,0.05);border-radius:8px;padding:10px 6px;">
+          <span style="font-family:var(--font-head);font-size:0.75rem;color:var(--secondary);">STAGE 2</span>
+          <div style="font-family:var(--font-mono);font-size:1.15rem;color:var(--text);margin-top:4px;">60 วิ</div>
+        </div>
+        <div style="background:rgba(255,45,85,0.05);border-radius:8px;padding:10px 6px;">
+          <span style="font-family:var(--font-head);font-size:0.75rem;color:var(--danger);">STAGE 3</span>
+          <div style="font-family:var(--font-mono);font-size:1.15rem;color:var(--text);margin-top:4px;">40 วิ</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-primary" id="startBtn" disabled>▶ เริ่มเกม</button>
+    </div>
+  </section>
+
+  <!-- ═══ GAME ═══ -->
+  <section class="screen" id="screen-game">
+    <div class="game-header">
+      <div>
+        <div class="stage-badge" id="stageBadge">STAGE 1 / 3</div>
+        <div class="stage-dots" id="stageDots">
+          <div class="stage-dot active"></div>
+          <div class="stage-dot"></div>
+          <div class="stage-dot"></div>
+        </div>
+      </div>
+      <div class="timer-wrap">
+        <div class="timer-ring">
+          <svg viewBox="0 0 60 60" width="72" height="72">
+            <circle class="ring-bg"   cx="30" cy="30" r="26"/>
+            <circle class="ring-fill" id="timerRing" cx="30" cy="30" r="26"/>
+          </svg>
+          <div class="timer-num" id="timerNum">—</div>
+        </div>
+      </div>
+      <div class="score-display">คะแนน<span id="scoreDisp">0</span></div>
+    </div>
+
+    <div class="progress-wrap" style="width:100%;margin-bottom:14px;">
+      <div class="progress-label">
+        <span>ความก้าวหน้าด่านนี้</span>
+        <span id="progressText">0 / 5</span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+    </div>
+
+    <div class="streak-dots" id="streakDots">
+      <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+      <div class="dot"></div><div class="dot"></div>
+    </div>
+
+    <div class="question-card" id="questionCard">
+      <div class="q-type-tag" id="qTypeTag">—</div>
+      <div class="question-text" id="questionText">Loading...</div>
+      <div class="question-hint" id="questionHint">—</div>
+    </div>
+
+    <div class="answer-wrap" id="answerWrap"></div>
+  </section>
+
+  <!-- ═══ STAGE CLEAR ═══ -->
+  <section class="screen" id="screen-clear">
+    <div class="stage-clear-banner">
+      <div style="font-size:4rem;margin-bottom:12px;animation:bounce 0.8s ease infinite alternate;">🎯</div>
+      <div class="sc-title" id="clearTitle">STAGE 1 CLEAR!</div>
+      <div class="sc-sub"   id="clearSub">เตรียมพร้อมสำหรับด่านถัดไป...</div>
+    </div>
+    <div class="divider"></div>
+    <div class="btn-row">
+      <button class="btn btn-primary" id="nextStageBtn">▶ ด่านถัดไป</button>
+    </div>
+  </section>
+
+  <!-- ═══ WIN ═══ -->
+  <section class="screen" id="screen-win">
+    <div class="fireworks" id="fireworks"></div>
+    <div class="win-wrap">
+      <span class="win-icon">🏆</span>
+      <h2 class="win-title">WINNER!</h2>
+      <div class="win-score">คะแนนรวมทั้งหมด<strong id="finalScore">0</strong></div>
+      <div class="divider"></div>
+      <div class="btn-row">
+        <button class="btn btn-primary" id="winPlayAgain">🔄 เล่นใหม่</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ LOSE ═══ -->
+  <section class="screen" id="screen-lose">
+    <div class="lose-wrap">
+      <span class="lose-icon">💥</span>
+      <div class="lose-title">TIME'S UP!</div>
+      <div class="lose-answer">
+        <div class="la-label">คำถามที่ค้างอยู่</div>
+        <div class="la-val" id="loseQuestion">—</div>
+        <div class="la-label" style="margin-top:10px;">เฉลย</div>
+        <div class="la-val" id="loseAnswer">—</div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-primary"   id="retryStageBtn">↺ เริ่มด่านนี้ใหม่</button>
+      <button class="btn btn-secondary" id="retryFromStartBtn">⏮ เริ่มตั้งแต่ด่าน 1</button>
+    </div>
+  </section>
+
+</div>
+
+<div class="feedback-pop" id="feedbackPop"></div>
+
+<script src="questions.js"></script>
+<script>
+'use strict';
+
+// ═══════════════════════════════════════════════════════
+//  SFX
+// ═══════════════════════════════════════════════════════
+const AudioCtxClass = window.AudioContext || window.webkitAudioContext;
+let _actx = null;
+function getCtx() { if (!_actx) _actx = new AudioCtxClass(); return _actx; }
+
+function sfxCorrect() {
+  const ctx = getCtx(), t = ctx.currentTime;
+  [523,659,784,1047].forEach((f,i) => {
+    const o = ctx.createOscillator(), g = ctx.createGain();
+    o.connect(g); g.connect(ctx.destination);
+    o.type = 'sine'; o.frequency.setValueAtTime(f, t + i*0.07);
+    g.gain.setValueAtTime(0.18, t + i*0.07);
+    g.gain.exponentialRampToValueAtTime(0.001, t + i*0.07 + 0.25);
+    o.start(t + i*0.07); o.stop(t + i*0.07 + 0.3);
+  });
+}
+function sfxWrong() {
+  const ctx = getCtx(), t = ctx.currentTime;
+  const o = ctx.createOscillator(), g = ctx.createGain();
+  o.connect(g); g.connect(ctx.destination);
+  o.type = 'sawtooth'; o.frequency.setValueAtTime(200, t);
+  o.frequency.exponentialRampToValueAtTime(80, t + 0.3);
+  g.gain.setValueAtTime(0.15, t);
+  g.gain.exponentialRampToValueAtTime(0.001, t + 0.35);
+  o.start(t); o.stop(t + 0.4);
+}
+function sfxWin() {
+  const ctx = getCtx(), t = ctx.currentTime;
+  [523,659,784,1047,1319,1047,784,1319,1568].forEach((f,i) => {
+    const o = ctx.createOscillator(), g = ctx.createGain();
+    o.connect(g); g.connect(ctx.destination);
+    o.type = 'triangle'; o.frequency.setValueAtTime(f, t + i*0.1);
+    g.gain.setValueAtTime(0.15, t + i*0.1);
+    g.gain.exponentialRampToValueAtTime(0.001, t + i*0.1 + 0.5);
+    o.start(t + i*0.1); o.stop(t + i*0.1 + 0.6);
+  });
+}
+function sfxLose() {
+  const ctx = getCtx(), t = ctx.currentTime;
+  [392,349,330,294,262].forEach((f,i) => {
+    const o = ctx.createOscillator(), g = ctx.createGain();
+    o.connect(g); g.connect(ctx.destination);
+    o.type = 'sine'; o.frequency.setValueAtTime(f, t + i*0.12);
+    g.gain.setValueAtTime(0.15, t + i*0.12);
+    g.gain.exponentialRampToValueAtTime(0.001, t + i*0.12 + 0.4);
+    o.start(t + i*0.12); o.stop(t + i*0.12 + 0.5);
+  });
+}
+function sfxTick() {
+  const ctx = getCtx(), t = ctx.currentTime;
+  const o = ctx.createOscillator(), g = ctx.createGain();
+  o.connect(g); g.connect(ctx.destination);
+  o.type = 'sine'; o.frequency.setValueAtTime(880, t);
+  g.gain.setValueAtTime(0.05, t);
+  g.gain.exponentialRampToValueAtTime(0.001, t + 0.08);
+  o.start(t); o.stop(t + 0.1);
+}
+
+// ═══════════════════════════════════════════════════════
+//  BGM
+// ═══════════════════════════════════════════════════════
+const bgmEl    = document.getElementById('bgm');
+const bgmToggle = document.getElementById('bgmToggle');
+const bgmVolEl  = document.getElementById('bgmVol');
+let bgmOn = false;
+bgmEl.volume = 0.3;
+bgmToggle.addEventListener('click', () => {
+  bgmOn = !bgmOn;
+  bgmOn ? bgmEl.play().catch(() => {}) : bgmEl.pause();
+  bgmToggle.textContent = bgmOn ? '🔊' : '🔇';
+});
+bgmVolEl.addEventListener('input', () => { bgmEl.volume = bgmVolEl.value; });
+
+// ═══════════════════════════════════════════════════════
+//  GAME STATE & CONSTANTS
+// ═══════════════════════════════════════════════════════
+const STAGES = [
+  { stage: 1, time: 80, need: 5 },
+  { stage: 2, time: 60, need: 5 },
+  { stage: 3, time: 40, need: 5 },
+];
+
+// Single source of truth
+let G = {
+  difficulty:   null,
+  stageIdx:     0,       // 0-based
+  correct:      0,
+  score:        0,
+  timeLeft:     0,
+  timerId:      null,    // ONE interval id — never let two run simultaneously
+  currentQ:     null,
+  locked:       false,   // input locked during feedback flash
+};
+
+// ═══════════════════════════════════════════════════════
+//  SCREEN HELPER
+// ═══════════════════════════════════════════════════════
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+// ═══════════════════════════════════════════════════════
+//  MENU
+// ═══════════════════════════════════════════════════════
+document.querySelectorAll('.diff-card').forEach(card => {
+  card.addEventListener('click', () => {
+    document.querySelectorAll('.diff-card').forEach(c => c.classList.remove('selected'));
+    card.classList.add('selected');
+    G.difficulty = card.dataset.diff;
+    document.getElementById('startBtn').disabled = false;
+  });
+});
+
+document.getElementById('startBtn').addEventListener('click', () => {
+  getCtx();
+  if (bgmOn) bgmEl.play().catch(() => {});
+  G.stageIdx = 0;
+  G.score    = 0;
+  window.GAME_QUESTIONS.resetQueue(G.difficulty);
+  startStage();
+});
+
+// ═══════════════════════════════════════════════════════
+//  START STAGE
+// ═══════════════════════════════════════════════════════
+function startStage() {
+  stopTimer();
+
+  const s = STAGES[G.stageIdx];
+  G.correct  = 0;
+  G.locked   = false;
+  G.timeLeft = s.time;
+  G.currentQ = null;
+
+  showScreen('screen-game');
+  refreshHeader();
+  updateProgress();
+  updateStreakDots();
+
+  // render initial timer number RIGHT NOW before any async work
+  const numEl = document.getElementById('timerNum');
+  if (numEl) numEl.textContent = s.time;
+
+  loadQuestion();
+  startTimer(s.time);   // start after DOM is synchronously updated
+}
+
+// ═══════════════════════════════════════════════════════
+//  TIMER  — BUG FIX #1
+//  Rule: only ONE setInterval may exist at a time.
+//  stopTimer() MUST be called before startTimer().
+// ═══════════════════════════════════════════════════════
+function stopTimer() {
+  if (G.timerId !== null) {
+    clearInterval(G.timerId);
+    G.timerId = null;
+  }
+}
+
+function startTimer(total) {
+  const C = 2 * Math.PI * 26;
+
+  function renderTimer() {
+    const ring = document.getElementById('timerRing');
+    const num  = document.getElementById('timerNum');
+    if (!ring || !num) return;
+    const frac = Math.max(0, G.timeLeft) / total;
+    ring.style.strokeDashoffset = C * (1 - frac);
+    // SVG elements cannot use .className directly — must use setAttribute
+    const cls = 'ring-fill' + (frac <= 0.2 ? ' danger' : frac <= 0.4 ? ' warning' : '');
+    ring.setAttribute('class', cls);
+    num.textContent = G.timeLeft;
+  }
+
+  renderTimer(); // แสดงตัวเลขเริ่มต้นทันที
+
+  G.timerId = setInterval(() => {
+    G.timeLeft--;
+    renderTimer();
+    if (G.timeLeft <= 10 && G.timeLeft > 0) sfxTick();
+    if (G.timeLeft <= 0) { stopTimer(); onTimeUp(); }
+  }, 1000);
+}
+
+// ═══════════════════════════════════════════════════════
+//  LOAD QUESTION
+// ═══════════════════════════════════════════════════════
+function loadQuestion() {
+  G.locked   = false;
+  const q    = window.GAME_QUESTIONS.generateQuestion(G.difficulty);
+  G.currentQ = q;
+
+  const typeTag = document.getElementById('qTypeTag');
+  const qText   = document.getElementById('questionText');
+  const hintEl  = document.getElementById('questionHint');
+  hintEl.className = 'question-hint';
+
+  if (q.type === 'A') {
+    typeTag.textContent = 'TYPE A  ·  ธาตุ/ไอออน → พิมการจัดเรียงอิเล็กตรอน';
+    // Show blank slots preview in question text
+    const blanks = q.answerArr.map(() => '__').join(' / ');
+    qText.innerHTML =
+      `<span class="q-element">${q.promptHTML}</span>` +
+      `<span style="color:var(--text-dim);font-weight:400;"> : </span>` +
+      `<span style="color:var(--text-dim);font-size:0.82em;font-family:var(--font-mono);letter-spacing:3px;">${blanks}</span>`;
+  } else {
+    typeTag.textContent = 'TYPE B  ·  การจัดเรียง → ระบุธาตุ';
+    // BUG FIX #4: q.xLabelHTML always contains the charge (e.g. X⁺ or X²⁻ or just X)
+    qText.innerHTML =
+      `<span class="q-element">${q.xLabelHTML}</span>` +
+      `<span style="color:var(--text-dim);font-weight:400;"> : </span>` +
+      `<span class="config-nums">${q.prompt}</span>` +
+      `<br><span style="font-size:0.82em;color:var(--text-mid);font-weight:500;margin-top:6px;display:inline-block;">` +
+      `ธาตุ X คือ <span style="color:var(--primary);">?</span></span>`;
+  }
+
+  hintEl.textContent = '💡 ' + q.hint;
+
+  // Animate card
+  const card = document.getElementById('questionCard');
+  card.style.animation = 'none';
+  void card.offsetWidth; // force reflow
+  card.style.animation = 'fadeIn 0.32s ease';
+
+  buildAnswerUI(q);
+}
+
+// ═══════════════════════════════════════════════════════
+//  BUILD ANSWER UI
+// ═══════════════════════════════════════════════════════
+function buildAnswerUI(q) {
+  const wrap = document.getElementById('answerWrap');
+  wrap.innerHTML = '';
+
+  if (q.type === 'A') {
+    // ── BUG FIX #2 + #3: segmented slots, width for 2-digit numbers ──
+    const row = document.createElement('div');
+    row.className = 'slots-row';
+    row.id = 'slotsRow';
+
+    q.answerArr.forEach((expectedVal, i) => {
+      if (i > 0) {
+        const sep = document.createElement('span');
+        sep.className = 'slot-sep';
+        sep.textContent = '/';
+        row.appendChild(sep);
+      }
+
+      const inp = document.createElement('input');
+      inp.type        = 'text';
+      inp.inputMode   = 'numeric';
+      inp.className   = 'slot-input';
+      inp.id          = `slot-${i}`;
+      inp.placeholder = '_';
+      inp.autocomplete = 'off';
+      inp.dataset.index = i;
+      inp.dataset.maxLen = String(expectedVal).length > 1 ? '2' : '2'; // always allow up to 2 digits
+
+      inp.addEventListener('input',   onSlotInput);
+      inp.addEventListener('keydown', onSlotKeydown);
+      row.appendChild(inp);
+    });
+
+    wrap.appendChild(row);
+
+  } else {
+    // ── Free text input for Type B ──
+    const div = document.createElement('div');
+    div.className = 'answer-input-wrap';
+    div.innerHTML =
+      `<input class="answer-input" id="answerInput" type="text"
+         placeholder="พิมชื่อธาตุ เช่น Na, Fe, Ne"
+         autocomplete="off" autocorrect="off" spellcheck="false"/>`;
+    wrap.appendChild(div);
+    div.querySelector('#answerInput')
+       .addEventListener('keydown', e => { if (e.key === 'Enter') submitAnswer(); });
+  }
+
+  // Submit button
+  const submitBtn = document.createElement('button');
+  submitBtn.className = 'submit-btn';
+  submitBtn.innerHTML = '<span>✦</span> ส่งคำตอบ (Enter)';
+  submitBtn.addEventListener('click', submitAnswer);
+  wrap.appendChild(submitBtn);
+
+  // Hint button
+  const hintBtn = document.createElement('button');
+  hintBtn.className = 'hint-btn';
+  hintBtn.textContent = '💡 ขอใบ้ (−5 คะแนน)';
+  hintBtn.addEventListener('click', () => {
+    document.getElementById('questionHint').classList.add('show');
+    G.score = Math.max(0, G.score - 5);
+    document.getElementById('scoreDisp').textContent = G.score;
+  });
+  wrap.appendChild(hintBtn);
+
+  // Focus first input
+  requestAnimationFrame(() => {
+    const first = document.getElementById('slot-0') || document.getElementById('answerInput');
+    if (first) first.focus();
+  });
+}
+
+// ═══════════════════════════════════════════════════════
+//  SLOT HANDLERS  — BUG FIX #2
+//  Auto-advance only when the slot is "done" being edited.
+//  We use a small delay so user can type 2-digit numbers (e.g. 18).
+// ═══════════════════════════════════════════════════════
+const SLOT_ADVANCE_DELAY = 600; // ms — wait this long after last keystroke before advancing
+const _slotTimers = {};
+
+function onSlotInput(e) {
+  const inp = e.target;
+  // Strip non-digits
+  inp.value = inp.value.replace(/\D/g, '').slice(0, 2); // max 2 digits
+
+  const idx = parseInt(inp.dataset.index);
+
+  // Clear any pending advance timer for this slot
+  clearTimeout(_slotTimers[idx]);
+
+  if (inp.value.length === 0) return;
+
+  // Schedule advance: fires if user stops typing for SLOT_ADVANCE_DELAY ms
+  _slotTimers[idx] = setTimeout(() => {
+    const numSlots = G.currentQ ? G.currentQ.answerArr.length : 0;
+    const next = document.getElementById(`slot-${idx + 1}`);
+    if (next) {
+      next.focus();
+      next.select();
+    } else if (idx === numSlots - 1) {
+      // Last slot — auto-submit
+      submitAnswer();
+    }
+  }, SLOT_ADVANCE_DELAY);
+}
+
+function onSlotKeydown(e) {
+  const inp = e.target;
+  const idx = parseInt(inp.dataset.index);
+
+  if (e.key === 'Enter') {
+    // Cancel pending advance, submit now
+    clearTimeout(_slotTimers[idx]);
+    submitAnswer();
+    return;
+  }
+  if (e.key === 'Backspace' && inp.value === '') {
+    clearTimeout(_slotTimers[idx]);
+    const prev = document.getElementById(`slot-${idx - 1}`);
+    if (prev) { prev.focus(); prev.value = ''; }
+    return;
+  }
+  if (e.key === 'ArrowRight') {
+    clearTimeout(_slotTimers[idx]);
+    const next = document.getElementById(`slot-${idx + 1}`);
+    if (next) { e.preventDefault(); next.focus(); }
+    return;
+  }
+  if (e.key === 'ArrowLeft') {
+    clearTimeout(_slotTimers[idx]);
+    const prev = document.getElementById(`slot-${idx - 1}`);
+    if (prev) { e.preventDefault(); prev.focus(); }
+    return;
+  }
+}
+
+function collectSlots(n) {
+  return Array.from({ length: n }, (_, i) => {
+    const el = document.getElementById(`slot-${i}`);
+    return el ? el.value.trim() : '';
+  }).join(' ');
+}
+
+// ═══════════════════════════════════════════════════════
+//  SUBMIT
+// ═══════════════════════════════════════════════════════
+function submitAnswer() {
+  if (G.locked || !G.currentQ) return;
+  const q = G.currentQ;
+
+  let userVal = '';
+  if (q.type === 'A') {
+    userVal = collectSlots(q.answerArr.length);
+    if (userVal.replace(/\s/g, '') === '') return;
+  } else {
+    const inp = document.getElementById('answerInput');
+    if (!inp) return;
+    userVal = inp.value.trim();
+    if (!userVal) return;
+  }
+
+  const isCorrect = window.GAME_QUESTIONS.validateAnswer(userVal, q);
+
+  if (isCorrect) {
+    sfxCorrect();
+    flashSlots('correct-slot');
+    const ai = document.getElementById('answerInput');
+    if (ai) ai.classList.add('correct');
+    showFeedback('✓ ถูกต้อง!', 'correct');
+
+    G.correct++;
+    G.score += Math.max(10, Math.ceil(G.timeLeft * 0.5));
+    updateProgress();
+    updateStreakDots();
+    document.getElementById('scoreDisp').textContent = G.score;
+
+    if (G.correct >= STAGES[G.stageIdx].need) {
+      G.locked = true;
+      stopTimer(); // ← stop timer when stage is won
+      setTimeout(onStageClear, 700);
+    } else {
+      G.locked = true;
+      setTimeout(() => { loadQuestion(); }, 750);
+    }
+
+  } else {
+    sfxWrong();
+    flashSlots('wrong-slot');
+    const ai = document.getElementById('answerInput');
+    if (ai) {
+      ai.classList.add('wrong');
+      setTimeout(() => { ai.classList.remove('wrong'); ai.value = ''; }, 520);
+    }
+    showFeedback('✗ ผิด!', 'wrong');
+    if (q.type === 'A') {
+      setTimeout(() => {
+        for (let i = 0; i < q.answerArr.length; i++) {
+          const s = document.getElementById(`slot-${i}`);
+          if (s) { s.value = ''; s.className = 'slot-input'; }
+        }
+        document.getElementById('slot-0')?.focus();
+      }, 520);
+    }
+  }
+}
+
+function flashSlots(cls) {
+  const q = G.currentQ;
+  if (!q || q.type !== 'A') return;
+  q.answerArr.forEach((_, i) => {
+    const s = document.getElementById(`slot-${i}`);
+    if (s) { s.classList.add(cls); setTimeout(() => s.classList.remove(cls), 600); }
+  });
+}
+
+// ═══════════════════════════════════════════════════════
+//  FEEDBACK POPUP
+// ═══════════════════════════════════════════════════════
+let _fbTimer = null;
+function showFeedback(text, type) {
+  const el = document.getElementById('feedbackPop');
+  clearTimeout(_fbTimer);
+  el.className = `feedback-pop ${type}`;
+  el.textContent = text;
+  requestAnimationFrame(() => el.classList.add('show'));
+  _fbTimer = setTimeout(() => el.classList.remove('show'), 900);
+}
+
+// ═══════════════════════════════════════════════════════
+//  UI HELPERS
+// ═══════════════════════════════════════════════════════
+function refreshHeader() {
+  document.getElementById('stageBadge').textContent =
+    `STAGE ${G.stageIdx + 1} / 3  ·  ${G.difficulty.toUpperCase()}`;
+
+  const dots = document.getElementById('stageDots').children;
+  for (let i = 0; i < dots.length; i++) {
+    dots[i].className = 'stage-dot' +
+      (i < G.stageIdx ? ' done' : i === G.stageIdx ? ' active' : '');
+  }
+}
+
+function updateProgress() {
+  const need = STAGES[G.stageIdx].need;
+  const pct  = (G.correct / need) * 100;
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressText').textContent = `${G.correct} / ${need}`;
+}
+
+function updateStreakDots() {
+  const dots = document.getElementById('streakDots').children;
+  for (let i = 0; i < dots.length; i++)
+    dots[i].className = 'dot' + (i < G.correct ? ' filled' : '');
+}
+
+// ═══════════════════════════════════════════════════════
+//  STAGE CLEAR / WIN / LOSE
+// ═══════════════════════════════════════════════════════
+function onStageClear() {
+  showScreen('screen-clear');
+  const s = STAGES[G.stageIdx];
+  document.getElementById('clearTitle').textContent = `STAGE ${s.stage} CLEAR!`;
+  if (G.stageIdx < 2) {
+    document.getElementById('clearSub').textContent =
+      `เยี่ยมมาก! ด่านถัดไปมีเวลา ${STAGES[G.stageIdx + 1].time} วินาที`;
+    document.getElementById('nextStageBtn').textContent = '▶ ด่านถัดไป';
+  } else {
+    document.getElementById('clearSub').textContent = 'ผ่านครบทุกด่านแล้ว!';
+    document.getElementById('nextStageBtn').textContent = '🏆 ดูผลสรุป';
+  }
+}
+
+document.getElementById('nextStageBtn').addEventListener('click', () => {
+  G.stageIdx++;
+  if (G.stageIdx >= STAGES.length) onWin();
+  else startStage();
+});
+
+function onWin() {
+  sfxWin();
+  showScreen('screen-win');
+  document.getElementById('finalScore').textContent = G.score;
+  spawnFireworks();
+}
+
+function spawnFireworks() {
+  const fw = document.getElementById('fireworks');
+  fw.innerHTML = '';
+  const colors = ['#00e5ff','#ffd60a','#00ff88','#ff6b35','#a78bfa'];
+  for (let b = 0; b < 8; b++) {
+    setTimeout(() => {
+      const cx = 20 + Math.random() * 60, cy = 10 + Math.random() * 50;
+      for (let i = 0; i < 18; i++) {
+        const sp  = document.createElement('div');
+        sp.className = 'spark';
+        const ang = (i / 18) * 2 * Math.PI;
+        const d   = 60 + Math.random() * 100;
+        Object.assign(sp.style, {
+          left: cx + 'vw', top: cy + 'vh',
+          background: colors[i % colors.length],
+          animationDuration: (0.8 + Math.random() * 0.6) + 's',
+        });
+        sp.style.setProperty('--dx', Math.cos(ang) * d + 'px');
+        sp.style.setProperty('--dy', Math.sin(ang) * d + 'px');
+        fw.appendChild(sp);
+      }
+    }, b * 350);
+  }
+}
+
+document.getElementById('winPlayAgain').addEventListener('click', () => showScreen('screen-menu'));
+
+function onTimeUp() {
+  sfxLose();
+  const q = G.currentQ;
+  document.getElementById('loseQuestion').textContent =
+    q ? (q.type === 'A' ? q.prompt + ' : ?' : q.xLabelHTML.replace(/<[^>]+>/g,'') + ' : ' + q.prompt + ' → ?') : '—';
+  document.getElementById('loseAnswer').textContent =
+    q ? (q.type === 'A' ? q.answer : q.answerBase) : '—';
+  showScreen('screen-lose');
+}
+
+document.getElementById('retryStageBtn').addEventListener('click', () => {
+  G.score = Math.max(0, G.score - 20);
+  startStage();
+});
+document.getElementById('retryFromStartBtn').addEventListener('click', () => {
+  G.stageIdx = 0;
+  G.score    = 0;
+  window.GAME_QUESTIONS.resetQueue(G.difficulty);
+  startStage();
+});
+
+// Unlock AudioContext on first user interaction
+document.addEventListener('click', () => { getCtx(); }, { once: true });
+</script>
+</body>
+</html>

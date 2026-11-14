@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>แบบสำรวจธุรกิจจังหวัดเลย - Well-Do-Win Academy</title>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;500;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: 'Kanit', sans-serif;
+    background-color: #fffdf5;
+    color: #333;
+  }
+  header {
+    background-color: #1E3D8F;
+    color: white;
+    text-align: center;
+    padding: 1.6rem 1rem 1.2rem;
+  }
+  header h1 { margin: 0 0 0.4rem; font-size: 1.3rem; }
+  header p { margin: 0; font-size: 0.9rem; opacity: 0.9; }
+
+  main {
+    max-width: 640px;
+    margin: 1.2rem auto 3rem;
+    padding: 0 1rem;
+  }
+
+  .intro {
+    background: #fdf7e8;
+    border-radius: 14px;
+    padding: 1.2rem 1.3rem;
+    margin-bottom: 1.2rem;
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .card {
+    background: white;
+    border: 1px solid #eee;
+    border-radius: 14px;
+    padding: 1.3rem 1.2rem;
+    margin-bottom: 1.1rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+
+  .q-title {
+    font-weight: 700;
+    color: #1E3D8F;
+    margin: 0 0 0.9rem;
+    font-size: 1.02rem;
+    line-height: 1.5;
+  }
+  .q-title .req { color: #D94C4C; }
+
+  select, input[type="text"] {
+    width: 100%;
+    padding: 0.65rem 0.7rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-family: inherit;
+    font-size: 0.95rem;
+  }
+
+  optgroup { font-weight: 700; }
+
+  .check-list { display: flex; flex-direction: column; gap: 0.55rem; }
+  .check-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.55rem;
+    background: #fafafa;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    padding: 0.55rem 0.7rem;
+    cursor: pointer;
+  }
+  .check-item input { margin-top: 0.2rem; }
+  .check-item span { font-size: 0.93rem; line-height: 1.45; }
+
+  .other-wrap { margin-top: 0.8rem; }
+  .other-wrap label { font-size: 0.85rem; color: #666; display: block; margin-bottom: 0.3rem; }
+
+  .submit-btn {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    border-radius: 12px;
+    border: none;
+    background-color: #D94C4C;
+    color: white;
+    font-size: 1.05rem;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+  .submit-btn:hover:not(:disabled) { opacity: 0.92; }
+
+  .err-msg { color: #D94C4C; font-size: 0.85rem; margin-top: 0.5rem; display: none; }
+
+  .thanks {
+    text-align: center;
+    padding: 3rem 1rem;
+  }
+  .thanks h2 { color: #1E3D8F; }
+  .thanks p { line-height: 1.7; }
+
+  footer {
+    background-color: #1E3D8F;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.85rem;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>แบบสำรวจข้อมูลและทิศทางการทำธุรกิจ</h1>
+  <p>ของผู้ประกอบการในจังหวัดเลย</p>
+</header>
+
+<main>
+  <div class="intro" id="intro-block">
+    แบบสำรวจนี้ใช้เวลาไม่นาน และช่วยให้เราเข้าใจภาพรวมธุรกิจและทิศทางการตลาดของผู้ประกอบการในจังหวัดเลยได้ดียิ่งขึ้น
+    ข้อมูลของท่านจะถูกเก็บเป็นความลับและใช้เพื่อการสรุปภาพรวมเท่านั้น
+  </div>
+
+  <form id="survey-form">
+
+    <!-- Q1 -->
+    <div class="card">
+      <p class="q-title">1) ธุรกิจของคุณคืออะไร / ธุรกิจที่อยากทำในอนาคต <span class="req">*</span></p>
+      <select id="q1-select" required>
+        <option value="" disabled selected>-- กรุณาเลือก --</option>
+        <optgroup label="เกษตรกรรมและพืชผล">
+          <option>สวนผลไม้เมืองร้อน (เช่น สวนเงาะ, สวนแก้วมังกร, สวนสับปะรด)</option>
+          <option>สวนผลไม้และพืชเมืองหนาว (เช่น สวนมะคาเดเมีย, สวนสตรอว์เบอร์รี, สวนอะโวคาโด)</option>
+          <option>พืชไร่/พืชเศรษฐกิจ (เช่น สวนอ้อย, ไร่ข้าวโพด, สวนยางพารา, สวนปาล์ม)</option>
+          <option>ฟาร์มผักออร์แกนิก / ฟาร์มเห็ด</option>
+        </optgroup>
+        <optgroup label="ผลิตภัณฑ์แปรรูปและของฝาก (OTOP)">
+          <option>ผลิตภัณฑ์สมุนไพร/ยาหม่อง/ลูกประคบ</option>
+          <option>ผลิตภัณฑ์อาหารแปรรูป (เช่น มะขามกวน, น้ำพริก, ของหมักดอง, หมูยอ)</option>
+          <option>งานหัตถกรรม/ศิลปะท้องถิ่น (เช่น ผลิตภัณฑ์หน้ากากผีตาโขน, ของที่ระลึก)</option>
+          <option>สิ่งทอและเครื่องแต่งกาย (เช่น ผ้าฝ้ายทอมือ, ผ้าทอพื้นเมืองไทดำ)</option>
+        </optgroup>
+        <optgroup label="อาหารและเครื่องดื่ม">
+          <option>ร้านกาแฟ / คาเฟ่ (รวมถึงโรงคั่วกาแฟท้องถิ่น)</option>
+          <option>ร้านอาหารพื้นเมือง (เช่น ร้านข้าวเปียกเส้น, ส้มตำ, อาหารอีสาน)</option>
+          <option>ร้านเบเกอรี่ / ขนมหวาน / ร้านเครื่องดื่มทั่วไป</option>
+        </optgroup>
+        <optgroup label="การท่องเที่ยวและที่พัก (ภูเรือ เชียงคาน ภูกระดึง)">
+          <option>โฮมสเตย์ / เกสต์เฮาส์ / รีสอร์ท</option>
+          <option>ลานกางเต็นท์ / แคมป์ปิ้ง</option>
+          <option>บริการรถรับจ้าง / ทัวร์นำเที่ยวท้องถิ่น / เช่ามอเตอร์ไซค์</option>
+        </optgroup>
+        <optgroup label="บริการและค้าปลีกทั่วไป">
+          <option>ร้านขายของชำ / มินิมาร์ท</option>
+          <option>ธุรกิจรับเหมาก่อสร้าง / ซ่อมบำรุง</option>
+          <option>ร้านเสริมสวย / สปา / นวดแผนไทย</option>
+        </optgroup>
+        <option value="อื่นๆ">อื่นๆ (โปรดระบุ)</option>
+      </select>
+      <div class="other-wrap" id="q1-other-wrap" style="display:none;">
+        <label for="q1-other">โปรดระบุ</label>
+        <input type="text" id="q1-other" placeholder="พิมพ์ธุรกิจของคุณ">
+      </div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="card">
+      <p class="q-title">2) กลุ่มลูกค้าหลักที่มักจะซื้อสินค้าหรือใช้บริการของคุณคือกลุ่มใด? <span class="req">*</span><br>
+        <span style="font-weight:400;font-size:0.85rem;color:#666;">(สามารถเลือกได้มากกว่า 1 ข้อ)</span></p>
+      <div class="check-list" id="q2-list">
+        <label class="check-item"><input type="checkbox" value="กลุ่มนักท่องเที่ยวชาวไทย (ผู้ที่เดินทางมาจากจังหวัดอื่น)"><span>กลุ่มนักท่องเที่ยวชาวไทย (ผู้ที่เดินทางมาจากจังหวัดอื่น)</span></label>
+        <label class="check-item"><input type="checkbox" value="กลุ่มนักท่องเที่ยวต่างชาติ"><span>กลุ่มนักท่องเที่ยวต่างชาติ</span></label>
+        <label class="check-item"><input type="checkbox" value="กลุ่มคนในพื้นที่ / ชาวบ้านในชุมชน"><span>กลุ่มคนในพื้นที่ / ชาวบ้านในชุมชน</span></label>
+        <label class="check-item"><input type="checkbox" value="กลุ่มวัยรุ่น / นักเรียน / นักศึกษา (อายุประมาณ 15-22 ปี)"><span>กลุ่มวัยรุ่น / นักเรียน / นักศึกษา (อายุประมาณ 15-22 ปี)</span></label>
+        <label class="check-item"><input type="checkbox" value="กลุ่มวัยทำงาน / พนักงานออฟฟิศ (อายุประมาณ 23-40 ปี)"><span>กลุ่มวัยทำงาน / พนักงานออฟฟิศ (อายุประมาณ 23-40 ปี)</span></label>
+        <label class="check-item"><input type="checkbox" value="กลุ่มครอบครัว / แม่บ้าน"><span>กลุ่มครอบครัว / แม่บ้าน</span></label>
+        <label class="check-item"><input type="checkbox" value="กลุ่มผู้สูงอายุ / วัยเกษียณ (อายุ 60 ปีขึ้นไป)"><span>กลุ่มผู้สูงอายุ / วัยเกษียณ (อายุ 60 ปีขึ้นไป)</span></label>
+        <label class="check-item"><input type="checkbox" value="กลุ่มคนรักสุขภาพ / กลุ่มลูกค้าเฉพาะกลุ่ม (Niche Market)"><span>กลุ่มคนรักสุขภาพ / กลุ่มลูกค้าเฉพาะกลุ่ม (Niche Market)</span></label>
+        <label class="check-item"><input type="checkbox" value="กลุ่มลูกค้าองค์กร / พ่อค้าคนกลางที่รับไปขายต่อ (B2B / Wholesale)"><span>กลุ่มลูกค้าองค์กร / พ่อค้าคนกลางที่รับไปขายต่อ (B2B / Wholesale)</span></label>
+        <label class="check-item"><input type="checkbox" value="อื่นๆ"><span>อื่นๆ (โปรดระบุ)</span></label>
+      </div>
+      <div class="other-wrap" id="q2-other-wrap" style="display:none;">
+        <label for="q2-other">โปรดระบุ</label>
+        <input type="text" id="q2-other" placeholder="พิมพ์กลุ่มลูกค้าเพิ่มเติม">
+      </div>
+    </div>
+
+    <!-- Q3.1 -->
+    <div class="card">
+      <p class="q-title">3.1) เครื่องมือออนไลน์ใดบ้างที่คุณใช้ หรือวางแผนจะใช้ในการทำธุรกิจ? <span class="req">*</span><br>
+        <span style="font-weight:400;font-size:0.85rem;color:#666;">(เลือกได้มากกว่า 1 ข้อ)</span></p>
+      <div class="check-list" id="q3a-list">
+        <label class="check-item"><input type="checkbox" value="Facebook Page (เปิดเพจร้านค้า)"><span>Facebook Page (เปิดเพจร้านค้า)</span></label>
+        <label class="check-item"><input type="checkbox" value="Facebook Group (โพสต์ขายตามกลุ่มต่างๆ)"><span>Facebook Group (โพสต์ขายตามกลุ่มต่างๆ)</span></label>
+        <label class="check-item"><input type="checkbox" value="LINE Official Account (LINE OA)"><span>LINE Official Account (LINE OA)</span></label>
+        <label class="check-item"><input type="checkbox" value="TikTok / TikTok Shop"><span>TikTok / TikTok Shop</span></label>
+        <label class="check-item"><input type="checkbox" value="Instagram (IG)"><span>Instagram (IG)</span></label>
+        <label class="check-item"><input type="checkbox" value="แพลตฟอร์ม E-commerce (Shopee, Lazada)"><span>แพลตฟอร์ม E-commerce (Shopee, Lazada)</span></label>
+        <label class="check-item"><input type="checkbox" value="Google Maps / Google Business Profile (ปักหมุดร้าน)"><span>Google Maps / Google Business Profile (ปักหมุดร้าน)</span></label>
+        <label class="check-item"><input type="checkbox" value="เว็บไซต์ส่วนตัว (Website)"><span>เว็บไซต์ส่วนตัว (Website)</span></label>
+        <label class="check-item"><input type="checkbox" value="แอปพลิเคชันเดลิเวอรี่ (Foodpanda, Grab, LINE MAN)"><span>แอปพลิเคชันเดลิเวอรี่ (Foodpanda, Grab, LINE MAN)</span></label>
+        <label class="check-item"><input type="checkbox" value="อื่นๆ"><span>อื่นๆ (โปรดระบุ)</span></label>
+      </div>
+      <div class="other-wrap" id="q3a-other-wrap" style="display:none;">
+        <label for="q3a-other">โปรดระบุ</label>
+        <input type="text" id="q3a-other" placeholder="พิมพ์เครื่องมือออนไลน์เพิ่มเติม">
+      </div>
+    </div>
+
+    <!-- Q3.2 -->
+    <div class="card">
+      <p class="q-title">3.2) เหตุผลหลักที่คุณเลือกใช้เครื่องมือออนไลน์เหล่านั้นคืออะไร? <span class="req">*</span><br>
+        <span style="font-weight:400;font-size:0.85rem;color:#666;">(เลือกได้มากกว่า 1 ข้อ)</span></p>
+      <div class="check-list" id="q3b-list">
+        <label class="check-item"><input type="checkbox" value="เพื่อสร้างการรับรู้ (Brand Awareness)"><span>เพื่อสร้างการรับรู้ (Brand Awareness): โปรโมทให้คนรู้จักร้าน สินค้า หรือที่พักมากขึ้น</span></label>
+        <label class="check-item"><input type="checkbox" value="เพื่อเพิ่มยอดขายโดยตรง (Sales)"><span>เพื่อเพิ่มยอดขายโดยตรง (Sales): ใช้เป็นช่องทางหลักในการรับออเดอร์และปิดการขาย</span></label>
+        <label class="check-item"><input type="checkbox" value="เพื่อความสะดวกในการค้นหาพิกัด (Navigation/Local SEO)"><span>เพื่อความสะดวกในการค้นหาพิกัด (Navigation/Local SEO): ให้นักท่องเที่ยวค้นหาเส้นทางมาร้านหรือที่พักได้ง่าย</span></label>
+        <label class="check-item"><input type="checkbox" value="เพื่อติดต่อสื่อสารและดูแลลูกค้า (Customer Service)"><span>เพื่อติดต่อสื่อสารและดูแลลูกค้า (Customer Service): ใช้ตอบคำถาม แจ้งโปรโมชั่น หรือบริการหลังการขาย</span></label>
+        <label class="check-item"><input type="checkbox" value="เพื่อสร้างความน่าเชื่อถือ (Trust/Review)"><span>เพื่อสร้างความน่าเชื่อถือ (Trust/Review): ให้ลูกค้าเข้ามาดูรีวิว บรรยากาศ หรือรูปภาพสินค้าจริง</span></label>
+        <label class="check-item"><input type="checkbox" value="เพื่อตามเทรนด์และเข้าถึงวัยรุ่น (Trend/Engagement)"><span>เพื่อตามเทรนด์และเข้าถึงวัยรุ่น (Trend/Engagement): เช่น การทำคลิปสั้นไวรัลโปรโมทของฝากหรือคาเฟ่</span></label>
+        <label class="check-item"><input type="checkbox" value="อื่นๆ"><span>อื่นๆ (โปรดระบุ)</span></label>
+      </div>
+      <div class="other-wrap" id="q3b-other-wrap" style="display:none;">
+        <label for="q3b-other">โปรดระบุ</label>
+        <input type="text" id="q3b-other" placeholder="พิมพ์เหตุผลเพิ่มเติม">
+      </div>
+    </div>
+
+    <p class="err-msg" id="err-msg">กรุณาตอบให้ครบทุกข้อก่อนส่งแบบสำรวจ</p>
+    <button type="submit" class="submit-btn" id="submit-btn">ส่งแบบสำรวจ</button>
+  </form>
+
+  <div class="thanks" id="thanks-block" style="display:none;">
+    <h2>ขอบพระคุณเป็นอย่างยิ่ง 🙏</h2>
+    <p>ที่สละเวลาอันมีค่าในการให้ข้อมูลที่เป็นประโยชน์ในครั้งนี้<br>ข้อมูลของท่านจะถูกนำไปใช้เพื่อพัฒนาทิศทางธุรกิจของผู้ประกอบการในจังหวัดเลยต่อไป</p>
+  </div>
+</main>
+
+<footer>© 2026 โรงเรียนกวดวิชาเวลดูวิน Well-Do-Win Academy</footer>
+
+<script>
+  // Google Apps Script Web App exec URL (deployed from the survey response
+  // Google Sheet). Replace this placeholder once deployed.
+  const SUBMIT_URL = 'https://script.google.com/macros/s/AKfycbxONmFwRxp-EDwR3Jk9K-p7TO6Z1QxtgFreqB530FrsEyos-3klDBuF2EywLdr9ZzOG/exec';
+
+  function setupOther(listOrSelectId, otherWrapId, isSelect) {
+    const wrap = document.getElementById(otherWrapId);
+    if (isSelect) {
+      const sel = document.getElementById(listOrSelectId);
+      sel.addEventListener('change', () => {
+        wrap.style.display = sel.value === 'อื่นๆ' ? 'block' : 'none';
+      });
+    } else {
+      const list = document.getElementById(listOrSelectId);
+      list.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+        if (cb.value === 'อื่นๆ') {
+          cb.addEventListener('change', () => {
+            wrap.style.display = cb.checked ? 'block' : 'none';
+          });
+        }
+      });
+    }
+  }
+  setupOther('q1-select', 'q1-other-wrap', true);
+  setupOther('q2-list', 'q2-other-wrap', false);
+  setupOther('q3a-list', 'q3a-other-wrap', false);
+  setupOther('q3b-list', 'q3b-other-wrap', false);
+
+  function getChecked(listId) {
+    return Array.from(document.querySelectorAll('#' + listId + ' input[type="checkbox"]:checked')).map(cb => cb.value);
+  }
+
+  const form = document.getElementById('survey-form');
+  const errMsg = document.getElementById('err-msg');
+  const submitBtn = document.getElementById('submit-btn');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    errMsg.style.display = 'none';
+
+    const businessType = document.getElementById('q1-select').value;
+    const businessTypeOther = document.getElementById('q1-other').value.trim();
+    const customerGroups = getChecked('q2-list');
+    const customerGroupsOther = document.getElementById('q2-other').value.trim();
+    const onlineTools = getChecked('q3a-list');
+    const onlineToolsOther = document.getElementById('q3a-other').value.trim();
+    const toolReasons = getChecked('q3b-list');
+    const toolReasonsOther = document.getElementById('q3b-other').value.trim();
+
+    const valid = businessType &&
+      (businessType !== 'อื่นๆ' || businessTypeOther) &&
+      customerGroups.length > 0 &&
+      (!customerGroups.includes('อื่นๆ') || customerGroupsOther) &&
+      onlineTools.length > 0 &&
+      (!onlineTools.includes('อื่นๆ') || onlineToolsOther) &&
+      toolReasons.length > 0 &&
+      (!toolReasons.includes('อื่นๆ') || toolReasonsOther);
+
+    if (!valid) {
+      errMsg.style.display = 'block';
+      window.scrollTo({ top: errMsg.offsetTop - 20, behavior: 'smooth' });
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'กำลังส่งข้อมูล...';
+
+    try {
+      const res = await fetch(SUBMIT_URL, {
+        method: 'POST',
+        headers: {'Content-Type': 'text/plain;charset=utf-8'},
+        body: JSON.stringify({
+          businessType,
+          businessTypeOther: businessType === 'อื่นๆ' ? businessTypeOther : '',
+          customerGroups,
+          customerGroupsOther: customerGroups.includes('อื่นๆ') ? customerGroupsOther : '',
+          onlineTools,
+          onlineToolsOther: onlineTools.includes('อื่นๆ') ? onlineToolsOther : '',
+          toolReasons,
+          toolReasonsOther: toolReasons.includes('อื่นๆ') ? toolReasonsOther : ''
+        })
+      });
+      const result = await res.json();
+      if (!result.ok) throw new Error(result.error || 'ไม่ทราบสาเหตุ');
+
+      document.getElementById('intro-block').style.display = 'none';
+      form.style.display = 'none';
+      document.getElementById('thanks-block').style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } catch (err) {
+      console.error(err);
+      alert('ส่งข้อมูลไม่สำเร็จ กรุณาลองใหม่อีกครั้ง: ' + err.message);
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'ส่งแบบสำรวจ';
+    }
+  });
+</script>
+</body>
+</html>

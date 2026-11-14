@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>เกมท่องจำหมู่ฟังก์ชัน เคมีอินทรีย์</title>
+<style>
+  :root{
+    --ink:#10261f;
+    --paper:#f3efe4;
+    --flask:#1f9e7a;
+    --flask-deep:#0e6b52;
+    --amber:#e8a13c;
+    --rose:#d65a4f;
+    --violet:#6c57c9;
+    --line:#cfc7b3;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:"Trebuchet MS","Segoe UI",system-ui,sans-serif;
+    background:
+      radial-gradient(circle at 20% 0%,rgba(31,158,122,.10),transparent 45%),
+      radial-gradient(circle at 90% 100%,rgba(108,87,201,.10),transparent 40%),
+      var(--paper);
+    color:var(--ink);
+    min-height:100vh;
+    display:flex;align-items:center;justify-content:center;
+    padding:18px;
+  }
+  .app{
+    width:100%;max-width:560px;
+    background:#fffefb;
+    border:1px solid var(--line);
+    border-radius:20px;
+    box-shadow:0 18px 50px -22px rgba(14,107,82,.5);
+    overflow:hidden;
+  }
+  header{
+    background:linear-gradient(120deg,var(--flask-deep),var(--flask));
+    color:#fff;padding:20px 22px;position:relative;
+  }
+  header h1{font-size:1.18rem;letter-spacing:.3px}
+  header p{font-size:.78rem;opacity:.9;margin-top:3px}
+  .beaker{position:absolute;right:18px;top:14px;font-size:2.1rem;opacity:.85}
+  .hud{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:12px 22px;border-bottom:1px solid var(--line);
+    background:#faf7ef;
+  }
+  .lives{font-size:1.35rem;letter-spacing:3px}
+  .lives .lost{opacity:.2}
+  .stat{font-size:.82rem;text-align:right;line-height:1.4}
+  .stat b{font-size:1.05rem;color:var(--flask-deep)}
+  .progress{height:5px;background:#e7e1d0}
+  .progress > div{height:100%;width:0;background:linear-gradient(90deg,var(--amber),var(--flask));transition:width .35s}
+  main{padding:24px 22px 26px}
+  .qtype{
+    display:inline-block;font-size:.7rem;font-weight:bold;letter-spacing:1px;
+    text-transform:uppercase;padding:4px 10px;border-radius:20px;margin-bottom:14px;
+    background:rgba(31,158,122,.12);color:var(--flask-deep);
+  }
+  .qtype.iupac{background:rgba(108,87,201,.14);color:var(--violet)}
+  .prompt-label{font-size:.85rem;color:#5b6b63;margin-bottom:8px}
+  .symbol{
+    font-size:2rem;font-weight:bold;text-align:center;
+    padding:22px 16px;border:2px dashed var(--line);border-radius:14px;
+    background:#fbfaf4;margin-bottom:20px;line-height:1.5;
+    word-break:break-word;
+  }
+  .symbol .struct{font-family:"Consolas","Courier New",monospace;font-size:1.5rem;letter-spacing:1px}
+  .options{display:grid;gap:11px}
+  .opt{
+    text-align:left;padding:14px 16px;border:1.5px solid var(--line);
+    border-radius:12px;background:#fff;font-size:1rem;cursor:pointer;
+    transition:transform .08s,border-color .15s,background .15s;color:var(--ink);
+  }
+  .opt:hover:not(:disabled){border-color:var(--flask);transform:translateY(-1px)}
+  .opt:disabled{cursor:default}
+  .opt.correct{background:rgba(31,158,122,.16);border-color:var(--flask)}
+  .opt.wrong{background:rgba(214,90,79,.14);border-color:var(--rose)}
+  .feedback{margin-top:16px;font-size:.9rem;min-height:1.2em;text-align:center;font-weight:bold}
+  .feedback.ok{color:var(--flask-deep)}
+  .feedback.no{color:var(--rose)}
+  .next{
+    margin-top:16px;width:100%;padding:13px;border:none;border-radius:12px;
+    background:var(--flask-deep);color:#fff;font-size:1rem;font-weight:bold;
+    cursor:pointer;display:none;
+  }
+  .next:hover{background:var(--flask)}
+  /* game over */
+  .over{text-align:center;padding:10px 0}
+  .over h2{font-size:1.4rem;color:var(--rose);margin-bottom:6px}
+  .score-big{font-size:3rem;font-weight:bold;color:var(--flask-deep);margin:10px 0}
+  .over p{color:#5b6b63;font-size:.9rem;margin-bottom:4px}
+  .restart{
+    margin-top:20px;padding:13px 28px;border:none;border-radius:12px;
+    background:var(--amber);color:#3a2a07;font-weight:bold;font-size:1rem;cursor:pointer;
+  }
+  .restart:hover{filter:brightness(1.05)}
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <span class="beaker">⚗️</span>
+    <h1>หมู่ฟังก์ชัน เคมีอินทรีย์</h1>
+    <p>แอลเคน → เอไมด์ · ตอบผิดได้ 3 ครั้ง</p>
+  </header>
+  <div class="hud">
+    <div class="lives" id="lives">❤️❤️❤️</div>
+    <div class="stat">คะแนน <b id="score">0</b> · ตอบถูกติดต่อกัน <b id="streak">0</b></div>
+  </div>
+  <div class="progress"><div id="bar"></div></div>
+  <main id="main"></main>
+</div>
+
+<script>
+/* ---------- ข้อมูลหมู่ฟังก์ชัน แอลเคน → เอไมด์ ---------- */
+const GROUPS = [
+  {name:"แอลเคน (Alkane)",       sym:"C–C (พันธะเดี่ยว)",         suffix:"-ane",      group:"พันธะเดี่ยว (Single bond)"},
+  {name:"แอลคีน (Alkene)",       sym:"C=C",                       suffix:"-ene",      group:"พันธะคู่ (Double bond)"},
+  {name:"แอลไคน์ (Alkyne)",      sym:"C≡C",                       suffix:"-yne",      group:"พันธะสาม (Triple bond)"},
+  {name:"แอโรมาติก (Aromatic)",  sym:"วงเบนซีน C₆H₆",             suffix:"benzene",   group:"วงแอโรมาติก (Aromatic ring)"},
+  {name:"แอลกอฮอล์ (Alcohol)",   sym:"–OH",                       suffix:"-ol",       group:"ไฮดรอกซิล (Hydroxyl)"},
+  {name:"อีเทอร์ (Ether)",       sym:"–O– (R–O–R)",               suffix:"-oxy-",     group:"แอลคอกซี (Alkoxy)"},
+  {name:"แอลดีไฮด์ (Aldehyde)",  sym:"–CHO",                      suffix:"-al",       group:"คาร์บอกซาลดีไฮด์ (Carboxaldehyde)"},
+  {name:"คีโตน (Ketone)",        sym:"–CO– (R–CO–R)",             suffix:"-one",      group:"คาร์บอนิล (Carbonyl)"},
+  {name:"กรดคาร์บอกซิลิก (Carboxylic acid)", sym:"–COOH",        suffix:"-oic acid", group:"คาร์บอกซิล (Carboxyl)"},
+  {name:"เอสเทอร์ (Ester)",      sym:"–COO– (R–COO–R)",           suffix:"-oate",     group:"เอสเทอร์ (Ester)"},
+  {name:"เอมีน (Amine)",         sym:"–NH₂",                      suffix:"-amine",    group:"อะมิโน (Amino)"},
+  {name:"เอไมด์ (Amide)",        sym:"–CONH₂",                    suffix:"-amide",    group:"เอไมด์ (Amide)"}
+];
+
+/* ---------- โจทย์โครงสร้าง → ตอบชื่อ IUPAC เต็ม (คั่นทุก 5 ข้อ) ----------
+   แต่ละข้อ: struct = โครงสร้าง, ans = ชื่อ IUPAC ที่ถูก,
+   group = หมู่ฟังก์ชัน (ใช้สร้างตัวลวงที่สมเหตุสมผล),
+   common = ชื่อสามัญ/หมายเหตุ (โชว์เป็นเฉลย)                              */
+const IUPAC = [
+  /* ---- แอลเคน (ตรง / กิ่ง / ไซคลิก) ---- */
+  {struct:"CH₃–CH₂–CH₂–CH₃",                     ans:"butane",                group:"alkane", common:"n-butane"},
+  {struct:"CH₃–CH(CH₃)–CH₃",                     ans:"2-methylpropane",       group:"alkane", common:"isobutane"},
+  {struct:"CH₃–CH₂–CH₂–CH₂–CH₃",                 ans:"pentane",               group:"alkane", common:"n-pentane"},
+  {struct:"CH₃–CH(CH₃)–CH₂–CH₃",                 ans:"2-methylbutane",        group:"alkane", common:"isopentane"},
+  {struct:"C(CH₃)₄",                             ans:"2,2-dimethylpropane",   group:"alkane", common:"neopentane"},
+  {struct:"วงสามเหลี่ยม C₃H₆",                    ans:"cyclopropane",          group:"alkane", common:"ไซโคลแอลเคน"},
+  {struct:"วงห้าเหลี่ยม C₅H₁₀",                   ans:"cyclopentane",          group:"alkane", common:"ไซโคลแอลเคน"},
+  {struct:"วงหกเหลี่ยม C₆H₁₂",                    ans:"cyclohexane",           group:"alkane", common:"ไซโคลแอลเคน"},
+
+  /* ---- แอลคีน / แอลไคน์ ---- */
+  {struct:"CH₂=CH₂",                             ans:"ethene",                group:"alkene", common:"ethylene"},
+  {struct:"CH₂=CH–CH₃",                          ans:"propene",               group:"alkene", common:"propylene"},
+  {struct:"CH₃–CH=CH–CH₃",                       ans:"but-2-ene",             group:"alkene", common:"2-butene"},
+  {struct:"CH₂=CH–CH₂–CH₃",                      ans:"but-1-ene",             group:"alkene", common:"1-butene"},
+  {struct:"CH≡CH",                               ans:"ethyne",                group:"alkyne", common:"acetylene"},
+  {struct:"CH≡C–CH₃",                            ans:"propyne",               group:"alkyne", common:"methylacetylene"},
+  {struct:"CH₃–C≡C–CH₃",                         ans:"but-2-yne",             group:"alkyne", common:"2-butyne"},
+
+  /* ---- แอโรมาติก ---- */
+  {struct:"C₆H₆ (วงเบนซีน)",                      ans:"benzene",               group:"aromatic", common:"เบนซีน"},
+  {struct:"C₆H₅–CH₃",                            ans:"methylbenzene",         group:"aromatic", common:"toluene"},
+  {struct:"C₆H₅–OH",                             ans:"phenol",                group:"aromatic", common:"ฟีนอล"},
+
+  /* ---- แอลกอฮอล์ ---- */
+  {struct:"CH₃–OH",                              ans:"methanol",              group:"alcohol", common:"เมทิลแอลกอฮอล์"},
+  {struct:"CH₃–CH₂–OH",                          ans:"ethanol",               group:"alcohol", common:"เอทิลแอลกอฮอล์"},
+  {struct:"CH₃–CH₂–CH₂–OH",                      ans:"propan-1-ol",           group:"alcohol", common:"1-propanol"},
+  {struct:"CH₃–CH(OH)–CH₃",                      ans:"propan-2-ol",           group:"alcohol", common:"isopropanol"},
+  {struct:"CH₃–CH₂–CH₂–CH₂–OH",                  ans:"butan-1-ol",            group:"alcohol", common:"1-butanol"},
+
+  /* ---- อีเทอร์ ---- */
+  {struct:"CH₃–O–CH₃",                           ans:"methoxymethane",        group:"ether", common:"dimethyl ether"},
+  {struct:"CH₃–CH₂–O–CH₂–CH₃",                   ans:"ethoxyethane",          group:"ether", common:"diethyl ether"},
+  {struct:"CH₃–O–CH₂–CH₃",                       ans:"methoxyethane",         group:"ether", common:"ethyl methyl ether"},
+
+  /* ---- แอลดีไฮด์ ---- */
+  {struct:"H–CHO",                               ans:"methanal",              group:"aldehyde", common:"formaldehyde"},
+  {struct:"CH₃–CHO",                             ans:"ethanal",               group:"aldehyde", common:"acetaldehyde"},
+  {struct:"CH₃–CH₂–CHO",                         ans:"propanal",              group:"aldehyde", common:"propionaldehyde"},
+  {struct:"CH₃–CH₂–CH₂–CHO",                     ans:"butanal",               group:"aldehyde", common:"butyraldehyde"},
+
+  /* ---- คีโตน ---- */
+  {struct:"CH₃–CO–CH₃",                          ans:"propan-2-one",          group:"ketone", common:"acetone"},
+  {struct:"CH₃–CO–CH₂–CH₃",                      ans:"butan-2-one",           group:"ketone", common:"MEK"},
+  {struct:"CH₃–CH₂–CO–CH₂–CH₃",                  ans:"pentan-3-one",          group:"ketone", common:"diethyl ketone"},
+
+  /* ---- กรดคาร์บอกซิลิก ---- */
+  {struct:"H–COOH",                              ans:"methanoic acid",        group:"acid", common:"formic acid"},
+  {struct:"CH₃–COOH",                            ans:"ethanoic acid",         group:"acid", common:"acetic acid"},
+  {struct:"CH₃–CH₂–COOH",                        ans:"propanoic acid",        group:"acid", common:"propionic acid"},
+  {struct:"CH₃–CH₂–CH₂–COOH",                    ans:"butanoic acid",         group:"acid", common:"butyric acid"},
+
+  /* ---- เอสเทอร์ ---- */
+  {struct:"H–COO–CH₃",                           ans:"methyl methanoate",     group:"ester", common:"methyl formate"},
+  {struct:"CH₃–COO–CH₃",                         ans:"methyl ethanoate",      group:"ester", common:"methyl acetate"},
+  {struct:"CH₃–COO–CH₂–CH₃",                     ans:"ethyl ethanoate",       group:"ester", common:"ethyl acetate"},
+  {struct:"CH₃–CH₂–COO–CH₃",                     ans:"methyl propanoate",     group:"ester", common:"methyl propionate"},
+
+  /* ---- เอมีน ---- */
+  {struct:"CH₃–NH₂",                             ans:"methanamine",           group:"amine", common:"methylamine"},
+  {struct:"CH₃–CH₂–NH₂",                         ans:"ethanamine",            group:"amine", common:"ethylamine"},
+  {struct:"CH₃–CH₂–CH₂–NH₂",                     ans:"propan-1-amine",        group:"amine", common:"propylamine"},
+
+  /* ---- เอไมด์ ---- */
+  {struct:"H–CO–NH₂",                            ans:"methanamide",           group:"amide", common:"formamide"},
+  {struct:"CH₃–CO–NH₂",                          ans:"ethanamide",            group:"amide", common:"acetamide"},
+  {struct:"CH₃–CH₂–CO–NH₂",                      ans:"propanamide",           group:"amide", common:"propionamide"}
+];
+
+/* คลังชื่อ IUPAC แยกตามหมู่ — ใช้สร้างตัวลวงที่สมเหตุสมผล (หมู่เดียวกันก่อน) */
+const NAME_POOL = {};
+IUPAC.forEach(q=>{ (NAME_POOL[q.group]=NAME_POOL[q.group]||[]).push(q.ans); });
+const ALL_NAMES = [...new Set(IUPAC.map(q=>q.ans))];
+
+/* ---------- state ---------- */
+let lives, score, streak, asked, symQueue, iupacQueue, symInBlock, currentQ;
+
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]];}return a;}
+
+function refillSym(){ symQueue = shuffle(GROUPS.map((_,i)=>i)); }
+function refillIupac(){ iupacQueue = shuffle(IUPAC.map((_,i)=>i)); }
+
+function init(){
+  lives=3; score=0; streak=0; symInBlock=0;
+  refillSym(); refillIupac();
+  updateHud();
+  nextQuestion();
+}
+
+function updateHud(){
+  document.getElementById('score').textContent=score;
+  document.getElementById('streak').textContent=streak;
+  let h="";
+  for(let i=0;i<3;i++) h+= i<lives ? "❤️" : "<span class='lost'>🖤</span>";
+  document.getElementById('lives').innerHTML=h;
+  document.getElementById('bar').style.width=(symInBlock/5*100)+"%";
+}
+
+/* ตัวเลือกข้อสัญลักษณ์: แสดง "ชื่อหมู่ฟังก์ชัน — ชื่อกลุ่มสาร" */
+function labelFor(g){ return `${g.group} — ${g.name}`; }
+function buildSymOptions(correctIdx){
+  const correct=GROUPS[correctIdx];
+  // เลี่ยงตัวลวงที่ชื่อหมู่ซ้ำกับตัวถูก (เช่น คาร์บอนิลของแอลดีไฮด์/คีโตน)
+  const pool=GROUPS.filter((g,i)=>i!==correctIdx && g.group!==correct.group);
+  const others=shuffle(pool).slice(0,3).map(labelFor);
+  return shuffle([labelFor(correct),...others]);
+}
+
+/* ตัวลวงชื่อ IUPAC: เลือกจากหมู่เดียวกันก่อน แล้วเติมจากทั้งหมดให้ครบ 3 ตัว */
+function buildNameOptions(correct,group){
+  let pool=(NAME_POOL[group]||[]).filter(n=>n!==correct);
+  let distract=shuffle(pool).slice(0,3);
+  if(distract.length<3){
+    const extra=shuffle(ALL_NAMES.filter(n=>n!==correct && !distract.includes(n)));
+    distract=distract.concat(extra.slice(0,3-distract.length));
+  }
+  return shuffle([correct,...distract]);
+}
+
+function nextQuestion(){
+  // ทุก 5 ข้อแบบสัญลักษณ์ จะแทรกโจทย์ IUPAC 1 ข้อ
+  if(symInBlock>=5){
+    if(iupacQueue.length===0) refillIupac();
+    const idx=iupacQueue.pop();
+    const q=IUPAC[idx];
+    currentQ={kind:'iupac', answer:q.ans, struct:q.struct, common:q.common, options:buildNameOptions(q.ans,q.group)};
+    symInBlock=0;
+  }else{
+    if(symQueue.length===0) refillSym();
+    const idx=symQueue.pop();
+    const g=GROUPS[idx];
+    currentQ={kind:'sym', answer:labelFor(g), sym:g.sym, suffix:g.suffix, options:buildSymOptions(idx)};
+    symInBlock++;
+  }
+  render();
+}
+
+function render(){
+  updateHud();
+  const m=document.getElementById('main');
+  const q=currentQ;
+  const isIupac=q.kind==='iupac';
+  m.innerHTML=`
+    <span class="qtype ${isIupac?'iupac':''}">${isIupac?'ตั้งชื่อ IUPAC':'จากสัญลักษณ์'}</span>
+    <div class="prompt-label">${isIupac?'โมเลกุลนี้มีชื่อ IUPAC ว่าอะไร?':'สัญลักษณ์นี้คือหมู่ฟังก์ชันใด? (ชื่อหมู่ — กลุ่มสาร)'}</div>
+    <div class="symbol">${isIupac
+        ? `<div class="struct">${q.struct}</div>`
+        : `${q.sym}<div style="font-size:.8rem;color:#8a7;font-weight:normal;margin-top:6px">ลงท้าย: ${q.suffix}</div>`}
+    </div>
+    <div class="options" id="opts"></div>
+    <div class="feedback" id="fb"></div>
+    <button class="next" id="next">ข้อต่อไป →</button>
+  `;
+  const opts=document.getElementById('opts');
+  q.options.forEach(o=>{
+    const b=document.createElement('button');
+    b.className='opt'; b.textContent=o;
+    b.onclick=()=>answer(o,b);
+    opts.appendChild(b);
+  });
+}
+
+function answer(choice,btn){
+  const correct=currentQ.answer;
+  document.querySelectorAll('.opt').forEach(b=>{
+    b.disabled=true;
+    if(b.textContent===correct) b.classList.add('correct');
+  });
+  const fb=document.getElementById('fb');
+  const note = currentQ.kind==='iupac' && currentQ.common ? `  (ชื่อสามัญ: ${currentQ.common})` : "";
+  if(choice===correct){
+    score+=10; streak++;
+    fb.textContent="ถูกต้อง! +10"+note; fb.className="feedback ok";
+  }else{
+    btn.classList.add('wrong');
+    lives--; streak=0;
+    fb.textContent=`ผิด! คำตอบคือ ${correct}${note}  (เหลือ ${lives} ชีวิต)`;
+    fb.className="feedback no";
+  }
+  updateHud();
+  if(lives<=0){ setTimeout(gameOver,900); return; }
+  const nb=document.getElementById('next');
+  nb.style.display='block';
+  nb.onclick=nextQuestion;
+}
+
+function gameOver(){
+  const m=document.getElementById('main');
+  let rank = score>=150?"เซียนเคมีอินทรีย์ 🏆" : score>=80?"เก่งมาก! 🌟" : score>=40?"พอใช้ได้ 👍" : "ฝึกต่ออีกนิด 💪";
+  m.innerHTML=`
+    <div class="over">
+      <h2>หมดชีวิตแล้ว!</h2>
+      <div class="score-big">${score}</div>
+      <p>คะแนนรวมที่ทำได้</p>
+      <p style="margin-top:8px;font-weight:bold;color:var(--flask-deep)">${rank}</p>
+      <button class="restart" id="rs">เล่นอีกครั้ง 🔁</button>
+    </div>`;
+  document.getElementById('bar').style.width="0";
+  document.getElementById('rs').onclick=init;
+}
+
+init();
+</script>
+</body>
+</html>

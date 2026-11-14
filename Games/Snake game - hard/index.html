@@ -1,0 +1,729 @@
+<!doctype html>
+<html lang="th" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Prompt:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="h-full">
+  <div id="app" class="h-full w-full overflow-auto app-bg">
+    <div id="selectionScreen" class="h-full flex flex-col items-center justify-center px-4 py-6">
+      <div class="text-center mb-6">
+        <h1 class="text-3xl md:text-4xl font-extrabold mb-2 title-main">🎲 บันไดงู 🐍</h1>
+        <p class="text-lg font-bold subtitle-main">เลือกโหมดและผู้เล่น</p>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4 max-w-sm mx-auto">
+        <button onclick="startGame(1, true)" class="player-count-btn col-span-2" style="background: linear-gradient(135deg, #8b5cf6, #6d28d9); box-shadow: 0 6px 20px rgba(139,92,246,0.3);">👤 1 คน (vs COM)</button>
+        <button onclick="startGame(2)" class="player-count-btn btn-blue">👥 2 คน</button>
+        <button onclick="startGame(3)" class="player-count-btn btn-orange">👥 3 คน</button>
+        <button onclick="startGame(4)" class="player-count-btn btn-green col-span-2">👥 4 คน</button>
+      </div>
+    </div>
+
+    <div id="gameScreen" style="display:none;">
+      <div class="text-center py-3 px-4">
+        <h1 id="gameTitle" class="text-2xl md:text-3xl font-extrabold title-main">🎲 บันไดงู 🐍</h1>
+        <div id="turnIndicator" class="mt-1 text-base font-bold turn-indicator"></div>
+      </div>
+
+      <div class="flex flex-col lg:flex-row items-center lg:items-start justify-center gap-4 px-3 pb-6">
+        <div class="w-full max-w-[480px]">
+          <div id="board" class="grid grid-cols-6 gap-1 p-2 rounded-2xl board-wrap"></div>
+        </div>
+
+        <div class="flex flex-col items-center gap-4 min-w-[180px]">
+          <div class="flex gap-4 flex-wrap justify-center">
+            <div id="p1Card" class="text-center px-4 py-2 rounded-xl player-card red-card">
+              <div class="text-2xl">🔴</div>
+              <div id="p1Name" class="font-bold text-sm red-text">แดง</div>
+              <div id="p1Pos" class="text-xs font-semibold red-subtext">ช่อง: 1</div>
+            </div>
+
+            <div id="p2Card" class="text-center px-4 py-2 rounded-xl player-card blue-card">
+              <div class="text-2xl">🔵</div>
+              <div id="p2Name" class="font-bold text-sm blue-text">น้ำเงิน</div>
+              <div id="p2Pos" class="text-xs font-semibold blue-subtext">ช่อง: 1</div>
+            </div>
+
+            <div id="p3Card" class="text-center px-4 py-2 rounded-xl player-card yellow-card" style="display:none;">
+              <div class="text-2xl">🟡</div>
+              <div id="p3Name" class="font-bold text-sm yellow-text">เหลือง</div>
+              <div id="p3Pos" class="text-xs font-semibold yellow-subtext">ช่อง: 1</div>
+            </div>
+
+            <div id="p4Card" class="text-center px-4 py-2 rounded-xl player-card green-card" style="display:none;">
+              <div class="text-2xl">🟢</div>
+              <div id="p4Name" class="font-bold text-sm green-text">เขียว</div>
+              <div id="p4Pos" class="text-xs font-semibold green-subtext">ช่อง: 1</div>
+            </div>
+          </div>
+
+          <div class="text-center">
+            <p class="text-xs font-semibold mb-1 subtitle-main">กดลูกเต๋าเพื่อทอย!</p>
+            <div id="dice" class="dice-face mx-auto" onclick="handleDiceClick()">
+              <div class="dice-dot hidden"></div>
+              <div class="dice-dot hidden"></div>
+              <div class="dice-dot hidden"></div>
+              <div class="dice-dot hidden"></div>
+              <div class="dice-dot"></div>
+              <div class="dice-dot hidden"></div>
+              <div class="dice-dot hidden"></div>
+              <div class="dice-dot hidden"></div>
+              <div class="dice-dot hidden"></div>
+            </div>
+          </div>
+
+          <div class="text-xs space-y-1 p-3 rounded-xl legend-box">
+            <div class="font-bold text-sm mb-1 subtitle-main">สัญลักษณ์</div>
+            <div>🪜 <span class="font-semibold ladder-text">บันได</span> = ขึ้นไป!</div>
+            <div>🐍 <span class="font-semibold snake-text">งู</span> = ตกลง!</div>
+            <div>🧮 <span class="font-semibold math-text">คณิต</span> = ตอบถูกเดิน +2</div>
+            <div>⭐ <span class="font-semibold special-text">พิเศษ</span> = ทอยอีกครั้ง!</div>
+          </div>
+
+          <button onclick="resetGame()" class="px-5 py-2 rounded-xl font-bold text-white text-sm reset-btn">
+            🔄 เริ่มใหม่
+          </button>
+        </div>
+      </div>
+
+      <div id="mathModal" class="modal-overlay" style="display:none;">
+        <div class="modal-box bounce-in">
+          <div class="text-3xl mb-1">🧮</div>
+          <div id="mathTimer" class="text-2xl font-bold text-red-500 mb-2">⏱️ 90</div>
+          <p class="font-bold text-lg mb-1 title-main">ตอบคำถาม!</p>
+          <p id="mathQuestion" class="text-xl font-extrabold my-3 text-slate-800"></p>
+          <div id="mathAnswers" class="flex gap-3 justify-center flex-wrap"></div>
+          <div id="mathFeedback" class="mt-3 text-lg font-bold"></div>
+        </div>
+      </div>
+
+      <div id="winModal" class="modal-overlay" style="display:none;">
+        <div class="modal-box bounce-in">
+          <div class="text-5xl mb-2">🎉</div>
+          <p id="winText" class="text-2xl font-extrabold mb-3 title-main"></p>
+          <div id="confettiArea" class="relative h-8"></div>
+          <button
+            onclick="resetGame();document.getElementById('winModal').style.display='none';"
+            class="mt-3 px-6 py-2 rounded-xl font-bold text-white play-again-btn">
+            🔄 เล่นอีก!
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="question.js"></script>
+
+  <script>
+    // Game state
+    const BOARD_SIZE = 36;
+    const COLS = 6;
+
+    const playerColors = [
+      { color: '#ef4444', emoji: '🔴', default: 'แดง' },
+      { color: '#3b82f6', emoji: '🔵', default: 'น้ำเงิน' },
+      { color: '#eab308', emoji: '🟡', default: 'เหลือง' },
+      { color: '#10b981', emoji: '🟢', default: 'เขียว' }
+    ];
+
+    let players = [];
+    let currentPlayer = 0;
+    let isRolling = false;
+    let gameOver = false;
+    let numPlayers = 0;
+    
+    // New states for Bot & Timer
+    let isVsCom = false;
+    let mathTimerInterval = null;
+    let currentMathTime = 90;
+
+    // ===== AUDIO =====
+    const audioFiles = {
+      bgm: new Audio('audio/bgm.mp3'),
+      correct: new Audio('audio/correct.mp3'),
+      wrong: new Audio('audio/wrong.mp3'),
+      star: new Audio('audio/star.mp3'),
+      snake: new Audio('audio/snake.mp3'),
+      ladder: new Audio('audio/ladder.mp3'),
+      win: new Audio('audio/win.mp3')
+    };
+
+    audioFiles.bgm.loop = true;
+    audioFiles.bgm.volume = 0.35;
+
+    audioFiles.correct.volume = 0.8;
+    audioFiles.wrong.volume = 0.8;
+    audioFiles.star.volume = 0.85;
+    audioFiles.snake.volume = 0.85;
+    audioFiles.ladder.volume = 0.85;
+    audioFiles.win.volume = 0.95;
+
+    let bgmStarted = false;
+    let soundEnabled = true;
+
+    function playSound(name) {
+      if (!soundEnabled) return;
+      const sound = audioFiles[name];
+      if (!sound) return;
+      sound.pause();
+      sound.currentTime = 0;
+      sound.play().catch(() => {});
+    }
+
+    function startBGM() {
+      if (!soundEnabled || bgmStarted) return;
+      bgmStarted = true;
+      audioFiles.bgm.play().catch(() => {
+        bgmStarted = false;
+      });
+    }
+
+    function stopBGM() {
+      audioFiles.bgm.pause();
+      audioFiles.bgm.currentTime = 0;
+      bgmStarted = false;
+    }
+
+    // Board specials
+    const ladders = { 3: 14, 8: 26, 18: 31, 22: 34 };
+    const snakes  = { 17: 7, 29: 11, 35: 24, 27: 13 };
+    const mathCells = [5, 12, 20, 28, 33];
+    const specialCells = [10, 16, 25, 30];
+
+    const cellColors = [
+      '#fca5a5','#fdba74','#fde047','#86efac','#67e8f9','#c4b5fd',
+      '#f9a8d4','#fbbf24','#a3e635','#5eead4','#93c5fd','#d8b4fe'
+    ];
+
+    const defaultConfig = {
+      game_title: '🎲 บันไดงู 🐍',
+      player1_name: 'แดง',
+      player2_name: 'น้ำเงิน',
+      player3_name: 'เหลือง',
+      player4_name: 'เขียว',
+      background_color: '#fef3c7',
+      surface_color: '#ffffff',
+      text_color: '#7c3aed',
+      primary_action_color: '#ec4899',
+      secondary_action_color: '#8b5cf6',
+      font_family: 'Prompt',
+      font_size: 16
+    };
+
+    function buildBoard() {
+      const board = document.getElementById('board');
+      board.innerHTML = '';
+
+      const cells = [];
+      for (let row = 0; row < BOARD_SIZE / COLS; row++) {
+        const rowCells = [];
+        for (let col = 0; col < COLS; col++) {
+          const num = row * COLS + col + 1;
+          rowCells.push(num);
+        }
+        if (row % 2 === 1) rowCells.reverse();
+        cells.push(...rowCells);
+      }
+
+      const ordered = [];
+      for (let r = BOARD_SIZE / COLS - 1; r >= 0; r--) {
+        for (let c = 0; c < COLS; c++) {
+          ordered.push(cells[r * COLS + c]);
+        }
+      }
+
+      ordered.forEach(num => {
+        const cell = document.createElement('div');
+        cell.className = 'board-cell';
+        cell.id = `cell-${num}`;
+
+        const bgColor = cellColors[(num - 1) % cellColors.length];
+        cell.style.background = bgColor;
+
+        let icon = '';
+        if (ladders[num]) {
+          cell.classList.add('cell-ladder');
+          icon = '🪜';
+        } else if (snakes[num]) {
+          cell.classList.add('cell-snake');
+          icon = '🐍';
+        } else if (mathCells.includes(num)) {
+          cell.classList.add('cell-math');
+          icon = '🧮';
+        } else if (specialCells.includes(num)) {
+          cell.classList.add('cell-special');
+          icon = '⭐';
+        }
+
+        cell.innerHTML = `
+          <span class="cell-number">${num}</span>
+          ${icon}
+        `;
+        board.appendChild(cell);
+      });
+
+      placeTokens();
+    }
+
+    function getCellElement(pos) {
+      return document.getElementById(`cell-${pos}`);
+    }
+
+    function placeTokens() {
+      document.querySelectorAll('.player-token').forEach(t => t.remove());
+
+      players.forEach((p, i) => {
+        const cell = getCellElement(p.pos);
+        if (!cell) return;
+
+        const token = document.createElement('div');
+        token.className = 'player-token';
+        token.style.background = p.color;
+
+        if (i === 0) {
+          token.style.left = '2px';
+          token.style.top = '2px';
+        } else if (i === 1) {
+          token.style.right = '2px';
+          token.style.top = '2px';
+        } else if (i === 2) {
+          token.style.left = '2px';
+          token.style.bottom = '2px';
+        } else if (i === 3) {
+          token.style.right = '2px';
+          token.style.bottom = '2px';
+        }
+
+        cell.appendChild(token);
+      });
+    }
+
+    function updateDiceFace(value) {
+      const patterns = {
+        1: [0,0,0, 0,1,0, 0,0,0],
+        2: [0,0,1, 0,0,0, 1,0,0],
+        3: [0,0,1, 0,1,0, 1,0,0],
+        4: [1,0,1, 0,0,0, 1,0,1],
+        5: [1,0,1, 0,1,0, 1,0,1],
+        6: [1,0,1, 1,0,1, 1,0,1]
+      };
+
+      const dots = document.querySelectorAll('#dice .dice-dot');
+      const pattern = patterns[value];
+
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('hidden', !pattern[i]);
+      });
+    }
+
+    // Wrap rollDice to prevent manual clicks during Bot's turn
+    function handleDiceClick() {
+      if (isVsCom && currentPlayer === 1) return; 
+      rollDice();
+    }
+
+    function rollDice() {
+      if (isRolling || gameOver) return;
+
+      startBGM();
+
+      isRolling = true;
+      const dice = document.getElementById('dice');
+      dice.classList.add('dice-rolling');
+
+      let rolls = 0;
+      const interval = setInterval(() => {
+        updateDiceFace(Math.floor(Math.random() * 6) + 1);
+        rolls++;
+
+        if (rolls > 8) {
+          clearInterval(interval);
+          const value = Math.floor(Math.random() * 6) + 1;
+          updateDiceFace(value);
+          dice.classList.remove('dice-rolling');
+          movePlayer(value);
+        }
+      }, 60);
+    }
+
+    function movePlayer(steps) {
+      const p = players[currentPlayer];
+      let newPos = p.pos + steps;
+
+      if (newPos > BOARD_SIZE) {
+        newPos = BOARD_SIZE - (newPos - BOARD_SIZE);
+      }
+
+      let currentStep = p.pos;
+      let stepCount = 0;
+      const stepDirection = newPos >= p.pos ? 1 : -1;
+      const totalSteps = Math.abs(newPos - p.pos);
+
+      const moveToNextStep = () => {
+        if (stepCount < totalSteps) {
+          currentStep += stepDirection;
+          p.pos = currentStep;
+          placeTokens();
+          updateInfo();
+
+          stepCount++;
+          setTimeout(moveToNextStep, 300);
+        } else {
+          p.pos = newPos;
+          placeTokens();
+          updateInfo();
+          checkCellSpecial(newPos);
+        }
+      };
+
+      moveToNextStep();
+    }
+
+    function checkCellSpecial(newPos) {
+      if (newPos === BOARD_SIZE) {
+        gameOver = true;
+        setTimeout(() => showWin(), 400);
+        return;
+      }
+
+      setTimeout(() => {
+        if (ladders[newPos]) {
+          playSound('ladder');
+          showToast(`🪜 บันได! ขึ้นจากช่อง ${newPos} ไป ${ladders[newPos]}!`, '#16a34a');
+          players[currentPlayer].pos = ladders[newPos];
+          placeTokens();
+          updateInfo();
+          finishTurn(false);
+
+        } else if (snakes[newPos]) {
+          playSound('snake');
+          showToast(`🐍 งู! ตกจากช่อง ${newPos} ไป ${snakes[newPos]}!`, '#dc2626');
+          players[currentPlayer].pos = snakes[newPos];
+          placeTokens();
+          updateInfo();
+          finishTurn(false);
+
+        } else if (mathCells.includes(newPos)) {
+          // หากเป็นตาบอท ให้บอทสุ่มตอบ
+          if (isVsCom && currentPlayer === 1) {
+             showToast("🤖 บอทกำลังคิดเลข...", "#3b82f6");
+             setTimeout(() => {
+               // บอทมีโอกาสตอบถูก 70%
+               const isCorrect = Math.random() > 0.3; 
+               if (isCorrect) {
+                 playSound('correct');
+                 showToast("🎉 บอทตอบถูก! เดินเพิ่ม 2 ช่อง", "#16a34a");
+                 players[currentPlayer].pos = Math.min(BOARD_SIZE, players[currentPlayer].pos + 2);
+                 placeTokens();
+                 updateInfo();
+                 if (players[currentPlayer].pos === BOARD_SIZE) {
+                   gameOver = true;
+                   showWin();
+                 } else {
+                   finishTurn(false);
+                 }
+               } else {
+                 playSound('wrong');
+                 showToast("❌ บอทตอบผิด!", "#dc2626");
+                 finishTurn(false);
+               }
+             }, 2000);
+          } else {
+             showMathQuestion();
+          }
+
+        } else if (specialCells.includes(newPos)) {
+          playSound('star');
+          showToast('⭐ พิเศษ! ทอยอีกครั้ง!', '#9333ea');
+          finishTurn(true);
+
+        } else {
+          finishTurn(false);
+        }
+      }, 500);
+    }
+
+    function showMathQuestion() {
+      const q = getRandomMathQuestion();
+
+      document.getElementById('mathQuestion').textContent = q.question;
+      document.getElementById('mathFeedback').textContent = '';
+
+      const container = document.getElementById('mathAnswers');
+      container.innerHTML = '';
+
+      const colors = ['#ef4444', '#3b82f6', '#22c55e'];
+
+      q.choices.forEach((choice, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'answer-btn text-base lg:text-lg px-3 py-2';
+        btn.style.background = colors[i % colors.length];
+        btn.style.color = 'white';
+        btn.textContent = choice;
+        btn.onclick = () => checkMathAnswer(choice, q.answer);
+        container.appendChild(btn);
+      });
+
+      document.getElementById('mathModal').style.display = 'flex';
+
+      // Start 90 sec timer
+      currentMathTime = 90;
+      document.getElementById('mathTimer').textContent = `⏱️ ${currentMathTime}`;
+      clearInterval(mathTimerInterval);
+      mathTimerInterval = setInterval(() => {
+         currentMathTime--;
+         document.getElementById('mathTimer').textContent = `⏱️ ${currentMathTime}`;
+         if (currentMathTime <= 0) {
+            clearInterval(mathTimerInterval);
+            checkMathAnswer("TIMEOUT", q.answer);
+         }
+      }, 1000);
+    }
+
+    function checkMathAnswer(selected, correct) {
+      clearInterval(mathTimerInterval); // Stop timer
+      const fb = document.getElementById('mathFeedback');
+      const btns = document.querySelectorAll('.answer-btn');
+      btns.forEach(btn => btn.onclick = null);
+
+      if (selected === correct) {
+        playSound('correct');
+        fb.textContent = '🎉 ถูกต้อง! เดินเพิ่ม 2 ช่อง!';
+        fb.style.color = '#16a34a';
+
+        const p = players[currentPlayer];
+        setTimeout(() => {
+          p.pos = Math.min(BOARD_SIZE, p.pos + 2);
+          placeTokens();
+          updateInfo();
+          document.getElementById('mathModal').style.display = 'none';
+
+          if (p.pos === BOARD_SIZE) {
+            gameOver = true;
+            showWin();
+            return;
+          }
+
+          finishTurn(false);
+        }, 1200);
+
+      } else {
+        playSound('wrong');
+        if (selected === "TIMEOUT") {
+            fb.textContent = `⏳ หมดเวลา! คำตอบคือ ${correct}`;
+        } else {
+            fb.textContent = `❌ เสียใจ! คำตอบคือ ${correct}`;
+        }
+        fb.style.color = '#dc2626';
+
+        setTimeout(() => {
+          document.getElementById('mathModal').style.display = 'none';
+          finishTurn(false);
+        }, 1800);
+      }
+    }
+
+    function finishTurn(extraTurn) {
+      if (!extraTurn) {
+        currentPlayer = (currentPlayer + 1) % numPlayers;
+      }
+      updateInfo();
+      isRolling = false;
+
+      // ถ้าเป็นตาของบอท ให้บอททอยออโต้หลัง 1.5 วินาที
+      if (isVsCom && currentPlayer === 1 && !gameOver) {
+        setTimeout(() => {
+          rollDice();
+        }, 1500);
+      }
+    }
+
+    function updateInfo() {
+      if (!players.length) return;
+
+      for (let i = 0; i < 4; i++) {
+        const card = document.getElementById(`p${i + 1}Card`);
+        if (!card) continue;
+
+        if (i < numPlayers) {
+          card.style.display = '';
+          card.style.borderWidth = currentPlayer === i ? '3px' : '2px';
+          card.style.opacity = currentPlayer === i ? '1' : '0.6';
+          
+          document.getElementById(`p${i + 1}Pos`).textContent = `ช่อง: ${players[i].pos}`;
+          document.getElementById(`p${i + 1}Name`).textContent = players[i].name;
+          card.querySelector('.text-2xl').textContent = players[i].emoji;
+        } else {
+          card.style.display = 'none';
+        }
+      }
+
+      document.getElementById('turnIndicator').textContent =
+        gameOver ? '' : `ตาของ ${players[currentPlayer].name} ${players[currentPlayer].emoji}`;
+    }
+
+    function showWin() {
+      playSound('win');
+      document.getElementById('winText').textContent = `${players[currentPlayer].name} ชนะ! 🏆`;
+      document.getElementById('winModal').style.display = 'flex';
+      spawnConfetti();
+    }
+
+    function spawnConfetti() {
+      const area = document.getElementById('confettiArea');
+      area.innerHTML = '';
+
+      const colors = ['#ef4444','#3b82f6','#22c55e','#eab308','#8b5cf6','#ec4899'];
+
+      for (let i = 0; i < 20; i++) {
+        const piece = document.createElement('div');
+        piece.className = 'confetti-piece';
+        piece.style.background = colors[i % colors.length];
+        piece.style.left = Math.random() * 100 + '%';
+        piece.style.animationDelay = Math.random() * 0.5 + 's';
+        area.appendChild(piece);
+      }
+    }
+
+    function showToast(msg, color) {
+      const existing = document.querySelector('.toast-msg');
+      if (existing) existing.remove();
+
+      const toast = document.createElement('div');
+      toast.className = 'toast-msg';
+      toast.style.background = color;
+      toast.textContent = msg;
+      document.getElementById('app').appendChild(toast);
+
+      setTimeout(() => toast.remove(), 2500);
+    }
+
+    function resetGame() {
+      players.forEach(p => p.pos = 1);
+      currentPlayer = 0;
+      isRolling = false;
+      gameOver = false;
+      clearInterval(mathTimerInterval);
+
+      updateDiceFace(1);
+      placeTokens();
+      updateInfo();
+
+      document.getElementById('winModal').style.display = 'none';
+      document.getElementById('mathModal').style.display = 'none';
+    }
+
+    function startGame(count, vsCom = false) {
+      isVsCom = vsCom;
+      numPlayers = vsCom ? 2 : count;
+      currentPlayer = 0;
+      isRolling = false;
+      gameOver = false;
+      clearInterval(mathTimerInterval);
+
+      const config = window.elementSdk?.config || defaultConfig;
+      const names = [
+        config.player1_name || defaultConfig.player1_name,
+        config.player2_name || defaultConfig.player2_name,
+        config.player3_name || defaultConfig.player3_name,
+        config.player4_name || defaultConfig.player4_name
+      ];
+
+      players = [];
+      for (let i = 0; i < numPlayers; i++) {
+        players.push({
+          pos: 1,
+          color: playerColors[i].color,
+          name: names[i],
+          emoji: playerColors[i].emoji
+        });
+      }
+
+      if (isVsCom) {
+        players[1].name = "บอท (COM)";
+        players[1].emoji = "🤖";
+      }
+
+      document.getElementById('selectionScreen').style.display = 'none';
+      document.getElementById('gameScreen').style.display = 'block';
+
+      buildBoard();
+      updateDiceFace(1);
+      updateInfo();
+      startBGM();
+    }
+
+    function applyConfig(config) {
+      const title = config.game_title || defaultConfig.game_title;
+      const bg = config.background_color || defaultConfig.background_color;
+      const surface = config.surface_color || defaultConfig.surface_color;
+      const textCol = config.text_color || defaultConfig.text_color;
+      const primary = config.primary_action_color || defaultConfig.primary_action_color;
+      const font = config.font_family || defaultConfig.font_family;
+      const size = config.font_size || defaultConfig.font_size;
+
+      document.getElementById('gameTitle').textContent = title;
+      document.getElementById('gameTitle').style.color = textCol;
+
+      document.getElementById('app').style.background = `linear-gradient(135deg, ${bg} 0%, #fce7f3 50%, #ddd6fe 100%)`;
+      const board = document.getElementById('board');
+      if (board) board.style.background = `${surface}99`;
+
+      const fontStack = `${font}, Prompt, Baloo 2, sans-serif`;
+      document.body.style.fontFamily = fontStack;
+      document.getElementById('gameTitle').style.fontSize = `${size * 1.8}px`;
+      document.getElementById('turnIndicator').style.color = primary;
+
+      if(players.length > 0 && !isVsCom) {
+        if(players[0]) players[0].name = config.player1_name || defaultConfig.player1_name;
+        if(players[1]) players[1].name = config.player2_name || defaultConfig.player2_name;
+        if(players[2]) players[2].name = config.player3_name || defaultConfig.player3_name;
+        if(players[3]) players[3].name = config.player4_name || defaultConfig.player4_name;
+        updateInfo();
+      }
+    }
+
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange: async (config) => applyConfig(config),
+        mapToCapabilities: (config) => ({
+          recolorables: [
+            { get: () => config.background_color || defaultConfig.background_color, set: v => { config.background_color = v; window.elementSdk.setConfig({ background_color: v }); } },
+            { get: () => config.surface_color || defaultConfig.surface_color, set: v => { config.surface_color = v; window.elementSdk.setConfig({ surface_color: v }); } },
+            { get: () => config.text_color || defaultConfig.text_color, set: v => { config.text_color = v; window.elementSdk.setConfig({ text_color: v }); } },
+            { get: () => config.primary_action_color || defaultConfig.primary_action_color, set: v => { config.primary_action_color = v; window.elementSdk.setConfig({ primary_action_color: v }); } },
+          ],
+          borderables: [],
+          fontEditable: {
+            get: () => config.font_family || defaultConfig.font_family,
+            set: v => { config.font_family = v; window.elementSdk.setConfig({ font_family: v }); }
+          },
+          fontSizeable: {
+            get: () => config.font_size || defaultConfig.font_size,
+            set: v => { config.font_size = v; window.elementSdk.setConfig({ font_size: v }); }
+          }
+        }),
+        mapToEditPanelValues: (config) => new Map([
+          ['game_title', config.game_title || defaultConfig.game_title],
+          ['player1_name', config.player1_name || defaultConfig.player1_name],
+          ['player2_name', config.player2_name || defaultConfig.player2_name],
+        ])
+      });
+    }
+
+    buildBoard();
+    updateDiceFace(1);
+    if (window.lucide) lucide.createIcons();
+  </script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<svg viewBox="0 0 640 300" xmlns="http://www.w3.org/2000/svg" font-family="'Sarabun','Tahoma',sans-serif">
+  <rect width="640" height="300" fill="#ffffff"/>
+
+  <line x1="30" y1="150" x2="610" y2="150" stroke="#9ca3af" stroke-width="1" stroke-dasharray="4 3"/>
+
+  <!-- incoming parallel rays -->
+  <g stroke="#2563eb" stroke-width="1.6">
+    <line x1="30" y1="100" x2="300" y2="100"/>
+    <line x1="30" y1="125" x2="300" y2="125"/>
+    <line x1="30" y1="150" x2="300" y2="150"/>
+    <line x1="30" y1="175" x2="300" y2="175"/>
+    <line x1="30" y1="200" x2="300" y2="200"/>
+  </g>
+
+  <!-- combined lens (convex + concave touching) drawn as a single vertical element -->
+  <ellipse cx="300" cy="150" rx="16" ry="90" fill="#dbeafe" stroke="#1d4ed8" stroke-width="2"/>
+  <line x1="300" y1="60" x2="300" y2="240" stroke="#1d4ed8" stroke-width="1" stroke-dasharray="3 2"/>
+  <text x="300" y="255" text-anchor="middle" font-size="13" fill="#1d4ed8">เลนส์นูน (f₁=+10) ประกบเลนส์เว้า (f₂=−20)</text>
+
+  <!-- converging output rays to focal point -->
+  <g stroke="#dc2626" stroke-width="1.6">
+    <line x1="300" y1="100" x2="520" y2="150"/>
+    <line x1="300" y1="125" x2="520" y2="150"/>
+    <line x1="300" y1="150" x2="520" y2="150"/>
+    <line x1="300" y1="175" x2="520" y2="150"/>
+    <line x1="300" y1="200" x2="520" y2="150"/>
+  </g>
+
+  <circle cx="520" cy="150" r="4" fill="#dc2626"/>
+  <text x="520" y="135" text-anchor="middle" font-size="12" fill="#dc2626">F รวม</text>
+
+  <line x1="300" y1="270" x2="520" y2="270" stroke="#059669" stroke-width="1.3"/>
+  <line x1="300" y1="265" x2="300" y2="275" stroke="#059669" stroke-width="1.3"/>
+  <line x1="520" y1="265" x2="520" y2="275" stroke="#059669" stroke-width="1.3"/>
+  <text x="410" y="288" text-anchor="middle" font-size="12" fill="#059669">f รวม = 20 cm</text>
+
+  <text x="320" y="30" font-size="13" fill="#1f2937">1/f รวม = 1/f₁ + 1/f₂  →  ระบบทำหน้าที่เป็นเลนส์นูน f = 20 cm</text>
+</svg>
