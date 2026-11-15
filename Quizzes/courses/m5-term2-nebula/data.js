@@ -428,7 +428,7 @@
             red: { eq: "Cu^2+ + 2e^- -> [?]", options: ["Cu", "Cu^+", "CuO", "Cu^2-"], answer: "Cu" },
             redox: "Fe + CuSO4 -> FeSO4 + Cu", note: "e⁻ ที่จ่าย 2 ตัว = e⁻ ที่รับ 2 ตัว รวมสมการได้เลย (SO₄²⁻ ไม่เปลี่ยน)",
             ask: ["o", "oa"],
-            opts: ["Fe", "Cu^2+", "CuSO4", "FeSO4", "SO4^2-", "Cu"],
+            opts: ["Fe", "CuSO4"],
             ans: { o: "Fe", oa: "CuSO4" },
             explanation: "Fe → Fe²⁺ + 2e⁻ (ออกซิเดชัน: Fe 0 → +2 จ่าย e⁻ จึง ถูกออกซิไดซ์) · Cu²⁺ + 2e⁻ → Cu (รีดักชัน: +2 → 0) · Cu²⁺ มาจาก CuSO₄ ซึ่งดึง e⁻ ไปจึงเป็นตัวออกซิไดซ์ · รวม: Fe + CuSO₄ → FeSO₄ + Cu"
           },
@@ -438,8 +438,8 @@
             red: { eq: "Cl2 + 2e^- -> [?]", options: ["2Cl^-", "Cl^-", "2Cl", "2Cl^+"], answer: "2Cl^-" },
             redox: "Cl2 + 2KI -> 2KCl + I2", note: "e⁻ ที่จ่าย 2 ตัว = e⁻ ที่รับ 2 ตัว (K⁺ ไม่เปลี่ยน)",
             ask: ["ra", "r"],
-            opts: ["Cl2", "KI", "I^-", "Cl", "KCl", "K^+"],
-            ans: { ra: "KI", r: "Cl" },
+            opts: ["Cl2", "KI"],
+            ans: { ra: "KI", r: "Cl2" },
             explanation: "2I⁻ → I₂ + 2e⁻ (ออกซิเดชัน: I −1 → 0) · Cl₂ + 2e⁻ → 2Cl⁻ (รีดักชัน: Cl 0 → −1 จึง Cl ถูกรีดิวซ์) · KI ให้ e⁻ แก่ Cl₂ จึงเป็นตัวรีดิวซ์ · รวม: Cl₂ + 2KI → 2KCl + I₂"
           },
           {
@@ -448,8 +448,8 @@
             red: { eq: "Fe^3+ + 3e^- -> [?]", options: ["Fe", "Fe^2+", "Fe^3-", "FeO"], answer: "Fe" },
             redox: "2Al + Fe2O3 -> Al2O3 + 2Fe", note: "ออกซิเดชัน × 2 และ รีดักชัน × 2 → e⁻ 6 ตัวเท่ากัน (O²⁻ ไม่เปลี่ยน)",
             ask: ["o", "r"],
-            opts: ["Al", "Fe2O3", "Fe^3+", "O^2-", "Al2O3", "Fe"],
-            ans: { o: "Al", r: "Fe^3+" },
+            opts: ["Al", "Fe2O3"],
+            ans: { o: "Al", r: "Fe2O3" },
             explanation: "Al → Al³⁺ + 3e⁻ (ออกซิเดชัน: 0 → +3 Al ถูกออกซิไดซ์) · Fe³⁺ + 3e⁻ → Fe (รีดักชัน: +3 → 0 Fe³⁺ ถูกรีดิวซ์) · รวม: 2Al + Fe₂O₃ → Al₂O₃ + 2Fe (Al เป็นตัวรีดิวซ์ · Fe₂O₃ เป็นตัวออกซิไดซ์)"
           },
           {
@@ -458,7 +458,7 @@
             red: { eq: "Pb^2+ + 2e^- -> [?]", options: ["Pb", "Pb^+", "Pb^4+", "PbO"], answer: "Pb" },
             redox: "C + 2PbO -> 2Pb + CO2", note: "รีดักชัน × 2 → e⁻ 4 ตัวเท่ากับออกซิเดชัน (2Pb²⁺ + 4e⁻ → 2Pb)",
             ask: ["ra", "oa"],
-            opts: ["C", "PbO", "Pb^2+", "O^2-", "CO2", "Pb"],
+            opts: ["C", "PbO"],
             ans: { ra: "C", oa: "PbO" },
             explanation: "C + 2O²⁻ → CO₂ + 4e⁻ (ออกซิเดชัน: C 0 → +4) · Pb²⁺ + 2e⁻ → Pb (รีดักชัน: +2 → 0) · ต้องคูณรีดักชัน × 2 ให้ e⁻ เท่ากัน 4 ตัว · C ให้ e⁻ จึงเป็นตัวรีดิวซ์ · PbO ดึง e⁻ จึงเป็นตัวออกซิไดซ์ · รวม: C + 2PbO → 2Pb + CO₂"
           },
@@ -468,8 +468,8 @@
             red: { eq: "Br2 + 2e^- -> [?]", options: ["2Br^-", "Br^-", "2Br", "Br2^+"], answer: "2Br^-" },
             redox: "H2S + Br2 -> 2HBr + S", note: "e⁻ ที่จ่าย 2 ตัว = e⁻ ที่รับ 2 ตัว (H คงที่ +1)",
             ask: ["r", "ra"],
-            opts: ["H2S", "Br2", "S", "Br", "HBr", "S^2-"],
-            ans: { r: "Br", ra: "H2S" },
+            opts: ["H2S", "Br2"],
+            ans: { r: "Br2", ra: "H2S" },
             explanation: "S²⁻ → S + 2e⁻ (ออกซิเดชัน: S −2 → 0) · Br₂ + 2e⁻ → 2Br⁻ (รีดักชัน: Br 0 → −1 Br ถูกรีดิวซ์) · H₂S ให้ e⁻ จึงเป็นตัวรีดิวซ์ · รวม: H₂S + Br₂ → 2HBr + S"
           },
           {
@@ -478,7 +478,7 @@
             red: { eq: "Cr^3+ + e^- -> [?]", options: ["Cr^2+", "Cr", "Cr^4+", "Cr^+"], answer: "Cr^2+" },
             redox: "Zn + 2Cr^3+ -> Zn^2+ + 2Cr^2+", note: "รีดักชัน × 2 → e⁻ 2 ตัวเท่ากับออกซิเดชัน",
             ask: ["oa", "o"],
-            opts: ["Zn", "Cr^3+", "Zn^2+", "Cr^2+", "Cr"],
+            opts: ["Zn", "Cr^3+"],
             ans: { oa: "Cr^3+", o: "Zn" },
             explanation: "Zn → Zn²⁺ + 2e⁻ (ออกซิเดชัน: 0 → +2 Zn ถูกออกซิไดซ์) · Cr³⁺ + e⁻ → Cr²⁺ (รีดักชัน: +3 → +2 ไม่ใช่ Cr โลหะ) · คูณรีดักชัน × 2 ให้ e⁻ เท่ากัน · Cr³⁺ ดึง e⁻ จึงเป็นตัวออกซิไดซ์ · รวม: Zn + 2Cr³⁺ → Zn²⁺ + 2Cr²⁺"
           },
@@ -488,8 +488,8 @@
             red: { eq: "2H^+ + 2e^- -> [?]", options: ["H2", "H", "H2^2-", "2H^-"], answer: "H2" },
             redox: "Mg + 2HCl -> MgCl2 + H2", note: "e⁻ ที่จ่าย 2 ตัว = e⁻ ที่รับ 2 ตัว (Cl⁻ ไม่เปลี่ยน)",
             ask: ["r", "oa"],
-            opts: ["Mg", "HCl", "MgCl2", "H^+", "Cl^-", "H2"],
-            ans: { r: "H^+", oa: "HCl" },
+            opts: ["Mg", "HCl"],
+            ans: { r: "HCl", oa: "HCl" },
             explanation: "Mg → Mg²⁺ + 2e⁻ (ออกซิเดชัน: 0 → +2) · 2H⁺ + 2e⁻ → H₂ (รีดักชัน: H +1 → 0 จึง H⁺ ถูกรีดิวซ์) · HCl ให้ H⁺ มารับ e⁻ จึงเป็นตัวออกซิไดซ์ · รวม: Mg + 2HCl → MgCl₂ + H₂"
           },
           {
@@ -498,7 +498,7 @@
             red: { eq: "Cu^+ + e^- -> [?]", options: ["Cu", "Cu^2+", "Cu^-", "CuO"], answer: "Cu" },
             redox: "2Cu^+ -> Cu^2+ + Cu", note: "ตัวเดียวกันเป็นทั้งผู้ให้และผู้รับ e⁻ → ออโต้รีดอกซ์ (2Cu⁺ รวมกัน)",
             ask: ["ra", "o"],
-            opts: ["Cu^+", "Cu^2+", "Cu", "CuO", "Cu2O"],
+            opts: ["Cu^+"],
             ans: { ra: "Cu^+", o: "Cu^+" },
             explanation: "Cu⁺ → Cu²⁺ + e⁻ (ออกซิเดชัน: +1 → +2) · Cu⁺ + e⁻ → Cu (รีดักชัน: +1 → 0) · Cu⁺ เป็นทั้งตัวรีดิวซ์และถูกออกซิไดซ์ ในขณะเดียวกันก็เป็นตัวออกซิไดซ์และถูกรีดิวซ์ (ออโต้รีดอกซ์) · รวม: 2Cu⁺ → Cu²⁺ + Cu"
           }
