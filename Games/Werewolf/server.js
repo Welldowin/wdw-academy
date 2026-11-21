@@ -271,6 +271,19 @@ io.on('connection', (socket) => {
     });
   });
 
+  socket.on('room:leave', () => {
+    withRoom((room) => {
+      const code = room.code;
+      if (room.phase === 'lobby') room.removePlayerBySocket(socket.id);
+      else room.removeSocket(socket.id);
+      socket.leave(code);
+      currentRoomCode = null;
+      broadcast(room);
+      if (room.isEmpty()) setTimeout(() => { if (room.isEmpty()) rooms.delete(code); }, room.phase === 'lobby' ? 1000 : 10 * 60 * 1000);
+    });
+    socket.emit('room:left');
+  });
+
   socket.on('disconnect', () => {
     withRoom((room) => {
       room.removeSocket(socket.id);

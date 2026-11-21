@@ -122,6 +122,20 @@ class Room {
     }
   }
 
+  // ออกจากห้องจริง ๆ (ใช้ตอนล็อบบี้) — ลบผู้เล่น จัดที่นั่งใหม่ และโอนเจ้าของห้อง
+  removePlayerBySocket(socketId) {
+    const idx = this.players.findIndex((p) => p.socketId === socketId);
+    if (idx < 0) return false;
+    const [gone] = this.players.splice(idx, 1);
+    this.players.forEach((p, i) => { p.seat = i; });
+    if (gone.isHost && this.players.length) {
+      const next = this.players.filter((p) => p.connected).sort((a, b) => a.joinedAt - b.joinedAt)[0] || this.players[0];
+      next.isHost = true;
+    }
+    this._autoRoleSet();
+    return true;
+  }
+
   isEmpty() {
     return this.players.every((p) => !p.connected);
   }

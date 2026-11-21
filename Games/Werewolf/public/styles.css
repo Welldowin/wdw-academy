@@ -280,6 +280,21 @@ input { font-family: 'Kanit', sans-serif; }
 .reveal-timeline { width: 100%; max-width: 600px; margin-top: 18px; font-size: 13px; color: var(--silver); }
 .reveal-timeline li { margin-bottom: 4px; }
 
+/* ----- Lobby: guest waiting ----- */
+.btn-small { width: auto; }
+.topbar .btn-small { margin-top: 0; }
+.guest-wait { background: rgba(36,20,64,.5); border-radius: 16px; padding: 18px; border: 1px solid var(--purple-light); }
+.guest-wait.hidden { display: none; }
+.guest-wait h4 { margin: 16px 0 8px; color: var(--yellow); }
+.guest-wait .yellow { color: var(--yellow); letter-spacing: 2px; }
+.guest-wait-status { display: flex; align-items: center; gap: 10px; font-size: 18px; font-weight: 600; margin-bottom: 8px; }
+.pulse-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--yellow); animation: pulse 1.4s ease-in-out infinite; }
+@keyframes pulse { 0%,100% { opacity: .3; transform: scale(.8); } 50% { opacity: 1; transform: scale(1.2); } }
+.guest-wait-info { list-style: none; padding: 0; margin: 0; line-height: 1.9; font-size: 14px; }
+.gw-roles { display: flex; flex-wrap: wrap; gap: 6px; }
+.gw-role { background: var(--purple-light); border-radius: 10px; padding: 6px 10px; font-size: 13px; }
+.gw-role.expansion { border: 1px dashed var(--yellow); }
+
 @media (min-width: 700px) {
   .title { font-size: 40px; }
 }

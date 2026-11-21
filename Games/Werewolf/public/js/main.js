@@ -64,6 +64,25 @@
     if (roomCode) { localStorage.removeItem('ww_room_code'); roomCode = null; }
   });
 
+  // ---------- ออกจากห้อง / คัดลอกรหัส ----------
+  function goLanding() {
+    localStorage.removeItem('ww_room_code');
+    roomCode = null; state = null; lastPhase = null; pendingRoleSet = null;
+    showScreen('landing');
+  }
+  $('#btn-leave-room').addEventListener('click', () => {
+    if (!confirm('ออกจากห้องนี้ใช่ไหม?')) return;
+    socket.emit('room:leave');
+    goLanding();
+  });
+  socket.on('room:left', goLanding);
+  $('#btn-copy-code').addEventListener('click', () => {
+    const code = (state && state.code) || '';
+    const done = () => toast('คัดลอกรหัสห้องแล้ว: ' + code);
+    if (navigator.clipboard) navigator.clipboard.writeText(code).then(done, () => toast('รหัสห้อง: ' + code));
+    else toast('รหัสห้อง: ' + code);
+  });
+
   // ---------- เสียง ----------
   $('#btn-mute').addEventListener('click', () => {
     const muted = AudioManager.toggleMute();
@@ -125,9 +144,31 @@
       list.appendChild(chip);
     });
 
+    const need0 = s.players.length + 3;
+    $('#lobby-count').textContent = `ผู้เล่น ${s.players.length}/10 คน (ต้องมีอย่างน้อย 3 คน)`;
+
     const hostPanel = $('#host-settings');
     hostPanel.classList.toggle('hidden', !s.youAreHost);
-    if (!s.youAreHost) return;
+    const guest = $('#guest-wait');
+    guest.classList.toggle('hidden', s.youAreHost);
+    if (!s.youAreHost) {
+      const host = s.players.find((p) => p.isHost);
+      $('#guest-wait-text').textContent = `รอ ${host ? host.nickname : 'เจ้าของห้อง'} เริ่มเกม...`;
+      $('#guest-wait-code').textContent = s.code;
+      $('#gw-night').textContent = `${s.settings.nightSeconds} วินาที`;
+      $('#gw-day').textContent = s.settings.daySeconds ? `${s.settings.daySeconds / 60} นาที` : 'ไม่จำกัดเวลา';
+      const exp = [];
+      if (s.settings.useMason) exp.push('เมสัน');
+      if (s.settings.useDoppelganger) exp.push('ภูติจำแลง');
+      if (s.settings.useDreamWolf) exp.push('หมาป่าหลับใหล');
+      $('#gw-exp').textContent = exp.length ? exp.join(', ') : 'ไม่ใช้';
+      $('#gw-role-count').textContent = `${s.settings.roleSet.length}/${need0}`;
+      $('#gw-roles').innerHTML = s.settings.roleSet.map((id) => {
+        const m = roleById(s.roleCatalog, id);
+        return `<span class="gw-role${m && m.expansion ? ' expansion' : ''}" title="${escapeHtml(m ? m.desc : '')}">${m ? m.icon + ' ' + escapeHtml(m.nameTh) : escapeHtml(id)}</span>`;
+      }).join('');
+      return;
+    }
 
     $('#set-night-seconds').value = String(s.settings.nightSeconds);
     $('#set-day-seconds').value = String(s.settings.daySeconds);

@@ -30,11 +30,26 @@
 <!-- ===== ล็อบบี้ ===== -->
 <section id="screen-lobby" class="screen">
   <header class="topbar">
-    <div class="room-code">ห้อง: <span id="lobby-code">----</span> <button id="btn-mute" class="icon-btn" title="เปิด/ปิดเสียง">🔊</button></div>
+    <div class="room-code">ห้อง: <span id="lobby-code">----</span> <button id="btn-copy-code" class="icon-btn" title="คัดลอกรหัสห้อง">📋</button> <button id="btn-mute" class="icon-btn" title="เปิด/ปิดเสียง">🔊</button></div>
+    <button id="btn-leave-room" class="btn btn-secondary btn-small">← ออกจากห้อง</button>
   </header>
 
   <div class="lobby-grid">
+    <div class="player-count muted" id="lobby-count"></div>
     <div class="player-list" id="lobby-players"></div>
+
+    <div id="guest-wait" class="guest-wait hidden">
+      <div class="guest-wait-status"><span class="pulse-dot"></span> <span id="guest-wait-text">รอเจ้าของห้องเริ่มเกม...</span></div>
+      <p class="muted">ชวนเพื่อนเข้าห้องด้วยรหัส <b id="guest-wait-code" class="yellow"></b> แล้วรอเจ้าของห้องกดเริ่มเกมได้เลย</p>
+      <h4>ตั้งค่าที่เจ้าของห้องเลือกไว้</h4>
+      <ul class="guest-wait-info">
+        <li>⏱ ตอนกลางคืน: <b id="gw-night"></b></li>
+        <li>💬 ตอนกลางวัน: <b id="gw-day"></b></li>
+        <li id="gw-exp-row">✨ ตัวแปรเสริม: <b id="gw-exp"></b></li>
+      </ul>
+      <h4>บทบาทในเกมนี้ (<span id="gw-role-count">0</span> ใบ)</h4>
+      <div id="gw-roles" class="gw-roles"></div>
+    </div>
 
     <div id="host-settings" class="host-settings hidden">
       <h3>ตั้งค่าห้อง (เจ้าของห้อง)</h3>
