@@ -84,13 +84,28 @@
   });
 
   // ---------- เสียง ----------
-  $('#btn-mute').addEventListener('click', () => {
-    const muted = AudioManager.toggleMute();
-    $('#btn-mute').textContent = muted ? '🔈' : '🔊';
+  const audioPanel = $('#audio-panel');
+  function syncAudioUi() {
+    const muted = AudioManager.isMuted();
+    $('#btn-mute').textContent = muted ? '🔇' : '🔊';
+    $('#btn-mute-toggle').textContent = muted ? 'เปิดเสียง' : 'ปิดเสียง';
+    $('#vol-bgm').value = Math.round(AudioManager.getBgmVolume() * 100);
+    $('#vol-sfx').value = Math.round(AudioManager.getSfxVolume() * 100);
+    $('#vol-bgm-val').textContent = `${$('#vol-bgm').value}%`;
+    $('#vol-sfx-val').textContent = `${$('#vol-sfx').value}%`;
+  }
+  $('#btn-mute').addEventListener('click', (e) => { e.stopPropagation(); audioPanel.classList.toggle('hidden'); });
+  audioPanel.addEventListener('click', (e) => e.stopPropagation());
+  document.addEventListener('click', () => audioPanel.classList.add('hidden'));
+  $('#btn-mute-toggle').addEventListener('click', () => { AudioManager.toggleMute(); syncAudioUi(); });
+  $('#vol-bgm').addEventListener('input', (e) => { AudioManager.setBgmVolume(Number(e.target.value) / 100); syncAudioUi(); });
+  $('#vol-sfx').addEventListener('input', (e) => {
+    AudioManager.setSfxVolume(Number(e.target.value) / 100); syncAudioUi();
   });
-  $('#btn-mute').textContent = AudioManager.isMuted() ? '🔈' : '🔊';
+  $('#vol-sfx').addEventListener('change', () => AudioManager.playSfx('morning')); // เสียงตัวอย่างตอนปล่อยแถบเลื่อน
+  syncAudioUi();
 
-  socket.on('sfx', ({ name }) => AudioManager.playSfx(name));
+  // เสียงทั้งหมดสั่งจากการเปลี่ยนเฟสใน room:state (ด้านล่าง) ไม่ใช้ event sfx จากเซิร์ฟเวอร์แล้ว
 
   // ======================================================================
   // room:state คือหัวใจของแอป — render ใหม่ทุกครั้งตาม phase
@@ -100,10 +115,17 @@
     state = s;
     if (s.phase !== lastPhase) {
       pendingRoleSet = null;
-      if (s.phase === 'lobby') AudioManager.playBgm('lobby');
-      if (s.phase === 'night') AudioManager.playBgm('night');
-      if (s.phase === 'day') AudioManager.playBgm('day');
-      if (s.phase === 'vote') AudioManager.playBgm('vote');
+      nightPick = { key: '', sel: [] };
+      Stickers.closePicker();
+      const fresh = lastPhase === null; // เพิ่งเชื่อมต่อ/รีเฟรช: ข้าม sfx เล่นแต่เพลงพื้นหลัง
+      if (s.phase === 'lobby' || s.phase === 'setup') AudioManager.stopBgm();
+      if (s.phase === 'night') { if (fresh) AudioManager.playBgm('night'); else AudioManager.sfxThenBgm('night', 'night'); }
+      if (s.phase === 'day') { if (fresh) AudioManager.playBgm('select'); else AudioManager.sfxThenBgm('morning', 'select'); }
+      if (s.phase === 'vote') AudioManager.playBgm('select'); // เพลงเดียวกับตอนปรึกษา เล่นต่อเนื่องจนโหวตเสร็จ
+      if (s.phase === 'reveal') {
+        if (fresh) AudioManager.stopBgm();
+        else AudioManager.playResult(s.reveal && s.reveal.winners.includes('werewolf') ? 'lose' : 'win');
+      }
       if (s.phase === 'setup') resetRoleCardFlip();
       lastPhase = s.phase;
     }
@@ -139,8 +161,16 @@
     list.innerHTML = '';
     s.players.forEach((p) => {
       const chip = document.createElement('div');
-      chip.className = 'player-chip' + (p.isHost ? ' host' : '') + (p.connected ? '' : ' offline');
-      chip.innerHTML = `<span class="dot"></span> ${p.isHost ? '<span class="crown">👑</span>' : ''} ${escapeHtml(p.nickname)}${p.seat === s.youSeat ? ' (คุณ)' : ''}`;
+      chip.className = 'player-chip' + (p.isHost ? ' host' : '') + (p.isBot ? ' bot' : '') + (p.connected ? '' : ' offline');
+      chip.innerHTML = `<span class="dot"></span> ${p.isHost ? '<span class="crown">👑</span>' : ''}${p.isBot ? '🤖' : ''} ${escapeHtml(p.nickname)}${p.seat === s.youSeat ? ' (คุณ)' : ''}`;
+      if (p.isBot && s.youAreHost) {
+        const x = document.createElement('button');
+        x.className = 'chip-x';
+        x.title = 'เอาบอทออก';
+        x.textContent = '✕';
+        x.onclick = () => socket.emit('host:removeBot', { seat: p.seat });
+        chip.appendChild(x);
+      }
       list.appendChild(chip);
     });
 
@@ -240,6 +270,8 @@
     const canStart = roleSet.length === need && hasWerewolf && s.players.length >= 3;
     $('#btn-start-game').disabled = !canStart;
     $('#btn-start-game').onclick = () => socket.emit('game:start');
+    $('#btn-add-bot').disabled = s.players.length >= 10;
+    $('#btn-add-bot').onclick = () => socket.emit('host:addBot');
   }
 
   // ======================================================================
@@ -260,6 +292,8 @@
     img.src = meta ? `assets/cards/${meta.id}.webp` : '';
     $('#role-card-name').textContent = meta ? meta.nameTh : '';
     $('#role-card-desc').textContent = meta ? meta.desc : '';
+    $('#role-caption-name').textContent = meta ? `${meta.icon} ${meta.nameTh}` : '';
+    $('#role-caption-desc').textContent = meta ? meta.desc : '';
 
     if (!$('#role-card').dataset.flipBound) {
       $('#role-card').dataset.flipBound = '1';
@@ -310,149 +344,189 @@
 
     const roleId = n.roleId;
     const myInfo = n.myInfo;
+    const names = (seats) => (seats || []).map((x) => seatName(s, x)).join(', ');
+    const cardName = (id) => `<b>${roleNameLocal(s, id)}</b>`;
 
     if (roleId === 'doppelganger') {
       if (myInfo) {
-        const copied = roleNameLocal(s, myInfo.role);
-        area.innerHTML = `<p>ไพ่ของ ${seatName(s, myInfo.targetSeat)} คือ <b>${copied}</b> — คุณกลายเป็น <b>${copied}</b> แล้ว${nightFollowUp(myInfo.role)}</p>`;
+        area.innerHTML = `<p>ไพ่ของ ${escapeHtml(seatName(s, myInfo.targetSeat))} คือ ${cardName(myInfo.role)} — คุณกลายเป็น ${cardName(myInfo.role)} แล้ว${nightFollowUp(myInfo.role)}</p>`;
+        area.appendChild(resultCards([myInfo.role]));
         addAckButton(area);
       } else {
         area.innerHTML = '<p>เลือกดูไพ่ผู้เล่นอื่น 1 คน แล้วคุณจะกลายเป็นบทบาทนั้น</p>';
-        const row = document.createElement('div');
-        row.className = 'pick-grid';
-        otherSeats(s).forEach((seat) => {
-          const b = document.createElement('button');
-          b.className = 'pick-btn';
-          b.textContent = seatName(s, seat);
-          b.onclick = () => socket.emit('night:action', { targetSeat: seat });
-          row.appendChild(b);
-        });
-        area.appendChild(row);
+        pickerUI(area, { key: 'doppel', kind: 'player', options: otherSeats(s), max: 1, confirmLabel: 'ยืนยัน ดูไพ่คนนี้',
+          onConfirm: (sel) => socket.emit('night:action', { targetSeat: sel[0] }) }, s);
         addAckButton(area, 'ไม่ดู ข้ามไปเลย');
       }
     } else if (roleId === 'mason') {
-      const others = myInfo && myInfo.otherSeats || [];
+      const others = (myInfo && myInfo.otherSeats) || [];
       area.innerHTML = others.length
-        ? `<p>เมสันอีกคนคือ: <b>${others.map((seat) => seatName(s, seat)).join(', ')}</b></p>`
+        ? '<p>เพื่อนเมสันของคุณคือ:</p>'
         : '<p>ไม่มีเมสันคนอื่นในหมู่ผู้เล่น (อีกใบอยู่ไพ่กลาง หรือไม่ได้ใช้)</p>';
+      if (others.length) area.appendChild(friendChips(s, others, 'friend-chip'));
       addAckButton(area);
     } else if (roleId === 'werewolf') {
+      const dream = (myInfo && myInfo.dreamSeats) || [];
       if (n.otherSeatsThisStep.length > 0) {
-        area.innerHTML = `<p>เพื่อนหมาป่าของคุณคือ: ${n.otherSeatsThisStep.map((seat) => seatName(s, seat)).join(', ')}</p>`;
+        area.innerHTML = `<p>🐺 คุณคือหมาป่า — เพื่อนหมาป่าของคุณคือ:</p>`;
+        area.appendChild(friendChips(s, n.otherSeatsThisStep, 'friend-chip'));
+        if (dream.length) {
+          area.insertAdjacentHTML('beforeend', '<p class="pick-hint">หมาป่าหลับใหล (ไม่ได้ตื่น แต่เป็นพวกเดียวกัน):</p>');
+          area.appendChild(friendChips(s, dream, 'friend-chip dream'));
+        }
         addAckButton(area);
       } else if (myInfo && myInfo.kind === 'werewolf-alone-peek') {
-        area.innerHTML = `<p>ไพ่กลางใบที่ ${myInfo.index + 1} คือ: <b>${roleNameLocal(s, myInfo.role)}</b></p>`;
+        area.innerHTML = `<p>ไพ่กลางใบที่ ${myInfo.index + 1} คือ: ${cardName(myInfo.role)}</p>`;
+        area.appendChild(resultCards([myInfo.role]));
         addAckButton(area);
       } else {
-        area.innerHTML = '<p>คุณเป็นหมาป่าตัวเดียว เลือกดูไพ่กลางได้ 1 ใบ (หรือข้าม)</p>';
-        const row = document.createElement('div');
-        row.className = 'pick-grid';
-        [0, 1, 2].forEach((i) => {
-          const b = document.createElement('button');
-          b.className = 'pick-btn';
-          b.textContent = `ไพ่กลาง #${i + 1}`;
-          b.onclick = () => socket.emit('night:action', { centerIndex: i });
-          row.appendChild(b);
-        });
-        area.appendChild(row);
+        area.innerHTML = '<p>🐺 คุณเป็นหมาป่าตัวเดียว เลือกดูไพ่กลางได้ 1 ใบ (หรือข้าม)</p>';
+        if (dream.length) {
+          area.insertAdjacentHTML('beforeend', '<p class="pick-hint">หมาป่าหลับใหล (พวกเดียวกัน):</p>');
+          area.appendChild(friendChips(s, dream, 'friend-chip dream'));
+        }
+        pickerUI(area, { key: 'wolf-center', kind: 'card', options: [0, 1, 2], max: 1, confirmLabel: 'ยืนยัน เปิดไพ่ใบนี้',
+          onConfirm: (sel) => socket.emit('night:action', { centerIndex: sel[0] }) }, s);
         addAckButton(area, 'ไม่ดู ข้ามไปเลย');
       }
     } else if (roleId === 'minion') {
-      const wolves = myInfo && myInfo.wolfSeats || [];
+      const wolves = (myInfo && myInfo.wolfSeats) || [];
       area.innerHTML = wolves.length
-        ? `<p>มนุษย์หมาป่าคือ: <b>${wolves.map((seat) => seatName(s, seat)).join(', ')}</b></p>`
+        ? '<p>มนุษย์หมาป่าคือ:</p>'
         : '<p>ไม่มีมนุษย์หมาป่าอยู่ในมือผู้เล่นเลย (อยู่ไพ่กลางทั้งหมด)</p>';
+      if (wolves.length) area.appendChild(friendChips(s, wolves, 'friend-chip'));
       addAckButton(area);
     } else if (roleId === 'insomniac') {
-      area.innerHTML = `<p>ไพ่ของคุณตอนนี้คือ: <b>${roleNameLocal(s, myInfo.myRole)}</b></p>`;
+      area.innerHTML = `<p>ไพ่ของคุณตอนนี้คือ: ${cardName(myInfo.myRole)}</p>`;
+      area.appendChild(resultCards([myInfo.myRole]));
       addAckButton(area);
     } else if (roleId === 'seer') {
       if (myInfo) {
-        area.innerHTML = myInfo.kind === 'seer-player'
-          ? `<p>ไพ่ของ ${seatName(s, myInfo.targetSeat)} คือ: <b>${roleNameLocal(s, myInfo.role)}</b></p>`
-          : `<p>ไพ่กลาง: ${myInfo.roles.map((r) => `<b>${roleNameLocal(s, r)}</b>`).join(', ')}</p>`;
+        if (myInfo.kind === 'seer-player') {
+          area.innerHTML = `<p>ไพ่ของ ${escapeHtml(seatName(s, myInfo.targetSeat))} คือ: ${cardName(myInfo.role)}</p>`;
+          area.appendChild(resultCards([myInfo.role]));
+        } else {
+          area.innerHTML = `<p>ไพ่กลางที่เปิดดู: ${myInfo.roles.map(cardName).join(', ')}</p>`;
+          area.appendChild(resultCards(myInfo.roles, myInfo.indices.map((i) => `กลาง #${i + 1}`)));
+        }
         addAckButton(area);
       } else {
-        area.innerHTML = '<p>เลือกดูไพ่ผู้เล่น 1 คน หรือไพ่กลาง 2 ใบ</p>';
-        const row = document.createElement('div');
-        row.className = 'pick-grid';
-        otherSeats(s).forEach((seat) => {
-          const b = document.createElement('button');
-          b.className = 'pick-btn';
-          b.textContent = seatName(s, seat);
-          b.onclick = () => socket.emit('night:action', { mode: 'player', targetSeat: seat });
-          row.appendChild(b);
-        });
-        area.appendChild(row);
-        const hint = document.createElement('p');
-        hint.className = 'muted';
-        hint.textContent = 'หรือเลือกไพ่กลาง 2 ใบ:';
-        area.appendChild(hint);
-        const centerRow = document.createElement('div');
-        centerRow.className = 'pick-grid';
-        let pickedCenter = [];
-        [0, 1, 2].forEach((i) => {
-          const b = document.createElement('button');
-          b.className = 'pick-btn';
-          b.textContent = `ไพ่กลาง #${i + 1}`;
-          b.onclick = () => {
-            if (pickedCenter.includes(i)) { pickedCenter = pickedCenter.filter((x) => x !== i); b.classList.remove('selected'); }
-            else if (pickedCenter.length < 2) { pickedCenter.push(i); b.classList.add('selected'); }
-            if (pickedCenter.length === 2) socket.emit('night:action', { mode: 'center', indices: pickedCenter });
-          };
-          centerRow.appendChild(b);
-        });
-        area.appendChild(centerRow);
+        area.innerHTML = '<p>เลือก <b>ดูไพ่ผู้เล่น 1 คน</b> หรือ <b>ดูไพ่กลาง 2 ใบ</b></p>';
+        area.insertAdjacentHTML('beforeend', '<p class="pick-hint">แบบที่ 1: ดูไพ่ผู้เล่น</p>');
+        pickerUI(area, { key: 'seer-player', kind: 'player', options: otherSeats(s), max: 1, confirmLabel: 'ยืนยัน ดูไพ่ผู้เล่นคนนี้',
+          onConfirm: (sel) => socket.emit('night:action', { mode: 'player', targetSeat: sel[0] }) }, s);
+        area.insertAdjacentHTML('beforeend', '<p class="pick-hint">แบบที่ 2: ดูไพ่กลาง 2 ใบ</p>');
+        pickerUI(area, { key: 'seer-center', kind: 'card', options: [0, 1, 2], max: 2, confirmLabel: 'ยืนยัน เปิดไพ่กลาง 2 ใบ',
+          onConfirm: (sel) => socket.emit('night:action', { mode: 'center', indices: sel }) }, s);
       }
     } else if (roleId === 'robber') {
       if (myInfo) {
-        area.innerHTML = `<p>คุณได้ไพ่ใหม่: <b>${roleNameLocal(s, myInfo.newRole)}</b></p>`;
+        area.innerHTML = `<p>คุณได้ไพ่ใหม่: ${cardName(myInfo.newRole)}</p>`;
+        area.appendChild(resultCards([myInfo.newRole]));
         addAckButton(area);
       } else {
-        area.innerHTML = '<p>เลือกผู้เล่นที่จะสลับไพ่ด้วย</p>';
-        const row = document.createElement('div');
-        row.className = 'pick-grid';
-        otherSeats(s).forEach((seat) => {
-          const b = document.createElement('button');
-          b.className = 'pick-btn';
-          b.textContent = seatName(s, seat);
-          b.onclick = () => socket.emit('night:action', { targetSeat: seat });
-          row.appendChild(b);
-        });
-        area.appendChild(row);
+        area.innerHTML = '<p>เลือกผู้เล่นที่จะ <b>ขโมยไพ่</b> (สลับไพ่แล้วดูไพ่ใหม่ของคุณ)</p>';
+        pickerUI(area, { key: 'robber', kind: 'player', options: otherSeats(s), max: 1, confirmLabel: 'ยืนยัน ขโมยไพ่คนนี้',
+          onConfirm: (sel) => socket.emit('night:action', { targetSeat: sel[0] }) }, s);
         addAckButton(area, 'ไม่สลับ ข้ามไปเลย');
       }
     } else if (roleId === 'troublemaker') {
-      area.innerHTML = '<p>เลือกผู้เล่น 2 คนที่จะสลับไพ่กัน (โดยไม่ดู)</p>';
-      let picked = [];
-      const row = document.createElement('div');
-      row.className = 'pick-grid';
-      otherSeats(s).forEach((seat) => {
-        const b = document.createElement('button');
-        b.className = 'pick-btn';
-        b.textContent = seatName(s, seat);
-        b.onclick = () => {
-          if (picked.includes(seat)) { picked = picked.filter((x) => x !== seat); b.classList.remove('selected'); }
-          else if (picked.length < 2) { picked.push(seat); b.classList.add('selected'); }
-          if (picked.length === 2) socket.emit('night:action', { seatA: picked[0], seatB: picked[1] });
-        };
-        row.appendChild(b);
-      });
-      area.appendChild(row);
-      addAckButton(area, 'ไม่สลับ ข้ามไปเลย');
+      if (n.iActed) {
+        area.innerHTML = '<p>สลับไพ่เรียบร้อยแล้ว</p>';
+        addAckButton(area);
+      } else {
+        area.innerHTML = '<p>เลือกผู้เล่น <b>2 คน</b> ที่จะสลับไพ่กัน (โดยไม่ดู)</p>';
+        pickerUI(area, { key: 'trouble', kind: 'player', options: otherSeats(s), max: 2, confirmLabel: 'ยืนยัน สลับไพ่ 2 คนนี้',
+          onConfirm: (sel) => socket.emit('night:action', { seatA: sel[0], seatB: sel[1] }) }, s);
+        addAckButton(area, 'ไม่สลับ ข้ามไปเลย');
+      }
     } else if (roleId === 'drunk') {
-      area.innerHTML = '<p>เลือกไพ่กลาง 1 ใบ มาสลับกับไพ่ของคุณ (โดยไม่ดู)</p>';
-      const row = document.createElement('div');
-      row.className = 'pick-grid';
-      [0, 1, 2].forEach((i) => {
-        const b = document.createElement('button');
-        b.className = 'pick-btn';
-        b.textContent = `ไพ่กลาง #${i + 1}`;
-        b.onclick = () => socket.emit('night:action', { centerIndex: i });
-        row.appendChild(b);
-      });
-      area.appendChild(row);
+      if (n.iActed) {
+        area.innerHTML = '<p>สลับไพ่กับไพ่กลางเรียบร้อยแล้ว (คุณไม่รู้ว่าได้ไพ่อะไร)</p>';
+        addAckButton(area);
+      } else {
+        area.innerHTML = '<p>เลือกไพ่กลาง <b>1 ใบ</b> มาสลับกับไพ่ของคุณ (โดยไม่ดู)</p>';
+        pickerUI(area, { key: 'drunk', kind: 'card', options: [0, 1, 2], max: 1, confirmLabel: 'ยืนยัน สลับกับใบนี้',
+          onConfirm: (sel) => socket.emit('night:action', { centerIndex: sel[0] }) }, s);
+      }
     }
+  }
+
+  // ---------- ตัวช่วยหน้ากลางคืน ----------
+
+  // เก็บค่าที่เลือกไว้ข้ามการ render ใหม่ (เซิร์ฟเวอร์ส่ง state มาบ่อย) — รีเซ็ตเมื่อเปลี่ยนเฟส/ยืนยันแล้ว
+  let nightPick = { key: '', sel: [] };
+
+  function pickerUI(area, cfg, s) {
+    if (nightPick.key !== cfg.key) nightPick = { key: cfg.key, sel: [] };
+    const wrap = document.createElement('div');
+    wrap.className = 'pick-grid' + (cfg.kind === 'card' ? ' cards' : '');
+    const confirm = document.createElement('button');
+    confirm.className = 'btn btn-primary';
+    const refresh = () => {
+      const left = cfg.max - nightPick.sel.length;
+      confirm.disabled = left > 0;
+      confirm.textContent = left > 0 ? `${cfg.confirmLabel} (เลือกอีก ${left})` : cfg.confirmLabel;
+      wrap.querySelectorAll('[data-opt]').forEach((el) => {
+        el.classList.toggle('selected', nightPick.sel.includes(Number(el.dataset.opt)));
+      });
+    };
+    cfg.options.forEach((opt) => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.dataset.opt = String(opt);
+      if (cfg.kind === 'card') {
+        b.className = 'pick-card';
+        b.innerHTML = `<img src="assets/cards/card-back.webp" alt="" draggable="false" /><span>ไพ่กลาง #${opt + 1}</span>`;
+      } else {
+        b.className = 'pick-btn';
+        b.textContent = seatName(s, opt);
+      }
+      b.addEventListener('click', () => {
+        const i = nightPick.sel.indexOf(opt);
+        if (i >= 0) nightPick.sel.splice(i, 1);
+        else if (cfg.max === 1) nightPick.sel = [opt];
+        else if (nightPick.sel.length < cfg.max) nightPick.sel.push(opt);
+        refresh();
+      });
+      wrap.appendChild(b);
+    });
+    confirm.addEventListener('click', () => {
+      if (nightPick.sel.length < cfg.max) return;
+      const sel = nightPick.sel.slice();
+      nightPick = { key: '', sel: [] };
+      cfg.onConfirm(sel);
+    });
+    area.appendChild(wrap);
+    area.appendChild(confirm);
+    refresh();
+  }
+
+  function friendChips(s, seats, cls) {
+    const row = document.createElement('div');
+    row.className = 'friend-chips';
+    seats.forEach((seat) => {
+      const c = document.createElement('div');
+      c.className = cls;
+      c.textContent = `${cls.includes('dream') ? '🌙' : '🐺'} ${seatName(s, seat)}`;
+      row.appendChild(c);
+    });
+    return row;
+  }
+
+  function resultCards(roleIds, labels) {
+    const row = document.createElement('div');
+    row.className = 'result-cards';
+    roleIds.forEach((id, i) => {
+      const box = document.createElement('div');
+      box.className = 'rc';
+      box.appendChild(Render.roleCardImg(id, ''));
+      const lab = document.createElement('span');
+      lab.textContent = labels ? labels[i] : '';
+      box.appendChild(lab);
+      row.appendChild(box);
+    });
+    return row;
   }
 
   // ข้อความบอกว่าภูติจำแลงจะต้องทำอะไรต่อ ตามบทบาทที่กลายเป็น
@@ -501,7 +575,7 @@
     $('#day-ready-count').textContent = d.readyCount;
     $('#day-ready-total').textContent = d.total;
 
-    renderSeatRing($('#day-seats'), $('#center-pile'), s, false);
+    renderSeatRing($('#day-seats'), $('#center-pile'), s);
 
     const chatLog = $('#chat-log');
     chatLog.innerHTML = d.chat.map((c) => `<div class="chat-line"><b>${escapeHtml(c.nickname)}:</b> ${escapeHtml(c.text)}</div>`).join('');
@@ -511,6 +585,10 @@
     btn.disabled = d.iAmReady;
     btn.textContent = d.iAmReady ? `พร้อมแล้ว (${d.readyCount}/${d.total})` : 'เริ่มโหวต';
     btn.onclick = () => socket.emit('day:ready');
+
+    const now = $('#btn-vote-now');
+    now.classList.toggle('hidden', !s.youAreHost);
+    now.onclick = () => { if (confirm('เริ่มโหวตทันทีเลยไหม? (ทุกคนจะเข้าสู่หน้าโหวตเดี๋ยวนี้)')) socket.emit('host:voteNow'); };
   }
 
   $('#chat-form').addEventListener('submit', (e) => {
@@ -522,8 +600,39 @@
     input.value = '';
   });
 
-  // วาดอวาตาร์รอบโต๊ะ + ไพ่กลาง พร้อมระบบสติ๊กเกอร์ (ใช้ร่วมหน้ากลางวัน)
-  function renderSeatRing(seatsEl, centerEl, s, interactiveStickersOnCenterOnly) {
+  // วาดอวาตาร์รอบโต๊ะ + ไพ่กลาง พร้อมโทเคนสันนิษฐาน (โทเคนอยู่ที่เซิร์ฟเวอร์ ทุกคนเห็นเหมือนกัน)
+  function tokenStack(s, target) {
+    const wrap = document.createElement('div');
+    wrap.className = 'token-stack';
+    (s.tokens || []).filter((t) => t.target === target).forEach((t) => {
+      const meta = roleById(s.roleCatalog, t.roleId);
+      if (!meta) return;
+      const latest = t.id === s.lastTokenId;
+      const el = document.createElement('span');
+      el.className = 'token-badge' + (latest ? ' latest' : '');
+      el.textContent = meta.icon;
+      el.title = `${meta.nameTh} — วางโดย ${seatName(s, t.by)}${latest ? ' (ย้ายล่าสุด)' : ''}`;
+      el.addEventListener('click', (e) => { e.stopPropagation(); toast(`${meta.icon} ${meta.nameTh} — วางโดย ${seatName(s, t.by)}${latest ? ' (ล่าสุด)' : ''}`); });
+      wrap.appendChild(el);
+    });
+    return wrap;
+  }
+
+  function openTokenPicker(anchor, s, target, label) {
+    const counts = {};
+    s.settings.roleSet.forEach((id) => { counts[id] = (counts[id] || 0) + 1; });
+    const roles = Object.keys(counts).map((id) => {
+      const meta = roleById(s.roleCatalog, id);
+      return meta && { id, nameTh: meta.nameTh, icon: meta.icon, count: counts[id],
+        placed: (s.tokens || []).some((t) => t.roleId === id && t.target === target) };
+    }).filter(Boolean);
+    Stickers.openPicker(anchor, roles, (roleId) => {
+      if (roleId) socket.emit('token:place', { roleId, target });
+      else socket.emit('token:clear', { target });
+    }, `วางโทเคนที่: ${label}`);
+  }
+
+  function renderSeatRing(seatsEl, centerEl, s) {
     seatsEl.innerHTML = '';
     centerEl.innerHTML = '';
     const total = s.players.length;
@@ -533,34 +642,20 @@
       el.className = 'seat-avatar' + (p.seat === s.youSeat ? ' me' : '');
       el.style.left = `${pos.x}%`;
       el.style.top = `${pos.y}%`;
-      const stickerId = p.seat !== s.youSeat ? Stickers.get(s.code, `seat-${p.seat}`) : null;
-      const stickerMeta = stickerId ? roleById(s.roleCatalog, stickerId) : null;
       el.innerHTML = `
-        <div class="avatar-circle">${p.connected ? '🙂' : '💤'}${stickerMeta ? `<span class="sticker-badge">${stickerMeta.nameTh.slice(0, 2)}</span>` : ''}</div>
+        <div class="avatar-circle">${p.isBot ? '🤖' : p.connected ? '🙂' : '💤'}</div>
         <div class="seat-name">${escapeHtml(p.nickname)}${p.seat === s.youSeat ? ' (คุณ)' : ''}</div>`;
-      if (p.seat !== s.youSeat) {
-        el.querySelector('.avatar-circle').addEventListener('click', (e) => {
-          Stickers.openPicker(e.currentTarget, s.roleCatalog.filter(Boolean), (roleId) => {
-            Stickers.set(s.code, `seat-${p.seat}`, roleId);
-            renderSeatRing(seatsEl, centerEl, s, interactiveStickersOnCenterOnly);
-          });
-        });
-      }
+      const circle = el.querySelector('.avatar-circle');
+      circle.appendChild(tokenStack(s, `seat-${p.seat}`));
+      circle.addEventListener('click', (e) => openTokenPicker(e.currentTarget, s, `seat-${p.seat}`, p.seat === s.youSeat ? `${p.nickname} (คุณ)` : p.nickname));
       seatsEl.appendChild(el);
     });
 
     for (let i = 0; i < 3; i++) {
       const cardEl = document.createElement('div');
       cardEl.className = 'center-card';
-      const stickerId = Stickers.get(s.code, `center-${i}`);
-      const stickerMeta = stickerId ? roleById(s.roleCatalog, stickerId) : null;
-      if (stickerMeta) cardEl.innerHTML = `<span class="sticker-badge">${stickerMeta.nameTh.slice(0, 2)}</span>`;
-      cardEl.addEventListener('click', (e) => {
-        Stickers.openPicker(e.currentTarget, s.roleCatalog.filter(Boolean), (roleId) => {
-          Stickers.set(s.code, `center-${i}`, roleId);
-          renderSeatRing(seatsEl, centerEl, s, interactiveStickersOnCenterOnly);
-        });
-      });
+      cardEl.appendChild(tokenStack(s, `center-${i}`));
+      cardEl.addEventListener('click', (e) => openTokenPicker(e.currentTarget, s, `center-${i}`, `ไพ่กลาง #${i + 1}`));
       centerEl.appendChild(cardEl);
     }
   }
@@ -623,9 +718,9 @@
       const card = document.createElement('div');
       card.className = 'reveal-card' + (isDead ? ' dead' : '');
       card.innerHTML = `
-        <div>${escapeHtml(p.nickname)}</div>
-        <img src="assets/cards/${end.id}.webp" onerror="this.outerHTML='<div class=&quot;reveal-icon&quot;>${end.icon}</div>'" />
-        <div>${end.nameTh}</div>
+        <div class="rv-name">${escapeHtml(p.nickname)}</div>
+        <img src="assets/cards/${end.id}.webp" alt="" onerror="this.outerHTML='<div class=&quot;reveal-icon&quot;>${end.icon}</div>'" />
+        <div class="rv-role">${end.nameTh}</div>
         ${start.id !== end.id ? `<div class="arrow">เริ่มจาก: ${start.nameTh}</div>` : ''}
         ${isDead ? '<div class="arrow">☠️ ตาย</div>' : ''}`;
       grid.appendChild(card);
@@ -634,9 +729,9 @@
     const centerEl = $('#reveal-center');
     centerEl.innerHTML = r.center.map((m, i) => `
       <div class="reveal-card">
-        <div>ไพ่กลาง #${i + 1}</div>
-        <img src="assets/cards/${m.id}.webp" onerror="this.outerHTML='<div class=&quot;reveal-icon&quot;>${m.icon}</div>'" />
-        <div>${m.nameTh}</div>
+        <div class="rv-name">ไพ่กลาง #${i + 1}</div>
+        <img src="assets/cards/${m.id}.webp" alt="" onerror="this.outerHTML='<div class=&quot;reveal-icon&quot;>${m.icon}</div>'" />
+        <div class="rv-role">${m.nameTh}</div>
       </div>`).join('');
 
     const timeline = $('#reveal-timeline');
@@ -654,8 +749,8 @@
 
     const restartBtn = $('#btn-restart');
     restartBtn.classList.toggle('hidden', !s.youAreHost);
+    $('#reveal-wait').classList.toggle('hidden', s.youAreHost);
     restartBtn.onclick = () => {
-      Stickers.clear(s.code);
       socket.emit('game:restart');
     };
   }

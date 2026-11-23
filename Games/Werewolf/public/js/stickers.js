@@ -1,42 +1,10 @@
 'use strict';
 
 /**
- * ระบบสติ๊กเกอร์สันนิษฐานบทบาท — เก็บเฉพาะในเครื่องของผู้เล่นคนนั้น (localStorage)
- * ไม่ sync กับคนอื่น เพราะเป็นการเดาของใครของมันเอง รีรอบใหม่ (phase กลับไป lobby) ก็ลบทิ้ง
+ * แผงเลือกโทเคนบทบาท (ใช้แปะสันนิษฐานบนผู้เล่น/ไพ่กลาง) — ข้อมูลโทเคนเก็บที่เซิร์ฟเวอร์ ทุกคนเห็นเหมือนกัน
+ * ไฟล์นี้ทำแค่ UI ของแผงเลือก
  */
 const Stickers = (() => {
-  function storageKey(roomCode) {
-    return `ww_stickers_${roomCode}`;
-  }
-
-  function load(roomCode) {
-    try {
-      return JSON.parse(localStorage.getItem(storageKey(roomCode)) || '{}');
-    } catch {
-      return {};
-    }
-  }
-
-  function save(roomCode, data) {
-    try {
-      localStorage.setItem(storageKey(roomCode), JSON.stringify(data));
-    } catch { /* เต็ม/ปิดใช้งาน ก็ไม่เป็นไร */ }
-  }
-
-  function get(roomCode, key) {
-    return load(roomCode)[key] || null;
-  }
-
-  function set(roomCode, key, roleId) {
-    const data = load(roomCode);
-    if (roleId) data[key] = roleId; else delete data[key];
-    save(roomCode, data);
-  }
-
-  function clear(roomCode) {
-    localStorage.removeItem(storageKey(roomCode));
-  }
-
   let openPopoverEl = null;
 
   function closePicker() {
@@ -49,34 +17,47 @@ const Stickers = (() => {
   }
 
   /**
-   * เปิดแผงเลือกไอคอนบทบาทไว้แปะสติ๊กเกอร์ ที่ตำแหน่ง (x,y) จาก event
-   * roleCatalog: [{id, nameTh}], onPick(roleIdOrNull)
+   * roles: [{id, nameTh, icon, count, placed}]  onPick(roleIdOrNull)  (null = ล้างโทเคนที่ตำแหน่งนี้)
    */
-  function openPicker(anchorEl, roleCatalog, onPick) {
+  function openPicker(anchorEl, roles, onPick, title) {
     closePicker();
     const rect = anchorEl.getBoundingClientRect();
     const pop = document.createElement('div');
     pop.className = 'sticker-popover';
-    pop.style.left = `${Math.min(rect.left, window.innerWidth - 270)}px`;
-    pop.style.top = `${rect.bottom + 6}px`;
-
-    roleCatalog.forEach((r) => {
+    if (title) {
+      const h = document.createElement('div');
+      h.className = 'sticker-title';
+      h.textContent = title;
+      pop.appendChild(h);
+    }
+    const grid = document.createElement('div');
+    grid.className = 'sticker-grid';
+    roles.forEach((r) => {
       const btn = document.createElement('button');
-      btn.textContent = r.nameTh;
+      btn.type = 'button';
       btn.title = r.nameTh;
+      btn.innerHTML = `<span class="ic">${r.icon}</span><span class="nm">${r.nameTh}</span>${r.count > 1 ? `<span class="cnt">×${r.count}</span>` : ''}`;
+      if (r.placed) btn.classList.add('placed');
       btn.onclick = (e) => { e.stopPropagation(); onPick(r.id); closePicker(); };
-      pop.appendChild(btn);
+      grid.appendChild(btn);
     });
+    pop.appendChild(grid);
     const clearBtn = document.createElement('button');
-    clearBtn.textContent = 'ลบสติ๊กเกอร์';
+    clearBtn.type = 'button';
+    clearBtn.textContent = 'ล้างโทเคนตรงนี้';
     clearBtn.className = 'clear';
     clearBtn.onclick = (e) => { e.stopPropagation(); onPick(null); closePicker(); };
     pop.appendChild(clearBtn);
 
     document.body.appendChild(pop);
+    const w = pop.offsetWidth;
+    const h = pop.offsetHeight;
+    pop.style.left = `${Math.max(8, Math.min(rect.left + rect.width / 2 - w / 2, window.innerWidth - w - 8))}px`;
+    const below = rect.bottom + 8;
+    pop.style.top = `${below + h > window.innerHeight - 8 ? Math.max(8, rect.top - h - 8) : below}px`;
     openPopoverEl = pop;
     setTimeout(() => document.addEventListener('click', onOutsideClick, true), 0);
   }
 
-  return { get, set, clear, openPicker, closePicker };
+  return { openPicker, closePicker };
 })();

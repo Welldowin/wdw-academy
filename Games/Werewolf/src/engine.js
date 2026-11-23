@@ -55,6 +55,12 @@ class Room {
     this.dayReady = new Set();
     this.chat = [];
 
+    this.tokens = []; // โทเคนสันนิษฐานบทบาท ใช้ร่วมกันทุกคน { id, roleId, target:'seat-N'|'center-I', by, seq }
+    this.tokenSeq = 0;
+    this.lastTokenId = null;
+
+    this.nightBotAt = 0;
+    this.botVoteAt = {};
     this.votes = {}; // seat -> 'none' | seatIndex(number)
     this.voteDeadlineAt = 0;
 
@@ -115,11 +121,119 @@ class Room {
     p.connected = false;
     p.disconnectedAt = nowMs();
     if (p.isHost) {
-      // โอนสิทธิ์เจ้าของห้องให้คนที่เข้าห้องถัดไปตามลำดับที่ยังออนไลน์อยู่
+      // โอนสิทธิ์เจ้าของห้องให้คนที่เข้าห้องถัดไปตามลำดับที่ยังออนไลน์อยู่ (ไม่โอนให้บอท)
       p.isHost = false;
-      const next = this.connectedPlayers.sort((a, b) => a.joinedAt - b.joinedAt)[0];
+      const next = this.connectedPlayers.filter((x) => !x.isBot).sort((a, b) => a.joinedAt - b.joinedAt)[0];
       if (next) next.isHost = true;
     }
+  }
+
+  // ---------- บอท (ใช้ทดสอบ / เติมคนให้ครบ) ----------
+
+  addBot() {
+    if (this.phase !== 'lobby') return { ok: false, error: 'เพิ่มบอทได้เฉพาะตอนอยู่ในล็อบบี้' };
+    if (this.players.length >= MAX_PLAYERS) return { ok: false, error: 'ห้องเต็มแล้ว (สูงสุด 10 คน)' };
+    const used = new Set(this.players.map((p) => p.nickname));
+    let n = 1;
+    while (used.has(`บอท ${n}`)) n += 1;
+    const seat = this.players.length;
+    this.players.push({
+      socketId: null, playerId: `bot_${Date.now().toString(36)}_${n}`, nickname: `บอท ${n}`,
+      seat, connected: true, isHost: false, isBot: true, joinedAt: nowMs(), disconnectedAt: null,
+    });
+    this._autoRoleSet();
+    return { ok: true, seat };
+  }
+
+  removeBot(seat) {
+    if (this.phase !== 'lobby') return false;
+    const idx = this.players.findIndex((p) => p.seat === seat && p.isBot);
+    if (idx < 0) return false;
+    this.players.splice(idx, 1);
+    this.players.forEach((p, i) => { p.seat = i; });
+    this._autoRoleSet();
+    return true;
+  }
+
+  isBotSeat(seat) {
+    const p = this.findBySeat(seat);
+    return !!(p && p.isBot);
+  }
+
+  _otherSeats(seat) {
+    return this.players.map((p) => p.seat).filter((x) => x !== seat);
+  }
+
+  _pick(arr) {
+    return arr[Math.floor(Math.random() * arr.length)];
+  }
+
+  _botNightPayload(roleId, seat) {
+    const others = this._otherSeats(seat);
+    const center = this.center.map((_, i) => i);
+    if (roleId === 'doppelganger') return { targetSeat: this._pick(others) };
+    if (roleId === 'seer') {
+      if (Math.random() < 0.5) return { mode: 'player', targetSeat: this._pick(others) };
+      const a = this._pick(center);
+      return { mode: 'center', indices: [a, this._pick(center.filter((i) => i !== a))] };
+    }
+    if (roleId === 'robber') return Math.random() < 0.75 ? { targetSeat: this._pick(others) } : {};
+    if (roleId === 'troublemaker') {
+      if (others.length < 2 || Math.random() < 0.2) return {};
+      const a = this._pick(others);
+      return { seatA: a, seatB: this._pick(others.filter((x) => x !== a)) };
+    }
+    if (roleId === 'drunk') return { centerIndex: this._pick(center) };
+    if (roleId === 'werewolf' && this.nightSeatsForStep.length === 1) return { centerIndex: this._pick(center) };
+    return {};
+  }
+
+  // เรียกทุกวินาทีจาก server: บอทที่ถึงตาจะทำแอคชันเองหลังผ่านไปประมาณครึ่งหนึ่งของเวลาสเตป
+  botNightTick() {
+    if (this.phase !== 'night' || nowMs() < this.nightBotAt) return false;
+    const stepIdx = this.nightStepIndex;
+    const roleId = this.currentNightRole();
+    let changed = false;
+    for (const seat of [...this.nightSeatsForStep]) {
+      if (this.nightStepIndex !== stepIdx) break;
+      if (!this.isBotSeat(seat) || this.nightDoneSeats.has(seat)) continue;
+      this.nightAction(seat, this._botNightPayload(roleId, seat));
+      changed = true;
+      if (this.nightStepIndex !== stepIdx) break;
+      if (this.nightActed.has(seat) && !this.nightDoneSeats.has(seat)) this.nightAction(seat, {});
+    }
+    return changed;
+  }
+
+  // บอท "โหวตเพื่อชนะ" 60% ของครั้ง ที่เหลือโหวตมั่ว (บอทรู้ไพ่จริงตอนจบคืน — ไว้ใช้ทดสอบ)
+  _botVoteTarget(seat) {
+    const others = this._otherSeats(seat);
+    if (Math.random() >= 0.6) {
+      return Math.random() < 0.1 ? 'none' : this._pick(others);
+    }
+    const myRole = this.effectiveRole(seat);
+    const isWolf = (s) => WOLF_ROLES.includes(this.effectiveRole(s));
+    const wolfTeam = WOLF_ROLES.includes(myRole) || myRole === 'minion';
+    if (wolfTeam) {
+      // ฝั่งหมาป่าชนะเมื่อไม่มีหมาป่าตาย => โหวตคนที่ไม่ใช่หมาป่า
+      const safe = others.filter((s) => !isWolf(s));
+      return safe.length ? this._pick(safe) : this._pick(others);
+    }
+    if (myRole === 'tanner') return this._pick(others);
+    const wolves = others.filter(isWolf);
+    return wolves.length ? this._pick(wolves) : 'none';
+  }
+
+  botVoteTick() {
+    if (this.phase !== 'vote') return false;
+    const now = nowMs();
+    let changed = false;
+    this.players.forEach((p) => {
+      if (!p.isBot || Object.prototype.hasOwnProperty.call(this.votes, p.seat)) return;
+      if (now < (this.botVoteAt[p.seat] || 0)) return;
+      if (this.castVote(p.seat, this._botVoteTarget(p.seat)).ok) changed = true;
+    });
+    return changed;
   }
 
   // ออกจากห้องจริง ๆ (ใช้ตอนล็อบบี้) — ลบผู้เล่น จัดที่นั่งใหม่ และโอนเจ้าของห้อง
@@ -128,16 +242,17 @@ class Room {
     if (idx < 0) return false;
     const [gone] = this.players.splice(idx, 1);
     this.players.forEach((p, i) => { p.seat = i; });
-    if (gone.isHost && this.players.length) {
-      const next = this.players.filter((p) => p.connected).sort((a, b) => a.joinedAt - b.joinedAt)[0] || this.players[0];
-      next.isHost = true;
+    if (gone.isHost) {
+      const next = this.players.filter((p) => p.connected && !p.isBot).sort((a, b) => a.joinedAt - b.joinedAt)[0];
+      if (next) next.isHost = true;
+      else { this.players = this.players.filter((p) => !p.isBot); } // ไม่เหลือคนจริง => เอาบอทออกให้ห้องว่าง
     }
     this._autoRoleSet();
     return true;
   }
 
   isEmpty() {
-    return this.players.every((p) => !p.connected);
+    return this.players.every((p) => p.isBot || !p.connected);
   }
 
   // ---------- ตั้งค่า & เริ่มเกม ----------
@@ -206,7 +321,10 @@ class Room {
     this.history = [];
     this.doppelRole = null;
     this.chat = [];
-    this.setupReady = new Set();
+    this.setupReady = new Set(this.players.filter((p) => p.isBot).map((p) => p.seat));
+    this.tokens = [];
+    this.tokenSeq = 0;
+    this.lastTokenId = null;
     this.result = null;
     this.phase = 'setup';
     return { ok: true };
@@ -266,13 +384,15 @@ class Room {
     // บทบาทที่ไม่มีผู้เล่นถืออยู่ (อยู่ในไพ่กลาง) ยังเรียกให้เหมือนปกติ แต่เวลาสุ่มสั้นลงเล็กน้อย
     if (this.nightSeatsForStep.length === 0) secs = Math.max(4, Math.round(secs * (0.4 + Math.random() * 0.4)));
     this.nightDeadlineAt = nowMs() + secs * 1000;
+    this.nightBotAt = nowMs() + secs * 1000 * (0.35 + Math.random() * 0.25);
 
     const seats = this.nightSeatsForStep;
     if (roleId === 'werewolf') {
       seats.forEach((seat) => {
+        const dream = this._seatsForStep('dreamwolf');
         this.nightPeekResult[seat] = seats.length > 1
-          ? { kind: 'werewolf-pack', othersSeats: seats.filter((s) => s !== seat) }
-          : { kind: 'werewolf-alone' }; // เลือกดูไพ่กลางได้ 1 ใบ ผ่าน night:action
+          ? { kind: 'werewolf-pack', othersSeats: seats.filter((s) => s !== seat), dreamSeats: dream }
+          : { kind: 'werewolf-alone', dreamSeats: dream }; // เลือกดูไพ่กลางได้ 1 ใบ ผ่าน night:action
       });
     } else if (roleId === 'minion') {
       const wolves = [...this._seatsForStep('werewolf'), ...this._seatsForStep('dreamwolf')];
@@ -407,7 +527,7 @@ class Room {
 
   _beginDay() {
     this.phase = 'day';
-    this.dayReady = new Set();
+    this.dayReady = new Set(this.players.filter((p) => p.isBot).map((p) => p.seat));
     this.dayDeadlineAt = this.settings.daySeconds > 0 ? nowMs() + this.settings.daySeconds * 1000 : 0;
   }
 
@@ -432,12 +552,53 @@ class Room {
     return entry;
   }
 
+  // ---------- โทเคนสันนิษฐาน (แชร์ให้ทุกคนเห็น) ----------
+
+  _validTokenTarget(target) {
+    const m = /^(seat|center)-(\d+)$/.exec(String(target));
+    if (!m) return false;
+    const n = Number(m[2]);
+    return m[1] === 'seat' ? this.players.some((p) => p.seat === n) : n >= 0 && n < 3;
+  }
+
+  // วางโทเคนบทบาท roleId ที่ target; จำนวนโทเคนต่อบทบาท = จำนวนไพ่บทบาทนั้นในกอง
+  // เกินจำนวน => ชิ้นที่วางไว้นานสุดถูกย้ายมาแทน, วางซ้ำที่เดิม = เอาออก
+  placeToken(seat, roleId, target) {
+    if (this.phase !== 'day') return false;
+    const limit = this.settings.roleSet.filter((id) => id === roleId).length;
+    if (!limit || !this._validTokenTarget(target)) return false;
+    const same = this.tokens.findIndex((t) => t.roleId === roleId && t.target === target);
+    if (same >= 0) {
+      this.tokens.splice(same, 1);
+      if (!this.tokens.some((t) => t.id === this.lastTokenId)) this.lastTokenId = null;
+      return true;
+    }
+    this.tokenSeq += 1;
+    this.tokens.push({ id: this.tokenSeq, roleId, target, by: seat, seq: this.tokenSeq });
+    this.lastTokenId = this.tokenSeq;
+    const mine = this.tokens.filter((t) => t.roleId === roleId).sort((a, b) => a.seq - b.seq);
+    while (mine.length > limit) {
+      const old = mine.shift();
+      this.tokens.splice(this.tokens.findIndex((t) => t.id === old.id), 1);
+    }
+    return true;
+  }
+
+  clearTokensAt(target) {
+    if (this.phase !== 'day') return false;
+    this.tokens = this.tokens.filter((t) => t.target !== target);
+    if (!this.tokens.some((t) => t.id === this.lastTokenId)) this.lastTokenId = null;
+    return true;
+  }
+
   // ---------- โหวต ----------
 
   beginVote() {
     this.phase = 'vote';
     this.votes = {};
     this.voteDeadlineAt = 0;
+    this.botVoteAt = {};
+    this.players.filter((p) => p.isBot).forEach((p) => { this.botVoteAt[p.seat] = nowMs() + 1500 + Math.random() * 4500; });
   }
 
   castVote(seat, target) {
@@ -549,6 +710,9 @@ class Room {
     this.dayReady = new Set();
     this.chat = [];
     this.votes = {};
+    this.tokens = [];
+    this.tokenSeq = 0;
+    this.lastTokenId = null;
     this.result = null;
     this._autoRoleSet();
   }

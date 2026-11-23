@@ -37,6 +37,7 @@ function publicRosterFor(room) {
     nickname: p.nickname,
     connected: p.connected,
     isHost: p.isHost,
+    isBot: !!p.isBot,
     ready: room.phase === 'setup' ? room.setupReady.has(p.seat)
       : room.phase === 'day' ? room.dayReady.has(p.seat)
       : room.phase === 'vote' ? Object.prototype.hasOwnProperty.call(room.votes, p.seat)
@@ -55,6 +56,8 @@ function serializeRoom(room, seat) {
     settings: room.settings,
     roleCatalog: Object.values(ROLES).map((r) => roleMeta(r.id)),
     roleSetCustom: room.roleSetCustom,
+    tokens: room.tokens.map((t) => ({ id: t.id, roleId: t.roleId, target: t.target, by: t.by })),
+    lastTokenId: room.lastTokenId,
   };
 
   if (room.phase === 'setup') {
@@ -123,14 +126,14 @@ function serializeRoom(room, seat) {
 
 function broadcast(room) {
   room.players.forEach((p) => {
-    if (!p.connected) return;
+    if (!p.connected || p.isBot) return;
     io.to(p.socketId).emit('room:state', serializeRoom(room, p.seat));
   });
 }
 
 function sfx(room, name) {
   room.players.forEach((p) => {
-    if (p.connected) io.to(p.socketId).emit('sfx', { name });
+    if (p.connected && !p.isBot) io.to(p.socketId).emit('sfx', { name });
   });
 }
 
@@ -182,6 +185,44 @@ io.on('connection', (socket) => {
     withRoom((room, player) => {
       if (!player.isHost || room.phase !== 'lobby') return;
       room.updateSettings(settings || {});
+      broadcast(room);
+    });
+  });
+
+  socket.on('token:place', ({ roleId, target } = {}) => {
+    withRoom((room, player) => {
+      if (room.placeToken(player.seat, roleId, target)) broadcast(room);
+    });
+  });
+
+  socket.on('token:clear', ({ target } = {}) => {
+    withRoom((room) => {
+      if (room.clearTokensAt(target)) broadcast(room);
+    });
+  });
+
+  socket.on('host:addBot', () => {
+    withRoom((room, player) => {
+      if (!player.isHost || room.phase !== 'lobby') return;
+      const res = room.addBot();
+      if (!res.ok) return errorTo(socket, res.error);
+      broadcast(room);
+    });
+  });
+
+  socket.on('host:removeBot', ({ seat } = {}) => {
+    withRoom((room, player) => {
+      if (!player.isHost || room.phase !== 'lobby') return;
+      if (room.removeBot(seat)) broadcast(room);
+    });
+  });
+
+  // เจ้าของห้องข้ามไปโหวตทันที (ไม่ต้องรอทุกคนกด/รอเวลา)
+  socket.on('host:voteNow', () => {
+    withRoom((room, player) => {
+      if (!player.isHost || room.phase !== 'day') return;
+      room.beginVote();
+      sfx(room, 'vote-start');
       broadcast(room);
     });
   });
@@ -310,10 +351,21 @@ setInterval(() => {
     if (room.phase === 'night' && room.forceAdvanceNightStepIfExpired()) {
       changed = true;
     }
+    if (room.phase === 'night' && room.botNightTick()) {
+      changed = true;
+      if (room.phase === 'day') sfx(room, 'day-start');
+    }
     if (room.phase === 'day' && room.dayTimeExpired()) {
       room.beginVote();
       sfx(room, 'vote-start');
       changed = true;
+    }
+    if (room.phase === 'vote' && room.botVoteTick()) {
+      changed = true;
+      if (room.allVotesCast()) {
+        room.resolveVotes();
+        announceResult(room);
+      }
     }
     if (room.phase === 'vote') {
       // ปุ่ม "ข้ามผู้เล่น" โผล่เมื่อผู้เล่นหลุดครบ 2 นาที — ส่ง state ใหม่เมื่อรายชื่อที่ข้ามได้เปลี่ยน
